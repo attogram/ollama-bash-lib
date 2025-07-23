@@ -19,5 +19,5 @@ prompt="Answer with 3 words or less to this prompt: Hi"
 echo "prompt: $prompt"
 
 echo "$spacer"
-echo "ollamaGenerate:"
-ollamaGenerate "$model" "$prompt" | jq "."
+echo "ollamaGenerateStreaming:"
+ollamaGenerateStreaming "$model" "$prompt" | jq "."
