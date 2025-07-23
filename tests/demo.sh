@@ -12,11 +12,13 @@ fi
 
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
-echo "ollamaBashLib          : $ollamaBashLib"
-echo "OLLAMA_BASH_LIB_NAME   : $OLLAMA_BASH_LIB_NAME"
-echo "OLLAMA_BASH_LIB_VERSION: $OLLAMA_BASH_LIB_VERSION"
-echo "OLLAMA_BASH_LIB_URL    : $OLLAMA_BASH_LIB_URL"
-echo "OLLAMA_BASH_LIB_LICENSE: $OLLAMA_BASH_LIB_LICENSE"
+echo "Ollama Bash Lib Location: $ollamaBashLib"
+echo "OLLAMA_BASH_LIB_NAME    : $OLLAMA_BASH_LIB_NAME"
+echo "OLLAMA_BASH_LIB_VERSION : $OLLAMA_BASH_LIB_VERSION"
+echo "OLLAMA_BASH_LIB_URL     : $OLLAMA_BASH_LIB_URL"
+echo "OLLAMA_BASH_LIB_LICENSE : $OLLAMA_BASH_LIB_LICENSE"
+# shellcheck disable=SC2154
+echo "apiUrl                  : $apiUrl"
 
 echo "$spacer"
 if [ "$(isOllamaInstalled)" -eq 0 ]; then
