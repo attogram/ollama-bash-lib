@@ -1,6 +1,6 @@
 # Ollama Bash Lib
 
-A Bash Library to interact with the Ollama application
+A Bash Library to interact with the [Ollama](https://github.com/ollama/ollama) application
 
 ## Usage
 
@@ -20,7 +20,7 @@ source "$ollamaBashLib"
 ```
 ## Demo / Tests
 
-See [test](tests) directory for demos and tests
+See [tests](tests) directory for demos and tests
 
 ```
 ./tests/demo.sh
