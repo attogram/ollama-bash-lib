@@ -9,7 +9,7 @@ echo "Press Control-C to exit"
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
   echo "ERROR: Ollama Bash Lib not found: $ollamaBashLib"
-  exit 1;
+  exit 1
 fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
