@@ -21,9 +21,9 @@ echo "OLLAMA_BASH_LIB_LICENSE : $OLLAMA_BASH_LIB_LICENSE"
 echo "apiUrl                  : $apiUrl"
 
 if [ "$(isOllamaInstalled)" -eq 0 ]; then
-  echo "isOllamaInstalled       : OK: Ollama installed locally"
+  echo "isOllamaInstalled       : YES"
 else
-  echo "isOllamaInstalled       : ERROR: Ollama not installed locally"
+  echo "isOllamaInstalled       : NO"
   exit 1
 fi
 
@@ -35,7 +35,15 @@ echo "ollamaList:"
 ollamaList
 
 echo "$spacer"
+echo "ollamaListJson:"
+ollamaListJson | jq "."
+
+echo "$spacer"
 echo "ollamaPs:"
 ollamaPs
+
+echo "$spacer"
+echo "ollamaPsJson:"
+ollamaPsJson | jq "."
 
 echo "$spacer"

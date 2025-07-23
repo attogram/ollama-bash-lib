@@ -5,7 +5,7 @@
 # A Bash Library to interact with the Ollama application
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.4"
+OLLAMA_BASH_LIB_VERSION="0.5"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 
@@ -13,10 +13,10 @@ RETURN_SUCCESS=0
 RETURN_ERROR=1
 
 # apiUrl (string) - URL to local Ollama API
-apiUrl="http://localhost:11434"
+apiUrl="http://localhost:11434" # No slash at end
 
 # Is Ollama installed on local system?
-# Returns: 0/1 yes/no)
+# Returns: 0/1 (yes/no)
 isOllamaInstalled() {
   check=$(command -v "ollama" 2> /dev/null)
   if [ -z "$check" ]; then
@@ -27,12 +27,24 @@ isOllamaInstalled() {
   return $RETURN_SUCCESS
 }
 
+# GET request to the Ollama API
+# Usage: ollamaApiGet "/api/command"
+ollamaApiGet() {
+  call="$1"
+  curl -s -X GET "${apiUrl}${call}" -H 'Content-Type: application/json' -d ''
+}
+
 # All available models, cli version
 ollamaList() {
   ollama list
 }
 
-# All available models, as a Bash array
+# All available models, JSON version
+ollamaListJson() {
+  ollamaApiGet "/api/tags"
+}
+
+# All available models, Bash array version
 # Usage: models=($(ollamaListArray))
 # Returns: space separated list of model names
 ollamaListArray() {
@@ -41,16 +53,23 @@ ollamaListArray() {
   echo "${models[@]}"
 }
 
+# Running model processes, cli version
+ollamaPs() {
+  ollama ps
+}
+
+# Running model processes, JSON version
+ollamaPsJson() {
+  ollamaApiGet "/api/ps"
+}
+
 # Show model information
 ollamaShow() {
   local model="$1"
   ollama show "$model"
 }
 
-# Running model processes
-ollamaPs() {
-  ollama ps
-}
+
 
 # Ollama application version
 ollamaVersion() {
