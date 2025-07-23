@@ -2,6 +2,8 @@
 
 A Bash Library to interact with the [Ollama](https://github.com/ollama/ollama) application
 
+Repo: https://github.com/attogram/ollama-bash-lib
+
 ## Usage
 
 Include Ollama Bash Lib in your Bash script:
@@ -18,6 +20,7 @@ if [ ! -f "$ollamaBashLib" ]; then
 fi
 source "$ollamaBashLib"
 ```
+
 ## Demo / Tests
 
 See [tests](tests) directory for demos and tests
