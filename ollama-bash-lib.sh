@@ -5,15 +5,15 @@
 # A Bash Library to interact with the Ollama application
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.7"
+OLLAMA_BASH_LIB_VERSION="0.8"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 
 RETURN_SUCCESS=0
 RETURN_ERROR=1
 
-# apiUrl (string) - URL to local Ollama API
-apiUrl="http://localhost:11434" # No slash at end
+# apiUrl (string) - URL to local Ollama API (no slash at end)
+apiUrl="http://localhost:11434"
 
 # Is Ollama installed on local system?
 # Returns: 0/1 (yes/no)
@@ -37,9 +37,27 @@ ollamaApiGet() {
 # POST request to the Ollama API
 # Usage: ollamaApiPost "/api/command" "{ json content }"
 ollamaApiPost() {
-  call="$1"
-  content="$2"
-  curl -s -X POST "${apiUrl}${call}" -H 'Content-Type: application/json' -d "${content}"
+  curl -s -X POST "${apiUrl}$1" -H 'Content-Type: application/json' -d "$2"
+}
+
+# Generate a completion, non streaming
+# Usage: ollamaGenerate "modelName" "prompt"
+ollamaGenerate() {
+  ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": \"$2\", \"stream\": false}"
+}
+
+# Generate a completion, streaming
+# Usage: ollamaGenerate "modelName" "prompt"
+ollamaGenerateStreaming() {
+  ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": \"$2\"}"
+}
+
+# Get a random model
+# Returns: 1 model name
+getRandomModel() {
+  # shellcheck disable=SC2207
+  local models=($(ollamaListArray))
+  echo "${models[RANDOM%${#models[@]}]}"
 }
 
 # All available models, cli version
