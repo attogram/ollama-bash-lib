@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib Demo"
+echo "Ollama Bash Lib - Demo"
 spacer="--------------------------------------------------------------------"
 echo "$spacer"
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
-  echo "ERROR: ollamaBashLib not found: $ollamaBashLib"
+  echo "ERROR: Ollama Bash Lib not found: $ollamaBashLib"
   exit 1;
 fi
 
@@ -27,14 +27,15 @@ else
   exit 1
 fi
 
-echo -n "ollamaVersion           : "; ollamaVersion
+echo -n "ollamaVersion           : "
+ollamaVersion
 
-echo "$spacer"; echo "ollamaList:"; ollamaList
-echo "$spacer"; echo "ollamaPs:"; ollamaPs
-echo "$spacer"; echo "ollamaShow gemma3n:e4b:"; ollamaShow "gemma3n:e4b"
+echo "$spacer"
+echo "ollamaList:"
+ollamaList
 
-echo "$spacer"; echo "ollamaHelp:"; ollamaHelp
-echo "$spacer"; echo "ollamaHelpRun:"; ollamaHelpRun
-echo "$spacer"; echo "ollamaHelpShow:"; ollamaHelpShow
+echo "$spacer"
+echo "ollamaPs:"
+ollamaPs
 
 echo "$spacer"
