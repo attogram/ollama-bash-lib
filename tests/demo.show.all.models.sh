@@ -25,8 +25,11 @@ echo "# models: ${#models[@]}"
 # Show model info for all models
 for model in "${models[@]}"; do
   echo "$spacer"
-  echo "model: $model"
+  echo "ollamaShow: $model"
   ollamaShow "$model"
+  echo "$spacer"
+  echo "ollamaShowJson: $model"
+  ollamaShowJson "$model" | jq "."
 done
 
 echo "$spacer"

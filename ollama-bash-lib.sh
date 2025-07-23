@@ -5,7 +5,7 @@
 # A Bash Library to interact with the Ollama application
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.6"
+OLLAMA_BASH_LIB_VERSION="0.7"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 
@@ -32,6 +32,14 @@ isOllamaInstalled() {
 ollamaApiGet() {
   call="$1"
   curl -s -X GET "${apiUrl}${call}" -H 'Content-Type: application/json' -d ''
+}
+
+# POST request to the Ollama API
+# Usage: ollamaApiPost "/api/command" "{ json content }"
+ollamaApiPost() {
+  call="$1"
+  content="$2"
+  curl -s -X POST "${apiUrl}${call}" -H 'Content-Type: application/json' -d "${content}"
 }
 
 # All available models, cli version
@@ -63,10 +71,16 @@ ollamaPsJson() {
   ollamaApiGet "/api/ps"
 }
 
-# Show model information
+# Show model information, cli version
+# Usage: ollamaShow "modelName"
 ollamaShow() {
-  local model="$1"
-  ollama show "$model"
+  ollama show "$1"
+}
+
+# Show model information, JSON version
+# Usage: ollamaShowJson "modelName"
+ollamaShowJson() {
+  ollamaApiPost "/api/show" "{\"model\": \"$1\"}"
 }
 
 # Ollama application version, cli version
@@ -78,7 +92,6 @@ ollamaVersion() {
 ollamaVersionJson() {
   ollamaApiGet "/api/version"
 }
-
 
 # ollama cli help
 ollamaHelp() {
