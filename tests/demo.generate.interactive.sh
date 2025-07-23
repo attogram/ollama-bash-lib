@@ -28,22 +28,18 @@ while true; do
   read -r prompt # Read prompt from user input
   result="$(ollamaGenerate "$model" "$prompt")"
   response="$(echo "$result" | jq -r ".response")"
+  echo
+  echo -e "$response"
+  echo
   total_duration="$(echo "$result" | jq -r ".total_duration")"
   load_duration="$(echo "$result" | jq -r ".load_duration")"
   prompt_eval_count="$(echo "$result" | jq -r ".prompt_eval_count")"
   prompt_eval_duration="$(echo "$result" | jq -r ".prompt_eval_duration")"
   eval_count="$(echo "$result" | jq -r ".eval_count")"
   eval_duration="$(echo "$result" | jq -r ".eval_duration")"
-  echo
-  echo -e "$response"
-  echo
-
   echo -n "duration: $(echo "scale=2 ; $total_duration / 1000000000" | bc | sed 's/^\./0./') seconds"
   echo -n " (load: $(echo "scale=2 ; $load_duration / 1000000000" | bc | sed 's/^\./0./'))"
   echo -n " (prompt eval: $(echo "scale=2 ; $prompt_eval_duration / 1000000000" | bc | sed 's/^\./0./'))"
   echo " (eval: $(echo "scale=2 ; $eval_duration / 1000000000" | bc | sed 's/^\./0./'))"
-
-  echo -n "count   : $((prompt_eval_count + eval_count)) tokens"
-  echo -n " (prompt eval: $prompt_eval_count)"
-  echo " (eval: $eval_count)"
+  echo "count   : $((prompt_eval_count + eval_count)) tokens (prompt eval: $prompt_eval_count) (eval: $eval_count)"
 done
