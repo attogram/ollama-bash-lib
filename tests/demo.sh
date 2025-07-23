@@ -28,9 +28,12 @@ else
   exit 1
 fi
 
-echo "$spacer"; echo -n "ollama version: "; ollamaVersion
+
 echo "$spacer"; echo "ollama ps:"; ollamaPs
 echo "$spacer"; echo "ollama list:"; ollamaList
+echo "$spacer"; echo "ollama show gemma3n:e4b:"; ollama show "gemma3n:e4b"
+
+echo "$spacer"; echo -n "ollama version: "; ollamaVersion
 echo "$spacer"; echo "ollama help:"; ollamaHelp
 echo "$spacer"; echo "ollama help run:"; ollamaHelpRun
 echo "$spacer"; echo "ollama help show:"; ollamaHelpShow
