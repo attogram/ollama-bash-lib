@@ -5,7 +5,7 @@
 # A Bash Library to interact with the Ollama application
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.5"
+OLLAMA_BASH_LIB_VERSION="0.6"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 
@@ -69,12 +69,16 @@ ollamaShow() {
   ollama show "$model"
 }
 
-
-
-# Ollama application version
+# Ollama application version, cli version
 ollamaVersion() {
   ollama --version
 }
+
+# Ollama application version, JSON version
+ollamaVersionJson() {
+  ollamaApiGet "/api/version"
+}
+
 
 # ollama cli help
 ollamaHelp() {

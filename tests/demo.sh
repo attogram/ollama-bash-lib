@@ -27,8 +27,13 @@ else
   exit 1
 fi
 
-echo -n "ollamaVersion           : "
+echo "$spacer"
+echo "ollamaVersion: "
 ollamaVersion
+
+echo "$spacer"
+echo "ollamaVersionJson: "
+ollamaVersionJson | jq "."
 
 echo "$spacer"
 echo "ollamaList:"
