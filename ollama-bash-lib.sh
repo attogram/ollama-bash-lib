@@ -5,7 +5,7 @@
 # A Bash Library to interact with the Ollama application
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.2"
+OLLAMA_BASH_LIB_VERSION="0.3"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 
@@ -16,7 +16,7 @@ RETURN_ERROR=1
 apiUrl="http://localhost:11434"
 
 # Is Ollama installed on local system?
-# Returns 0/1 (true/false)
+# Returns 0/1 yes/no)
 isOllamaInstalled() {
   check=$(command -v "ollama" 2> /dev/null)
   if [ -z "$check" ]; then
@@ -27,6 +27,7 @@ isOllamaInstalled() {
   return $RETURN_SUCCESS
 }
 
+# Show model information
 ollamaShow() {
   local model="$1"
   ollama show "$model"

@@ -20,22 +20,21 @@ echo "OLLAMA_BASH_LIB_LICENSE : $OLLAMA_BASH_LIB_LICENSE"
 # shellcheck disable=SC2154
 echo "apiUrl                  : $apiUrl"
 
-echo "$spacer"
 if [ "$(isOllamaInstalled)" -eq 0 ]; then
-  echo "OK: Ollama installed locally"
+  echo "isOllamaInstalled       : OK: Ollama installed locally"
 else
-  echo "ERROR: Ollama not installed locally"
+  echo "isOllamaInstalled       : ERROR: Ollama not installed locally"
   exit 1
 fi
 
+echo -n "ollamaVersion           : "; ollamaVersion
 
-echo "$spacer"; echo "ollama ps:"; ollamaPs
-echo "$spacer"; echo "ollama list:"; ollamaList
-echo "$spacer"; echo "ollama show gemma3n:e4b:"; ollama show "gemma3n:e4b"
+echo "$spacer"; echo "ollamaList:"; ollamaList
+echo "$spacer"; echo "ollamaPs:"; ollamaPs
+echo "$spacer"; echo "ollamaShow gemma3n:e4b:"; ollamaShow "gemma3n:e4b"
 
-echo "$spacer"; echo -n "ollama version: "; ollamaVersion
-echo "$spacer"; echo "ollama help:"; ollamaHelp
-echo "$spacer"; echo "ollama help run:"; ollamaHelpRun
-echo "$spacer"; echo "ollama help show:"; ollamaHelpShow
+echo "$spacer"; echo "ollamaHelp:"; ollamaHelp
+echo "$spacer"; echo "ollamaHelpRun:"; ollamaHelpRun
+echo "$spacer"; echo "ollamaHelpShow:"; ollamaHelpShow
 
 echo "$spacer"
