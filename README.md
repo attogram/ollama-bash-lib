@@ -16,7 +16,7 @@ or
 ollamaBashLib="path/to/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
   echo "ERROR: Ollama Bash Lib Not Found: $ollamaBashLib"
-  exit 1;
+  exit 1
 fi
 source "$ollamaBashLib"
 ```
