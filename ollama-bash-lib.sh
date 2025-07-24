@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.14"
+OLLAMA_BASH_LIB_VERSION="0.15"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -64,7 +64,9 @@ ollamaClear() {
     debug "Error: ollamaClear: no model"
     return $RETURN_ERROR
   fi
-  ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"keep_alive\": 0}"
+  local response
+  response=$(ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"keep_alive\": 0}")
+  debug "$response"
 }
 
 # Generate a completion, non-streaming
