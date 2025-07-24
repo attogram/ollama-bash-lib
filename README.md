@@ -38,6 +38,9 @@ See the **[demos](demos)** directory for demo scripts.
 * ```ollamaApiPost```
   * POST request to the Ollama API
   * Usage: ```ollamaApiPost "/api/command" "{ json content }"```
+* ```ollamaClear```
+  * Clear Ollama Context for a model
+  * Usage: ```ollamaClear "modelName"```
 * ```ollamaGenerate```
   * Generate a completion, non-streaming
   * Usage: ```ollamaGenerate "modelName" "prompt"```
