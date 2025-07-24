@@ -12,6 +12,12 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
+if ! ollamaIsInstalled; then
+  echo "Error: Ollama is not installed"
+  exit 1
+fi
+
+
 echo "ollamaHelp:"
 ollamaHelp
 

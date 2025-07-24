@@ -12,18 +12,19 @@ fi
 
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
-echo "Ollama Bash Lib Location: $ollamaBashLib"
-echo "OLLAMA_BASH_LIB_NAME    : $OLLAMA_BASH_LIB_NAME"
-echo "OLLAMA_BASH_LIB_VERSION : $OLLAMA_BASH_LIB_VERSION"
-echo "OLLAMA_BASH_LIB_URL     : $OLLAMA_BASH_LIB_URL"
-echo "OLLAMA_BASH_LIB_LICENSE : $OLLAMA_BASH_LIB_LICENSE"
-# shellcheck disable=SC2154
-echo "apiUrl                  : $apiUrl"
+echo "Ollama Bash Lib Location : $ollamaBashLib"
+echo "OLLAMA_BASH_LIB_NAME     : $OLLAMA_BASH_LIB_NAME"
+echo "OLLAMA_BASH_LIB_VERSION  : $OLLAMA_BASH_LIB_VERSION"
+echo "OLLAMA_BASH_LIB_URL      : $OLLAMA_BASH_LIB_URL"
+echo "OLLAMA_BASH_LIB_LICENSE  : $OLLAMA_BASH_LIB_LICENSE"
+echo "OLLAMA_BASH_LIB_COPYRIGHT: $OLLAMA_BASH_LIB_COPYRIGHT"
+echo "OLLAMA_API_HOST          : $OLLAMA_API_HOST"
 
-if [ "$(isOllamaInstalled)" -eq 0 ]; then
-  echo "isOllamaInstalled       : YES"
+echo -n "ollamaIsInstalled        : "
+if ollamaIsInstalled; then
+  echo "YES"
 else
-  echo "isOllamaInstalled       : NO"
+  echo "NO"
   exit 1
 fi
 

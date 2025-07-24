@@ -12,7 +12,11 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
-# shellcheck disable=SC2207
+if ! ollamaIsInstalled; then
+  echo "Error: Ollama is not installed"
+  exit 1
+fi
+
 models=($(ollamaListArray))
 if [[ -z "${models[*]}" ]]; then
   echo "Error: No models found in Ollama"

@@ -21,12 +21,12 @@ fi
 source "$ollamaBashLib"
 ```
 
-## Demo / Tests
+## Demos
 
-See [tests](tests) directory for demos and tests
+See the **[demos](demos)** directory for demo scripts
 
 ```
-./tests/demo.sh
+./demos/demo.sh
 ```
 
 ## License

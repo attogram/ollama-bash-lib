@@ -3,8 +3,6 @@
 echo "Ollama Bash Lib - Demo - Generate a completion - Interactive"
 spacer="--------------------------------------------------------------------"
 echo "$spacer"
-echo
-echo "Press Control-C to exit"
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -13,6 +11,14 @@ if [ ! -f "$ollamaBashLib" ]; then
 fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
+
+if ! ollamaIsInstalled; then
+  echo "Error: Ollama is not installed"
+  exit 1
+fi
+
+echo
+echo "Press Control-C to exit"
 
 model="$(getRandomModel)"
 echo
