@@ -5,39 +5,37 @@
 # A Bash Library to interact with the Ollama application
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.8"
+OLLAMA_BASH_LIB_VERSION="0.9"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
+OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
 
 RETURN_SUCCESS=0
 RETURN_ERROR=1
 
-# apiUrl (string) - URL to local Ollama API (no slash at end)
-apiUrl="http://localhost:11434"
+# OLLAMA_API_HOST (string) - URL to local Ollama API (no slash at end)
+OLLAMA_API_HOST="http://localhost:11434"
 
 # Is Ollama installed on local system?
+# Usage: if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
 # Returns: 0/1 (yes/no)
-isOllamaInstalled() {
-  check=$(command -v "ollama" 2> /dev/null)
-  if [ -z "$check" ]; then
-    echo "$RETURN_ERROR"
+ollamaIsInstalled() {
+  if [ -z "$(command -v "ollama" 2> /dev/null)" ]; then
     return $RETURN_ERROR
   fi
-  echo "$RETURN_SUCCESS"
   return $RETURN_SUCCESS
 }
 
 # GET request to the Ollama API
 # Usage: ollamaApiGet "/api/command"
 ollamaApiGet() {
-  call="$1"
-  curl -s -X GET "${apiUrl}${call}" -H 'Content-Type: application/json' -d ''
+  curl -s -X GET "${OLLAMA_API_HOST}$1" -H 'Content-Type: application/json' -d ''
 }
 
 # POST request to the Ollama API
 # Usage: ollamaApiPost "/api/command" "{ json content }"
 ollamaApiPost() {
-  curl -s -X POST "${apiUrl}$1" -H 'Content-Type: application/json' -d "$2"
+  curl -s -X POST "${OLLAMA_API_HOST}$1" -H 'Content-Type: application/json' -d "$2"
 }
 
 # Generate a completion, non streaming
@@ -74,7 +72,6 @@ ollamaListJson() {
 # Usage: models=($(ollamaListArray))
 # Returns: space separated list of model names
 ollamaListArray() {
-  # shellcheck disable=SC2207
   models=($(ollama list | awk '{if (NR > 1) print $1}' | sort)) # Get list of models, sorted alphabetically
   echo "${models[@]}"
 }
