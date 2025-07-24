@@ -24,10 +24,6 @@ model="$(ollamaGetRandomModel)"
 echo
 echo "ollamaGetRandomModel: $model"
 
-getDateTime() {
-  echo
-}
-
 while true; do
   echo
   echo -n "Prompt: "
