@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 #
-# Ollama Bash Lib
+# Ollama Bash Lib - A Bash Library to interact with Ollama
 #
-# A Bash Library to interact with the Ollama application
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.10"
+OLLAMA_BASH_LIB_VERSION="0.11"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"

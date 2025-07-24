@@ -1,6 +1,6 @@
 # Ollama Bash Lib
 
-A Bash Library to interact with the [Ollama](https://github.com/ollama/ollama) application
+A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
 Repo: https://github.com/attogram/ollama-bash-lib
 
