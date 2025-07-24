@@ -8,11 +8,11 @@ Repo: https://github.com/attogram/ollama-bash-lib
 
 Include Ollama Bash Lib in your Bash script:
 
-```
+```bash
 source ./ollama-bash-lib.sh
 ```
 or
-```
+```bash
 ollamaBashLib="path/to/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
   echo "ERROR: Ollama Bash Lib Not Found: $ollamaBashLib"
