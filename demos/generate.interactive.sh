@@ -20,9 +20,9 @@ fi
 echo
 echo "Press Control-C to exit"
 
-model="$(getRandomModel)"
+model="$(ollamaGetRandomModel)"
 echo
-echo "getRandomModel: $model"
+echo "ollamaGetRandomModel: $model"
 
 getDateTime() {
   echo

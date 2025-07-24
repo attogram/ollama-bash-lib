@@ -17,8 +17,8 @@ if ! ollamaIsInstalled; then
   exit 1
 fi
 
-model="$(getRandomModel)"
-echo "getRandomModel: $model"
+model="$(ollamaGetRandomModel)"
+echo "ollamaGetRandomModel: $model"
 
 prompt="Answer with 3 words or less to this prompt: Hi"
 echo "prompt: $prompt"

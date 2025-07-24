@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.11"
+OLLAMA_BASH_LIB_VERSION="0.12"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -51,7 +51,7 @@ ollamaGenerateStreaming() {
 
 # Get a random model
 # Returns: 1 model name
-getRandomModel() {
+ollamaGetRandomModel() {
   # shellcheck disable=SC2207
   local models=($(ollamaListArray))
   echo "${models[RANDOM%${#models[@]}]}"

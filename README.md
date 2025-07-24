@@ -44,7 +44,7 @@ See the **[demos](demos)** directory for demo scripts.
 * ```ollamaGenerateStreaming```
   * Generate a completion, streaming
   * Usage: ```ollamaGenerateStreaming "modelName" "prompt"```
-* ```getRandomModel```
+* ```ollamaGetRandomModel```
   * Get a random model
   * Returns: 1 model name
 * ```ollamaList```
