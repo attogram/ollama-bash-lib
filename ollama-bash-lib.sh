@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.12"
+OLLAMA_BASH_LIB_VERSION="0.13"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -31,6 +31,12 @@ ollamaApiGet() {
   curl -s -X GET "${OLLAMA_API_HOST}$1" -H 'Content-Type: application/json' -d ''
 }
 
+# Escape a string for inclusion into JSON
+# Usage: safeJson "string"
+safeJson() {
+  jq -Rn --arg str "$1" '$str'
+}
+
 # POST request to the Ollama API
 # Usage: ollamaApiPost "/api/command" "{ json content }"
 ollamaApiPost() {
@@ -40,13 +46,13 @@ ollamaApiPost() {
 # Generate a completion, non-streaming
 # Usage: ollamaGenerate "modelName" "prompt"
 ollamaGenerate() {
-  ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": \"$2\", \"stream\": false}"
+  ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": \"$(safeJson "$2")\", \"stream\": false}"
 }
 
 # Generate a completion, streaming
 # Usage: ollamaGenerateStreaming "modelName" "prompt"
 ollamaGenerateStreaming() {
-  ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": \"$2\"}"
+  ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": \"$(safeJson "$2")\"}"
 }
 
 # Get a random model
@@ -105,19 +111,4 @@ ollamaVersion() {
 # Ollama application version, JSON version
 ollamaVersionJson() {
   ollamaApiGet "/api/version"
-}
-
-# ollama cli help
-ollamaHelp() {
-  ollama --help
-}
-
-# ollama cli help for run command
-ollamaHelpRun() {
-  ollama help run
-}
-
-# ollama cli help for show command
-ollamaHelpShow() {
-  ollama help show
 }
