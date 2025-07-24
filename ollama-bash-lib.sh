@@ -5,7 +5,7 @@
 # A Bash Library to interact with the Ollama application
 
 OLLAMA_BASH_LIB_NAME="ollama-bash-lib"
-OLLAMA_BASH_LIB_VERSION="0.9"
+OLLAMA_BASH_LIB_VERSION="0.10"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -16,7 +16,7 @@ RETURN_ERROR=1
 # OLLAMA_API_HOST (string) - URL to local Ollama API (no slash at end)
 OLLAMA_API_HOST="http://localhost:11434"
 
-# Is Ollama installed on local system?
+# Is Ollama installed on the local system?
 # Usage: if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
 # Returns: 0/1 (yes/no)
 ollamaIsInstalled() {
@@ -38,14 +38,14 @@ ollamaApiPost() {
   curl -s -X POST "${OLLAMA_API_HOST}$1" -H 'Content-Type: application/json' -d "$2"
 }
 
-# Generate a completion, non streaming
+# Generate a completion, non-streaming
 # Usage: ollamaGenerate "modelName" "prompt"
 ollamaGenerate() {
   ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": \"$2\", \"stream\": false}"
 }
 
 # Generate a completion, streaming
-# Usage: ollamaGenerate "modelName" "prompt"
+# Usage: ollamaGenerateStreaming "modelName" "prompt"
 ollamaGenerateStreaming() {
   ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": \"$2\"}"
 }
