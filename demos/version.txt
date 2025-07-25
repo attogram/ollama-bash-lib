@@ -1,4 +1,4 @@
-Ollama Bash Lib - Demo - Ps
+Ollama Bash Lib - Demo - Version
 --------------------------------------------------------------------
 ollamaVersion:
 
