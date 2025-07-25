@@ -1,0 +1,13 @@
+Ollama Bash Lib - Demo - Generate a completion - Non-streaming
+--------------------------------------------------------------------
+model: mistral:7b
+prompt: Describe a rabbit in 3 words
+
+ollamaGenerate:
+
+
+ Agile, fluffy, timid.
+
+duration: 1.72 seconds (load: 1.41) (prompt eval: 0.11) (eval: 0.19)
+count   : 22 tokens (prompt eval: 12) (eval: 10)
+context : 22 tokens

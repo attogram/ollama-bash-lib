@@ -1,0 +1,33 @@
+Ollama Bash Lib - Demo
+--------------------------------------------------------------------
+Ollama Bash Lib Location : /ollama-bash-lib/ollama-bash-lib.sh
+OLLAMA_BASH_LIB_NAME     : Ollama Bash Lib
+OLLAMA_BASH_LIB_VERSION  : 0.16
+OLLAMA_BASH_LIB_URL      : https://github.com/attogram/ollama-bash-lib
+OLLAMA_BASH_LIB_LICENSE  : MIT
+OLLAMA_BASH_LIB_COPYRIGHT: Copyright (c) 2025 Attogram Project <https://github.com/attogram>
+OLLAMA_BASH_LIB_DEBUG    : 0
+OLLAMA_BASH_LIB_API      : http://localhost:11434
+ollamaIsInstalled        : YES
+--------------------------------------------------------------------
+Ollama Bash Lib Functions:
+
+debug
+ollamaApiGet
+ollamaApiPost
+ollamaClearModel
+ollamaGenerate
+ollamaGenerateStreaming
+ollamaGetRandomModel
+ollamaIsInstalled
+ollamaList
+ollamaListArray
+ollamaListJson
+ollamaPs
+ollamaPsJson
+ollamaShow
+ollamaShowJson
+ollamaVersion
+ollamaVersionJson
+safeJson
+--------------------------------------------------------------------

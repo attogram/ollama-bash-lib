@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Generate a completion - Streaming"
+echo "Ollama Bash Lib - Demo - Ps"
 spacer="--------------------------------------------------------------------"
 echo "$spacer"
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
-  echo "ERROR: Ollama Bash Lib not found: $ollamaBashLib"
-  exit 1;
+  echo "ERROR: Ollama Bash Lib Not Found: $ollamaBashLib"
+  exit 1
 fi
 
 # shellcheck source=../ollama-bash-lib.sh
@@ -18,14 +18,13 @@ if ! ollamaIsInstalled; then
   exit 1
 fi
 
-model="$(ollamaGetRandomModel)"
-echo "Model: $model"
-
-ollamaClearModel "$model"
-
-prompt="Describe a rabbit in 3 words"
-echo "Prompt: $prompt"
+echo "ollamaVersion:"
+echo
+ollamaVersion
 
 echo "$spacer"
-echo "ollamaGenerateStreaming:"
-ollamaGenerateStreaming "$model" "$prompt" | jq "."
+echo "ollamaVersionJson:"
+echo
+ollamaVersionJson | jq "."
+
+echo "$spacer"

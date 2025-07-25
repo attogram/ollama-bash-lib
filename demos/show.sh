@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Code Review - Non-streaming"
+echo "Ollama Bash Lib - Demo - Show - 1 Model"
 spacer="--------------------------------------------------------------------"
 echo "$spacer"
 
@@ -12,32 +12,22 @@ fi
 
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
+
 if ! ollamaIsInstalled; then
-  echo "Error: Ollama Not Installed"
+  echo "Error: Ollama is not installed"
   exit 1
 fi
 
 model=$(ollamaGetRandomModel)
-
-ollamaClearModel "$model"
-
 echo "model: $model"
-
-prompt="This is the Ollama Bash Lib.
-Act as an expert Software Engineer.
-Do a full code review of this script:"
-echo "prompt: $prompt"
-echo "file: $ollamaBashLib"
-
-prompt+="
-
-ollama-bash-lib.sh:
-
-$(cat "$ollamaBashLib")
-"
+echo
+echo "ollamaShow:"
+echo
+ollamaShow "$model"
 
 echo "$spacer"
+echo "ollamaShowJson:"
+echo
+ollamaShowJson "$model" | jq "."
 
-result="$(ollamaGenerate "$model" "$prompt")"
-response="$(echo "$result" | jq -r ".response")"
-echo "$response"
+echo "$spacer"

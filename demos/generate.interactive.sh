@@ -6,7 +6,7 @@ echo "$spacer"
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
-  echo "ERROR: Ollama Bash Lib not found: $ollamaBashLib"
+  echo "ERROR: Ollama Bash Lib Not Found: $ollamaBashLib"
   exit 1
 fi
 
@@ -40,14 +40,14 @@ context=0 # Tokens in context
 
 model="$(ollamaGetRandomModel)"
 
-ollamaClear "$model"
+ollamaClearModel "$model"
 
-echo; echo "Model: $model"
-echo; echo "Context: $context tokens"
+echo; echo "model: $model"
+echo; echo "context: $context tokens"
 echo; echo "Press Control-C to exit"
 
 while true; do
-  echo; echo -n "Prompt: "
+  echo; echo -n "prompt: "
   read -r prompt # Read prompt from user input
   result="$(ollamaGenerate "$model" "$prompt")"
   response="$(echo "$result" | jq -r ".response")"

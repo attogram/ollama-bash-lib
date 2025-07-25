@@ -12,44 +12,26 @@ fi
 
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
+
 echo "Ollama Bash Lib Location : $ollamaBashLib"
 echo "OLLAMA_BASH_LIB_NAME     : $OLLAMA_BASH_LIB_NAME"
 echo "OLLAMA_BASH_LIB_VERSION  : $OLLAMA_BASH_LIB_VERSION"
 echo "OLLAMA_BASH_LIB_URL      : $OLLAMA_BASH_LIB_URL"
 echo "OLLAMA_BASH_LIB_LICENSE  : $OLLAMA_BASH_LIB_LICENSE"
 echo "OLLAMA_BASH_LIB_COPYRIGHT: $OLLAMA_BASH_LIB_COPYRIGHT"
-echo "OLLAMA_API_HOST          : $OLLAMA_API_HOST"
+echo "OLLAMA_BASH_LIB_DEBUG    : $OLLAMA_BASH_LIB_DEBUG"
+echo "OLLAMA_BASH_LIB_API      : $OLLAMA_BASH_LIB_API"
 
 echo -n "ollamaIsInstalled        : "
-if ollamaIsInstalled; then
-  echo "YES"
-else
+if ! ollamaIsInstalled; then
   echo "NO"
   exit 1
 fi
+echo "YES"
 
 echo "$spacer"
-echo "ollamaVersion: "
-ollamaVersion
-
-echo "$spacer"
-echo "ollamaVersionJson: "
-ollamaVersionJson | jq "."
-
-echo "$spacer"
-echo "ollamaList:"
-ollamaList
-
-echo "$spacer"
-echo "ollamaListJson:"
-ollamaListJson | jq "."
-
-echo "$spacer"
-echo "ollamaPs:"
-ollamaPs
-
-echo "$spacer"
-echo "ollamaPsJson:"
-ollamaPsJson | jq "."
+echo "Ollama Bash Lib Functions:"
+echo
+compgen -A function
 
 echo "$spacer"

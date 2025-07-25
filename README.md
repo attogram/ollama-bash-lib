@@ -25,6 +25,16 @@ source "$ollamaBashLib"
 
 See the **[demos](demos)** directory for demo scripts.
 
+* [demo.sh](demos/demo.sh) - Ollama Bash Lib variables and functions ([example](demos/demo.txt))
+* [version.sh](demos/version.sh) - Ollama version ([example](demos/version.txt))
+* [list.sh](demos/list.sh) - Ollama list ([example](demos/list.txt))
+* [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
+* [show.sh](demos/show.sh) - Ollama show info for a random model ([example](demos/show.txt))
+* [show.all.models.sh](demos/show.all.models.sh) - Show info for all models
+* [generate.interactive.sh](demos/generate.interactive.sh) - Chat with a random model
+* [generate.sh](demos/generate.sh) - Generate a completion from a random model, non-streaming ([example](demos/generate.txt))
+* [generate.streaming.sh](demos/generate.streaming.sh) - Generate a completion from a random model, streaming ([example](demos/generate.streaming.txt))
+* [code.review.sh](demos/code.review.sh) - Prompt a random model to do a code review of Ollama Bash Lib ([example](demos/code.review.txt))
 
 ## Functions
 
@@ -38,9 +48,9 @@ See the **[demos](demos)** directory for demo scripts.
 * ```ollamaApiPost```
   * POST request to the Ollama API
   * Usage: ```ollamaApiPost "/api/command" "{ json content }"```
-* ```ollamaClear```
-  * Clear Ollama Context for a model
-  * Usage: ```ollamaClear "modelName"```
+* ```ollamaClearModel```
+  * Unload a model from memory (Clear context for a model)
+  * Usage: ```ollamaClearModel "modelName"```
 * ```ollamaGenerate```
   * Generate a completion, non-streaming
   * Usage: ```ollamaGenerate "modelName" "prompt"```
@@ -72,12 +82,6 @@ See the **[demos](demos)** directory for demo scripts.
   * Ollama application version, cli version
 * ```ollamaVersionJson```
   * Ollama application version, JSON version
-* ```ollamaHelp```
-  * ollama cli help
-* ```ollamaHelpRun```
-  * ollama cli help for run command
-* ```ollamaHelpShow```
-  * ollama cli help for show command
 
 ## License
 

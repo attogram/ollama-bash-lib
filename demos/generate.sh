@@ -19,12 +19,12 @@ if ! ollamaIsInstalled; then
 fi
 
 model="$(ollamaGetRandomModel)"
-echo "Model: $model"
+echo "model: $model"
 
-ollamaClear "$model"
+ollamaClearModel "$model"
 
 prompt="Describe a rabbit in 3 words"
-echo "Prompt: $prompt"
+echo "prompt: $prompt"
 
 stats() {
   local result="$1"
@@ -46,6 +46,7 @@ stats() {
 
 echo
 echo "ollamaGenerate:"
+echo
 result="$(ollamaGenerate "$model" "$prompt")"
 response="$(echo "$result" | jq -r ".response")"
 echo

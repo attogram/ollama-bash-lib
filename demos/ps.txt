@@ -1,0 +1,33 @@
+Ollama Bash Lib - Demo - Ps
+--------------------------------------------------------------------
+ollamaPs:
+
+NAME           ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+dolphin3:8b    d5ab9ae8e1f2    6.9 GB    100% GPU     8192       2 minutes from now    
+--------------------------------------------------------------------
+ollamaPsJson:
+
+{
+  "models": [
+    {
+      "name": "dolphin3:8b",
+      "model": "dolphin3:8b",
+      "size": 6930039360,
+      "digest": "d5ab9ae8e1f22619a6be52e5694df422b7183a3883990a000188c363781ecb78",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "expires_at": "2025-07-25T20:34:51.9298934+02:00",
+      "size_vram": 6930039360,
+      "context_length": 8192
+    }
+  ]
+}
+--------------------------------------------------------------------

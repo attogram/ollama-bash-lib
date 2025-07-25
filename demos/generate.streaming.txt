@@ -1,0 +1,96 @@
+Ollama Bash Lib - Demo - Generate a completion - Streaming
+--------------------------------------------------------------------
+Model: mistral:7b
+Prompt: Describe a rabbit in 3 words
+--------------------------------------------------------------------
+ollamaGenerateStreaming:
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.2008725Z",
+  "response": " Ag",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.2250589Z",
+  "response": "ile",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.2452949Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.266642Z",
+  "response": " fl",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.2878275Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.3084697Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.3293707Z",
+  "response": " hop",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.3504866Z",
+  "response": "per",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.3707115Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "mistral:7b",
+  "created_at": "2025-07-25T18:33:00.3926514Z",
+  "response": "",
+  "done": true,
+  "done_reason": "stop",
+  "context": [
+    3,
+    29473,
+    28752,
+    1032,
+    17247,
+    3349,
+    1065,
+    29473,
+    29538,
+    3853,
+    4,
+    29473,
+    4554,
+    1314,
+    29493,
+    1740,
+    24660,
+    29493,
+    5422,
+    1255,
+    29491
+  ],
+  "total_duration": 1418632100,
+  "load_duration": 1112234500,
+  "prompt_eval_count": 12,
+  "prompt_eval_duration": 111571500,
+  "eval_count": 10,
+  "eval_duration": 194172400
+}
