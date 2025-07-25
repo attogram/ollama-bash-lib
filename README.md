@@ -6,12 +6,12 @@ Repo: https://github.com/attogram/ollama-bash-lib
 
 ## Usage
 
-Include Ollama Bash Lib in your Bash script:
-
+Include the Ollama Bash Lib:
 ```bash
 source ./ollama-bash-lib.sh
 ```
-or
+
+Include in your script, with error checking:
 ```bash
 ollamaBashLib="path/to/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -23,7 +23,7 @@ source "$ollamaBashLib"
 
 ## Demos
 
-See the **[demos](demos)** directory for demo scripts.
+See the **[demos](demos)** directory for demo scripts:
 
 * [about.sh](demos/about.sh) - Ollama Bash Lib variables and functions ([example](demos/about.txt))
 * [version.sh](demos/version.sh) - Ollama version ([example](demos/version.txt))
@@ -38,28 +38,31 @@ See the **[demos](demos)** directory for demo scripts.
 
 ## Functions
 
-* ```ollamaIsInstalled```
-  * Is Ollama installed on the local system?
-  * Usage: ```if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
-  * Returns: 0/1 (yes/no)
+### Api Functions:
 * ```ollamaApiGet```
   * GET request to the Ollama API
   * Usage: ```ollamaApiGet "/api/command"```
 * ```ollamaApiPost```
   * POST request to the Ollama API
   * Usage: ```ollamaApiPost "/api/command" "{ json content }"```
-* ```ollamaClearModel```
-  * Unload a model from memory (Clear context for a model)
-  * Usage: ```ollamaClearModel "modelName"```
+
+### Generate Functions:
 * ```ollamaGenerate```
   * Generate a completion, non-streaming
   * Usage: ```ollamaGenerate "modelName" "prompt"```
 * ```ollamaGenerateStreaming```
   * Generate a completion, streaming
   * Usage: ```ollamaGenerateStreaming "modelName" "prompt"```
+
+### Model Functions:
 * ```ollamaGetRandomModel```
   * Get a random model
   * Returns: 1 model name
+* ```ollamaClearModel```
+  * Unload a model from memory (Clear context for a model)
+  * Usage: ```ollamaClearModel "modelName"```
+
+### List Functions:
 * ```ollamaList```
   * All available models, cli version
 * ```ollamaListJson```
@@ -68,27 +71,50 @@ See the **[demos](demos)** directory for demo scripts.
   * All available models, Bash array version
   * Usage: ```models=($(ollamaListArray))```
   * Returns: space separated list of model names
+
+### Process Functions:
 * ```ollamaPs```
   * Running model processes, cli version
 * ```ollamaPsJson```
   * Running model processes, JSON version
+
+### Show Functions:
 * ```ollamaShow```
   * Show model information, cli version
   * Usage: ```ollamaShow "modelName"```
 * ```ollamaShowJson```
   * Show model information, JSON version
   * Usage: ```ollamaShowJson "modelName"```
-* ```ollamaVersionCli```
-  * Ollama application version, CLI version
+
+### Version Functions:
+* ```ollamaVersion```
+  * Ollama application version, TEXT version
 * ```ollamaVersionJson```
   * Ollama application version, JSON version
-* ```ollamaVersionText```
-  * Ollama application version, TEXT version
+* ```ollamaVersionCli```
+  * Ollama application version, CLI version
+
+### Utility Functions:
+* ```ollamaIsInstalled```
+  * Is Ollama installed on the local system?
+  * Usage: ```if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
+  * Returns: 0/1 (yes/no)
+* ```ollamaBashLibAbout```
+  * About Ollama Bash Lib
 * ```safeJson```
   * Escape a string for use as a JSON value
   * Usage: ```safeJson "string"```
-* ```ollamaBashLibAbout```
-  * About Ollama Bash Lib
+* ```debug```
+  * Debug message to stderr
+
+## Requirements
+
+* ```bash``` - v3 or higher, or equivalent
+* ```ollama```
+* ```curl```
+* ```jq```
+* ```awk```
+* ```command```
 
 ## License
 
