@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.18"
+OLLAMA_BASH_LIB_VERSION="0.19"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -137,6 +137,7 @@ ollamaGenerateStreaming() {
 # Output: text
 # Returns: 0 on success, 1 on error
 ollamaList() {
+  debug "ollamaList"
   ollama list
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
@@ -147,6 +148,7 @@ ollamaList() {
 # Output: json
 # Returns: 0 on success, 1 on error
 ollamaListJson() {
+  debug "ollamaListJson"
   ollamaApiGet "/api/tags"
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
@@ -157,6 +159,8 @@ ollamaListJson() {
 # Output: space separated list of model names
 # Returns: 0 on success, 1 on error
 ollamaListArray() {
+  debug "ollamaListArray"
+  local models
   models=($(ollama list | awk '{if (NR > 1) print $1}' | sort)) # Get list of models, sorted alphabetically
   echo "${models[@]}"
   return $RETURN_SUCCESS # TODO - check response for error/success
@@ -180,6 +184,7 @@ ollamaGetRandomModel() {
 # Output: text
 # Returns: 0 on success, 1 on error
 ollamaPs() {
+  debug "ollamaPs"
   ollama ps
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
@@ -190,6 +195,7 @@ ollamaPs() {
 # Output: json
 # Returns: 0 on success, 1 on error
 ollamaPsJson() {
+  debug "ollamaPsJson"
   ollamaApiGet "/api/ps"
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
@@ -200,6 +206,7 @@ ollamaPsJson() {
 # Output: text
 # Returns: 0 on success, 1 on error
 ollamaShow() {
+  debug "ollamaShow"
   ollama show "$1"
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
@@ -210,6 +217,7 @@ ollamaShow() {
 # Output: json
 # Returns: 0 on success, 1 on error
 ollamaShowJson() {
+  debug "ollamaShowJson"
   ollamaApiPost "/api/show" "{\"model\": \"$1\"}"
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
@@ -220,6 +228,7 @@ ollamaShowJson() {
 # Output: text
 # Returns: 0 on success, 1 on error
 ollamaVersionCli() {
+  debug "ollamaVersionCli"
   ollama --version
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
@@ -230,6 +239,7 @@ ollamaVersionCli() {
 # Output: json
 # Returns: 0 on success, 1 on error
 ollamaVersionJson() {
+  debug "ollamaVersionJson"
   ollamaApiGet "/api/version"
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
@@ -240,9 +250,10 @@ ollamaVersionJson() {
 # Output: text
 # Returns: 0 on success, 1 on error
 ollamaVersionText() {
+  debug "ollamaVersionText"
   local versionJson
   ollamaApiGet "/api/version" | jq -r ".version"
-return $RETURN_SUCCESS # TODO - check response for error/success
+  return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
 
