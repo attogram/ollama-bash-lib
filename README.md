@@ -25,7 +25,7 @@ source "$ollamaBashLib"
 
 See the **[demos](demos)** directory for demo scripts.
 
-* [demo.sh](demos/demo.sh) - Ollama Bash Lib variables and functions ([example](demos/demo.txt))
+* [about.sh](demos/about.sh) - Ollama Bash Lib variables and functions ([example](demos/about.txt))
 * [version.sh](demos/version.sh) - Ollama version ([example](demos/version.txt))
 * [list.sh](demos/list.sh) - Ollama list ([example](demos/list.txt))
 * [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
@@ -82,6 +82,8 @@ See the **[demos](demos)** directory for demo scripts.
   * Ollama application version, cli version
 * ```ollamaVersionJson```
   * Ollama application version, JSON version
+* ```ollamaBashLibAbout```
+  * About Ollama Bash Lib
 
 ## License
 

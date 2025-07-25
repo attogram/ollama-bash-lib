@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.16"
+OLLAMA_BASH_LIB_VERSION="0.17"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -12,6 +12,29 @@ OLLAMA_BASH_LIB_DEBUG=0
 OLLAMA_BASH_LIB_API=${OLLAMA_HOST:-"http://localhost:11434"} # no slash at end
 RETURN_SUCCESS=0
 RETURN_ERROR=1
+
+# About Ollama Bash Lib
+#
+# Usage: ollamaBashLibAbout
+# Output: text
+# Returns: none
+ollamaBashLibAbout() {
+  echo "$OLLAMA_BASH_LIB_NAME v$OLLAMA_BASH_LIB_VERSION"
+  echo
+  echo "A Bash Library to interact with Ollama"
+  echo
+  echo "OLLAMA_BASH_LIB_NAME     : $OLLAMA_BASH_LIB_NAME"
+  echo "OLLAMA_BASH_LIB_VERSION  : $OLLAMA_BASH_LIB_VERSION"
+  echo "OLLAMA_BASH_LIB_URL      : $OLLAMA_BASH_LIB_URL"
+  echo "OLLAMA_BASH_LIB_LICENSE  : $OLLAMA_BASH_LIB_LICENSE"
+  echo "OLLAMA_BASH_LIB_COPYRIGHT: $OLLAMA_BASH_LIB_COPYRIGHT"
+  echo "OLLAMA_BASH_LIB_DEBUG    : $OLLAMA_BASH_LIB_DEBUG"
+  echo "OLLAMA_BASH_LIB_API      : $OLLAMA_BASH_LIB_API"
+  echo
+  echo "Functions:"
+  echo
+  compgen -A function
+}
 
 # Debug message
 #
