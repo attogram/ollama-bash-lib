@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.19"
+OLLAMA_BASH_LIB_VERSION="0.20"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -131,7 +131,7 @@ ollamaGenerateStreaming() {
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
-# All available models, cli version
+# All available models, CLI version
 #
 # Usage: ollamaList
 # Output: text
@@ -178,7 +178,7 @@ ollamaGetRandomModel() {
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
-# Running model processes, cli version
+# Running model processes, CLI version
 #
 # Usage: ollamaPs
 # Output: text
@@ -200,7 +200,7 @@ ollamaPsJson() {
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
-# Show model information, cli version
+# Show model information, TEXT version
 #
 # Usage: ollamaShow "modelName"
 # Output: text
@@ -222,14 +222,15 @@ ollamaShowJson() {
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
-# Ollama application version, CLI version
+# Ollama application version, TEXT version
 #
-# Usage: ollamaVersionCli
+# Usage: ollamaVersion
 # Output: text
 # Returns: 0 on success, 1 on error
-ollamaVersionCli() {
-  debug "ollamaVersionCli"
-  ollama --version
+ollamaVersion() {
+  debug "ollamaVersion"
+  local versionJson
+  ollamaApiGet "/api/version" | jq -r ".version"
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
@@ -244,16 +245,14 @@ ollamaVersionJson() {
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
-# Ollama application version, TEXT version
+# Ollama application version, CLI version
 #
-# Usage: ollamaVersionText
+# Usage: ollamaVersionCli
 # Output: text
 # Returns: 0 on success, 1 on error
-ollamaVersionText() {
-  debug "ollamaVersionText"
-  local versionJson
-  ollamaApiGet "/api/version" | jq -r ".version"
+ollamaVersionCli() {
+  debug "ollamaVersionCli"
+  ollama --version
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
-
 

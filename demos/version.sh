@@ -18,9 +18,9 @@ if ! ollamaIsInstalled; then
   exit 1
 fi
 
-echo "ollamaVersionText:"
+echo "ollamaVersion:"
 echo
-ollamaVersionText
+ollamaVersion
 echo
 echo "$spacer"
 echo "ollamaVersionJson:"

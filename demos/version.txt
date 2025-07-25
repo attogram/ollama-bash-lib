@@ -1,6 +1,6 @@
 Ollama Bash Lib - Demo - Version
 --------------------------------------------------------------------
-ollamaVersionText:
+ollamaVersion:
 
 0.10.0-rc0
 
