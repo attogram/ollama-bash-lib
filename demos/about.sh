@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - About"
+echo "Ollama Bash Lib - Demo - About"
 spacer="--------------------------------------------------------------------"
 echo "$spacer"
 

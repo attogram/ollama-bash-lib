@@ -78,10 +78,15 @@ See the **[demos](demos)** directory for demo scripts.
 * ```ollamaShowJson```
   * Show model information, JSON version
   * Usage: ```ollamaShowJson "modelName"```
-* ```ollamaVersion```
-  * Ollama application version, cli version
+* ```ollamaVersionCli```
+  * Ollama application version, CLI version
 * ```ollamaVersionJson```
   * Ollama application version, JSON version
+* ```ollamaVersionText```
+  * Ollama application version, TEXT version
+* ```safeJson```
+  * Escape a string for use as a JSON value
+  * Usage: ```safeJson "string"```
 * ```ollamaBashLibAbout```
   * About Ollama Bash Lib
 
