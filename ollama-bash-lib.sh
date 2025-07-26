@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.21"
+OLLAMA_BASH_LIB_VERSION="0.22"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -256,7 +256,7 @@ ollamaVersionCli() {
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
-# Estimate number of tokens in a string
+# Estimated number of tokens in a string
 #
 # Usage: ollamaEstimatedTokens "string"
 # Usage: verbose: ollamaEstimatedTokens "string" 1

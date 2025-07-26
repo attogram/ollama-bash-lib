@@ -7,6 +7,5 @@ ollamaGenerate:
 
 Fluffy, cute, hopping.
 
-duration: 2.07 seconds (load: 1.69) (prompt eval: 0.14) (eval: 0.23)
+duration: 3.44 seconds (load: 3.05) (prompt eval: 0.15) (eval: 0.23)
 count   : 35 tokens (prompt eval: 27) (eval: 8)
-context : 35 tokens

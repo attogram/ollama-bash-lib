@@ -1,36 +1,44 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Generate a completion - Non-streaming"
+echo "Ollama Bash Lib - Demo - Review ollama-bash-lib.sh - Non-streaming"
 echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
-  echo "ERROR: Ollama Bash Lib not found: $ollamaBashLib"
+  echo "ERROR: Ollama Bash Lib Not Found: $ollamaBashLib"
   exit 1
 fi
 
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
-
 if ! ollamaIsInstalled; then
-  echo "Error: Ollama is not installed"
+  echo "Error: Ollama Not Installed"
   exit 1
 fi
 
-model="$(ollamaGetRandomModel)"
-echo "model: $model"
+model=$(ollamaGetRandomModel)
 
 ollamaClearModel "$model"
 
-prompt="Describe a rabbit in 3 words"
+echo "model: $model"
+
+prompt="Act as an expert Software Engineer.
+Do a full code review of this script:"
+
 echo "prompt: $prompt"
+echo "file: $ollamaBashLib"
+
+prompt+="
+
+ollama-bash-lib.sh:
+
+$(cat "$ollamaBashLib")
+"
+
+result="$(ollamaGenerate "$model" "$prompt")"
 
 echo
-echo "ollamaGenerate:"
-result="$(ollamaGenerate "$model" "$prompt")"
-echo
-#echo -e "$result" | jq -r ".response" # Get only the response
-echo "$result" | jq -r ".response" # Get only the response
+echo "$result" | jq -r ".response"
 
 stats() {
   local result="$1"

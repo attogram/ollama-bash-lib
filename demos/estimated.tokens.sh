@@ -45,28 +45,6 @@ ollamaEstimatedTokens "../README.md" 1
 echo
 echo "(contents of ../ollama-bash-lib.sh)"
 echo -n "tokens : "
-ollamaEstimatedTokens "../ollama-bash-lib.sh"
+ollamaEstimatedTokens < "../ollama-bash-lib.sh"
 echo -n "verbose: "
-ollamaEstimatedTokens "../ollama-bash-lib.sh" 1
-
-echo
-echo "ollamaEstimatedTokens: (OLLAMA_BASH_LIB_DEBUG=1)"
-OLLAMA_BASH_LIB_DEBUG=1
-
-echo
-string="My hovercraft is full of eels"
-echo "$string"
-ollamaEstimatedTokens "$string" 1
-
-echo
-string="我的气垫船上满是鳗鱼" # Simplified Chinese "My hovercraft is full of eels"
-echo "$string"
-ollamaEstimatedTokens "$string" 1
-
-echo
-echo "(contents of ../README.md)"
-ollamaEstimatedTokens "../README.md" 1
-
-echo
-echo "(contents of ../ollama-bash-lib.sh)"
-ollamaEstimatedTokens "../ollama-bash-lib.sh" 1
+ollamaEstimatedTokens < "../ollama-bash-lib.sh" 1

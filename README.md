@@ -33,8 +33,10 @@ See the **[demos](demos)** directory for demo scripts:
 * [list.sh](demos/list.sh) - Ollama model list ([example](demos/list.txt))
 * [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
 * [show.sh](demos/show.sh) - Ollama show info for a random model ([example](demos/show.txt))
-* [show.all.models.sh](demos/show.all.models.sh) - Show info for all models ([example](demos/show.all.models.txt))
-* [code.review.sh](demos/code.review.sh) - Prompt a random model to do a code review of Ollama Bash Lib ([example](demos/code.review.txt))
+* [show.all.models.sh](demos/show.all.models.sh) - Show info for all models
+* [estimated.tokens.sh](demos/estimated.tokens.sh) - Estimated token count [example](demos/estimated.tokens.txt)
+* [review.lib.sh](demos/review.lib.sh) - Prompt a random model to do a code review of Ollama Bash Lib ([example](demos/review.lib.txt))
+* [review.readme.sh](demos/review.readme.sh) - Prompt a random model to do a review of Ollama Bash README ([example](demos/review.readme.txt))
 
 ## Functions
 
@@ -100,7 +102,7 @@ See the **[demos](demos)** directory for demo scripts:
   * Usage: ```if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
   * Returns: 0/1 (yes/no)
 * ```ollamaEstimatedTokens```
-  * Estimate number of tokens in a string
+  * Estimated number of tokens in a string
   * Usage: ```ollamaEstimatedTokens "string"```
   * Usage: verbose: ```ollamaEstimatedTokens "string" 1```
   * Output: token estimate

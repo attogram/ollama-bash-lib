@@ -2,30 +2,30 @@ Ollama Bash Lib - Demo - Ps
 
 ollamaPs:
 
-NAME        ID              SIZE      PROCESSOR          CONTEXT    UNTIL              
-qwen3:8b    500a1f067a9f    9.6 GB    23%/77% CPU/GPU    16384      4 minutes from now    
+NAME           ID              SIZE      PROCESSOR          CONTEXT    UNTIL              
+gemma3n:e4b    15cb39fd9394    8.5 GB    11%/89% CPU/GPU    16384      4 minutes from now    
 
 ollamaPsJson:
 
 {
   "models": [
     {
-      "name": "qwen3:8b",
-      "model": "qwen3:8b",
-      "size": 9569764352,
-      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "name": "gemma3n:e4b",
+      "model": "gemma3n:e4b",
+      "size": 8498769536,
+      "digest": "15cb39fd9394fd2549f6df9081cfc84dd134ecf2c9c5be911e5629920489ac32",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "qwen3",
+        "family": "gemma3n",
         "families": [
-          "qwen3"
+          "gemma3n"
         ],
-        "parameter_size": "8.2B",
+        "parameter_size": "6.9B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-26T13:09:59.9074344+02:00",
-      "size_vram": 7359066112,
+      "expires_at": "2025-07-26T22:21:10.595104+02:00",
+      "size_vram": 7537736032,
       "context_length": 16384
     }
   ]
