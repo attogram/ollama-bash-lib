@@ -34,7 +34,7 @@ See the **[demos](demos)** directory for demo scripts:
 * [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
 * [show.sh](demos/show.sh) - Ollama show info for a random model ([example](demos/show.txt))
 * [show.all.models.sh](demos/show.all.models.sh) - Show info for all models
-* [estimated.tokens.sh](demos/estimated.tokens.sh) - Estimated token count [example](demos/estimated.tokens.txt)
+* [estimated.tokens.sh](demos/estimated.tokens.sh) - Estimated token count ([example](demos/estimated.tokens.txt))
 * [review.lib.sh](demos/review.lib.sh) - Prompt a random model to do a code review of Ollama Bash Lib ([example](demos/review.lib.txt))
 * [review.readme.sh](demos/review.readme.sh) - Prompt a random model to do a review of Ollama Bash README ([example](demos/review.readme.txt))
 
