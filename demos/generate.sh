@@ -29,7 +29,8 @@ echo
 echo "ollamaGenerate:"
 result="$(ollamaGenerate "$model" "$prompt")"
 echo
-echo -e "$result" | jq -r ".response" # Get only the response
+#echo -e "$result" | jq -r ".response" # Get only the response
+echo "$result" | jq -r ".response" # Get only the response
 
 stats() {
   local result="$1"

@@ -50,7 +50,8 @@ while true; do
   read -r prompt # Read prompt from user input
   result="$(ollamaGenerate "$model" "$prompt")"
   echo
-  echo -e "$result" | jq -r ".response" # Get only the response
+  #echo -e "$result" | jq -r ".response" # Get only the response
+  echo "$result" | jq -r ".response" # Get only the response
   echo
   stats "$result"
 done
