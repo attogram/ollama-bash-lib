@@ -26,14 +26,14 @@ source "$ollamaBashLib"
 See the **[demos](demos)** directory for demo scripts:
 
 * [about.sh](demos/about.sh) - Ollama Bash Lib variables and functions ([example](demos/about.txt))
-* [version.sh](demos/version.sh) - Ollama version ([example](demos/version.txt))
-* [list.sh](demos/list.sh) - Ollama list ([example](demos/list.txt))
-* [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
-* [show.sh](demos/show.sh) - Ollama show info for a random model ([example](demos/show.txt))
-* [show.all.models.sh](demos/show.all.models.sh) - Show info for all models
-* [generate.interactive.sh](demos/generate.interactive.sh) - Chat with a random model
 * [generate.sh](demos/generate.sh) - Generate a completion from a random model, non-streaming ([example](demos/generate.txt))
 * [generate.streaming.sh](demos/generate.streaming.sh) - Generate a completion from a random model, streaming ([example](demos/generate.streaming.txt))
+* [generate.interactive.sh](demos/generate.interactive.sh) - Chat with a random model
+* [version.sh](demos/version.sh) - Ollama version ([example](demos/version.txt))
+* [list.sh](demos/list.sh) - Ollama model list ([example](demos/list.txt))
+* [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
+* [show.sh](demos/show.sh) - Ollama show info for a random model ([example](demos/show.txt))
+* [show.all.models.sh](demos/show.all.models.sh) - Show info for all models ([example](demos/show.all.models.txt))
 * [code.review.sh](demos/code.review.sh) - Prompt a random model to do a code review of Ollama Bash Lib ([example](demos/code.review.txt))
 
 ## Functions

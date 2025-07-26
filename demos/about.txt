@@ -1,8 +1,8 @@
 Ollama Bash Lib - Demo - About
---------------------------------------------------------------------
+
 Ollama Bash Lib: /ollama-bash-lib/ollama-bash-lib.sh
 ollamaIsInstalled: YES
---------------------------------------------------------------------
+
 ollamaBashLibAbout:
 
 Ollama Bash Lib v0.20
@@ -39,5 +39,3 @@ ollamaVersion
 ollamaVersionCli
 ollamaVersionJson
 safeJson
-
---------------------------------------------------------------------

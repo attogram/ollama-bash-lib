@@ -1,96 +1,1647 @@
 Ollama Bash Lib - Demo - Generate a completion - Streaming
---------------------------------------------------------------------
-Model: mistral:7b
-Prompt: Describe a rabbit in 3 words
---------------------------------------------------------------------
+
+model: qwen3:8b
+prompt: Describe a rabbit in 3 words
+
 ollamaGenerateStreaming:
+
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.2008725Z",
-  "response": " Ag",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:42.4483572Z",
+  "response": "<think>",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.2250589Z",
-  "response": "ile",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:42.5177116Z",
+  "response": "\n",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.2452949Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:42.585898Z",
+  "response": "Okay",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:42.6554339Z",
   "response": ",",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.266642Z",
-  "response": " fl",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:42.7241779Z",
+  "response": " the",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.2878275Z",
-  "response": "uffy",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:42.7942056Z",
+  "response": " user",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.3084697Z",
-  "response": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:42.8638054Z",
+  "response": " wants",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.3293707Z",
-  "response": " hop",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:42.9339302Z",
+  "response": " me",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.3504866Z",
-  "response": "per",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.0055279Z",
+  "response": " to",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.3707115Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.076192Z",
+  "response": " describe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.1475304Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.2204475Z",
+  "response": " rabbit",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.2901645Z",
+  "response": " in",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.3638633Z",
+  "response": " three",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.4366184Z",
+  "response": " words",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.508306Z",
   "response": ".",
   "done": false
 }
 {
-  "model": "mistral:7b",
-  "created_at": "2025-07-25T18:33:00.3926514Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.5778187Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.6482297Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.7197788Z",
+  "response": " think",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.7891046Z",
+  "response": " about",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.8601121Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.9314472Z",
+  "response": " key",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:43.9996855Z",
+  "response": " characteristics",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.0713789Z",
+  "response": " of",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.14139Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.2131454Z",
+  "response": " rabbit",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.2849084Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.3543276Z",
+  "response": " They",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.4258999Z",
+  "response": "'re",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.4992811Z",
+  "response": " known",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.5693247Z",
+  "response": " for",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.639752Z",
+  "response": " being",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.7089534Z",
+  "response": " quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.7774603Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.8496599Z",
+  "response": " so",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.9220353Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:44.9946554Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.0687272Z",
+  "response": "quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.1401386Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.2114159Z",
+  "response": " or",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.2802083Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.3579004Z",
+  "response": "fleet",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.4344647Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.506718Z",
+  "response": " Then",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.5775287Z",
+  "response": " there",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.6503621Z",
+  "response": "'s",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.7228536Z",
+  "response": " their",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.7938818Z",
+  "response": " physical",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.8661699Z",
+  "response": " appearance",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:45.9376864Z",
+  "response": "—",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.0088618Z",
+  "response": "soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.078762Z",
+  "response": " fur",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.1495625Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.2224371Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.2920076Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.3618895Z",
+  "response": "soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.4333272Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.5030836Z",
+  "response": " or",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.5728518Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.6434903Z",
+  "response": "fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.7158865Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.7865279Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.8552198Z",
+  "response": " Also",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.9253733Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:46.9953465Z",
+  "response": " rabbits",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.065944Z",
+  "response": " are",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.1349666Z",
+  "response": " often",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.2050118Z",
+  "response": " associated",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.275791Z",
+  "response": " with",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.3466818Z",
+  "response": " being",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.4185487Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.4897362Z",
+  "response": " or",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.5616989Z",
+  "response": " timid",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.6344303Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.7067658Z",
+  "response": " so",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.7765134Z",
+  "response": " words",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.8526954Z",
+  "response": " like",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.9235409Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:47.9989215Z",
+  "response": "gent",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.0740789Z",
+  "response": "le",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.1494448Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.2251129Z",
+  "response": " or",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.300321Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.3754847Z",
+  "response": "tim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.4503208Z",
+  "response": "id",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.5238514Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.5986766Z",
+  "response": " could",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.6714566Z",
+  "response": " work",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.7498252Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.8258178Z",
+  "response": " But",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.9026195Z",
+  "response": " I",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:48.9778288Z",
+  "response": " need",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.0594378Z",
+  "response": " to",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.1390815Z",
+  "response": " pick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.2176454Z",
+  "response": " three",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.2938075Z",
+  "response": " that",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.3698872Z",
+  "response": " best",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.4518427Z",
+  "response": " capture",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.5309215Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.6094498Z",
+  "response": " essence",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.6881469Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.7669916Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.8429895Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.9219046Z",
+  "response": " consider",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:49.999889Z",
+  "response": " common",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.076335Z",
+  "response": " descriptors",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.1538922Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.231757Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.3098426Z",
+  "response": "Soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.3880469Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.4650742Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.5397982Z",
+  "response": "quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.6178286Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.6944571Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.7721274Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.8505434Z",
+  "response": "gent",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:50.9274719Z",
+  "response": "le",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.0062998Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.0867552Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.1649111Z",
+  "response": " be",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.2414047Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.3199192Z",
+  "response": " good",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.4029298Z",
+  "response": " combination",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.4846929Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.5628526Z",
+  "response": " Alternatively",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.6429286Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.7231943Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.8037229Z",
+  "response": "fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.8858205Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:51.9619636Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.037564Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.1121788Z",
+  "response": "nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.1878348Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.2681519Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.3448886Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.4223958Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.4998921Z",
+  "response": "tim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.5757189Z",
+  "response": "id",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.6547027Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.7380287Z",
+  "response": " Wait",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.8149758Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.8933015Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:52.9702516Z",
+  "response": "nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.0488048Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.1238613Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.2005431Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.2762375Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.3523801Z",
+  "response": " good",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.4285238Z",
+  "response": " synonym",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.5050819Z",
+  "response": " for",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.5823579Z",
+  "response": " quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.6590112Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.7368115Z",
+  "response": " Or",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.8137829Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.8905674Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:53.9691377Z",
+  "response": "del",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.0479529Z",
+  "response": "icate",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.1266962Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.2052058Z",
+  "response": " instead",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.284486Z",
+  "response": " of",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.3620669Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.4437599Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.5240562Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.6026811Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.680121Z",
+  "response": " check",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.7604478Z",
+  "response": " if",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.8405206Z",
+  "response": " these",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:54.9205471Z",
+  "response": " words",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.000184Z",
+  "response": " are",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.0776613Z",
+  "response": " commonly",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.1554009Z",
+  "response": " used",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.2385831Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.3187713Z",
+  "response": " Another",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.3976992Z",
+  "response": " angle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.4777033Z",
+  "response": ":",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.5557531Z",
+  "response": " rabbits",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.6334044Z",
+  "response": " have",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.7114405Z",
+  "response": " long",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.793143Z",
+  "response": " ears",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.8722433Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:55.9506358Z",
+  "response": " so",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.0290634Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.1062332Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.1837573Z",
+  "response": "ears",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.2609934Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.3402553Z",
+  "response": " but",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.417827Z",
+  "response": " that",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.4959341Z",
+  "response": "'s",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.5720574Z",
+  "response": " not",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.6503926Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.7287615Z",
+  "response": " descriptor",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.8072023Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.8840506Z",
+  "response": " Focus",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:56.9615348Z",
+  "response": " on",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.0403557Z",
+  "response": " ad",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.1200118Z",
+  "response": "jectives",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.1995619Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.2770583Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.3587346Z",
+  "response": "Soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.4374786Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.5149208Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.5940751Z",
+  "response": "quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.6707905Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.7495825Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.8268813Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.9054912Z",
+  "response": "gent",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:57.9833515Z",
+  "response": "le",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.0629885Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.1411322Z",
+  "response": " seem",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.2196866Z",
+  "response": " to",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.2976412Z",
+  "response": " cover",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.3734768Z",
+  "response": " appearance",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.4518301Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.5305002Z",
+  "response": " movement",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.6099026Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.6903204Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.7732886Z",
+  "response": " temperament",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.8527107Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:58.9391353Z",
+  "response": " That",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.0229657Z",
+  "response": " should",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.1037212Z",
+  "response": " work",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.1802574Z",
+  "response": ".\n",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.2602439Z",
+  "response": "</think>",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.347711Z",
+  "response": "\n\n",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.4330948Z",
+  "response": "Soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.5123338Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.5921855Z",
+  "response": " quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.6705753Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.7486439Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.827893Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-07-26T11:04:59.9059005Z",
   "response": "",
   "done": true,
   "done_reason": "stop",
   "context": [
-    3,
-    29473,
-    28752,
-    1032,
-    17247,
-    3349,
-    1065,
-    29473,
-    29538,
-    3853,
-    4,
-    29473,
-    4554,
-    1314,
-    29493,
-    1740,
-    24660,
-    29493,
-    5422,
-    1255,
-    29491
+    151644,
+    872,
+    198,
+    74785,
+    264,
+    38724,
+    304,
+    220,
+    18,
+    4244,
+    151645,
+    198,
+    151644,
+    77091,
+    198,
+    151667,
+    198,
+    32313,
+    11,
+    279,
+    1196,
+    6801,
+    752,
+    311,
+    7512,
+    264,
+    38724,
+    304,
+    2326,
+    4244,
+    13,
+    6771,
+    752,
+    1744,
+    911,
+    279,
+    1376,
+    17452,
+    315,
+    264,
+    38724,
+    13,
+    2379,
+    2299,
+    3881,
+    369,
+    1660,
+    3974,
+    11,
+    773,
+    7196,
+    330,
+    27763,
+    1,
+    476,
+    330,
+    72698,
+    1189,
+    5005,
+    1052,
+    594,
+    862,
+    6961,
+    11094,
+    2293,
+    3510,
+    18241,
+    11,
+    7196,
+    330,
+    3510,
+    1,
+    476,
+    330,
+    1489,
+    29877,
+    1189,
+    7281,
+    11,
+    69144,
+    525,
+    3545,
+    5815,
+    448,
+    1660,
+    21700,
+    476,
+    98049,
+    11,
+    773,
+    4244,
+    1075,
+    330,
+    15772,
+    273,
+    1,
+    476,
+    330,
+    20091,
+    307,
+    1,
+    1410,
+    975,
+    13,
+    1988,
+    358,
+    1184,
+    311,
+    3735,
+    2326,
+    429,
+    1850,
+    12322,
+    279,
+    27491,
+    13,
+    6771,
+    752,
+    2908,
+    4185,
+    47517,
+    13,
+    330,
+    30531,
+    1335,
+    330,
+    27763,
+    1335,
+    323,
+    330,
+    15772,
+    273,
+    1,
+    2578,
+    387,
+    264,
+    1661,
+    10601,
+    13,
+    38478,
+    11,
+    330,
+    1489,
+    29877,
+    1335,
+    330,
+    56751,
+    891,
+    1335,
+    323,
+    330,
+    20091,
+    307,
+    1189,
+    13824,
+    11,
+    330,
+    56751,
+    891,
+    1,
+    374,
+    264,
+    1661,
+    73350,
+    369,
+    3974,
+    13,
+    2521,
+    7196,
+    330,
+    9588,
+    8463,
+    1,
+    4518,
+    315,
+    21700,
+    13,
+    6771,
+    752,
+    1779,
+    421,
+    1493,
+    4244,
+    525,
+    16626,
+    1483,
+    13,
+    13293,
+    9210,
+    25,
+    69144,
+    614,
+    1293,
+    24230,
+    11,
+    773,
+    7196,
+    330,
+    7444,
+    1,
+    714,
+    429,
+    594,
+    537,
+    264,
+    16414,
+    13,
+    25806,
+    389,
+    993,
+    86578,
+    13,
+    330,
+    30531,
+    1335,
+    330,
+    27763,
+    1335,
+    323,
+    330,
+    15772,
+    273,
+    1,
+    2803,
+    311,
+    3421,
+    11094,
+    11,
+    7203,
+    11,
+    323,
+    78864,
+    13,
+    2938,
+    1265,
+    975,
+    624,
+    151668,
+    271,
+    30531,
+    11,
+    3974,
+    11,
+    21700,
+    13
   ],
-  "total_duration": 1418632100,
-  "load_duration": 1112234500,
-  "prompt_eval_count": 12,
-  "prompt_eval_duration": 111571500,
-  "eval_count": 10,
-  "eval_duration": 194172400
+  "total_duration": 19590430000,
+  "load_duration": 1891670300,
+  "prompt_eval_count": 15,
+  "prompt_eval_duration": 239427500,
+  "eval_count": 231,
+  "eval_duration": 17458826400
 }

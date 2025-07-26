@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Ollama Bash Lib - Demo - Generate a completion - Streaming"
-spacer="--------------------------------------------------------------------"
-echo "$spacer"
+echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -19,13 +18,13 @@ if ! ollamaIsInstalled; then
 fi
 
 model="$(ollamaGetRandomModel)"
-echo "Model: $model"
+echo "model: $model"
 
 ollamaClearModel "$model"
 
 prompt="Describe a rabbit in 3 words"
-echo "Prompt: $prompt"
-
-echo "$spacer"
+echo "prompt: $prompt"
+echo
 echo "ollamaGenerateStreaming:"
+echo
 ollamaGenerateStreaming "$model" "$prompt" | jq "."

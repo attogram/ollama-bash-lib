@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Ollama Bash Lib - Demo - Version"
-spacer="--------------------------------------------------------------------"
-echo "$spacer"
+echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -22,14 +21,14 @@ echo "ollamaVersion:"
 echo
 ollamaVersion
 echo
-echo "$spacer"
+echo
+
 echo "ollamaVersionJson:"
 echo
 ollamaVersionJson | jq "."
 echo
-echo "$spacer"
+echo
+
 echo "ollamaVersionCli:"
 echo
 ollamaVersionCli
-echo
-echo "$spacer"

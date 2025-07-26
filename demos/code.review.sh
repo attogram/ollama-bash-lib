@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Ollama Bash Lib - Demo - Code Review - Non-streaming"
-spacer="--------------------------------------------------------------------"
-echo "$spacer"
+echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -36,8 +35,7 @@ ollama-bash-lib.sh:
 $(cat "$ollamaBashLib")
 "
 
-echo "$spacer"
-
 result="$(ollamaGenerate "$model" "$prompt")"
-response="$(echo "$result" | jq -r ".response")"
-echo "$response"
+
+echo
+echo "$result" | jq -r ".response"

@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Ollama Bash Lib - Demo - Generate a completion - Non-streaming"
-spacer="--------------------------------------------------------------------"
-echo "$spacer"
+echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -26,6 +25,12 @@ ollamaClearModel "$model"
 prompt="Describe a rabbit in 3 words"
 echo "prompt: $prompt"
 
+echo
+echo "ollamaGenerate:"
+result="$(ollamaGenerate "$model" "$prompt")"
+echo
+echo -e "$result" | jq -r ".response" # Get only the response
+
 stats() {
   local result="$1"
   total_duration="$(echo "$result" | jq -r ".total_duration")"
@@ -45,12 +50,4 @@ stats() {
 }
 
 echo
-echo "ollamaGenerate:"
-echo
-result="$(ollamaGenerate "$model" "$prompt")"
-response="$(echo "$result" | jq -r ".response")"
-echo
-echo -e "$response"
-echo
 stats "$result"
-

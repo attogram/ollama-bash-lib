@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Ollama Bash Lib - Demo - About"
-spacer="--------------------------------------------------------------------"
-echo "$spacer"
+echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -22,9 +21,7 @@ if ! ollamaIsInstalled; then
 fi
 echo "YES"
 
-echo "$spacer"
+echo
 echo "ollamaBashLibAbout:"
 echo
 ollamaBashLibAbout
-echo
-echo "$spacer"

@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Ollama Bash Lib - Demo - List"
-spacer="--------------------------------------------------------------------"
-echo "$spacer"
+echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -22,9 +21,7 @@ echo "ollamaList:"
 echo
 ollamaList
 
-echo "$spacer"
+echo
 echo "ollamaListJson:"
 echo
 ollamaListJson | jq "."
-
-echo "$spacer"

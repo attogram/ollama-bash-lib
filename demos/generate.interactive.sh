@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Ollama Bash Lib - Demo - Generate a completion - Interactive - Non-streaming"
-spacer="--------------------------------------------------------------------"
-echo "$spacer"
+echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -50,7 +49,8 @@ while true; do
   echo; echo -n "prompt: "
   read -r prompt # Read prompt from user input
   result="$(ollamaGenerate "$model" "$prompt")"
-  response="$(echo "$result" | jq -r ".response")"
-  echo; echo "$response"
-  echo; stats "$result"
+  echo
+  echo -e "$result" | jq -r ".response" # Get only the response
+  echo
+  stats "$result"
 done
