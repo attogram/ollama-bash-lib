@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Estimated Tokens"
+echo "Ollama Bash Lib - Demo - Token Estimate"
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
@@ -16,35 +16,35 @@ if ! ollamaIsInstalled; then
 fi
 
 echo
-echo "ollamaEstimatedTokens:"
+echo "tokenEstimate:"
 OLLAMA_BASH_LIB_DEBUG=0
 
 echo
 string="My hovercraft is full of eels"
 echo "$string"
 echo -n "tokens : "
-ollamaEstimatedTokens "$string"
+tokenEstimate "$string"
 echo -n "verbose: "
-ollamaEstimatedTokens "$string" 1
+tokenEstimate "$string" 1
 
 echo
 string="我的气垫船上满是鳗鱼" # Simplified Chinese "My hovercraft is full of eels"
 echo "$string"
 echo -n "tokens : "
-ollamaEstimatedTokens "$string"
+tokenEstimate "$string"
 echo -n "verbose: "
-ollamaEstimatedTokens "$string" 1
+tokenEstimate "$string" 1
 
 echo
 echo "(contents of ../README.md)"
 echo -n "tokens : "
-ollamaEstimatedTokens "../README.md"
+tokenEstimate ../README.md
 echo -n "verbose: "
-ollamaEstimatedTokens "../README.md" 1
+tokenEstimate ../README.md 1
 
 echo
 echo "(contents of ../ollama-bash-lib.sh)"
 echo -n "tokens : "
-ollamaEstimatedTokens < "../ollama-bash-lib.sh"
+tokenEstimate < ../ollama-bash-lib.sh
 echo -n "verbose: "
-ollamaEstimatedTokens < "../ollama-bash-lib.sh" 1
+tokenEstimate < ../ollama-bash-lib.sh 1

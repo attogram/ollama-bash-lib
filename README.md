@@ -34,7 +34,7 @@ See the **[demos](demos)** directory for demo scripts:
 * [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
 * [show.sh](demos/show.sh) - Ollama show info for a random model ([example](demos/show.txt))
 * [show.all.models.sh](demos/show.all.models.sh) - Show info for all models
-* [estimated.tokens.sh](demos/estimated.tokens.sh) - Estimated token count ([example](demos/estimated.tokens.txt))
+* [token.estimate.sh](demos/token.estimate.sh) - Estimated token count ([example](demos/token.estimate.txt))
 * [review.lib.sh](demos/review.lib.sh) - Prompt a random model to do a code review of Ollama Bash Lib ([example](demos/review.lib.txt))
 * [review.readme.sh](demos/review.readme.sh) - Prompt a random model to do a review of Ollama Bash README ([example](demos/review.readme.txt))
 
@@ -47,6 +47,12 @@ See the **[demos](demos)** directory for demo scripts:
 * ```ollamaApiPost```
   * POST request to the Ollama API
   * Usage: ```ollamaApiPost "/api/command" "{ json content }"```
+
+### Ollama Functions:
+* ```ollamaIsInstalled```
+  * Is Ollama installed on the local system?
+  * Usage: ```if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
+  * Returns: 0/1 (yes/no)
 
 ### Generate Functions:
 * ```ollamaGenerate```
@@ -97,17 +103,13 @@ See the **[demos](demos)** directory for demo scripts:
   * Ollama application version, CLI version
 
 ### Utility Functions:
-* ```ollamaIsInstalled```
-  * Is Ollama installed on the local system?
-  * Usage: ```if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
-  * Returns: 0/1 (yes/no)
-* ```ollamaEstimatedTokens```
-  * Estimated number of tokens in a string
-  * Usage: ```ollamaEstimatedTokens "string"```
-  * Usage: verbose: ```ollamaEstimatedTokens "string" 1```
-  * Output: token estimate
 * ```ollamaBashLibAbout```
-  * About Ollama Bash Lib
+  * About Ollama Bash Lib, lists vars and functions
+* ```tokenEstimate```
+  * Estimated number of tokens in a string
+  * Usage: ```tokenEstimate "string"```
+  * Usage: verbose: ```tokenEstimate "string" 1```
+  * Output: token estimate
 * ```safeJson```
   * Escape a string for use as a JSON value
   * Usage: ```safeJson "string"```

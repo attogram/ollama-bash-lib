@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.22"
+OLLAMA_BASH_LIB_VERSION="0.23"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -263,8 +263,8 @@ ollamaVersionCli() {
 # Output: token estimate
 # Output: verbose: # token estimate with error range
 # Returns: 0 on success, 1 on error
-ollamaEstimatedTokens() {
-  debug "ollamaEstimatedTokens" # $1"
+tokenEstimate() {
+  debug "tokenEstimate" # $1"
   local string verbose tokensWords words tokensChars chars tokensBytes bytes tokens
 
   if [ -t 0 ]; then # Not piped input
@@ -275,7 +275,7 @@ ollamaEstimatedTokens() {
       debug "Getting string from arg 1"
       string="$1"
     else
-      debug "Usage: ollamaEstimatedTokens <text|string|file> [verbose: 1])"
+      debug "Usage: tokenEstimate <text|string|file> [verbose: 1])"
       return $RETURN_ERROR
     fi
     verbose=${2:-0} # verbose is arg 2
