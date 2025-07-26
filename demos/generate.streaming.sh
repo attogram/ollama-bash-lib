@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Generate a completion - Streaming"
+echo "Ollama Bash Lib - Demo - Generate a completion, streaming, TEXT version"
 echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
@@ -19,12 +19,14 @@ fi
 
 model="$(ollamaGetRandomModel)"
 echo "model: $model"
+echo
 
-ollamaClearModel "$model"
-
-prompt="Describe a rabbit in 3 words"
+prompt="Describe a rabbit in 2 paragraphs"
 echo "prompt: $prompt"
 echo
+
 echo "ollamaGenerateStreaming:"
 echo
-ollamaGenerateStreaming "$model" "$prompt" | jq "."
+ollamaGenerateStreaming "$model" "$prompt"
+
+echo

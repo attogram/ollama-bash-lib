@@ -1,0 +1,56 @@
+Ollama Bash Lib - Demo - Generate a completion, non-streaming, JSON version
+
+model: qwen2.5vl:7b
+
+prompt: Describe a rabbit in 3 words
+
+ollamaGenerateJson:
+
+{
+  "model": "qwen2.5vl:7b",
+  "created_at": "2025-07-26T22:14:57.0884684Z",
+  "response": "Fluffy, cute, hopping.",
+  "done": true,
+  "done_reason": "stop",
+  "context": [
+    151644,
+    8948,
+    198,
+    2610,
+    525,
+    264,
+    10950,
+    17847,
+    13,
+    151645,
+    198,
+    151644,
+    872,
+    198,
+    74785,
+    264,
+    38724,
+    304,
+    220,
+    18,
+    4244,
+    151645,
+    198,
+    151644,
+    77091,
+    198,
+    3882,
+    29877,
+    11,
+    18838,
+    11,
+    92238,
+    13
+  ],
+  "total_duration": 3447560800,
+  "load_duration": 3059704600,
+  "prompt_eval_count": 27,
+  "prompt_eval_duration": 148077000,
+  "eval_count": 8,
+  "eval_duration": 239273300
+}

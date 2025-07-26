@@ -26,8 +26,10 @@ source "$ollamaBashLib"
 See the **[demos](demos)** directory for demo scripts:
 
 * [about.sh](demos/about.sh) - Ollama Bash Lib variables and functions ([example](demos/about.txt))
-* [generate.sh](demos/generate.sh) - Generate a completion from a random model, non-streaming ([example](demos/generate.txt))
-* [generate.streaming.sh](demos/generate.streaming.sh) - Generate a completion from a random model, streaming ([example](demos/generate.streaming.txt))
+* [generate.sh](demos/generate.sh) - Generate a completion from a random model, non-streaming, TEXT output ([example](demos/generate.txt))
+* [generate.json.sh](demos/generate.json.sh) - Generate a completion from a random model, non-streaming, JSON output ([example](demos/generate.json.txt))
+* [generate.streaming.sh](demos/generate.streaming.sh) - Generate a completion from a random model, streaming, TEXT output ([example](demos/generate.streaming.txt))
+* [generate.streaming.json.sh](demos/generate.streaming.json.sh) - Generate a completion from a random model, streaming, JSON output ([example](demos/generate.streaming.json.txt))
 * [generate.interactive.sh](demos/generate.interactive.sh) - Chat with a random model
 * [version.sh](demos/version.sh) - Ollama version ([example](demos/version.txt))
 * [list.sh](demos/list.sh) - Ollama model list ([example](demos/list.txt))
@@ -56,12 +58,18 @@ See the **[demos](demos)** directory for demo scripts:
 
 ### Generate Functions:
 * ```ollamaGenerate```
-  * Generate a completion, non-streaming
+  * Generate a completion, non-streaming, TEXT version
   * Usage: ```ollamaGenerate "modelName" "prompt"```
+* ```ollamaGenerateJson```
+  * Generate a completion, non-streaming, JSON version
+  * Usage: ```ollamaGenerateJson "modelName" "prompt"```
 * ```ollamaGenerateStreaming```
-  * Generate a completion, streaming
+  * Generate a completion, streaming, TEXT version
   * Usage: ```ollamaGenerateStreaming "modelName" "prompt"```
-
+* ```ollamaGenerateStreamingJson```
+  * Generate a completion, streaming, JSON version
+  * Usage: ```ollamaGenerateStreamingJson "modelName" "prompt"```
+  
 ### Model Functions:
 * ```ollamaGetRandomModel```
   * Get a random model

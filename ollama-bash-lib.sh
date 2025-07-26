@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.23"
+OLLAMA_BASH_LIB_VERSION="0.24"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -109,24 +109,53 @@ ollamaClearModel() {
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
-# Generate a completion, non-streaming
+# Generate a completion, non-streaming, TEXT version
 #
 # Usage: ollamaGenerate "modelName" "prompt"
-# Output: json
+# Output: text
 # Returns: 0 on success, 1 on error
 ollamaGenerate() {
   debug "ollamaGenerate: $1 $2"
+  result=$(ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2"), \"stream\": false}")
+  echo "$result" | jq -r ".response" # Get the raw response content
+  return $RETURN_SUCCESS # TODO - check response for error/success
+}
+
+# Generate a completion, non-streaming, JSON version
+#
+# Usage: ollamaGenerateJson "modelName" "prompt"
+# Output: json
+# Returns: 0 on success, 1 on error
+ollamaGenerateJson() {
+  debug "ollamaGenerateJson: $1 $2"
   ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2"), \"stream\": false}"
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
-# Generate a completion, streaming
+# Generate a completion, streaming, TEXT version
+#
+# Usage: ollamaGenerateStreaming "modelName" "prompt"
+# Output: text
+# Returns: 0 on success, 1 on error
+ollamaGenerateStreaming() {
+  debug "ollamaGenerateStreamingJson: $1 $2"
+  local output
+  while read -r line
+  do
+    output=$(printf "%s" "$line" | jq -r ".response")
+    # TODO - fix -n conflicting with real CRs, vs CR-at-end artifact of jq
+    echo -en "$output"
+  done < <(ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2")}")
+  return $RETURN_SUCCESS # TODO - check response for error/success
+}
+
+# Generate a completion, streaming, JSON version
 #
 # Usage: ollamaGenerateStreaming "modelName" "prompt"
 # Output: json
 # Returns: 0 on success, 1 on error
-ollamaGenerateStreaming() {
-  debug "ollamaGenerateStreaming: $1 $2"
+ollamaGenerateStreamingJson() {
+  debug "ollamaGenerateStreamingJson: $1 $2"
   ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2")}"
   return $RETURN_SUCCESS # TODO - check response for error/success
 }

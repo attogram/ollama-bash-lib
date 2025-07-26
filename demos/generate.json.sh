@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Generate a completion, non-streaming, TEXT version"
+echo "Ollama Bash Lib - Demo - Generate a completion, non-streaming, JSON version"
 echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
@@ -25,6 +25,6 @@ prompt="Describe a rabbit in 3 words"
 echo "prompt: $prompt"
 echo
 
-echo "ollamaGenerate:"
+echo "ollamaGenerateJson:"
 echo
-ollamaGenerate "$model" "$prompt"
+ollamaGenerateJson "$model" "$prompt" | jq "."

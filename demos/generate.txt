@@ -1,11 +1,16 @@
-Ollama Bash Lib - Demo - Generate a completion - Non-streaming
+Ollama Bash Lib - Demo - Generate a completion, non-streaming, TEXT version
 
-model: qwen2.5vl:7b
+model: deepseek-r1:8b
+
 prompt: Describe a rabbit in 3 words
 
 ollamaGenerate:
 
-Fluffy, cute, hopping.
+<think>
+Hmm, the user wants me to describe a rabbit in just three words. That's pretty straightforward but also kind of fun—like a little creative challenge. I need to think about what comes to mind when someone says "rabbit." 
 
-duration: 3.44 seconds (load: 3.05) (prompt eval: 0.15) (eval: 0.23)
-count   : 35 tokens (prompt eval: 27) (eval: 8)
+First, rabbits are known for being quick and alert, so speed or alertness could be part of the description. Second, they're often associated with soft fur because that's how many people interact with them, either as pets or in nature. Third, their behavior—like hopping—is unique and instantly recognizable.
+
+The user might just want a quick, catchy phrase to use somewhere creative, like for art or social media. Or maybe they're testing my ability to think concisely. I'll aim for accuracy while keeping it fun.
+</think>
+Quick, soft, hoppy
