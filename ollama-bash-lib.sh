@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.20"
+OLLAMA_BASH_LIB_VERSION="0.21"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -256,3 +256,85 @@ ollamaVersionCli() {
   return $RETURN_SUCCESS # TODO - check response for error/success
 }
 
+# Estimate number of tokens in a string
+#
+# Usage: ollamaEstimatedTokens "string"
+# Usage: verbose: ollamaEstimatedTokens "string" 1
+# Output: token estimate
+# Output: verbose: # token estimate with error range
+# Returns: 0 on success, 1 on error
+ollamaEstimatedTokens() {
+  debug "ollamaEstimatedTokens" # $1"
+  local string verbose tokensWords words tokensChars chars tokensBytes bytes tokens
+
+  if [ -t 0 ]; then # Not piped input
+    if [ -f "$1" ]; then
+      debug "Getting string from file (arg 1 is filename)"
+      string=$(<"$1")
+    elif [ -n "$1" ]; then
+      debug "Getting string from arg 1"
+      string="$1"
+    else
+      debug "Usage: ollamaEstimatedTokens <text|string|file> [verbose: 1])"
+      return $RETURN_ERROR
+    fi
+    verbose=${2:-0} # verbose is arg 2
+  else
+    debug "Getting string from piped input, multiline"
+    string=$(cat -)
+    verbose=${1:-0} # verbose is arg 1
+  fi
+  debug "verbose: $verbose"
+
+  words=$(echo "$string" | wc -w)
+  chars=$(printf "%s" "$string" | wc -m)
+  bytes=$(printf "%s" "$string" | wc -c)
+
+  tokensWords=$(( (words * 100) / 75 )) # 1 token = 0.75 words
+  debug "words      : $words"
+  debug "tokensWords: $tokensWords"
+
+  tokensChars=$(( (chars + 1) / 4 )) # 1 token = 4 characters
+  debug "chars      : $chars"
+  debug "tokensChars: $tokensChars"
+
+  tokensBytes=$(( (bytes + 1) / 4 )) # 1 token = 4 bytes
+  debug "bytes      : $bytes"
+  debug "tokensBytes: $tokensBytes"
+
+  # Get largest estimate
+  tokens=$tokensBytes
+  (( tokensChars > tokens )) && tokens=$tokensChars
+  (( tokensWords > tokens )) && tokens=$tokensWords
+  debug "tokens     : $tokens"
+
+  if [ "$verbose" -eq 0 ]; then
+   echo "$tokens"
+   return $RETURN_SUCCESS
+  fi
+
+  local min max offsetMin offsetMax error
+
+  min=$tokensWords
+  (( tokensChars < min )) && min=$tokensChars
+  (( tokensBytes < min )) && min=$tokensBytes
+  debug "min        : $min"
+
+  max=$tokensWords
+  (( tokensChars > max )) && max=$tokensChars
+  (( tokensBytes > max )) && max=$tokensBytes
+  debug "max        : $max"
+
+  offsetMin=$(( max - tokens ))
+  debug "offsetMin  : $offsetMin"
+
+  offsetMax=$(( tokens - min ))
+  debug "offsetMax  : $offsetMax"
+
+  error=$offsetMin
+  (( error < offsetMax )) && error=$offsetMax
+  debug "error      : $error"
+
+  echo "$tokens ± $error (range $min to $max)"
+  return $RETURN_SUCCESS
+}

@@ -99,6 +99,11 @@ See the **[demos](demos)** directory for demo scripts:
   * Is Ollama installed on the local system?
   * Usage: ```if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
   * Returns: 0/1 (yes/no)
+* ```ollamaEstimatedTokens```
+  * Estimate number of tokens in a string
+  * Usage: ```ollamaEstimatedTokens "string"```
+  * Usage: verbose: ```ollamaEstimatedTokens "string" 1```
+  * Output: token estimate
 * ```ollamaBashLibAbout```
   * About Ollama Bash Lib
 * ```safeJson```

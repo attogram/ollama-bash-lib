@@ -1,0 +1,93 @@
+Ollama Bash Lib - Demo - Estimated Tokens
+
+ollamaEstimatedTokens:
+
+My hovercraft is full of eels
+tokens : 8
+verbose: 8 ± 1 (range 7 to 8)
+
+我的气垫船上满是鳗鱼
+tokens : 7
+verbose: 7 ± 6 (range 1 to 7)
+
+(contents of ../README.md)
+tokens : 1670
+verbose: 1670 ± 777 (range 893 to 1670)
+
+(contents of ../ollama-bash-lib.sh)
+tokens : 2329
+verbose: 2329 ± 621 (range 1708 to 2329)
+
+ollamaEstimatedTokens: (OLLAMA_BASH_LIB_DEBUG=1)
+
+My hovercraft is full of eels
+[DEBUG] ollamaEstimatedTokens
+[DEBUG] Getting string from arg 1
+[DEBUG] verbose: 1
+[DEBUG] words      : 6
+[DEBUG] tokensWords: 8
+[DEBUG] chars      : 29
+[DEBUG] tokensChars: 7
+[DEBUG] bytes      : 29
+[DEBUG] tokensBytes: 7
+[DEBUG] tokens     : 8
+[DEBUG] min        : 7
+[DEBUG] max        : 8
+[DEBUG] offsetMin  : 0
+[DEBUG] offsetMax  : 1
+[DEBUG] error      : 1
+8 ± 1 (range 7 to 8)
+
+我的气垫船上满是鳗鱼
+[DEBUG] ollamaEstimatedTokens
+[DEBUG] Getting string from arg 1
+[DEBUG] verbose: 1
+[DEBUG] words      : 1
+[DEBUG] tokensWords: 1
+[DEBUG] chars      : 10
+[DEBUG] tokensChars: 2
+[DEBUG] bytes      : 30
+[DEBUG] tokensBytes: 7
+[DEBUG] tokens     : 7
+[DEBUG] min        : 1
+[DEBUG] max        : 7
+[DEBUG] offsetMin  : 0
+[DEBUG] offsetMax  : 6
+[DEBUG] error      : 6
+7 ± 6 (range 1 to 7)
+
+(contents of ../README.md)
+[DEBUG] ollamaEstimatedTokens
+[DEBUG] Getting string from file (arg 1 is filename)
+[DEBUG] verbose: 1
+[DEBUG] words      : 670
+[DEBUG] tokensWords: 893
+[DEBUG] chars      : 6682
+[DEBUG] tokensChars: 1670
+[DEBUG] bytes      : 6682
+[DEBUG] tokensBytes: 1670
+[DEBUG] tokens     : 1670
+[DEBUG] min        : 893
+[DEBUG] max        : 1670
+[DEBUG] offsetMin  : 0
+[DEBUG] offsetMax  : 777
+[DEBUG] error      : 777
+1670 ± 777 (range 893 to 1670)
+
+(contents of ../ollama-bash-lib.sh)
+[DEBUG] ollamaEstimatedTokens
+[DEBUG] Getting string from file (arg 1 is filename)
+[DEBUG] verbose: 1
+[DEBUG] words      : 1281
+[DEBUG] tokensWords: 1708
+[DEBUG] chars      : 9316
+[DEBUG] tokensChars: 2329
+[DEBUG] bytes      : 9317
+[DEBUG] tokensBytes: 2329
+[DEBUG] tokens     : 2329
+[DEBUG] min        : 1708
+[DEBUG] max        : 2329
+[DEBUG] offsetMin  : 0
+[DEBUG] offsetMax  : 621
+[DEBUG] error      : 621
+2329 ± 621 (range 1708 to 2329)
