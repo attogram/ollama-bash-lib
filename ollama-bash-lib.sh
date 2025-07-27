@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.24"
+OLLAMA_BASH_LIB_VERSION="0.25"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -68,7 +68,7 @@ ollamaIsInstalled() {
 safeJson() {
   debug "safeJson: $1"
   jq -Rn --arg str "$1" '$str'
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $? # TODO - if jq error, get error info
 }
 
 # GET request to the Ollama API
@@ -79,7 +79,7 @@ safeJson() {
 ollamaApiGet() {
   debug "ollamaApiGet: $1"
   curl -s -X GET "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json' -d ''
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $? # TODO - if curl error, get error info
 }
 
 # POST request to the Ollama API
@@ -90,7 +90,7 @@ ollamaApiGet() {
 ollamaApiPost() {
   debug "ollamaApiPost: $1 $2"
   curl -s -X POST "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $? # TODO - if curl error, get error info
 }
 
 # Unload a model from memory (Clear context for a model)
@@ -103,10 +103,11 @@ ollamaClearModel() {
     debug "Error: ollamaClearModel: no model"
     return $RETURN_ERROR
   fi
-  local response
+  local response return
   response=$(ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"keep_alive\": 0}")
+  return=$?
   debug "$response"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $return # TODO - if Post error, get error info
 }
 
 # Generate a completion, non-streaming, TEXT version
@@ -116,9 +117,11 @@ ollamaClearModel() {
 # Returns: 0 on success, 1 on error
 ollamaGenerate() {
   debug "ollamaGenerate: $1 $2"
+  local result return
   result=$(ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2"), \"stream\": false}")
+  return=$?
   echo "$result" | jq -r ".response" # Get the raw response content
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $return # TODO - if Post error OR jq error, get error info
 }
 
 # Generate a completion, non-streaming, JSON version
@@ -129,7 +132,7 @@ ollamaGenerate() {
 ollamaGenerateJson() {
   debug "ollamaGenerateJson: $1 $2"
   ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2"), \"stream\": false}"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $? # TODO - if Post error, get error info
 }
 
 # Generate a completion, streaming, TEXT version
@@ -139,14 +142,17 @@ ollamaGenerateJson() {
 # Returns: 0 on success, 1 on error
 ollamaGenerateStreaming() {
   debug "ollamaGenerateStreamingJson: $1 $2"
-  local output
+  local response return
   while read -r line
   do
-    output=$(printf "%s" "$line" | jq -r ".response")
-    # TODO - fix -n conflicting with real CRs, vs CR-at-end artifact of jq
-    echo -en "$output"
+    response=$(printf "%s" "$line" | jq ".response")
+    response="${response#\"}" # remove pre quote
+    response="${response%\"}" # remove post quote
+    echo -ne "$response"
   done < <(ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2")}")
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return=$?
+  echo
+  return $return # TODO - If Post error, get error info
 }
 
 # Generate a completion, streaming, JSON version
@@ -157,7 +163,7 @@ ollamaGenerateStreaming() {
 ollamaGenerateStreamingJson() {
   debug "ollamaGenerateStreamingJson: $1 $2"
   ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2")}"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $? # TODO - if error, get error info
 }
 
 # All available models, CLI version
@@ -168,7 +174,7 @@ ollamaGenerateStreamingJson() {
 ollamaList() {
   debug "ollamaList"
   ollama list
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # All available models, JSON version
@@ -179,7 +185,7 @@ ollamaList() {
 ollamaListJson() {
   debug "ollamaListJson"
   ollamaApiGet "/api/tags"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # All available models, Bash array version
@@ -189,10 +195,11 @@ ollamaListJson() {
 # Returns: 0 on success, 1 on error
 ollamaListArray() {
   debug "ollamaListArray"
-  local models
+  local models return
   models=($(ollama list | awk '{if (NR > 1) print $1}' | sort)) # Get list of models, sorted alphabetically
+  return=$?
   echo "${models[@]}"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $return
 }
 
 # Get a random model
@@ -202,9 +209,11 @@ ollamaListArray() {
 # Returns: 0 on success, 1 on error
 ollamaGetRandomModel() {
   debug "ollamaGetRandomModel"
-  local models=($(ollamaListArray))
+  local models return
+  models=($(ollamaListArray))
+  return=$?
   echo "${models[RANDOM%${#models[@]}]}"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $return # TODO - also check echo return?
 }
 
 # Running model processes, CLI version
@@ -215,7 +224,7 @@ ollamaGetRandomModel() {
 ollamaPs() {
   debug "ollamaPs"
   ollama ps
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # Running model processes, JSON version
@@ -226,7 +235,7 @@ ollamaPs() {
 ollamaPsJson() {
   debug "ollamaPsJson"
   ollamaApiGet "/api/ps"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # Show model information, TEXT version
@@ -237,7 +246,7 @@ ollamaPsJson() {
 ollamaShow() {
   debug "ollamaShow"
   ollama show "$1"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # Show model information, JSON version
@@ -248,7 +257,7 @@ ollamaShow() {
 ollamaShowJson() {
   debug "ollamaShowJson"
   ollamaApiPost "/api/show" "{\"model\": \"$1\"}"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # Ollama application version, TEXT version
@@ -260,7 +269,7 @@ ollamaVersion() {
   debug "ollamaVersion"
   local versionJson
   ollamaApiGet "/api/version" | jq -r ".version"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # Ollama application version, JSON version
@@ -271,7 +280,7 @@ ollamaVersion() {
 ollamaVersionJson() {
   debug "ollamaVersionJson"
   ollamaApiGet "/api/version"
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # Ollama application version, CLI version
@@ -282,7 +291,7 @@ ollamaVersionJson() {
 ollamaVersionCli() {
   debug "ollamaVersionCli"
   ollama --version
-  return $RETURN_SUCCESS # TODO - check response for error/success
+  return $?
 }
 
 # Estimated number of tokens in a string
