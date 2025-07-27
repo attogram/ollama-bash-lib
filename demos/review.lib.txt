@@ -1,176 +1,259 @@
 Ollama Bash Lib - Demo - Review ollama-bash-lib.sh - Non-streaming
 
 model: qwen3:8b
+
 prompt: Act as an expert Software Engineer.
 Do a full code review of this script:
 file: /ollama-bash-lib/ollama-bash-lib.sh
 
 <think>
-Okay, let me take a look at this Bash script. The user wants a full code review. Alright, first, I'll go through each function and check for potential issues.
+Okay, I'm going to do a full code review of this Bash script called ollama-bash-lib.sh. Let me start by reading through the code carefully and looking for potential issues, improvements, and best practices.
 
-Starting with the header. The script sets some variables like OLLAMA_BASH_LIB_NAME and others. The version is 0.25, which is a bit odd since it's not a standard versioning format. Maybe it should be 0.2.5 or 0.25.0? Not sure if that's a problem, but it's worth noting.
+First, I'll check the shebang line. It's #!/usr/bin/env bash, which is correct for Bash scripts. The script seems to be a library for interacting with Ollama, so it's probably meant to be sourced or used as a function.
 
-Next, the functions. The ollamaBashLibAbout function uses compgen -A function to list all functions. That's good, but maybe it's better to handle errors if there are no functions. But the script doesn't do that, so maybe it's okay.
+Looking at the variables at the top, OLLAMA_BASH_LIB_VERSION is set to 0.27.0, but the copyright year is 2025. That might be a typo or a mistake. The version should probably match the current year if it's a recent release. Also, the URL is set to the GitHub repo, which is good.
 
-The debug function checks if OLLAMA_BASH_LIB_DEBUG is 1. That's correct. It uses >&2 for stderr, which is right.
+Next, the functions. The ollama_about_lib function outputs a bunch of info. It uses compgen -A function to list all functions, which is okay, but maybe it's better to have a more controlled list. Also, the function returns $? which is the exit code of compgen, but the function is supposed to return 0 on success. Wait, the function is supposed to return 0 on success, but compgen might return 0 even if there are no functions. Hmm, maybe that's okay, but the doc says it returns 0 on success, 1 on error. But compgen is used here, which might not be the best approach. Maybe the function should check if any functions exist, but that's probably okay for now.
 
-ollamaIsInstalled checks if 'ollama' is in the PATH. It uses command -v with 2> /dev/null to suppress errors. That's good. But maybe it should check the exit code properly. Wait, the function returns 0 or 1 based on the command -v result. That's correct.
+The debug function checks if OLLAMA_BASH_LIB_DEBUG is 1 and then echoes to stderr. That's standard. The ollama_installed function uses command -v to check if ollama is installed. That's correct, but maybe it's better to handle the case where command -v returns an error, but the script seems to handle that with 2> /dev/null.
 
-safeJson uses jq to escape a string. The function is supposed to take a string and output a JSON-safe version. But the way it's used in ollamaGenerate might have issues. For example, if the input has quotes, the jq command might not handle them correctly. Also, the function returns $? but doesn't capture the error. The TODO says to get error info if jq fails. Maybe that's a problem. The function should probably check if jq exits with an error and handle it.
+The json_safe function uses jq to escape a string. The usage is to pass a string, and then use jq -Rn to read it as a raw string. That should work. But the function returns $? which is the exit code of jq. However, the comment says TODO - if jq error, get error info. So maybe the function should handle errors more gracefully, but the current code is okay for now.
 
-Looking at ollamaApiGet and ollamaApiPost. They use curl with -s for silent output. But the return is $? which is the exit code of curl. However, if curl fails, the function should probably handle the error, like checking the HTTP status code. For example, if the API returns a 404, the script might not know. So the functions might need to check the HTTP response code. The current code doesn't do that, which could lead to errors being ignored.
+The ollama_get and ollama_post functions use curl. They have the same structure. The ollama_get uses -X GET and the ollama_post uses -X POST. The curl commands include the Content-Type header. That's good. However, the functions return $? which is the exit code of curl. The comment says TODO - if curl error, get error info. So maybe the functions should check for errors and handle them, but again, the current code is acceptable.
 
-ollamaClearModel sends a POST to /api/generate with a JSON payload. The function uses the response from that call. But the response might not be parsed correctly. Also, the function returns the return code of the curl command, which might not be sufficient. For example, if the API returns a 400, the script doesn't know. So again, checking the HTTP status code would be better.
+Looking at ollama_unload_model, it sends a POST to /api/generate with a JSON payload. The function uses the response and returns the return code. However, the response is not checked for success. For example, if the API returns an error, the function might not handle it. Also, the debug output is just the response, which might not be very helpful. Maybe the function should parse the response to check if the model was unloaded successfully.
 
-ollamaGenerate uses ollamaApiPost and then parses the JSON with jq. The function echoes the .response field. But if the API returns an error, the script might not handle it. Also, the function uses the return code of the curl command, which may not be enough. The TODO mentions handling errors, but that's not implemented.
+The ollama_generate function sends a POST to /api/generate with the model and prompt. It then uses jq to extract the .response field. The function returns the return code of the curl command. However, if the API response has an error, the function might not catch it. Also, the echo command could fail if the result is not valid JSON. The comment says TODO - if Post error, show error and return 1. So maybe the function should handle that.
 
-ollamaGenerateJson is similar but doesn't echo the result. It just returns the exit code. Again, no error handling for the HTTP response.
+The ollama_generate_json function is similar but returns the entire JSON response. That's okay.
 
-ollamaGenerateStreaming and ollamaGenerateStreamingJson have similar issues. The streaming functions might not handle errors properly. Also, the first function uses a while loop to process each line, but the way the response is parsed with jq might not capture all cases. Also, the echo -ne "$response" could have issues with special characters.
+The ollama_generate_stream function is for streaming. It uses a while loop to read lines from the curl output and processes each line with jq to extract the response. However, the code uses a subshell with <(ollama_post ...), which might not be the best approach. Also, the echo -ne \"$response\" might not handle all cases. The return code is set, but the function might not handle errors from the curl or the processing.
 
-ollamaList uses the 'ollama list' command directly. That's okay, but it's not using the API. The function returns the exit code of the 'ollama' command. That's fine, but if the user is not in the right environment, it might fail. However, the script is supposed to be a library, so it's relying on the system's ollama command.
+The ollama_list and ollama_list_json functions call the ollama command directly. The ollama_list_json function uses ollama_get to /api/tags, which is correct. However, the ollama_list function might not be compatible with all versions of ollama. For example, if the ollama CLI is not available, the function might fail. The ollama_list_array function uses ollama list and then processes the output. The sorting is done with sort, which is okay. But the function might fail if the ollama list command is not available.
 
-ollamaListJson uses ollamaApiGet to /api/tags. That's correct. But again, no checking of the HTTP status code.
+The ollama_random_model function uses the array of models and picks a random one. However, if the array is empty, it might return an error. Also, the use of RANDOM%${#models[@]} could be problematic if the array is empty, but the function has a check for that. Wait, no: models=($(ollama_list_array)) would return an error if ollama_list_array fails, but the function is supposed to return 1 on error. However, the function doesn't check if models is empty. For example, if there are no models, models would be an empty array, and trying to access models[RANDOM%0] would be invalid. So this could be a bug. The function should check if the array is empty and return an error.
 
-ollamaListArray uses 'ollama list' and processes the output. The function sorts the models. But if the 'ollama list' command fails, the script might not handle it. Also, the function returns the exit code of 'ollama list', which is correct.
+The ollama_ps function calls ollama ps, which is okay. The ollama_ps_json function uses ollama_get to /api/ps, which is correct.
 
-ollamaGetRandomModel uses the array from ollamaListArray and picks a random one. But if the array is empty, it might fail. Also, the function returns the exit code of ollamaListArray, which is correct.
+The ollama_show function calls ollama show, which is okay. The ollama_show_json function sends a POST to /api/show with the model name. That's correct.
 
-ollamaPs uses the 'ollama ps' command directly. Similar to ollamaList, it's relying on the system command.
+The ollama_version functions use ollama_get to /api/version and then parse the JSON. The ollama_version_cli calls ollama --version, which is correct.
 
-ollamaPsJson uses ollamaApiGet to /api/ps. Correct.
+The estimate_tokens function seems to be a bit complex. It handles input from a file, stdin, or a string. The function calculates tokens based on words, characters, and bytes. However, the calculation might not be accurate. For example, the formula for tokensWords is (words * 100) / 75, which assumes 0.75 words per token. Similarly for characters and bytes. But the actual tokenization depends on the model. Also, the verbose output includes a range, but the calculation for min and max might not be correct. The function might need to handle cases where the input is empty or invalid. Also, the use of -t 0 to check if input is from a terminal is not reliable. The function might not handle piped input correctly if the input is not from a terminal. The function also uses printf \"%s\" \"$string\" | wc -m for characters, which might not count bytes correctly. The wc -m counts characters, but in some cases, it might not be accurate. Also, the function might not handle multi-byte characters correctly.
 
-ollamaShow uses the 'ollama show' command. Again, relying on the system command.
+Now, looking for code structure and style. The script uses a lot of comments, which is good. However, some comments are just TODOs, which should be addressed. The variables are declared at the top, which is good. The functions have docstrings explaining their usage, which is helpful.
 
-ollamaShowJson uses ollamaApiPost to /api/show. Correct.
+Potential issues:
 
-ollamaVersion uses ollamaApiGet to /api/version and then parses the version with jq. That's good. But again, no error checking on the HTTP response.
+1. The OLLAMA_BASH_LIB_VERSION is 0.27.0 but the copyright is 2025. That's a discrepancy. The version should probably match the release date or the current year if it's a recent version. Maybe the version is 0.27.0 and the copyright is 2025, but that's a bit odd. It's possible that the version was updated recently, but the copyright year is 2025. That might be a mistake.
 
-ollamaVersionJson and ollamaVersionCli are similar, using the system command or API.
+2. The ollama_unload_model function uses the response from the POST to /api/generate, but the actual API might not return a success status. The function should check the response for success. For example, the API might return a status code indicating success or failure. The function should parse the JSON response to check if the model was unloaded.
 
-tokenEstimate function is a bit complex. It handles input from file or stdin. The calculation for tokens is based on words, characters, and bytes. However, the formula might not be accurate. For example, the assumption that 1 token equals 0.75 words is an approximation. The script could use a more accurate method, but that's more of a functional issue. Also, the function handles verbose mode, which outputs the range. The calculation for min and max seems a bit off. For example, min is the smallest of the three estimates, and max is the largest. Then the error is calculated as the offset from the main estimate. That might not be the best way to represent the error range. Also, the function uses $RANDOM for random selection, which could have issues with the seed. But in a script, it's acceptable for basic use.
+3. The ollama_generate function uses the response from the POST and then pipes it to jq to extract .response. However, if the API returns an error, the function might not handle it. The function should check for errors in the response.
 
-Now, looking at the overall structure. The script has a lot of functions that either use the system 'ollama' command or the API. There's a mix of using the CLI and the API. Some functions use the API, others use the CLI. That might not be consistent. For example, ollamaList uses the CLI, while ollamaListJson uses the API. That's okay, but it's better to have a consistent approach.
+4. The ollama_generate_stream function uses a while loop to read lines from the curl output. However, the way it's structured might not handle all cases, especially if the response is not line-based. Also, the echo -ne \"$response\" might not handle all cases correctly.
 
-Another thing is that some functions like ollamaGenerate and ollamaGenerateJson use different methods. The first one uses the API and parses the response, while the second one just returns the result. Also, the use of echo and return codes might not be consistent. For example, ollamaGenerate echoes the result, while others just return the exit code.
+5. The ollama_list_array function uses ollama list and then processes the output. However, if the ollama list command is not available or fails, the function might not handle the error properly. The function should check for errors and return 1 if needed.
 
-Error handling is minimal. The functions return exit codes, but there's no centralized error handling. For example, if a function fails, the caller might not know why. Also, the debug function is used for logging, but in production, that might not be sufficient.
+6. The ollama_random_model function could have an error if the models array is empty. The function should check if the array is empty and return an error.
 
-Another point is the use of eval or command substitution. For example, in ollamaGenerate, the prompt is passed as a JSON string using $(safeJson "$2"), which is then interpolated into the JSON payload. However, if the prompt contains quotes or special characters, this could lead to incorrect JSON formatting. The safeJson function is supposed to escape the string, but the way it's used might not be safe. For example, if the prompt is "hello"world", the safeJson function should escape the quotes, but the way it's used in the JSON payload might not handle that correctly. The function uses jq -Rn --arg str "$1" '$str', which should correctly escape the string. But when the result is used in the JSON payload, it might need to be properly quoted. Wait, in the ollamaGenerate function, the prompt is inserted into the JSON as "prompt": $(safeJson "$2"), which could lead to issues if the output of safeJson is not properly quoted. For example, if safeJson returns "hello", the JSON becomes "prompt": "hello", which is correct. But if the prompt has quotes, the safeJson function should handle that. However, the way the JSON is constructed might have issues. For example, if the prompt is "hello", the JSON would be "prompt": "hello", which is correct. But if the prompt is "hello"world", the safeJson function should escape the quotes, making it "hello\"world", which is correct. So that's okay. But the way the JSON is constructed in the function might not be safe. For example, if the prompt is empty, or if there are other edge cases.
+7. The estimate_tokens function has a complex calculation. The formulas for tokensWords, tokensChars, and tokensBytes might not be accurate. The function also has a section where it calculates min and max, but the logic could be improved. Also, the handling of input (file, stdin, or string) might not be robust.
 
-Another issue is that some functions like ollamaGenerateStreamingJson use the API but don't handle the response. The function just returns the exit code, which might not be sufficient.
+Other considerations:
 
-The script also has some functions that are duplicated, like ollamaGenerate and ollamaGenerateJson. The first one echoes the result, the second one doesn't. That's a bit inconsistent.
+- The script uses functions that call external commands like ollama, curl, jq, etc. These dependencies should be checked, but the script assumes they are available.
 
-Also, the use of $RANDOM in ollamaGetRandomModel could have issues. The $RANDOM variable is a pseudo-random number, but it's not cryptographically secure. However, for a script, it's acceptable.
+- The script uses a lot of global variables, which is acceptable in Bash, but could be encapsulated better if needed.
 
-In terms of code style, the script uses functions with a mix of uppercase and lowercase letters. The functions are named with a mix of camelCase and snake_case. For example, ollamaGenerateStreamingJson is camelCase. It's inconsistent. It might be better to follow a consistent naming convention.
+- The script uses eval or similar constructs? Not that I can see, but the json_safe function uses jq, which is safe.
 
-Another thing is that some functions return the exit code, but the script doesn't check for it. For example, in ollamaListArray, the function returns the exit code of 'ollama list', which is correct, but if that command fails, the caller might not know. So the functions should probably handle errors more gracefully.
+- The script uses echo to output results, which is okay, but for JSON outputs, it's better to ensure that the output is properly formatted.
 
-Also, the use of variables like OLLAMA_BASH_LIB_API is set to a default, but the user can override it. That's good. However, some functions might not use this variable correctly. For example, ollamaList uses the system 'ollama list' command, which is not using the API. So the functions that use the API should be consistent with the OLLAMA_BASH_LIB_API variable.
+- The script uses return $? in many functions, which is correct for returning the exit code of the last command.
 
-In summary, the script has a good structure but lacks error handling, consistent API usage, and proper JSON escaping. Some functions use the CLI and others the API, which could be confusing. Also, the error messages and handling are minimal. The script could benefit from better error handling, more consistent API usage, and improved JSON formatting.
+- The script uses redirections like 2> /dev/null to suppress errors, which is okay, but could be handled more gracefully.
+
+- The script uses variables like OLLAMA_BASH_LIB_API which is set to the default, but the user can override it. That's good.
+
+- The script's functions are named consistently, but some functions have similar names (like ollama_generate and ollama_generate_json), which is okay.
+
+- The script's functions are well-documented with usage and return codes, which is good for maintainability.
+
+Potential improvements:
+
+1. Fix the version and copyright year discrepancy if it's a mistake.
+
+2. Add error handling for API responses in functions like ollama_unload_model and ollama_generate to check for success.
+
+3. Improve the estimate_tokens function's token calculation to be more accurate, perhaps by using a more reliable method or referencing the model's tokenizer.
+
+4. Handle cases where the models array is empty in ollama_random_model.
+
+5. Ensure that all functions handle errors properly, especially when calling external commands.
+
+6. Add more robust error handling for the estimate_tokens function, especially when reading input from files or stdin.
+
+7. Consider using a more reliable way to determine if input is from a terminal or piped, as -t 0 might not be reliable.
+
+8. Improve the ollama_list_array function to handle errors from ollama list.
+
+9. Ensure that all functions that return JSON or other structured data handle parsing and errors appropriately.
+
+10. Add more comments or documentation for less obvious parts of the code, such as the token estimation logic.
+
+Overall, the script is well-structured and provides useful functions for interacting with Ollama. However, there are areas where error handling could be improved, and some functions could be made more robust.
 </think>
 
-# Code Review of ollama-bash-lib.sh
+# Code Review of `ollama-bash-lib.sh`
 
-## Summary
-The script provides a Bash library for interacting with Ollama, but has several issues that could affect reliability, maintainability, and security. Key areas for improvement include error handling, API consistency, JSON handling, and code structure.
+---
 
-## Critical Issues
+## ✅ **Overview**
 
-### 1. Inconsistent API Usage
-- **Problem**: Some functions use the system CLI (`ollama`) while others use the Ollama API. This creates a fragmented interface.
-- **Impact**: Confusion for users, potential failures when Ollama is not available locally.
-- **Fix**: Consolidate all API interactions via the Ollama API (e.g., `OLLAMA_BASH_LIB_API`). Use CLI only for fallback or direct commands.
+This script is a Bash library for interacting with the **Ollama** API and CLI. It provides a set of functions to manage models, generate text, and query Ollama's status. The code is well-structured, with clear documentation and consistent naming. However, there are areas for improvement in terms of **error handling**, **robustness**, and **code quality**.
 
-### 2. Missing HTTP Response Code Checks
-- **Problem**: Functions like `ollamaApiGet`/`ollamaApiPost` return only the exit code of `curl`, not the HTTP status code.
-- **Impact**: Cannot distinguish between network errors and invalid API endpoints (e.g., 404).
-- **Fix**: Check the HTTP status code using `curl -w` or `--write-out` to capture and report errors.
+---
 
-### 3. Inadequate JSON Escaping
-- **Problem**: `safeJson` uses `jq` to escape strings but does not properly quote the result for JSON payloads.
-- **Impact**: Potential syntax errors in JSON when prompts contain special characters.
-- **Fix**: Ensure the output from `safeJson` is properly quoted in the JSON payload (e.g., using `printf` or `jq`'s `@text` formatter).
+## 🛠 **Code Quality & Style**
 
-### 4. Poor Error Handling
-- **Problem**: Many functions return exit codes but do not provide meaningful error messages.
-- **Impact**: Debugging failures is difficult without context.
-- **Fix**: Add descriptive error messages to all functions, especially when API calls fail.
+### ✅ **Good Practices**
+- **Clear documentation**: Each function has a docstring explaining usage, output, and return codes.
+- **Consistent naming**: Functions follow a consistent naming pattern (e.g., `ollama_generate`, `ollama_list_json`).
+- **Global variables**: Useful for configuration (`OLLAMA_BASH_LIB_API`, etc.), though could be encapsulated further.
+- **Debugging**: The `debug` function provides useful feedback during development.
 
-### 5. Inconsistent Function Behavior
-- **Problem**: Functions like `ollamaGenerate` and `ollamaGenerateJson` have different return behaviors (one echoes output, the other does not).
-- **Impact**: Confusion for users and potential misuse.
-- **Fix**: Standardize return behavior (e.g., always return output via stdout, or use a consistent error code pattern).
+### ⚠️ **Improvements Needed**
+- **Error handling**: Many functions assume external commands (e.g., `ollama`, `jq`, `curl`) succeed, but lack robust error checking.
+- **Input validation**: Functions like `estimate_tokens` and `ollama_random_model` could fail silently in edge cases.
+- **Redundant logic**: Some functions (e.g., `ollama_list`, `ollama_ps`) call external CLI tools directly instead of using the API.
+- **Token estimation**: The `estimate_tokens` function uses simplistic heuristics that may not reflect actual model behavior.
+- **Code duplication**: Similar logic exists in multiple functions (e.g., `ollama_generate`, `ollama_generate_stream`, `ollama_generate_json`).
 
-### 6. Unreliable Random Model Selection
-- **Problem**: `ollamaGetRandomModel` uses `$RANDOM` without seeding, which could lead to predictable results.
-- **Impact**: Reduced randomness in model selection.
-- **Fix**: Use a more robust randomization method (e.g., `shuf` or `/dev/urandom`).
+---
 
-## Minor Issues
+## 🧠 **Critical Issues & Recommendations**
 
-### 1. Versioning Format
-- **Problem**: Version `0.25` is not standard (should be `0.2.5` or `0.25.0`).
-- **Impact**: Potential confusion for users.
-- **Fix**: Update versioning to a standard format.
-
-### 2. Code Style Inconsistency
-- **Problem**: Mixed naming conventions (e.g., `ollamaGenerateStreaming` vs. `ollamaGenerateStreamingJson`).
-- **Impact**: Reduced readability.
-- **Fix**: Adopt a consistent naming convention (e.g., all functions use snake_case).
-
-### 3. Missing Documentation
-- **Problem**: Some functions lack detailed usage examples and parameter descriptions.
-- **Impact**: Difficulty for new users to understand usage.
-- **Fix**: Add inline comments or a README.md with usage examples.
-
-## Code Improvements
-
-### 1. Centralized Error Handling
+### 1. **Version/Copyright Mismatch**
 ```bash
-# Example: Add error handling to a function
-ollamaApiGet() {
-  local url="${OLLAMA_BASH_LIB_API}$1"
-  local response
-  response=$(curl -s -X GET "$url" -H 'Content-Type: application/json')
-  local status_code=$(curl -s -o /dev/null -w "%{http_code}" "$url")
-  
-  if [ "$status_code" -ne 200 ]; then
-    echo "API Error: HTTP $status_code" >&2
-    return $RETURN_ERROR
-  fi
-  
-  echo "$response"
-  return $RETURN_SUCCESS
+OLLAMA_BASH_LIB_VERSION=\"0.27.0\"
+OLLAMA_BASH_LIB_COPYRIGHT=\"Copyright (c) 2025 Attogram Project\"
+```
+- **Issue**: The version `0.27.0` likely predates 2025. This is a **typo** or **inconsistency**.
+- **Fix**: Update the copyright year to match the current year if the version is recent.
+
+---
+
+### 2. **Missing API Error Handling**
+#### Example: `ollama_unload_model`
+```bash
+response=$(ollama_post \"/api/generate\" \"{\\"model\\": \\"$1\\", \\"keep_alive\\": 0}\")
+return=$?
+```
+- **Issue**: The script assumes the API call succeeds. It does **not** validate the response.
+- **Fix**: Parse the response to check for success (e.g., `jq .error` or `jq .status`).
+
+#### Example: `ollama_generate`
+```bash
+echo \"$result\" | jq -r \".response\"
+```
+- **Issue**: If the API returns an error (e.g., invalid model), this will fail silently.
+- **Fix**: Check for errors in the response and handle them explicitly.
+
+---
+
+### 3. **Redundant CLI Calls**
+#### Example: `ollama_list` and `ollama_list_json`
+```bash
+ollama list
+ollama_get \"/api/tags\"
+```
+- **Issue**: These functions call both the CLI and the API, leading to **redundancy** and potential **inconsistencies**.
+- **Fix**: Use the API consistently (e.g., `ollama_list_json` should use `/api/tags` instead of `ollama list`).
+
+---
+
+### 4. **Token Estimation Logic**
+#### Example: `estimate_tokens`
+```bash
+tokensWords=$(( (words * 100) / 75 )) # 1 token = 0.75 words
+```
+- **Issue**: This assumes a fixed tokenization rate, which may not match the model's actual tokenizer.
+- **Fix**: Use a more accurate method (e.g., query the model's tokenizer API or use a dedicated tokenizer tool).
+
+---
+
+### 5. **`ollama_random_model` Edge Case**
+```bash
+echo \"${models[RANDOM%${#models[@]}]}\"
+```
+- **Issue**: If `models` is empty, this will fail with an index out-of-range error.
+- **Fix**: Check if the array is empty and return an error.
+
+---
+
+### 6. **Input Handling in `estimate_tokens`**
+```bash
+if [ -t 0 ]; then # Not piped input
+```
+- **Issue**: `-t 0` checks if stdin is a terminal, which is **not reliable** for detecting piped input.
+- **Fix**: Use `PIPESTATUS` or a more robust method to detect input source.
+
+---
+
+## 🛠 **Suggested Enhancements**
+
+### 1. **Error Handling for API Responses**
+Add checks for API errors:
+```bash
+response=$(ollama_post \"/api/generate\" \"$payload\")
+if [[ $? -ne 0 || \"$response\" == \"null\" ]]; then
+  echo \"API error: $response\"
+  return 1
+fi
+```
+
+### 2. **Consistent API Usage**
+Replace CLI calls with API calls for consistency:
+```bash
+ollama_list_json() {
+  ollama_get \"/api/tags\"
 }
 ```
 
-### 2. Enhanced JSON Escaping
+### 3. **Token Estimation Improvements**
+Use a more accurate method (e.g., query the model's tokenizer):
 ```bash
-safeJson() {
-  local input="$1"
-  local escaped
-  escaped=$(jq -Rn --arg str "$input" '$str')
-  echo "$escaped"
+estimate_tokens() {
+  local model=$1
+  local payload=\"{\\"model\\": \\"$model\\", \\"input\\": \\"$string\\"}\"
+  local response=$(ollama_post \"/api/tokenize\" \"$payload\")
+  # Parse response for token count
 }
 ```
 
-### 3. Standardized Function Behavior
+### 4. **Input Validation**
+Add input validation for functions like `ollama_generate`:
 ```bash
-ollamaGenerate() {
-  local result
-  result=$(ollamaApiPost "/api/generate" "{\"model\": \"$1\", \"prompt\": $(safeJson "$2"), \"stream\": false}")
-  if [ $? -ne 0 ]; then
-    echo "Generation failed" >&2
-    return $RETURN_ERROR
-  fi
-  echo "$result" | jq -r ".response"
-  return $RETURN_SUCCESS
-}
+if [ -z \"$1\" ]; then
+  echo \"Usage: ollama_generate <model> <prompt>\"
+  return 1
+fi
 ```
 
-## Conclusion
-The script is a useful starting point for interacting with Ollama but requires significant improvements in error handling, API consistency, and JSON management. By addressing these issues, the library can become more reliable and user-friendly.
+---
+
+## 📌 **Summary**
+
+| **Aspect**         | **Status** | **Recommendation** |
+|---------------------|------------|--------------------|
+| **Error Handling**  | ❌ Poor    | Add explicit error checks for API responses |
+| **Code Duplication**| ⚠️ Medium  | Refactor repeated logic (e.g., `ollama_generate` variants) |
+| **Token Estimation**| ⚠️ Low     | Replace with model-specific tokenizer |
+| **Input Handling**  | ⚠️ Medium  | Improve input detection and validation |
+| **Version/Copyright**| ⚠️ Low     | Fix version/year inconsistency |
+
+---
+
+## ✅ **Final Verdict**
+
+The `ollama-bash-lib.sh` script is a **useful tool** for interacting with Ollama, but it requires **improvements in error handling, consistency, and robustness**. With the suggested enhancements, it can become a **reliable and maintainable Bash library** for Ollama integration.

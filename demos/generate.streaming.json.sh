@@ -12,12 +12,12 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
-if ! ollamaIsInstalled; then
+if ! ollama_installed; then
   echo "Error: Ollama is not installed"
   exit 1
 fi
 
-model="$(ollamaGetRandomModel)"
+model="$(ollama_random_model)"
 echo "model: $model"
 echo
 
@@ -25,8 +25,8 @@ prompt="Describe a rabbit in 3 short sentences"
 echo "prompt: $prompt"
 echo
 
-echo "ollamaGenerateStreamingJson:"
+echo "ollama_generate_stream_json:"
 echo
-ollamaGenerateStreamingJson "$model" "$prompt" | jq "."
+ollama_generate_stream_json "$model" "$prompt" | jq "."
 
 echo

@@ -1,16 +1,16 @@
 Ollama Bash Lib - Demo - About
 
 Ollama Bash Lib: /ollama-bash-lib/ollama-bash-lib.sh
-ollamaIsInstalled: YES
+ollama_installed: YES
 
-ollamaBashLibAbout:
+ollama_about_lib:
 
-Ollama Bash Lib v0.26.0
+Ollama Bash Lib v0.27.0
 
 A Bash Library to interact with Ollama
 
 OLLAMA_BASH_LIB_NAME     : Ollama Bash Lib
-OLLAMA_BASH_LIB_VERSION  : 0.26.0
+OLLAMA_BASH_LIB_VERSION  : 0.27.0
 OLLAMA_BASH_LIB_URL      : https://github.com/attogram/ollama-bash-lib
 OLLAMA_BASH_LIB_LICENSE  : MIT
 OLLAMA_BASH_LIB_COPYRIGHT: Copyright (c) 2025 Attogram Project <https://github.com/attogram>
@@ -20,25 +20,25 @@ OLLAMA_BASH_LIB_API      : http://localhost:11434
 Functions:
 
 debug
-ollamaApiGet
-ollamaApiPost
-ollamaBashLibAbout
-ollamaClearModel
-ollamaGenerate
-ollamaGenerateJson
-ollamaGenerateStreaming
-ollamaGenerateStreamingJson
-ollamaGetRandomModel
-ollamaIsInstalled
-ollamaList
-ollamaListArray
-ollamaListJson
-ollamaPs
-ollamaPsJson
-ollamaShow
-ollamaShowJson
-ollamaVersion
-ollamaVersionCli
-ollamaVersionJson
-safeJson
-tokenEstimate
+estimate_tokens
+json_safe
+ollama_about_lib
+ollama_generate
+ollama_generate_json
+ollama_generate_stream
+ollama_generate_stream_json
+ollama_get
+ollama_installed
+ollama_list
+ollama_list_array
+ollama_list_json
+ollama_post
+ollama_ps
+ollama_ps_json
+ollama_random_model
+ollama_show
+ollama_show_json
+ollama_unload_model
+ollama_version
+ollama_version_cli
+ollama_version_json

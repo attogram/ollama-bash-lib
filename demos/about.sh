@@ -12,16 +12,18 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
-echo "Ollama Bash Lib: $ollamaBashLib"
 
-echo -n "ollamaIsInstalled: "
-if ! ollamaIsInstalled; then
+echo "Ollama Bash Lib: $ollamaBashLib"
+echo
+
+echo -n "ollama_installed: "
+if ! ollama_installed; then
   echo "NO"
   exit 1
 fi
 echo "YES"
 
 echo
-echo "ollamaBashLibAbout:"
+echo "ollama_about_lib:"
 echo
-ollamaBashLibAbout
+ollama_about_lib

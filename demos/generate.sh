@@ -12,12 +12,12 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
-if ! ollamaIsInstalled; then
+if ! ollama_installed; then
   echo "Error: Ollama is not installed"
   exit 1
 fi
 
-model="$(ollamaGetRandomModel)"
+model="$(ollama_random_model)"
 echo "model: $model"
 echo
 
@@ -25,6 +25,6 @@ prompt="Describe a rabbit in 3 short sentences"
 echo "prompt: $prompt"
 echo
 
-echo "ollamaGenerate:"
+echo "ollama_generate:"
 echo
-ollamaGenerate "$model" "$prompt"
+ollama_generate "$model" "$prompt"

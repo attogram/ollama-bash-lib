@@ -12,19 +12,19 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
-if ! ollamaIsInstalled; then
+if ! ollama_installed; then
   echo "Error: Ollama is not installed"
   exit 1
 fi
 
-model=$(ollamaGetRandomModel)
+model=$(ollama_random_model)
 echo "model: $model"
 echo
-echo "ollamaShow:"
+echo "ollama_show:"
 echo
-ollamaShow "$model"
+ollama_show "$model"
 
 echo
-echo "ollamaShowJson:"
+echo "ollama_show_json:"
 echo
-ollamaShowJson "$model" | jq "."
+ollama_show_json "$model" | jq "."

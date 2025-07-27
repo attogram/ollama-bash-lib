@@ -12,12 +12,12 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
-if ! ollamaIsInstalled; then
+if ! ollama_installed; then
   echo "Error: Ollama is not installed"
   exit 1
 fi
 
-models=($(ollamaListArray))
+models=($(ollama_list_array))
 if [[ -z "${models[*]}" ]]; then
   echo "Error: No models found in Ollama"
   exit 1
@@ -29,11 +29,11 @@ echo "# models: ${#models[@]}"
 # Show model info for all models
 for model in "${models[@]}"; do
   echo
-  echo "ollamaShow: $model"
+  echo "ollama_show: $model"
   echo
-  ollamaShow "$model"
+  ollama_show "$model"
   echo
-  echo "ollamaShowJson: $model"
+  echo "ollama_show_json: $model"
   echo
-  ollamaShowJson "$model" | jq "."
+  ollama_show_json "$model" | jq "."
 done

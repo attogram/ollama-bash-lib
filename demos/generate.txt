@@ -1,18 +1,9 @@
 Ollama Bash Lib - Demo - Generate a completion, non-streaming, TEXT version
 
-model: deepseek-r1:8b
+model: qwen2.5vl:7b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollamaGenerate:
+ollama_generate:
 
-<think>
-The user asked to describe a rabbit in three short sentences, so I need to keep my response concise and focused. First, I should recall basic facts about rabbits: they're mammals with soft fur, long ears for hearing, and are commonly kept as pets or used symbolically.
-
-Now, assessing the user's scenario, it seems like they might be a student, teacher, or someone looking for quick information. Their actual need is probably to get a brief overview without unnecessary details, perhaps for an assignment or casual learning.
-
-Digging deeper, there could be unspoken needs here—like wanting to appreciate wildlife beauty or using this description for creative purposes (e.g., writing stories). I'll aim for a simple, positive description that highlights key features and evokes a sense of charm. 
-
-Finally, structuring the response in exactly three sentences: start with appearance, then behavior, and end with their common role as pets. This should cover the essentials while being engaging.
-</think>
-A rabbit is typically covered in soft fur ranging from white to brown or black, has long ears for enhanced hearing, a short tail, and four legs ending in small feet. They are known for their ability to dig burrows and often hop quickly when moving. Rabbits are gentle creatures commonly kept as house pets.
+A rabbit is a small, furry animal with long ears and a short tail, often associated with Easter and springtime. It is known for its ability to hop and its soft, fluffy coat that can come in various colors. Rabbits are social animals and are often kept as pets in homes.

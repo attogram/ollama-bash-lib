@@ -11,16 +11,17 @@ fi
 
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
-if ! ollamaIsInstalled; then
+if ! ollama_installed; then
   echo "Error: Ollama Not Installed"
   exit 1
 fi
 
-model=$(ollamaGetRandomModel)
+model=$(ollama_random_model)
 
-ollamaClearModel "$model"
+ollama_unload_model "$model"
 
 echo "model: $model"
+echo
 
 prompt="Act as an expert Software Engineer.
 Do a full review of this README:"
@@ -36,4 +37,4 @@ $(cat "../README.md")
 "
 
 echo
-ollamaGenerateStreaming "$model" "$prompt"
+ollama_generate_stream "$model" "$prompt"

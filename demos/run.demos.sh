@@ -26,6 +26,5 @@ for demo in "${demos[@]}"; do
   # Remove PII
   output=$(echo "$output" | sed '/^Ollama Bash Lib:/c\Ollama Bash Lib: /ollama-bash-lib/ollama-bash-lib.sh')
   output=$(echo "$output" | sed '/^file:/c\file: /ollama-bash-lib/ollama-bash-lib.sh')
-  # Save demo output to txt file
-  echo "$output" > "$outfile" 2>&1
+  echo "$output" > "$outfile" 2>&1 # stdout and stderr to text file
 done

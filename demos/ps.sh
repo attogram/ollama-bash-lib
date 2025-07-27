@@ -12,16 +12,16 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
-if ! ollamaIsInstalled; then
+if ! ollama_installed; then
   echo "Error: Ollama is not installed"
   exit 1
 fi
 
-echo "ollamaPs:"
+echo "ollama_ps:"
 echo
-ollamaPs
+ollama_ps
 
 echo
-echo "ollamaPsJson:"
+echo "ollama_ps_json:"
 echo
-ollamaPsJson | jq "."
+ollama_ps_json | jq "."

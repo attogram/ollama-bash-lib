@@ -1,6 +1,6 @@
 Ollama Bash Lib - Demo - Token Estimate
 
-tokenEstimate:
+estimate_tokens:
 
 My hovercraft is full of eels
 tokens : 8
@@ -11,9 +11,9 @@ tokens : 7
 verbose: 7 ± 6 (range 1 to 7)
 
 (contents of ../README.md)
-tokens : 1900
-verbose: 1900 ± 883 (range 1017 to 1900)
+tokens : 1915
+verbose: 1915 ± 898 (range 1017 to 1915)
 
 (contents of ../ollama-bash-lib.sh)
-tokens : 2466
-verbose: 2466 ± 622 (range 1844 to 2466)
+tokens : 2581
+verbose: 2581 ± 624 (range 1957 to 2581)

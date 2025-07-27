@@ -12,7 +12,7 @@ fi
 # shellcheck source=../ollama-bash-lib.sh
 source "$ollamaBashLib"
 
-if ! ollamaIsInstalled; then
+if ! ollama_installed; then
   echo "Error: Ollama is not installed"
   exit 1
 fi
@@ -37,9 +37,9 @@ stats() {
 
 context=0 # Tokens in context
 
-model="$(ollamaGetRandomModel)"
+model="$(ollama_random_model)"
 
-ollamaClearModel "$model"
+ollama_unload_model "$model"
 
 echo; echo "model: $model"
 echo; echo "context: $context tokens"
@@ -48,7 +48,7 @@ echo; echo "Press Control-C to exit"
 while true; do
   echo; echo -n "prompt: "
   read -r prompt # Read prompt from user input
-  result="$(ollamaGenerate "$model" "$prompt")"
+  result="$(ollama_generate "$model" "$prompt")"
   echo
   #echo -e "$result" | jq -r ".response" # Get only the response
   echo "$result" | jq -r ".response" # Get only the response

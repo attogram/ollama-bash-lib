@@ -1,17 +1,17 @@
 Ollama Bash Lib - Demo - Version
 
-ollamaVersion:
+ollama_version:
 
 0.10.0-rc0
 
 
-ollamaVersionJson:
+ollama_version_json:
 
 {
   "version": "0.10.0-rc0"
 }
 
 
-ollamaVersionCli:
+ollama_version_cli:
 
 ollama version is 0.10.0-rc0

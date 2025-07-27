@@ -1,31 +1,31 @@
 Ollama Bash Lib - Demo - Ps
 
-ollamaPs:
+ollama_ps:
 
-NAME            ID              SIZE     PROCESSOR          CONTEXT    UNTIL              
-qwen2.5vl:7b    5ced39dfa4ba    10 GB    34%/66% CPU/GPU    16384      4 minutes from now    
+NAME           ID              SIZE      PROCESSOR          CONTEXT    UNTIL              
+dolphin3:8b    d5ab9ae8e1f2    8.7 GB    15%/85% CPU/GPU    16384      4 minutes from now    
 
-ollamaPsJson:
+ollama_ps_json:
 
 {
   "models": [
     {
-      "name": "qwen2.5vl:7b",
-      "model": "qwen2.5vl:7b",
-      "size": 10093647189,
-      "digest": "5ced39dfa4bac325dc183dd1e4febaa1c46b3ea28bce48896c8e69c1e79611cc",
+      "name": "dolphin3:8b",
+      "model": "dolphin3:8b",
+      "size": 8650752576,
+      "digest": "d5ab9ae8e1f22619a6be52e5694df422b7183a3883990a000188c363781ecb78",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "qwen25vl",
+        "family": "llama",
         "families": [
-          "qwen25vl"
+          "llama"
         ],
-        "parameter_size": "8.3B",
+        "parameter_size": "8.0B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-27T11:53:49.592298+02:00",
-      "size_vram": 6620978517,
+      "expires_at": "2025-07-27T13:33:49.4965281+02:00",
+      "size_vram": 7395608576,
       "context_length": 16384
     }
   ]
