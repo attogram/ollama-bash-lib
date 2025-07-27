@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.30.0"
+OLLAMA_BASH_LIB_VERSION="0.31.0"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -318,12 +318,14 @@ ollama_list_array() {
 # Returns: 0 on success, 1 on error
 ollama_random_model() {
   debug "ollama_random_model"
-  local models return
+  local models
   models=($(ollama_list_array))
-  return=$?
-  # TODO - If error, return 1
+  if [ ${#models[@]} -eq 0 ]; then
+    error "ollama_random_model: No Models Found"
+    return $RETURN_ERROR
+  fi
   echo "${models[RANDOM%${#models[@]}]}"
-  return $return # TODO - also check echo status?
+  return $RETURN_SUCCESS
 }
 
 # Running model processes, CLI version
