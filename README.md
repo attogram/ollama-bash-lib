@@ -4,7 +4,11 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
 Repo: https://github.com/attogram/ollama-bash-lib
 
-[Usage](#usage) - [Demos](#demos) - [Functions](#functions) - [Requirements](#requirements) - [License](#license) - [More Projects](#more-ai-from-the-attogram-project)
+- [Usage](#usage) - [Demos](#demos) - [Requirements](#requirements) - 
+[License](#license) - [More Projects](#more-ai-from-the-attogram-project)
+- [Functions](#functions) : [Api](#api-functions) - [Ollama](#ollama-functions) - 
+[Generate](#generate-functions) - [List](#list-functions) - [Process](#process-functions) - 
+[Show](#show-functions) - [Utility](#utility-functions) - [Internal](#internal-functions)
 
 ## Usage
 
@@ -56,9 +60,12 @@ See the **[demos](demos)** directory for all demo scripts
 
 ### Ollama Functions
 
-| Function           | About                | Usage                                                                       | Output | Return                               |
-|--------------------|----------------------|-----------------------------------------------------------------------------|--------|--------------------------------------|
-| `ollama_installed` | Is Ollama installed? | `if ollama_installed; then echo "Installed"; else echo "Not Installed"; fi` | none   | `0` installed<br />`1` not installed |
+| Function              | About                    | Usage                                                                       | Output           | Return                               |
+|-----------------------|--------------------------|-----------------------------------------------------------------------------|------------------|--------------------------------------|
+| `ollama_installed`    | Is Ollama installed?     | `if ollama_installed; then echo "Installed"; else echo "Not Installed"; fi` | none             | `0` installed<br />`1` not installed |
+| `ollama_version`      | Ollama version           | `ollama_version`                                                            | text to `stdout` | `0`/`1`                              |
+| `ollama_version_json` | Ollama version, in json  | `ollama_version_json`                                                       | json to `stdout` | `0`/`1`                              |
+| `ollama_version_cli`  | Ollama version, from cli | `ollama_version_cli`                                                        | text to `stdout` | `0`/`1`                              |
 
 ### Generate Functions
 
@@ -91,21 +98,12 @@ See the **[demos](demos)** directory for all demo scripts
 | `ollama_ps`      | Running model processes          | `ollama_ps`       | text to `stdout` | `0`/`1` |
 | `ollama_ps_json` | Running model processes, in json | `ollama_ps_json`  | json to `stdout` | `0`/`1` |
 
-
 ### Show Functions
 
 | Function           | About                           | Usage                       | Output           | Return  |
 |--------------------|---------------------------------|-----------------------------|------------------|---------|
 | `ollama_show`      | Show model information          | `ollama_show "model"`       | text to `stdout` | `0`/`1` |
 | `ollama_show_json` | Show model information, in json | `ollama_show_json "model"`  | json to `stdout` | `0`/`1` |
-
-### Version Functions
-
-| Function              | About                    | Usage                 | Output           | Return  |
-|-----------------------|--------------------------|-----------------------|------------------|---------|
-| `ollama_version`      | Ollama version           | `ollama_version`      | text to `stdout` | `0`/`1` |
-| `ollama_version_json` | Ollama version, in json  | `ollama_version_json` | json to `stdout` | `0`/`1` |
-| `ollama_version_cli`  | Ollama version, from cli | `ollama_version_cli`  | text to `stdout` | `0`/`1` |
 
 ### Utility Functions
 
