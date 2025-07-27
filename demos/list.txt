@@ -1,17 +1,21 @@
-Ollama Bash Lib - Demo - List
+Ollama Bash Lib - Demo - ollama_list, ollama_list_json
 
-ollama_list:
+ollama_bash_lib: ./../ollama_bash_lib.sh
+
+ollama_installed: YES
+
+ollama_list
 
 NAME               ID              SIZE      MODIFIED   
 deepseek-r1:8b     6995872bfe4c    5.2 GB    5 days ago    
 dolphin3:8b        d5ab9ae8e1f2    4.9 GB    5 days ago    
 qwen2.5vl:7b       5ced39dfa4ba    6.0 GB    5 days ago    
 mistral:7b         6577803aa9a0    4.4 GB    5 days ago    
-deepseek-r1:14b    c333b7232bdb    9.0 GB    6 days ago    
+deepseek-r1:14b    c333b7232bdb    9.0 GB    7 days ago    
 qwen3:8b           500a1f067a9f    5.2 GB    7 days ago    
 gemma3n:e4b        15cb39fd9394    7.5 GB    7 days ago    
 
-ollama_list_json:
+ollama_list_json
 
 {
   "models": [

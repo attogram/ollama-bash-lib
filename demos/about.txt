@@ -1,30 +1,30 @@
-Ollama Bash Lib - Demo - About
+Ollama Bash Lib - Demo - ollama_about_lib
 
-Ollama Bash Lib: /ollama-bash-lib/ollama_bash_lib.sh
+ollama_bash_lib: ./../ollama_bash_lib.sh
 
 ollama_installed: YES
 
-ollama_about_lib:
+ollama_about_lib
 
-Ollama Bash Lib v0.28.0
+Ollama Bash Lib v0.28.1
 
 A Bash Library to interact with Ollama
 
-Vars:
-
 OLLAMA_BASH_LIB_NAME     : Ollama Bash Lib
-OLLAMA_BASH_LIB_VERSION  : 0.28.0
+OLLAMA_BASH_LIB_VERSION  : 0.28.1
 OLLAMA_BASH_LIB_URL      : https://github.com/attogram/ollama-bash-lib
 OLLAMA_BASH_LIB_LICENSE  : MIT
 OLLAMA_BASH_LIB_COPYRIGHT: Copyright (c) 2025 Attogram Project <https://github.com/attogram>
 OLLAMA_BASH_LIB_DEBUG    : 0
 OLLAMA_BASH_LIB_API      : http://localhost:11434
+OLLAMA_BASH_LIB_MESSAGES : 
 
 Functions:
 
 debug
 estimate_tokens
 json_safe
+load_ollama_bash_lib
 ollama_about_lib
 ollama_generate
 ollama_generate_json

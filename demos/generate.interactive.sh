@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - ollama_generate - Interactive - Non-streaming"
+echo "Ollama Bash Lib - Demo - ollama_generate - Interactive"
 echo
 
 load_ollama_bash_lib() {

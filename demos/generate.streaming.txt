@@ -1,13 +1,25 @@
-Ollama Bash Lib - Demo - Generate a completion, streaming, TEXT version
+Ollama Bash Lib - Demo - ollama_generate_stream
 
-model: qwen3:8b
+ollama_bash_lib: ./../ollama_bash_lib.sh
+
+ollama_installed: YES
+
+model: deepseek-r1:14b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate_stream:
+ollama_generate_stream "deepseek-r1:14b" "Describe a rabbit in 3 short sentences"
 
 <think>
-Okay, the user wants a description of a rabbit in three short sentences. Let me start by thinking about the key features of a rabbit. They have soft fur, long ears, and a fluffy tail. Maybe mention their movement, like hopping. Also, their eyes are big and expressive. I should make each sentence concise. First sentence could focus on appearance: soft fur, long ears, big eyes. Second sentence about movement and behavior: hopping, alert, curious. Third sentence about their habitat and diet: found in fields, eat vegetables, gentle creatures. Wait, maybe the third sentence can also touch on their role in the ecosystem or their symbolic meaning? But the user might just want a straightforward description. Let me check if each sentence is clear and covers different aspects. Yeah, that should work.
+Alright, so I need to describe a rabbit using three short sentences. Let me think about how to approach this.
+
+First, I should consider the key characteristics of rabbits that make them unique and recognizable. They are small animals known for their speed, but more importantly, they have distinctive features like long ears and strong hind legs which help them jump quickly. Also, their fur comes in various colors, which adds to their charm.
+
+Next, I want to highlight not just their physical traits but also their behavior or personality. Rabbits are often seen as gentle and curious, which makes them popular as pets. They interact with humans in a way that's both friendly and playful, so mentioning this could add depth to the description.
+
+Lastly, I should think about how rabbits fit into different contexts. They’re common in stories and symbols, like the Easter Bunny, which adds cultural significance. This shows their importance beyond just being pets or wild animals.
+
+Putting it all together, I need to make sure each sentence is concise and covers a different aspect: physical traits, behavior, and cultural relevance.
 </think>
 
-A rabbit has soft, fluffy fur, long ears, and large, expressive eyes that reflect its gentle nature. It moves swiftly by hopping, often pausing to sniff the air with curiosity. Found in fields and forests, rabbits are small, herbivorous creatures known for their delicate grace.
+A rabbit is a small mammal known for its long ears and powerful hind legs, allowing it to move quickly by jumping. It has soft fur in various colors, making it both a companion and a symbol in many cultures. Rabbits are often seen as gentle, curious animals, cherished for their agility and charm.

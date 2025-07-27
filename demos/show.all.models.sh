@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Show - All Models"
+echo "Ollama Bash Lib - Demo - ollama_show - All Models"
 echo
 
 ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama_bash_lib.sh"

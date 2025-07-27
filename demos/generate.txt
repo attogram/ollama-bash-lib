@@ -1,9 +1,13 @@
-Ollama Bash Lib - Demo - Generate a completion, non-streaming, TEXT version
+Ollama Bash Lib - Demo - ollama_generate
+
+ollama_bash_lib: ./../ollama_bash_lib.sh
+
+ollama_installed: YES
 
 model: gemma3n:e4b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate:
+ollama_generate "gemma3n:e4b" "Describe a rabbit in 3 short sentences"
 
-A rabbit is a small mammal with long ears and a fluffy tail. They are known for their quick hops and love of carrots. These gentle creatures are often found in meadows and burrows, enjoying a peaceful life. 
+A rabbit is a small mammal with long ears and a fluffy tail. They are known for their quick hops and love of carrots.  These gentle creatures are often found in meadows and burrows, enjoying a peaceful life. 
