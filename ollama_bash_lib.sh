@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.31.0"
+OLLAMA_BASH_LIB_VERSION="0.32.0"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -240,11 +240,32 @@ ollama_messages_clear() {
 
 # Chat completion request, TEXT version
 #
-# Usage: ollama_chat "model" "prompt"
+# Usage: ollama_chat "model"
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_chat() {
-  debug "ollama_chat: $1 $2"
+  debug "ollama_chat: $1"
+  local model json result return
+
+  model="$1"
+  if [ -z "$model" ]; then
+    error "ollama_chat: Model Not Found. Usage: ollama_chat \"model\""
+    return $RETURN_ERROR
+  fi
+
+  json="{\"model\": \"$model\", \"messages\": ["
+  json+=$(printf "%s," "${OLLAMA_BASH_LIB_MESSAGES[@]}")
+  json="$(echo "$json" | sed 's/,*$//g')" # strip last slash
+  json+="], \"stream\": false}"
+
+  result=$(ollama_post "/api/chat" "$json")
+  return=$?
+  if [ "$return" -gt 0 ]; then
+    error "ollama_chat: error: $return result: $result"
+    return $RETURN_ERROR
+  fi
+
+  echo "$result" | jq -r ".message.content"
 }
 
 # Chat completion request, JSON version
