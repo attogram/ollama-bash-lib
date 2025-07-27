@@ -23,23 +23,25 @@ source "$ollama_bash_lib"
 
 ## Demos
 
-See the **[demos](demos)** directory for demo scripts:
+See the **[demos](demos)** directory for all demo scripts
 
-* [about.sh](demos/about.sh) - Ollama Bash Lib variables and functions ([example](demos/about.txt))
-* [generate.sh](demos/generate.sh) - Generate a completion from a random model, non-streaming, TEXT output ([example](demos/generate.txt))
-* [generate.json.sh](demos/generate.json.sh) - Generate a completion from a random model, non-streaming, JSON output ([example](demos/generate.json.txt))
-* [generate.streaming.sh](demos/generate.streaming.sh) - Generate a completion from a random model, streaming, TEXT output ([example](demos/generate.streaming.txt))
-* [generate.streaming.json.sh](demos/generate.streaming.json.sh) - Generate a completion from a random model, streaming, JSON output ([example](demos/generate.streaming.json.txt))
-* [generate.interactive.sh](demos/generate.interactive.sh) - Chat via Generate with a random model ([example](demos/generate.interactive.txt))
-* [version.sh](demos/version.sh) - Ollama version ([example](demos/version.txt))
-* [list.sh](demos/list.sh) - Ollama model list ([example](demos/list.txt))
-* [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
-* [show.sh](demos/show.sh) - Ollama show info for a random model ([example](demos/show.txt))
-* [show.all.models.sh](demos/show.all.models.sh) - Show info for all models
-* [token.estimate.sh](demos/token.estimate.sh) - Estimated token count ([example](demos/token.estimate.txt))
-* [review.lib.sh](demos/review.lib.sh) - Prompt a random model to do a code review of Ollama Bash Lib ([example](demos/review.lib.txt))
-* [review.readme.sh](demos/review.readme.sh) - Prompt a random model to do a review of Ollama Bash README ([example](demos/review.readme.txt))
-* [ollama_get.sh](demos/ollama_get.sh) - `ollama_get` usage ([example](demos/ollama_get.txt))
+| Demo                                                           | About                                                                                                                          | Example                                      |
+|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
+| [about.sh](demos/about.sh)                                     | Ollama Bash Lib variables and functions                                                                                        | [example](demos/ollama_get.txt)              |
+| [ollama_get.sh](demos/ollama_get.sh)                           | `ollama_get` usage and error handling                                                                                          | [example](demos/about.txt)                   |
+| [generate.sh](demos/generate.sh)                               | Generate a completion from a random model, non-streaming, test output                                                          | [example](demos/generate.txt)                |
+| [generate.json.sh](demos/generate.json.sh)                     | Generate a completion from a random model, non-streaming, json output                                                          | [example](demos/generate.json.txt)           |
+| [generate.streaming.sh](demos/generate.streaming.sh)           | Generate a completion from a random model, streaming, text output                                                              | [example](demos/generate.streaming.txt)      |
+| [generate.streaming.json.sh](demos/generate.streaming.json.sh) | Generate a completion from a random model, streaming, json output                                                              | [example](demos/generate.streaming.json.txt) |
+| [generate.interactive.sh](demos/generate.interactive.sh)       | Chat via Generate with a random model                                                                                          | [example](demos/generate.interactive.txt)    |
+| [version.sh](demos/version.sh)                                 | Ollama version                                                                                                                 | [example](demos/version.txt)                 |
+| [list.sh](demos/list.sh)                                       | Ollama model list                                                                                                              | [example](demos/list.txt)                    |
+| [ps.sh](demos/ps.sh)                                           | Ollama running processes                                                                                                       | [example](demos/ps.txt)                      |
+| [show.sh](demos/show.sh)                                       | Ollama show info for a random model                                                                                            | [example](demos/show.txt)                    |
+| [show.all.models.sh](demos/show.all.models.sh)                 | Show info for all models                                                                                                       |                                              |
+| [token.estimate.sh](demos/token.estimate.sh)                   | Estimated token count                                                                                                          | [example](demos/token.estimate.txt)          |
+| [review.lib.sh](demos/review.lib.sh)                           | Review of [`ollama_bash_lib.sh`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh) from a random model | [example](demos/review.lib.txt)              |
+| [review.readme.sh](demos/review.readme.sh)                     | Review of [`README.md`](https://github.com/attogram/ollama-bash-lib/blob/main/README.md) from a random model                   | [example](demos/review.readme.txt)           |
 
 ## Functions
 
