@@ -1,9 +1,9 @@
 Ollama Bash Lib - Demo - Generate a completion, streaming, TEXT version
 
-model: dolphin3:8b
+model: qwen2.5vl:7b
 
-prompt: Describe a rabbit in 2 paragraphs
+prompt: Describe a rabbit in 3 short sentences
 
 ollamaGenerateStreaming:
 
-A rabbit is a small mammal with long ears and a fluffy tail that is often white or brown in color. They typically weigh between 1-3 pounds and can be found hopping around in grassy fields, forests, and even urban areas. Rabbits have a high reproductive rate compared to other mammals; in fact, female rabbits can give birth to as many as 12 litters per year! This quick breeding ability allows them to adapt well to their environment and thrive in various habitats.Rabbits are known for their keen sense of hearing and sight, which helps them detect predators from afar. They primarily feed on grasses and plants but will also eat insects, fruits, and vegetables. Rabbits have strong hind legs that allow them to leap up to 3 feet (about 1 meter) in the air when startled or threatened by a predator. Despite their popularity as pets, rabbits remain wild animals with unique behaviors and adaptations that make them fascinating creatures to observe in nature.
+A rabbit is a small, furry animal with long ears and a short tail, often associated with Easter and springtime. It is known for its ability to hop and its soft, fluffy fur, which can come in various colors and patterns. Rabbits are social animals and are often kept as pets in homes.

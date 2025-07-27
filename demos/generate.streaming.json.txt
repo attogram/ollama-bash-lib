@@ -1,99 +1,445 @@
 Ollama Bash Lib - Demo - Generate a completion, streaming, JSON version
 
-model: qwen2.5vl:7b
+model: dolphin3:8b
 
-prompt: Describe a rabbit in 3 words
+prompt: Describe a rabbit in 3 short sentences
 
 ollamaGenerateStreamingJson:
 
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-07-26T22:17:41.2435101Z",
-  "response": "Fl",
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:40.9360376Z",
+  "response": "A",
   "done": false
 }
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-07-26T22:17:41.2823949Z",
-  "response": "uffy",
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:40.9869213Z",
+  "response": " rabbit",
   "done": false
 }
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-07-26T22:17:41.3193178Z",
-  "response": ",",
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.0336225Z",
+  "response": " is",
   "done": false
 }
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-07-26T22:17:41.3514726Z",
-  "response": " cute",
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.080032Z",
+  "response": " a",
   "done": false
 }
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-07-26T22:17:41.3824035Z",
-  "response": ",",
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.1243036Z",
+  "response": " small",
   "done": false
 }
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-07-26T22:17:41.4138916Z",
-  "response": " hopping",
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.1683495Z",
+  "response": " mamm",
   "done": false
 }
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-07-26T22:17:41.4454725Z",
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.2150147Z",
+  "response": "al",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.2600554Z",
+  "response": " with",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.3041933Z",
+  "response": " long",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.348699Z",
+  "response": " ears",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.3943773Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.4380063Z",
+  "response": " fluffy",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.4840424Z",
+  "response": " fur",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.5288556Z",
   "response": ".",
   "done": false
 }
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-07-26T22:17:41.4780065Z",
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.5719656Z",
+  "response": " It",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.6175138Z",
+  "response": " hops",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.6619416Z",
+  "response": " around",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.7055979Z",
+  "response": " on",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.7512278Z",
+  "response": " its",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.7959715Z",
+  "response": " back",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.841481Z",
+  "response": " legs",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.8860598Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.9303369Z",
+  "response": " using",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:41.9755856Z",
+  "response": " its",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.0203772Z",
+  "response": " front",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.066503Z",
+  "response": " p",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.1124129Z",
+  "response": "aws",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.1578969Z",
+  "response": " for",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.2029753Z",
+  "response": " balance",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.2506321Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.2948807Z",
+  "response": " Rab",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.3401535Z",
+  "response": "bits",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.3857537Z",
+  "response": " have",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.4295925Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.476623Z",
+  "response": " reputation",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.5204902Z",
+  "response": " for",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.5645608Z",
+  "response": " being",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.6095699Z",
+  "response": " timid",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.6539411Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.6980096Z",
+  "response": " sk",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.743753Z",
+  "response": "itt",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.7881285Z",
+  "response": "ish",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.8324201Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.8773507Z",
+  "response": " but",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.9214232Z",
+  "response": " they",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:42.9648681Z",
+  "response": " can",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.0084727Z",
+  "response": " be",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.0542959Z",
+  "response": " quite",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.0999295Z",
+  "response": " social",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.1454851Z",
+  "response": " animals",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.1896201Z",
+  "response": " if",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.2332808Z",
+  "response": " properly",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.2788355Z",
+  "response": " introduced",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.3218487Z",
+  "response": " to",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.365932Z",
+  "response": " humans",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.4119967Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "dolphin3:8b",
+  "created_at": "2025-07-27T09:48:43.4596645Z",
   "response": "",
   "done": true,
   "done_reason": "stop",
   "context": [
-    151644,
-    8948,
+    128257,
+    9125,
     198,
-    2610,
-    525,
+    2675,
+    527,
+    96096,
+    11,
     264,
-    10950,
-    17847,
+    11190,
+    15592,
+    18328,
     13,
-    151645,
+    128256,
     198,
-    151644,
-    872,
+    128257,
+    882,
     198,
-    74785,
+    75885,
     264,
-    38724,
+    39824,
     304,
     220,
     18,
-    4244,
-    151645,
+    2875,
+    23719,
+    128256,
     198,
-    151644,
-    77091,
+    128257,
+    78191,
     198,
-    3882,
-    29877,
+    32,
+    39824,
+    374,
+    264,
+    2678,
+    36041,
+    278,
+    449,
+    1317,
+    25212,
+    323,
+    68661,
+    18742,
+    13,
+    1102,
+    59218,
+    2212,
+    389,
+    1202,
+    1203,
+    14535,
     11,
-    18838,
+    1701,
+    1202,
+    4156,
+    281,
+    8805,
+    369,
+    8335,
+    13,
+    36824,
+    11777,
+    617,
+    264,
+    17444,
+    369,
+    1694,
+    99149,
+    323,
+    1940,
+    1468,
+    819,
     11,
-    92238,
+    719,
+    814,
+    649,
+    387,
+    5115,
+    3674,
+    10099,
+    422,
+    10489,
+    11784,
+    311,
+    12966,
     13
   ],
-  "total_duration": 3163823000,
-  "load_duration": 2785428300,
-  "prompt_eval_count": 27,
-  "prompt_eval_duration": 142663000,
-  "eval_count": 8,
-  "eval_duration": 234696800
+  "total_duration": 6162998300,
+  "load_duration": 3424476900,
+  "prompt_eval_count": 31,
+  "prompt_eval_duration": 213058300,
+  "eval_count": 57,
+  "eval_duration": 2524958200
 }
-

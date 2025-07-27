@@ -2,15 +2,17 @@ Ollama Bash Lib - Demo - Generate a completion, non-streaming, TEXT version
 
 model: deepseek-r1:8b
 
-prompt: Describe a rabbit in 3 words
+prompt: Describe a rabbit in 3 short sentences
 
 ollamaGenerate:
 
 <think>
-Hmm, the user wants me to describe a rabbit in just three words. That's pretty straightforward but also kind of fun—like a little creative challenge. I need to think about what comes to mind when someone says "rabbit." 
+The user asked to describe a rabbit in three short sentences, so I need to keep my response concise and focused. First, I should recall basic facts about rabbits: they're mammals with soft fur, long ears for hearing, and are commonly kept as pets or used symbolically.
 
-First, rabbits are known for being quick and alert, so speed or alertness could be part of the description. Second, they're often associated with soft fur because that's how many people interact with them, either as pets or in nature. Third, their behavior—like hopping—is unique and instantly recognizable.
+Now, assessing the user's scenario, it seems like they might be a student, teacher, or someone looking for quick information. Their actual need is probably to get a brief overview without unnecessary details, perhaps for an assignment or casual learning.
 
-The user might just want a quick, catchy phrase to use somewhere creative, like for art or social media. Or maybe they're testing my ability to think concisely. I'll aim for accuracy while keeping it fun.
+Digging deeper, there could be unspoken needs here—like wanting to appreciate wildlife beauty or using this description for creative purposes (e.g., writing stories). I'll aim for a simple, positive description that highlights key features and evokes a sense of charm. 
+
+Finally, structuring the response in exactly three sentences: start with appearance, then behavior, and end with their common role as pets. This should cover the essentials while being engaging.
 </think>
-Quick, soft, hoppy
+A rabbit is typically covered in soft fur ranging from white to brown or black, has long ears for enhanced hearing, a short tail, and four legs ending in small feet. They are known for their ability to dig burrows and often hop quickly when moving. Rabbits are gentle creatures commonly kept as house pets.

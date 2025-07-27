@@ -21,12 +21,10 @@ model="$(ollamaGetRandomModel)"
 echo "model: $model"
 echo
 
-prompt="Describe a rabbit in 2 paragraphs"
+prompt="Describe a rabbit in 3 short sentences"
 echo "prompt: $prompt"
 echo
 
 echo "ollamaGenerateStreaming:"
 echo
 ollamaGenerateStreaming "$model" "$prompt"
-
-echo

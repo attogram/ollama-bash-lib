@@ -21,7 +21,7 @@ model="$(ollamaGetRandomModel)"
 echo "model: $model"
 echo
 
-prompt="Describe a rabbit in 3 words"
+prompt="Describe a rabbit in 3 short sentences"
 echo "prompt: $prompt"
 echo
 
