@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.29.0"
+OLLAMA_BASH_LIB_VERSION="0.30.0"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -54,11 +54,10 @@ ollama_about_lib() {
   echo "OLLAMA_BASH_LIB_COPYRIGHT: $OLLAMA_BASH_LIB_COPYRIGHT"
   echo "OLLAMA_BASH_LIB_DEBUG    : $OLLAMA_BASH_LIB_DEBUG"
   echo "OLLAMA_BASH_LIB_API      : $OLLAMA_BASH_LIB_API"
-  echo "OLLAMA_BASH_LIB_MESSAGES : ${OLLAMA_BASH_LIB_MESSAGES[*]}"
   echo
   echo "Functions:"
   echo
-  compgen -A function
+  compgen -A function # TODO - filter only Ollama Bash Lib functions
   return $?
 }
 
@@ -189,6 +188,90 @@ ollama_generate_stream_json() {
   debug "ollama_generate_stream_json: $1 $2"
   ollama_post "/api/generate" "{\"model\": \"$1\", \"prompt\": $(json_safe "$2")}"
   return $? # TODO - if Post error, get error info
+}
+
+# Get all messages
+#
+# Usage: messages="$(ollama_messages)"
+# Output: json, 1 messages per line, to stdout
+# Returns: 0 on success, 1 on error
+ollama_messages() {
+  debug "ollama_messages"
+  if [ ${#OLLAMA_BASH_LIB_MESSAGES[@]} -eq 0 ]; then
+    debug "ollama_messages: no messages"
+    return $RETURN_ERROR
+  fi
+  printf '%s\n' "${OLLAMA_BASH_LIB_MESSAGES[@]}"
+  return $RETURN_SUCCESS
+}
+
+# Messages count
+#
+# Usage: ollama_messages_count
+# Output: number of messages, to stdout
+# Returns: 0 on success, 1 on error
+ollama_messages_count() {
+  debug "ollama_messages_count"
+  echo "${#OLLAMA_BASH_LIB_MESSAGES[@]}"
+}
+
+# Add a message
+#
+# Usage: ollama_message_add "role" "message"
+# Output: none
+# Returns: 0 on success, 1 on error
+ollama_message_add() {
+  debug "ollama_message_add: $1"
+  local role message
+  role="$1"
+  message="$2"
+  OLLAMA_BASH_LIB_MESSAGES+=("{\"role\":\"$role\",\"content\":$(json_safe "$message")}")
+}
+
+# Clear all messages
+#
+# Usage: ollama_messages_clear
+# Output: none
+# Returns: 0 on success, 1 on error
+ollama_messages_clear() {
+  debug "ollama_messages_clear"
+  OLLAMA_BASH_LIB_MESSAGES=()
+}
+
+# Chat completion request, TEXT version
+#
+# Usage: ollama_chat "model" "prompt"
+# Output: text, to stdout
+# Returns: 0 on success, 1 on error
+ollama_chat() {
+  debug "ollama_chat: $1 $2"
+}
+
+# Chat completion request, JSON version
+#
+# Usage:
+# Output: json, to stdout
+# Returns: 0 on success, 1 on error
+ollama_chat_json() {
+  debug "ollama_chat_json: $1 $2"
+}
+
+# Streaming Chat completion request, TEXT version
+#
+# Usage:
+# Output: streaming text, to stdout
+# Returns: 0 on success, 1 on error
+ollama_chat_stream() {
+  debug "ollama_chat_stream: $1 $2"
+}
+
+# Streaming Chat completion request, JSON version
+#
+# Usage:
+# Output: streaming json, to stdout
+# Returns: 0 on success, 1 on error
+ollama_chat_stream_json() {
+  debug "ollama_chat_stream_json: $1 $2"
 }
 
 # All available models, CLI version

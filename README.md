@@ -7,7 +7,7 @@ Repo: https://github.com/attogram/ollama-bash-lib
 - [Usage](#usage) - [Demos](#demos) - [Requirements](#requirements) - 
 [License](#license) - [More Projects](#more-ai-from-the-attogram-project)
 - [Functions](#functions) : [Api](#api-functions) - [Ollama](#ollama-functions) - 
-[Generate](#generate-functions) - [List](#list-functions) - [Process](#process-functions) - 
+[Generate](#generate-functions) - [Chat](#chat-functions) - [List](#list-functions) - [Process](#process-functions) - 
 [Show](#show-functions) - [Utility](#utility-functions) - [Internal](#internal-functions)
 
 ## Usage
@@ -40,6 +40,7 @@ See the **[demos](demos)** directory for all demo scripts
 | [generate.streaming.sh](demos/generate.streaming.sh)           | Generate a completion from a random model, streaming, text output                                                              | [example](demos/generate.streaming.txt)      |
 | [generate.streaming.json.sh](demos/generate.streaming.json.sh) | Generate a completion from a random model, streaming, json output                                                              | [example](demos/generate.streaming.json.txt) |
 | [generate.interactive.sh](demos/generate.interactive.sh)       | Chat via Generate with a random model                                                                                          | [example](demos/generate.interactive.txt)    |
+| [messages.sh](demos/messages.sh)                               | `ollama_message_add`, `ollama_messages_count`, `ollama_messages` and `ollama_messages_clear` usage                             | [example](demos/messages.txt)                |
 | [version.sh](demos/version.sh)                                 | Ollama version                                                                                                                 | [example](demos/version.txt)                 |
 | [list.sh](demos/list.sh)                                       | Ollama model list                                                                                                              | [example](demos/list.txt)                    |
 | [ps.sh](demos/ps.sh)                                           | Ollama running processes                                                                                                       | [example](demos/ps.txt)                      |
@@ -69,12 +70,25 @@ See the **[demos](demos)** directory for all demo scripts
 
 ### Generate Functions
 
-| Function                      | About                                 | Usage                                          | Output                     | Return  |
-|-------------------------------|---------------------------------------|------------------------------------------------|----------------------------|---------|
-| `ollama_generate`             | Generate a completion                 | `ollama_generate "model" "prompt"`             | text to `stdout`           | `0`/`1` | 
-| `ollama_generate_json`        | Generate a completion, in json        | `ollama_generate_json "model" "prompt"`        | json to `stdout`           | `0`/`1` | 
-| `ollama_generate_stream`      | Generate a completion stream          | `ollama_generate_stream "model" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
-| `ollama_generate_stream_json` | Generate a completion stream, in json | `ollama_generate_stream_json "model" "prompt"` | streaming json to `stdout` | `0`/`1` | 
+| Function                      | About                               | Usage                                          | Output                     | Return  |
+|-------------------------------|-------------------------------------|------------------------------------------------|----------------------------|---------|
+| `ollama_generate`             | Generate completion                 | `ollama_generate "model" "prompt"`             | text to `stdout`           | `0`/`1` | 
+| `ollama_generate_json`        | Generate completion, in json        | `ollama_generate_json "model" "prompt"`        | json to `stdout`           | `0`/`1` | 
+| `ollama_generate_stream`      | Generate completion stream          | `ollama_generate_stream "model" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
+| `ollama_generate_stream_json` | Generate completion stream, in json | `ollama_generate_stream_json "model" "prompt"` | streaming json to `stdout` | `0`/`1` | 
+
+### Chat Functions
+
+| Function                  | About                              | Usage                                      | Output                                      | Return  |
+|---------------------------|------------------------------------|--------------------------------------------|---------------------------------------------|---------|
+| `ollama_message_add`      | Add a message to chat context      | `ollama_message_add "role" "message"`      | none                                        | `0`/`1` | 
+| `ollama_messages`         | Get messages in chat context       | `ollama_messages`                          | json messages list, 1 per line, to `stdout` | `0`/`1` | 
+| `ollama_messages_count`   | Count of messages in chat context  | `ollama_messages_count`                    | number of messages to `stdout`              | `0`/`1` | 
+| `ollama_messages_clear`   | Clear all messages in chat context | `ollama_messages_clear`                    | none                                        | `0`/`1` | 
+| `ollama_chat`             | Chat completion                    | `ollama_chat "model" "prompt"`             | text to `stdout`                            | `0`/`1` | 
+| `ollama_chat_json`        | Chat completion, in json           | `ollama_chat_json "model" "prompt"`        | json to `stdout`                            | `0`/`1` | 
+| `ollama_chat_stream`      | Chat completion stream             | `ollama_chat_stream "model" "prompt"`      | streaming text to `stdout`                  | `0`/`1` | 
+| `ollama_chat_stream_json` | Chat completion stream, in json    | `ollama_chat_stream_json "model" "prompt"` | streaming json to `stdout`                  | `0`/`1` | 
 
 ### Model Functions
 
