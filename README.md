@@ -45,16 +45,16 @@ See the **[demos](demos)** directory for demo scripts:
 
 ### Api Functions
 
-| Function      | About                          | Usage                                        | Output                      | Return                           |
-|---------------|--------------------------------|----------------------------------------------|-----------------------------|----------------------------------|
-| `ollama_get`  | GET request to the Ollama API  | `ollama_get "/api/path"`                     | API call result to `stdout` | `0` on success<br />`1` on error |
-| `ollama_post` | POST request to the Ollama API | `ollama_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` on success<br />`1` on error | 
+| Function      | About                          | Usage                                        | Output                      | Return                                       |
+|---------------|--------------------------------|----------------------------------------------|-----------------------------|----------------------------------------------|
+| `ollama_get`  | GET request to the Ollama API  | `ollama_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error |
+| `ollama_post` | POST request to the Ollama API | `ollama_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error | 
 
 ### Ollama Functions
 
-| Function           | About                | Usage                                                                                     | Output | Return                                 |
-|--------------------|----------------------|-------------------------------------------------------------------------------------------|--------|----------------------------------------|
-| `ollama_installed` | Is Ollama installed? | `if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi` | none   | `0` if installed<br />`1` if not installed |
+| Function           | About                | Usage                                                                                     | Output | Return                               |
+|--------------------|----------------------|-------------------------------------------------------------------------------------------|--------|--------------------------------------|
+| `ollama_installed` | Is Ollama installed? | `if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi` | none   | `0` installed<br />`1` not installed |
 
 ### Generate Functions
 
