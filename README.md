@@ -43,91 +43,91 @@ See the **[demos](demos)** directory for demo scripts:
 ## Functions
 
 ### Api Functions:
-* ```ollamaApiGet```
+* ```ollama_get```
   * GET request to the Ollama API
-  * Usage: ```ollamaApiGet "/api/command"```
-* ```ollamaApiPost```
+  * Usage: ```ollama_get "/api/command"```
+* ```ollama_post```
   * POST request to the Ollama API
-  * Usage: ```ollamaApiPost "/api/command" "{ json content }"```
+  * Usage: ```ollama_post "/api/command" "{ json content }"```
 
 ### Ollama Functions:
-* ```ollamaIsInstalled```
+* ```ollama_installed```
   * Is Ollama installed on the local system?
-  * Usage: ```if ollamaIsInstalled; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
+  * Usage: ```if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
   * Returns: 0/1 (yes/no)
 
 ### Generate Functions:
-* ```ollamaGenerate```
+* ```ollama_generate```
   * Generate a completion, non-streaming, TEXT version
-  * Usage: ```ollamaGenerate "modelName" "prompt"```
-* ```ollamaGenerateJson```
+  * Usage: ```ollama_generate "modelName" "prompt"```
+* ```ollama_generate_json```
   * Generate a completion, non-streaming, JSON version
-  * Usage: ```ollamaGenerateJson "modelName" "prompt"```
-* ```ollamaGenerateStreaming```
+  * Usage: ```ollama_generate_json "modelName" "prompt"```
+* ```ollama_generate_stream```
   * Generate a completion, streaming, TEXT version
-  * Usage: ```ollamaGenerateStreaming "modelName" "prompt"```
-* ```ollamaGenerateStreamingJson```
+  * Usage: ```ollama_generate_stream "modelName" "prompt"```
+* ```ollama_generate_stream_json```
   * Generate a completion, streaming, JSON version
-  * Usage: ```ollamaGenerateStreamingJson "modelName" "prompt"```
+  * Usage: ```ollama_generate_stream_json "modelName" "prompt"```
   
 ### Model Functions:
-* ```ollamaGetRandomModel```
+* ```ollama_random_model```
   * Get a random model
   * Returns: 1 model name
-* ```ollamaClearModel```
+* ```ollama_unload_model```
   * Unload a model from memory (Clear context for a model)
-  * Usage: ```ollamaClearModel "modelName"```
+  * Usage: ```ollama_unload_model "modelName"```
 
 ### List Functions:
-* ```ollamaList```
+* ```ollama_list```
   * All available models, cli version
-* ```ollamaListJson```
+* ```ollama_list_json```
   * All available models, JSON version
-* ```ollamaListArray```
+* ```ollama_list_array```
   * All available models, Bash array version
-  * Usage: ```models=($(ollamaListArray))```
+  * Usage: ```models=($(ollama_list_array))```
   * Returns: space separated list of model names
 
 ### Process Functions:
-* ```ollamaPs```
+* ```ollama_ps```
   * Running model processes, cli version
-* ```ollamaPsJson```
+* ```ollama_ps_json```
   * Running model processes, JSON version
 
 ### Show Functions:
-* ```ollamaShow```
+* ```ollama_show```
   * Show model information, cli version
-  * Usage: ```ollamaShow "modelName"```
-* ```ollamaShowJson```
+  * Usage: ```ollama_show "modelName"```
+* ```ollama_show_json```
   * Show model information, JSON version
-  * Usage: ```ollamaShowJson "modelName"```
+  * Usage: ```ollama_show_json "modelName"```
 
 ### Version Functions:
-* ```ollamaVersion```
+* ```ollama_version```
   * Ollama application version, TEXT version
-* ```ollamaVersionJson```
+* ```ollama_version_json```
   * Ollama application version, JSON version
-* ```ollamaVersionCli```
+* ```ollama_version_cli```
   * Ollama application version, CLI version
 
 ### Utility Functions:
-* ```ollamaBashLibAbout```
+* ```ollama_about_lib```
   * About Ollama Bash Lib, lists vars and functions
-* ```tokenEstimate```
+* ```estimate_tokens```
   * Estimated number of tokens in a string
-  * Usage: ```tokenEstimate "string"```
-  * Usage: verbose: ```tokenEstimate "string" 1```
+  * Usage: ```estimate_tokens "string"```
+  * Usage: verbose: ```estimate_tokens "string" 1```
   * Output: token estimate
-* ```safeJson```
+* ```json_safe```
   * Escape a string for use as a JSON value
-  * Usage: ```safeJson "string"```
+  * Usage: ```json_safe "string"```
 * ```debug```
   * Debug message to stderr
 
 ## Requirements
 
 * ```bash``` - v3 or higher, or equivalent
-* ```ollama```
+* [```Ollama```](https://github.com/ollama/ollama)
 * ```curl```
 * ```jq```
 * ```awk```
