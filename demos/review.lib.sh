@@ -36,4 +36,4 @@ $(cat "$ollamaBashLib")
 "
 
 echo
-ollamaGenerate "$model" "$prompt"
+ollamaGenerateStreaming "$model" "$prompt"

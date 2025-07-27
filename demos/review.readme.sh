@@ -36,4 +36,4 @@ $(cat "../README.md")
 "
 
 echo
-ollamaGenerate "$model" "$prompt"
+ollamaGenerateStreaming "$model" "$prompt"
