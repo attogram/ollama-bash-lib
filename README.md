@@ -65,24 +65,20 @@ See the **[demos](demos)** directory for demo scripts:
 | `ollama_generate_stream`      | Generate a completion stream          | `ollama_generate_stream "model" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
 | `ollama_generate_stream_json` | Generate a completion stream, in json | `ollama_generate_stream_json "model" "prompt"` | streaming json to `stdout` | `0`/`1` | 
 
-
 ### Model Functions
-* ```ollama_random_model```
-  * Get a random model
-  * Returns: 1 model name
-* ```ollama_unload_model```
-  * Unload a model from memory (Clear context for a model)
-  * Usage: ```ollama_unload_model "modelName"```
+
+| Function              | About                                                       | Usage                 | Output                   | Return  |
+|-----------------------|-------------------------------------------------------------|-----------------------|--------------------------|---------|
+| `ollama_random_model` | Get a random model                                          | `ollama_random_model` | 1 model name to `stdout` | `0`/`1` | 
+| `ollama_unload_model` | Unload a model from memory<br />(Clear context for a model) | `ollama_unload_model` | none                     | `0`/`1` | 
 
 ### List Functions
-* ```ollama_list```
-  * All available models, cli version
-* ```ollama_list_json```
-  * All available models, JSON version
-* ```ollama_list_array```
-  * All available models, Bash array version
-  * Usage: ```models=($(ollama_list_array))```
-  * Returns: space separated list of model names
+
+| Function            | About                                     | Usage                           | Output                                          | Return  |
+|---------------------|-------------------------------------------|---------------------------------|-------------------------------------------------|---------|
+| `ollama_list`       | List all available models                 | `ollama_list`                   | text to `stdout`                                | `0`/`1` |
+| `ollama_list_json`  | List all available models, in json        | `ollama_list_json`              | json to `stdout`                                | `0`/`1` |
+| `ollama_list_array` | List all available models, for bash array | `models=($(ollama_list_array))` | space separated list of model names to `stdout` | `0`/`1` |
 
 ### Process Functions
 * ```ollama_ps```
@@ -108,14 +104,19 @@ See the **[demos](demos)** directory for demo scripts:
 
 ### Utility Functions
 
-
 | Function           | About                                           | Usage                                                        | Output                                                          | Return  |
 |--------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
 | `ollama_about_lib` | About Ollama Bash Lib, lists vars and functions | `ollama_about_lib`                                           | text to `stdout`                                                | `0`/`1` |
 | `estimate_tokens`  | Estimated number of tokens in a string          | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
+
+### Internal Functions
+
+| Function           | About                                           | Usage                                                        | Output                                                          | Return  |
+|--------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
 | `json_safe`        | Escape a string for use as a JSON value         | `json_safe "string"`                                         | _"quoted json value"_ to `stdout`                               | `0`/`1` |
 | `debug`            | Debug message (if `OLLAMA_BASH_LIB_DEBUG=1`)    | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
 | `error`            | Error message                                   | `error "message"`                                            | message to `stderr`                                             | `0`/`1` |
+
 
 ## Requirements
 
