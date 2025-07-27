@@ -30,7 +30,7 @@ See the **[demos](demos)** directory for demo scripts:
 * [generate.json.sh](demos/generate.json.sh) - Generate a completion from a random model, non-streaming, JSON output ([example](demos/generate.json.txt))
 * [generate.streaming.sh](demos/generate.streaming.sh) - Generate a completion from a random model, streaming, TEXT output ([example](demos/generate.streaming.txt))
 * [generate.streaming.json.sh](demos/generate.streaming.json.sh) - Generate a completion from a random model, streaming, JSON output ([example](demos/generate.streaming.json.txt))
-* [generate.interactive.sh](demos/generate.interactive.sh) - Chat with a random model
+* [generate.interactive.sh](demos/generate.interactive.sh) - Chat via Generate with a random model ([example](demos/generate.interactive.txt))
 * [version.sh](demos/version.sh) - Ollama version ([example](demos/version.txt))
 * [list.sh](demos/list.sh) - Ollama model list ([example](demos/list.txt))
 * [ps.sh](demos/ps.sh) - Ollama running processes ([example](demos/ps.txt))
