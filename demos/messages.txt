@@ -7,18 +7,18 @@ ollama_installed: YES
 ollama_messages_count: 0
 ollama_messages:
 
-ollama_message_add "system" "You are a helpful assistant"
+ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_count: 1
 ollama_messages:
 {"role":"system","content":"You are a helpful assistant"}
 
-ollama_message_add "user" "Hi"
+ollama_messages_add "user" "Hi"
 ollama_messages_count: 2
 ollama_messages:
 {"role":"system","content":"You are a helpful assistant"}
 {"role":"user","content":"Hi"}
 
-ollama_message_add "user" "Bye"
+ollama_messages_add "user" "Bye"
 ollama_messages_count: 3
 ollama_messages:
 {"role":"system","content":"You are a helpful assistant"}

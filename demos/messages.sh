@@ -19,20 +19,20 @@ echo -n "ollama_messages_count: "; ollama_messages_count
 echo "ollama_messages:"; ollama_messages
 
 echo
-echo "ollama_message_add \"system\" \"You are a helpful assistant\""
-ollama_message_add "system" "You are a helpful assistant"
+echo "ollama_messages_add \"system\" \"You are a helpful assistant\""
+ollama_messages_add "system" "You are a helpful assistant"
 echo -n "ollama_messages_count: "; ollama_messages_count
 echo "ollama_messages:"; ollama_messages
 
 echo
-echo "ollama_message_add \"user\" \"Hi\""
-ollama_message_add "user" "Hi"
+echo "ollama_messages_add \"user\" \"Hi\""
+ollama_messages_add "user" "Hi"
 echo -n "ollama_messages_count: "; ollama_messages_count
 echo "ollama_messages:"; ollama_messages
 
 echo
-echo "ollama_message_add \"user\" \"Bye\""
-ollama_message_add "assistant" "Hello!"
+echo "ollama_messages_add \"user\" \"Bye\""
+ollama_messages_add "assistant" "Hello!"
 echo -n "ollama_messages_count: "; ollama_messages_count
 echo "ollama_messages:"; ollama_messages
 

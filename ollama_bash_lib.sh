@@ -220,8 +220,8 @@ ollama_messages_count() {
 # Usage: ollama_message_add "role" "message"
 # Output: none
 # Returns: 0 on success, 1 on error
-ollama_message_add() {
-  debug "ollama_message_add: $1"
+ollama_messages_add() {
+  debug "ollama_messages_add: $1"
   local role message
   role="$1"
   message="$2"

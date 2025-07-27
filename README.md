@@ -81,8 +81,8 @@ See the **[demos](demos)** directory for all demo scripts
 
 | Function                  | About                              | Usage                                      | Output                                      | Return  |
 |---------------------------|------------------------------------|--------------------------------------------|---------------------------------------------|---------|
-| `ollama_message_add`      | Add a message to chat context      | `ollama_message_add "role" "message"`      | none                                        | `0`/`1` | 
 | `ollama_messages`         | Get messages in chat context       | `ollama_messages`                          | json messages list, 1 per line, to `stdout` | `0`/`1` | 
+| `ollama_messages_add`     | Add a message to chat context      | `ollama_messages_add "role" "message"`     | none                                        | `0`/`1` | 
 | `ollama_messages_count`   | Count of messages in chat context  | `ollama_messages_count`                    | number of messages to `stdout`              | `0`/`1` | 
 | `ollama_messages_clear`   | Clear all messages in chat context | `ollama_messages_clear`                    | none                                        | `0`/`1` | 
 | `ollama_chat`             | Chat completion                    | `ollama_chat "model" "prompt"`             | text to `stdout`                            | `0`/`1` | 
