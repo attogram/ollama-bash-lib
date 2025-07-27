@@ -1,48 +1,23 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Generate a completion - Interactive - Non-streaming"
+echo "Ollama Bash Lib - Demo - ollama_generate - Interactive - Non-streaming"
 echo
 
-ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama_bash_lib.sh"
-if [ ! -f "$ollamaBashLib" ]; then
-  echo "ERROR: Ollama Bash Lib Not Found: $ollamaBashLib"
-  exit 1
-fi
-
-# shellcheck source=../ollama_bash_lib.sh
-source "$ollamaBashLib"
-
-if ! ollama_installed; then
-  echo "Error: Ollama is not installed"
-  exit 1
-fi
-
-stats() {
-  local result="$1"
-  total_duration="$(echo "$result" | jq -r ".total_duration")"
-  load_duration="$(echo "$result" | jq -r ".load_duration")"
-  prompt_eval_count="$(echo "$result" | jq -r ".prompt_eval_count")"
-  prompt_eval_duration="$(echo "$result" | jq -r ".prompt_eval_duration")"
-  eval_count="$(echo "$result" | jq -r ".eval_count")"
-  eval_duration="$(echo "$result" | jq -r ".eval_duration")"
-  echo -n "duration: $(echo "scale=2 ; $total_duration / 1000000000" | bc | sed 's/^\./0./') seconds"
-  echo -n " (load: $(echo "scale=2 ; $load_duration / 1000000000" | bc | sed 's/^\./0./'))"
-  echo -n " (prompt eval: $(echo "scale=2 ; $prompt_eval_duration / 1000000000" | bc | sed 's/^\./0./'))"
-  echo " (eval: $(echo "scale=2 ; $eval_duration / 1000000000" | bc | sed 's/^\./0./'))"
-  local count=$((prompt_eval_count + eval_count))
-  echo "count   : $count tokens (prompt eval: $prompt_eval_count) (eval: $eval_count)"
-  context=$((context + count))
-  echo "context : $context tokens"
+load_ollama_bash_lib() {
+  ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh"; echo "ollama_bash_lib: $ollama_bash_lib"
+  if [ ! -f "$ollama_bash_lib" ]; then echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"; exit 1; fi
+  # shellcheck source=../ollama_bash_lib.sh
+  source "$ollama_bash_lib"
+  echo; echo -n "ollama_installed: "; if ! ollama_installed; then echo "ERROR: Ollama Not Found"; exit 1; fi; echo "YES"; echo
 }
 
-context=0 # Tokens in context
+load_ollama_bash_lib
+
+echo "ollama_generate (No memory of previous messages)"
 
 model="$(ollama_random_model)"
-
-ollama_unload_model "$model"
-
 echo; echo "model: $model"
-echo; echo "context: $context tokens"
+
 echo; echo "Press Control-C to exit"
 
 while true; do
@@ -50,8 +25,5 @@ while true; do
   read -r prompt # Read prompt from user input
   result="$(ollama_generate "$model" "$prompt")"
   echo
-  #echo -e "$result" | jq -r ".response" # Get only the response
-  echo "$result" | jq -r ".response" # Get only the response
-  echo
-  stats "$result"
+  echo "$result"
 done
