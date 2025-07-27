@@ -42,13 +42,11 @@ See the **[demos](demos)** directory for demo scripts:
 
 ## Functions
 
-### Api Functions:
-* ```ollama_get```
-  * GET request to the Ollama API
-  * Usage: ```ollama_get "/api/command"```
-* ```ollama_post```
-  * POST request to the Ollama API
-  * Usage: ```ollama_post "/api/command" "{ json content }"```
+| API Functions     | About                          | Usage                                               | Output                      | Returns |
+|-------------------|--------------------------------|-----------------------------------------------------|-----------------------------|---------|
+| ```ollama_get```  | GET request to the Ollama API  | ```ollama_get "/api/command"```                     | API call result, to stdout  | 0/1     |
+| ```ollama_post``` | POST request to the Ollama API | ```ollama_post "/api/command" "{ json content }"``` | API call result, to stdout  | 0/1     | 
+
 
 ### Ollama Functions:
 * ```ollama_installed```
