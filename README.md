@@ -52,9 +52,9 @@ See the **[demos](demos)** directory for demo scripts:
 
 ### Ollama Functions
 
-| Function           | About                | Usage                                                                                     | Output | Return                               |
-|--------------------|----------------------|-------------------------------------------------------------------------------------------|--------|--------------------------------------|
-| `ollama_installed` | Is Ollama installed? | `if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi` | none   | `0` installed<br />`1` not installed |
+| Function           | About                | Usage                                                                       | Output | Return                               |
+|--------------------|----------------------|-----------------------------------------------------------------------------|--------|--------------------------------------|
+| `ollama_installed` | Is Ollama installed? | `if ollama_installed; then echo "Installed"; else echo "Not Installed"; fi` | none   | `0` installed<br />`1` not installed |
 
 ### Generate Functions
 
