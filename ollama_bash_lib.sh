@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.28.1"
+OLLAMA_BASH_LIB_VERSION="0.28.2"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -99,7 +99,7 @@ ollama_post() {
 
 # Unload a model from memory (Clear context for a model)
 #
-# Usage: ollama_unload_model "modelName"
+# Usage: ollama_unload_model "model"
 # Output: none
 # Returns: 0 on success, 1 on error
 ollama_unload_model() {
@@ -116,7 +116,7 @@ ollama_unload_model() {
 
 # Generate a completion, non-streaming, TEXT version
 #
-# Usage: ollama_generate "modelName" "prompt"
+# Usage: ollama_generate "model" "prompt"
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate() {
@@ -131,7 +131,7 @@ ollama_generate() {
 
 # Generate a completion, non-streaming, JSON version
 #
-# Usage: ollama_generate_json "modelName" "prompt"
+# Usage: ollama_generate_json "model" "prompt"
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
@@ -142,7 +142,7 @@ ollama_generate_json() {
 
 # Generate a completion, streaming, TEXT version
 #
-# Usage: ollama_generate_stream "modelName" "prompt"
+# Usage: ollama_generate_stream "model" "prompt"
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
@@ -162,7 +162,7 @@ ollama_generate_stream() {
 
 # Generate a completion, streaming, JSON version
 #
-# Usage: ollama_generate_stream_json "modelName" "prompt"
+# Usage: ollama_generate_stream_json "model" "prompt"
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate_stream_json() {
@@ -247,7 +247,7 @@ ollama_ps_json() {
 
 # Show model information, TEXT version
 #
-# Usage: ollama_show "modelName"
+# Usage: ollama_show "model"
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_show() {
@@ -258,7 +258,7 @@ ollama_show() {
 
 # Show model information, JSON version
 #
-# Usage: ollama_show_json "modelName"
+# Usage: ollama_show_json "model"
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_show_json() {

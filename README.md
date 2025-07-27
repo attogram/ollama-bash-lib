@@ -60,12 +60,12 @@ See the **[demos](demos)** directory for demo scripts:
 
 ### Generate Functions
 
-| Function                      | About                                 | Usage                                              | Output                     | Return  |
-|-------------------------------|---------------------------------------|----------------------------------------------------|----------------------------|---------|
-| `ollama_generate`             | Generate a completion                 | `ollama_generate "modelName" "prompt"`             | text to `stdout`           | `0`/`1` | 
-| `ollama_generate_json`        | Generate a completion, in json        | `ollama_generate_json "modelName" "prompt"`        | json to `stdout`           | `0`/`1` | 
-| `ollama_generate_stream`      | Generate a completion stream          | `ollama_generate_stream "modelName" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
-| `ollama_generate_stream_json` | Generate a completion stream, in json | `ollama_generate_stream_json "modelName" "prompt"` | streaming json to `stdout` | `0`/`1` | 
+| Function                      | About                                 | Usage                                          | Output                     | Return  |
+|-------------------------------|---------------------------------------|------------------------------------------------|----------------------------|---------|
+| `ollama_generate`             | Generate a completion                 | `ollama_generate "model" "prompt"`             | text to `stdout`           | `0`/`1` | 
+| `ollama_generate_json`        | Generate a completion, in json        | `ollama_generate_json "model" "prompt"`        | json to `stdout`           | `0`/`1` | 
+| `ollama_generate_stream`      | Generate a completion stream          | `ollama_generate_stream "model" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
+| `ollama_generate_stream_json` | Generate a completion stream, in json | `ollama_generate_stream_json "model" "prompt"` | streaming json to `stdout` | `0`/`1` | 
 
 
 ### Model Functions
