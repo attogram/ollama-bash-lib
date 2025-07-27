@@ -83,26 +83,27 @@ See the **[demos](demos)** directory for all demo scripts
 | `ollama_list_array` | List all available models, for bash array | `models=($(ollama_list_array))` | space separated list of model names to `stdout` | `0`/`1` |
 
 ### Process Functions
-* ```ollama_ps```
-  * Running model processes, cli version
-* ```ollama_ps_json```
-  * Running model processes, JSON version
+
+| Function         | About                            | Usage             | Output           | Return  |
+|------------------|----------------------------------|-------------------|------------------|---------|
+| `ollama_ps`      | Running model processes          | `ollama_ps`       | text to `stdout` | `0`/`1` |
+| `ollama_ps_json` | Running model processes, in json | `ollama_ps_json`  | json to `stdout` | `0`/`1` |
+
 
 ### Show Functions
-* ```ollama_show```
-  * Show model information, cli version
-  * Usage: ```ollama_show "modelName"```
-* ```ollama_show_json```
-  * Show model information, JSON version
-  * Usage: ```ollama_show_json "modelName"```
+
+| Function           | About                           | Usage                       | Output           | Return  |
+|--------------------|---------------------------------|-----------------------------|------------------|---------|
+| `ollama_show`      | Show model information          | `ollama_show "model"`       | text to `stdout` | `0`/`1` |
+| `ollama_show_json` | Show model information, in json | `ollama_show_json "model"`  | json to `stdout` | `0`/`1` |
 
 ### Version Functions
-* ```ollama_version```
-  * Ollama application version, TEXT version
-* ```ollama_version_json```
-  * Ollama application version, JSON version
-* ```ollama_version_cli```
-  * Ollama application version, CLI version
+
+| Function              | About                    | Usage                 | Output           | Return  |
+|-----------------------|--------------------------|-----------------------|------------------|---------|
+| `ollama_version`      | Ollama version           | `ollama_version`      | text to `stdout` | `0`/`1` |
+| `ollama_version_json` | Ollama version, in json  | `ollama_version_json` | json to `stdout` | `0`/`1` |
+| `ollama_version_cli`  | Ollama version, from cli | `ollama_version_cli`  | text to `stdout` | `0`/`1` |
 
 ### Utility Functions
 
