@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.28.2"
+OLLAMA_BASH_LIB_VERSION="0.29.0"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -13,6 +13,29 @@ OLLAMA_BASH_LIB_API=${OLLAMA_HOST:-"http://localhost:11434"} # no slash at end
 OLLAMA_BASH_LIB_MESSAGES=() # array of messages
 RETURN_SUCCESS=0
 RETURN_ERROR=1
+
+# Debug message
+#
+# Usage: debug "message"
+# Output: message to stderr
+# Returns: 0 on success, 1 on error
+debug() {
+  if [ "$OLLAMA_BASH_LIB_DEBUG" == "1" ]; then
+    >&2 echo -e "[DEBUG] $1"
+  fi
+  return $?
+}
+
+# Error message
+#
+# usage: error "message"
+# Output: message to stderr
+# Returns: 0 on success, 1 on error
+error() {
+  >&2 echo -e "[ERROR] $1"
+  # shellcheck disable=SC2320
+  return $?
+}
 
 # About Ollama Bash Lib
 #
@@ -36,18 +59,6 @@ ollama_about_lib() {
   echo "Functions:"
   echo
   compgen -A function
-  return $?
-}
-
-# Debug message
-#
-# Usage: debug "message"
-# Output: text, to stderr
-# Returns: 0 on success, 1 on error
-debug() {
-  if [ "$OLLAMA_BASH_LIB_DEBUG" == "1" ]; then
-    >&2 echo -e "[DEBUG] $1"
-  fi
   return $?
 }
 
@@ -78,17 +89,26 @@ json_safe() {
 # GET request to the Ollama API
 #
 # Usage: ollama_get "/api/path"
+# Input: 1 = API URL path
 # Output: API call result, to stdout
 # Returns: 0 on success, 1 on error
 ollama_get() {
   debug "ollama_get: $1"
-  curl -s -X GET "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json'
-  return $? # TODO - if curl error, get error info
+  local result curl_error
+  result=$(curl -s -X GET "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json')
+  curl_error=$?
+  if [ "$curl_error" -gt 0 ]; then
+    error "ollama_get: curl_error: $curl_error result: $result"
+    return $RETURN_ERROR
+  fi
+  echo "$result"
+  return $RETURN_SUCCESS
 }
 
 # POST request to the Ollama API
 #
 # Usage: ollama_post "/api/path" "{ json content }"
+# Input: 1 = API URL path, 2 = JSON content
 # Output: API call result, to stdout
 # Returns: 0 on success, 1 on error
 ollama_post() {

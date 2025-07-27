@@ -44,19 +44,16 @@ See the **[demos](demos)** directory for demo scripts:
 
 ### Api Functions
 
-| Function      | About                          | Usage                                        | Output                       | Return  |
-|---------------|--------------------------------|----------------------------------------------|------------------------------|---------|
-| `ollama_get`  | GET request to the Ollama API  | `ollama_get "/api/path"`                     | API call result, to `stdout` | `0`/`1` |
-| `ollama_post` | POST request to the Ollama API | `ollama_post "/api/path" "{ json content }"` | API call result, to `stdout` | `0`/`1` | 
-
+| Function      | About                          | Usage                                        | Output                      | Return                       |
+|---------------|--------------------------------|----------------------------------------------|-----------------------------|------------------------------|
+| `ollama_get`  | GET request to the Ollama API  | `ollama_get "/api/path"`                     | API call result to `stdout` | `0` on success, `1` on error |
+| `ollama_post` | POST request to the Ollama API | `ollama_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` on success, `1` on error | 
 
 ### Ollama Functions
-
 
 | Function           | About                | Usage                                                                                     | Output | Return                                 |
 |--------------------|----------------------|-------------------------------------------------------------------------------------------|--------|----------------------------------------|
 | `ollama_installed` | Is Ollama installed? | `if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi` | none   | `0` if installed, `1` if not installed |
-
 
 ### Generate Functions
 
@@ -109,18 +106,15 @@ See the **[demos](demos)** directory for demo scripts:
   * Ollama application version, CLI version
 
 ### Utility Functions
-* ```ollama_about_lib```
-  * About Ollama Bash Lib, lists vars and functions
-* ```estimate_tokens```
-  * Estimated number of tokens in a string
-  * Usage: ```estimate_tokens "string"```
-  * Usage: verbose: ```estimate_tokens "string" 1```
-  * Output: token estimate
-* ```json_safe```
-  * Escape a string for use as a JSON value
-  * Usage: ```json_safe "string"```
-* ```debug```
-  * Debug message to stderr
+
+
+| Function           | About                                           | Usage                                                           | Output                                                          | Return  |
+|--------------------|-------------------------------------------------|-----------------------------------------------------------------|-----------------------------------------------------------------|---------|
+| `ollama_about_lib` | About Ollama Bash Lib, lists vars and functions | `ollama_about_lib`                                              | text to `stdout`                                                | `0`/`1` |
+| `estimate_tokens`  | Estimated number of tokens in a string          | `estimate_tokens "string"`<br />`estimate_tokens "string" 1`    | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
+| `json_safe`        | Escape a string for use as a JSON value         | `json_safe "string"`                                            | "quoted json value" to `stdout`                                 | `0`/`1` |
+| `debug`            | Debug message (if `OLLAMA_BASH_LIB_DEBUG=1`)    | `debug "message"`                                               | message to `stderr`                                             | `0`/`1` |
+| `error`            | Error message                                   | `error "message"`                                               | message to `stderr`                                             | `0`/`1` |
 
 ## Requirements
 
