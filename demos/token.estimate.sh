@@ -43,7 +43,7 @@ echo -n "verbose: "
 estimate_tokens ../README.md 1
 
 echo
-echo "(contents of ../estimate_tokens.sh)"
+echo "(contents of ../ollama_bash_lib.sh)"
 echo -n "tokens : "
 estimate_tokens < ../ollama_bash_lib.sh
 echo -n "verbose: "

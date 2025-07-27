@@ -14,6 +14,6 @@ verbose: 7 ± 6 (range 1 to 7)
 tokens : 1918
 verbose: 1918 ± 900 (range 1018 to 1918)
 
-(contents of ../estimate_tokens.sh)
+(contents of ../ollama_bash_lib.sh)
 tokens : 2581
 verbose: 2581 ± 624 (range 1957 to 2581)
