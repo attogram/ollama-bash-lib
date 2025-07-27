@@ -42,33 +42,33 @@ See the **[demos](demos)** directory for demo scripts:
 
 ## Functions
 
-| API Functions     | About                          | Usage                                               | Output                      | Returns |
-|-------------------|--------------------------------|-----------------------------------------------------|-----------------------------|---------|
-| ```ollama_get```  | GET request to the Ollama API  | ```ollama_get "/api/command"```                     | API call result, to stdout  | 0/1     |
-| ```ollama_post``` | POST request to the Ollama API | ```ollama_post "/api/command" "{ json content }"``` | API call result, to stdout  | 0/1     | 
+### Api Functions
+
+| Function      | About                          | Usage                                        | Output                       | Return  |
+|---------------|--------------------------------|----------------------------------------------|------------------------------|---------|
+| `ollama_get`  | GET request to the Ollama API  | `ollama_get "/api/path"`                     | API call result, to `stdout` | `0`/`1` |
+| `ollama_post` | POST request to the Ollama API | `ollama_post "/api/path" "{ json content }"` | API call result, to `stdout` | `0`/`1` | 
 
 
-### Ollama Functions:
-* ```ollama_installed```
-  * Is Ollama installed on the local system?
-  * Usage: ```if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi```
-  * Returns: 0/1 (yes/no)
+### Ollama Functions
 
-### Generate Functions:
-* ```ollama_generate```
-  * Generate a completion, non-streaming, TEXT version
-  * Usage: ```ollama_generate "modelName" "prompt"```
-* ```ollama_generate_json```
-  * Generate a completion, non-streaming, JSON version
-  * Usage: ```ollama_generate_json "modelName" "prompt"```
-* ```ollama_generate_stream```
-  * Generate a completion, streaming, TEXT version
-  * Usage: ```ollama_generate_stream "modelName" "prompt"```
-* ```ollama_generate_stream_json```
-  * Generate a completion, streaming, JSON version
-  * Usage: ```ollama_generate_stream_json "modelName" "prompt"```
-  
-### Model Functions:
+
+| Function           | About                | Usage                                                                                     | Output | Return                                 |
+|--------------------|----------------------|-------------------------------------------------------------------------------------------|--------|----------------------------------------|
+| `ollama_installed` | Is Ollama installed? | `if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi` | none   | `0` if installed, `1` if not installed |
+
+
+### Generate Functions
+
+| Function                      | About                                 | Usage                                              | Output                     | Return  |
+|-------------------------------|---------------------------------------|----------------------------------------------------|----------------------------|---------|
+| `ollama_generate`             | Generate a completion                 | `ollama_generate "modelName" "prompt"`             | text to `stdout`           | `0`/`1` | 
+| `ollama_generate_json`        | Generate a completion, in json        | `ollama_generate_json "modelName" "prompt"`        | json to `stdout`           | `0`/`1` | 
+| `ollama_generate_stream`      | Generate a completion stream          | `ollama_generate_stream "modelName" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
+| `ollama_generate_stream_json` | Generate a completion stream, in json | `ollama_generate_stream_json "modelName" "prompt"` | streaming json to `stdout` | `0`/`1` | 
+
+
+### Model Functions
 * ```ollama_random_model```
   * Get a random model
   * Returns: 1 model name
@@ -76,7 +76,7 @@ See the **[demos](demos)** directory for demo scripts:
   * Unload a model from memory (Clear context for a model)
   * Usage: ```ollama_unload_model "modelName"```
 
-### List Functions:
+### List Functions
 * ```ollama_list```
   * All available models, cli version
 * ```ollama_list_json```
@@ -86,13 +86,13 @@ See the **[demos](demos)** directory for demo scripts:
   * Usage: ```models=($(ollama_list_array))```
   * Returns: space separated list of model names
 
-### Process Functions:
+### Process Functions
 * ```ollama_ps```
   * Running model processes, cli version
 * ```ollama_ps_json```
   * Running model processes, JSON version
 
-### Show Functions:
+### Show Functions
 * ```ollama_show```
   * Show model information, cli version
   * Usage: ```ollama_show "modelName"```
@@ -100,7 +100,7 @@ See the **[demos](demos)** directory for demo scripts:
   * Show model information, JSON version
   * Usage: ```ollama_show_json "modelName"```
 
-### Version Functions:
+### Version Functions
 * ```ollama_version```
   * Ollama application version, TEXT version
 * ```ollama_version_json```
@@ -108,7 +108,7 @@ See the **[demos](demos)** directory for demo scripts:
 * ```ollama_version_cli```
   * Ollama application version, CLI version
 
-### Utility Functions:
+### Utility Functions
 * ```ollama_about_lib```
   * About Ollama Bash Lib, lists vars and functions
 * ```estimate_tokens```
