@@ -6,19 +6,19 @@ Repo: https://github.com/attogram/ollama-bash-lib
 
 ## Usage
 
-Include the Ollama Bash Lib:
+Include in your shell or script:
 ```bash
-source ./ollama-bash-lib.sh
+source ./ollama_bash_lib.sh
 ```
 
 Include in your script, with error checking:
 ```bash
-ollamaBashLib="path/to/ollama-bash-lib.sh"
-if [ ! -f "$ollamaBashLib" ]; then
-  echo "ERROR: Ollama Bash Lib Not Found: $ollamaBashLib"
+ollama_bash_lib="path/to/ollama_bash_lib.sh"
+if [ ! -f "$ollama_bash_lib" ]; then
+  echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"
   exit 1
 fi
-source "$ollamaBashLib"
+source "$ollama_bash_lib"
 ```
 
 ## Demos
