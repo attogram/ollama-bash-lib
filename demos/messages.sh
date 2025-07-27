@@ -31,7 +31,7 @@ echo -n "ollama_messages_count: "; ollama_messages_count
 echo "ollama_messages:"; ollama_messages
 
 echo
-echo "ollama_messages_add \"user\" \"Bye\""
+echo "ollama_messages_add \"assistant\" \"Hello!\""
 ollama_messages_add "assistant" "Hello!"
 echo -n "ollama_messages_count: "; ollama_messages_count
 echo "ollama_messages:"; ollama_messages
