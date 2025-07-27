@@ -19,8 +19,8 @@ ollama_get_return=$?
 echo "ollama_get returned: $ollama_get_return"
 
 echo
-echo "ollama_get \"/error/bad/path\""
-ollama_get "/error/bad/path"
+echo "ollama_get \"/error/path/not/found\""
+ollama_get "/error/path/not/found"
 ollama_get_return=$?
 echo "ollama_get returned: $ollama_get_return"
 

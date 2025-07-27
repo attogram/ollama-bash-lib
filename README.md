@@ -39,6 +39,7 @@ See the **[demos](demos)** directory for demo scripts:
 * [token.estimate.sh](demos/token.estimate.sh) - Estimated token count ([example](demos/token.estimate.txt))
 * [review.lib.sh](demos/review.lib.sh) - Prompt a random model to do a code review of Ollama Bash Lib ([example](demos/review.lib.txt))
 * [review.readme.sh](demos/review.readme.sh) - Prompt a random model to do a review of Ollama Bash README ([example](demos/review.readme.txt))
+* [ollama_get.sh](demos/ollama_get.sh) - `ollama_get` usage ([example](demos/ollama_get.txt))
 
 ## Functions
 
