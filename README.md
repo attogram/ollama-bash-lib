@@ -4,6 +4,8 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
 Repo: https://github.com/attogram/ollama-bash-lib
 
+[Usage](#usage) - [Demos](#demos) - [Functions](#functions) - [Requirements](#requirements) - [License](#license) - [More Projects](#more-ai-from-the-attogram-project)
+
 ## Usage
 
 Include in your shell or script:
@@ -119,7 +121,6 @@ See the **[demos](demos)** directory for all demo scripts
 | `json_safe`        | Escape a string for use as a JSON value         | `json_safe "string"`                                         | _"quoted json value"_ to `stdout`                               | `0`/`1` |
 | `debug`            | Debug message (if `OLLAMA_BASH_LIB_DEBUG=1`)    | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
 | `error`            | Error message                                   | `error "message"`                                            | message to `stderr`                                             | `0`/`1` |
-
 
 ## Requirements
 
