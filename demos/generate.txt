@@ -1,9 +1,9 @@
 Ollama Bash Lib - Demo - Generate a completion, non-streaming, TEXT version
 
-model: qwen2.5vl:7b
+model: gemma3n:e4b
 
 prompt: Describe a rabbit in 3 short sentences
 
 ollama_generate:
 
-A rabbit is a small, furry animal with long ears and a short tail, often associated with Easter and springtime. It is known for its ability to hop and its soft, fluffy coat that can come in various colors. Rabbits are social animals and are often kept as pets in homes.
+A rabbit is a small mammal with long ears and a fluffy tail. They are known for their quick hops and love of carrots. These gentle creatures are often found in meadows and burrows, enjoying a peaceful life. 

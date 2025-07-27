@@ -11,9 +11,9 @@ tokens : 7
 verbose: 7 ± 6 (range 1 to 7)
 
 (contents of ../README.md)
-tokens : 1915
-verbose: 1915 ± 898 (range 1017 to 1915)
+tokens : 1918
+verbose: 1918 ± 900 (range 1018 to 1918)
 
-(contents of ../ollama-bash-lib.sh)
+(contents of ../estimate_tokens.sh)
 tokens : 2581
 verbose: 2581 ± 624 (range 1957 to 2581)

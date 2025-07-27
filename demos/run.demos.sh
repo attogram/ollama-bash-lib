@@ -24,7 +24,7 @@ for demo in "${demos[@]}"; do
   echo "Run: $demo > $outfile 2>&1"
   output=$($demo)
   # Remove PII
-  output=$(echo "$output" | sed '/^Ollama Bash Lib:/c\Ollama Bash Lib: /ollama-bash-lib/ollama-bash-lib.sh')
-  output=$(echo "$output" | sed '/^file:/c\file: /ollama-bash-lib/ollama-bash-lib.sh')
+  output=$(echo "$output" | sed '/^Ollama Bash Lib:/c\Ollama Bash Lib: /ollama-bash-lib/ollama_bash_lib.sh')
+  output=$(echo "$output" | sed '/^file:/c\file: /ollama-bash-lib/ollama_bash_lib.sh')
   echo "$output" > "$outfile" 2>&1 # stdout and stderr to text file
 done

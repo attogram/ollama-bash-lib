@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Review ollama-bash-lib.sh - Non-streaming"
+echo "Ollama Bash Lib - Demo - Review ollama_bash_lib.sh - Non-streaming"
 echo
 
-ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama-bash-lib.sh"
+ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama_bash_lib.sh"
 if [ ! -f "$ollamaBashLib" ]; then
   echo "ERROR: Ollama Bash Lib Not Found: $ollamaBashLib"
   exit 1
 fi
 
-# shellcheck source=../ollama-bash-lib.sh
+# shellcheck source=../ollama_bash_lib.sh
 source "$ollamaBashLib"
 if ! ollama_installed; then
   echo "Error: Ollama Not Installed"
@@ -31,7 +31,7 @@ echo "file: $ollamaBashLib"
 
 prompt+="
 
-ollama-bash-lib.sh:
+ollama_bash_lib.sh:
 
 $(cat "$ollamaBashLib")
 "

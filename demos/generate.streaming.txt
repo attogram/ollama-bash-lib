@@ -1,9 +1,13 @@
 Ollama Bash Lib - Demo - Generate a completion, streaming, TEXT version
 
-model: dolphin3:8b
+model: qwen3:8b
 
 prompt: Describe a rabbit in 3 short sentences
 
 ollama_generate_stream:
 
-A rabbit is a small mammal with long ears and fluffy fur that comes in various colors. They have strong hind legs which they use for hopping at high speeds. Rabbits are herbivores and typically feed on grasses, plants, and other vegetation.
+<think>
+Okay, the user wants a description of a rabbit in three short sentences. Let me start by thinking about the key features of a rabbit. They have soft fur, long ears, and a fluffy tail. Maybe mention their movement, like hopping. Also, their eyes are big and expressive. I should make each sentence concise. First sentence could focus on appearance: soft fur, long ears, big eyes. Second sentence about movement and behavior: hopping, alert, curious. Third sentence about their habitat and diet: found in fields, eat vegetables, gentle creatures. Wait, maybe the third sentence can also touch on their role in the ecosystem or their symbolic meaning? But the user might just want a straightforward description. Let me check if each sentence is clear and covers different aspects. Yeah, that should work.
+</think>
+
+A rabbit has soft, fluffy fur, long ears, and large, expressive eyes that reflect its gentle nature. It moves swiftly by hopping, often pausing to sniff the air with curiosity. Found in fields and forests, rabbits are small, herbivorous creatures known for their delicate grace.
