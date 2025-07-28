@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.32.1"
+OLLAMA_BASH_LIB_VERSION="0.33.0"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -17,10 +17,11 @@ RETURN_ERROR=1
 # Debug message
 #
 # Usage: debug "message"
+# Input: 1 - the debug message
 # Output: message to stderr
 # Returns: 0 on success, 1 on error
 debug() {
-  if [ "$OLLAMA_BASH_LIB_DEBUG" == "1" ]; then
+  if [ "$OLLAMA_BASH_LIB_DEBUG" -eq "1" ]; then
     >&2 echo -e "[DEBUG] $1"
   fi
   return $?
@@ -28,7 +29,8 @@ debug() {
 
 # Error message
 #
-# usage: error "message"
+# Usage: error "message"
+# Input: 1 - the error message
 # Output: message to stderr
 # Returns: 0 on success, 1 on error
 error() {
@@ -40,6 +42,7 @@ error() {
 # About Ollama Bash Lib
 #
 # Usage: ollama_about_lib
+# Input: none
 # Output: text to stdout
 # Returns: 0 on success, 1 on error
 ollama_about_lib() {
@@ -64,6 +67,7 @@ ollama_about_lib() {
 # Is Ollama installed on the local system?
 #
 # Usage: if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
+# Input: none
 # Output: none
 # Returns: 0 if Ollama is installed, 1 if Ollama is not installed
 ollama_installed() {
@@ -77,6 +81,7 @@ ollama_installed() {
 # Escape a string for use as a JSON value
 #
 # Usage: json_safe "string"
+# Input: 1 - The string to escape
 # Output: "quoted safe json value" to stdout
 # Returns: 0 on success, 1 on error
 json_safe() {
@@ -107,7 +112,8 @@ ollama_get() {
 # POST request to the Ollama API
 #
 # Usage: ollama_post "/api/path" "{ json content }"
-# Input: 1 = API URL path, 2 = JSON content
+# Input: 1 - API URL path
+# Input: 2 - JSON content
 # Output: API call result, to stdout
 # Returns: 0 on success, 1 on error
 ollama_post() {
@@ -119,6 +125,7 @@ ollama_post() {
 # Unload a model from memory (Clear context for a model)
 #
 # Usage: ollama_unload_model "model"
+# Input: 1 - Model name to unload
 # Output: none
 # Returns: 0 on success, 1 on error
 ollama_unload_model() {
@@ -136,6 +143,8 @@ ollama_unload_model() {
 # Generate a completion, non-streaming, TEXT version
 #
 # Usage: ollama_generate "model" "prompt"
+# Input: 1 - The model to use to generate a response
+# Input: 2 - The prompt
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate() {
