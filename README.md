@@ -86,7 +86,7 @@ See the **[demos](demos)** directory for all demo scripts
 | `ollama_messages_add`     | Add a message to chat context      | `ollama_messages_add "role" "message"`     | none                                        | `0`/`1` | 
 | `ollama_messages_count`   | Count of messages in chat context  | `ollama_messages_count`                    | number of messages to `stdout`              | `0`/`1` | 
 | `ollama_messages_clear`   | Clear all messages in chat context | `ollama_messages_clear`                    | none                                        | `0`/`1` | 
-| `ollama_chat`             | Chat completion                    | `ollama_chat`             | text to `stdout`                            | `0`/`1` | 
+| `ollama_chat`             | Chat completion                    | `ollama_chat "model"`             | text to `stdout`                            | `0`/`1` | 
 | `ollama_chat_json`        | Chat completion, in json           | `ollama_chat_json "model" "prompt"`        | json to `stdout`                            | `0`/`1` | 
 | `ollama_chat_stream`      | Chat completion stream             | `ollama_chat_stream "model" "prompt"`      | streaming text to `stdout`                  | `0`/`1` | 
 | `ollama_chat_stream_json` | Chat completion stream, in json    | `ollama_chat_stream_json "model" "prompt"` | streaming json to `stdout`                  | `0`/`1` | 
