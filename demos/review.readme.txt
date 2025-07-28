@@ -1,13 +1,28 @@
 Ollama Bash Lib - Demo - Review README.md
-
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_installed: YES
-model: mistral:7b
+ollama_installed: OK
+ollama_api_ping: OK
+
+model: smollm2:360m
 
 prompt: Act as an expert Software Engineer.
 Do a full review of this README:
 readme: ../README.md
 
- This text is a description of a Bash library called Ollama Bash Lib, which provides functions to interact with the Ollama AI system. It includes various utility functions, such as loading and unloading models, chatting with models, estimating the number of tokens in a string, and more. The library requires specific tools and versions of bash, curl, jq, awk, and command, and is licensed under the MIT License.
+Certainly! I can provide a more detailed breakdown of the functions provided in this document:
 
-   Additionally, it provides links to other projects related to AI by the same developer, including Ollama Multirun, Ollama Bash Toolshed, LLM Council, Small Models, and AI Test Zone. Each of these projects has its own GitHub repository with a brief description of what it does.
+1. `ollama_api_get` function is used to GET requests from the Ollama API, which returns JSON data containing details about the models and other related information.
+
+2. `ollama_api_post` function is used to POST requests from a random model generated using the Ollama API, returning text output in the form of a log file or some other output that can be processed by the program running in the shell. 
+
+3. `ollama_api_ping` function is used to check if the Ollama server is reachable and returns either 0/1 indicating success or failure status based on the result.
+
+4. `ollama_show` function is used to display information about a given model by accessing its metadata (a JSON object) using standard Bash syntax.
+
+5. `ollama_show_json` function is similar but it returns only the JSON data without any additional output. 
+
+6. `estimate_tokens` function is responsible for escaping a string and providing error messages to be displayed in a chat session. 
+
+7. `ollama_lib_about` function provides information about Ollama, its libraries, and other related topics.
+
+8. `ollama_lib_version` function is used to specify the version of Ollama being run by specifying \"Ollama-version\".

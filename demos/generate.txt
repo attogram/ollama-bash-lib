@@ -1,11 +1,12 @@
 Ollama Bash Lib - Demo - ollama_generate
-
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_installed: YES
-model: smollm2:135m
+ollama_installed: OK
+ollama_api_ping: OK
+
+model: smollm2:1.7b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate "smollm2:135m" "Describe a rabbit in 3 short sentences"
+ollama_generate "smollm2:1.7b" "Describe a rabbit in 3 short sentences"
 
-"A rabbit is a cute creature with fluffy coats and long ears. They have thick fur on their back legs and tails that allow them to climb high trees easily. Rabbits are also good at digging burrows for protection from the harsh winter weather, or they can even curl up in small nests under rocks or tree branches."
+"A rabbit is small and fluffy with large ears. It has long fur and often lives in burrows underground. Rabbits eat plants and can move quickly when needed."

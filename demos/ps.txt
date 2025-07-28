@@ -1,33 +1,53 @@
 Ollama Bash Lib - Demo - ollama_ps, ollama_ps_json
-
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_installed: YES
+ollama_installed: OK
+
 ollama_ps
 
-NAME             ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-granite3.3:2b    07bd1f170855    2.7 GB    100% GPU     4096       4 minutes from now    
+NAME        ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+qwen3:8b    500a1f067a9f    6.6 GB    100% GPU     4096       4 minutes from now    
+gemma:2b    b50d6c999e59    2.9 GB    100% GPU     4096       4 minutes from now    
 
 ollama_ps_json
 
 {
   "models": [
     {
-      "name": "granite3.3:2b",
-      "model": "granite3.3:2b",
-      "size": 2686878533,
-      "digest": "07bd1f170855240f9e162bf54ea494a8bc1c73d8cbd1365d7fccbeb7d2504947",
+      "name": "qwen3:8b",
+      "model": "qwen3:8b",
+      "size": 6557205504,
+      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "granite",
+        "family": "qwen3",
         "families": [
-          "granite"
+          "qwen3"
         ],
-        "parameter_size": "2.5B",
+        "parameter_size": "8.2B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-28T18:52:49.285192+02:00",
-      "size_vram": 2686878533,
+      "expires_at": "2025-07-28T20:04:27.191041+02:00",
+      "size_vram": 6557205504,
+      "context_length": 4096
+    },
+    {
+      "name": "gemma:2b",
+      "model": "gemma:2b",
+      "size": 2879660032,
+      "digest": "b50d6c999e592ae4f79acae23b4feaefbdfceaa7cd366df2610e3072c052a160",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "gemma",
+        "families": [
+          "gemma"
+        ],
+        "parameter_size": "3B",
+        "quantization_level": "Q4_0"
+      },
+      "expires_at": "2025-07-28T20:04:00.075356+02:00",
+      "size_vram": 2879660032,
       "context_length": 4096
     }
   ]

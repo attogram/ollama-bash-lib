@@ -1,7 +1,8 @@
 Ollama Bash Lib - Demo - Messages
-
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_installed: YES
+ollama_installed: OK
+ollama_api_ping: OK
+
 ollama_messages_count: 0
 ollama_messages:
 

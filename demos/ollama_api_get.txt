@@ -1,7 +1,8 @@
 Ollama Bash Lib - Demo - ollama_api_get
-
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_installed: YES
+ollama_installed: OK
+ollama_api_ping: OK
+
 ollama_api_get "/api/version"
 
 {"version":"0.10.0-rc0"}

@@ -4,7 +4,7 @@
 
 
 cd "$(dirname "$0")" || exit 1 # cd to demos directory
-demos=($(find . -maxdepth 1 -name "*.sh")) # Get all *.sh files in current directory
+demos=($(find . -maxdepth 1 -name "*.sh" | sort)) # Get all *.sh files in current directory
 
 # Exclude files
 excluded=("./run.demos.sh" "./generate.interactive.sh" "./show.all.models.sh")
@@ -18,7 +18,7 @@ done
 
 for demo in "${demos[@]}"; do
   outfile=$(echo "$demo" | sed 's/\.sh$/.txt/g')
-  echo "Run: $demo > $outfile 2>&1"
-  output=$($demo)
-  echo "$output" > "$outfile" 2>&1 # stdout and stderr to text file
+  echo "Run: $demo > $outfile"
+  output=$($demo 2>&1) # redirect stderr to stdout
+  echo "$output" > "$outfile" 2>&1
 done

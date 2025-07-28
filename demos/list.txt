@@ -1,7 +1,8 @@
 Ollama Bash Lib - Demo - ollama_list, ollama_list_json
-
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_installed: YES
+ollama_installed: OK
+ollama_api_ping: OK
+
 ollama_list
 
 NAME                         ID              SIZE      MODIFIED    

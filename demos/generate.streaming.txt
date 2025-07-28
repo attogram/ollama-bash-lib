@@ -1,13 +1,16 @@
 Ollama Bash Lib - Demo - ollama_generate_stream
-
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_installed: YES
-model: granite3.3:2b
+ollama_installed: OK
+ollama_api_ping: OK
+
+model: gemma:2b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate_stream "granite3.3:2b" "Describe a rabbit in 3 short sentences"
+ollama_generate_stream "gemma:2b" "Describe a rabbit in 3 short sentences"
 
-1. Rabbits are small mammals known for their fluffy tails and long ears, which they use to sense their environment.
-2. They are herbivores, primarily feeding on grasses, leaves, and roots, with a chewing masticatory morphology.
-3. Often recognized by their gentle nature and high reproductive rate, rabbits can have litters of up to a dozen young ones each year.
+Sure, here's a description of a rabbit in 3 short sentences:
+
+* Rabbits are small mammals with long, slender bodies and soft fur.
+* They are herbivores and eat a variety of plants, including grass, leaves, and flowers.
+* Rabbits are social animals that live in colonies with a hierarchy among the members.

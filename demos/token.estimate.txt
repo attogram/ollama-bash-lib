@@ -1,7 +1,8 @@
 Ollama Bash Lib - Demo - estimate_tokens
-
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_installed: YES
+ollama_installed: OK
+ollama_api_ping: OK
+
 estimate_tokens "string"
 estimate_tokens "string" 1 (verbose)
 
@@ -14,9 +15,9 @@ tokens : 7
 verbose: 7 ± 6 (range 1 to 7)
 
 (contents of ../README.md)
-tokens : 4338
-verbose: 4338 ± 2612 (range 1726 to 4338)
+tokens : 4356
+verbose: 4356 ± 2579 (range 1777 to 4356)
 
 (contents of ../ollama_bash_lib.sh)
-tokens : 3632
-verbose: 3632 ± 959 (range 2673 to 3632)
+tokens : 4017
+verbose: 4017 ± 1135 (range 2882 to 4017)
