@@ -131,7 +131,7 @@ See the **[demos](demos)** directory for all demo scripts
 | Function           | About                                           | Usage                                                        | Output                                                          | Return  |
 |--------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
 | `json_safe`        | Escape a string for use as a JSON value         | `json_safe "string"`                                         | _"quoted json value"_ to `stdout`                               | `0`/`1` |
-| `debug`            | Debug message (if `OLLAMA_BASH_LIB_DEBUG=1`)    | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
+| `debug`            | Debug message (if `OLLAMA_LIB_DEBUG=1`)    | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
 | `error`            | Error message                                   | `error "message"`                                            | message to `stderr`                                             | `0`/`1` |
 
 ## Requirements

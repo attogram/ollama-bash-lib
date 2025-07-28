@@ -15,7 +15,7 @@ load_ollama_bash_lib
 
 echo "estimate_tokens \"string\""
 echo "estimate_tokens \"string\" 1 (verbose)"
-OLLAMA_BASH_LIB_DEBUG=0
+OLLAMA_LIB_DEBUG=0
 
 echo
 string="My hovercraft is full of eels"

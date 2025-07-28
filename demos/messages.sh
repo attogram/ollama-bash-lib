@@ -13,7 +13,7 @@ load_ollama_bash_lib() {
 
 load_ollama_bash_lib
 
-OLLAMA_BASH_LIB_DEBUG=0
+OLLAMA_LIB_DEBUG=0
 
 echo -n "ollama_messages_count: "; ollama_messages_count
 echo "ollama_messages:"; ollama_messages

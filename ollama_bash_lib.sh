@@ -3,14 +3,14 @@
 # Ollama Bash Lib - A Bash Library to interact with Ollama
 #
 
-OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.33.1"
-OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
-OLLAMA_BASH_LIB_LICENSE="MIT"
-OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
-OLLAMA_BASH_LIB_DEBUG=0
-OLLAMA_BASH_LIB_API=${OLLAMA_HOST:-"http://localhost:11434"} # no slash at end
-OLLAMA_BASH_LIB_MESSAGES=() # array of messages
+OLLAMA_LIB_NAME="Ollama Bash Lib"
+OLLAMA_LIB_VERSION="0.34.0"
+OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
+OLLAMA_LIB_LICENSE="MIT"
+OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
+OLLAMA_LIB_DEBUG=0
+OLLAMA_LIB_API=${OLLAMA_HOST:-"http://localhost:11434"} # no slash at end
+OLLAMA_LIB_MESSAGES=() # array of messages
 RETURN_SUCCESS=0
 RETURN_ERROR=1
 
@@ -21,7 +21,7 @@ RETURN_ERROR=1
 # Output: message to stderr
 # Returns: 0 on success, 1 on error
 debug() {
-  if [ "$OLLAMA_BASH_LIB_DEBUG" -eq "1" ]; then
+  if [ "$OLLAMA_LIB_DEBUG" -eq "1" ]; then
     >&2 echo -e "[DEBUG] $1"
   fi
   return $?
@@ -74,7 +74,7 @@ json_safe() {
 ollama_get() {
   debug "ollama_get: \"$1\""
   local result curl_error
-  result=$(curl -s -X GET "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json')
+  result=$(curl -s -X GET "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json')
   curl_error=$?
   debug "ollama_get: result: $result"
   if [ "$curl_error" -gt 0 ]; then
@@ -95,7 +95,7 @@ ollama_get() {
 ollama_post() {
   debug "ollama_post: \"$1\" \"$2\""
   local result curl_error
-  local result=$(curl -s -X POST "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json' -d "$2")
+  local result=$(curl -s -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2")
   curl_error=$?
   debug "ollama_post: result: $result"
   if [ "$curl_error" -gt 0 ]; then
@@ -183,11 +183,11 @@ ollama_generate_stream_json() {
 # Returns: 0 on success, 1 on error
 ollama_messages() {
   debug "ollama_messages"
-  if [ ${#OLLAMA_BASH_LIB_MESSAGES[@]} -eq 0 ]; then
+  if [ ${#OLLAMA_LIB_MESSAGES[@]} -eq 0 ]; then
     debug "ollama_messages: no messages"
     return $RETURN_ERROR
   fi
-  printf '%s\n' "${OLLAMA_BASH_LIB_MESSAGES[@]}"
+  printf '%s\n' "${OLLAMA_LIB_MESSAGES[@]}"
   return $RETURN_SUCCESS
 }
 
@@ -198,7 +198,7 @@ ollama_messages() {
 # Returns: 0 on success, 1 on error
 ollama_messages_count() {
   debug "ollama_messages_count"
-  echo "${#OLLAMA_BASH_LIB_MESSAGES[@]}"
+  echo "${#OLLAMA_LIB_MESSAGES[@]}"
   return $RETURN_SUCCESS
 }
 
@@ -212,7 +212,7 @@ ollama_messages_add() {
   local role message
   role="$1"
   message="$2"
-  OLLAMA_BASH_LIB_MESSAGES+=("{\"role\":$(json_safe "$role"),\"content\":$(json_safe "$message")}")
+  OLLAMA_LIB_MESSAGES+=("{\"role\":$(json_safe "$role"),\"content\":$(json_safe "$message")}")
   return $RETURN_SUCCESS
 }
 
@@ -223,7 +223,7 @@ ollama_messages_add() {
 # Returns: 0 on success, 1 on error
 ollama_messages_clear() {
   debug "IN DEV - ollama_messages_clear"
-  OLLAMA_BASH_LIB_MESSAGES=()
+  OLLAMA_LIB_MESSAGES=()
   return $RETURN_SUCCESS
 }
 
@@ -243,7 +243,7 @@ ollama_chat() {
   fi
 
   json="{\"model\":\"$model\",\"messages\":["
-  json+=$(printf "%s," "${OLLAMA_BASH_LIB_MESSAGES[@]}")
+  json+=$(printf "%s," "${OLLAMA_LIB_MESSAGES[@]}")
   json="$(echo "$json" | sed 's/,*$//g')" # strip last slash
   json+="],\"stream\":false}"
 
@@ -525,17 +525,17 @@ estimate_tokens() {
 # Output: text to stdout
 # Returns: 0 on success, 1 on error
 ollama_about_lib() {
-  echo "$OLLAMA_BASH_LIB_NAME v$OLLAMA_BASH_LIB_VERSION"
+  echo "$OLLAMA_LIB_NAME v$OLLAMA_LIB_VERSION"
   echo
   echo "A Bash Library to interact with Ollama"
   echo
-  echo "OLLAMA_BASH_LIB_NAME     : $OLLAMA_BASH_LIB_NAME"
-  echo "OLLAMA_BASH_LIB_VERSION  : $OLLAMA_BASH_LIB_VERSION"
-  echo "OLLAMA_BASH_LIB_URL      : $OLLAMA_BASH_LIB_URL"
-  echo "OLLAMA_BASH_LIB_LICENSE  : $OLLAMA_BASH_LIB_LICENSE"
-  echo "OLLAMA_BASH_LIB_COPYRIGHT: $OLLAMA_BASH_LIB_COPYRIGHT"
-  echo "OLLAMA_BASH_LIB_DEBUG    : $OLLAMA_BASH_LIB_DEBUG"
-  echo "OLLAMA_BASH_LIB_API      : $OLLAMA_BASH_LIB_API"
+  echo "OLLAMA_LIB_NAME     : $OLLAMA_LIB_NAME"
+  echo "OLLAMA_LIB_VERSION  : $OLLAMA_LIB_VERSION"
+  echo "OLLAMA_LIB_URL      : $OLLAMA_LIB_URL"
+  echo "OLLAMA_LIB_LICENSE  : $OLLAMA_LIB_LICENSE"
+  echo "OLLAMA_LIB_COPYRIGHT: $OLLAMA_LIB_COPYRIGHT"
+  echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
+  echo "OLLAMA_LIB_API      : $OLLAMA_LIB_API"
   echo
   if [ -z "$(command -v compgen 2> /dev/null)" ]; then
     return $RETURN_ERROR
