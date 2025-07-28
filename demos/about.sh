@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - ollama_about_lib"
+echo "Ollama Bash Lib - Demo - ollama_lib_about"
 echo
 
 load_ollama_bash_lib() {
@@ -13,6 +13,6 @@ load_ollama_bash_lib() {
 
 load_ollama_bash_lib
 
-echo "ollama_about_lib"
+echo "ollama_lib_about"
 echo
-ollama_about_lib
+ollama_lib_about

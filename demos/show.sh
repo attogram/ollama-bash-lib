@@ -13,7 +13,7 @@ load_ollama_bash_lib() {
 
 load_ollama_bash_lib
 
-model=$(ollama_random_model)
+model=$(ollama_model_random)
 echo "model: $model"
 
 echo

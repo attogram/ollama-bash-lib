@@ -32,8 +32,8 @@ See the **[demos](demos)** directory for all demo scripts
 
 | Demo                                                           | About                                                                                                                          | Example                                      |
 |----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| [about.sh](demos/about.sh)                                     | Ollama Bash Lib variables and functions                                                                                        | [example](demos/ollama_get.txt)              |
-| [ollama_get.sh](demos/ollama_get.sh)                           | `ollama_get` usage and error handling                                                                                          | [example](demos/about.txt)                   |
+| [about.sh](demos/about.sh)                                     | Ollama Bash Lib variables and functions                                                                                        | [example](demos/about.txt)                   |
+| [ollama_api_get.sh](demos/ollama_api_get.sh)                   | `ollama_api_get` usage and error handling                                                                                      | [example](demos/ollama_api_get.txt)          |
 | [generate.sh](demos/generate.sh)                               | Generate completion from a random model, non-streaming, text output                                                            | [example](demos/generate.txt)                |
 | [generate.json.sh](demos/generate.json.sh)                     | Generate completion from a random model, non-streaming, json output                                                            | [example](demos/generate.json.txt)           |
 | [generate.streaming.sh](demos/generate.streaming.sh)           | Generate completion from a random model, streaming, text output                                                                | [example](demos/generate.streaming.txt)      |
@@ -56,8 +56,8 @@ See the **[demos](demos)** directory for all demo scripts
 
 | Function      | About                          | Usage                                        | Output                      | Return                                       |
 |---------------|--------------------------------|----------------------------------------------|-----------------------------|----------------------------------------------|
-| `ollama_get`  | GET request to the Ollama API  | `ollama_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error |
-| `ollama_post` | POST request to the Ollama API | `ollama_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error | 
+| `ollama_api_get`  | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error |
+| `ollama_api_post` | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error | 
 
 ### Ollama Functions
 
@@ -94,8 +94,8 @@ See the **[demos](demos)** directory for all demo scripts
 
 | Function              | About                                                       | Usage                 | Output                   | Return  |
 |-----------------------|-------------------------------------------------------------|-----------------------|--------------------------|---------|
-| `ollama_random_model` | Get a random model                                          | `ollama_random_model` | 1 model name to `stdout` | `0`/`1` | 
-| `ollama_unload_model` | Unload a model from memory<br />(Clear context for a model) | `ollama_unload_model` | none                     | `0`/`1` | 
+| `ollama_model_random` | Get a random model                                          | `ollama_model_random` | 1 model name to `stdout` | `0`/`1` | 
+| `ollama_model_unload` | Unload a model from memory<br />(Clear context for a model) | `ollama_model_unload` | none                     | `0`/`1` | 
 
 ### List Functions
 
@@ -123,7 +123,7 @@ See the **[demos](demos)** directory for all demo scripts
 
 | Function           | About                                           | Usage                                                        | Output                                                          | Return  |
 |--------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
-| `ollama_about_lib` | About Ollama Bash Lib, lists vars and functions | `ollama_about_lib`                                           | text to `stdout`                                                | `0`/`1` |
+| `ollama_lib_about` | About Ollama Bash Lib, lists vars and functions | `ollama_lib_about`                                           | text to `stdout`                                                | `0`/`1` |
 | `estimate_tokens`  | Estimated number of tokens in a string          | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
 
 ### Internal Functions

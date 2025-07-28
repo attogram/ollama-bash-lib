@@ -15,7 +15,7 @@ load_ollama_bash_lib
 
 echo "ollama_generate (No memory of previous messages)"
 
-model="$(ollama_random_model)"
+model="$(ollama_model_random)"
 echo; echo "model: $model"
 
 echo; echo "Press Control-C to exit"
