@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.32.0"
+OLLAMA_BASH_LIB_VERSION="0.32.1"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -213,6 +213,7 @@ ollama_messages() {
 ollama_messages_count() {
   debug "ollama_messages_count"
   echo "${#OLLAMA_BASH_LIB_MESSAGES[@]}"
+  return $RETURN_SUCCESS
 }
 
 # Add a message
@@ -225,7 +226,8 @@ ollama_messages_add() {
   local role message
   role="$1"
   message="$2"
-  OLLAMA_BASH_LIB_MESSAGES+=("{\"role\":\"$role\",\"content\":$(json_safe "$message")}")
+  OLLAMA_BASH_LIB_MESSAGES+=("{\"role\":$(json_safe "$role"),\"content\":$(json_safe "$message")}")
+  return $RETURN_SUCCESS
 }
 
 # Clear all messages
@@ -234,8 +236,9 @@ ollama_messages_add() {
 # Output: none
 # Returns: 0 on success, 1 on error
 ollama_messages_clear() {
-  debug "ollama_messages_clear"
+  debug "IN DEV - ollama_messages_clear"
   OLLAMA_BASH_LIB_MESSAGES=()
+  return $RETURN_SUCCESS
 }
 
 # Chat completion request, TEXT version
@@ -270,29 +273,29 @@ ollama_chat() {
 
 # Chat completion request, JSON version
 #
-# Usage:
+# Usage: ollama_chat_json "model"
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
-  debug "ollama_chat_json: $1 $2"
+  debug "IN DEV - ollama_chat_json: $1"
 }
 
 # Streaming Chat completion request, TEXT version
 #
-# Usage:
+# Usage: ollama_chat_stream "model"
 # Output: streaming text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
-  debug "ollama_chat_stream: $1 $2"
+  debug "IN DEV - ollama_chat_stream: $1"
 }
 
 # Streaming Chat completion request, JSON version
 #
-# Usage:
+# Usage: ollama_chat_stream_json "model"
 # Output: streaming json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_chat_stream_json() {
-  debug "ollama_chat_stream_json: $1 $2"
+  debug "IN DEV - ollama_chat_stream_json: $1 $2"
 }
 
 # All available models, CLI version
