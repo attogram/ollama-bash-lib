@@ -7,6 +7,7 @@ startup() {
   if [ ! -f "$ollama_bash_lib" ]; then echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"; exit 1; fi
   # shellcheck source=../ollama_bash_lib.sh
   source "$ollama_bash_lib"
+  echo "ollama_lib_version: v$(ollama_lib_version)"
 echo -n "ollama_installed: "; if ! ollama_installed; then echo "ERROR: Ollama Not Found"; exit 1; fi; echo "OK";
 }
 

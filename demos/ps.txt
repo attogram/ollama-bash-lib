@@ -1,53 +1,74 @@
 Ollama Bash Lib - Demo - ollama_ps, ollama_ps_json
 ollama_bash_lib: ./../ollama_bash_lib.sh
+ollama_lib_version: v0.37.3
 ollama_installed: OK
 
 ollama_ps
 
-NAME        ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-qwen3:8b    500a1f067a9f    6.6 GB    100% GPU     4096       4 minutes from now    
-gemma:2b    b50d6c999e59    2.9 GB    100% GPU     4096       4 minutes from now    
+NAME                ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+granite3.3:8b       fd429f23b909    6.7 GB    100% GPU     4096       4 minutes from now    
+deepseek-r1:1.5b    e0979632db5a    2.0 GB    100% GPU     4096       4 minutes from now    
+smollm2:360m        297281b699fc    1.6 GB    100% GPU     4096       4 minutes from now    
 
 ollama_ps_json
 
 {
   "models": [
     {
-      "name": "qwen3:8b",
-      "model": "qwen3:8b",
-      "size": 6557205504,
-      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "name": "granite3.3:8b",
+      "model": "granite3.3:8b",
+      "size": 6739953290,
+      "digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "qwen3",
+        "family": "granite",
         "families": [
-          "qwen3"
+          "granite"
         ],
         "parameter_size": "8.2B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-28T20:04:27.191041+02:00",
-      "size_vram": 6557205504,
+      "expires_at": "2025-07-29T01:14:23.016794+02:00",
+      "size_vram": 6739953290,
       "context_length": 4096
     },
     {
-      "name": "gemma:2b",
-      "model": "gemma:2b",
-      "size": 2879660032,
-      "digest": "b50d6c999e592ae4f79acae23b4feaefbdfceaa7cd366df2610e3072c052a160",
+      "name": "deepseek-r1:1.5b",
+      "model": "deepseek-r1:1.5b",
+      "size": 1982904832,
+      "digest": "e0979632db5a88d1a53884cb2a941772d10ff5d055aabaa6801c4e36f3a6c2d7",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "gemma",
+        "family": "qwen2",
         "families": [
-          "gemma"
+          "qwen2"
         ],
-        "parameter_size": "3B",
-        "quantization_level": "Q4_0"
+        "parameter_size": "1.8B",
+        "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-28T20:04:00.075356+02:00",
-      "size_vram": 2879660032,
+      "expires_at": "2025-07-29T01:14:14.673826+02:00",
+      "size_vram": 1982904832,
+      "context_length": 4096
+    },
+    {
+      "name": "smollm2:360m",
+      "model": "smollm2:360m",
+      "size": 1595405568,
+      "digest": "297281b699fc51376006233ca400cd664c4f7b80ed88a47ef084f1e4b089803b",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "361.82M",
+        "quantization_level": "F16"
+      },
+      "expires_at": "2025-07-29T01:14:09.590671+02:00",
+      "size_vram": 1595405568,
       "context_length": 4096
     }
   ]

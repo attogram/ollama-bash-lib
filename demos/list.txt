@@ -1,5 +1,6 @@
 Ollama Bash Lib - Demo - ollama_list, ollama_list_json
 ollama_bash_lib: ./../ollama_bash_lib.sh
+ollama_lib_version: v0.37.3
 ollama_installed: OK
 ollama_api_ping: OK
 
@@ -13,7 +14,7 @@ mistral:7b-instruct          3944fe81ec14    4.1 GB    2 weeks ago
 gemma3n:e4b                  15cb39fd9394    7.5 GB    2 weeks ago    
 cogito:3b                    bd144357d717    2.2 GB    2 weeks ago    
 granite3.3:8b                fd429f23b909    4.9 GB    2 weeks ago    
-llama3.2:3b                  a80c4f17acd5    2.0 GB    2 weeks ago    
+llama3.2:3b                  a80c4f17acd5    2.0 GB    3 weeks ago    
 gemma3n:e2b                  719372f8c7de    5.6 GB    3 weeks ago    
 qwen3:4b                     2bfd38a7daaf    2.6 GB    3 weeks ago    
 cogito:8b                    75b508ddece1    4.9 GB    3 weeks ago    

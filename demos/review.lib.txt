@@ -1,127 +1,2112 @@
 Ollama Bash Lib - Demo - Review ollama_bash_lib.sh
 ollama_bash_lib: ./../ollama_bash_lib.sh
+ollama_lib_version: v0.37.3
 ollama_installed: OK
 ollama_api_ping: OK
 
-model: gemma3n:e2b
+model: gemma3n:e4b
 
 prompt: Act as an expert Software Engineer.
 Do a full code review of this script:
 script: ./../ollama_bash_lib.sh
 
-This is a comprehensive set of functions for interacting with the Ollama API from a Bash script.  It's well-organized and covers a wide range of operations. Here's a breakdown, with suggestions for improvement and considerations:
+This
+ is
+ a
+ comprehensive
+ and
+ well
+-
+structured
+ Bash
+ library
+ for
+ interacting
+ with
+ the
+ Oll
+ama
+ API
+.
+  
+Here
+'
+s
+ a
+ breakdown
+ of
+ the
+ code
+,
+ along
+ with
+ suggestions
+ for
+ improvements
+,
+ clarifications
+,
+ and
+ potential
+ additions
+.
 
-**Overall Structure and Organization**
 
-*   **Clear Naming:** The function names are descriptive and follow a consistent pattern (e.g., `ollama_ps`, `ollama_show_json`).
-*   **Good Documentation:**  Each function has a comment explaining its purpose, usage, input, and output.
-*   **Modular Design:** The functions are relatively self-contained, making them easy to reuse and maintain.
-*   **Error Handling:**  Many functions include error checking (e.g., checking for missing arguments, invalid commands).
-*   **Consistent Return Codes:**  The `return $RETURN_SUCCESSS` and `return $RETURN_ERROR` are used consistently, which is good for scripting.
 
-**Detailed Breakdown and Suggestions**
+**
+Overall
+ Structure
+ and
+ Design
+:**
 
-1.  **`o llama_ps` and `o llama_ps_json` (Running Model Processes)**
 
-    *   **Functionality:**  These functions retrieve information about running Ollama processes.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Handle potential errors when fetching the process list (e.g., if the Ollama service is not running).
-        *   Add a check to ensure the `o llama` command is available before running.
 
-2.  **`o llama_show` and `o llama_show_json` (Model Information)**
+*
+ **
+Modular
+:**
+ The
+ code
+ is
+ organized
+ into
+ functions
+,
+ each
+ performing
+ a
+ specific
+ task
+.
+ This
+ makes
+ it
+ easy
+ to
+ understand
+,
+ maintain
+,
+ and
+ extend
+.
 
-    *   **Functionality:**  These functions display information about a specific model.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Handle potential errors when fetching model information (e.g., if the model does not exist).
-        *   Add a check to ensure the `o llama show` command is available before running.
 
-3.  **`o llama_ps_json` (Running Model Processes - JSON)**
+*
+ **
+Error
+ Handling
+:**
+  
+The
+ use
+ of
+ `
+ret
+ur
+`
+n
+ and
+ `
+$?
+`
+ for
+ error
+ checking
+ is
+ good
+ practice
+.
+  
+It
+ allows
+ functions
+ to
+ signal
+ failure
+ and
+ provides
+ a
+ mechanism
+ for
+ the
+ calling
+ code
+ to
+ handle
+ errors
+.
 
-    *   **Functionality:**  Retrieves running model processes in JSON format.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Handle potential errors when fetching the process list (e.g., if the Ollama service is not running).
-        *   Add a check to ensure the `o llama` command is available before running.
 
-4.  **`o llama_show_json` (Model Information - JSON)**
+*
+ **
+Configuration
+:**
+ The
+ use
+ of
+ variables
+ like
+ `
+OL
+LAM
+A
+_
+LIB
+_
+NAME
+`,
+ `
+OL
+LAM
+A
+_
+LIB
+_
+VERSION
+`,
+ etc
+.,
+ makes
+ it
+ easy
+ to
+ update
+ the
+ library
+'
+s
+ metadata
+.
 
-    *   **Functionality:**  Retrieves model information in JSON format.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Handle potential errors when fetching model information (e.g., if the model does not exist).
-        *   Add a check to ensure the `o llama show` command is available before running.
 
-5.  **`o llama_version` (Ollama Application Version)**
+*
+ **
+Clear
+ Comments
+:**
+  
+The
+ comments
+ explain
+ the
+ purpose
+ of
+ each
+ function
+,
+ its
+ arguments
+,
+ and
+ its
+ return
+ value
+.
 
-    *   **Functionality:**  Retrieves the version of the Ollama application.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Add a check to ensure the `o llama version` command is available before running.
 
-6.  **`o llama_lib_about` (About Ollama Bash Lib)**
+*
+ **
+`
+debug
+`
+ statements
+:**
+ The
+ use
+ of
+ `
+debug
+`
+ statements
+ is
+ excellent
+ for
+ troubleshooting
+.
+  
+These
+ can
+ be
+ enabled
+/
+disabled
+ with
+ a
+ flag
+.
 
-    *   **Functionality:**  Displays information about the Ollama Bash library.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Add a check to ensure the `o llama` command is available before running.
-        *   Consider adding a `help` flag to provide a list of available functions.
 
-7.  **`o llama_version_json` (Ollama Application Version - JSON)**
 
-    *   **Functionality:**  Retrieves the version of the Ollama application in JSON format.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Handle potential errors when fetching the version information (e.g., if the Ollama service is not running).
-        *   Add a check to ensure the `o llama version` command is available before running.
+**
+Detailed
+ Function
+ Analysis
+ and
+ Suggestions
+:**
 
-8.  **`o llama_version_cli` (Ollama Application Version - CLI)**
 
-    *   **Functionality:**  Retrieves the version of the Ollama application in CLI format.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Add a check to ensure the `o llama version` command is available before running.
 
-9.  **`estimate_tokens` (Estimate Token Count)**
+**
+1
+.
+ `
+estimate
+_
+tokens
+()`
+:**
 
-    *   **Functionality:**  Estimates the number of tokens in a string.
-    *   **Improvements:**
-        *   Consider adding a `verbose` flag to provide more detailed output.
-        *   Handle potential errors when fetching the token count (e.g., if the string is empty).
-        *   Add a check to ensure the `compgen` command is available before running.
-        *   Consider adding a flag to specify the input type (string, file, or piped input).
 
-**Additional Considerations**
 
-*   **`RETURN_SUCCESSS` and `RETURN_ERROR`:**  These are defined in the script.  Make sure they are clearly defined and documented.
-*   **`o llama` Command Availability:**  The script should check if the `o llama` command is available before attempting to use it.  This prevents errors if Ollama is not installed or not in the system's PATH.
-*   **Error Handling:**  Implement more robust error handling, including logging errors to a file.
-*   **Input Validation:**  Validate user input to prevent errors and security vulnerabilities.
-*   **Asynchronous Operations:**  For long-running operations (e.g., fetching model information), consider using asynchronous operations to avoid blocking the script.
-*   **Command-line Arguments:**  Use `getopts` or a similar mechanism to parse command-line arguments.
-*   **Documentation:**  Add more detailed documentation to the script, including a README file.
+*
+ **
+Stre
+ngths
+:**
+  
+Handles
+ both
+ file
+ input
+ and
+ piped
+ input
+,
+ provides
+ verbose
+ output
+ option
+,
+ and
+ calculates
+ token
+ estimates
+ using
+ multiple
+ methods
+ (
+words
+,
+ characters
+,
+ bytes
+).
+  
+Includes
+ error
+ range
+ calculation
+.
 
-**Example of adding a `verbose` flag to `estimate_tokens`**
 
-```bash
-# ... (function definition) ...
+*
+ **
+Improvements
+:**
 
-if [ -z \"$verbose\" ]; then
-  echo \"$tokens\"
-  return $RETURN_SUCCESSS
-fi
 
-# ... (rest of the function) ...
+    
+*
+ **
+Input
+ Validation
+:**
+  
+Add
+ more
+ robust
+ input
+ validation
+.
+  
+For
+ example
+,
+ check
+ if
+ the
+ file
+ exists
+ before
+ attempting
+ to
+ read
+ it
+.
+
+
+    
+*
+ **
+Token
+ization
+ Algorithm
+:**
+ The
+ token
+ization
+ algorithm
+ (
+using
+ words
+,
+ characters
+,
+ and
+ bytes
+)
+ is
+ a
+ simplification
+.
+  
+Consider
+ using
+ a
+ more
+ sophisticated
+ token
+ization
+ library
+ (
+e
+.
+g
+.,
+ a
+ Python
+ library
+ like
+ `
+tik
+token
+`)
+ for
+ more
+ accurate
+ estimates
+.
+  
+This
+ would
+ require
+ a
+ bridge
+ to
+ Python
+.
+
+
+    
+*
+ **
+Error
+ Handling
+:**
+  
+Handle
+ potential
+ errors
+ during
+ file
+ reading
+ (
+e
+.
+g
+.,
+ file
+ not
+ found
+,
+ permission
+ denied
+).
+
+
+    
+*
+ **
+Return
+ Value
+:**
+  
+Consider
+ returning
+ the
+ token
+ estimate
+ as
+ a
+ number
+ (
+e
+.
+g
+.,
+ an
+ integer
+)
+ instead
+ of
+ a
+ string
+.
+  
+This
+ would
+ make
+ it
+ easier
+ to
+ use
+ the
+ function
+ in
+ other
+ scripts
+.
+
+
+    
+*
+ **
+Units
+:**
+  
+Be
+ explicit
+ about
+ the
+ units
+ of
+ the
+ token
+ estimate
+ (
+e
+.
+g
+.,
+ "
+tokens
+",
+ "
+character
+-
+tokens
+",
+ "
+byte
+-
+tokens
+").
+
+
+*
+ **
+Example
+ Usage
+:**
+
+
+   
+```
+bash
+
+
+   
+#
+ Estimate
+ tokens
+ from
+ a
+ file
+
+
+   
+estimate
+_
+tokens
+ my
+_
+text
+_
+file
+.
+txt
+
+
+
+   
+#
+ Estimate
+ tokens
+ from
+ a
+ string
+
+
+   
+estimate
+_
+tokens
+ "
+This
+ is
+ a
+ test
+ string
+."
+
+
+
+   
+#
+ Estimate
+ tokens
+ with
+ verbose
+ output
+
+
+   
+estimate
+_
+tokens
+ "
+This
+ is
+ a
+ test
+ string
+."
+ 
+1
+
+
+   
 ```
 
-**Example of adding a check for `compgen` availability**
 
-```bash
-if ! command -v compgen 2>/dev/null; then
-  debug \"Error: compgen not found.  Please install it.\"
-  return $RETURN_ERROR
-fi
+
+**
+2
+.
+ `
+o
+llama
+_
+lib
+_
+about
+()`
+:**
+
+
+
+*
+ **
+Stre
+ngths
+:**
+ Provides
+ information
+ about
+ the
+ library
+,
+ including
+ its
+ name
+,
+ version
+,
+ and
+ dependencies
+.
+
+
+*
+ **
+Improvements
+:**
+
+
+    
+*
+ **
+Dependency
+ Check
+:**
+  
+The
+ check
+ for
+ `
+comp
+gen
+`
+ is
+ a
+ good
+ start
+,
+ but
+ consider
+ checking
+ for
+ other
+ dependencies
+ (
+e
+.
+g
+.,
+ `
+jq
+`
+ if
+ you
+'
+re
+ using
+ it
+).
+
+
+    
+*
+ **
+More
+ Detailed
+ Information
+:**
+  
+Include
+ more
+ detailed
+ information
+ about
+ the
+ library
+'
+s
+ features
+ and
+ usage
+.
+
+
+    
+*
+ **
+Output
+ Formatting
+:**
+  
+Improve
+ the
+ formatting
+ of
+ the
+ output
+ for
+ better
+ readability
+.
+
+
+*
+ **
+Example
+ Usage
+:**
+
+
+   
+```
+bash
+
+
+   
+o
+llama
+_
+lib
+_
+about
+
+
+   
 ```
 
-**In summary, this is a solid foundation for a Bash script that interacts with the Ollama API. By addressing the suggestions above, you can make it more robust, user-friendly, and maintainable.**
+
+
+**
+3
+.
+ `
+o
+llama
+_
+lib
+_
+version
+()`
+:**
+
+
+
+*
+ **
+Stre
+ngths
+:**
+ Simple
+ and
+ straightforward
+.
+
+
+*
+ **
+Improvements
+:**
+ None
+ needed
+.
+
+
+
+**
+4
+.
+  
+`
+o
+llama
+_
+ps
+()
+`,
+ `
+o
+llama
+_
+ps
+_
+json
+()
+`,
+ `
+o
+llama
+_
+show
+()
+`,
+ `
+o
+llama
+_
+show
+_
+json
+()
+`,
+ `
+o
+llama
+_
+version
+()
+`,
+ `
+o
+llama
+_
+version
+_
+json
+()
+`,
+ `
+o
+llama
+_
+version
+_
+cli
+()`
+:**
+
+
+
+*
+ **
+Stre
+ngths
+:**
+  
+These
+ functions
+ provide
+ a
+ good
+ set
+ of
+ basic
+ Oll
+ama
+ API
+ interactions
+.
+
+
+*
+ **
+Improvements
+:**
+
+
+    
+*
+ **
+Error
+ Handling
+:**
+  
+Ensure
+ that
+ these
+ functions
+ handle
+ errors
+ gracefully
+.
+  
+For
+ example
+,
+ if
+ the
+ Oll
+ama
+ API
+ returns
+ an
+ error
+,
+ the
+ function
+ should
+ print
+ an
+ error
+ message
+ and
+ exit
+ with
+ a
+ non
+-
+zero
+ exit
+ code
+.
+
+
+    
+*
+ **
+Output
+ Formatting
+:**
+  
+Consider
+ formatting
+ the
+ output
+ of
+ these
+ functions
+ for
+ better
+ readability
+.
+  
+For
+ example
+,
+ you
+ could
+ use
+ `
+jq
+`
+ to
+ format
+ the
+ JSON
+ output
+.
+
+
+    
+*
+ **
+Parameter
+ Validation
+:**
+  
+Validate
+ the
+ input
+ parameters
+ to
+ ensure
+ that
+ they
+ are
+ valid
+.
+  
+For
+ example
+,
+ check
+ that
+ the
+ model
+ name
+ is
+ not
+ empty
+.
+
+
+    
+*
+ **
+As
+ynchronous
+ Operations
+:**
+ For
+ long
+-
+running
+ operations
+ (
+e
+.
+g
+.,
+ `
+o
+llama
+_
+ps
+`),
+ consider
+ using
+ asynchronous
+ operations
+ to
+ avoid
+ blocking
+ the
+ main
+ thread
+.
+  
+This
+ would
+ require
+ using
+ a
+ tool
+ like
+ `
+x
+args
+`
+ or
+ `
+parallel
+`.
+
+
+*
+ **
+Example
+ Usage
+:**
+
+
+   
+```
+bash
+
+
+   
+#
+ List
+ running
+ models
+
+
+   
+o
+llama
+_
+ps
+
+
+
+   
+#
+ Show
+ information
+ about
+ a
+ model
+
+
+   
+o
+llama
+_
+show
+ llama
+2
+
+
+
+   
+#
+ Get
+ the
+ Oll
+ama
+ version
+
+
+   
+o
+llama
+_
+version
+
+
+   
+```
+
+
+
+**
+5
+.
+ `
+o
+llama
+_
+model
+_
+unload
+()`
+:**
+
+
+
+*
+ **
+Stre
+ngths
+:**
+  
+Provides
+ a
+ way
+ to
+ unload
+ a
+ model
+ from
+ memory
+.
+
+
+*
+ **
+Improvements
+:**
+
+
+    
+*
+ **
+Error
+ Handling
+:**
+  
+Handle
+ errors
+ gracefully
+.
+
+
+    
+*
+ **
+Input
+ Validation
+:**
+ Validate
+ the
+ model
+ name
+.
+
+
+    
+*
+ **
+Confirmation
+:**
+  
+Consider
+ adding
+ a
+ confirmation
+ prompt
+ to
+ prevent
+ accidental
+ model
+ unloading
+.
+
+
+*
+ **
+Example
+ Usage
+:**
+
+
+   
+```
+bash
+
+
+   
+o
+llama
+_
+model
+_
+unload
+ llama
+2
+
+
+   
+```
+
+
+
+**
+6
+.
+ `
+o
+llama
+_
+lib
+_
+name
+()
+`,
+ `
+o
+llama
+_
+lib
+_
+version
+()
+`,
+ `
+o
+llama
+_
+lib
+_
+url
+()
+`,
+ `
+o
+llama
+_
+lib
+_
+license
+()
+`,
+ `
+o
+llama
+_
+lib
+_
+copyright
+()
+`,
+ `
+o
+llama
+_
+lib
+_
+debug
+()
+`,
+ `
+o
+llama
+_
+lib
+_
+api
+()`
+:**
+
+
+
+*
+ **
+Stre
+ngths
+:**
+  
+Provides
+ information
+ about
+ the
+ library
+.
+
+
+*
+ **
+Improvements
+:**
+
+
+    
+*
+ **
+Documentation
+:**
+  
+Add
+ more
+ detailed
+ documentation
+ to
+ these
+ functions
+.
+
+
+*
+ **
+Example
+ Usage
+:**
+
+
+   
+```
+bash
+
+
+   
+o
+llama
+_
+lib
+_
+name
+
+
+   
+o
+llama
+_
+lib
+_
+version
+
+
+   
+```
+
+
+
+**
+7
+.
+ `
+estimate
+_
+tokens
+()`
+ (
+Utility
+):
+**
+
+
+
+*
+ **
+Stre
+ngths
+:**
+  
+Provides
+ a
+ utility
+ function
+ for
+ estimating
+ the
+ number
+ of
+ tokens
+ in
+ a
+ string
+.
+
+
+*
+ **
+Improvements
+:**
+
+
+    
+*
+ **
+More
+ Accurate
+ Token
+ization
+:**
+  
+Consider
+ using
+ a
+ more
+ sophisticated
+ token
+ization
+ library
+ (
+e
+.
+g
+.,
+ a
+ Python
+ library
+ like
+ `
+tik
+token
+`)
+ for
+ more
+ accurate
+ estimates
+.
+
+
+    
+*
+ **
+Error
+ Handling
+:**
+  
+Handle
+ potential
+ errors
+ during
+ file
+ reading
+.
+
+
+*
+ **
+Example
+ Usage
+:**
+
+
+   
+```
+bash
+
+
+   
+estimate
+_
+tokens
+ "
+This
+ is
+ a
+ test
+ string
+."
+
+
+   
+```
+
+
+
+**
+8
+.
+ `
+o
+llama
+_
+lib
+_
+about
+()`
+ (
+Utility
+):
+**
+
+
+
+*
+ **
+Stre
+ngths
+:**
+  
+Provides
+ information
+ about
+ the
+ library
+.
+
+
+*
+ **
+Improvements
+:**
+
+
+    
+*
+ **
+More
+ Detailed
+ Information
+:**
+  
+Include
+ more
+ detailed
+ information
+ about
+ the
+ library
+'
+s
+ features
+ and
+ usage
+.
+
+
+*
+ **
+Example
+ Usage
+:**
+
+
+   
+```
+bash
+
+
+   
+o
+llama
+_
+lib
+_
+about
+
+
+   
+```
+
+
+
+**
+Additional
+ Considerations
+:**
+
+
+
+*
+ **
+Configuration
+ File
+:**
+  
+Consider
+ using
+ a
+ configuration
+ file
+ to
+ store
+ the
+ library
+'
+s
+ settings
+ (
+e
+.
+g
+.,
+ the
+ Oll
+ama
+ API
+ endpoint
+,
+ the
+ debug
+ level
+).
+
+
+*
+ **
+Logging
+:**
+  
+Add
+ logging
+ to
+ the
+ library
+ to
+ help
+ with
+ debugging
+.
+
+
+*
+ **
+Testing
+:**
+  
+Write
+ unit
+ tests
+ to
+ ensure
+ that
+ the
+ library
+ is
+ working
+ correctly
+.
+
+
+*
+ **
+Documentation
+:**
+  
+Create
+ a
+ comprehensive
+ documentation
+ file
+ for
+ the
+ library
+.
+  
+This
+ should
+ include
+ information
+ about
+ how
+ to
+ install
+ the
+ library
+,
+ how
+ to
+ use
+ the
+ library
+,
+ and
+ how
+ to
+ contribute
+ to
+ the
+ library
+.
+
+
+*
+ **
+Error
+ Codes
+:**
+ Define
+ a
+ set
+ of
+ standard
+ error
+ codes
+ for
+ the
+ library
+.
+ This
+ will
+ make
+ it
+ easier
+ for
+ calling
+ scripts
+ to
+ handle
+ errors
+.
+
+
+*
+ **
+Security
+:**
+ If
+ the
+ library
+ handles
+ sensitive
+ data
+ (
+e
+.
+g
+.,
+ API
+ keys
+),
+ be
+ sure
+ to
+ protect
+ that
+ data
+ properly
+.
+
+
+
+**
+Example
+ of
+ incorporating
+ a
+ Python
+ library
+ for
+ token
+ization
+:**
+
+
+
+```
+bash
+
+
+#
+ Requires
+ Python
+ and
+ the
+ '
+tik
+token
+'
+ library
+ installed
+
+
+#
+ pip
+ install
+ tik
+token
+
+
+
+#
+ Function
+ to
+ estimate
+ tokens
+ using
+ the
+ tik
+token
+ library
+
+
+estimate
+_
+tokens
+_
+tik
+token
+()
+ {
+
+
+  
+local
+ text
+
+
+  
+local
+ tik
+token
+_
+command
+
+
+
+  
+#
+ Get
+ the
+ text
+ from
+ the
+ argument
+
+
+  
+text
+="$
+1
+"
+
+
+
+  
+#
+ Check
+ if
+ the
+ text
+ is
+ a
+ file
+ or
+ a
+ string
+
+
+  
+if
+ [
+ -
+f
+ "$
+text
+"
+ ];
+ then
+
+
+    
+cat
+ "$
+text
+"
+
+
+  
+elif
+ [
+ -
+n
+ "$
+text
+"
+ ];
+ then
+
+
+    
+echo
+ "$
+text
+"
+
+
+  
+else
+
+
+    
+echo
+ "
+Usage
+:
+ estimate
+_
+tokens
+_
+tik
+token
+ <
+text
+|
+file
+>"
+ >
+&
+2
+
+
+    
+return
+ 
+1
+
+
+  
+fi
+
+
+
+  
+#
+ Construct
+ the
+ tik
+token
+ command
+
+
+  
+tik
+token
+_
+command
+="
+python
+3
+ -
+c
+ \"
+import
+ tik
+token
+;
+ print
+(
+tik
+token
+.
+encoding
+_
+for
+_
+model
+('
+llama
+2
+').
+encode
+('$
+text
+'))
+\"
+"
+
+
+
+  
+#
+ Execute
+ the
+ tik
+token
+ command
+ and
+ extract
+ the
+ token
+ count
+
+
+  
+local
+ token
+_
+count
+=$(
+eval
+ "$
+tik
+token
+_
+command
+")
+
+
+
+  
+#
+ Convert
+ the
+ token
+ count
+ to
+ a
+ string
+
+
+  
+echo
+ "$
+token
+_
+count
+"
+
+
+}
+
+
+```
+
+
+
+**
+In
+ summary
+:**
+
+
+
+This
+ is
+ a
+ solid
+ foundation
+ for
+ a
+ Bash
+ library
+ to
+ interact
+ with
+ Oll
+ama
+.
+ By
+ addressing
+ the
+ suggestions
+ above
+,
+ you
+ can
+ make
+ the
+ library
+ more
+ robust
+,
+ user
+-
+friendly
+,
+ and
+ maintain
+able
+.
+  
+The
+ addition
+ of
+ a
+ Python
+ library
+ for
+ token
+ization
+ would
+ significantly
+ improve
+ the
+ accuracy
+ of
+ the
+ token
+ estimates
+.
+  
+Remember
+ to
+ prioritize
+ error
+ handling
+ and
+ documentation
+.

@@ -1,12 +1,23 @@
 Ollama Bash Lib - Demo - ollama_generate
 ollama_bash_lib: ./../ollama_bash_lib.sh
+ollama_lib_version: v0.37.3
 ollama_installed: OK
 ollama_api_ping: OK
 
-model: smollm2:1.7b
+model: deepseek-r1:1.5b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate "smollm2:1.7b" "Describe a rabbit in 3 short sentences"
+ollama_generate "deepseek-r1:1.5b" "Describe a rabbit in 3 short sentences"
 
-"A rabbit is small and fluffy with large ears. It has long fur and often lives in burrows underground. Rabbits eat plants and can move quickly when needed."
+<think>
+Alright, I need to describe a rabbit. The user asked for three short sentences. Let me think about what makes a rabbit different from other animals.
+
+Rabbits are felines with ears on their back and two sharp eyes. They have fur, maybe brown or gray, depending on the species. They live in groups, so I should mention that. 
+
+I'll start by talking about their physical features: ears, two eyes, thick fur. Then mention they live in packs. Finally, I can note that rabbits are small and fast.
+
+Putting it together, three sentences should cover these points clearly.
+</think>
+
+A rabbit is a feline with ears on their back and sharp, black eyes. They have thick, white fur covering their body and live in groups called flocks. Rabbits are small animals that move quickly through their environment.

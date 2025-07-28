@@ -1,16 +1,315 @@
 Ollama Bash Lib - Demo - ollama_generate_stream
 ollama_bash_lib: ./../ollama_bash_lib.sh
+ollama_lib_version: v0.37.3
 ollama_installed: OK
 ollama_api_ping: OK
 
-model: gemma:2b
+model: deepseek-r1:1.5b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate_stream "gemma:2b" "Describe a rabbit in 3 short sentences"
+ollama_generate_stream "deepseek-r1:1.5b" "Describe a rabbit in 3 short sentences"
 
-Sure, here's a description of a rabbit in 3 short sentences:
+<think>
 
-* Rabbits are small mammals with long, slender bodies and soft fur.
-* They are herbivores and eat a variety of plants, including grass, leaves, and flowers.
-* Rabbits are social animals that live in colonies with a hierarchy among the members.
+
+Okay
+,
+ I
+ need
+ to
+ describe
+ a
+ rabbit
+.
+ The
+ user
+ asked
+ for
+ three
+ short
+ sentences
+ about
+ a
+ rabbit
+.
+ Let
+ me
+ think
+ about
+ what
+ makes
+ a
+ rabbit
+ unique
+ and
+ engaging
+.
+
+
+First
+ sentence
+:
+ I
+ should
+ talk
+ about
+ the
+ rabbit
+'s
+ fur
+.
+ It
+'s
+ usually
+ brown
+ or
+ black
+ and
+ has
+ little
+ patterns
+ on
+ its
+ fur
+.
+ Maybe
+ something
+ like
+ "
+A
+ typical
+ rabbit
+ has
+ a
+ soft
+,
+ fluffy
+ white
+ coat
+ with
+ small
+,
+ golden
+-like
+ markings
+."
+
+
+Second
+ sentence
+:
+ I
+ want
+ to
+ highlight
+ their
+ characteristics
+.
+ Rab
+bits
+ are
+ fast
+ and
+ quick
+,
+ so
+ that
+'s
+ important
+.
+ Also
+,
+ they
+'re
+ solitary
+ animals
+,
+ not
+ social
+ ones
+.
+ So
+ maybe
+ say
+,
+ "
+R
+ab
+bits
+ are
+ quick
+-w
+itting
+ creatures
+,
+ often
+ solitary
+,
+ and
+ can
+ be
+ quite
+ territorial
+."
+ Wait
+,
+ is
+ "
+ solitary
+"
+ correct
+?
+ Or
+ should
+ it
+ be
+ "
+ solitary
+"?
+ Hmm
+.
+
+
+Third
+ sentence
+:
+ I
+ should
+ mention
+ their
+ behavior
+ when
+ hunting
+.
+ Rab
+bits
+ are
+ good
+ hunters
+ because
+ they
+'re
+ intelligent
+.
+ They
+ use
+ their
+ keen
+ eyes
+ to
+ see
+ prey
+ like
+ rabbits
+,
+ h
+ares
+,
+ and
+ fox
+es
+.
+ So
+ maybe
+ something
+ about
+ them
+ being
+ skilled
+ hunters
+ using
+ their
+ sharp
+ eyes
+ to
+ catch
+ what
+'s
+ out
+ there
+.
+
+
+Putting
+ it
+ all
+ together
+,
+ the
+ sentences
+ should
+ capture
+ their
+ appearance
+,
+ quick
+-w
+itting
+ nature
+,
+ and
+ hunting
+ skills
+.
+ Let
+ me
+ make
+ sure
+ each
+ sentence
+ flows
+ well
+ and
+ covers
+ a
+ different
+ aspect
+ of
+ a
+ rabbit
+.
+
+</think>
+
+
+
+A
+ typical
+ rabbit
+ has
+ soft
+,
+ fluffy
+ white
+ fur
+ with
+ small
+ golden
+-like
+ markings
+ on
+ its
+ coat
+,
+ often
+ solitary
+ and
+ quick
+-w
+itting
+ creatures
+ known
+ for
+ their
+ sharp
+ eyes
+ight
+,
+ which
+ allows
+ them
+ to
+ hunt
+ efficiently
+.

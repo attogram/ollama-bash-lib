@@ -8,8 +8,8 @@ startup() {
   # shellcheck source=../ollama_bash_lib.sh
   source "$ollama_bash_lib"
   echo "ollama_lib_version: v$(ollama_lib_version)"
-  #echo -n "ollama_installed: "; if ! ollama_installed; then echo "ERROR: Ollama Not Found"; exit 1; fi; echo "OK";
-  #echo -n "ollama_api_ping: "; if ! ollama_api_ping; then echo "ERROR: API not reachable"; fi; echo "OK";
+  echo -n "ollama_installed: "; if ! ollama_installed; then echo "ERROR: Ollama Not Found"; exit 1; fi; echo "OK";
+  echo -n "ollama_api_ping: "; if ! ollama_api_ping; then echo "ERROR: API not reachable"; else echo "OK"; fi
 }
 
 startup
