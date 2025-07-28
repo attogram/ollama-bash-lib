@@ -143,6 +143,8 @@ See the **[demos](demos)** directory for all demo scripts
 * ```curl```
 * ```jq```
 * ```awk```
+* ```sed```
+* ```wc```
 * ```command```
 
 ## License
