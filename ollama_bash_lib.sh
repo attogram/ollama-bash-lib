@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.34.0"
+OLLAMA_LIB_VERSION="0.34.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -78,7 +78,7 @@ ollama_get() {
   curl_error=$?
   debug "ollama_get: result: $result"
   if [ "$curl_error" -gt 0 ]; then
-    error "ollama_get: curl_error: $curl_error result: $result"
+    error "ollama_get: curl_error: $curl_error"
     return $RETURN_ERROR
   fi
   echo "$result"
