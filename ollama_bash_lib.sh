@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.35.0"
+OLLAMA_LIB_VERSION="0.35.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -543,7 +543,7 @@ ollama_lib_about() {
   fi
   echo "Functions:"
   echo
-  compgen -A function | grep 'ollama_'
+  compgen -A function | grep 'ollama_' | sort
   return $?
 }
 

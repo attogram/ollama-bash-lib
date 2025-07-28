@@ -1,13 +1,13 @@
 Ollama Bash Lib - Demo - Review ollama_bash_lib.sh
 
 ollama_bash_lib: ./../ollama_bash_lib.sh
-
 ollama_installed: YES
-
-model: llava:7b
+model: smollm2:135m
 
 prompt: Act as an expert Software Engineer.
 Do a full code review of this script:
 script: ./../ollama_bash_lib.sh
 
- This is a Bash library for interacting with Ollama, which is an open-source software platform that uses deep learning models to generate text. The library provides various functions for managing and controlling the Ollama processes, such as starting or stopping models, showing model information, and getting version details. It also includes some utility functions like estimating the number of tokens in a string using different algorithms. 
+You can find the documentation for Ollama Bash Lib here. The official documentation is at https://docosoftware.com/tutorials/olmalib-2018/oamlib-about/. 
+
+Please note that this is a sample document and you will need to adjust it according to your specific needs.

@@ -1,9 +1,7 @@
 Ollama Bash Lib - Demo - ollama_version, ollama_version_json, ollama_version_cli
 
 ollama_bash_lib: ./../ollama_bash_lib.sh
-
 ollama_installed: YES
-
 ollama_version
 
 0.10.0-rc0

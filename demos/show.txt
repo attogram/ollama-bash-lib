@@ -1,112 +1,144 @@
 Ollama Bash Lib - Demo - ollama_show, ollama_show_json
 
 ollama_bash_lib: ./../ollama_bash_lib.sh
-
 ollama_installed: YES
+model: dolphin3:8b
 
-model: llava:7b
-
-ollama_show "llava:7b"
+ollama_show "dolphin3:8b"
 
   Model
-    architecture        llama    
-    parameters          7.2B     
-    context length      32768    
-    embedding length    4096     
-    quantization        Q4_0     
+    architecture        llama     
+    parameters          8.0B      
+    context length      131072    
+    embedding length    4096      
+    quantization        Q4_K_M    
 
   Capabilities
     completion    
-    vision        
-
-  Projector
-    architecture        clip       
-    parameters          311.89M    
-    embedding length    1024       
-    dimensions          768        
 
   Parameters
-    stop    "[INST]"     
-    stop    "[/INST]"    
+    stop    "<|im_start|>"    
+    stop    "<|im_end|>"      
+
+  System
+    You are Dolphin, a helpful AI assistant.    
 
   License
-    Apache License               
-    Version 2.0, January 2004    
-    ...                          
+    LLAMA 3.1 COMMUNITY LICENSE AGREEMENT            
+    Llama 3.1 Version Release Date: July 23, 2024    
+    ...                                              
 
 
-ollama_show_json "llava:7b"
+ollama_show_json "dolphin3:8b"
 
 {
-  "license": "                                 Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, excluding those notices that do not\n          pertain to any part of the Derivative Works, in at least one\n          of the following places: within a NOTICE text file distributed\n          as part of the Derivative Works; within the Source form or\n          documentation, if provided along with the Derivative Works; or,\n          within a display generated by the Derivative Works, if and\n          wherever such third-party notices normally appear. The contents\n          of the NOTICE file are for informational purposes only and\n          do not modify the License. You may add Your own attribution\n          notices within Derivative Works that You distribute, alongside\n          or as an addendum to the NOTICE text from the Work, provided\n          that such additional attribution notices cannot be construed\n          as modifying the License.\n\n      You may add Your own copyright statement to Your modifications and\n      may provide additional or different license terms and conditions\n      for use, reproduction, or distribution of Your modifications, or\n      for any such Derivative Works as a whole, provided Your use,\n      reproduction, and distribution of the Work otherwise complies with\n      the conditions stated in this License.\n\n   5. Submission of Contributions. Unless You explicitly state otherwise,\n      any Contribution intentionally submitted for inclusion in the Work\n      by You to the Licensor shall be under the terms and conditions of\n      this License, without any additional terms or conditions.\n      Notwithstanding the above, nothing herein shall supersede or modify\n      the terms of any separate license agreement you may have executed\n      with Licensor regarding such Contributions.\n\n   6. Trademarks. This License does not grant permission to use the trade\n      names, trademarks, service marks, or product names of the Licensor,\n      except as required for reasonable and customary use in describing the\n      origin of the Work and reproducing the content of the NOTICE file.\n\n   7. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides the Work (and each\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n      implied, including, without limitation, any warranties or conditions\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n      PARTICULAR PURPOSE. You are solely responsible for determining the\n      appropriateness of using or redistributing the Work and assume any\n      risks associated with Your exercise of permissions under this License.\n\n   8. Limitation of Liability. In no event and under no legal theory,\n      whether in tort (including negligence), contract, or otherwise,\n      unless required by applicable law (such as deliberate and grossly\n      negligent acts) or agreed to in writing, shall any Contributor be\n      liable to You for damages, including any direct, indirect, special,\n      incidental, or consequential damages of any character arising as a\n      result of this License or out of the use or inability to use the\n      Work (including but not limited to damages for loss of goodwill,\n      work stoppage, computer failure or malfunction, or any and all\n      other commercial damages or losses), even if such Contributor\n      has been advised of the possibility of such damages.\n\n   9. Accepting Warranty or Additional Liability. While redistributing\n      the Work or Derivative Works thereof, You may choose to offer,\n      and charge a fee for, acceptance of support, warranty, indemnity,\n      or other liability obligations and/or rights consistent with this\n      License. However, in accepting such obligations, You may act only\n      on Your own behalf and on Your sole responsibility, not on behalf\n      of any other Contributor, and only if You agree to indemnify,\n      defend, and hold each Contributor harmless for any liability\n      incurred by, or claims asserted against, such Contributor by reason\n      of your accepting any such warranty or additional liability.\n\n   END OF TERMS AND CONDITIONS\n\n   APPENDIX: How to apply the Apache License to your work.\n\n      To apply the Apache License to your work, attach the following\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\n      replaced with your own identifying information. (Don't include\n      the brackets!)  The text should be enclosed in the appropriate\n      comment syntax for the file format. We also recommend that a\n      file or class name and description of purpose be included on the\n      same \"printed page\" as the copyright notice for easier\n      identification within third-party archives.\n\n   Copyright [yyyy] [name of copyright owner]\n\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.",
-  "modelfile": "# Modelfile generated by \"ollama show\"\n# To build a new Modelfile based on this, replace FROM with:\n# FROM llava:7b\n\nFROM /Users/davidbarberi/.ollama/models/blobs/sha256-170370233dd5c5415250a2ecd5c71586352850729062ccef1496385647293868\nFROM /Users/davidbarberi/.ollama/models/blobs/sha256-72d6f08a42f656d36b356dbe0920675899a99ce21192fd66266fb7d82ed07539\nTEMPLATE [INST] {{ if .System }}{{ .System }} {{ end }}{{ .Prompt }} [/INST]\nPARAMETER stop [INST]\nPARAMETER stop [/INST]\nLICENSE \"\"\"                                 Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, excluding those notices that do not\n          pertain to any part of the Derivative Works, in at least one\n          of the following places: within a NOTICE text file distributed\n          as part of the Derivative Works; within the Source form or\n          documentation, if provided along with the Derivative Works; or,\n          within a display generated by the Derivative Works, if and\n          wherever such third-party notices normally appear. The contents\n          of the NOTICE file are for informational purposes only and\n          do not modify the License. You may add Your own attribution\n          notices within Derivative Works that You distribute, alongside\n          or as an addendum to the NOTICE text from the Work, provided\n          that such additional attribution notices cannot be construed\n          as modifying the License.\n\n      You may add Your own copyright statement to Your modifications and\n      may provide additional or different license terms and conditions\n      for use, reproduction, or distribution of Your modifications, or\n      for any such Derivative Works as a whole, provided Your use,\n      reproduction, and distribution of the Work otherwise complies with\n      the conditions stated in this License.\n\n   5. Submission of Contributions. Unless You explicitly state otherwise,\n      any Contribution intentionally submitted for inclusion in the Work\n      by You to the Licensor shall be under the terms and conditions of\n      this License, without any additional terms or conditions.\n      Notwithstanding the above, nothing herein shall supersede or modify\n      the terms of any separate license agreement you may have executed\n      with Licensor regarding such Contributions.\n\n   6. Trademarks. This License does not grant permission to use the trade\n      names, trademarks, service marks, or product names of the Licensor,\n      except as required for reasonable and customary use in describing the\n      origin of the Work and reproducing the content of the NOTICE file.\n\n   7. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides the Work (and each\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n      implied, including, without limitation, any warranties or conditions\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n      PARTICULAR PURPOSE. You are solely responsible for determining the\n      appropriateness of using or redistributing the Work and assume any\n      risks associated with Your exercise of permissions under this License.\n\n   8. Limitation of Liability. In no event and under no legal theory,\n      whether in tort (including negligence), contract, or otherwise,\n      unless required by applicable law (such as deliberate and grossly\n      negligent acts) or agreed to in writing, shall any Contributor be\n      liable to You for damages, including any direct, indirect, special,\n      incidental, or consequential damages of any character arising as a\n      result of this License or out of the use or inability to use the\n      Work (including but not limited to damages for loss of goodwill,\n      work stoppage, computer failure or malfunction, or any and all\n      other commercial damages or losses), even if such Contributor\n      has been advised of the possibility of such damages.\n\n   9. Accepting Warranty or Additional Liability. While redistributing\n      the Work or Derivative Works thereof, You may choose to offer,\n      and charge a fee for, acceptance of support, warranty, indemnity,\n      or other liability obligations and/or rights consistent with this\n      License. However, in accepting such obligations, You may act only\n      on Your own behalf and on Your sole responsibility, not on behalf\n      of any other Contributor, and only if You agree to indemnify,\n      defend, and hold each Contributor harmless for any liability\n      incurred by, or claims asserted against, such Contributor by reason\n      of your accepting any such warranty or additional liability.\n\n   END OF TERMS AND CONDITIONS\n\n   APPENDIX: How to apply the Apache License to your work.\n\n      To apply the Apache License to your work, attach the following\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\n      replaced with your own identifying information. (Don't include\n      the brackets!)  The text should be enclosed in the appropriate\n      comment syntax for the file format. We also recommend that a\n      file or class name and description of purpose be included on the\n      same \"printed page\" as the copyright notice for easier\n      identification within third-party archives.\n\n   Copyright [yyyy] [name of copyright owner]\n\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\"\"\"\n",
-  "parameters": "stop                           \"[INST]\"\nstop                           \"[/INST]\"",
-  "template": "[INST] {{ if .System }}{{ .System }} {{ end }}{{ .Prompt }} [/INST]",
+  "license": "LLAMA 3.1 COMMUNITY LICENSE AGREEMENT\nLlama 3.1 Version Release Date: July 23, 2024\n\n“Agreement” means the terms and conditions for use, reproduction, distribution and modification of the\nLlama Materials set forth herein.\n\n“Documentation” means the specifications, manuals and documentation accompanying Llama 3.1\ndistributed by Meta at https://llama.meta.com/doc/overview.\n\n“Licensee” or “you” means you, or your employer or any other person or entity (if you are entering into\nthis Agreement on such person or entity’s behalf), of the age required under applicable laws, rules or\nregulations to provide legal consent and that has legal authority to bind your employer or such other\nperson or entity if you are entering in this Agreement on their behalf.\n\n“Llama 3.1” means the foundational large language models and software and algorithms, including\nmachine-learning model code, trained model weights, inference-enabling code, training-enabling code,\nfine-tuning enabling code and other elements of the foregoing distributed by Meta at\nhttps://llama.meta.com/llama-downloads.\n\n“Llama Materials” means, collectively, Meta’s proprietary Llama 3.1 and Documentation (and any\nportion thereof) made available under this Agreement.\n\n“Meta” or “we” means Meta Platforms Ireland Limited (if you are located in or, if you are an entity, your\nprincipal place of business is in the EEA or Switzerland) and Meta Platforms, Inc. (if you are located\noutside of the EEA or Switzerland).\n\nBy clicking “I Accept” below or by using or distributing any portion or element of the Llama Materials,\nyou agree to be bound by this Agreement.\n\n1. License Rights and Redistribution.\n\n  a. Grant of Rights. You are granted a non-exclusive, worldwide, non-transferable and royalty-free\nlimited license under Meta’s intellectual property or other rights owned by Meta embodied in the Llama\nMaterials to use, reproduce, distribute, copy, create derivative works of, and make modifications to the\nLlama Materials.\n\n  b. Redistribution and Use.\n\n      i. If you distribute or make available the Llama Materials (or any derivative works\nthereof), or a product or service (including another AI model) that contains any of them, you shall (A)\nprovide a copy of this Agreement with any such Llama Materials; and (B) prominently display “Built with\nLlama” on a related website, user interface, blogpost, about page, or product documentation. If you use\nthe Llama Materials or any outputs or results of the Llama Materials to create, train, fine tune, or\notherwise improve an AI model, which is distributed or made available, you shall also include “Llama” at\nthe beginning of any such AI model name.\n\n      ii. If you receive Llama Materials, or any derivative works thereof, from a Licensee as part \nof an integrated end user product, then Section 2 of this Agreement will not apply to you.\n\n      iii. You must retain in all copies of the Llama Materials that you distribute the following\nattribution notice within a “Notice” text file distributed as a part of such copies: “Llama 3.1 is\nlicensed under the Llama 3.1 Community License, Copyright © Meta Platforms, Inc. All Rights\nReserved.”\n\n      iv. Your use of the Llama Materials must comply with applicable laws and regulations\n(including trade compliance laws and regulations) and adhere to the Acceptable Use Policy for the Llama\nMaterials (available at https://llama.meta.com/llama3_1/use-policy), which is hereby incorporated by\nreference into this Agreement.\n\n2. Additional Commercial Terms. If, on the Llama 3.1 version release date, the monthly active users\nof the products or services made available by or for Licensee, or Licensee’s affiliates, is greater than 700\nmillion monthly active users in the preceding calendar month, you must request a license from Meta,\nwhich Meta may grant to you in its sole discretion, and you are not authorized to exercise any of the\nrights under this Agreement unless or until Meta otherwise expressly grants you such rights.\n\n3. Disclaimer of Warranty. UNLESS REQUIRED BY APPLICABLE LAW, THE LLAMA MATERIALS AND ANY\nOUTPUT AND RESULTS THEREFROM ARE PROVIDED ON AN “AS IS” BASIS, WITHOUT WARRANTIES OF\nANY KIND, AND META DISCLAIMS ALL WARRANTIES OF ANY KIND, BOTH EXPRESS AND IMPLIED,\nINCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OF TITLE, NON-INFRINGEMENT,\nMERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. YOU ARE SOLELY RESPONSIBLE FOR\nDETERMINING THE APPROPRIATENESS OF USING OR REDISTRIBUTING THE LLAMA MATERIALS AND\nASSUME ANY RISKS ASSOCIATED WITH YOUR USE OF THE LLAMA MATERIALS AND ANY OUTPUT AND\nRESULTS.\n\n4. Limitation of Liability. IN NO EVENT WILL META OR ITS AFFILIATES BE LIABLE UNDER ANY THEORY OF\nLIABILITY, WHETHER IN CONTRACT, TORT, NEGLIGENCE, PRODUCTS LIABILITY, OR OTHERWISE, ARISING\nOUT OF THIS AGREEMENT, FOR ANY LOST PROFITS OR ANY INDIRECT, SPECIAL, CONSEQUENTIAL,\nINCIDENTAL, EXEMPLARY OR PUNITIVE DAMAGES, EVEN IF META OR ITS AFFILIATES HAVE BEEN ADVISED\nOF THE POSSIBILITY OF ANY OF THE FOREGOING.\n\n5. Intellectual Property.\n\n  a. No trademark licenses are granted under this Agreement, and in connection with the Llama\nMaterials, neither Meta nor Licensee may use any name or mark owned by or associated with the other\nor any of its affiliates, except as required for reasonable and customary use in describing and\nredistributing the Llama Materials or as set forth in this Section 5(a). Meta hereby grants you a license to\nuse “Llama” (the “Mark”) solely as required to comply with the last sentence of Section 1.b.i. You will\ncomply with Meta’s brand guidelines (currently accessible at\nhttps://about.meta.com/brand/resources/meta/company-brand/ ). All goodwill arising out of your use\nof the Mark will inure to the benefit of Meta.\n\n  b. Subject to Meta’s ownership of Llama Materials and derivatives made by or for Meta, with\nrespect to any derivative works and modifications of the Llama Materials that are made by you, as\nbetween you and Meta, you are and will be the owner of such derivative works and modifications.\n\n  c. If you institute litigation or other proceedings against Meta or any entity (including a\ncross-claim or counterclaim in a lawsuit) alleging that the Llama Materials or Llama 3.1 outputs or\nresults, or any portion of any of the foregoing, constitutes infringement of intellectual property or other\nrights owned or licensable by you, then any licenses granted to you under this Agreement shall\nterminate as of the date such litigation or claim is filed or instituted. You will indemnify and hold\nharmless Meta from and against any claim by any third party arising out of or related to your use or\ndistribution of the Llama Materials.\n\n6. Term and Termination. The term of this Agreement will commence upon your acceptance of this\nAgreement or access to the Llama Materials and will continue in full force and effect until terminated in\naccordance with the terms and conditions herein. Meta may terminate this Agreement if you are in\nbreach of any term or condition of this Agreement. Upon termination of this Agreement, you shall delete\nand cease use of the Llama Materials. Sections 3, 4 and 7 shall survive the termination of this\nAgreement.\n\n7. Governing Law and Jurisdiction. This Agreement will be governed and construed under the laws of\nthe State of California without regard to choice of law principles, and the UN Convention on Contracts\nfor the International Sale of Goods does not apply to this Agreement. The courts of California shall have\nexclusive jurisdiction of any dispute arising out of this Agreement.",
+  "modelfile": "# Modelfile generated by \"ollama show\"\n# To build a new Modelfile based on this, replace FROM with:\n# FROM dolphin3:8b\n\nFROM /Users/davidbarberi/.ollama/models/blobs/sha256-1eee6953530837b2b17d61a4e6f71a5aa31c9714cfcf3cb141aa5c1972b5116b\nTEMPLATE \"\"\"{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1 -}}\n<|im_start|>{{ .Role }}\n{{ .Content }}{{ if not $last }}<|im_end|>\n{{ end }}\n{{- if and (ne .Role \"assistant\") $last }}<|im_end|>\n<|im_start|>assistant\n{{ end }}\n{{- end }}\"\"\"\nSYSTEM You are Dolphin, a helpful AI assistant.\nPARAMETER stop <|im_start|>\nPARAMETER stop <|im_end|>\nLICENSE \"LLAMA 3.1 COMMUNITY LICENSE AGREEMENT\nLlama 3.1 Version Release Date: July 23, 2024\n\n“Agreement” means the terms and conditions for use, reproduction, distribution and modification of the\nLlama Materials set forth herein.\n\n“Documentation” means the specifications, manuals and documentation accompanying Llama 3.1\ndistributed by Meta at https://llama.meta.com/doc/overview.\n\n“Licensee” or “you” means you, or your employer or any other person or entity (if you are entering into\nthis Agreement on such person or entity’s behalf), of the age required under applicable laws, rules or\nregulations to provide legal consent and that has legal authority to bind your employer or such other\nperson or entity if you are entering in this Agreement on their behalf.\n\n“Llama 3.1” means the foundational large language models and software and algorithms, including\nmachine-learning model code, trained model weights, inference-enabling code, training-enabling code,\nfine-tuning enabling code and other elements of the foregoing distributed by Meta at\nhttps://llama.meta.com/llama-downloads.\n\n“Llama Materials” means, collectively, Meta’s proprietary Llama 3.1 and Documentation (and any\nportion thereof) made available under this Agreement.\n\n“Meta” or “we” means Meta Platforms Ireland Limited (if you are located in or, if you are an entity, your\nprincipal place of business is in the EEA or Switzerland) and Meta Platforms, Inc. (if you are located\noutside of the EEA or Switzerland).\n\nBy clicking “I Accept” below or by using or distributing any portion or element of the Llama Materials,\nyou agree to be bound by this Agreement.\n\n1. License Rights and Redistribution.\n\n  a. Grant of Rights. You are granted a non-exclusive, worldwide, non-transferable and royalty-free\nlimited license under Meta’s intellectual property or other rights owned by Meta embodied in the Llama\nMaterials to use, reproduce, distribute, copy, create derivative works of, and make modifications to the\nLlama Materials.\n\n  b. Redistribution and Use.\n\n      i. If you distribute or make available the Llama Materials (or any derivative works\nthereof), or a product or service (including another AI model) that contains any of them, you shall (A)\nprovide a copy of this Agreement with any such Llama Materials; and (B) prominently display “Built with\nLlama” on a related website, user interface, blogpost, about page, or product documentation. If you use\nthe Llama Materials or any outputs or results of the Llama Materials to create, train, fine tune, or\notherwise improve an AI model, which is distributed or made available, you shall also include “Llama” at\nthe beginning of any such AI model name.\n\n      ii. If you receive Llama Materials, or any derivative works thereof, from a Licensee as part \nof an integrated end user product, then Section 2 of this Agreement will not apply to you.\n\n      iii. You must retain in all copies of the Llama Materials that you distribute the following\nattribution notice within a “Notice” text file distributed as a part of such copies: “Llama 3.1 is\nlicensed under the Llama 3.1 Community License, Copyright © Meta Platforms, Inc. All Rights\nReserved.”\n\n      iv. Your use of the Llama Materials must comply with applicable laws and regulations\n(including trade compliance laws and regulations) and adhere to the Acceptable Use Policy for the Llama\nMaterials (available at https://llama.meta.com/llama3_1/use-policy), which is hereby incorporated by\nreference into this Agreement.\n\n2. Additional Commercial Terms. If, on the Llama 3.1 version release date, the monthly active users\nof the products or services made available by or for Licensee, or Licensee’s affiliates, is greater than 700\nmillion monthly active users in the preceding calendar month, you must request a license from Meta,\nwhich Meta may grant to you in its sole discretion, and you are not authorized to exercise any of the\nrights under this Agreement unless or until Meta otherwise expressly grants you such rights.\n\n3. Disclaimer of Warranty. UNLESS REQUIRED BY APPLICABLE LAW, THE LLAMA MATERIALS AND ANY\nOUTPUT AND RESULTS THEREFROM ARE PROVIDED ON AN “AS IS” BASIS, WITHOUT WARRANTIES OF\nANY KIND, AND META DISCLAIMS ALL WARRANTIES OF ANY KIND, BOTH EXPRESS AND IMPLIED,\nINCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OF TITLE, NON-INFRINGEMENT,\nMERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. YOU ARE SOLELY RESPONSIBLE FOR\nDETERMINING THE APPROPRIATENESS OF USING OR REDISTRIBUTING THE LLAMA MATERIALS AND\nASSUME ANY RISKS ASSOCIATED WITH YOUR USE OF THE LLAMA MATERIALS AND ANY OUTPUT AND\nRESULTS.\n\n4. Limitation of Liability. IN NO EVENT WILL META OR ITS AFFILIATES BE LIABLE UNDER ANY THEORY OF\nLIABILITY, WHETHER IN CONTRACT, TORT, NEGLIGENCE, PRODUCTS LIABILITY, OR OTHERWISE, ARISING\nOUT OF THIS AGREEMENT, FOR ANY LOST PROFITS OR ANY INDIRECT, SPECIAL, CONSEQUENTIAL,\nINCIDENTAL, EXEMPLARY OR PUNITIVE DAMAGES, EVEN IF META OR ITS AFFILIATES HAVE BEEN ADVISED\nOF THE POSSIBILITY OF ANY OF THE FOREGOING.\n\n5. Intellectual Property.\n\n  a. No trademark licenses are granted under this Agreement, and in connection with the Llama\nMaterials, neither Meta nor Licensee may use any name or mark owned by or associated with the other\nor any of its affiliates, except as required for reasonable and customary use in describing and\nredistributing the Llama Materials or as set forth in this Section 5(a). Meta hereby grants you a license to\nuse “Llama” (the “Mark”) solely as required to comply with the last sentence of Section 1.b.i. You will\ncomply with Meta’s brand guidelines (currently accessible at\nhttps://about.meta.com/brand/resources/meta/company-brand/ ). All goodwill arising out of your use\nof the Mark will inure to the benefit of Meta.\n\n  b. Subject to Meta’s ownership of Llama Materials and derivatives made by or for Meta, with\nrespect to any derivative works and modifications of the Llama Materials that are made by you, as\nbetween you and Meta, you are and will be the owner of such derivative works and modifications.\n\n  c. If you institute litigation or other proceedings against Meta or any entity (including a\ncross-claim or counterclaim in a lawsuit) alleging that the Llama Materials or Llama 3.1 outputs or\nresults, or any portion of any of the foregoing, constitutes infringement of intellectual property or other\nrights owned or licensable by you, then any licenses granted to you under this Agreement shall\nterminate as of the date such litigation or claim is filed or instituted. You will indemnify and hold\nharmless Meta from and against any claim by any third party arising out of or related to your use or\ndistribution of the Llama Materials.\n\n6. Term and Termination. The term of this Agreement will commence upon your acceptance of this\nAgreement or access to the Llama Materials and will continue in full force and effect until terminated in\naccordance with the terms and conditions herein. Meta may terminate this Agreement if you are in\nbreach of any term or condition of this Agreement. Upon termination of this Agreement, you shall delete\nand cease use of the Llama Materials. Sections 3, 4 and 7 shall survive the termination of this\nAgreement.\n\n7. Governing Law and Jurisdiction. This Agreement will be governed and construed under the laws of\nthe State of California without regard to choice of law principles, and the UN Convention on Contracts\nfor the International Sale of Goods does not apply to this Agreement. The courts of California shall have\nexclusive jurisdiction of any dispute arising out of this Agreement.\"\n",
+  "parameters": "stop                           \"<|im_start|>\"\nstop                           \"<|im_end|>\"",
+  "template": "{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1 -}}\n<|im_start|>{{ .Role }}\n{{ .Content }}{{ if not $last }}<|im_end|>\n{{ end }}\n{{- if and (ne .Role \"assistant\") $last }}<|im_end|>\n<|im_start|>assistant\n{{ end }}\n{{- end }}",
+  "system": "You are Dolphin, a helpful AI assistant.",
   "details": {
     "parent_model": "",
     "format": "gguf",
     "family": "llama",
     "families": [
-      "llama",
-      "clip"
+      "llama"
     ],
-    "parameter_size": "7B",
-    "quantization_level": "Q4_0"
+    "parameter_size": "8.0B",
+    "quantization_level": "Q4_K_M"
   },
   "model_info": {
     "general.architecture": "llama",
-    "general.file_type": 2,
-    "general.parameter_count": 7241732096,
+    "general.base_model.0.name": "Llama 3.1 8B",
+    "general.base_model.0.organization": "Meta Llama",
+    "general.base_model.0.repo_url": "https://huggingface.co/meta-llama/Llama-3.1-8B",
+    "general.base_model.count": 1,
+    "general.basename": "Dolphin-3.0-Llama-3.1",
+    "general.dataset.0.name": "Opc Sft Stage1",
+    "general.dataset.0.organization": "OpenCoder LLM",
+    "general.dataset.0.repo_url": "https://huggingface.co/OpenCoder-LLM/opc-sft-stage1",
+    "general.dataset.1.name": "Opc Sft Stage2",
+    "general.dataset.1.organization": "OpenCoder LLM",
+    "general.dataset.1.repo_url": "https://huggingface.co/OpenCoder-LLM/opc-sft-stage2",
+    "general.dataset.10.name": "Samantha Data",
+    "general.dataset.10.organization": "Cognitivecomputations",
+    "general.dataset.10.repo_url": "https://huggingface.co/cognitivecomputations/samantha-data",
+    "general.dataset.11.name": "CodeFeedback Filtered Instruction",
+    "general.dataset.11.organization": "M A P",
+    "general.dataset.11.repo_url": "https://huggingface.co/m-a-p/CodeFeedback-Filtered-Instruction",
+    "general.dataset.12.name": "Code Feedback",
+    "general.dataset.12.organization": "M A P",
+    "general.dataset.12.repo_url": "https://huggingface.co/m-a-p/Code-Feedback",
+    "general.dataset.2.name": "Orca Agentinstruct 1M v1",
+    "general.dataset.2.organization": "Microsoft",
+    "general.dataset.2.repo_url": "https://huggingface.co/microsoft/orca-agentinstruct-1M-v1",
+    "general.dataset.2.version": "v1",
+    "general.dataset.3.name": "Orca Math Word Problems 200k",
+    "general.dataset.3.organization": "Microsoft",
+    "general.dataset.3.repo_url": "https://huggingface.co/microsoft/orca-math-word-problems-200k",
+    "general.dataset.4.name": "Hermes Function Calling v1",
+    "general.dataset.4.organization": "NousResearch",
+    "general.dataset.4.repo_url": "https://huggingface.co/NousResearch/hermes-function-calling-v1",
+    "general.dataset.4.version": "v1",
+    "general.dataset.5.name": "NuminaMath CoT",
+    "general.dataset.5.organization": "AI MO",
+    "general.dataset.5.repo_url": "https://huggingface.co/AI-MO/NuminaMath-CoT",
+    "general.dataset.6.name": "NuminaMath TIR",
+    "general.dataset.6.organization": "AI MO",
+    "general.dataset.6.repo_url": "https://huggingface.co/AI-MO/NuminaMath-TIR",
+    "general.dataset.7.name": "Tulu 3 Sft Mixture",
+    "general.dataset.7.organization": "Allenai",
+    "general.dataset.7.repo_url": "https://huggingface.co/allenai/tulu-3-sft-mixture",
+    "general.dataset.8.name": "Dolphin Coder",
+    "general.dataset.8.organization": "Cognitivecomputations",
+    "general.dataset.8.repo_url": "https://huggingface.co/cognitivecomputations/dolphin-coder",
+    "general.dataset.9.name": "Smoltalk",
+    "general.dataset.9.organization": "HuggingFaceTB",
+    "general.dataset.9.repo_url": "https://huggingface.co/HuggingFaceTB/smoltalk",
+    "general.dataset.count": 13,
+    "general.file_type": 15,
+    "general.languages": null,
+    "general.license": "llama3.1",
+    "general.organization": "Cognitivecomputations",
+    "general.parameter_count": 8030277696,
     "general.quantization_version": 2,
+    "general.size_label": "8B",
+    "general.type": "model",
     "llama.attention.head_count": 32,
     "llama.attention.head_count_kv": 8,
+    "llama.attention.key_length": 128,
     "llama.attention.layer_norm_rms_epsilon": 0.00001,
+    "llama.attention.value_length": 128,
     "llama.block_count": 32,
-    "llama.context_length": 32768,
+    "llama.context_length": 131072,
     "llama.embedding_length": 4096,
     "llama.feed_forward_length": 14336,
     "llama.rope.dimension_count": 128,
-    "llama.rope.freq_base": 1000000,
-    "tokenizer.ggml.add_bos_token": true,
-    "tokenizer.ggml.add_eos_token": false,
-    "tokenizer.ggml.bos_token_id": 1,
-    "tokenizer.ggml.eos_token_id": 2,
-    "tokenizer.ggml.model": "llama",
-    "tokenizer.ggml.padding_token_id": 0,
-    "tokenizer.ggml.scores": null,
+    "llama.rope.freq_base": 500000,
+    "llama.vocab_size": 128258,
+    "tokenizer.ggml.bos_token_id": 128000,
+    "tokenizer.ggml.eos_token_id": 128256,
+    "tokenizer.ggml.merges": null,
+    "tokenizer.ggml.model": "gpt2",
+    "tokenizer.ggml.padding_token_id": 128001,
+    "tokenizer.ggml.pre": "llama-bpe",
     "tokenizer.ggml.token_type": null,
-    "tokenizer.ggml.tokens": null,
-    "tokenizer.ggml.unknown_token_id": 0
-  },
-  "projector_info": {
-    "clip.has_llava_projector": true,
-    "clip.has_text_encoder": false,
-    "clip.has_vision_encoder": true,
-    "clip.projector_type": "mlp",
-    "clip.use_gelu": false,
-    "clip.vision.attention.head_count": 16,
-    "clip.vision.attention.layer_norm_epsilon": 0.00001,
-    "clip.vision.block_count": 23,
-    "clip.vision.embedding_length": 1024,
-    "clip.vision.feed_forward_length": 4096,
-    "clip.vision.image_mean": null,
-    "clip.vision.image_size": 336,
-    "clip.vision.image_std": null,
-    "clip.vision.patch_size": 14,
-    "clip.vision.projection_dim": 768,
-    "general.architecture": "clip",
-    "general.description": "image encoder for LLaVA",
-    "general.file_type": 1,
-    "general.name": "openai/clip-vit-large-patch14-336",
-    "general.parameter_count": 311888896
+    "tokenizer.ggml.tokens": null
   },
   "tensors": [
     {
+      "name": "rope_freqs.weight",
+      "type": "F32",
+      "shape": [
+        64
+      ]
+    },
+    {
       "name": "token_embd.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
-        32000
+        128258
       ]
     },
     {
@@ -118,7 +150,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.0.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -126,7 +158,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.0.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -134,7 +166,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.0.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -149,7 +181,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.0.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -157,7 +189,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.0.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -165,7 +197,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.0.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -173,7 +205,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.0.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -188,7 +220,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.1.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -196,7 +228,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.1.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -204,7 +236,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.1.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -219,7 +251,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.1.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -227,7 +259,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.1.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -235,7 +267,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.1.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -243,55 +275,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.1.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
-      "name": "blk.10.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        14336
-      ]
-    },
-    {
-      "name": "blk.10.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        14336
-      ]
-    },
-    {
-      "name": "blk.10.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
-      "name": "blk.10.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.10.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.10.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -306,7 +290,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.2.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -314,7 +298,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.2.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -322,7 +306,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.2.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -337,7 +321,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.2.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -345,7 +329,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.2.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -353,7 +337,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.2.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -361,7 +345,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.2.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -376,7 +360,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.3.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -384,7 +368,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.3.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -392,7 +376,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.3.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -407,7 +391,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.3.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -415,7 +399,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.3.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -423,7 +407,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.3.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -431,7 +415,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.3.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -446,7 +430,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.4.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -454,7 +438,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.4.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -462,7 +446,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.4.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -477,7 +461,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.4.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -485,7 +469,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.4.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -493,7 +477,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.4.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -501,7 +485,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.4.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -516,7 +500,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.5.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -524,7 +508,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.5.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -532,7 +516,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.5.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -547,7 +531,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.5.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -555,7 +539,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.5.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -563,7 +547,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.5.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -571,7 +555,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.5.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -586,7 +570,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.6.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -594,7 +578,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.6.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -602,7 +586,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.6.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -617,7 +601,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.6.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -625,7 +609,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.6.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -633,7 +617,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.6.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -641,7 +625,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.6.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -656,7 +640,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.7.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -664,7 +648,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.7.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -672,7 +656,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.7.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -687,7 +671,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.7.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -695,7 +679,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.7.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -703,7 +687,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.7.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -711,7 +695,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.7.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -726,7 +710,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.8.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -734,7 +718,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.8.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -742,7 +726,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.8.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -757,7 +741,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.8.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -765,7 +749,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.8.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -773,7 +757,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.8.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -781,77 +765,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.8.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
-      "name": "blk.9.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        4096
-      ]
-    },
-    {
-      "name": "blk.9.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        14336,
-        4096
-      ]
-    },
-    {
-      "name": "blk.9.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        14336
-      ]
-    },
-    {
-      "name": "blk.9.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        14336
-      ]
-    },
-    {
-      "name": "blk.9.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        4096
-      ]
-    },
-    {
-      "name": "blk.9.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
-      "name": "blk.9.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.9.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.9.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -866,10 +780,26 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.10.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
+      ]
+    },
+    {
+      "name": "blk.10.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        14336
+      ]
+    },
+    {
+      "name": "blk.10.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        14336
       ]
     },
     {
@@ -877,6 +807,38 @@ ollama_show_json "llava:7b"
       "type": "F32",
       "shape": [
         4096
+      ]
+    },
+    {
+      "name": "blk.10.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.10.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.10.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.10.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        4096,
+        1024
       ]
     },
     {
@@ -888,7 +850,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.11.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -896,7 +858,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.11.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -904,7 +866,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.11.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -919,7 +881,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.11.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -927,7 +889,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.11.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -935,7 +897,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.11.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -943,7 +905,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.11.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -958,7 +920,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.12.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -966,7 +928,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.12.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -974,7 +936,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.12.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -989,7 +951,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.12.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -997,7 +959,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.12.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1005,7 +967,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.12.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1013,7 +975,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.12.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1028,7 +990,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.13.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -1036,7 +998,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.13.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1044,7 +1006,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.13.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1059,7 +1021,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.13.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1067,7 +1029,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.13.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1075,7 +1037,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.13.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1083,7 +1045,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.13.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -1098,7 +1060,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.14.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -1106,7 +1068,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.14.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1114,7 +1076,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.14.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1129,7 +1091,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.14.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1137,7 +1099,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.14.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1145,7 +1107,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.14.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1153,7 +1115,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.14.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1168,7 +1130,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.15.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -1176,7 +1138,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.15.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1184,7 +1146,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.15.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1199,7 +1161,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.15.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1207,7 +1169,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.15.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1215,7 +1177,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.15.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1223,7 +1185,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.15.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1238,7 +1200,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.16.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -1246,7 +1208,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.16.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1254,7 +1216,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.16.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1269,7 +1231,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.16.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1277,7 +1239,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.16.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1285,7 +1247,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.16.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1293,7 +1255,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.16.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -1308,7 +1270,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.17.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -1316,7 +1278,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.17.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1324,7 +1286,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.17.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1339,7 +1301,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.17.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1347,7 +1309,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.17.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1355,7 +1317,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.17.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1363,7 +1325,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.17.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1378,7 +1340,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.18.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -1386,7 +1348,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.18.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1394,7 +1356,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.18.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1409,7 +1371,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.18.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1417,7 +1379,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.18.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1425,7 +1387,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.18.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1433,7 +1395,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.18.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1448,7 +1410,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.19.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -1456,7 +1418,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.19.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1464,7 +1426,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.19.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1479,7 +1441,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.19.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1487,7 +1449,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.19.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1495,7 +1457,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.19.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1503,7 +1465,117 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.19.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.20.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        14336
+      ]
+    },
+    {
+      "name": "blk.20.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.20.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.20.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.20.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.9.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        14336,
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        14336
+      ]
+    },
+    {
+      "name": "blk.9.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        14336
+      ]
+    },
+    {
+      "name": "blk.9.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.9.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.attn_v.weight",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1518,23 +1590,15 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.20.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
       ]
     },
     {
-      "name": "blk.20.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        14336
-      ]
-    },
-    {
       "name": "blk.20.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1548,38 +1612,6 @@ ollama_show_json "llava:7b"
       ]
     },
     {
-      "name": "blk.20.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
-      "name": "blk.20.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.20.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.20.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
       "name": "blk.21.attn_norm.weight",
       "type": "F32",
       "shape": [
@@ -1588,7 +1620,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.21.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -1596,7 +1628,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.21.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1604,7 +1636,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.21.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1619,7 +1651,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.21.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1627,7 +1659,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.21.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1635,7 +1667,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.21.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1643,39 +1675,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.21.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
-      "name": "blk.22.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
-      "name": "blk.22.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.22.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.22.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -1690,7 +1690,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.22.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -1698,7 +1698,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.22.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1706,7 +1706,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.22.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1720,6 +1720,38 @@ ollama_show_json "llava:7b"
       ]
     },
     {
+      "name": "blk.22.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.22.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.22.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.22.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
       "name": "blk.23.attn_norm.weight",
       "type": "F32",
       "shape": [
@@ -1728,7 +1760,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.23.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -1736,7 +1768,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.23.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1744,7 +1776,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.23.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1759,7 +1791,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.23.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1767,7 +1799,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.23.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1775,7 +1807,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.23.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1783,7 +1815,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.23.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1798,7 +1830,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.24.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -1806,7 +1838,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.24.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1814,7 +1846,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.24.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1829,7 +1861,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.24.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1837,7 +1869,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.24.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1845,7 +1877,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.24.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1853,7 +1885,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.24.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -1868,7 +1900,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.25.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -1876,7 +1908,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.25.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1884,7 +1916,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.25.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1899,7 +1931,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.25.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1907,7 +1939,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.25.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1915,7 +1947,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.25.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1923,7 +1955,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.25.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1938,7 +1970,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.26.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         14336,
         4096
@@ -1946,7 +1978,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.26.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1954,7 +1986,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.26.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -1969,7 +2001,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.26.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -1977,7 +2009,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.26.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1985,7 +2017,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.26.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -1993,7 +2025,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.26.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -2008,7 +2040,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.27.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -2016,7 +2048,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.27.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -2024,7 +2056,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.27.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -2039,7 +2071,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.27.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -2047,7 +2079,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.27.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -2055,7 +2087,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.27.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -2063,7 +2095,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.27.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -2078,7 +2110,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.28.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -2086,7 +2118,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.28.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -2094,7 +2126,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.28.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -2109,7 +2141,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.28.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -2117,7 +2149,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.28.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -2125,7 +2157,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.28.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -2133,7 +2165,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.28.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -2148,7 +2180,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.29.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -2156,7 +2188,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.29.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -2164,7 +2196,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.29.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -2179,7 +2211,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.29.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -2187,7 +2219,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.29.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -2195,7 +2227,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.29.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -2203,7 +2235,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.29.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
@@ -2218,7 +2250,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.30.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
@@ -2226,7 +2258,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.30.ffn_gate.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -2234,7 +2266,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.30.ffn_up.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         14336
@@ -2249,7 +2281,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.30.attn_k.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         1024
@@ -2257,7 +2289,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.30.attn_output.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -2265,7 +2297,7 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.30.attn_q.weight",
-      "type": "Q4_0",
+      "type": "Q4_K",
       "shape": [
         4096,
         4096
@@ -2273,10 +2305,66 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.30.attn_v.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         4096,
         1024
+      ]
+    },
+    {
+      "name": "blk.31.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        14336
+      ]
+    },
+    {
+      "name": "blk.31.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        14336
+      ]
+    },
+    {
+      "name": "blk.31.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.31.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.31.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.31.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "output.weight",
+      "type": "Q6_K",
+      "shape": [
+        4096,
+        128258
       ]
     },
     {
@@ -2288,26 +2376,10 @@ ollama_show_json "llava:7b"
     },
     {
       "name": "blk.31.ffn_down.weight",
-      "type": "Q4_0",
+      "type": "Q6_K",
       "shape": [
         14336,
         4096
-      ]
-    },
-    {
-      "name": "blk.31.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        14336
-      ]
-    },
-    {
-      "name": "blk.31.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        14336
       ]
     },
     {
@@ -2318,56 +2390,15 @@ ollama_show_json "llava:7b"
       ]
     },
     {
-      "name": "blk.31.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
-      "name": "blk.31.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.31.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        4096
-      ]
-    },
-    {
-      "name": "blk.31.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        4096,
-        1024
-      ]
-    },
-    {
       "name": "output_norm.weight",
       "type": "F32",
       "shape": [
         4096
       ]
-    },
-    {
-      "name": "output.weight",
-      "type": "Q6_K",
-      "shape": [
-        4096,
-        32000
-      ]
     }
   ],
   "capabilities": [
-    "completion",
-    "vision"
+    "completion"
   ],
-  "modified_at": "2025-06-08T12:47:12.69352537+02:00"
+  "modified_at": "2025-06-09T13:53:21.335009089+02:00"
 }

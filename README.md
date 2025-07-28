@@ -54,8 +54,8 @@ See the **[demos](demos)** directory for all demo scripts
 
 ### Api Functions
 
-| Function      | About                          | Usage                                        | Output                      | Return                                       |
-|---------------|--------------------------------|----------------------------------------------|-----------------------------|----------------------------------------------|
+| Function          | About                          | Usage                                            | Output                      | Return                                       |
+|-------------------|--------------------------------|--------------------------------------------------|-----------------------------|----------------------------------------------|
 | `ollama_api_get`  | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error |
 | `ollama_api_post` | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error | 
 
@@ -121,18 +121,19 @@ See the **[demos](demos)** directory for all demo scripts
 
 ### Utility Functions
 
-| Function           | About                                           | Usage                                                        | Output                                                          | Return  |
-|--------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
-| `ollama_lib_about` | About Ollama Bash Lib, lists vars and functions | `ollama_lib_about`                                           | text to `stdout`                                                | `0`/`1` |
-| `estimate_tokens`  | Estimated number of tokens in a string          | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
+| Function              | About                                           | Usage                                                        | Output                                                          | Return  |
+|-----------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
+| `ollama_lib_about`    | About Ollama Bash Lib, lists vars and functions | `ollama_lib_about`                                           | text to `stdout`                                                | `0`/`1` |
+| `ollama_lib_version`  | Ollama Bash Lib version                         | `ollama_lib_version`                                         | text to `stdout`                                                | `0`/`1` |
+| `estimate_tokens`     | Estimated number of tokens in a string          | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
 
 ### Internal Functions
 
-| Function           | About                                           | Usage                                                        | Output                                                          | Return  |
-|--------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
-| `json_safe`        | Escape a string for use as a JSON value         | `json_safe "string"`                                         | _"quoted json value"_ to `stdout`                               | `0`/`1` |
-| `debug`            | Debug message (if `OLLAMA_LIB_DEBUG=1`)    | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
-| `error`            | Error message                                   | `error "message"`                                            | message to `stderr`                                             | `0`/`1` |
+| Function           | About                                   | Usage                | Output                            | Return  |
+|--------------------|-----------------------------------------|----------------------|-----------------------------------|---------|
+| `json_safe`        | Escape a string for use as a JSON value | `json_safe "string"` | _"quoted json value"_ to `stdout` | `0`/`1` |
+| `debug`            | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`    | message to `stderr`               | `0`/`1` |
+| `error`            | Error message                           | `error "message"`    | message to `stderr`               | `0`/`1` |
 
 ## Requirements
 
