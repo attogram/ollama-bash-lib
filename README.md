@@ -2,11 +2,10 @@
 
 A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
-Repo: https://github.com/attogram/ollama-bash-lib
-
-- [Usage](#usage) - [Demos](#demos) - [Requirements](#requirements) - 
+[Repo](https://github.com/attogram/ollama-bash-lib) - [Usage](#usage) - [Demos](#demos) - [Requirements](#requirements) - 
 [License](#license) - [More Projects](#more-ai-from-the-attogram-project)
-- [Functions](#functions) : [Api](#api-functions) - [Ollama](#ollama-functions) - 
+
+[Functions](#functions) : [Api](#api-functions) - [Ollama](#ollama-functions) - 
 [Generate](#generate-functions) - [Chat](#chat-functions) - [List](#list-functions) - [Process](#process-functions) - 
 [Show](#show-functions) - [Utility](#utility-functions) - [Internal](#internal-functions)
 
