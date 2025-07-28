@@ -4,7 +4,7 @@
 #
 
 OLLAMA_BASH_LIB_NAME="Ollama Bash Lib"
-OLLAMA_BASH_LIB_VERSION="0.33.0"
+OLLAMA_BASH_LIB_VERSION="0.33.1"
 OLLAMA_BASH_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_BASH_LIB_LICENSE="MIT"
 OLLAMA_BASH_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -36,31 +36,6 @@ debug() {
 error() {
   >&2 echo -e "[ERROR] $1"
   # shellcheck disable=SC2320
-  return $?
-}
-
-# About Ollama Bash Lib
-#
-# Usage: ollama_about_lib
-# Input: none
-# Output: text to stdout
-# Returns: 0 on success, 1 on error
-ollama_about_lib() {
-  echo "$OLLAMA_BASH_LIB_NAME v$OLLAMA_BASH_LIB_VERSION"
-  echo
-  echo "A Bash Library to interact with Ollama"
-  echo
-  echo "OLLAMA_BASH_LIB_NAME     : $OLLAMA_BASH_LIB_NAME"
-  echo "OLLAMA_BASH_LIB_VERSION  : $OLLAMA_BASH_LIB_VERSION"
-  echo "OLLAMA_BASH_LIB_URL      : $OLLAMA_BASH_LIB_URL"
-  echo "OLLAMA_BASH_LIB_LICENSE  : $OLLAMA_BASH_LIB_LICENSE"
-  echo "OLLAMA_BASH_LIB_COPYRIGHT: $OLLAMA_BASH_LIB_COPYRIGHT"
-  echo "OLLAMA_BASH_LIB_DEBUG    : $OLLAMA_BASH_LIB_DEBUG"
-  echo "OLLAMA_BASH_LIB_API      : $OLLAMA_BASH_LIB_API"
-  echo
-  echo "Functions:"
-  echo
-  compgen -A function # TODO - filter only Ollama Bash Lib functions
   return $?
 }
 
@@ -97,10 +72,11 @@ json_safe() {
 # Output: API call result, to stdout
 # Returns: 0 on success, 1 on error
 ollama_get() {
-  debug "ollama_get: $1"
+  debug "ollama_get: \"$1\""
   local result curl_error
   result=$(curl -s -X GET "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json')
   curl_error=$?
+  debug "ollama_get: result: $result"
   if [ "$curl_error" -gt 0 ]; then
     error "ollama_get: curl_error: $curl_error result: $result"
     return $RETURN_ERROR
@@ -117,27 +93,17 @@ ollama_get() {
 # Output: API call result, to stdout
 # Returns: 0 on success, 1 on error
 ollama_post() {
-  debug "ollama_post: $1 $2"
-  curl -s -X POST "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
-  return $? # TODO - if curl error, get error info
-}
-
-# Unload a model from memory (Clear context for a model)
-#
-# Usage: ollama_unload_model "model"
-# Input: 1 - Model name to unload
-# Output: none
-# Returns: 0 on success, 1 on error
-ollama_unload_model() {
-  if [ -z "$1" ]; then
-    debug "Error: ollama_unload_model: no model"
+  debug "ollama_post: \"$1\" \"$2\""
+  local result curl_error
+  local result=$(curl -s -X POST "${OLLAMA_BASH_LIB_API}$1" -H 'Content-Type: application/json' -d "$2")
+  curl_error=$?
+  debug "ollama_post: result: $result"
+  if [ "$curl_error" -gt 0 ]; then
+    error "ollama_get: curl_error: $curl_error"
     return $RETURN_ERROR
   fi
-  local response return
-  response=$(ollama_post "/api/generate" "{\"model\": \"$1\", \"keep_alive\": 0}")
-  return=$?
-  debug "$response"
-  return $return # TODO - if Post error, get error info
+  echo "$result"
+  return $RETURN_SUCCESS
 }
 
 # Generate a completion, non-streaming, TEXT version
@@ -148,13 +114,24 @@ ollama_unload_model() {
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate() {
-  debug "ollama_generate: $1 $2"
-  local result return
-  result=$(ollama_post "/api/generate" "{\"model\": \"$1\", \"prompt\": $(json_safe "$2"), \"stream\": false}")
-  return=$?
-  # TODO - if Post error, show error and return 1
-  echo "$result" | jq -r ".response" # Get the raw response content
-  return $return # TODO - if echo/jq error, get error info
+  debug "ollama_generate: \"$1\" \"$2\""
+  local result response curl_error jq_error
+  result=$(ollama_post "/api/generate" "{\"model\":\"$1\",\"prompt\":$(json_safe "$2"),\"stream\":false}")
+  curl_error=$?
+  debug "ollama_generate: result: $result"
+  if [ "$curl_error" -gt 0 ]; then
+    error "ollama_generate: curl_error: $curl_error"
+    return $RETURN_ERROR
+  fi
+  response=$(echo "$result" | jq ".response")
+  jq_error=$?
+  debug "ollama_generate: response: $response"
+  if [ "$jq_error" -gt 0 ]; then
+    error "ollama_generate: jq_error: $jq_error"
+    return $RETURN_ERROR
+  fi
+  echo "$response"
+  return $RETURN_SUCCESS
 }
 
 # Generate a completion, non-streaming, JSON version
@@ -164,7 +141,7 @@ ollama_generate() {
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
   debug "ollama_generate_json: $1 $2"
-  ollama_post "/api/generate" "{\"model\": \"$1\", \"prompt\": $(json_safe "$2"), \"stream\": false}"
+  ollama_post "/api/generate" "{\"model\":\"$1\",\"prompt\":$(json_safe "$2"),\"stream\":false}"
   return $? # TODO - if Post error, get error info
 }
 
@@ -182,7 +159,7 @@ ollama_generate_stream() {
     response="${response#\"}" # remove pre quote
     response="${response%\"}" # remove post quote
     echo -ne "$response"
-  done < <(ollama_post "/api/generate" "{\"model\": \"$1\", \"prompt\": $(json_safe "$2")}")
+  done < <(ollama_post "/api/generate" "{\"model\":\"$1\",\"prompt\":$(json_safe "$2")}")
   return=$?
   echo
   return $return # TODO - If Post error, get error info
@@ -195,7 +172,7 @@ ollama_generate_stream() {
 # Returns: 0 on success, 1 on error
 ollama_generate_stream_json() {
   debug "ollama_generate_stream_json: $1 $2"
-  ollama_post "/api/generate" "{\"model\": \"$1\", \"prompt\": $(json_safe "$2")}"
+  ollama_post "/api/generate" "{\"model\":\"$1\",\"prompt\":$(json_safe "$2")}"
   return $? # TODO - if Post error, get error info
 }
 
@@ -265,10 +242,10 @@ ollama_chat() {
     return $RETURN_ERROR
   fi
 
-  json="{\"model\": \"$model\", \"messages\": ["
+  json="{\"model\":\"$model\",\"messages\":["
   json+=$(printf "%s," "${OLLAMA_BASH_LIB_MESSAGES[@]}")
   json="$(echo "$json" | sed 's/,*$//g')" # strip last slash
-  json+="], \"stream\": false}"
+  json+="],\"stream\":false}"
 
   result=$(ollama_post "/api/chat" "$json")
   return=$?
@@ -357,8 +334,27 @@ ollama_random_model() {
     error "ollama_random_model: No Models Found"
     return $RETURN_ERROR
   fi
+  RANDOM=$(date +%s%N) # seed random with unixtime + microseconds
   echo "${models[RANDOM%${#models[@]}]}"
   return $RETURN_SUCCESS
+}
+
+# Unload a model from memory (Clear context for a model)
+#
+# Usage: ollama_unload_model "model"
+# Input: 1 - Model name to unload
+# Output: none
+# Returns: 0 on success, 1 on error
+ollama_unload_model() {
+  if [ -z "$1" ]; then
+    debug "Error: ollama_unload_model: no model"
+    return $RETURN_ERROR
+  fi
+  local response return
+  response=$(ollama_post "/api/generate" "{\"model\":\"$1\",\"keep_alive\":0}")
+  return=$?
+  debug "$response"
+  return $return # TODO - if Post error, get error info
 }
 
 # Running model processes, CLI version
@@ -401,7 +397,7 @@ ollama_show() {
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
   debug "ollama_show_json"
-  ollama_post "/api/show" "{\"model\": \"$1\"}"
+  ollama_post "/api/show" "{\"model\":\"$1\"}"
   return $?
 }
 
@@ -520,4 +516,32 @@ estimate_tokens() {
 
   echo "$tokens ± $error (range $min to $max)"
   return $RETURN_SUCCESS
+}
+
+# About Ollama Bash Lib
+#
+# Usage: ollama_about_lib
+# Input: none
+# Output: text to stdout
+# Returns: 0 on success, 1 on error
+ollama_about_lib() {
+  echo "$OLLAMA_BASH_LIB_NAME v$OLLAMA_BASH_LIB_VERSION"
+  echo
+  echo "A Bash Library to interact with Ollama"
+  echo
+  echo "OLLAMA_BASH_LIB_NAME     : $OLLAMA_BASH_LIB_NAME"
+  echo "OLLAMA_BASH_LIB_VERSION  : $OLLAMA_BASH_LIB_VERSION"
+  echo "OLLAMA_BASH_LIB_URL      : $OLLAMA_BASH_LIB_URL"
+  echo "OLLAMA_BASH_LIB_LICENSE  : $OLLAMA_BASH_LIB_LICENSE"
+  echo "OLLAMA_BASH_LIB_COPYRIGHT: $OLLAMA_BASH_LIB_COPYRIGHT"
+  echo "OLLAMA_BASH_LIB_DEBUG    : $OLLAMA_BASH_LIB_DEBUG"
+  echo "OLLAMA_BASH_LIB_API      : $OLLAMA_BASH_LIB_API"
+  echo
+  if [ -z "$(command -v compgen 2> /dev/null)" ]; then
+    return $RETURN_ERROR
+  fi
+  echo "Functions:"
+  echo
+  compgen -A function | grep 'ollama_'
+  return $?
 }
