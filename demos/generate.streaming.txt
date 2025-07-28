@@ -4,22 +4,20 @@ ollama_bash_lib: ./../ollama_bash_lib.sh
 
 ollama_installed: YES
 
-model: deepseek-r1:14b
+model: qwen3:1.7b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate_stream "deepseek-r1:14b" "Describe a rabbit in 3 short sentences"
+ollama_generate_stream "qwen3:1.7b" "Describe a rabbit in 3 short sentences"
 
 <think>
-Alright, so I need to describe a rabbit using three short sentences. Let me think about how to approach this.
+Okay, the user wants me to describe a rabbit in three short sentences. Let me think about the key aspects of a rabbit.
 
-First, I should consider the key characteristics of rabbits that make them unique and recognizable. They are small animals known for their speed, but more importantly, they have distinctive features like long ears and strong hind legs which help them jump quickly. Also, their fur comes in various colors, which adds to their charm.
+First, their physical features. Rabbits have fluffy ears, which are important. Maybe mention the color, like brown or gray. Then their body shape, compact and agile. They have a short tail, which is a common feature. 
 
-Next, I want to highlight not just their physical traits but also their behavior or personality. Rabbits are often seen as gentle and curious, which makes them popular as pets. They interact with humans in a way that's both friendly and playful, so mentioning this could add depth to the description.
+Next, their behavior. They're curious and agile, which are important traits. Maybe add something about their movement, like hopping or running. Also, their habitat, like grasslands or forests. 
 
-Lastly, I should think about how rabbits fit into different contexts. They’re common in stories and symbols, like the Easter Bunny, which adds cultural significance. This shows their importance beyond just being pets or wild animals.
-
-Putting it all together, I need to make sure each sentence is concise and covers a different aspect: physical traits, behavior, and cultural relevance.
+Wait, the user specified three sentences. Let me make sure each sentence covers a different aspect. First, physical description: ears, color, body shape, tail. Second, behavior: curiosity, agility, movement. Third, habitat. That should cover it. Need to keep each sentence concise. Avoid any technical terms. Make it natural and descriptive. Check for clarity and flow. Alright, that should work.
 </think>
 
-A rabbit is a small mammal known for its long ears and powerful hind legs, allowing it to move quickly by jumping. It has soft fur in various colors, making it both a companion and a symbol in many cultures. Rabbits are often seen as gentle, curious animals, cherished for their agility and charm.
+A rabbit has fluffy, brown ears and a compact body, often with a short tail, ideal for quick movement. It is curious and agile, darting across grasslands with nimble jumps. Its habitat includes open spaces like meadows or forests, where it feeds on vegetation.

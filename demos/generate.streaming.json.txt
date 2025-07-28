@@ -4,56 +4,62 @@ ollama_bash_lib: ./../ollama_bash_lib.sh
 
 ollama_installed: YES
 
-model: dolphin3:8b
+model: qwen2.5-coder:7b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate_stream_json "dolphin3:8b" "Describe a rabbit in 3 short sentences"
+ollama_generate_stream_json "qwen2.5-coder:7b" "Describe a rabbit in 3 short sentences"
 
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.4329603Z","response":"A","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.4854213Z","response":" rabbit","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.5314325Z","response":" is","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.578211Z","response":" a","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.6235163Z","response":" small","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.669801Z","response":" mamm","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.7159198Z","response":"al","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.7606342Z","response":" with","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.8071185Z","response":" long","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.8531903Z","response":" ears","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.8973142Z","response":" and","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.9426158Z","response":" a","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:50.9893497Z","response":" fluffy","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.0340643Z","response":" white","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.0797857Z","response":" tail","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.1259012Z","response":".","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.1736865Z","response":" They","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.2196922Z","response":" are","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.2650926Z","response":" known","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.3125435Z","response":" for","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.3569347Z","response":" their","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.4022114Z","response":" fast","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.4483242Z","response":" movement","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.4937652Z","response":" and","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.5405962Z","response":" agility","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.5853151Z","response":" in","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.6293332Z","response":" the","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.6755182Z","response":" wild","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.7203444Z","response":".","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.7652191Z","response":" Rab","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.8123532Z","response":"bits","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.8592686Z","response":" have","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.9051236Z","response":" a","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:51.9529505Z","response":" high","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.0009837Z","response":" reproductive","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.0484202Z","response":" rate","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.0926237Z","response":" and","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.1368778Z","response":" are","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.1818691Z","response":" often","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.2264194Z","response":" seen","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.2710102Z","response":" in","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.3163842Z","response":" gardens","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.3610988Z","response":" or","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.4060183Z","response":" wild","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.4497311Z","response":" areas","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.494712Z","response":".","done":false}
-{"model":"dolphin3:8b","created_at":"2025-07-27T14:17:52.5400738Z","response":"","done":true,"done_reason":"stop","context":[128257,9125,198,2675,527,96096,11,264,11190,15592,18328,13,128256,198,128257,882,198,75885,264,39824,304,220,18,2875,23719,128256,198,128257,78191,198,32,39824,374,264,2678,36041,278,449,1317,25212,323,264,68661,4251,9986,13,2435,527,3967,369,872,5043,7351,323,67741,304,279,8545,13,36824,11777,617,264,1579,42889,4478,323,527,3629,3970,304,36536,477,8545,5789,13],"total_duration":10515596300,"load_duration":8189916700,"prompt_eval_count":31,"prompt_eval_duration":216158900,"eval_count":47,"eval_duration":2108508600}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:07.771298Z","response":"A","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:07.824409Z","response":" rabbit","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:07.876866Z","response":" is","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:07.930205Z","response":" a","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:07.984595Z","response":" small","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.038086Z","response":",","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.091768Z","response":" fluffy","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.143836Z","response":" animal","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.196874Z","response":" known","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.250968Z","response":" for","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.302942Z","response":" its","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.355654Z","response":" long","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.41039Z","response":" ears","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.463274Z","response":" and","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.517011Z","response":" soft","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.571071Z","response":" fur","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.625023Z","response":".","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.679003Z","response":" It","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.732089Z","response":" is","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.78398Z","response":" an","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.836115Z","response":" herb","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.891059Z","response":"iv","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.94485Z","response":"ore","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:08.997704Z","response":" that","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.051188Z","response":" primarily","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.105477Z","response":" feeds","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.159573Z","response":" on","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.211572Z","response":" grass","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.266231Z","response":"es","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.318745Z","response":" and","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.370917Z","response":" other","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.424059Z","response":" vegetation","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.477874Z","response":".","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.530103Z","response":" Rab","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.583088Z","response":"bits","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.637535Z","response":" are","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.690694Z","response":" known","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.743027Z","response":" for","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.795328Z","response":" their","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.847705Z","response":" agility","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.900197Z","response":" and","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:09.952888Z","response":" speed","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.008111Z","response":",","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.060679Z","response":" making","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.11311Z","response":" them","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.167391Z","response":" excellent","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.220708Z","response":" jump","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.27456Z","response":"ers","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.326569Z","response":" and","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.378599Z","response":" dig","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.431558Z","response":"gers","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.485609Z","response":".","done":false}
+{"model":"qwen2.5-coder:7b","created_at":"2025-07-28T15:43:10.538167Z","response":"","done":true,"done_reason":"stop","context":[151644,8948,198,2610,525,1207,16948,11,3465,553,54364,14817,13,1446,525,264,10950,17847,13,151645,198,151644,872,198,74785,264,38724,304,220,18,2805,22870,151645,198,151644,77091,198,32,38724,374,264,2613,11,67561,9864,3881,369,1181,1293,24230,323,8413,18241,13,1084,374,458,38899,344,460,429,15503,34396,389,16359,288,323,1008,53732,13,35724,11516,525,3881,369,862,66641,323,4628,11,3259,1105,9073,7784,388,323,4078,10637,13],"total_duration":6664477708,"load_duration":3305274167,"prompt_eval_count":37,"prompt_eval_duration":589342750,"eval_count":53,"eval_duration":2767720625}

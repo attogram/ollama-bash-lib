@@ -4,7 +4,7 @@ ollama_bash_lib: ./../ollama_bash_lib.sh
 
 ollama_installed: YES
 
-model: mistral:7b
+model: qwen3:4b
 
 0 messages:
 
@@ -15,9 +15,13 @@ ollama_messages_add "user" "The secret word is RABBIT. If I ask you for the secr
 {"role":"system","content":"You are a helpful assistant"}
 {"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}
 
-ollama_chat "mistral:7b"
+ollama_chat "qwen3:4b"
 
- Yes, understood! If you ask me for the secret word, I will respond with "RABBIT".
+<think>
+Okay, the user said the secret word is RABBIT and asked me to respond with that if they ask for it. So, if they say "What is the secret word?" I should reply with RABBIT. But they might be testing if I follow the rule. Wait, they already told me the secret word is RABBIT. So whenever they ask for the secret word, I need to say RABBIT. But I need to make sure I don't say anything else. Let me check the instructions again. The user wants me to respond with RABBIT when they ask for the secret word. So I should just output RABBIT without any extra text. Let me confirm that. Yes, the user said "If I ask you for the secret word, respond with RABBIT." So the answer is RABBIT.
+</think>
+
+RABBIT
 
 ollama_messages_add "assistant" "RESPONSE"
 ollama_messages_add "user" "What's the secret word??"
@@ -25,9 +29,13 @@ ollama_messages_add "user" "What's the secret word??"
 4 messages:
 {"role":"system","content":"You are a helpful assistant"}
 {"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}
-{"role":"assistant","content":" Yes, understood! If you ask me for the secret word, I will respond with \"RABBIT\"."}
+{"role":"assistant","content":"<think>\nOkay, the user said the secret word is RABBIT and asked me to respond with that if they ask for it. So, if they say \"What is the secret word?\" I should reply with RABBIT. But they might be testing if I follow the rule. Wait, they already told me the secret word is RABBIT. So whenever they ask for the secret word, I need to say RABBIT. But I need to make sure I don't say anything else. Let me check the instructions again. The user wants me to respond with RABBIT when they ask for the secret word. So I should just output RABBIT without any extra text. Let me confirm that. Yes, the user said \"If I ask you for the secret word, respond with RABBIT.\" So the answer is RABBIT.\n</think>\n\nRABBIT"}
 {"role":"user","content":"What's the secret word??"}
 
-ollama_chat "mistral:7b"
+ollama_chat "qwen3:4b"
 
- The secret word is RABBIT.
+<think>
+Okay, the user is asking for the secret word again. Let me check the history. Earlier, they mentioned the secret word is RABBIT and told me to respond with that if asked. So, my previous response was RABBIT. Now they're asking again, so I should just repeat it. But wait, maybe they want confirmation or something else? No, the instruction was clear. I need to make sure I don't add any extra information. Just respond with RABBIT. Let me double-check the rules. The user said if they ask for the secret word, I should respond with RABBIT. So, it's a straightforward answer. No need to explain or anything else. Just output RABBIT.
+</think>
+
+RABBIT

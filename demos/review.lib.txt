@@ -4,38 +4,10 @@ ollama_bash_lib: ./../ollama_bash_lib.sh
 
 ollama_installed: YES
 
-model: dolphin3:8b
+model: llava:7b
 
 prompt: Act as an expert Software Engineer.
 Do a full code review of this script:
 script: ./../ollama_bash_lib.sh
 
-The provided script, `ollama_bash_lib.sh`, is a Bash library designed to interact with an AI model named Ollama. It provides several functions for tasks such as debugging messages, checking the installation of Ollama, and making requests to the Ollama API.
-
-From a code review perspective, here are some observations:
-
-1. **Variable Naming and Structure**:
-    - Variable names are clear and descriptive, which is good for readability and maintainability.
-    - The use of `local` variables within functions limits their scope appropriately.
-
-2. **Functionality**:
-    - Functions are well-defined with specific purposes (e.g., fetching Ollama application version, generating AI model completions).
-    - Error handling is not comprehensive; some function calls simply return the exit status of the subprocess (`$?`). It would be beneficial to include error checking and handle potential failures gracefully.
-  
-3. **Code Organization**:
-    - The script follows a logical structure with all helper functions defined at the beginning, followed by main functionality related to interacting with Ollama.
-
-4. **Usage of External Tools**:
-    - The script heavily relies on `jq`, `curl`, and `awk`. It's important that these tools are installed in the environment where this script is executed.
-  
-5. **Potential Improvements**:
-   - Some inline comments mention \"TODO\" issues, which suggests there may be planned improvements or fixes for known problems (e.g., capturing error information from subprocesses).
-   - The script might benefit from a more extensive test suite to ensure each function works as expected under various conditions.
-   - Consider adding usage examples for each function within the script or in a separate documentation file.
-   - For the `estimate_tokens` function, it's interesting but seems somewhat unrelated to interacting with an AI model. If this is part of Ollama's functionality, that would be worth documenting; if not, consider moving it to a different library.
-
-6. **Security Considerations**:
-    - The script handles string data and outputs directly to the console without apparent sanitization or validation. This might be a concern in environments where security is paramount.
-    - Function parameters are sometimes used directly in API calls (e.g., `ollama_post`), which means they can introduce injection vulnerabilities if not properly validated.
-
-Overall, this script demonstrates a good understanding of Bash scripting and the structure needed for a library. However, it would benefit from more comprehensive error handling, thorough testing, documentation, and security considerations to be robust in a real-world scenario.
+ This is a Bash library for interacting with Ollama, which is an open-source software platform that uses deep learning models to generate text. The library provides various functions for managing and controlling the Ollama processes, such as starting or stopping models, showing model information, and getting version details. It also includes some utility functions like estimating the number of tokens in a string using different algorithms. 

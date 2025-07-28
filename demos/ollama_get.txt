@@ -6,12 +6,29 @@ ollama_installed: YES
 
 ollama_get "/api/version"
 {"version":"0.10.0-rc0"}
+
+ollama_get "/error/path/not/found"
+404 page not found
+
+ollama_get " bad string!"
+[ERROR] ollama_get: curl_error: 3
+
+OLLAMA_LIB_DEBUG=1
+
+ollama_get "/api/version"
+[DEBUG] ollama_get: "/api/version"
+[DEBUG] ollama_get: result: {"version":"0.10.0-rc0"}
+{"version":"0.10.0-rc0"}
 ollama_get returned: 0
 
 ollama_get "/error/path/not/found"
+[DEBUG] ollama_get: "/error/path/not/found"
+[DEBUG] ollama_get: result: 404 page not found
 404 page not found
 ollama_get returned: 0
 
 ollama_get " bad string!"
-[ERROR] ollama_get: curl_error: 3 result: 
+[DEBUG] ollama_get: " bad sting! "
+[DEBUG] ollama_get: result: 
+[ERROR] ollama_get: curl_error: 3
 ollama_get returned: 1

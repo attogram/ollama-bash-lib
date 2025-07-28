@@ -15,6 +15,22 @@ load_ollama_bash_lib
 
 echo "ollama_get \"/api/version\""
 ollama_get "/api/version"
+
+echo
+echo "ollama_get \"/error/path/not/found\""
+ollama_get "/error/path/not/found"
+
+echo
+echo "ollama_get \" bad string!\""
+ollama_get " bad sting! "
+
+echo
+echo "OLLAMA_LIB_DEBUG=1"
+echo
+OLLAMA_LIB_DEBUG=1
+
+echo "ollama_get \"/api/version\""
+ollama_get "/api/version"
 ollama_get_return=$?
 echo "ollama_get returned: $ollama_get_return"
 

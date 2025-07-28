@@ -4,10 +4,10 @@ ollama_bash_lib: ./../ollama_bash_lib.sh
 
 ollama_installed: YES
 
-model: qwen2.5vl:7b
+model: granite3.3:2b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate_json "qwen2.5vl:7b" "Describe a rabbit in 3 short sentences"
+ollama_generate_json "granite3.3:2b" "Describe a rabbit in 3 short sentences"
 
-{"model":"qwen2.5vl:7b","created_at":"2025-07-27T14:17:32.514571Z","response":"A rabbit is a small, furry animal with long ears and a short tail, often associated with Easter and springtime. It is known for its ability to hop and its soft, fluffy fur, which can come in various colors and patterns. Rabbits are social animals and are often kept as pets in homes.","done":true,"done_reason":"stop","context":[151644,8948,198,2610,525,264,10950,17847,13,151645,198,151644,872,198,74785,264,38724,304,220,18,2805,22870,151645,198,151644,77091,198,32,38724,374,264,2613,11,74419,9864,448,1293,24230,323,264,2805,9787,11,3545,5815,448,32400,323,10464,1678,13,1084,374,3881,369,1181,5726,311,7446,323,1181,8413,11,67561,18241,11,892,646,2525,304,5257,7987,323,12624,13,35724,11516,525,3590,9898,323,525,3545,8604,438,25103,304,10415,13],"total_duration":5454090300,"load_duration":3308717100,"prompt_eval_count":28,"prompt_eval_duration":158336100,"eval_count":63,"eval_duration":1986527500}
+{"model":"granite3.3:2b","created_at":"2025-07-28T15:43:03.558158Z","response":"1. A rabbit is a small, herbivorous mammal known for its long ears and fluffy tail.\n2. They are typically white with large, round eyes, though their coat color can vary greatly depending on the species, such as velvety brown or fiery orange.\n3. Rabbits are crepuscular, being most active during dawn and dusk, and are known for their swift, bouncy movements, often hopping short distances with impressive agility.","done":true,"done_reason":"stop","context":[49152,2946,49153,39558,390,17071,2821,44,30468,225,36,34,36,38,32,203,4282,884,8080,278,659,30,18909,810,25697,32,2448,884,312,17247,19551,47330,32,0,203,49152,496,49153,8591,312,40810,328,225,37,4504,28842,0,203,49152,17594,49153,35,32,399,40810,438,312,5532,30,7791,84,387,271,3291,345,404,7904,8967,436,2819,1946,484,4177,461,2022,2966,107,13203,32,203,36,32,11228,884,18214,8400,623,7622,30,7818,31986,30,8415,3623,2098,269,1963,883,21187,39553,14714,544,322,21791,30,3751,619,13782,104,11449,40221,556,8058,834,37252,32,203,37,32,559,360,5960,884,2020,11467,85,1900,30,3998,4630,4523,5929,343,6149,461,343,352,93,30,461,884,8967,436,3623,34574,30,2959,956,107,4234,8422,30,12270,23592,7075,4504,27960,623,1360,714,661,1894,1892,32],"total_duration":4400308625,"load_duration":1365650583,"prompt_eval_count":51,"prompt_eval_duration":456539833,"eval_count":114,"eval_duration":2575886209}

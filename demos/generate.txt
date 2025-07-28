@@ -4,10 +4,10 @@ ollama_bash_lib: ./../ollama_bash_lib.sh
 
 ollama_installed: YES
 
-model: gemma3n:e4b
+model: qwen3:8b
 
 prompt: Describe a rabbit in 3 short sentences
 
-ollama_generate "gemma3n:e4b" "Describe a rabbit in 3 short sentences"
+ollama_generate "qwen3:8b" "Describe a rabbit in 3 short sentences"
 
-A rabbit is a small mammal with long ears and a fluffy tail. They are known for their quick hops and love of carrots.  These gentle creatures are often found in meadows and burrows, enjoying a peaceful life. 
+"<think>\nOkay, the user wants me to describe a rabbit in three short sentences. Let me start by thinking about the key characteristics of a rabbit. They're small mammals, right? So maybe mention their size and physical features like fur, ears, and paws. Then, their behavior—like hopping and being quick. Also, their diet, maybe? Oh, and they're often associated with being gentle. Wait, the user might want it concise. Let me make sure each sentence is a separate aspect. First sentence: physical description. Second: behavior. Third: maybe habitat or another trait. Let me check if that's three clear sentences without being too wordy. Yeah, that should work.\n</think>\n\nA rabbit is a small, fluffy mammal with long ears and quick paws. It hops gracefully through fields, often blending into its surroundings with soft, gray or brown fur. Known for its gentle nature, it relies on speed and camouflage to evade predators."

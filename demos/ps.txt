@@ -6,31 +6,31 @@ ollama_installed: YES
 
 ollama_ps
 
-NAME               ID              SIZE     PROCESSOR          CONTEXT    UNTIL              
-deepseek-r1:14b    c333b7232bdb    14 GB    48%/52% CPU/GPU    16384      4 minutes from now    
+NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+qwen3:1.7b    8f68893c685c    2.4 GB    100% GPU     4096       4 minutes from now    
 
 ollama_ps_json
 
 {
   "models": [
     {
-      "name": "deepseek-r1:14b",
-      "model": "deepseek-r1:14b",
-      "size": 14218500096,
-      "digest": "c333b7232bdb521236694ffbb5f5a6b11cc45d98e9142c73123b670fca400b09",
+      "name": "qwen3:1.7b",
+      "model": "qwen3:1.7b",
+      "size": 2392883541,
+      "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "qwen2",
+        "family": "qwen3",
         "families": [
-          "qwen2"
+          "qwen3"
         ],
-        "parameter_size": "14.8B",
+        "parameter_size": "2.0B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-27T16:23:44.1721172+02:00",
-      "size_vram": 7330822144,
-      "context_length": 16384
+      "expires_at": "2025-07-28T17:43:21.047526+02:00",
+      "size_vram": 2392883541,
+      "context_length": 4096
     }
   ]
 }
