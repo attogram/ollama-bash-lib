@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.37.1"
+OLLAMA_LIB_VERSION="0.37.3"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -113,7 +113,7 @@ ollama_api_get() {
   local result error_curl
   result=$(curl -s -X GET "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json')
   error_curl=$?
-  echo "ollama_api_get: result: $(echo "$result" | wc -c | sed 's/ //g') bytes [$result]"
+  debug "ollama_api_get: result: $(echo "$result" | wc -c | sed 's/ //g') bytes [$result]"
   if [ "$error_curl" -gt 0 ]; then
     error "ollama_api_get: error_curl: $error_curl"
     return $RETURN_ERROR
@@ -161,7 +161,7 @@ ollama_api_ping() {
   if [[ "$result" == "Ollama is running" ]]; then
     return $RETURN_SUCCESS
   fi
-  debug "ollama_api_ping: unknown result: [$result]"
+  error "ollama_api_ping: unknown result: [$result]"
   return $RETURN_ERROR
 }
 
