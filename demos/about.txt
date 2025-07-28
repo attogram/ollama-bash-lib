@@ -1,10 +1,10 @@
-Ollama Bash Lib - Demo - ollama_about_lib
+Ollama Bash Lib - Demo - ollama_lib_about
 
 ollama_bash_lib: ./../ollama_bash_lib.sh
 
 ollama_installed: YES
 
-ollama_about_lib
+ollama_lib_about
 
 Ollama Bash Lib v0.34.0
 
@@ -21,7 +21,7 @@ OLLAMA_LIB_API      : http://localhost:11434
 Functions:
 
 load_ollama_bash_lib
-ollama_about_lib
+ollama_lib_about
 ollama_chat
 ollama_chat_json
 ollama_chat_stream
@@ -30,7 +30,7 @@ ollama_generate
 ollama_generate_json
 ollama_generate_stream
 ollama_generate_stream_json
-ollama_get
+ollama_api_get
 ollama_installed
 ollama_list
 ollama_list_array
@@ -39,13 +39,13 @@ ollama_messages
 ollama_messages_add
 ollama_messages_clear
 ollama_messages_count
-ollama_post
+ollama_api_post
 ollama_ps
 ollama_ps_json
-ollama_random_model
+ollama_model_random
 ollama_show
 ollama_show_json
-ollama_unload_model
+ollama_model_unload
 ollama_version
 ollama_version_cli
 ollama_version_json
