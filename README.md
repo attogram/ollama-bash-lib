@@ -54,10 +54,11 @@ See the **[demos](demos)** directory for all demo scripts
 
 ### Api Functions
 
-| Function          | About                          | Usage                                            | Output                      | Return                                       |
-|-------------------|--------------------------------|--------------------------------------------------|-----------------------------|----------------------------------------------|
-| `ollama_api_get`  | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error |
-| `ollama_api_post` | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error | 
+| Function          | About                          | Usage                                            | Output                      | Return                                             |
+|-------------------|--------------------------------|--------------------------------------------------|-----------------------------|----------------------------------------------------|
+| `ollama_api_get`  | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error       |
+| `ollama_api_post` | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error       | 
+| `ollama_api_ping` | Ping the Ollama API            | `ollama_api_ping`                                | none                        | `0` API is reachable<br />`1` API is not reachable |
 
 ### Ollama Functions
 
@@ -123,9 +124,9 @@ See the **[demos](demos)** directory for all demo scripts
 
 | Function              | About                                           | Usage                                                        | Output                                                          | Return  |
 |-----------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
+| `estimate_tokens`     | Estimated number of tokens in a string          | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
 | `ollama_lib_about`    | About Ollama Bash Lib, lists vars and functions | `ollama_lib_about`                                           | text to `stdout`                                                | `0`/`1` |
 | `ollama_lib_version`  | Ollama Bash Lib version                         | `ollama_lib_version`                                         | text to `stdout`                                                | `0`/`1` |
-| `estimate_tokens`     | Estimated number of tokens in a string          | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
 
 ### Internal Functions
 

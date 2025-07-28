@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.35.1"
+OLLAMA_LIB_VERSION="0.35.3"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -60,7 +60,7 @@ ollama_installed() {
 # Output: "quoted safe json value" to stdout
 # Returns: 0 on success, 1 on error
 json_safe() {
-  debug "json_safe: $1"
+  debug "json_safe: \"$1\""
   jq -Rn --arg str "$1" '$str'
   return $? # TODO - if jq error, get error info
 }
@@ -104,6 +104,28 @@ ollama_api_post() {
   fi
   echo "$result"
   return $RETURN_SUCCESS
+}
+
+# Ping the Ollama API
+#
+# Usage: ollama_api_ping
+# Input: none
+# Output: none
+# Returns: 0 if API is reachable, 1 if API is not reachable
+ollama_api_ping() {
+  debug "ollama_api_ping"
+  local result api_get_error
+  result=$(ollama_api_get "")
+  api_get_error=$?
+  if [ "$api_get_error" -gt 0 ]; then
+    error "ollama_api_ping: error: $api_get_error"
+    return $RETURN_ERROR
+  fi
+  if [[ "$result" == "Ollama is running" ]]; then
+    return $RETURN_SUCCESS
+  fi
+  debug "ollama_api_ping: unknown result: $result"
+  return $RETURN_ERROR
 }
 
 # Generate a completion, non-streaming, TEXT version
@@ -208,7 +230,7 @@ ollama_messages_count() {
 # Output: none
 # Returns: 0 on success, 1 on error
 ollama_messages_add() {
-  debug "ollama_messages_add: $1"
+  debug "ollama_messages_add: \"$1\""
   local role message
   role="$1"
   message="$2"
@@ -227,43 +249,68 @@ ollama_messages_clear() {
   return $RETURN_SUCCESS
 }
 
-# Chat completion request, TEXT version
-#
-# Usage: ollama_chat "model"
-# Output: text, to stdout
-# Returns: 0 on success, 1 on error
-ollama_chat() {
-  debug "ollama_chat: $1"
-  local model json result return
-
-  model="$1"
-  if [ -z "$model" ]; then
-    error "ollama_chat: Model Not Found. Usage: ollama_chat \"model\""
-    return $RETURN_ERROR
-  fi
-
-  json="{\"model\":\"$model\",\"messages\":["
-  json+=$(printf "%s," "${OLLAMA_LIB_MESSAGES[@]}")
-  json="$(echo "$json" | sed 's/,*$//g')" # strip last slash
-  json+="],\"stream\":false}"
-
-  result=$(ollama_api_post "/api/chat" "$json")
-  return=$?
-  if [ "$return" -gt 0 ]; then
-    error "ollama_chat: error: $return result: $result"
-    return $RETURN_ERROR
-  fi
-
-  echo "$result" | jq -r ".message.content"
-}
-
 # Chat completion request, JSON version
 #
 # Usage: ollama_chat_json "model"
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
-  debug "IN DEV - ollama_chat_json: $1"
+  debug "ollama_chat_json: \"$1\""
+  local model json result error_post error_jq_message_content
+
+  model="$1"
+  if [ -z "$model" ]; then
+    error "ollama_chat_json: Model Not Found. Usage: ollama_chat_json \"model\""
+    return $RETURN_ERROR
+  fi
+
+  # TODO - use jq to build json, better/easier array handling
+  json="{\"model\":\"$model\",\"messages\":["
+  json+=$(printf "%s," "${OLLAMA_LIB_MESSAGES[@]}")
+  json="$(echo "$json" | sed 's/,*$//g')" # strip last slash
+  json+="],\"stream\":false}"
+
+  result=$(ollama_api_post "/api/chat" "$json")
+  error_post=$?
+  if [ "$error_post" -gt 0 ]; then
+    error "ollama_chat_json: post_error: $error_post"
+    return $RETURN_ERROR
+  fi
+
+  content=$(echo "$result" | jq -r ".message.content")
+  error_jq_message_content=$?
+  debug "ollama_chat_json: content: $content"
+  if [ "$error_jq_message_content" -gt 0 ]; then
+    error "ollama_chat_json: error_jq_message_content: $error_jq_message_content"
+    return $RETURN_ERROR
+  fi
+  ollama_messages_add "assistant" "$content"
+  echo "$result"
+}
+
+# Chat completion request, TEXT version
+#
+# Usage: ollama_chat "model"
+# Output: text, to stdout
+# Returns: 0 on success, 1 on error
+ollama_chat() {
+  debug "ollama_chat: \"$1\""
+  local model content error_jq_message_content
+  model="$1"
+  if [ -z "$model" ]; then
+    error "ollama_chat: Model Not Found. Usage: ollama_chat \"model\""
+    return $RETURN_ERROR
+  fi
+  content=$(ollama_chat_json "$model" | jq -r ".message.content")
+  error_jq_message_content=$?
+  debug "ollama_chat: content: $content"
+  if [ "$error_jq_message_content" -gt 0 ]; then
+    error "ollama_chat: error_jq_message_content: $error_jq_message_content"
+    return $RETURN_ERROR
+  fi
+  echo "$content"
+  ollama_messages_add "assistant" "$content"
+  return $RETURN_SUCCESS
 }
 
 # Streaming Chat completion request, TEXT version
@@ -272,7 +319,7 @@ ollama_chat_json() {
 # Output: streaming text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
-  debug "IN DEV - ollama_chat_stream: $1"
+  debug "IN DEV - ollama_chat_stream: \"$1\""
 }
 
 # Streaming Chat completion request, JSON version
