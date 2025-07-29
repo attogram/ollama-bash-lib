@@ -4,38 +4,19 @@ A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.38.1
 
 ollama_ps
 
-NAME             ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-granite3.3:2b    07bd1f170855    2.7 GB    100% GPU     4096       4 minutes from now    
-llama3.2:3b      a80c4f17acd5    3.4 GB    100% GPU     4096       4 minutes from now    
+NAME           ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+dolphin3:8b    d5ab9ae8e1f2    6.2 GB    100% GPU     4096       4 minutes from now    
+llama3.2:1b    baf6a787fdff    2.4 GB    100% GPU     4096       4 minutes from now    
 
 ollama_ps_json
 
 {
   "models": [
     {
-      "name": "granite3.3:2b",
-      "model": "granite3.3:2b",
-      "size": 2686878533,
-      "digest": "07bd1f170855240f9e162bf54ea494a8bc1c73d8cbd1365d7fccbeb7d2504947",
-      "details": {
-        "parent_model": "",
-        "format": "gguf",
-        "family": "granite",
-        "families": [
-          "granite"
-        ],
-        "parameter_size": "2.5B",
-        "quantization_level": "Q4_K_M"
-      },
-      "expires_at": "2025-07-29T20:47:55.827998+02:00",
-      "size_vram": 2686878533,
-      "context_length": 4096
-    },
-    {
-      "name": "llama3.2:3b",
-      "model": "llama3.2:3b",
-      "size": 3367856128,
-      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "name": "dolphin3:8b",
+      "model": "dolphin3:8b",
+      "size": 6157238848,
+      "digest": "d5ab9ae8e1f22619a6be52e5694df422b7183a3883990a000188c363781ecb78",
       "details": {
         "parent_model": "",
         "format": "gguf",
@@ -43,11 +24,30 @@ ollama_ps_json
         "families": [
           "llama"
         ],
-        "parameter_size": "3.2B",
+        "parameter_size": "8.0B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-29T20:47:34.045631+02:00",
-      "size_vram": 3367856128,
+      "expires_at": "2025-07-29T20:52:46.702448+02:00",
+      "size_vram": 6157238848,
+      "context_length": 4096
+    },
+    {
+      "name": "llama3.2:1b",
+      "model": "llama3.2:1b",
+      "size": 2350966784,
+      "digest": "baf6a787fdffd633537aa2eb51cfd54cb93ff08e28040095462bb63daf552878",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "1.2B",
+        "quantization_level": "Q8_0"
+      },
+      "expires_at": "2025-07-29T20:52:38.107091+02:00",
+      "size_vram": 2350966784,
       "context_length": 4096
     }
   ]

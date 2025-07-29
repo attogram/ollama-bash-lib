@@ -36,4 +36,5 @@ $(cat "$ollama_bash_lib")
 
 echo
 ollama_generate_stream "$model" "$prompt"
+
 echo '```'

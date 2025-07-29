@@ -25,6 +25,7 @@ echo "ollama_generate_json \"$model\" \"$prompt\""
 echo '```'
 echo '```json'
 ollama_generate_json "$model" "$prompt"
+echo # needed?
 echo '```'
 
 echo
@@ -35,4 +36,5 @@ echo "\`OLLAMA_LIB_DEBUG=1 ollama_generate_json \"$model\" \"$prompt\"\`"
 echo '```'
 echo '```json'
 OLLAMA_LIB_DEBUG=1 ollama_generate_json "$model" "$prompt"
+echo # needed?
 echo '```'

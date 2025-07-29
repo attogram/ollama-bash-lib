@@ -14,6 +14,8 @@ startup() {
 
 startup
 
+echo '```'
+
 model=$(ollama_model_random)
 echo
 echo "model: $model"
@@ -34,3 +36,5 @@ $(cat "../README.md")
 
 echo
 ollama_generate_stream "$model" "$prompt"
+
+echo '```'

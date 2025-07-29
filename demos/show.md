@@ -2,1222 +2,2669 @@
 A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.38.1
 ```
 
-model: llama3.2:1b
+model: deepcoder:1.5b
 
-ollama_show "llama3.2:1b"
+ollama_show "deepcoder:1.5b"
 
   Model
-    architecture        llama     
-    parameters          1.2B      
+    architecture        qwen2     
+    parameters          1.8B      
     context length      131072    
-    embedding length    2048      
-    quantization        Q8_0      
+    embedding length    1536      
+    quantization        Q4_K_M    
 
   Capabilities
     completion    
-    tools         
+
+  Parameters
+    temperature    0.6     
+    top_p          0.95    
 
   License
-    LLAMA 3.2 COMMUNITY LICENSE AGREEMENT                 
-    Llama 3.2 Version Release Date: September 25, 2024    
-    ...                                                   
+    MIT License                    
+    Copyright (c) 2025 Agentica    
+    ...                            
 
 
-ollama_show_json "llama3.2:1b"
+ollama_show_json "deepcoder:1.5b"
 
 {
-  "license": "LLAMA 3.2 COMMUNITY LICENSE AGREEMENT\nLlama 3.2 Version Release Date: September 25, 2024\n\n“Agreement” means the terms and conditions for use, reproduction, distribution \nand modification of the Llama Materials set forth herein.\n\n“Documentation” means the specifications, manuals and documentation accompanying Llama 3.2\ndistributed by Meta at https://llama.meta.com/doc/overview.\n\n“Licensee” or “you” means you, or your employer or any other person or entity (if you are \nentering into this Agreement on such person or entity’s behalf), of the age required under\napplicable laws, rules or regulations to provide legal consent and that has legal authority\nto bind your employer or such other person or entity if you are entering in this Agreement\non their behalf.\n\n“Llama 3.2” means the foundational large language models and software and algorithms, including\nmachine-learning model code, trained model weights, inference-enabling code, training-enabling code,\nfine-tuning enabling code and other elements of the foregoing distributed by Meta at \nhttps://www.llama.com/llama-downloads.\n\n“Llama Materials” means, collectively, Meta’s proprietary Llama 3.2 and Documentation (and \nany portion thereof) made available under this Agreement.\n\n“Meta” or “we” means Meta Platforms Ireland Limited (if you are located in or, \nif you are an entity, your principal place of business is in the EEA or Switzerland) \nand Meta Platforms, Inc. (if you are located outside of the EEA or Switzerland). \n\n\nBy clicking “I Accept” below or by using or distributing any portion or element of the Llama Materials,\nyou agree to be bound by this Agreement.\n\n\n1. License Rights and Redistribution.\n\n    a. Grant of Rights. You are granted a non-exclusive, worldwide, \nnon-transferable and royalty-free limited license under Meta’s intellectual property or other rights \nowned by Meta embodied in the Llama Materials to use, reproduce, distribute, copy, create derivative works \nof, and make modifications to the Llama Materials.  \n\n    b. Redistribution and Use.  \n\n        i. If you distribute or make available the Llama Materials (or any derivative works thereof), \nor a product or service (including another AI model) that contains any of them, you shall (A) provide\na copy of this Agreement with any such Llama Materials; and (B) prominently display “Built with Llama”\non a related website, user interface, blogpost, about page, or product documentation. If you use the\nLlama Materials or any outputs or results of the Llama Materials to create, train, fine tune, or\notherwise improve an AI model, which is distributed or made available, you shall also include “Llama”\nat the beginning of any such AI model name.\n\n        ii. If you receive Llama Materials, or any derivative works thereof, from a Licensee as part\nof an integrated end user product, then Section 2 of this Agreement will not apply to you. \n\n        iii. You must retain in all copies of the Llama Materials that you distribute the \nfollowing attribution notice within a “Notice” text file distributed as a part of such copies: \n“Llama 3.2 is licensed under the Llama 3.2 Community License, Copyright © Meta Platforms,\nInc. All Rights Reserved.”\n\n        iv. Your use of the Llama Materials must comply with applicable laws and regulations\n(including trade compliance laws and regulations) and adhere to the Acceptable Use Policy for\nthe Llama Materials (available at https://www.llama.com/llama3_2/use-policy), which is hereby \nincorporated by reference into this Agreement.\n  \n2. Additional Commercial Terms. If, on the Llama 3.2 version release date, the monthly active users\nof the products or services made available by or for Licensee, or Licensee’s affiliates, \nis greater than 700 million monthly active users in the preceding calendar month, you must request \na license from Meta, which Meta may grant to you in its sole discretion, and you are not authorized to\nexercise any of the rights under this Agreement unless or until Meta otherwise expressly grants you such rights.\n\n3. Disclaimer of Warranty. UNLESS REQUIRED BY APPLICABLE LAW, THE LLAMA MATERIALS AND ANY OUTPUT AND \nRESULTS THEREFROM ARE PROVIDED ON AN “AS IS” BASIS, WITHOUT WARRANTIES OF ANY KIND, AND META DISCLAIMS\nALL WARRANTIES OF ANY KIND, BOTH EXPRESS AND IMPLIED, INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES\nOF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. YOU ARE SOLELY RESPONSIBLE\nFOR DETERMINING THE APPROPRIATENESS OF USING OR REDISTRIBUTING THE LLAMA MATERIALS AND ASSUME ANY RISKS ASSOCIATED\nWITH YOUR USE OF THE LLAMA MATERIALS AND ANY OUTPUT AND RESULTS.\n\n4. Limitation of Liability. IN NO EVENT WILL META OR ITS AFFILIATES BE LIABLE UNDER ANY THEORY OF LIABILITY, \nWHETHER IN CONTRACT, TORT, NEGLIGENCE, PRODUCTS LIABILITY, OR OTHERWISE, ARISING OUT OF THIS AGREEMENT, \nFOR ANY LOST PROFITS OR ANY INDIRECT, SPECIAL, CONSEQUENTIAL, INCIDENTAL, EXEMPLARY OR PUNITIVE DAMAGES, EVEN \nIF META OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF ANY OF THE FOREGOING.\n\n5. Intellectual Property.\n\n    a. No trademark licenses are granted under this Agreement, and in connection with the Llama Materials, \nneither Meta nor Licensee may use any name or mark owned by or associated with the other or any of its affiliates, \nexcept as required for reasonable and customary use in describing and redistributing the Llama Materials or as \nset forth in this Section 5(a). Meta hereby grants you a license to use “Llama” (the “Mark”) solely as required \nto comply with the last sentence of Section 1.b.i. You will comply with Meta’s brand guidelines (currently accessible \nat https://about.meta.com/brand/resources/meta/company-brand/). All goodwill arising out of your use of the Mark \nwill inure to the benefit of Meta.\n\n    b. Subject to Meta’s ownership of Llama Materials and derivatives made by or for Meta, with respect to any\n    derivative works and modifications of the Llama Materials that are made by you, as between you and Meta,\n    you are and will be the owner of such derivative works and modifications.\n\n    c. If you institute litigation or other proceedings against Meta or any entity (including a cross-claim or\n    counterclaim in a lawsuit) alleging that the Llama Materials or Llama 3.2 outputs or results, or any portion\n    of any of the foregoing, constitutes infringement of intellectual property or other rights owned or licensable\n    by you, then any licenses granted to you under this Agreement shall terminate as of the date such litigation or\n    claim is filed or instituted. You will indemnify and hold harmless Meta from and against any claim by any third\n    party arising out of or related to your use or distribution of the Llama Materials.\n\n6. Term and Termination. The term of this Agreement will commence upon your acceptance of this Agreement or access\nto the Llama Materials and will continue in full force and effect until terminated in accordance with the terms\nand conditions herein. Meta may terminate this Agreement if you are in breach of any term or condition of this\nAgreement. Upon termination of this Agreement, you shall delete and cease use of the Llama Materials. Sections 3,\n4 and 7 shall survive the termination of this Agreement. \n\n7. Governing Law and Jurisdiction. This Agreement will be governed and construed under the laws of the State of \nCalifornia without regard to choice of law principles, and the UN Convention on Contracts for the International\nSale of Goods does not apply to this Agreement. The courts of California shall have exclusive jurisdiction of\nany dispute arising out of this Agreement.\n**Llama 3.2** **Acceptable Use Policy**\n\nMeta is committed to promoting safe and fair use of its tools and features, including Llama 3.2. If you access or use Llama 3.2, you agree to this Acceptable Use Policy (“**Policy**”). The most recent copy of this policy can be found at [https://www.llama.com/llama3_2/use-policy](https://www.llama.com/llama3_2/use-policy).\n\n**Prohibited Uses**\n\nWe want everyone to use Llama 3.2 safely and responsibly. You agree you will not use, or allow others to use, Llama 3.2 to:\n\n\n\n1. Violate the law or others’ rights, including to:\n    1. Engage in, promote, generate, contribute to, encourage, plan, incite, or further illegal or unlawful activity or content, such as:\n        1. Violence or terrorism\n        2. Exploitation or harm to children, including the solicitation, creation, acquisition, or dissemination of child exploitative content or failure to report Child Sexual Abuse Material\n        3. Human trafficking, exploitation, and sexual violence\n        4. The illegal distribution of information or materials to minors, including obscene materials, or failure to employ legally required age-gating in connection with such information or materials.\n        5. Sexual solicitation\n        6. Any other criminal activity\n    1. Engage in, promote, incite, or facilitate the harassment, abuse, threatening, or bullying of individuals or groups of individuals\n    2. Engage in, promote, incite, or facilitate discrimination or other unlawful or harmful conduct in the provision of employment, employment benefits, credit, housing, other economic benefits, or other essential goods and services\n    3. Engage in the unauthorized or unlicensed practice of any profession including, but not limited to, financial, legal, medical/health, or related professional practices\n    4. Collect, process, disclose, generate, or infer private or sensitive information about individuals, including information about individuals’ identity, health, or demographic information, unless you have obtained the right to do so in accordance with applicable law\n    5. Engage in or facilitate any action or generate any content that infringes, misappropriates, or otherwise violates any third-party rights, including the outputs or results of any products or services using the Llama Materials\n    6. Create, generate, or facilitate the creation of malicious code, malware, computer viruses or do anything else that could disable, overburden, interfere with or impair the proper working, integrity, operation or appearance of a website or computer system\n    7. Engage in any action, or facilitate any action, to intentionally circumvent or remove usage restrictions or other safety measures, or to enable functionality disabled by Meta\n2. Engage in, promote, incite, facilitate, or assist in the planning or development of activities that present a risk of death or bodily harm to individuals, including use of Llama 3.2 related to the following:\n    8. Military, warfare, nuclear industries or applications, espionage, use for materials or activities that are subject to the International Traffic Arms Regulations (ITAR) maintained by the United States Department of State or to the U.S. Biological Weapons Anti-Terrorism Act of 1989 or the Chemical Weapons Convention Implementation Act of 1997\n    9. Guns and illegal weapons (including weapon development)\n    10. Illegal drugs and regulated/controlled substances\n    11. Operation of critical infrastructure, transportation technologies, or heavy machinery\n    12. Self-harm or harm to others, including suicide, cutting, and eating disorders\n    13. Any content intended to incite or promote violence, abuse, or any infliction of bodily harm to an individual\n3. Intentionally deceive or mislead others, including use of Llama 3.2 related to the following:\n    14. Generating, promoting, or furthering fraud or the creation or promotion of disinformation\n    15. Generating, promoting, or furthering defamatory content, including the creation of defamatory statements, images, or other content\n    16. Generating, promoting, or further distributing spam\n    17. Impersonating another individual without consent, authorization, or legal right\n    18. Representing that the use of Llama 3.2 or outputs are human-generated\n    19. Generating or facilitating false online engagement, including fake reviews and other means of fake online engagement\n4. Fail to appropriately disclose to end users any known dangers of your AI system\n5. Interact with third party tools, models, or software designed to generate unlawful content or engage in unlawful or harmful conduct and/or represent that the outputs of such tools, models, or software are associated with Meta or Llama 3.2\n\nWith respect to any multimodal models included in Llama 3.2, the rights granted under Section 1(a) of the Llama 3.2 Community License Agreement are not being granted to you if you are an individual domiciled in, or a company with a principal place of business in, the European Union. This restriction does not apply to end users of a product or service that incorporates any such multimodal models.\n\nPlease report any violation of this Policy, software “bug,” or other problems that could lead to a violation of this Policy through one of the following means:\n\n\n\n* Reporting issues with the model: [https://github.com/meta-llama/llama-models/issues](https://l.workplace.com/l.php?u=https%3A%2F%2Fgithub.com%2Fmeta-llama%2Fllama-models%2Fissues&h=AT0qV8W9BFT6NwihiOHRuKYQM_UnkzN_NmHMy91OT55gkLpgi4kQupHUl0ssR4dQsIQ8n3tfd0vtkobvsEvt1l4Ic6GXI2EeuHV8N08OG2WnbAmm0FL4ObkazC6G_256vN0lN9DsykCvCqGZ)\n* Reporting risky content generated by the model: [developers.facebook.com/llama_output_feedback](http://developers.facebook.com/llama_output_feedback)\n* Reporting bugs and security concerns: [facebook.com/whitehat/info](http://facebook.com/whitehat/info)\n* Reporting violations of the Acceptable Use Policy or unlicensed uses of Llama 3.2: LlamaUseReport@meta.com",
-  "modelfile": "# Modelfile generated by \"ollama show\"\n# To build a new Modelfile based on this, replace FROM with:\n# FROM llama3.2:1b\n\nFROM /Users/davidbarberi/.ollama/models/blobs/sha256-74701a8c35f6c8d9a4b91f3f3497643001d63e0c7a84e085bed452548fa88d45\nTEMPLATE \"\"\"<|start_header_id|>system<|end_header_id|>\n\nCutting Knowledge Date: December 2023\n\n{{ if .System }}{{ .System }}\n{{- end }}\n{{- if .Tools }}When you receive a tool call response, use the output to format an answer to the orginal user question.\n\nYou are a helpful assistant with tool calling capabilities.\n{{- end }}<|eot_id|>\n{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1 }}\n{{- if eq .Role \"user\" }}<|start_header_id|>user<|end_header_id|>\n{{- if and $.Tools $last }}\n\nGiven the following functions, please respond with a JSON for a function call with its proper arguments that best answers the given prompt.\n\nRespond in the format {\"name\": function name, \"parameters\": dictionary of argument name and its value}. Do not use variables.\n\n{{ range $.Tools }}\n{{- . }}\n{{ end }}\n{{ .Content }}<|eot_id|>\n{{- else }}\n\n{{ .Content }}<|eot_id|>\n{{- end }}{{ if $last }}<|start_header_id|>assistant<|end_header_id|>\n\n{{ end }}\n{{- else if eq .Role \"assistant\" }}<|start_header_id|>assistant<|end_header_id|>\n{{- if .ToolCalls }}\n{{ range .ToolCalls }}\n{\"name\": \"{{ .Function.Name }}\", \"parameters\": {{ .Function.Arguments }}}{{ end }}\n{{- else }}\n\n{{ .Content }}\n{{- end }}{{ if not $last }}<|eot_id|>{{ end }}\n{{- else if eq .Role \"tool\" }}<|start_header_id|>ipython<|end_header_id|>\n\n{{ .Content }}<|eot_id|>{{ if $last }}<|start_header_id|>assistant<|end_header_id|>\n\n{{ end }}\n{{- end }}\n{{- end }}\"\"\"\nLICENSE \"LLAMA 3.2 COMMUNITY LICENSE AGREEMENT\nLlama 3.2 Version Release Date: September 25, 2024\n\n“Agreement” means the terms and conditions for use, reproduction, distribution \nand modification of the Llama Materials set forth herein.\n\n“Documentation” means the specifications, manuals and documentation accompanying Llama 3.2\ndistributed by Meta at https://llama.meta.com/doc/overview.\n\n“Licensee” or “you” means you, or your employer or any other person or entity (if you are \nentering into this Agreement on such person or entity’s behalf), of the age required under\napplicable laws, rules or regulations to provide legal consent and that has legal authority\nto bind your employer or such other person or entity if you are entering in this Agreement\non their behalf.\n\n“Llama 3.2” means the foundational large language models and software and algorithms, including\nmachine-learning model code, trained model weights, inference-enabling code, training-enabling code,\nfine-tuning enabling code and other elements of the foregoing distributed by Meta at \nhttps://www.llama.com/llama-downloads.\n\n“Llama Materials” means, collectively, Meta’s proprietary Llama 3.2 and Documentation (and \nany portion thereof) made available under this Agreement.\n\n“Meta” or “we” means Meta Platforms Ireland Limited (if you are located in or, \nif you are an entity, your principal place of business is in the EEA or Switzerland) \nand Meta Platforms, Inc. (if you are located outside of the EEA or Switzerland). \n\n\nBy clicking “I Accept” below or by using or distributing any portion or element of the Llama Materials,\nyou agree to be bound by this Agreement.\n\n\n1. License Rights and Redistribution.\n\n    a. Grant of Rights. You are granted a non-exclusive, worldwide, \nnon-transferable and royalty-free limited license under Meta’s intellectual property or other rights \nowned by Meta embodied in the Llama Materials to use, reproduce, distribute, copy, create derivative works \nof, and make modifications to the Llama Materials.  \n\n    b. Redistribution and Use.  \n\n        i. If you distribute or make available the Llama Materials (or any derivative works thereof), \nor a product or service (including another AI model) that contains any of them, you shall (A) provide\na copy of this Agreement with any such Llama Materials; and (B) prominently display “Built with Llama”\non a related website, user interface, blogpost, about page, or product documentation. If you use the\nLlama Materials or any outputs or results of the Llama Materials to create, train, fine tune, or\notherwise improve an AI model, which is distributed or made available, you shall also include “Llama”\nat the beginning of any such AI model name.\n\n        ii. If you receive Llama Materials, or any derivative works thereof, from a Licensee as part\nof an integrated end user product, then Section 2 of this Agreement will not apply to you. \n\n        iii. You must retain in all copies of the Llama Materials that you distribute the \nfollowing attribution notice within a “Notice” text file distributed as a part of such copies: \n“Llama 3.2 is licensed under the Llama 3.2 Community License, Copyright © Meta Platforms,\nInc. All Rights Reserved.”\n\n        iv. Your use of the Llama Materials must comply with applicable laws and regulations\n(including trade compliance laws and regulations) and adhere to the Acceptable Use Policy for\nthe Llama Materials (available at https://www.llama.com/llama3_2/use-policy), which is hereby \nincorporated by reference into this Agreement.\n  \n2. Additional Commercial Terms. If, on the Llama 3.2 version release date, the monthly active users\nof the products or services made available by or for Licensee, or Licensee’s affiliates, \nis greater than 700 million monthly active users in the preceding calendar month, you must request \na license from Meta, which Meta may grant to you in its sole discretion, and you are not authorized to\nexercise any of the rights under this Agreement unless or until Meta otherwise expressly grants you such rights.\n\n3. Disclaimer of Warranty. UNLESS REQUIRED BY APPLICABLE LAW, THE LLAMA MATERIALS AND ANY OUTPUT AND \nRESULTS THEREFROM ARE PROVIDED ON AN “AS IS” BASIS, WITHOUT WARRANTIES OF ANY KIND, AND META DISCLAIMS\nALL WARRANTIES OF ANY KIND, BOTH EXPRESS AND IMPLIED, INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES\nOF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. YOU ARE SOLELY RESPONSIBLE\nFOR DETERMINING THE APPROPRIATENESS OF USING OR REDISTRIBUTING THE LLAMA MATERIALS AND ASSUME ANY RISKS ASSOCIATED\nWITH YOUR USE OF THE LLAMA MATERIALS AND ANY OUTPUT AND RESULTS.\n\n4. Limitation of Liability. IN NO EVENT WILL META OR ITS AFFILIATES BE LIABLE UNDER ANY THEORY OF LIABILITY, \nWHETHER IN CONTRACT, TORT, NEGLIGENCE, PRODUCTS LIABILITY, OR OTHERWISE, ARISING OUT OF THIS AGREEMENT, \nFOR ANY LOST PROFITS OR ANY INDIRECT, SPECIAL, CONSEQUENTIAL, INCIDENTAL, EXEMPLARY OR PUNITIVE DAMAGES, EVEN \nIF META OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF ANY OF THE FOREGOING.\n\n5. Intellectual Property.\n\n    a. No trademark licenses are granted under this Agreement, and in connection with the Llama Materials, \nneither Meta nor Licensee may use any name or mark owned by or associated with the other or any of its affiliates, \nexcept as required for reasonable and customary use in describing and redistributing the Llama Materials or as \nset forth in this Section 5(a). Meta hereby grants you a license to use “Llama” (the “Mark”) solely as required \nto comply with the last sentence of Section 1.b.i. You will comply with Meta’s brand guidelines (currently accessible \nat https://about.meta.com/brand/resources/meta/company-brand/). All goodwill arising out of your use of the Mark \nwill inure to the benefit of Meta.\n\n    b. Subject to Meta’s ownership of Llama Materials and derivatives made by or for Meta, with respect to any\n    derivative works and modifications of the Llama Materials that are made by you, as between you and Meta,\n    you are and will be the owner of such derivative works and modifications.\n\n    c. If you institute litigation or other proceedings against Meta or any entity (including a cross-claim or\n    counterclaim in a lawsuit) alleging that the Llama Materials or Llama 3.2 outputs or results, or any portion\n    of any of the foregoing, constitutes infringement of intellectual property or other rights owned or licensable\n    by you, then any licenses granted to you under this Agreement shall terminate as of the date such litigation or\n    claim is filed or instituted. You will indemnify and hold harmless Meta from and against any claim by any third\n    party arising out of or related to your use or distribution of the Llama Materials.\n\n6. Term and Termination. The term of this Agreement will commence upon your acceptance of this Agreement or access\nto the Llama Materials and will continue in full force and effect until terminated in accordance with the terms\nand conditions herein. Meta may terminate this Agreement if you are in breach of any term or condition of this\nAgreement. Upon termination of this Agreement, you shall delete and cease use of the Llama Materials. Sections 3,\n4 and 7 shall survive the termination of this Agreement. \n\n7. Governing Law and Jurisdiction. This Agreement will be governed and construed under the laws of the State of \nCalifornia without regard to choice of law principles, and the UN Convention on Contracts for the International\nSale of Goods does not apply to this Agreement. The courts of California shall have exclusive jurisdiction of\nany dispute arising out of this Agreement.\"\nLICENSE \"**Llama 3.2** **Acceptable Use Policy**\n\nMeta is committed to promoting safe and fair use of its tools and features, including Llama 3.2. If you access or use Llama 3.2, you agree to this Acceptable Use Policy (“**Policy**”). The most recent copy of this policy can be found at [https://www.llama.com/llama3_2/use-policy](https://www.llama.com/llama3_2/use-policy).\n\n**Prohibited Uses**\n\nWe want everyone to use Llama 3.2 safely and responsibly. You agree you will not use, or allow others to use, Llama 3.2 to:\n\n\n\n1. Violate the law or others’ rights, including to:\n    1. Engage in, promote, generate, contribute to, encourage, plan, incite, or further illegal or unlawful activity or content, such as:\n        1. Violence or terrorism\n        2. Exploitation or harm to children, including the solicitation, creation, acquisition, or dissemination of child exploitative content or failure to report Child Sexual Abuse Material\n        3. Human trafficking, exploitation, and sexual violence\n        4. The illegal distribution of information or materials to minors, including obscene materials, or failure to employ legally required age-gating in connection with such information or materials.\n        5. Sexual solicitation\n        6. Any other criminal activity\n    1. Engage in, promote, incite, or facilitate the harassment, abuse, threatening, or bullying of individuals or groups of individuals\n    2. Engage in, promote, incite, or facilitate discrimination or other unlawful or harmful conduct in the provision of employment, employment benefits, credit, housing, other economic benefits, or other essential goods and services\n    3. Engage in the unauthorized or unlicensed practice of any profession including, but not limited to, financial, legal, medical/health, or related professional practices\n    4. Collect, process, disclose, generate, or infer private or sensitive information about individuals, including information about individuals’ identity, health, or demographic information, unless you have obtained the right to do so in accordance with applicable law\n    5. Engage in or facilitate any action or generate any content that infringes, misappropriates, or otherwise violates any third-party rights, including the outputs or results of any products or services using the Llama Materials\n    6. Create, generate, or facilitate the creation of malicious code, malware, computer viruses or do anything else that could disable, overburden, interfere with or impair the proper working, integrity, operation or appearance of a website or computer system\n    7. Engage in any action, or facilitate any action, to intentionally circumvent or remove usage restrictions or other safety measures, or to enable functionality disabled by Meta\n2. Engage in, promote, incite, facilitate, or assist in the planning or development of activities that present a risk of death or bodily harm to individuals, including use of Llama 3.2 related to the following:\n    8. Military, warfare, nuclear industries or applications, espionage, use for materials or activities that are subject to the International Traffic Arms Regulations (ITAR) maintained by the United States Department of State or to the U.S. Biological Weapons Anti-Terrorism Act of 1989 or the Chemical Weapons Convention Implementation Act of 1997\n    9. Guns and illegal weapons (including weapon development)\n    10. Illegal drugs and regulated/controlled substances\n    11. Operation of critical infrastructure, transportation technologies, or heavy machinery\n    12. Self-harm or harm to others, including suicide, cutting, and eating disorders\n    13. Any content intended to incite or promote violence, abuse, or any infliction of bodily harm to an individual\n3. Intentionally deceive or mislead others, including use of Llama 3.2 related to the following:\n    14. Generating, promoting, or furthering fraud or the creation or promotion of disinformation\n    15. Generating, promoting, or furthering defamatory content, including the creation of defamatory statements, images, or other content\n    16. Generating, promoting, or further distributing spam\n    17. Impersonating another individual without consent, authorization, or legal right\n    18. Representing that the use of Llama 3.2 or outputs are human-generated\n    19. Generating or facilitating false online engagement, including fake reviews and other means of fake online engagement\n4. Fail to appropriately disclose to end users any known dangers of your AI system\n5. Interact with third party tools, models, or software designed to generate unlawful content or engage in unlawful or harmful conduct and/or represent that the outputs of such tools, models, or software are associated with Meta or Llama 3.2\n\nWith respect to any multimodal models included in Llama 3.2, the rights granted under Section 1(a) of the Llama 3.2 Community License Agreement are not being granted to you if you are an individual domiciled in, or a company with a principal place of business in, the European Union. This restriction does not apply to end users of a product or service that incorporates any such multimodal models.\n\nPlease report any violation of this Policy, software “bug,” or other problems that could lead to a violation of this Policy through one of the following means:\n\n\n\n* Reporting issues with the model: [https://github.com/meta-llama/llama-models/issues](https://l.workplace.com/l.php?u=https%3A%2F%2Fgithub.com%2Fmeta-llama%2Fllama-models%2Fissues&h=AT0qV8W9BFT6NwihiOHRuKYQM_UnkzN_NmHMy91OT55gkLpgi4kQupHUl0ssR4dQsIQ8n3tfd0vtkobvsEvt1l4Ic6GXI2EeuHV8N08OG2WnbAmm0FL4ObkazC6G_256vN0lN9DsykCvCqGZ)\n* Reporting risky content generated by the model: [developers.facebook.com/llama_output_feedback](http://developers.facebook.com/llama_output_feedback)\n* Reporting bugs and security concerns: [facebook.com/whitehat/info](http://facebook.com/whitehat/info)\n* Reporting violations of the Acceptable Use Policy or unlicensed uses of Llama 3.2: LlamaUseReport@meta.com\"\n",
-  "template": "<|start_header_id|>system<|end_header_id|>\n\nCutting Knowledge Date: December 2023\n\n{{ if .System }}{{ .System }}\n{{- end }}\n{{- if .Tools }}When you receive a tool call response, use the output to format an answer to the orginal user question.\n\nYou are a helpful assistant with tool calling capabilities.\n{{- end }}<|eot_id|>\n{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1 }}\n{{- if eq .Role \"user\" }}<|start_header_id|>user<|end_header_id|>\n{{- if and $.Tools $last }}\n\nGiven the following functions, please respond with a JSON for a function call with its proper arguments that best answers the given prompt.\n\nRespond in the format {\"name\": function name, \"parameters\": dictionary of argument name and its value}. Do not use variables.\n\n{{ range $.Tools }}\n{{- . }}\n{{ end }}\n{{ .Content }}<|eot_id|>\n{{- else }}\n\n{{ .Content }}<|eot_id|>\n{{- end }}{{ if $last }}<|start_header_id|>assistant<|end_header_id|>\n\n{{ end }}\n{{- else if eq .Role \"assistant\" }}<|start_header_id|>assistant<|end_header_id|>\n{{- if .ToolCalls }}\n{{ range .ToolCalls }}\n{\"name\": \"{{ .Function.Name }}\", \"parameters\": {{ .Function.Arguments }}}{{ end }}\n{{- else }}\n\n{{ .Content }}\n{{- end }}{{ if not $last }}<|eot_id|>{{ end }}\n{{- else if eq .Role \"tool\" }}<|start_header_id|>ipython<|end_header_id|>\n\n{{ .Content }}<|eot_id|>{{ if $last }}<|start_header_id|>assistant<|end_header_id|>\n\n{{ end }}\n{{- end }}\n{{- end }}",
+  "license": "MIT License\n\nCopyright (c) 2025 Agentica\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n",
+  "modelfile": "# Modelfile generated by \"ollama show\"\n# To build a new Modelfile based on this, replace FROM with:\n# FROM deepcoder:1.5b\n\nFROM /Users/davidbarberi/.ollama/models/blobs/sha256-46558b1a907d02619e642d01d09ae667906e6f903a01c2408cac670c1144a759\nTEMPLATE \"\"\"{{- if .System }}{{ .System }}{{ end }}\n{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1}}\n{{- if eq .Role \"user\" }}<｜User｜>{{ .Content }}\n{{- else if eq .Role \"assistant\" }}<｜Assistant｜>{{ .Content }}{{- if not $last }}<｜end▁of▁sentence｜>{{- end }}\n{{- end }}\n{{- if and $last (ne .Role \"assistant\") }}<｜Assistant｜>{{- end }}\n{{- end }}\"\"\"\nPARAMETER temperature 0.6\nPARAMETER top_p 0.95\nLICENSE \"\"\"MIT License\n\nCopyright (c) 2025 Agentica\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\"\"\"\n",
+  "parameters": "temperature                    0.6\ntop_p                          0.95",
+  "template": "{{- if .System }}{{ .System }}{{ end }}\n{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1}}\n{{- if eq .Role \"user\" }}<｜User｜>{{ .Content }}\n{{- else if eq .Role \"assistant\" }}<｜Assistant｜>{{ .Content }}{{- if not $last }}<｜end▁of▁sentence｜>{{- end }}\n{{- end }}\n{{- if and $last (ne .Role \"assistant\") }}<｜Assistant｜>{{- end }}\n{{- end }}",
   "details": {
     "parent_model": "",
     "format": "gguf",
-    "family": "llama",
+    "family": "qwen2",
     "families": [
-      "llama"
+      "qwen2"
     ],
-    "parameter_size": "1.2B",
-    "quantization_level": "Q8_0"
+    "parameter_size": "1.8B",
+    "quantization_level": "Q4_K_M"
   },
   "model_info": {
-    "general.architecture": "llama",
-    "general.basename": "Llama-3.2",
-    "general.file_type": 7,
-    "general.finetune": "Instruct",
+    "general.architecture": "qwen2",
+    "general.base_model.0.name": "DeepSeek R1 Distill Qwen 1.5B",
+    "general.base_model.0.organization": "Deepseek Ai",
+    "general.base_model.0.repo_url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "general.base_model.count": 1,
+    "general.basename": "DeepCoder",
+    "general.dataset.0.name": "Verifiable Coding Problems",
+    "general.dataset.0.organization": "PrimeIntellect",
+    "general.dataset.0.repo_url": "https://huggingface.co/PrimeIntellect/verifiable-coding-problems",
+    "general.dataset.1.name": "TACO Verified",
+    "general.dataset.1.organization": "Likaixin",
+    "general.dataset.1.repo_url": "https://huggingface.co/likaixin/TACO-verified",
+    "general.dataset.2.name": "Code_Generation_Lite",
+    "general.dataset.2.organization": "Livecodebench",
+    "general.dataset.2.repo_url": "https://huggingface.co/livecodebench/code_generation_lite",
+    "general.dataset.count": 3,
+    "general.file_type": 15,
+    "general.finetune": "Preview",
     "general.languages": null,
-    "general.parameter_count": 1235814432,
+    "general.license": "mit",
+    "general.organization": "Agentica Org",
+    "general.parameter_count": 1777088000,
     "general.quantization_version": 2,
-    "general.size_label": "1B",
+    "general.size_label": "1.5B",
     "general.tags": null,
     "general.type": "model",
-    "llama.attention.head_count": 32,
-    "llama.attention.head_count_kv": 8,
-    "llama.attention.key_length": 64,
-    "llama.attention.layer_norm_rms_epsilon": 0.00001,
-    "llama.attention.value_length": 64,
-    "llama.block_count": 16,
-    "llama.context_length": 131072,
-    "llama.embedding_length": 2048,
-    "llama.feed_forward_length": 8192,
-    "llama.rope.dimension_count": 64,
-    "llama.rope.freq_base": 500000,
-    "llama.vocab_size": 128256,
-    "tokenizer.ggml.bos_token_id": 128000,
-    "tokenizer.ggml.eos_token_id": 128009,
+    "qwen2.attention.head_count": 12,
+    "qwen2.attention.head_count_kv": 2,
+    "qwen2.attention.layer_norm_rms_epsilon": 0.000001,
+    "qwen2.block_count": 28,
+    "qwen2.context_length": 131072,
+    "qwen2.embedding_length": 1536,
+    "qwen2.feed_forward_length": 8960,
+    "qwen2.rope.freq_base": 10000,
+    "tokenizer.ggml.add_bos_token": true,
+    "tokenizer.ggml.add_eos_token": false,
+    "tokenizer.ggml.bos_token_id": 151646,
+    "tokenizer.ggml.eos_token_id": 151643,
     "tokenizer.ggml.merges": null,
     "tokenizer.ggml.model": "gpt2",
-    "tokenizer.ggml.pre": "llama-bpe",
+    "tokenizer.ggml.padding_token_id": 151643,
+    "tokenizer.ggml.pre": "deepseek-r1-qwen",
     "tokenizer.ggml.token_type": null,
     "tokenizer.ggml.tokens": null
   },
   "tensors": [
     {
-      "name": "rope_freqs.weight",
-      "type": "F32",
-      "shape": [
-        32
-      ]
-    },
-    {
-      "name": "token_embd.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        128256
-      ]
-    },
-    {
-      "name": "blk.0.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.0.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.0.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.0.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.0.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.0.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.0.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.0.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.0.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.1.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.1.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.1.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.1.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.1.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.1.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.1.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.1.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.1.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.10.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.10.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.10.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.10.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.10.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.10.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.10.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.10.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.10.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.11.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.11.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.11.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.11.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.11.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.11.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.11.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.11.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.11.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.12.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.12.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.12.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.12.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.12.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.12.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.12.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.12.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.12.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.13.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.13.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.13.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.13.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.13.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.13.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.13.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.13.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.13.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.14.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.14.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.14.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.14.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.14.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.14.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.14.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.14.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.14.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.15.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.15.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.15.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.15.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.15.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.15.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.15.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.15.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.15.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.2.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.2.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.2.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.2.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.2.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.2.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.2.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.2.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.2.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.3.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.3.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.3.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.3.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.3.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.3.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.3.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.3.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.3.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.4.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.4.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.4.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.4.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.4.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.4.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.4.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.4.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.4.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.5.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.5.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.5.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.5.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.5.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.5.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.5.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.5.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.5.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.6.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.6.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.6.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.6.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.6.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.6.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.6.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.6.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.6.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.7.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.7.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.7.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.7.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.7.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.7.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.7.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.7.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.7.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.8.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.8.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.8.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.8.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.8.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.8.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.8.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.8.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.8.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.9.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.9.ffn_down.weight",
-      "type": "Q8_0",
-      "shape": [
-        8192,
-        2048
-      ]
-    },
-    {
-      "name": "blk.9.ffn_gate.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.9.ffn_up.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        8192
-      ]
-    },
-    {
-      "name": "blk.9.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        2048
-      ]
-    },
-    {
-      "name": "blk.9.attn_k.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
-      ]
-    },
-    {
-      "name": "blk.9.attn_output.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.9.attn_q.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        2048
-      ]
-    },
-    {
-      "name": "blk.9.attn_v.weight",
-      "type": "Q8_0",
-      "shape": [
-        2048,
-        512
+      "name": "output.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        151936
       ]
     },
     {
       "name": "output_norm.weight",
       "type": "F32",
       "shape": [
-        2048
+        1536
+      ]
+    },
+    {
+      "name": "token_embd.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        151936
+      ]
+    },
+    {
+      "name": "blk.0.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.0.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.0.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.0.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.0.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.0.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.0.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.0.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.0.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.0.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.0.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.0.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.1.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.1.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.1.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.1.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.1.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.1.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.1.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.1.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.1.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.1.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.1.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.1.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.2.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.2.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.2.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.2.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.2.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.2.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.2.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.2.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.2.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.2.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.2.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.2.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.3.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.3.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.3.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.3.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.3.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.3.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.3.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.3.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.3.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.3.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.3.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.3.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.4.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.4.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.4.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.4.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.4.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.4.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.4.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.4.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.4.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.4.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.4.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.4.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.5.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.5.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.5.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.5.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.5.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.5.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.5.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.5.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.5.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.5.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.5.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.5.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.6.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.6.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.6.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.6.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.6.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.6.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.6.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.6.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.6.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.6.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.6.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.6.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.7.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.7.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.7.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.7.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.7.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.7.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.7.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.7.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.7.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.7.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.7.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.7.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.8.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.8.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.8.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.8.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.8.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.8.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.8.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.8.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.8.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.8.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.8.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.8.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.9.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.9.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.9.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.9.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.9.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.9.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.9.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.9.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.9.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.9.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.9.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.9.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.10.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.10.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.10.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.10.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.10.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.10.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.10.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.10.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.10.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.10.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.10.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.10.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.11.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.11.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.11.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.11.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.11.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.11.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.11.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.11.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.11.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.11.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.11.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.11.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.12.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.12.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.12.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.12.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.12.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.12.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.12.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.12.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.12.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.12.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.12.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.12.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.13.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.13.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.13.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.13.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.13.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.13.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.13.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.13.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.13.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.13.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.13.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.13.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.14.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.14.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.14.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.14.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.14.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.14.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.14.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.14.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.14.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.14.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.14.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.14.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.15.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.15.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.15.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.15.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.15.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.15.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.15.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.15.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.15.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.15.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.15.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.15.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.16.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.16.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.16.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.16.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.16.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.16.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.16.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.16.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.16.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.16.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.16.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.16.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.17.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.17.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.17.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.17.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.17.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.17.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.17.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.17.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.17.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.17.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.17.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.17.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.18.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.18.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.18.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.18.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.18.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.18.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.18.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.18.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.18.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.18.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.18.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.18.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.19.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.19.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.19.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.19.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.19.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.19.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.19.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.19.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.19.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.19.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.19.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.19.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.20.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.20.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.20.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.20.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.20.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.20.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.20.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.20.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.20.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.20.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.20.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.20.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.21.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.21.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.21.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.21.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.21.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.21.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.21.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.21.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.21.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.21.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.21.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.21.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.22.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.22.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.22.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.22.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.22.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.22.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.22.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.22.attn_v.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.22.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.22.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.22.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.22.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.23.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.23.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.23.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.23.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.23.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.23.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.23.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.23.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.23.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.23.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.23.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.23.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.24.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.24.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.24.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.24.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.24.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.24.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.24.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.24.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.24.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.24.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.24.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.24.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.25.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.25.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.25.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.25.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.25.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.25.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.25.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.25.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.25.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.25.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.25.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.25.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.26.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.26.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.26.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.26.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.26.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.26.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.26.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.26.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.26.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.26.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.26.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.26.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.27.attn_k.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.27.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.27.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.27.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.27.attn_q.bias",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.27.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "name": "blk.27.attn_v.bias",
+      "type": "F32",
+      "shape": [
+        256
+      ]
+    },
+    {
+      "name": "blk.27.attn_v.weight",
+      "type": "Q6_K",
+      "shape": [
+        1536,
+        256
+      ]
+    },
+    {
+      "name": "blk.27.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        8960,
+        1536
+      ]
+    },
+    {
+      "name": "blk.27.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
+      ]
+    },
+    {
+      "name": "blk.27.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        1536
+      ]
+    },
+    {
+      "name": "blk.27.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        1536,
+        8960
       ]
     }
   ],
   "capabilities": [
-    "completion",
-    "tools"
+    "completion"
   ],
-  "modified_at": "2025-06-23T09:33:32.2467426+02:00"
+  "modified_at": "2025-06-09T13:44:56.954778865+02:00"
 }
 ```
