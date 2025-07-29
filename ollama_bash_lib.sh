@@ -4,16 +4,17 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.37.3"
+OLLAMA_LIB_VERSION="0.38.0"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
-OLLAMA_LIB_DEBUG=0 # 0 = No debug messages, 1 = Yes debug messages
-OLLAMA_LIB_API=${OLLAMA_HOST:-"http://localhost:11434"} # No slash at end
+
+OLLAMA_LIB_API=${OLLAMA_HOST:-"http://localhost:11434"} # Ollama API URL, No slash at end
+OLLAMA_LIB_DEBUG=0     # 0 = No debug messages, 1 = Yes debug messages
 OLLAMA_LIB_MESSAGES=() # Array of messages
-OLLAMA_LIB_STREAM=0 # 0 = No streaming, 1 = Yes streaming
-RETURN_SUCCESS=0 # Standard success return value
-RETURN_ERROR=1 # Standard error return value
+OLLAMA_LIB_STREAM=0    # 0 = No streaming, 1 = Yes streaming
+RETURN_SUCCESS=0       # Standard success return value
+RETURN_ERROR=1         # Standard error return value
 
 # Internal Functions
 
@@ -111,14 +112,13 @@ ollama_installed() {
 ollama_api_get() {
   debug "ollama_api_get: [$1]"
   local result error_curl
-  result=$(curl -s -X GET "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json')
+  curl -s -X GET "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json'
   error_curl=$?
-  debug "ollama_api_get: result: $(echo "$result" | wc -c | sed 's/ //g') bytes [$result]"
   if [ "$error_curl" -gt 0 ]; then
     error "ollama_api_get: error_curl: $error_curl"
     return $RETURN_ERROR
   fi
-  echo "$result"
+  debug "ollama_api_get: return 0"
   return $RETURN_SUCCESS
 }
 
@@ -132,14 +132,13 @@ ollama_api_get() {
 ollama_api_post() {
   debug "ollama_api_post: [$1] [$2]"
   local result error_curl
-  local result=$(curl -s -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2")
+  curl -s -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
   error_curl=$?
-  debug "ollama_api_post: result: $(echo "$result" | wc -c | sed 's/ //g') bytes [$result]"
   if [ "$error_curl" -gt 0 ]; then
     error "ollama_api_get: error_curl: $error_curl"
     return $RETURN_ERROR
   fi
-  echo "$result"
+  debug "ollama_api_post: return 0"
   return $RETURN_SUCCESS
 }
 
@@ -176,18 +175,20 @@ ollama_api_ping() {
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
   debug "ollama_generate_json: [$1] [$2]"
-  local json result error_jq error_ollama_api_post
+  debug "ollama_generate_json: OLLAMA_LIB_STREAM: $OLLAMA_LIB_STREAM"
+  local json error_ollama_api_post
   json="{\"model\":$(json_safe_value "$1"),\"prompt\":$(json_safe_value "$2")"
-  if [ "$OLLAMA_LIB_STREAM" -eq "0" ]; then json+=",\"stream\":false"; fi
+  if [ "$OLLAMA_LIB_STREAM" -eq "0" ]; then
+    json+=",\"stream\":false"
+  fi
   json+="}"
-  result=$(ollama_api_post "/api/generate" "$json")
+  ollama_api_post "/api/generate" "$json"
   error_ollama_api_post=$?
-  debug "ollama_generate_json: result: $(echo "$result" | wc -c | sed 's/ //g') bytes"
   if [ "$error_ollama_api_post" -gt 0 ]; then
     error "ollama_generate_json: error_ollama_api_post: $error_ollama_api_post"
     return $RETURN_ERROR
   fi
-  echo "$result"
+  debug "ollama_generate_json: return: 0"
   return $RETURN_SUCCESS
 }
 
@@ -199,16 +200,15 @@ ollama_generate_json() {
 ollama_generate_stream_json() {
   debug "ollama_generate_stream_json: [$1] [$2]"
   local json response error_ollama_generate_json
-  OLLAMA_LIB_STREAM=1
-  response=$(ollama_generate_json "$1" "$2")
+  OLLAMA_LIB_STREAM=1 # Turn on streaming
+  ollama_generate_json "$1" "$2"
   error_ollama_generate_json=$?
-  OLLAMA_LIB_STREAM=0
+  OLLAMA_LIB_STREAM=0 # Turn off streaming
   if [ "$error_ollama_generate_json" -gt 0 ]; then
     error "ollama_generate_stream_json: error_ollama_generate_json: $error_ollama_generate_json"
     return $RETURN_ERROR
   fi
-  echo "$response"
-  debug "ollama_generate_stream_json: response: $(echo "$response" | wc -c | sed 's/ //g') bytes"
+  debug "ollama_generate_stream_json: return: 0"
   return $RETURN_SUCCESS
 }
 
@@ -221,7 +221,7 @@ ollama_generate_stream_json() {
 # Returns: 0 on success, 1 on error
 ollama_generate() {
   debug "ollama_generate: [$1] [$2]"
-  local json result response error_ollama_generate_json error_jq
+  local json result error_ollama_generate_json error_jq
   OLLAMA_LIB_STREAM=0
   result=$(ollama_generate_json "$1" "$2")
   error_ollama_generate_json=$?
@@ -230,14 +230,13 @@ ollama_generate() {
     error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
     return $RETURN_ERROR
   fi
-  response=$(jq_sanitize "$result" | jq -r ".response")
+  jq_sanitize "$result" | jq -r ".response"
   error_jq=$?
-  debug "ollama_generate: response: $(echo "$response" | wc -c | sed 's/ //g') bytes"
   if [ "$error_jq" -gt 0 ]; then
     error "ollama_generate: error_jq: $error_jq [$response]"
     return $RETURN_ERROR
   fi
-  echo "$response"
+  debug "ollama_generate_stream_json: return: 0"
   return $RETURN_SUCCESS
 }
 
@@ -250,24 +249,23 @@ ollama_generate() {
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
   debug "ollama_generate_stream: [$1] [$2]"
-  local json response error_ollama_generate_json error_jq
-  OLLAMA_LIB_STREAM=1
-  response=$(ollama_generate_json "$1" "$2")
+  local line error_ollama_generate_json error_jq
+  OLLAMA_LIB_STREAM=1 # Turn on streaming
+  ollama_generate_json "$1" "$2" | while IFS= read -r line; do
+    echo -n "$(jq_sanitize "$line" | jq -r ".response")"
+    error_jq=$?
+    if [ "$error_jq" -gt 0 ]; then
+      error "ollama_generate_stream: error_jq: $error_jq"
+      return $RETURN_ERROR
+    fi
+  done
   error_ollama_generate_json=$?
-  OLLAMA_LIB_STREAM=1
+  OLLAMA_LIB_STREAM=0 # Turn off streaming
   if [ "$error_ollama_generate_json" -gt 0 ]; then
     error "ollama_generate_stream: error_ollama_generate_json: $error_ollama_generate_json"
     return $RETURN_ERROR
   fi
-  response=$(jq_sanitize "$response" | jq -r ".response")
-  error_jq=$?
-  debug "ollama_generate_stream: response: [$response]"
-  if [ "$error_jq" -gt 0 ]; then
-    error "ollama_generate_stream: error_jq: $error_jq"
-    return $RETURN_ERROR
-  fi
-  echo "$response"
-  debug "ollama_generate_stream: response: $(echo "$response" | wc -c | sed 's/ //g') bytes"
+  debug "ollama_generate_stream: return: 0"
   return $RETURN_SUCCESS
 }
 
