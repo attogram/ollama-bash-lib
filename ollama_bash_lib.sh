@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.38.1"
+OLLAMA_LIB_VERSION="0.38.2"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -66,19 +66,23 @@ json_safe_value() {
 # Usage: jq_sanitize "string"
 # Input: 1 - The string to sanitize
 # Output: sanitized string to stdout
-# Returns: 0 on success, 1 on tr error
+# Returns: 0 on success, 1 on error
 jq_sanitize() {
   debug "jq_sanitize: $(echo "$1" | wc -c | sed 's/ //g') bytes [$1]"
   local sanitized error_sanitize
   sanitized="$1"
 
-#  # walk through with jq, if sting type, then replace raw CR and LF with literal \r and \n
-#  sanitized=$(echo "$sanitized" | jq 'walk(if type == "string" then gsub("\r"; "\\r") | gsub("\n"; "\\n") else . end)')
-#  error_sanitize=$?; if [ "$error_sanitize" -gt 0 ]; then error "jq_sanitize: jq: error_sanitize: $error_sanitize"; return $RETURN_ERROR; fi
+  # TODO: replace form feed (012) with literal \n
+  # TODO: replace carriage return (013) with literal \r
 
-  # remove all control characters from decimal 0 to 31
-  sanitized=$(echo "$sanitized" | tr -d '\000-\031')
-  error_sanitize=$?; if [ "$error_sanitize" -gt 0 ]; then error "jq_sanitize: tr: error_sanitize: $error_sanitize"; return $RETURN_ERROR; fi
+  # remove all control characters from decimal 0 to 31, skipping LF and CR (012, 013)
+  sanitized=$(echo "$sanitized" | tr -d '\000-\011')
+  sanitized=$(echo "$sanitized" | tr -d '\014-\031')
+  error_sanitize=$?
+  if [ "$error_sanitize" -gt 0 ]; then
+    error "jq_sanitize: tr: error_sanitize: $error_sanitize"
+    return $RETURN_ERROR
+  fi
 
   echo "$sanitized"
   echo # needed because tr does not add LF at end
