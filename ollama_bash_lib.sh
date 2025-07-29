@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.38.2"
+OLLAMA_LIB_VERSION="0.39.0"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -69,23 +69,16 @@ json_safe_value() {
 # Returns: 0 on success, 1 on error
 jq_sanitize() {
   debug "jq_sanitize: $(echo "$1" | wc -c | sed 's/ //g') bytes [$1]"
-  local sanitized error_sanitize
+  local sanitized
   sanitized="$1"
-
-  # TODO: replace form feed (012) with literal \n
-  # TODO: replace carriage return (013) with literal \r
-
-  # remove all control characters from decimal 0 to 31, skipping LF and CR (012, 013)
-  sanitized=$(echo "$sanitized" | tr -d '\000-\011')
-  sanitized=$(echo "$sanitized" | tr -d '\014-\031')
-  error_sanitize=$?
-  if [ "$error_sanitize" -gt 0 ]; then
-    error "jq_sanitize: tr: error_sanitize: $error_sanitize"
-    return $RETURN_ERROR
-  fi
-
-  echo "$sanitized"
-  echo # needed because tr does not add LF at end
+  # Replace carriage returns (CR, ASCII 13) with literal \r
+  sanitized=$(printf '%s' "$1" | sed $'s/\r/\\\\r/g')
+  # Replace newlines (LF, ASCII 10) with literal \n using awk, then strip final literal \n
+  sanitized=$(printf '%s' "$sanitized" | awk '{ ORS="\\n"; print }' | sed 's/\\n$//')
+  # Remove all control chars 0-9, 11-12, 14-31
+  sanitized=$(printf '%s' "$sanitized" | tr -d '\000-\011\013\014\016-\037')
+  printf '%s\n' "$sanitized"
+  debug "jq_sanitized: return: 0"
   return $RETURN_SUCCESS
 }
 
