@@ -14,23 +14,31 @@ startup() {
 
 startup
 
+echo
+echo '```'
+good='{"value":"abc\ndef"}'
+echo "jq_sanitize \"$good\""
+echo
+jq_sanitize "$good"
 echo '```'
 
-good_json='{"value":"abc\ndef"}'
-echo
-echo "good_json: $good_json"
-echo
-echo "jq_sanitize \"$good_json\""
-echo
-jq_sanitize "$good_json"
-
-bad_json='{"value":"abc
+echo '```'
+bad='{"value":"abc
 def"}'
+echo "jq_sanitize \"$bad\""
 echo
-echo "bad_json: $bad_json"
-echo
-echo "jq_sanitize \"$bad_json\""
-echo
-jq_sanitize "$bad_json"
+jq_sanitize "$bad"
+echo '```'
 
+echo '```'
+bad='Control Characters: '
+bad+=$(printf 'null:%b ' '\000') # null
+bad+=$(printf 'bell:%b ' '\007') # bell
+bad+=$(printf 'form feed:%b ' '\012') # form feed \n
+bad+=$(printf 'carriage return:%b ' '\013') # carriage return \r
+bad+=$(printf 'escape:%b ' '\027') # escape
+bad+=$(printf 'unite separator:%b ' '\031') # unit separator
+echo "jq_sanitize \"$bad\""
+echo
+jq_sanitize "$bad"
 echo '```'
