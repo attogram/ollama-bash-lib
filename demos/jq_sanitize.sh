@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 echo "# jq_sanitize"
+echo
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -16,29 +17,31 @@ startup
 
 echo
 echo '```'
-good='{"value":"abc\ndef"}'
-echo "jq_sanitize \"$good\""
-echo
-jq_sanitize "$good"
+string='{"value":"abc def"}'
+clean=$(jq_sanitize "$string")
+echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
+echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
 
-echo '```'
-bad='{"value":"abc
-def"}'
-echo "jq_sanitize \"$bad\""
 echo
-jq_sanitize "$bad"
+echo '```'
+ff=$'\n'
+string="{\"value\":\"abc${ff}def\"}"
+clean=$(jq_sanitize "$string")
+echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
+echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
 
-echo '```'
-bad='Control Characters: '
-bad+=$(printf 'null:%b ' '\000') # null
-bad+=$(printf 'bell:%b ' '\007') # bell
-bad+=$(printf 'form feed:%b ' '\012') # form feed \n
-bad+=$(printf 'carriage return:%b ' '\013') # carriage return \r
-bad+=$(printf 'escape:%b ' '\027') # escape
-bad+=$(printf 'unite separator:%b ' '\031') # unit separator
-echo "jq_sanitize \"$bad\""
 echo
-jq_sanitize "$bad"
+echo '```'
+string=""
+string+=$(printf 'null:%b, ' '\000') # null
+string+=$(printf 'bell:%b, ' '\007') # bell
+string+=$(printf 'form-feed:%b, ' '\012') # form feed \n
+string+=$(printf 'carriage-return:%b, ' '\013') # carriage return \r
+string+=$(printf 'escape:%b, ' '\027') # escape
+string+=$(printf 'unit-separator:%b' '\031') # unit separator
+clean=$(jq_sanitize "$string")
+echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
+echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
