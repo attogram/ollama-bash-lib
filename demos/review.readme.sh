@@ -1,40 +1,33 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - Review README.md"
+echo "# Review of README.md"
 
 startup() {
-  ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh"; echo "ollama_bash_lib: $ollama_bash_lib"
+  ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
   if [ ! -f "$ollama_bash_lib" ]; then echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"; exit 1; fi
   # shellcheck source=../ollama_bash_lib.sh
   source "$ollama_bash_lib"
-  echo "ollama_lib_version: v$(ollama_lib_version)"
-  echo -n "ollama_installed: "; if ! ollama_installed; then echo "ERROR: Ollama Not Found"; exit 1; fi; echo "OK";
-  echo -n "ollama_api_ping: "; if ! ollama_api_ping; then echo "ERROR: API not reachable"; else echo "OK"; fi
+  if ! ollama_installed; then echo "ERROR: Ollama Not Found: $ollama_bash_lib"; exit 1; fi;
+  if ! ollama_api_ping; then echo "ERROR: API not reachable"; exit 1; fi
+  echo "A demo of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
 }
 
 startup
 
-echo '```'
+model="$(ollama_model_random)"
 
-model=$(ollama_model_random)
 echo
-echo "model: $model"
-echo
+echo '```bash'
+echo 'prompt="Act as an expert Software Engineer.
+Do a full review of this README:
+
+$(cat "../README.md")"'
+echo "ollama_generate_stream \"$model\" \"\$prompt\""
+echo '```'
 
 prompt="Act as an expert Software Engineer.
-Do a full review of this README:"
+Do a full review of this README:
 
-echo "prompt: $prompt"
-echo "readme: ../README.md"
+$(cat "../README.md")"
 
-prompt+="
-
-README.md
-
-$(cat "../README.md")
-"
-
-echo
 ollama_generate_stream "$model" "$prompt"
-
-echo '```'

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "# Review ollama_bash_lib.sh"
+echo "# Review of ollama_bash_lib.sh"
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -13,28 +13,20 @@ startup() {
 }
 
 startup
+model="$(ollama_model_random)"
 
-model=$(ollama_model_random)
+echo
+echo '```bash'
+echo 'prompt="Act as an expert Software Engineer.
+Do a full review of this script:
 
+$(cat "../ollama_bash_lib.sh")"'
+echo "ollama_generate_stream \"$model\" \"\$prompt\""
 echo '```'
-echo
-echo "model: $model"
-echo
 
 prompt="Act as an expert Software Engineer.
-Do a full code review of this script:"
+Do a full review of this script:
 
-echo "prompt: $prompt"
-echo "script: $ollama_bash_lib"
+$(cat "../ollama_bash_lib.sh")"
 
-prompt+="
-
-ollama_bash_lib.sh:
-
-$(cat "$ollama_bash_lib")
-"
-
-echo
 ollama_generate_stream "$model" "$prompt"
-
-echo '```'
