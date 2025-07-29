@@ -1,17 +1,15 @@
 Ollama Bash Lib - Demo - ollama_api_get
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_lib_version: v0.37.3
+ollama_lib_version: v0.38.0
 ollama_installed: OK
 ollama_api_ping: OK
 
 ollama_api_get "/api/version"
 
 {"version":"0.10.0-rc0"}
-
 ollama_api_get "/error/path/not/found"
 
 404 page not found
-
 ollama_api_get " bad string!"
 
 [ERROR] ollama_api_get: error_curl: 3
@@ -20,18 +18,15 @@ OLLAMA_LIB_DEBUG=1
 
 ollama_api_get "/api/version"
 [DEBUG] ollama_api_get: [/api/version]
-[DEBUG] ollama_api_get: result: 25 bytes [{"version":"0.10.0-rc0"}]
-{"version":"0.10.0-rc0"}
+{"version":"0.10.0-rc0"}[DEBUG] ollama_api_get: return 0
 ollama_api_get returned: 0
 
 ollama_api_get "/error/path/not/found"
 [DEBUG] ollama_api_get: [/error/path/not/found]
-[DEBUG] ollama_api_get: result: 19 bytes [404 page not found]
-404 page not found
+404 page not found[DEBUG] ollama_api_get: return 0
 ollama_api_get returned: 0
 
 ollama_api_get " bad string!"
 [DEBUG] ollama_api_get: [ bad sting! ]
-[DEBUG] ollama_api_get: result: 1 bytes []
 [ERROR] ollama_api_get: error_curl: 3
 ollama_api_get returned: 1

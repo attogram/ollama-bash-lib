@@ -1,6 +1,6 @@
 Ollama Bash Lib - Demo - Messages
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_lib_version: v0.37.3
+ollama_lib_version: v0.38.0
 ollama_installed: OK
 ollama_api_ping: OK
 

@@ -1,6 +1,6 @@
 Ollama Bash Lib - Demo - ollama_list, ollama_list_json
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_lib_version: v0.37.3
+ollama_lib_version: v0.38.0
 ollama_installed: OK
 ollama_api_ping: OK
 
@@ -12,8 +12,8 @@ deepseek-r1:14b              c333b7232bdb    9.0 GB    2 weeks ago
 llama3.1:8b-instruct-q4_1    e129e608a752    5.1 GB    2 weeks ago    
 mistral:7b-instruct          3944fe81ec14    4.1 GB    2 weeks ago    
 gemma3n:e4b                  15cb39fd9394    7.5 GB    2 weeks ago    
-cogito:3b                    bd144357d717    2.2 GB    2 weeks ago    
-granite3.3:8b                fd429f23b909    4.9 GB    2 weeks ago    
+cogito:3b                    bd144357d717    2.2 GB    3 weeks ago    
+granite3.3:8b                fd429f23b909    4.9 GB    3 weeks ago    
 llama3.2:3b                  a80c4f17acd5    2.0 GB    3 weeks ago    
 gemma3n:e2b                  719372f8c7de    5.6 GB    3 weeks ago    
 qwen3:4b                     2bfd38a7daaf    2.6 GB    3 weeks ago    
@@ -28,7 +28,7 @@ llama3.2:1b                  baf6a787fdff    1.3 GB    5 weeks ago
 deepseek-r1:1.5b             e0979632db5a    1.1 GB    5 weeks ago    
 qwen3:8b                     500a1f067a9f    5.2 GB    5 weeks ago    
 granite3.3:2b                07bd1f170855    1.5 GB    5 weeks ago    
-dolphin-mistral:7b           5dc8c5a2be65    4.1 GB    5 weeks ago    
+dolphin-mistral:7b           5dc8c5a2be65    4.1 GB    6 weeks ago    
 qwen3:1.7b                   8f68893c685c    1.4 GB    7 weeks ago    
 gemma:2b                     b50d6c999e59    1.7 GB    7 weeks ago    
 dolphin3:8b                  d5ab9ae8e1f2    4.9 GB    7 weeks ago    

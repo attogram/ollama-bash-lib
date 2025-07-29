@@ -1,21 +1,21 @@
 Ollama Bash Lib - Demo - ollama_lib_version, ollama_lib_about
 ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_lib_version: v0.37.3
+ollama_lib_version: v0.38.0
 ollama_installed: OK
 ollama_api_ping: OK
 
 ollama_lib_version
 
-0.37.3
+0.38.0
 
 ollama_lib_about
 
-Ollama Bash Lib v0.37.3
+Ollama Bash Lib v0.38.0
 
 A Bash Library to interact with Ollama
 
 OLLAMA_LIB_NAME     : Ollama Bash Lib
-OLLAMA_LIB_VERSION  : 0.37.3
+OLLAMA_LIB_VERSION  : 0.38.0
 OLLAMA_LIB_URL      : https://github.com/attogram/ollama-bash-lib
 OLLAMA_LIB_LICENSE  : MIT
 OLLAMA_LIB_COPYRIGHT: Copyright (c) 2025 Attogram Project <https://github.com/attogram>
