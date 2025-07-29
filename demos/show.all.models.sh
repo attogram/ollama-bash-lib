@@ -1,27 +1,27 @@
 #!/usr/bin/env bash
 
-echo "Ollama Bash Lib - Demo - ollama_show - All Models"
+echo "# ollama_show - All Models"
 echo
 
-ollamaBashLib="$(realpath "$(dirname "$0")/..")/ollama_bash_lib.sh"
-if [ ! -f "$ollamaBashLib" ]; then
-  echo "ERROR: Ollama Bash Lib not found: $ollamaBashLib"
-  exit 1;
-fi
+startup() {
+  ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
+  if [ ! -f "$ollama_bash_lib" ]; then echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"; exit 1; fi
+  # shellcheck source=../ollama_bash_lib.sh
+  source "$ollama_bash_lib"
+  if ! ollama_installed; then echo "ERROR: Ollama Not Found: $ollama_bash_lib"; exit 1; fi;
+  if ! ollama_api_ping; then echo "ERROR: API not reachable"; exit 1; fi
+  echo "A demo of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+}
 
-# shellcheck source=../ollama_bash_lib.sh
-source "$ollamaBashLib"
-
-if ! ollama_installed; then
-  echo "Error: Ollama is not installed"
-  exit 1
-fi
+startup
 
 models=($(ollama_list_array))
 if [[ -z "${models[*]}" ]]; then
   echo "Error: No models found in Ollama"
   exit 1
 fi
+
+echo '```'
 
 echo "models: ${models[*]}"
 echo "# models: ${#models[@]}"
@@ -37,3 +37,5 @@ for model in "${models[@]}"; do
   echo
   ollama_show_json "$model" | jq "."
 done
+
+echo '```'

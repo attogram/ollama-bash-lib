@@ -1,8 +1,6 @@
-Ollama Bash Lib - Demo - jq_sanitize
-ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_lib_version: v0.38.0
-ollama_installed: OK
-ollama_api_ping: OK
+# jq_sanitize
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.38.1
+```
 
 good_json: {"value":"abc\ndef"}
 
@@ -18,3 +16,5 @@ jq_sanitize "{"value":"abc
 def"}"
 
 {"value":"abcdef"}
+
+```

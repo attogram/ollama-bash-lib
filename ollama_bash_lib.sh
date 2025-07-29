@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.38.0"
+OLLAMA_LIB_VERSION="0.38.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -203,6 +203,7 @@ ollama_generate_stream_json() {
   OLLAMA_LIB_STREAM=1 # Turn on streaming
   ollama_generate_json "$1" "$2"
   error_ollama_generate_json=$?
+  echo # needed?
   OLLAMA_LIB_STREAM=0 # Turn off streaming
   if [ "$error_ollama_generate_json" -gt 0 ]; then
     error "ollama_generate_stream_json: error_ollama_generate_json: $error_ollama_generate_json"
@@ -260,6 +261,7 @@ ollama_generate_stream() {
     fi
   done
   error_ollama_generate_json=$?
+  echo # needed?
   OLLAMA_LIB_STREAM=0 # Turn off streaming
   if [ "$error_ollama_generate_json" -gt 0 ]; then
     error "ollama_generate_stream: error_ollama_generate_json: $error_ollama_generate_json"

@@ -1,8 +1,6 @@
-Ollama Bash Lib - Demo - ollama_list, ollama_list_json
-ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_lib_version: v0.38.0
-ollama_installed: OK
-ollama_api_ping: OK
+# ollama_list, ollama_list_json
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.38.1
+```
 
 ollama_list
 
@@ -682,3 +680,4 @@ ollama_list_json
     }
   ]
 }
+```

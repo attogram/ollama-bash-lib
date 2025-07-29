@@ -14,6 +14,8 @@ startup() {
 
 startup
 
+echo '```'
+
 model=$(ollama_model_random)
 echo
 echo "model: $model"
@@ -42,3 +44,5 @@ echo; echo "$(ollama_messages_count) messages:"; ollama_messages; echo
 echo "ollama_chat \"$model\""; echo
 response="$(ollama_chat "$model")"
 echo "$response"
+
+echo '```'

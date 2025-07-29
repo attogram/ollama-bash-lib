@@ -23,7 +23,7 @@ echo
 echo '```bash'
 echo "ollama_generate_stream \"$model\" \"$prompt\""
 echo '```'
-echo '```json'
+echo '```'
 ollama_generate_stream "$model" "$prompt"
 echo '```'
 

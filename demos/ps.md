@@ -1,33 +1,55 @@
-Ollama Bash Lib - Demo - ollama_ps, ollama_ps_json
-ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_lib_version: v0.38.0
-ollama_installed: OK
+# ollama_ps, ollama_ps_json
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.38.1
+```
 
 ollama_ps
 
-NAME            ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-codellama:7b    8fdf8f752f6e    6.9 GB    100% GPU     4096       4 minutes from now    
+NAME             ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+granite3.3:2b    07bd1f170855    2.7 GB    100% GPU     4096       4 minutes from now    
+llama3.2:3b      a80c4f17acd5    3.4 GB    100% GPU     4096       4 minutes from now    
 
 ollama_ps_json
 
 {
   "models": [
     {
-      "name": "codellama:7b",
-      "model": "codellama:7b",
-      "size": 6927104512,
-      "digest": "8fdf8f752f6e80de33e82f381aba784c025982752cd1ae9377add66449d2225f",
+      "name": "granite3.3:2b",
+      "model": "granite3.3:2b",
+      "size": 2686878533,
+      "digest": "07bd1f170855240f9e162bf54ea494a8bc1c73d8cbd1365d7fccbeb7d2504947",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "granite",
+        "families": [
+          "granite"
+        ],
+        "parameter_size": "2.5B",
+        "quantization_level": "Q4_K_M"
+      },
+      "expires_at": "2025-07-29T20:47:55.827998+02:00",
+      "size_vram": 2686878533,
+      "context_length": 4096
+    },
+    {
+      "name": "llama3.2:3b",
+      "model": "llama3.2:3b",
+      "size": 3367856128,
+      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
       "details": {
         "parent_model": "",
         "format": "gguf",
         "family": "llama",
-        "families": null,
-        "parameter_size": "7B",
-        "quantization_level": "Q4_0"
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "3.2B",
+        "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-29T20:02:23.982961+02:00",
-      "size_vram": 6927104512,
+      "expires_at": "2025-07-29T20:47:34.045631+02:00",
+      "size_vram": 3367856128,
       "context_length": 4096
     }
   ]
 }
+```

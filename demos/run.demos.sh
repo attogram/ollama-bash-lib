@@ -18,7 +18,7 @@ done
 
 for demo in "${demos[@]}"; do
   outfile_md=$(echo "$demo" | sed 's/\.sh$/.md/g')
-  echo "Run: $demo > $outfile_md"
+  echo "Run: $demo > $outfile_md >&1"
   output=$($demo 2>&1) # run demo and redirect stderr to stdout
   echo "$output" > "$outfile_md" 2>&1
 done

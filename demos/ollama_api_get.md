@@ -1,8 +1,7 @@
-Ollama Bash Lib - Demo - ollama_api_get
-ollama_bash_lib: ./../ollama_bash_lib.sh
-ollama_lib_version: v0.38.0
-ollama_installed: OK
-ollama_api_ping: OK
+# ollama_api_get
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.38.1
+## Demo
+```
 
 ollama_api_get "/api/version"
 
@@ -13,6 +12,9 @@ ollama_api_get "/error/path/not/found"
 ollama_api_get " bad string!"
 
 [ERROR] ollama_api_get: error_curl: 3
+```
+## Demo Debug
+```
 
 OLLAMA_LIB_DEBUG=1
 
@@ -30,3 +32,4 @@ ollama_api_get " bad string!"
 [DEBUG] ollama_api_get: [ bad sting! ]
 [ERROR] ollama_api_get: error_curl: 3
 ollama_api_get returned: 1
+```
