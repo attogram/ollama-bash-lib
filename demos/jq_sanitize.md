@@ -1,20 +1,20 @@
 # jq_sanitize
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.38.1
+
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.0
+
+```
+string: 20 bytes: [{"value":"abc def"}]
+clean : 20 bytes: [{"value":"abc def"}]
 ```
 
-good_json: {"value":"abc\ndef"}
+```
+string: 20 bytes: [{"value":"abc
+def"}]
+clean : 21 bytes: [{"value":"abc\ndef"}]
+```
 
-jq_sanitize "{"value":"abc\ndef"}"
-
-{"value":"abc\ndef"}
-
-
-bad_json: {"value":"abc
-def"}
-
-jq_sanitize "{"value":"abc
-def"}"
-
-{"value":"abcdef"}
-
+```
+string: 74 bytes: [null:, bell:, form-feed:
+, carriage-return:, escape:, unit-separator:]
+clean : 71 bytes: [null:, bell:, form-feed:\n, carriage-return:, escape:, unit-separator:]
 ```

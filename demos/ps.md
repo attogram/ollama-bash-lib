@@ -1,41 +1,41 @@
 # ollama_ps, ollama_ps_json
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.38.1
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.0
 ```
 
 ollama_ps
 
-NAME           ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-dolphin3:8b    d5ab9ae8e1f2    6.2 GB    100% GPU     4096       4 minutes from now    
-llama3.2:1b    baf6a787fdff    2.4 GB    100% GPU     4096       4 minutes from now    
+NAME             ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+granite3.3:2b    07bd1f170855    2.7 GB    100% GPU     4096       4 minutes from now    
+cogito:3b        bd144357d717    3.4 GB    100% GPU     4096       4 minutes from now    
 
 ollama_ps_json
 
 {
   "models": [
     {
-      "name": "dolphin3:8b",
-      "model": "dolphin3:8b",
-      "size": 6157238848,
-      "digest": "d5ab9ae8e1f22619a6be52e5694df422b7183a3883990a000188c363781ecb78",
+      "name": "granite3.3:2b",
+      "model": "granite3.3:2b",
+      "size": 2686878533,
+      "digest": "07bd1f170855240f9e162bf54ea494a8bc1c73d8cbd1365d7fccbeb7d2504947",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "llama",
+        "family": "granite",
         "families": [
-          "llama"
+          "granite"
         ],
-        "parameter_size": "8.0B",
+        "parameter_size": "2.5B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-29T20:52:46.702448+02:00",
-      "size_vram": 6157238848,
+      "expires_at": "2025-07-30T00:30:38.630149+02:00",
+      "size_vram": 2686878533,
       "context_length": 4096
     },
     {
-      "name": "llama3.2:1b",
-      "model": "llama3.2:1b",
-      "size": 2350966784,
-      "digest": "baf6a787fdffd633537aa2eb51cfd54cb93ff08e28040095462bb63daf552878",
+      "name": "cogito:3b",
+      "model": "cogito:3b",
+      "size": 3367856128,
+      "digest": "bd144357d717922daff29200122c3f2aab52d2a643ec73ce304f7827069ec74d",
       "details": {
         "parent_model": "",
         "format": "gguf",
@@ -43,11 +43,11 @@ ollama_ps_json
         "families": [
           "llama"
         ],
-        "parameter_size": "1.2B",
-        "quantization_level": "Q8_0"
+        "parameter_size": "3.6B",
+        "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-29T20:52:38.107091+02:00",
-      "size_vram": 2350966784,
+      "expires_at": "2025-07-30T00:30:33.064234+02:00",
+      "size_vram": 3367856128,
       "context_length": 4096
     }
   ]
