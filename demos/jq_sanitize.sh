@@ -16,6 +16,10 @@ startup() {
 startup
 
 echo
+echo 'Usage: `jq_santize "string"`'
+echo
+
+echo
 echo '```'
 string='{"value":"abc def"}'
 clean=$(jq_sanitize "$string")
