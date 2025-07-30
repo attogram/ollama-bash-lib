@@ -28,7 +28,7 @@ jobs:
             A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
               
             Repo: https://github.com/attogram/ollama-bash-lib
-                      files: |
-                        ollama_bash_lib.sh
+          files: |
+            ollama_bash_lib.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
