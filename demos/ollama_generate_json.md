@@ -1,28 +1,28 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.6
 
 ## Demo
 
 ```bash
-ollama_generate_json "dolphin-mistral:7b" "Describe a rabbit in 2 short sentences"
+ollama_generate_json "granite3.3:2b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-{"model":"dolphin-mistral:7b","created_at":"2025-07-30T20:32:00.00466Z","response":"A rabbit is a small mammal known for its long ears and soft fur, with a characteristic hopping gait that helps them move swiftly across the ground. They are common in nature reserves and make excellent pets due to their playful and affectionate nature.","done":true,"done_reason":"stop","context":[32001,1587,13,1976,460,15052,721,262,28725,264,10865,16107,13892,28723,13,32000,28705,13,32001,2188,13,22836,264,16479,2581,297,28705,28750,2485,23748,32000,28705,13,32001,13892,13,28741,16479,2581,349,264,1741,27454,282,2651,354,871,1043,12446,304,2664,2982,28725,395,264,17845,4654,2917,319,1022,369,7263,706,2318,20029,346,2673,272,3414,28723,1306,460,3298,297,4735,26863,304,1038,8099,24642,2940,298,652,1156,1007,304,21147,380,4735,28723],"total_duration":5882015625,"load_duration":2690111292,"prompt_eval_count":37,"prompt_eval_duration":545143667,"eval_count":55,"eval_duration":2645618125}
+{"model":"granite3.3:2b","created_at":"2025-07-30T20:41:54.191171Z","response":"1. A rabbit is a small, often fluffy mammal known for its long ears and swift, powerful hind legs. 2. Typically characterized by their gentle demeanor and herbivorous diet, rabbits are popular pets worldwide due to their cute appearance and ease of care.","done":true,"done_reason":"stop","context":[49152,2946,49153,39558,390,17071,2821,44,30468,225,36,34,36,38,32,203,4282,884,8080,278,659,30,18909,810,25697,32,2448,884,312,17247,19551,47330,32,0,203,49152,496,49153,8591,312,40810,328,225,36,4504,28842,0,203,49152,17594,49153,35,32,399,40810,438,312,5532,30,12270,2022,2966,107,345,404,7904,8967,436,2819,1946,484,4177,461,34574,30,27196,420,552,999,5360,32,225,36,32,44677,5341,1191,810,3623,485,304,274,409,6009,271,461,7791,84,387,271,3291,2068,364,30,540,360,5960,884,23068,298,5231,5788,15216,7254,372,3623,281,1142,27983,461,12935,432,9347,32],"total_duration":2867543541,"load_duration":34530833,"prompt_eval_count":51,"prompt_eval_duration":1125967250,"eval_count":74,"eval_duration":1706188875}
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_json "dolphin-mistral:7b" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_json "granite3.3:2b" "Describe a rabbit in 2 short sentences"`
 ```
 ```json
-[DEBUG] ollama_generate_json: [dolphin-mistral:7b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [granite3.3:2b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] json_safe_value: 19 bytes [dolphin-mistral:7b]
+[DEBUG] json_safe_value: 14 bytes [granite3.3:2b]
 [DEBUG] json_safe_value: 39 bytes [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_api_post: [/api/generate] [{"model":"dolphin-mistral:7b","prompt":"De]
-{"model":"dolphin-mistral:7b","created_at":"2025-07-30T20:32:03.889524Z","response":"A rabbit is a small, furry mammal with long ears and strong hind legs, commonly found in grasslands or forests. They are herbivores that feed on leaves, stems, and fruits. Rabbits are known for their agility and can jump up to three feet high and move at speeds of about 15 miles per hour when startled.","done":true,"done_reason":"stop","context":[32001,1587,13,1976,460,15052,721,262,28725,264,10865,16107,13892,28723,13,32000,28705,13,32001,2188,13,22836,264,16479,2581,297,28705,28750,2485,23748,32000,28705,13,32001,13892,13,28741,16479,2581,349,264,1741,28725,2982,643,27454,282,395,1043,12446,304,2967,21413,7969,28725,14473,1419,297,10109,5603,442,25770,28723,1306,460,559,28726,449,3626,369,5575,356,8049,28725,341,7940,28725,304,21566,28723,17467,7669,460,2651,354,652,717,1232,304,541,6483,582,298,1712,4051,1486,304,2318,438,27480,302,684,28705,28740,28782,6052,660,5115,739,1149,1006,28723],"total_duration":3809341083,"load_duration":20520500,"prompt_eval_count":37,"prompt_eval_duration":50337375,"eval_count":77,"eval_duration":3737878791}[DEBUG] ollama_api_post: return 0
+[DEBUG] ollama_api_post: [/api/generate] [{"model":"granite3.3:2b","prompt":"Describ]
+{"model":"granite3.3:2b","created_at":"2025-07-30T20:41:55.614788Z","response":"Rabbits are small mammals known for their long ears and fluffy tails. They are herbivores, primarily feeding on grasses and leaves, and are recognized for their high reproductive rate.","done":true,"done_reason":"stop","context":[49152,2946,49153,39558,390,17071,2821,44,30468,225,36,34,36,38,32,203,4282,884,8080,278,659,30,18909,810,25697,32,2448,884,312,17247,19551,47330,32,0,203,49152,496,49153,8591,312,40810,328,225,36,4504,28842,0,203,49152,17594,49153,68,360,5960,884,5532,345,38169,3528,8967,436,3623,1946,484,4177,461,2022,2966,107,273,1535,32,11228,884,7791,84,387,6845,30,37897,6985,299,544,2914,2515,461,26243,30,461,884,27149,436,3623,3857,316,2445,661,7692,32],"total_duration":1325463875,"load_duration":33505541,"prompt_eval_count":51,"prompt_eval_duration":23969125,"eval_count":49,"eval_duration":1266857041}[DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 
 ```
