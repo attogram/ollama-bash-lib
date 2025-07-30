@@ -33,6 +33,6 @@ echo
 echo '```bash'
 echo "\`OLLAMA_LIB_DEBUG=1 ollama_generate \"$model\" \"$prompt\"\`"
 echo '```'
-echo '```json'
+echo '```'
 OLLAMA_LIB_DEBUG=1 ollama_generate "$model" "$prompt"
 echo '```'
