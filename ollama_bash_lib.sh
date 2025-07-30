@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.40.0"
+OLLAMA_LIB_VERSION="0.40.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -41,6 +41,7 @@ error() {
 }
 
 # Escape a string for use as a JSON value
+# - Use to clean a value (will escape "quotes")
 #
 # Usage: json_clean "string"
 # Input: 1 - The string to escape
@@ -58,6 +59,7 @@ json_clean() {
 }
 
 # Sanitize a string to use for jq
+# - Use to clean a json block (will not escape "quotes")
 #
 # Usage: json_sanitize "string"
 # Input: 1 - The string to sanitize
