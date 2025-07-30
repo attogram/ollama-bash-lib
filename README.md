@@ -57,8 +57,8 @@ See the **[demos](demos)** directory for all demo scripts
 | [about.md](demos/about.md)                                             | Ollama Bash Lib variables and functions                                                                         | [about.sh](demos/about.sh)                                             |
 | [ollama_api_get.md](demos/ollama_api_get.md)                           | `ollama_api_get` usage and error handling                                                                       | [ollama_api_get.sh](demos/ollama_api_get.sh)                           |
 | [token.estimate.md](demos/token.estimate.md)                           | Estimated token count                                                                                           | [token.estimate.sh](demos/token.estimate.sh)                           |
-| [json_clean.md](demos/json_clean.md)                         | Sanitize string use as a json value                                                                             | [json_clean.sh](demos/json_clean.sh)                         |
-| [json_sanitize.md](demos/json_sanitize.md)                                 | Sanitize string for jq use                                                                                      | [json_sanitize.sh](demos/json_sanitize.sh)                                 |
+| [json_clean.md](demos/json_clean.md)                                   | Sanitize string use as a json value                                                                             | [json_clean.sh](demos/json_clean.sh)                                   |
+| [json_sanitize.md](demos/json_sanitize.md)                             | Sanitize string for jq use                                                                                      | [json_sanitize.sh](demos/json_sanitize.sh)                             |
 |                                                                        | Chat via Generate                                                                                               | [interactive.generate.sh](demos/interactive.generate.sh)               |
 
 ## Functions
