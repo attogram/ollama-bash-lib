@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.39.3"
+OLLAMA_LIB_VERSION="0.39.5"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -28,7 +28,6 @@ debug() {
   if [ "$OLLAMA_LIB_DEBUG" -eq "1" ]; then
     >&2 echo -e "[DEBUG] $1"
   fi
-  return $?
 }
 
 # Error message
@@ -39,8 +38,6 @@ debug() {
 # Returns: 0 on success, 1 on error
 error() {
   >&2 echo -e "[ERROR] $1"
-  # shellcheck disable=SC2320
-  return $?
 }
 
 # Escape a string for use as a JSON value
@@ -50,7 +47,7 @@ error() {
 # Output: "quoted safe json value" to stdout
 # Returns: 0 on success, 1 on jq error
 json_safe_value() {
-  debug "json_safe_value: $(echo "$1" | wc -c | sed 's/ //g') bytes [$1]"
+  debug "json_safe_value: $(echo "$1" | wc -c | sed 's/ //g') bytes [${1:0:42}]"
   jq -Rn --arg str "$1" '$str'
   local error_jq=$?
   if [ "$error_jq" -gt 0 ]; then
@@ -67,8 +64,7 @@ json_safe_value() {
 # Output: sanitized string to stdout
 # Returns: 0 on success, 1 on error
 jq_sanitize() {
-  # TODO - Truncate $1 for debug?
-  debug "jq_sanitize: $(echo "$1" | wc -c | sed 's/ //g') bytes [$1]"
+  debug "jq_sanitize: $(echo "$1" | wc -c | sed 's/ //g') bytes [${1:0:42}]"
   local sanitized="$1"
   # Replace carriage returns (CR, ASCII 13) with literal \r
   sanitized=$(printf '%s' "$1" | sed $'s/\r/\\\\r/g')
@@ -77,8 +73,7 @@ jq_sanitize() {
   # Remove all control chars 0-9, 11-12, 14-31
   sanitized=$(printf '%s' "$sanitized" | tr -d '\000-\011\013\014\016-\037')
   printf '%s\n' "$sanitized"
-  # TODO - Truncate $1 for debug?
-  debug "jq_sanitize: sanitized: $(echo "$sanitized" | wc -c | sed 's/ //g') bytes [$sanitized]"
+  debug "jq_sanitize: sanitized: $(echo "$sanitized" | wc -c | sed 's/ //g') bytes [[${sanitized:0:42}]]"
   return $RETURN_SUCCESS
 }
 
@@ -110,8 +105,7 @@ ollama_api_get() {
 # Output: API call result, to stdout
 # Returns: 0 on success, 1 on error
 ollama_api_post() {
-  # TODO - truncate $2 if too large?
-  debug "ollama_api_post: [$1] [$2]"
+  debug "ollama_api_post: [$1] [${2:0:42}]"
   curl -s -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
@@ -153,8 +147,7 @@ ollama_api_ping() {
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
-  # TODO - debug truncated $2 if too large
-  debug "ollama_generate_json: [$1] [$2]"
+  debug "ollama_generate_json: [$1] [${2:0:42}]"
   debug "ollama_generate_json: OLLAMA_LIB_STREAM: $OLLAMA_LIB_STREAM"
   local json="{\"model\":$(json_safe_value "$1"),\"prompt\":$(json_safe_value "$2")"
   if [ "$OLLAMA_LIB_STREAM" -eq "0" ]; then
@@ -177,8 +170,7 @@ ollama_generate_json() {
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate_stream_json() {
-  # TODO - debug truncated $2 if too large
-  debug "ollama_generate_stream_json: [$1] [$2]"
+  debug "ollama_generate_stream_json: [$1] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming
   ollama_generate_json "$1" "$2"
   local error_ollama_generate_json=$?
@@ -200,8 +192,7 @@ ollama_generate_stream_json() {
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate() {
-  # TODO - debug truncated $2 if too large
-  debug "ollama_generate: [$1] [$2]"
+  debug "ollama_generate: [$1] [${2:0:42}]"
   OLLAMA_LIB_STREAM=0
   local result=$(ollama_generate_json "$1" "$2")
   local error_ollama_generate_json=$?
@@ -273,8 +264,7 @@ ollama_messages() {
 # Output: none
 # Returns: 0 on success, 1 on error
 ollama_messages_add() {
-  # TODO - debug truncated $2
-  debug "ollama_messages_add: [$1] [$2]"
+  debug "ollama_messages_add: [$1] [${2:0:42}]"
   local role="$1"
   local message="$2"
   OLLAMA_LIB_MESSAGES+=("{\"role\":$(json_safe_value "$role"),\"content\":$(json_safe_value "$message")}")
