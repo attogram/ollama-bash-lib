@@ -1,0 +1,29 @@
+name: Release with Shell Script and Description
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on tags like v1.0.0
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create GitHub Release with Script
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "Ollama Bash Lib ${{ github.ref_name }}"
+          body: |
+            Ollama Bash Lib ${{ github.ref_name }}
+
+            A Bash Library to interact with Ollama
+          files: |
+            ollama_bash_lib.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
