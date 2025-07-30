@@ -5,24 +5,24 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ## Demo
 
 ```bash
-ollama_generate_json "smollm2:360m" "Describe a rabbit in 2 short sentences"
+ollama_generate_json "dolphin-mistral:7b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-{"model":"smollm2:360m","created_at":"2025-07-30T16:08:06.127966Z","response":"1. A rabbit is typically small and slender, with a fluffy coat of brown fur that can range from light to dark gray depending on the species.\n\n2. They have large ears that are often floppy and long, which help them listen for sounds while they forage or run at high speed.","done":true,"done_reason":"stop","context":[1,9690,198,2683,359,253,5356,5646,11173,3365,3511,308,34519,28,7018,411,407,19712,8182,2,198,1,4093,198,37964,253,16024,281,216,34,1890,8545,2,198,1,520,9531,198,33,30,330,16024,314,3431,1165,284,27833,28,351,253,33391,10078,282,6354,9462,338,416,1845,429,1420,288,3605,11013,4509,335,260,1772,30,1116,34,30,1069,457,1507,10006,338,359,1129,45674,284,986,28,527,724,601,5872,327,4598,979,502,21108,355,1658,418,904,3547,30],"total_duration":1700858958,"load_duration":908208875,"prompt_eval_count":38,"prompt_eval_duration":120086417,"eval_count":60,"eval_duration":671442625}
+{"model":"dolphin-mistral:7b","created_at":"2025-07-30T16:42:55.582153Z","response":"A rabbit is a small mammal known for its long ears and quick movements, often found in grassy fields and meadows. It is a herbivore that feeds on plants and has sharp teeth for chewing its food efficiently.","done":true,"done_reason":"stop","context":[32001,1587,13,1976,460,15052,721,262,28725,264,10865,16107,13892,28723,13,32000,28705,13,32001,2188,13,22836,264,16479,2581,297,28705,28750,2485,23748,32000,28705,13,32001,13892,13,28741,16479,2581,349,264,1741,27454,282,2651,354,871,1043,12446,304,2936,15071,28725,2608,1419,297,10109,28724,5080,304,528,13456,28723,661,349,264,559,28726,449,431,369,5575,28713,356,9923,304,659,10227,9033,354,997,9988,871,2887,23463,28723],"total_duration":6030111459,"load_duration":2879550625,"prompt_eval_count":37,"prompt_eval_duration":654605416,"eval_count":51,"eval_duration":2492253209}
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_json "smollm2:360m" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_json "dolphin-mistral:7b" "Describe a rabbit in 2 short sentences"`
 ```
 ```json
-[DEBUG] ollama_generate_json: [smollm2:360m] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [dolphin-mistral:7b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] json_safe_value: 13 bytes [smollm2:360m]
+[DEBUG] json_safe_value: 19 bytes [dolphin-mistral:7b]
 [DEBUG] json_safe_value: 39 bytes [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_api_post: [/api/generate] [{"model":"smollm2:360m","prompt":"Describe a rabbit in 2 short sentences","stream":false}]
-{"model":"smollm2:360m","created_at":"2025-07-30T16:08:06.772919Z","response":"A rabbit is a cute and fluffy animal known for its small size and gentle nature. It has soft fur, large eyes, and can hop quite well on two legs.","done":true,"done_reason":"stop","context":[1,9690,198,2683,359,253,5356,5646,11173,3365,3511,308,34519,28,7018,411,407,19712,8182,2,198,1,4093,198,37964,253,16024,281,216,34,1890,8545,2,198,1,520,9531,198,49,16024,314,253,25489,284,33391,3161,1343,327,624,1165,2203,284,9154,2177,30,657,553,2375,9462,28,1507,3497,28,284,416,4432,3100,876,335,827,7225,30],"total_duration":554248917,"load_duration":29502917,"prompt_eval_count":38,"prompt_eval_duration":14004291,"eval_count":35,"eval_duration":509742209}[DEBUG] ollama_api_post: return 0
+[DEBUG] ollama_api_post: [/api/generate] [{"model":"dolphin-mistral:7b","prompt":"Describe a rabbit in 2 short sentences","stream":false}]
+{"model":"dolphin-mistral:7b","created_at":"2025-07-30T16:42:58.175565Z","response":"A rabbit is a small mammal with long ears, soft fur, and an agile body that allows it to move quickly through grassy fields. They are social animals known for their rapid movements and ability to navigate narrow spaces with ease.","done":true,"done_reason":"stop","context":[32001,1587,13,1976,460,15052,721,262,28725,264,10865,16107,13892,28723,13,32000,28705,13,32001,2188,13,22836,264,16479,2581,297,28705,28750,2485,23748,32000,28705,13,32001,13892,13,28741,16479,2581,349,264,1741,27454,282,395,1043,12446,28725,2664,2982,28725,304,396,717,546,2187,369,5976,378,298,2318,4377,1059,10109,28724,5080,28723,1306,460,2809,8222,2651,354,652,8421,15071,304,5537,298,22689,8484,10599,395,12801,28723],"total_duration":2518527333,"load_duration":21910750,"prompt_eval_count":37,"prompt_eval_duration":51519291,"eval_count":50,"eval_duration":2444455792}[DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 
 ```

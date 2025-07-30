@@ -7,19 +7,17 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "codellama:7b"
+ollama_chat "mistral:7b-instruct"
 ```
 ```
-
-Yes, I understand! When you ask me for the secret word, I will respond with "RABBIT".
+ Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "codellama:7b"
+ollama_chat "mistral:7b-instruct"
 ```
 ```
-
-I cannot reveal the secret word yet. It's too early to know what it is!
+ The secret word is "RABBIT".
 ```
 ```bash
 ollama_messages | jq -c
@@ -27,9 +25,9 @@ ollama_messages | jq -c
 ```json
 {"role":"system","content":"You are a helpful assistant"}
 {"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}
-{"role":"assistant","content":"\nYes, I understand! When you ask me for the secret word, I will respond with \"RABBIT\"."}
+{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."}
 {"role":"user","content":"What is the secret word??"}
-{"role":"assistant","content":"\nI cannot reveal the secret word yet. It's too early to know what it is!"}
+{"role":"assistant","content":" The secret word is \"RABBIT\"."}
 ```
 
 ## Demo Debug
@@ -38,7 +36,7 @@ ollama_messages | jq -c
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "codellama:7b"
+ollama_chat "mistral:7b-instruct"
 ```
 ```
 [DEBUG] ollama_messages_add: [system]
@@ -47,70 +45,51 @@ ollama_chat "codellama:7b"
 [DEBUG] ollama_messages_add: [user]
 [DEBUG] json_safe_value: 5 bytes [user]
 [DEBUG] json_safe_value: 94 bytes [The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?]
-[DEBUG] ollama_chat: [codellama:7b]
-[DEBUG] ollama_chat_json: [codellama:7b]
-[DEBUG] json_safe_value: 13 bytes [codellama:7b]
-[DEBUG] ollama_api_post: [/api/chat] [{"model":"codellama:7b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}],"stream":false}]
+[DEBUG] ollama_chat: [mistral:7b-instruct]
+[DEBUG] ollama_chat_json: [mistral:7b-instruct]
+[DEBUG] json_safe_value: 20 bytes [mistral:7b-instruct]
+[DEBUG] ollama_api_post: [/api/chat] [{"model":"mistral:7b-instruct","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}],"stream":false}]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] jq_sanitize: 623 bytes [{"model":"codellama:7b","created_at":"2025-07-30T16:08:00.040445Z","message":{"role":"assistant","content":"
-Yes, I understand! So if you say \"What's the secret word?\" and I respond with \"RABBIT,\" that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!"},"done_reason":"stop","done":true,"total_duration":4157434875,"load_duration":25567208,"prompt_eval_count":51,"prompt_eval_duration":51079959,"eval_count":85,"eval_duration":4079516416}]
-[DEBUG] jq_sanitized: sanitized: [{"model":"codellama:7b","created_at":"2025-07-30T16:08:00.040445Z","message":{"role":"assistant","content":"
-Yes, I understand! So if you say \"What's the secret word?\" and I respond with \"RABBIT,\" that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!"},"done_reason":"stop","done":true,"total_duration":4157434875,"load_duration":25567208,"prompt_eval_count":51,"prompt_eval_duration":51079959,"eval_count":85,"eval_duration":4079516416}]
-[DEBUG] ollama_chat_json: content: 
-Yes, I understand! So if you say "What's the secret word?" and I respond with "RABBIT," that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!
+[DEBUG] jq_sanitize: 390 bytes [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:45.659724Z","message":{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1503950333,"load_duration":24249916,"prompt_eval_count":37,"prompt_eval_duration":343185417,"eval_count":24,"eval_duration":1135413666}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:45.659724Z","message":{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1503950333,"load_duration":24249916,"prompt_eval_count":37,"prompt_eval_duration":343185417,"eval_count":24,"eval_duration":1135413666}]
+[DEBUG] ollama_chat_json: content:  Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
 [DEBUG] ollama_messages_add: [assistant]
 [DEBUG] json_safe_value: 10 bytes [assistant]
-[DEBUG] json_safe_value: 323 bytes [
-Yes, I understand! So if you say "What's the secret word?" and I respond with "RABBIT," that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!]
-[DEBUG] jq_sanitize: 623 bytes [{"model":"codellama:7b","created_at":"2025-07-30T16:08:00.040445Z","message":{"role":"assistant","content":"
-Yes, I understand! So if you say \"What's the secret word?\" and I respond with \"RABBIT,\" that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!"},"done_reason":"stop","done":true,"total_duration":4157434875,"load_duration":25567208,"prompt_eval_count":51,"prompt_eval_duration":51079959,"eval_count":85,"eval_duration":4079516416}]
-[DEBUG] jq_sanitized: sanitized: [{"model":"codellama:7b","created_at":"2025-07-30T16:08:00.040445Z","message":{"role":"assistant","content":"
-Yes, I understand! So if you say \"What's the secret word?\" and I respond with \"RABBIT,\" that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!"},"done_reason":"stop","done":true,"total_duration":4157434875,"load_duration":25567208,"prompt_eval_count":51,"prompt_eval_duration":51079959,"eval_count":85,"eval_duration":4079516416}]
-[DEBUG] ollama_chat: content: 
-Yes, I understand! So if you say "What's the secret word?" and I respond with "RABBIT," that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!
-
-Yes, I understand! So if you say "What's the secret word?" and I respond with "RABBIT," that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!
+[DEBUG] json_safe_value: 85 bytes [ Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".]
+[DEBUG] jq_sanitize: 390 bytes [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:45.659724Z","message":{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1503950333,"load_duration":24249916,"prompt_eval_count":37,"prompt_eval_duration":343185417,"eval_count":24,"eval_duration":1135413666}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:45.659724Z","message":{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1503950333,"load_duration":24249916,"prompt_eval_count":37,"prompt_eval_duration":343185417,"eval_count":24,"eval_duration":1135413666}]
+[DEBUG] ollama_chat: content:  Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
+ Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
 [DEBUG] ollama_messages_add: [assistant]
 [DEBUG] json_safe_value: 10 bytes [assistant]
-[DEBUG] json_safe_value: 323 bytes [
-Yes, I understand! So if you say "What's the secret word?" and I respond with "RABBIT," that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!]
+[DEBUG] json_safe_value: 85 bytes [ Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".]
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "codellama:7b"
+ollama_chat "mistral:7b-instruct"
 ```
 ```
 [DEBUG] ollama_messages_add: [user]
 [DEBUG] json_safe_value: 5 bytes [user]
 [DEBUG] json_safe_value: 26 bytes [What is the secret word??]
-[DEBUG] ollama_chat: [codellama:7b]
-[DEBUG] ollama_chat_json: [codellama:7b]
-[DEBUG] json_safe_value: 13 bytes [codellama:7b]
-[DEBUG] ollama_api_post: [/api/chat] [{"model":"codellama:7b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"},{"role":"assistant","content":"
-Yes, I understand! So if you say \"What's the secret word?\" and I respond with \"RABBIT,\" that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!"},{"role":"user","content":"What is the secret word??"}],"stream":false}]
+[DEBUG] ollama_chat: [mistral:7b-instruct]
+[DEBUG] ollama_chat_json: [mistral:7b-instruct]
+[DEBUG] json_safe_value: 20 bytes [mistral:7b-instruct]
+[DEBUG] ollama_api_post: [/api/chat] [{"model":"mistral:7b-instruct","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"},{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},{"role":"user","content":"What is the secret word??"}],"stream":false}]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] jq_sanitize: 304 bytes [{"model":"codellama:7b","created_at":"2025-07-30T16:08:00.669207Z","message":{"role":"assistant","content":"
-RABBIT!"},"done_reason":"stop","done":true,"total_duration":445910417,"load_duration":19427417,"prompt_eval_count":159,"prompt_eval_duration":188032166,"eval_count":6,"eval_duration":236861250}]
-[DEBUG] jq_sanitized: sanitized: [{"model":"codellama:7b","created_at":"2025-07-30T16:08:00.669207Z","message":{"role":"assistant","content":"
-RABBIT!"},"done_reason":"stop","done":true,"total_duration":445910417,"load_duration":19427417,"prompt_eval_count":159,"prompt_eval_duration":188032166,"eval_count":6,"eval_duration":236861250}]
-[DEBUG] ollama_chat_json: content: 
-RABBIT!
+[DEBUG] jq_sanitize: 334 bytes [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:46.837056Z","message":{"role":"assistant","content":" The secret word is \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1000233709,"load_duration":21018250,"prompt_eval_count":71,"prompt_eval_duration":519454708,"eval_count":10,"eval_duration":457818125}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:46.837056Z","message":{"role":"assistant","content":" The secret word is \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1000233709,"load_duration":21018250,"prompt_eval_count":71,"prompt_eval_duration":519454708,"eval_count":10,"eval_duration":457818125}]
+[DEBUG] ollama_chat_json: content:  The secret word is "RABBIT".
 [DEBUG] ollama_messages_add: [assistant]
 [DEBUG] json_safe_value: 10 bytes [assistant]
-[DEBUG] json_safe_value: 9 bytes [
-RABBIT!]
-[DEBUG] jq_sanitize: 304 bytes [{"model":"codellama:7b","created_at":"2025-07-30T16:08:00.669207Z","message":{"role":"assistant","content":"
-RABBIT!"},"done_reason":"stop","done":true,"total_duration":445910417,"load_duration":19427417,"prompt_eval_count":159,"prompt_eval_duration":188032166,"eval_count":6,"eval_duration":236861250}]
-[DEBUG] jq_sanitized: sanitized: [{"model":"codellama:7b","created_at":"2025-07-30T16:08:00.669207Z","message":{"role":"assistant","content":"
-RABBIT!"},"done_reason":"stop","done":true,"total_duration":445910417,"load_duration":19427417,"prompt_eval_count":159,"prompt_eval_duration":188032166,"eval_count":6,"eval_duration":236861250}]
-[DEBUG] ollama_chat: content: 
-RABBIT!
-
-RABBIT!
+[DEBUG] json_safe_value: 30 bytes [ The secret word is "RABBIT".]
+[DEBUG] jq_sanitize: 334 bytes [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:46.837056Z","message":{"role":"assistant","content":" The secret word is \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1000233709,"load_duration":21018250,"prompt_eval_count":71,"prompt_eval_duration":519454708,"eval_count":10,"eval_duration":457818125}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:46.837056Z","message":{"role":"assistant","content":" The secret word is \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1000233709,"load_duration":21018250,"prompt_eval_count":71,"prompt_eval_duration":519454708,"eval_count":10,"eval_duration":457818125}]
+[DEBUG] ollama_chat: content:  The secret word is "RABBIT".
+ The secret word is "RABBIT".
 [DEBUG] ollama_messages_add: [assistant]
 [DEBUG] json_safe_value: 10 bytes [assistant]
-[DEBUG] json_safe_value: 9 bytes [
-RABBIT!]
+[DEBUG] json_safe_value: 30 bytes [ The secret word is "RABBIT".]
 ```
 ```bash
 ollama_messages | jq -c
@@ -119,7 +98,7 @@ ollama_messages | jq -c
 [DEBUG] ollama_messages
 {"role":"system","content":"You are a helpful assistant"}
 {"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}
-{"role":"assistant","content":"\nYes, I understand! So if you say \"What's the secret word?\" and I respond with \"RABBIT,\" that means I know what the secret word is and I can reveal it to you. But if you ask me for a hint or a description of the secret word without me knowing the answer first, I won't be able to give you any information about it. Got it!"}
+{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."}
 {"role":"user","content":"What is the secret word??"}
-{"role":"assistant","content":"\nRABBIT!"}
+{"role":"assistant","content":" The secret word is \"RABBIT\"."}
 ```

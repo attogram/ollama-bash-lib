@@ -42,8 +42,8 @@ echo
 
 echo
 echo '```bash'
-echo "OLLAMA_DEBUG=1 ollama_generate \"$model\" \"\$prompt\""
+echo "OLLAMA_LIB_DEBUG=1 ollama_generate \"$model\" \"\$prompt\""
 echo '```'
 echo '```'
-OLLAMA_DEBUG=1 ollama_generate "$model" "$prompt"
+OLLAMA_LIB_DEBUG=1 ollama_generate "$model" "$prompt"
 echo '```'
