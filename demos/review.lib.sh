@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "# Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)"
+echo "# Code Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)"
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -23,14 +23,14 @@ echo
 echo
 echo '```bash'
 echo 'prompt="Act as an expert Software Engineer.
-Do a full review of this script:
+Do a full Code Review of this script:
 
 $(cat "../ollama_bash_lib.sh")"'
 echo "ollama_generate \"$model\" \"\$prompt\""
 echo '```'
 
 prompt="Act as an expert Software Engineer.
-Do a full review of this script:
+Do a full code review of this bash script:
 
 $(cat "../ollama_bash_lib.sh")"
 

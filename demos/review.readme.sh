@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "# Review of [README.md](../README.md)"
+echo "# Review of project [README.md](../README.md)"
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -22,14 +22,14 @@ echo
 
 echo
 echo '```bash'
-echo 'prompt="Act as an expert Software Engineer.
-Do a full review of this README:
+echo 'prompt="Act as an expert Technical Marketer.
+Do a full review of this project README:
 
 $(cat "../README.md")"'
 echo "ollama_generate \"$model\" \"\$prompt\""
 echo '```'
-prompt="Act as an expert Software Engineer.
-Do a full review of this README:
+prompt="Act as an expert Technical Marketer.
+Do a full review of this project README:
 
 $(cat "../README.md")"
 echo '```'
