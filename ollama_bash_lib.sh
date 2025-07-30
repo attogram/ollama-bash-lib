@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.39.2"
+OLLAMA_LIB_VERSION="0.39.3"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -51,9 +51,8 @@ error() {
 # Returns: 0 on success, 1 on jq error
 json_safe_value() {
   debug "json_safe_value: $(echo "$1" | wc -c | sed 's/ //g') bytes [$1]"
-  local error_jq
   jq -Rn --arg str "$1" '$str'
-  error_jq=$?
+  local error_jq=$?
   if [ "$error_jq" -gt 0 ]; then
     error "json_safe_value: error_jq: $error_jq"
     return $RETURN_ERROR
@@ -68,9 +67,9 @@ json_safe_value() {
 # Output: sanitized string to stdout
 # Returns: 0 on success, 1 on error
 jq_sanitize() {
+  # TODO - Truncate $1 for debug?
   debug "jq_sanitize: $(echo "$1" | wc -c | sed 's/ //g') bytes [$1]"
-  local sanitized
-  sanitized="$1"
+  local sanitized="$1"
   # Replace carriage returns (CR, ASCII 13) with literal \r
   sanitized=$(printf '%s' "$1" | sed $'s/\r/\\\\r/g')
   # Replace newlines (LF, ASCII 10) with literal \n using awk, then strip final literal \n
@@ -78,7 +77,8 @@ jq_sanitize() {
   # Remove all control chars 0-9, 11-12, 14-31
   sanitized=$(printf '%s' "$sanitized" | tr -d '\000-\011\013\014\016-\037')
   printf '%s\n' "$sanitized"
-  debug "jq_sanitized: sanitized: [$sanitized]"
+  # TODO - Truncate $1 for debug?
+  debug "jq_sanitize: sanitized: $(echo "$sanitized" | wc -c | sed 's/ //g') bytes [$sanitized]"
   return $RETURN_SUCCESS
 }
 
@@ -92,14 +92,13 @@ jq_sanitize() {
 # Returns: 0 on success, 1 on error
 ollama_api_get() {
   debug "ollama_api_get: [$1]"
-  local result error_curl
   curl -s -X GET "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json'
-  error_curl=$?
+  local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
     error "ollama_api_get: error_curl: $error_curl"
     return $RETURN_ERROR
   fi
-  debug "ollama_api_get: return 0"
+  debug 'ollama_api_get: return: 0'
   return $RETURN_SUCCESS
 }
 
@@ -111,15 +110,15 @@ ollama_api_get() {
 # Output: API call result, to stdout
 # Returns: 0 on success, 1 on error
 ollama_api_post() {
+  # TODO - truncate $2 if too large?
   debug "ollama_api_post: [$1] [$2]"
-  local result error_curl
   curl -s -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
-  error_curl=$?
+  local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
     error "ollama_api_get: error_curl: $error_curl"
     return $RETURN_ERROR
   fi
-  debug "ollama_api_post: return 0"
+  debug 'ollama_api_post: return 0'
   return $RETURN_SUCCESS
 }
 
@@ -130,10 +129,9 @@ ollama_api_post() {
 # Output: none
 # Returns: 0 if API is reachable, 1 if API is not reachable
 ollama_api_ping() {
-  debug "ollama_api_ping"
-  local result api_get_error
-  result=$(ollama_api_get "")
-  api_get_error=$?
+  debug 'ollama_api_ping'
+  local result=$(ollama_api_get "")
+  local api_get_error=$?
   if [ "$api_get_error" -gt 0 ]; then
     error "ollama_api_ping: error: $api_get_error"
     return $RETURN_ERROR
@@ -155,21 +153,21 @@ ollama_api_ping() {
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
+  # TODO - debug truncated $2 if too large
   debug "ollama_generate_json: [$1] [$2]"
   debug "ollama_generate_json: OLLAMA_LIB_STREAM: $OLLAMA_LIB_STREAM"
-  local json error_ollama_api_post
-  json="{\"model\":$(json_safe_value "$1"),\"prompt\":$(json_safe_value "$2")"
+  local json="{\"model\":$(json_safe_value "$1"),\"prompt\":$(json_safe_value "$2")"
   if [ "$OLLAMA_LIB_STREAM" -eq "0" ]; then
     json+=",\"stream\":false"
   fi
   json+="}"
   ollama_api_post "/api/generate" "$json"
-  error_ollama_api_post=$?
+  local error_ollama_api_post=$?
   if [ "$error_ollama_api_post" -gt 0 ]; then
     error "ollama_generate_json: error_ollama_api_post: $error_ollama_api_post"
     return $RETURN_ERROR
   fi
-  debug "ollama_generate_json: return: 0"
+  debug 'ollama_generate_json: return: 0'
   return $RETURN_SUCCESS
 }
 
@@ -179,18 +177,18 @@ ollama_generate_json() {
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate_stream_json() {
+  # TODO - debug truncated $2 if too large
   debug "ollama_generate_stream_json: [$1] [$2]"
-  local json response error_ollama_generate_json
   OLLAMA_LIB_STREAM=1 # Turn on streaming
   ollama_generate_json "$1" "$2"
-  error_ollama_generate_json=$?
-  echo # needed?
+  local error_ollama_generate_json=$?
+  # echo # needed?
   OLLAMA_LIB_STREAM=0 # Turn off streaming
   if [ "$error_ollama_generate_json" -gt 0 ]; then
     error "ollama_generate_stream_json: error_ollama_generate_json: $error_ollama_generate_json"
     return $RETURN_ERROR
   fi
-  debug "ollama_generate_stream_json: return: 0"
+  debug 'ollama_generate_stream_json: return: 0'
   return $RETURN_SUCCESS
 }
 
@@ -202,23 +200,23 @@ ollama_generate_stream_json() {
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate() {
+  # TODO - debug truncated $2 if too large
   debug "ollama_generate: [$1] [$2]"
-  local json result error_ollama_generate_json error_jq
   OLLAMA_LIB_STREAM=0
-  result=$(ollama_generate_json "$1" "$2")
-  error_ollama_generate_json=$?
+  local result=$(ollama_generate_json "$1" "$2")
+  local error_ollama_generate_json=$?
   debug "ollama_generate: result: $(echo "$result" | wc -c | sed 's/ //g') bytes"
   if [ "$error_ollama_generate_json" -gt 0 ]; then
     error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
     return $RETURN_ERROR
   fi
   jq_sanitize "$result" | jq -r ".response"
-  error_jq=$?
+  local error_jq=$?
   if [ "$error_jq" -gt 0 ]; then
     error "ollama_generate: error_jq: $error_jq [$response]"
     return $RETURN_ERROR
   fi
-  debug "ollama_generate_stream_json: return: 0"
+  debug 'ollama_generate_stream_json: return: 0'
   return $RETURN_SUCCESS
 }
 
@@ -231,8 +229,8 @@ ollama_generate() {
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
   debug "ollama_generate_stream: [$1] [$2]"
-  local line error_ollama_generate_json error_jq
   OLLAMA_LIB_STREAM=1 # Turn on streaming
+  local error_jq
   ollama_generate_json "$1" "$2" | while IFS= read -r line; do
     echo -n "$(jq_sanitize "$line" | jq -r ".response")"
     error_jq=$?
@@ -241,8 +239,8 @@ ollama_generate_stream() {
       return $RETURN_ERROR
     fi
   done
-  error_ollama_generate_json=$?
-  echo # needed?
+  local error_ollama_generate_json=$?
+  # echo # needed?
   OLLAMA_LIB_STREAM=0 # Turn off streaming
   if [ "$error_ollama_generate_json" -gt 0 ]; then
     error "ollama_generate_stream: error_ollama_generate_json: $error_ollama_generate_json"
@@ -275,10 +273,10 @@ ollama_messages() {
 # Output: none
 # Returns: 0 on success, 1 on error
 ollama_messages_add() {
-  debug "ollama_messages_add: [$1]"
-  local role message
-  role="$1"
-  message="$2"
+  # TODO - debug truncated $2
+  debug "ollama_messages_add: [$1] [$2]"
+  local role="$1"
+  local message="$2"
   OLLAMA_LIB_MESSAGES+=("{\"role\":$(json_safe_value "$role"),\"content\":$(json_safe_value "$message")}")
   return $RETURN_SUCCESS
 }
@@ -315,16 +313,14 @@ ollama_messages_count() {
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
   debug "ollama_chat_json: [$1]"
-  local model json result error_post error_jq_message_content
-
-  model="$1"
+  local model="$1"
   if [ -z "$model" ]; then
-    error "ollama_chat_json: Model Not Found. Usage: ollama_chat_json \"model\""
+    error 'ollama_chat_json: Model Not Found. Usage: ollama_chat_json "model"'
     return $RETURN_ERROR
   fi
 
   # TODO - use jq to build json? better/easier array handling
-  json="{\"model\":$(json_safe_value "$model"),\"messages\":["
+  local json="{\"model\":$(json_safe_value "$model"),\"messages\":["
   json+=$(printf "%s," "${OLLAMA_LIB_MESSAGES[@]}")
   json="$(echo "$json" | sed 's/,*$//g')" # strip last slash
   json+="]"
@@ -333,16 +329,16 @@ ollama_chat_json() {
   fi
   json+="}"
 
-  result=$(ollama_api_post "/api/chat" "$json")
-  error_post=$?
+  local result=$(ollama_api_post "/api/chat" "$json")
+  local error_post=$?
   if [ "$error_post" -gt 0 ]; then
     error "ollama_chat_json: error_post: $error_post"
     return $RETURN_ERROR
   fi
 
   content=$(jq_sanitize "$result" | jq -r ".message.content")
-  error_jq_message_content=$?
-  debug "ollama_chat_json: content: $content"
+  local error_jq_message_content=$?
+  debug "ollama_chat_json: content: [$content]"
   if [ "$error_jq_message_content" -gt 0 ]; then
     error "ollama_chat_json: error_jq_message_content: $error_jq_message_content"
     return $RETURN_ERROR
@@ -359,15 +355,14 @@ ollama_chat_json() {
 # Returns: 0 on success, 1 on error
 ollama_chat() {
   debug "ollama_chat: [$1]"
-  local model content error_jq_message_content
-  model="$1"
+  local model="$1"
   if [ -z "$model" ]; then
     error "ollama_chat: Model Not Found. Usage: ollama_chat \"model\""
     return $RETURN_ERROR
   fi
   OLLAMA_LIB_STREAM=0
-  content=$(jq_sanitize "$(ollama_chat_json "$model")" | jq -r ".message.content")
-  error_jq_message_content=$?
+  local content=$(jq_sanitize "$(ollama_chat_json "$model")" | jq -r ".message.content")
+  local error_jq_message_content=$?
   debug "ollama_chat: content: $content"
   if [ "$error_jq_message_content" -gt 0 ]; then
     error "ollama_chat: error_jq_message_content: $error_jq_message_content"
@@ -386,10 +381,9 @@ ollama_chat() {
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
   debug "ollama_chat_stream: [$1]"
-  local error_ollama_chat
   OLLAMA_LIB_STREAM=1
   ollama_chat "$1"
-  error_ollama_chat=$?
+  local error_ollama_chat=$?
   OLLAMA_LIB_STREAM=0
   if [ "$error_ollama_chat" -gt 0 ]; then
     error "ollama_chat_stream: error_ollama_chat: $error_ollama_chat"
@@ -406,10 +400,9 @@ ollama_chat_stream() {
 # Returns: 0 on success, 1 on error
 ollama_chat_stream_json() {
   debug "ollama_chat_stream_json: [$1]"
-  local error_ollama_json_chat
   OLLAMA_LIB_STREAM=1
   ollama_chat_json "$1"
-  error_ollama_json_chat=$?
+  local error_ollama_json_chat=$?
   OLLAMA_LIB_STREAM=0
   if [ "$error_ollama_json_chat" -gt 0 ]; then
     error "ollama_chat_stream_json: error_ollama_json_chat: $error_ollama_json_chat"
@@ -427,9 +420,8 @@ ollama_chat_stream_json() {
 # Returns: 0 on success, 1 on error
 ollama_list() {
   debug "ollama_list"
-  local error_list
   ollama list
-  error_list=$?
+  local error_list=$?
   if [ "$error_list" -gt 0 ]; then
     error "ollama_list: error_list: $error_list"
     return $RETURN_ERROR
@@ -444,9 +436,8 @@ ollama_list() {
 # Returns: 0 on success, 1 on error
 ollama_list_json() {
   debug "ollama_list_json"
-  local error_ollama_api_get
   ollama_api_get "/api/tags"
-  error_ollama_api_get=$?
+  local error_ollama_api_get=$?
   if [ "$error_ollama_api_get" -gt 0 ]; then
     error "ollama_list: error_ollama_api_get: $error_ollama_api_get"
     return $RETURN_ERROR
@@ -461,10 +452,9 @@ ollama_list_json() {
 # Returns: 0 on success, 1 on error
 ollama_list_array() {
   debug "ollama_list_array"
-  local models error_list
   # Get list from ollama cli, skip first line (headers), get first column (names), sort alphabetically
-  models=($(ollama list | awk '{if (NR > 1) print $1}' | sort))
-  error_list=$?
+  local models=($(ollama list | awk '{if (NR > 1) print $1}' | sort))
+  local error_list=$?
   if [ "$error_list" -gt 0 ]; then
     error "ollama_list_array: error_list: $error_list"
     return $RETURN_ERROR
@@ -482,8 +472,7 @@ ollama_list_array() {
 # Returns: 0 on success, 1 on error
 ollama_model_random() {
   debug "ollama_model_random"
-  local models
-  models=($(ollama_list_array))
+  local models=($(ollama_list_array))
   if [ ${#models[@]} -eq 0 ]; then
     error "ollama_model_random: No Models Found"
     return $RETURN_ERROR
@@ -500,14 +489,13 @@ ollama_model_random() {
 # Output: unload result, in json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_model_unload() {
-  debug result error_unload
+  debug 'ollama_model_unload'
   if [ -z "$1" ]; then
-    debug "Error: ollama_model_unload: no model"
+    debug 'Error: ollama_model_unload: no model'
     return $RETURN_ERROR
   fi
-  local response result error_unload
-  result=$(ollama_api_post "/api/generate" "{\"model\":$(json_safe_value "$1"),\"keep_alive\":0}")
-  error_unload=$?
+  local result=$(ollama_api_post "/api/generate" "{\"model\":$(json_safe_value "$1"),\"keep_alive\":0}")
+  local error_unload=$?
   if [ "$error_unload" -gt 0 ]; then
     error "ollama_model_unload: error_unload: $error_unload result: [$result]"
     return $RETURN_ERROR
