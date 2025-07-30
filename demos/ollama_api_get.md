@@ -1,12 +1,12 @@
 # ollama_api_get
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.5
 ## Demo
 ```
 
 ollama_api_get "/api/version"
 
-{"version":"0.10.0-rc0"}
+{"version":"0.10.0"}
 ollama_api_get "/error/path/not/found"
 
 404 page not found
@@ -21,7 +21,7 @@ OLLAMA_LIB_DEBUG=1
 
 ollama_api_get "/api/version"
 [DEBUG] ollama_api_get: [/api/version]
-{"version":"0.10.0-rc0"}[DEBUG] ollama_api_get: return: 0
+{"version":"0.10.0"}[DEBUG] ollama_api_get: return: 0
 ollama_api_get returned: 0
 
 ollama_api_get "/error/path/not/found"
