@@ -1,6 +1,6 @@
 # jq_sanitize
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.6
 
 Usage: `jq_sanitize "string"`
 
