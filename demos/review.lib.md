@@ -1,6 +1,6 @@
 # Code Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.5
 
 ## Review
 
@@ -10,223 +10,91 @@ prompt="Act as an expert Software Engineer.
 Do a full Code Review of this script:
 
 $(cat "../ollama_bash_lib.sh")"
-ollama_generate "gemma3n:e4b" "$prompt"
+ollama_generate "mistral:7b-instruct" "$prompt"
 ```
 ```
-This is a comprehensive and well-structured Bash library for interacting with the Ollama API. Here's a breakdown of the code, its functionality, and some potential improvements:
+ This Bash script is a library for interacting with an Ollama API. It defines several functions for debugging, error handling, JSON escaping and sanitization, making HTTP requests to the Ollama API, and generating completions. Here's a brief overview of the code:
 
-**Overall Structure and Design:**
+1. The script sets several variables related to the library, including its name, version, URL, license, copyright, API URL, debug mode, message array, and return values for success and error.
 
-* **Modular:** The code is organized into functions, each performing a specific task. This makes it easy to understand, maintain, and reuse.
-* **Error Handling:**  The use of `error` and returning `$RETURN_ERROR` provides a basic error handling mechanism.  This is good, but could be enhanced (see "Improvements" below).
-* **Configuration:**  The library relies heavily on environment variables (e.g., `OLLAMA_LIB_NAME`, `OLLAMA_LIB_VERSION`). This is a good practice for making the library configurable without modifying the code directly.
-* **Documentation:**  Each function has a comment block explaining its purpose, usage, input, output, and return value. This is excellent for usability.
-* **`debug` Statements:** The `debug` statements are helpful for tracing the execution of the script and identifying potential issues.  They can be enabled/disabled with the `-x` flag.
-* **`verbose` option:** The `estimate_tokens` function has a verbose option, which is useful for debugging and understanding the token estimation process.
+2. Internal functions include `debug`, `error`, `json_clean`, and `json_sanitize`. These are used for debugging messages, error handling, JSON escaping, and sanitizing JSON strings, respectively.
 
-**Function Breakdown:**
+3. API functions include `ollama_api_get`, `ollama_api_post`, and `ollama_api_ping`. These are used to make GET, POST, and ping requests to the Ollama API, respectively.
 
-* **`estimate_tokens()`:** This function is the most complex. It estimates the number of tokens in a given string. It handles both file input and piped input. It provides both a simple token count and a more detailed estimate with a range.
-* **`ollama_lib_about()`:**  Prints information about the library itself, including its name, version, URL, license, and a list of available functions.
-* **`ollama_lib_version()`:**  Prints the version number of the library.
-* **`ollama_version()`, `ollama_version_json()`, `ollama_version_cli()`:**  These functions retrieve the Ollama application version using different methods (API, JSON API, and CLI).
-* **`estimate_tokens()`:**  Estimates the number of tokens in a string.
-* **`ollama_lib_name`, `ollama_lib_version`, `ollama_lib_url`, `ollama_lib_license`, `ollama_lib_copyright`, `ollama_lib_debug`, `ollama_lib_api`, `ollama_lib_stream`, `ollama_lib_messages`:** These are utility variables that store information about the library.
+4. Generate functions include `ollama_generate_json`, `ollama_generate_stream_json`, `ollama_generate`, `ollama_generate_stream`, `ollama_messages`, `ollama_message_add`, `ollama_messages_clear`, and `ollama_messages_count`. These are used to generate completions as JSON, streaming JSON, text, or streaming text. They also manage the message array for storing messages during a conversation.
 
-**Potential Improvements:**
+5. There are some additional functions for handling messages, including `ollama_chat_json`, `ollama_chat`, `ollama_chat_stream_json`, and `ollama_chat_stream`. These are used to initiate and manage conversations with the Ollama API.
 
-1. **More Robust Error Handling:**
-   * **Exit Codes:** Instead of just returning `$RETURN_ERROR`, consider using meaningful exit codes (e.g., `exit 1`) to indicate errors. This is more standard in shell scripting.
-   * **Specific Error Messages:** Provide more specific error messages when errors occur.  For example, instead of just saying "error", say "Error: Could not connect to Ollama server."
-   * **`set -e`:**  Add `set -e` at the beginning of the script to ensure that the script exits immediately if any command fails.
+6. The script also includes some utility functions such as `estimate_tokens` for estimating the number of tokens in a string.
 
-2. **Input Validation:**
-   * **`estimate_tokens()`:** Validate the input to `estimate_tokens()` to ensure that it's a valid string or file path.
-   * **Argument Checks:**  Check the number of arguments passed to functions to ensure that they are correct.
+7. Lastly, there are some library-specific functions like `ollama_lib_about`, which provides information about the library, and `ollama_lib_version`, which returns the version of the library.
 
-3. **Asynchronous Operations:**
-   * If the library needs to perform long-running operations (e.g., downloading a model), consider using asynchronous operations to avoid blocking the main thread.  This could involve using `&` to run commands in the background.
+Overall, this script appears well-organized and easy to understand. However, here are a few suggestions for improvements:
 
-4. **Logging:**
-   * Implement logging to a file to record events and errors. This can be helpful for debugging and monitoring.
+1. Consider adding type definitions or comments for variables and functions to make it easier for others to understand the purpose and usage of each element.
+2. The script uses bash 4+ features such as array subscripting with `${array[@]}` and process substitution with `$(command)`. Make sure these features are supported in your target environment.
+3. The script does not handle errors gracefully in some places, especially when using external commands like `jq`, `wc`, or `sed`. Consider adding error checking and handling for these situations to prevent unexpected behavior.
+4. Consider using a linter such as ShellCheck (https://www.shellcheck.net/) to catch common mistakes and improve the overall quality of your script.
+5. If possible, consider moving some functionality into separate files or modules to make the script more modular and easier to maintain.
 
-5. **Documentation Generation:**
-   * Use a documentation generator (e.g., `doxygen`) to automatically generate documentation from the code comments.
-
-6. **Argument Parsing:**
-   * Use `getopts` to handle command-line arguments in a more robust and standardized way.  This would make the library easier to use from the command line.
-
-7. **Testing:**
-   * Write unit tests to ensure that the library functions are working correctly.  This can help to prevent regressions.
-
-8. **Consider using `jq` for more complex JSON parsing:** While the current code uses `jq` for parsing the Ollama API response, consider using it more consistently for all JSON parsing tasks. This can make the code more readable and maintainable.
-
-**Example Usage:**
-
-```bash
-# Get the Ollama version
-./ollama_lib --version
-
-# Get the Ollama version as JSON
-./ollama_lib --version_json
-
-# Get the Ollama version as a string (CLI)
-./ollama_lib --version_cli
-
-# Estimate the number of tokens in a string
-./ollama_lib estimate_tokens "This is a test string."
-
-# Estimate the number of tokens in a file
-./ollama_lib estimate_tokens my_text_file.txt
-
-# Estimate the number of tokens in a string with verbose output
-./ollama_lib estimate_tokens "This is a test string." 1
-
-# Get information about the library
-./ollama_lib_about
-
-# Get the library version
-./ollama_lib_version
-```
-
-**In summary, this is a well-written and useful library.  By incorporating the suggested improvements, you can make it even more robust, maintainable, and user-friendly.**
+Overall, this is a good starting point for interacting with an Ollama API using Bash. With some improvements, it could become a useful library for others to build upon.
 ```
 
 ## Review Debug
 
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate "gemma3n:e4b" "$prompt"
+OLLAMA_LIB_DEBUG=1 ollama_generate "mistral:7b-instruct" "$prompt"
 ```
 ```
-[DEBUG] ollama_generate: [gemma3n:e4b] [Act as an expert Software Engineer.
+[DEBUG] ollama_generate: [mistral:7b-instruct] [Act as an expert Software Engineer.
 Do a f]
-[DEBUG] ollama_generate_json: [gemma3n:e4b] [Act as an expert Software Engineer.
+[DEBUG] ollama_generate_json: [mistral:7b-instruct] [Act as an expert Software Engineer.
 Do a f]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] json_clean: 12 bytes [gemma3n:e4b]
-[DEBUG] json_clean: 23131 bytes [Act as an expert Software Engineer.
+[DEBUG] json_clean: 20 bytes [mistral:7b-instruct]
+[DEBUG] json_clean: 23236 bytes [Act as an expert Software Engineer.
 Do a f]
-[DEBUG] ollama_api_post: [/api/generate] [{"model":"gemma3n:e4b","prompt":"Act as an]
+[DEBUG] ollama_api_post: [/api/generate] [{"model":"mistral:7b-instruct","prompt":"A]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
-[DEBUG] ollama_generate: result: 66381 bytes
-[DEBUG] json_sanitize: 66381 bytes [{"model":"gemma3n:e4b","created_at":"2025-]
-[DEBUG] json_sanitize: sanitized: 66381 bytes [[{"model":"gemma3n:e4b","created_at":"2025-]]
-This is a comprehensive and well-structured Bash library for interacting with the Ollama API. Here's a breakdown of the code, its functionality, and potential improvements:
+[DEBUG] ollama_generate: result: 56411 bytes
+[DEBUG] json_sanitize: 56411 bytes [{"model":"mistral:7b-instruct","created_at]
+[DEBUG] json_sanitize: sanitized: 56411 bytes [[{"model":"mistral:7b-instruct","created_at]]
+ This Bash script is a library for interacting with an Ollama API. It defines various functions for debugging, error handling, JSON manipulation, API calls, and chat functionality. Here's a brief overview of the code:
 
-**Overall Structure and Organization:**
+1. The script initializes some variables such as the name, version, URL, license, copyright, API URL, debug mode, message array, and return values.
 
-*   **Clear Function Definitions:** Each function has a specific purpose, making the code easy to understand and maintain.
-*   **Error Handling:**  The use of `error` and returning `RETURN_ERROR` is good practice for handling potential issues during API calls.
-*   **Documentation:**  The comments at the beginning of each function clearly explain its purpose, arguments, and return values.
-*   **`LIB_` Prefix:** Using `LIB_` for variables related to the library itself is a good convention.
-*   **`debug` Statements:**  The `debug` statements are helpful for troubleshooting and understanding the flow of execution.  They can be easily removed or commented out in production.
-*   **`RETURN_SUCCESSS`:**  Using a constant for success return value is good practice.
+2. There are several internal functions for debugging (`debug`), error handling (`error`), cleaning a string for JSON use (`json_clean`), sanitizing a string for jq use (`json_sanitize`), and making API calls (`ollama_api_get`, `ollama_api_post`, `ollama_api_ping`).
 
-**Function Breakdown:**
+3. The API functions handle GET, POST, and ping requests to the Ollama API. They utilize the cURL command to make these requests.
 
-1.  **`ollama_lib_about`:**
-    *   Provides information about the library itself (name, version, URL, license, copyright).
-    *   Uses `compgen` to list the available functions in the library.
-    *   Checks if `compgen` is available.
-    *   Good for quickly understanding what the library can do.
+4. The generate functions are used for generating chat responses from the Ollama API. There are versions that return JSON (`ollama_generate_json`, `ollama_generate_stream_json`) and text (`ollama_generate`, `ollama_generate_stream`).
 
-2.  **`ollama_lib_version`:**
-    *   Returns the version number of the library.
-    *   Simple and straightforward.
+5. There are message-related functions for managing messages, such as getting all messages (`messages`), adding a message (`messages_add`), clearing all messages (`messages_clear`), and counting the number of messages (`messages_count`).
 
-3.  **`estimate_tokens`:**
-    *   Estimates the number of tokens in a given string.
-    *   Handles input from a file or a string argument.
-    *   Provides verbose output option.
-    *   Calculates token estimates using different methods (words, characters, bytes).
-    *   Provides a range of token estimates for more accurate results.
-    *   Good for estimating the cost of using a language model.
+6. The chat-related functions handle different ways of requesting a chat completion: JSON version (`ollama_chat_json`), text version (`ollama_chat`), streaming JSON version (`ollama_chat_stream_json`), and streaming text version (`ollama_chat_stream`).
 
-4.  **`ollama_version`:**
-    *   Retrieves the version of the Ollama application using the API.
-    *   Uses `jq` to parse the JSON response.
-    *   Handles errors if the API call fails.
+7. There are list functions for getting all available models in different formats: CLI version (`ollama_list`), JSON version (`ollama_list_json`), Bash array version (`ollama_list_array`), and getting a random model (`ollama_model_random`).
 
-5.  **`ollama_version_json`:**
-    *   Retrieves the version of the Ollama application using the API.
-    *   Returns the version as a JSON string.
-    *   Handles errors if the API call fails.
+8. There are functions for unloading a model from memory (`ollama_model_unload`) and checking if Ollama is installed on the local system (`ollama_installed`).
 
-6.  **`ollama_version_cli`:**
-    *   Retrieves the version of the Ollama application using the command-line interface.
-    *   Handles errors if the command fails.
+9. The script also includes functions for showing model information in text (`ollama_show`) and JSON format (`ollama_show_json`), as well as getting Ollama's environment variables (`ollama_vars`), version (`ollama_version`, `ollama_version_json`, `ollama_version_cli`), and utility functions for estimating the number of tokens in a string (`estimate_tokens`).
 
-7.  **`estimate_tokens`:**
-    *   Estimates the number of tokens in a given string.
-    *   Handles input from a file or a string argument.
-    *   Provides verbose output option.
-    *   Calculates token estimates using different methods (words, characters, bytes).
-    *   Provides a range of token estimates for more accurate results.
-    *   Good for estimating the cost of using a language model.
+10. Lastly, there are functions for about information on Ollama Bash Lib (`ollama_lib_about`) and its version (`ollama_lib_version`).
 
-8.  **`ollama_lib_name`:**
-    *   Returns the name of the library.
+Overall, this script is well-organized and easy to read. However, there are a few minor issues:
 
-9.  **`ollama_lib_version`:**
-    *   Returns the version of the library.
+1. There seems to be a typo in the `ollama_generate_stream_json` function where it turns off streaming after the chat request has already been made. This might cause unexpected behavior.
 
-10. **`ollama_lib_url`:**
-    *   Returns the URL of the library.
+2. The script uses `sed` for some string manipulation, but it would be more idiomatic to use `cut`, `awk`, or parameter expansion when appropriate (e.g., removing the last slash in the `json` variable construction).
 
-11. **`ollama_lib_license`:**
-    *   Returns the license of the library.
+3. There are a few commented-out TODO items that could benefit from attention, such as replacing control characters instead of removing them in the `json_sanitize` function.
 
-12. **`ollama_lib_copyright`:**
-    *   Returns the copyright of the library.
+4. Some functions use return values for error handling, but others use global variables (e.g., `error` and `debug`). It would be more consistent to use either return values or global variables throughout the script.
 
-13. **`ollama_lib_debug`:**
-    *   Returns a debug message.
+5. The script could benefit from better documentation of each function's purpose and usage in comments at the beginning of the function definitions. This would make it easier for others to understand how to use the library.
 
-14. **`ollama_lib_api`:**
-    *   Returns the API version.
-
-15. **`ollama_lib_stream`:**
-    *   Returns the stream version.
-
-16. **`ollama_lib_messages`:**
-    *   Returns the messages version.
-
-**Potential Improvements:**
-
-*   **Error Handling:** While error handling exists, consider adding more specific error messages to help with debugging.  For example, if `jq` fails to parse the JSON, provide a more informative error message.
-*   **Input Validation:**  Add input validation to functions like `estimate_tokens` to ensure that the input is valid (e.g., the file exists, the string is not too long).
-*   **Configuration:**  Consider using a configuration file or environment variables to store settings like the Ollama API endpoint, API key, and other parameters.
-*   **Asynchronous Operations:** For long-running operations (e.g., downloading models), consider using asynchronous operations to avoid blocking the main thread.
-*   **Logging:**  Implement logging to record events and errors for debugging and monitoring purposes.
-*   **More Functions:**  Add more functions to cover a wider range of Ollama API operations (e.g., downloading models, managing models, running models).
-*   **Parameter Validation:** Validate parameters passed to functions to prevent unexpected behavior.
-*   **Return Codes:**  Use standard return codes (e.g., 0 for success, non-zero for failure) to indicate the outcome of function calls.
-*   **Documentation Generation:**  Use a tool like `doxygen` to automatically generate documentation from the code comments.
-*   **Testing:**  Write unit tests to ensure that the functions work correctly.
-
-**Example Usage:**
-
-```bash
-# Get the Ollama version
-o_version
-
-# Estimate the number of tokens in a file
-estimate_tokens my_text_file.txt
-
-# Estimate the number of tokens in a string with verbose output
-estimate_tokens "This is a test string." 1
-
-# Get the library version
-o_lib_version
-
-# Get library information
-o_lib_about
-```
-
-**Key Takeaways:**
-
-This is a well-written and useful library for interacting with the Ollama API.  By incorporating the suggested improvements, you can make it even more robust, maintainable, and user-friendly.  The clear structure and documentation make it easy to understand and extend.  The `estimate_tokens` function is particularly valuable for managing costs when using language models.
+6. Finally, consider using a consistent indentation style across the entire script for improved readability.
 [DEBUG] ollama_generate: return: 0
 ```
