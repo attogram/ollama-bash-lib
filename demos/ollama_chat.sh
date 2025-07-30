@@ -37,10 +37,10 @@ demo() {
   ollama_chat "$model"
   echo '```'
   echo '```bash'
-  echo 'ollama_messages | jq -c'
+  echo 'ollama_messages | jq'
   echo '```'
   echo '```json'
-  ollama_messages | jq -c
+  ollama_messages | jq
   echo '```'
 }
 
