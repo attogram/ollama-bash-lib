@@ -1,12 +1,68 @@
-# Review of README.md
+# Review of [README.md](../README.md)
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
+
+## Review
+
 
 ```bash
 prompt="Act as an expert Software Engineer.
 Do a full review of this README:
 
 $(cat "../README.md")"
-ollama_generate_stream "qwen2.5vl:7b" "$prompt"
+ollama_generate_ "hermes3:8b" "$prompt"
 ```
-This README is quite comprehensive and provides a lot of information about the `Ollama Bash Lib`. Here's a detailed review:### Overall StructureThe README is well-organized into sections that cover the following:1. **Introduction**2. **Usage**3. **Demos**4. **Functions**5. **Requirements**6. **License**7. **More Projects**### UsageThe usage section is clear and provides instructions on how to include the library in a shell or script. It also includes error checking, which is a good practice.### DemosThe demos section is well-structured with a table that lists each demo script, its purpose, and an example. This is very helpful for users who want to see how the library can be used in practice.### FunctionsThe functions section is divided into several sub-sections, each detailing the available functions and their usage. The table format is consistent and easy to read. Each function is documented with a brief description, usage, output, and return values. This is very helpful for users who want to understand the functionality of the library.### RequirementsThe requirements section lists all the dependencies needed to use the library. This is important for users to ensure they have all the necessary tools installed.### LicenseThe license section clearly states that the library is licensed under the MIT License. This is standard and helps users understand the terms under which they can use the library.### More ProjectsThe "More Projects" section lists other projects related to AI from the Attogram project. This is a good way to encourage users to explore other projects and resources.### Suggestions for Improvement1. **Consistency in Table Headers**: Ensure that the headers in the table are consistent across all sections. For example, the headers in the "Functions" section should match the format used in the "Demos" section.2. **Documentation for Internal Functions**: The internal functions are not documented in the same way as the other functions. It would be helpful to have a brief description of what each internal function does.3. **Example Usage**: It would be beneficial to have a few examples of how to use the library in a complete script or shell session. This would help users understand how to integrate the library into their own scripts.4. **Error Handling**: The error handling in the demos section is good, but it would be helpful to have more detailed error handling examples in the documentation.5. **Versioning**: Mentioning the version of the library in the README would be helpful for users who want to track updates and dependencies.### ConclusionOverall, the README is well-structured and provides a lot of useful information. The inclusion of demos, detailed function descriptions, and a clear list of requirements make it a valuable resource for users. The only suggestions for improvement are to ensure consistency in table headers, provide more documentation for internal functions, and include more examples and error handling. With these improvements, the README would be even more comprehensive and user-friendly.
+```
+Here is a full review of the provided README for the Ollama Bash Lib:
+
+The README provides a good overview of the Ollama Bash Lib project, including its purpose, features, usage instructions, and various functions. However, there are some areas that could be improved or expanded upon to enhance clarity and completeness.
+
+1. Introduction:
+   The introduction briefly describes what the Ollama Bash Lib is and how it interacts with the Ollama project. It should provide more context about why this library was created and its main goals.
+
+2. Demos:
+   The demos section showcases different usage examples of the library's functions. While it's helpful to see actual scripts, the descriptions could be more detailed, explaining what each demo achieves and how it can be useful to users.
+
+3. Functions:
+   The "Functions" section is comprehensive, listing all the available functions in various categories like API, Generate, Chat, Model, Ollama, Utility, and Internal. Each function description should include a brief explanation of its purpose, input parameters (if any), and output format. Additionally, mentioning the return values or error codes for each function would be beneficial.
+
+4. Requirements:
+   The requirements section lists the necessary command-line tools needed to use the Ollama Bash Lib. However, it could be improved by also specifying the minimum versions of these tools required for compatibility.
+
+5. License:
+   The project's license is clearly stated at the end, which is good practice. Consider adding a link to the full license text or providing a copy directly in the README if it's short enough.
+
+6. More AI from the Attogram Project:
+   This section provides links to other related projects by the same author. While it's helpful for users who are interested in exploring more, this information could be better integrated into the main content flow of the README.
+
+7. Formatting and Readability:
+   The formatting of the README is generally good, with clear headings and a clean structure. However, there are instances where indentation and spacing could be improved to enhance readability, especially in code snippets and function descriptions.
+
+8. Error Handling:
+   While some functions mention return values or error codes, a more comprehensive discussion on how errors are handled across the library would be beneficial. For example, what happens if required dependencies are not found?
+
+9. Installation Instructions:
+   The README could include step-by-step installation instructions for users who want to set up and start using the Ollama Bash Lib in their own environment.
+
+Overall, the README provides a solid foundation for understanding the project but could benefit from some enhancements in clarity, completeness, and additional context to help users get started more easily.
+```
+
+## Review Debug
+
+
+```bash
+OLLAMA_DEBUG=1 ollama_generate "hermes3:8b" "$prompt"
+```
+```
+Here are some suggestions to improve the README:
+
+1. Add a brief introduction or overview of what Ollama Bash Lib is and why it's useful.
+2. Consider adding a "Features" section that highlights the key capabilities or unique aspects of your library.
+3. In the Functions sections, provide more detailed descriptions for each function, including input parameters and expected outputs. The current table format looks good, but with additional details.
+4. For the Demos section, instead of just linking to example files, consider providing brief explanations of what each demo does and why it might be useful or interesting.
+5. In the License section, you may want to include a link to the MIT license for easier access.
+6. In the More AI from the Attogram Project section, add links to the GitHub repos so users can easily navigate to them.
+7. Consider adding a Contributing and/or Contact section where users can provide feedback or contribute their own demos/examples.
+
+Overall, your README provides useful information about Ollama Bash Lib but could benefit from some additional context and detail to help users understand its purpose and how to use it effectively.
+```

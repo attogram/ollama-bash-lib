@@ -14,19 +14,19 @@ startup() {
 
 startup
 
-echo '```'
-
 model=$(ollama_model_random)
-echo
-echo "model: $model"
 
 echo
 echo "ollama_show \"$model\""
 echo
+echo '```'
 ollama_show "$model"
+echo '```'
+echo
 
 echo
 echo "ollama_show_json \"$model\""
 echo
-ollama_show_json "$model" | jq "."
+echo '```'
+ollama_show_json "$model" | jq
 echo '```'

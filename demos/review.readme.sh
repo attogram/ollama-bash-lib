@@ -17,18 +17,33 @@ startup
 model="$(ollama_model_random)"
 
 echo
+echo '## Review'
+echo
+
+echo
 echo '```bash'
 echo 'prompt="Act as an expert Software Engineer.
 Do a full review of this README:
 
 $(cat "../README.md")"'
-echo "ollama_generate_stream \"$model\" \"\$prompt\""
+echo "ollama_generate \"$model\" \"\$prompt\""
 echo '```'
-
 prompt="Act as an expert Software Engineer.
 Do a full review of this README:
 
 $(cat "../README.md")"
+echo '```'
+ollama_generate "$model" "$prompt"
+echo '```'
 
-#ollama_generate "$model" "$prompt"
-ollama_generate_stream "$model" "$prompt"
+echo
+echo '## Review Debug'
+echo
+
+echo
+echo '```bash'
+echo "OLLAMA_DEBUG=1 ollama_generate \"$model\" \"\$prompt\""
+echo '```'
+echo '```'
+OLLAMA_DEBUG=1 ollama_generate "$model" "$prompt"
+echo '```'
