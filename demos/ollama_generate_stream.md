@@ -1,504 +1,580 @@
 # ollama_generate_stream
 
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
 
 ## Demo
 
 ```bash
-ollama_generate_stream "qwen3:4b" "Describe a rabbit in 2 short sentences"
+ollama_generate_stream "qwen3:1.7b" "Describe a rabbit in 2 short sentences"
 ```
 ```
-<think>Okay, the user wants me to describe a rabbit in two short sentences. Let me start by recalling the key features of a rabbit. They have long ears, fluffy fur, and are usually soft and cute. I should mention their size, maybe their habitat, and their behavior. Also, I need to keep each sentence concise.First sentence: Maybe start with physical characteristics. "A rabbit is a small, soft-furred mammal with long ears and a twitching nose, often found in grassy areas." That covers appearance and habitat.Second sentence: Focus on behavior and maybe their diet. "It is known for its quick movements, gentle nature, and preference for eating plants and vegetables." That includes movement, temperament, and diet. Let me check if that's two sentences. Yes. Does it cover all necessary points? Maybe add something about their eyes? But the user said short sentences, so perhaps that's enough. I think that works.</think>A rabbit is a small, soft-furred mammal with long ears and a twitching nose, often found in grassy areas. It is known for its quick movements, gentle nature, and preference for eating plants and vegetables.
+<think>Okay, the user wants a description of a rabbit in two short sentences. Let me think about the key aspects of a rabbit. First, their physical characteristics. They have long ears, which are important for hearing and sensing the environment. Then their fur, which is usually fluffy, especially in winter. Maybe mention their color, like brown or gray.Next, their behavior. Rabbits are often associated with being timid or cautious. They might run quickly when threatened. Also, their movement—how they hop or bound. Maybe include their habitat, like grasslands or gardens. Oh, and their diet, eating plants. But since it's two sentences, I need to be concise.Let me structure the first sentence about appearance and habitat. "A rabbit is a small, agile mammal with long ears and fluffy fur, commonly found in grasslands and gardens." Then the second sentence about behavior and movement. "It moves swiftly, using its powerful hind legs to hop or bound, often evading predators with quick, precise actions." Wait, should I mention the color? Maybe not if the user doesn't specify. But the question is general, so maybe it's okay to keep it general. Also, maybe add something about their natural instincts, like digging or grazing. But that might be too detailed. Let me check the word count. Two sentences, each with a few details. Yeah, that should work.</think>A rabbit is a small, agile mammal with long ears and fluffy fur, commonly found in grasslands and gardens. It moves swiftly, using its powerful hind legs to hop or bound, often evading predators with quick, precise actions.
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_stream "qwen3:4b" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_stream "qwen3:1.7b" "Describe a rabbit in 2 short sentences"`
 ```
 ```json
-[DEBUG] ollama_generate_stream: [qwen3:4b] [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_generate_json: [qwen3:4b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_stream: [qwen3:1.7b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [qwen3:1.7b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 1
-[DEBUG] json_safe_value: 9 bytes [qwen3:4b]
+[DEBUG] json_safe_value: 11 bytes [qwen3:1.7b]
 [DEBUG] json_safe_value: 39 bytes [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_api_post: [/api/generate] [{"model":"qwen3:4b","prompt":"Describe a rabbit in 2 short sentences"}]
-[DEBUG] jq_sanitize: 108 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.262763Z","response":"\u003cthink\u003e","done":false}]
-[DEBUG] jq_sanitized: return: 0
-<think>[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.29796Z","response":"
+[DEBUG] ollama_api_post: [/api/generate] [{"model":"qwen3:1.7b","prompt":"Describe a rabbit in 2 short sentences"}]
+[DEBUG] jq_sanitize: 110 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:16.929689Z","response":"\u003cthink\u003e","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:16.929689Z","response":"\u003cthink\u003e","done":false}]
+<think>[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:16.947411Z","response":"
 ","done":false}]
-[DEBUG] jq_sanitized: return: 0
-[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.333711Z","response":"Okay","done":false}]
-[DEBUG] jq_sanitized: return: 0
-Okay[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.369458Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.405006Z","response":" the","done":false}]
-[DEBUG] jq_sanitized: return: 0
- the[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.440095Z","response":" user","done":false}]
-[DEBUG] jq_sanitized: return: 0
- user[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.475047Z","response":" wants","done":false}]
-[DEBUG] jq_sanitized: return: 0
- wants[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.509952Z","response":" me","done":false}]
-[DEBUG] jq_sanitized: return: 0
- me[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.544662Z","response":" to","done":false}]
-[DEBUG] jq_sanitized: return: 0
- to[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.579249Z","response":" describe","done":false}]
-[DEBUG] jq_sanitized: return: 0
- describe[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.614145Z","response":" a","done":false}]
-[DEBUG] jq_sanitized: return: 0
- a[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.649008Z","response":" rabbit","done":false}]
-[DEBUG] jq_sanitized: return: 0
- rabbit[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.683956Z","response":" in","done":false}]
-[DEBUG] jq_sanitized: return: 0
- in[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.718817Z","response":" two","done":false}]
-[DEBUG] jq_sanitized: return: 0
- two[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.753717Z","response":" short","done":false}]
-[DEBUG] jq_sanitized: return: 0
- short[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.788599Z","response":" sentences","done":false}]
-[DEBUG] jq_sanitized: return: 0
- sentences[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.823519Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.85874Z","response":" Let","done":false}]
-[DEBUG] jq_sanitized: return: 0
- Let[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.893943Z","response":" me","done":false}]
-[DEBUG] jq_sanitized: return: 0
- me[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.929117Z","response":" start","done":false}]
-[DEBUG] jq_sanitized: return: 0
- start[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.964445Z","response":" by","done":false}]
-[DEBUG] jq_sanitized: return: 0
- by[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:13.999907Z","response":" recalling","done":false}]
-[DEBUG] jq_sanitized: return: 0
- recalling[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.035342Z","response":" the","done":false}]
-[DEBUG] jq_sanitized: return: 0
- the[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.070701Z","response":" key","done":false}]
-[DEBUG] jq_sanitized: return: 0
- key[DEBUG] jq_sanitize: 107 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.105917Z","response":" characteristics","done":false}]
-[DEBUG] jq_sanitized: return: 0
- characteristics[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.141115Z","response":" of","done":false}]
-[DEBUG] jq_sanitized: return: 0
- of[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.176413Z","response":" a","done":false}]
-[DEBUG] jq_sanitized: return: 0
- a[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.211956Z","response":" rabbit","done":false}]
-[DEBUG] jq_sanitized: return: 0
- rabbit[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.247296Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.282481Z","response":" They","done":false}]
-[DEBUG] jq_sanitized: return: 0
- They[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.317618Z","response":" have","done":false}]
-[DEBUG] jq_sanitized: return: 0
- have[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.352843Z","response":" long","done":false}]
-[DEBUG] jq_sanitized: return: 0
- long[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.387997Z","response":" ears","done":false}]
-[DEBUG] jq_sanitized: return: 0
- ears[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.423147Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.458252Z","response":" fluffy","done":false}]
-[DEBUG] jq_sanitized: return: 0
- fluffy[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.493407Z","response":" fur","done":false}]
-[DEBUG] jq_sanitized: return: 0
- fur[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.528669Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.563786Z","response":" and","done":false}]
-[DEBUG] jq_sanitized: return: 0
- and[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.59897Z","response":" are","done":false}]
-[DEBUG] jq_sanitized: return: 0
- are[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.634067Z","response":" usually","done":false}]
-[DEBUG] jq_sanitized: return: 0
- usually[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.669233Z","response":" soft","done":false}]
-[DEBUG] jq_sanitized: return: 0
- soft[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.704408Z","response":" and","done":false}]
-[DEBUG] jq_sanitized: return: 0
- and[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.739619Z","response":" round","done":false}]
-[DEBUG] jq_sanitized: return: 0
- round[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.774749Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.809905Z","response":" I","done":false}]
-[DEBUG] jq_sanitized: return: 0
- I[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.84508Z","response":" should","done":false}]
-[DEBUG] jq_sanitized: return: 0
- should[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.880323Z","response":" mention","done":false}]
-[DEBUG] jq_sanitized: return: 0
- mention[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.915481Z","response":" their","done":false}]
-[DEBUG] jq_sanitized: return: 0
- their[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.950757Z","response":" color","done":false}]
-[DEBUG] jq_sanitized: return: 0
- color[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:14.986314Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.021823Z","response":" maybe","done":false}]
-[DEBUG] jq_sanitized: return: 0
- maybe[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.057424Z","response":" different","done":false}]
-[DEBUG] jq_sanitized: return: 0
- different[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.092938Z","response":" shades","done":false}]
-[DEBUG] jq_sanitized: return: 0
- shades[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.128408Z","response":" like","done":false}]
-[DEBUG] jq_sanitized: return: 0
- like[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.163876Z","response":" brown","done":false}]
-[DEBUG] jq_sanitized: return: 0
- brown[DEBUG] jq_sanitize: 91 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.19948Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.235031Z","response":" white","done":false}]
-[DEBUG] jq_sanitized: return: 0
- white[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.270548Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.306042Z","response":" or","done":false}]
-[DEBUG] jq_sanitized: return: 0
- or[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.341491Z","response":" gray","done":false}]
-[DEBUG] jq_sanitized: return: 0
- gray[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.376893Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.412326Z","response":" Also","done":false}]
-[DEBUG] jq_sanitized: return: 0
- Also[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.447754Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.483198Z","response":" their","done":false}]
-[DEBUG] jq_sanitized: return: 0
- their[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.518674Z","response":" behavior","done":false}]
-[DEBUG] jq_sanitized: return: 0
- behavior[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.554194Z","response":"—","done":false}]
-[DEBUG] jq_sanitized: return: 0
-—[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.589646Z","response":"like","done":false}]
-[DEBUG] jq_sanitized: return: 0
-like[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.625109Z","response":" hopping","done":false}]
-[DEBUG] jq_sanitized: return: 0
- hopping[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.660585Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.696025Z","response":" being","done":false}]
-[DEBUG] jq_sanitized: return: 0
- being[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.73147Z","response":" cautious","done":false}]
-[DEBUG] jq_sanitized: return: 0
- cautious[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.766865Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.802283Z","response":" or","done":false}]
-[DEBUG] jq_sanitized: return: 0
- or[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.837731Z","response":" having","done":false}]
-[DEBUG] jq_sanitized: return: 0
- having[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.873185Z","response":" a","done":false}]
-[DEBUG] jq_sanitized: return: 0
- a[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.908638Z","response":" gentle","done":false}]
-[DEBUG] jq_sanitized: return: 0
- gentle[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.944226Z","response":" nature","done":false}]
-[DEBUG] jq_sanitized: return: 0
- nature[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:15.979771Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.015522Z","response":" I","done":false}]
-[DEBUG] jq_sanitized: return: 0
- I[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.050797Z","response":" need","done":false}]
-[DEBUG] jq_sanitized: return: 0
- need[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.086465Z","response":" to","done":false}]
-[DEBUG] jq_sanitized: return: 0
- to[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.122082Z","response":" keep","done":false}]
-[DEBUG] jq_sanitized: return: 0
- keep[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.157757Z","response":" each","done":false}]
-[DEBUG] jq_sanitized: return: 0
- each[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.19336Z","response":" sentence","done":false}]
-[DEBUG] jq_sanitized: return: 0
- sentence[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.228931Z","response":" concise","done":false}]
-[DEBUG] jq_sanitized: return: 0
- concise[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.264627Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.300258Z","response":" First","done":false}]
-[DEBUG] jq_sanitized: return: 0
- First[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.335854Z","response":" sentence","done":false}]
-[DEBUG] jq_sanitized: return: 0
- sentence[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.371428Z","response":" could","done":false}]
-[DEBUG] jq_sanitized: return: 0
- could[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.406975Z","response":" focus","done":false}]
-[DEBUG] jq_sanitized: return: 0
- focus[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.442565Z","response":" on","done":false}]
-[DEBUG] jq_sanitized: return: 0
- on[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.478196Z","response":" physical","done":false}]
-[DEBUG] jq_sanitized: return: 0
- physical[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.513762Z","response":" appearance","done":false}]
-[DEBUG] jq_sanitized: return: 0
- appearance[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.549343Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.584922Z","response":" second","done":false}]
-[DEBUG] jq_sanitized: return: 0
- second[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.62058Z","response":" on","done":false}]
-[DEBUG] jq_sanitized: return: 0
- on[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.656167Z","response":" behavior","done":false}]
-[DEBUG] jq_sanitized: return: 0
- behavior[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.691765Z","response":" and","done":false}]
-[DEBUG] jq_sanitized: return: 0
- and[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.727349Z","response":" personality","done":false}]
-[DEBUG] jq_sanitized: return: 0
- personality[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.762897Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.798504Z","response":" Let","done":false}]
-[DEBUG] jq_sanitized: return: 0
- Let[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.834067Z","response":" me","done":false}]
-[DEBUG] jq_sanitized: return: 0
- me[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.869653Z","response":" check","done":false}]
-[DEBUG] jq_sanitized: return: 0
- check[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.90523Z","response":" if","done":false}]
-[DEBUG] jq_sanitized: return: 0
- if[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.941136Z","response":" I","done":false}]
-[DEBUG] jq_sanitized: return: 0
- I[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:16.976709Z","response":"'m","done":false}]
-[DEBUG] jq_sanitized: return: 0
-'m[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.014628Z","response":" covering","done":false}]
-[DEBUG] jq_sanitized: return: 0
- covering[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.052306Z","response":" all","done":false}]
-[DEBUG] jq_sanitized: return: 0
- all[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.087984Z","response":" the","done":false}]
-[DEBUG] jq_sanitized: return: 0
- the[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.123571Z","response":" main","done":false}]
-[DEBUG] jq_sanitized: return: 0
- main[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.159091Z","response":" points","done":false}]
-[DEBUG] jq_sanitized: return: 0
- points[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.194658Z","response":" without","done":false}]
-[DEBUG] jq_sanitized: return: 0
- without[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.23018Z","response":" being","done":false}]
-[DEBUG] jq_sanitized: return: 0
- being[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.266117Z","response":" too","done":false}]
-[DEBUG] jq_sanitized: return: 0
- too[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.301986Z","response":" word","done":false}]
-[DEBUG] jq_sanitized: return: 0
- word[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.337861Z","response":"y","done":false}]
-[DEBUG] jq_sanitized: return: 0
-y[DEBUG] jq_sanitize: 91 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.37372Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.409595Z","response":" Maybe","done":false}]
-[DEBUG] jq_sanitized: return: 0
- Maybe[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.445481Z","response":" something","done":false}]
-[DEBUG] jq_sanitized: return: 0
- something[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.481322Z","response":" like","done":false}]
-[DEBUG] jq_sanitized: return: 0
- like[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.517213Z","response":":","done":false}]
-[DEBUG] jq_sanitized: return: 0
-:[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.553006Z","response":" \"","done":false}]
-[DEBUG] jq_sanitized: return: 0
- "[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.588902Z","response":"A","done":false}]
-[DEBUG] jq_sanitized: return: 0
-A[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.624777Z","response":" rabbit","done":false}]
-[DEBUG] jq_sanitized: return: 0
- rabbit[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.660656Z","response":" has","done":false}]
-[DEBUG] jq_sanitized: return: 0
- has[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.696516Z","response":" soft","done":false}]
-[DEBUG] jq_sanitized: return: 0
- soft[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.732423Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.768325Z","response":" fluffy","done":false}]
-[DEBUG] jq_sanitized: return: 0
- fluffy[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.804181Z","response":" fur","done":false}]
-[DEBUG] jq_sanitized: return: 0
- fur[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.840065Z","response":" and","done":false}]
-[DEBUG] jq_sanitized: return: 0
- and[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.875987Z","response":" long","done":false}]
-[DEBUG] jq_sanitized: return: 0
- long[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.911875Z","response":" ears","done":false}]
-[DEBUG] jq_sanitized: return: 0
- ears[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.947996Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:17.983881Z","response":" often","done":false}]
-[DEBUG] jq_sanitized: return: 0
- often[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.019788Z","response":" sporting","done":false}]
-[DEBUG] jq_sanitized: return: 0
- sporting[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.05583Z","response":" a","done":false}]
-[DEBUG] jq_sanitized: return: 0
- a[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.091673Z","response":" variety","done":false}]
-[DEBUG] jq_sanitized: return: 0
- variety[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.127528Z","response":" of","done":false}]
-[DEBUG] ollama_api_post: return 0
-[DEBUG] ollama_generate_json: return: 0
-[DEBUG] jq_sanitized: return: 0
- of[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.163388Z","response":" colors","done":false}]
-[DEBUG] jq_sanitized: return: 0
- colors[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.199275Z","response":" like","done":false}]
-[DEBUG] jq_sanitized: return: 0
- like[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.235217Z","response":" brown","done":false}]
-[DEBUG] jq_sanitized: return: 0
- brown[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.271033Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.306948Z","response":" white","done":false}]
-[DEBUG] jq_sanitized: return: 0
- white[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.342846Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.378759Z","response":" or","done":false}]
-[DEBUG] jq_sanitized: return: 0
- or[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.414823Z","response":" gray","done":false}]
-[DEBUG] jq_sanitized: return: 0
- gray[DEBUG] jq_sanitize: 90 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.4509Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.487049Z","response":" They","done":false}]
-[DEBUG] jq_sanitized: return: 0
- They[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.523258Z","response":" are","done":false}]
-[DEBUG] jq_sanitized: return: 0
- are[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.559465Z","response":" gentle","done":false}]
-[DEBUG] jq_sanitized: return: 0
- gentle[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.595653Z","response":" creatures","done":false}]
-[DEBUG] jq_sanitized: return: 0
- creatures[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.631843Z","response":" known","done":false}]
-[DEBUG] jq_sanitized: return: 0
- known[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.668069Z","response":" for","done":false}]
-[DEBUG] jq_sanitized: return: 0
- for[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.704116Z","response":" their","done":false}]
-[DEBUG] jq_sanitized: return: 0
- their[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.740175Z","response":" quick","done":false}]
-[DEBUG] jq_sanitized: return: 0
- quick[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.776389Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.812482Z","response":" hopping","done":false}]
-[DEBUG] jq_sanitized: return: 0
- hopping[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.848649Z","response":" movements","done":false}]
-[DEBUG] jq_sanitized: return: 0
- movements[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.884757Z","response":" and","done":false}]
-[DEBUG] jq_sanitized: return: 0
- and[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.92087Z","response":" cautious","done":false}]
-[DEBUG] jq_sanitized: return: 0
- cautious[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.957286Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:18.993355Z","response":" curious","done":false}]
-[DEBUG] jq_sanitized: return: 0
- curious[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.029642Z","response":" nature","done":false}]
-[DEBUG] jq_sanitized: return: 0
- nature[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.06588Z","response":".\"","done":false}]
-[DEBUG] jq_sanitized: return: 0
-."[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.101959Z","response":" That","done":false}]
-[DEBUG] jq_sanitized: return: 0
- That[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.138041Z","response":" seems","done":false}]
-[DEBUG] jq_sanitized: return: 0
- seems[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.174109Z","response":" to","done":false}]
-[DEBUG] jq_sanitized: return: 0
- to[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.210228Z","response":" cover","done":false}]
-[DEBUG] jq_sanitized: return: 0
- cover[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.246397Z","response":" it","done":false}]
-[DEBUG] jq_sanitized: return: 0
- it[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.282526Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.318618Z","response":" Let","done":false}]
-[DEBUG] jq_sanitized: return: 0
- Let[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.354699Z","response":" me","done":false}]
-[DEBUG] jq_sanitized: return: 0
- me[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.391722Z","response":" make","done":false}]
-[DEBUG] jq_sanitized: return: 0
- make[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.428346Z","response":" sure","done":false}]
-[DEBUG] jq_sanitized: return: 0
- sure[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.46508Z","response":" each","done":false}]
-[DEBUG] jq_sanitized: return: 0
- each[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.501885Z","response":" sentence","done":false}]
-[DEBUG] jq_sanitized: return: 0
- sentence[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.538932Z","response":" is","done":false}]
-[DEBUG] jq_sanitized: return: 0
- is[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.576071Z","response":" a","done":false}]
-[DEBUG] jq_sanitized: return: 0
- a[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.613337Z","response":" complete","done":false}]
-[DEBUG] jq_sanitized: return: 0
- complete[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.650574Z","response":" thought","done":false}]
-[DEBUG] jq_sanitized: return: 0
- thought[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.687977Z","response":" and","done":false}]
-[DEBUG] jq_sanitized: return: 0
- and[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.725295Z","response":" not","done":false}]
-[DEBUG] jq_sanitized: return: 0
- not[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.762837Z","response":" too","done":false}]
-[DEBUG] jq_sanitized: return: 0
- too[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.8003Z","response":" long","done":false}]
-[DEBUG] jq_sanitized: return: 0
- long[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.837604Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.874924Z","response":" Yeah","done":false}]
-[DEBUG] jq_sanitized: return: 0
- Yeah[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.912378Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.950104Z","response":" that","done":false}]
-[DEBUG] jq_sanitized: return: 0
- that[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:19.987715Z","response":" works","done":false}]
-[DEBUG] jq_sanitized: return: 0
- works[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.025745Z","response":".
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:16.947411Z","response":"
 ","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 109 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.063087Z","response":"\u003c/think\u003e","done":false}]
-[DEBUG] jq_sanitized: return: 0
-</think>[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.100689Z","response":"
+[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:16.964821Z","response":"Okay","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:16.964821Z","response":"Okay","done":false}]
+Okay[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:16.982366Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:16.982366Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.000133Z","response":" the","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.000133Z","response":" the","done":false}]
+ the[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.017959Z","response":" user","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.017959Z","response":" user","done":false}]
+ user[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.035673Z","response":" wants","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.035673Z","response":" wants","done":false}]
+ wants[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.053176Z","response":" me","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.053176Z","response":" me","done":false}]
+ me[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.070862Z","response":" to","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.070862Z","response":" to","done":false}]
+ to[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.088872Z","response":" describe","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.088872Z","response":" describe","done":false}]
+ describe[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.106338Z","response":" a","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.106338Z","response":" a","done":false}]
+ a[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.123488Z","response":" rabbit","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.123488Z","response":" rabbit","done":false}]
+ rabbit[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.14072Z","response":" in","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.14072Z","response":" in","done":false}]
+ in[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.157997Z","response":" two","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.157997Z","response":" two","done":false}]
+ two[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.175309Z","response":" short","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.175309Z","response":" short","done":false}]
+ short[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.192631Z","response":" sentences","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.192631Z","response":" sentences","done":false}]
+ sentences[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.209948Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.209948Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.227265Z","response":" Let","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.227265Z","response":" Let","done":false}]
+ Let[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.244625Z","response":" me","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.244625Z","response":" me","done":false}]
+ me[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.261836Z","response":" think","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.261836Z","response":" think","done":false}]
+ think[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.278921Z","response":" about","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.278921Z","response":" about","done":false}]
+ about[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.295971Z","response":" the","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.295971Z","response":" the","done":false}]
+ the[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.313056Z","response":" key","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.313056Z","response":" key","done":false}]
+ key[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.330182Z","response":" aspects","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.330182Z","response":" aspects","done":false}]
+ aspects[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.347197Z","response":" of","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.347197Z","response":" of","done":false}]
+ of[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.364101Z","response":" a","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.364101Z","response":" a","done":false}]
+ a[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.381174Z","response":" rabbit","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.381174Z","response":" rabbit","done":false}]
+ rabbit[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.398548Z","response":".
 
 ","done":false}]
-[DEBUG] jq_sanitized: return: 0
-[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.138122Z","response":"A","done":false}]
-[DEBUG] jq_sanitized: return: 0
-A[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.175667Z","response":" rabbit","done":false}]
-[DEBUG] jq_sanitized: return: 0
- rabbit[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.213133Z","response":" has","done":false}]
-[DEBUG] jq_sanitized: return: 0
- has[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.250592Z","response":" soft","done":false}]
-[DEBUG] jq_sanitized: return: 0
- soft[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.287938Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.325403Z","response":" fluffy","done":false}]
-[DEBUG] jq_sanitized: return: 0
- fluffy[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.362907Z","response":" fur","done":false}]
-[DEBUG] jq_sanitized: return: 0
- fur[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.400265Z","response":" and","done":false}]
-[DEBUG] jq_sanitized: return: 0
- and[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.437656Z","response":" long","done":false}]
-[DEBUG] jq_sanitized: return: 0
- long[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.475065Z","response":" ears","done":false}]
-[DEBUG] jq_sanitized: return: 0
- ears[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.512338Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.549853Z","response":" often","done":false}]
-[DEBUG] jq_sanitized: return: 0
- often[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.587129Z","response":" sporting","done":false}]
-[DEBUG] jq_sanitized: return: 0
- sporting[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.624457Z","response":" a","done":false}]
-[DEBUG] jq_sanitized: return: 0
- a[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.661725Z","response":" variety","done":false}]
-[DEBUG] jq_sanitized: return: 0
- variety[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.699006Z","response":" of","done":false}]
-[DEBUG] jq_sanitized: return: 0
- of[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.736563Z","response":" colors","done":false}]
-[DEBUG] jq_sanitized: return: 0
- colors[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.773975Z","response":" like","done":false}]
-[DEBUG] jq_sanitized: return: 0
- like[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.811659Z","response":" brown","done":false}]
-[DEBUG] jq_sanitized: return: 0
- brown[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.849144Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.886857Z","response":" white","done":false}]
-[DEBUG] jq_sanitized: return: 0
- white[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.924329Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:20.962357Z","response":" or","done":false}]
-[DEBUG] jq_sanitized: return: 0
- or[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.000447Z","response":" gray","done":false}]
-[DEBUG] jq_sanitized: return: 0
- gray[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.039146Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.07788Z","response":" They","done":false}]
-[DEBUG] jq_sanitized: return: 0
- They[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.11556Z","response":" are","done":false}]
-[DEBUG] jq_sanitized: return: 0
- are[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.153111Z","response":" gentle","done":false}]
-[DEBUG] jq_sanitized: return: 0
- gentle[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.190863Z","response":" creatures","done":false}]
-[DEBUG] jq_sanitized: return: 0
- creatures[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.228528Z","response":" known","done":false}]
-[DEBUG] jq_sanitized: return: 0
- known[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.266152Z","response":" for","done":false}]
-[DEBUG] jq_sanitized: return: 0
- for[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.303699Z","response":" their","done":false}]
-[DEBUG] jq_sanitized: return: 0
- their[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.341353Z","response":" quick","done":false}]
-[DEBUG] jq_sanitized: return: 0
- quick[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.379034Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.416529Z","response":" hopping","done":false}]
-[DEBUG] jq_sanitized: return: 0
- hopping[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.454187Z","response":" movements","done":false}]
-[DEBUG] jq_sanitized: return: 0
- movements[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.492006Z","response":" and","done":false}]
-[DEBUG] jq_sanitized: return: 0
- and[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.529596Z","response":" cautious","done":false}]
-[DEBUG] jq_sanitized: return: 0
- cautious[DEBUG] jq_sanitize: 91 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.56709Z","response":",","done":false}]
-[DEBUG] jq_sanitized: return: 0
-,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.604615Z","response":" curious","done":false}]
-[DEBUG] jq_sanitized: return: 0
- curious[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.642301Z","response":" nature","done":false}]
-[DEBUG] jq_sanitized: return: 0
- nature[DEBUG] jq_sanitize: 92 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.679974Z","response":".","done":false}]
-[DEBUG] jq_sanitized: return: 0
-.[DEBUG] jq_sanitize: 1440 bytes [{"model":"qwen3:4b","created_at":"2025-07-30T10:43:21.717456Z","response":"","done":true,"done_reason":"stop","context":[151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,151667,198,32313,11,279,1196,6801,752,311,7512,264,38724,304,1378,2805,22870,13,6771,752,1191,553,88646,279,1376,17452,315,264,38724,13,2379,614,1293,24230,11,67561,18241,11,323,525,5990,8413,323,4778,13,358,1265,6286,862,1894,11,7196,2155,36099,1075,13876,11,4158,11,476,17545,13,7281,11,862,7709,2293,4803,92238,11,1660,45778,11,476,3432,264,21700,6993,13,358,1184,311,2506,1817,11652,63594,13,5512,11652,1410,5244,389,6961,11094,11,2086,389,7709,323,17294,13,6771,752,1779,421,358,2776,18202,678,279,1887,3501,2041,1660,2238,3409,88,13,10696,2494,1075,25,330,32,38724,702,8413,11,67561,18241,323,1293,24230,11,3545,34927,264,8045,315,7987,1075,13876,11,4158,11,476,17545,13,2379,525,21700,19970,3881,369,862,3974,11,92238,19029,323,45778,11,22208,6993,1189,2938,4977,311,3421,432,13,6771,752,1281,2704,1817,11652,374,264,4583,3381,323,537,2238,1293,13,21607,11,429,4278,624,151668,271,32,38724,702,8413,11,67561,18241,323,1293,24230,11,3545,34927,264,8045,315,7987,1075,13876,11,4158,11,476,17545,13,2379,525,21700,19970,3881,369,862,3974,11,92238,19029,323,45778,11,22208,6993,13],"total_duration":8549987000,"load_duration":54843917,"prompt_eval_count":16,"prompt_eval_duration":39259916,"eval_count":235,"eval_duration":8455230667}]
-[DEBUG] jq_sanitized: return: 0
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.398548Z","response":".
+
+","done":false}]
+.[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.415636Z","response":"First","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.415636Z","response":"First","done":false}]
+First[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.432689Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.432689Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.449721Z","response":" rabbits","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.449721Z","response":" rabbits","done":false}]
+ rabbits[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.466995Z","response":" are","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.466995Z","response":" are","done":false}]
+ are[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.484504Z","response":" small","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.484504Z","response":" small","done":false}]
+ small[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.501769Z","response":" mammals","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.501769Z","response":" mammals","done":false}]
+ mammals[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.519227Z","response":" with","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.519227Z","response":" with","done":false}]
+ with[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.536603Z","response":" fluffy","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.536603Z","response":" fluffy","done":false}]
+ fluffy[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.554416Z","response":" ears","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.554416Z","response":" ears","done":false}]
+ ears[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.572087Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.572087Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.590007Z","response":" They","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.590007Z","response":" They","done":false}]
+ They[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.607532Z","response":" have","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.607532Z","response":" have","done":false}]
+ have[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.625046Z","response":" a","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.625046Z","response":" a","done":false}]
+ a[DEBUG] jq_sanitize: 105 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.642572Z","response":" distinctive","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.642572Z","response":" distinctive","done":false}]
+ distinctive[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.660254Z","response":" brown","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.660254Z","response":" brown","done":false}]
+ brown[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.678518Z","response":" or","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.678518Z","response":" or","done":false}]
+ or[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.696151Z","response":" gray","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.696151Z","response":" gray","done":false}]
+ gray[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.714224Z","response":" coat","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.714224Z","response":" coat","done":false}]
+ coat[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.731853Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.731853Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.749167Z","response":" I","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.749167Z","response":" I","done":false}]
+ I[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.766392Z","response":" should","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.766392Z","response":" should","done":false}]
+ should[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.783674Z","response":" mention","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.783674Z","response":" mention","done":false}]
+ mention[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.800921Z","response":" their","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.800921Z","response":" their","done":false}]
+ their[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.81833Z","response":" physical","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.81833Z","response":" physical","done":false}]
+ physical[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.835578Z","response":" features","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.835578Z","response":" features","done":false}]
+ features[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.852795Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.852795Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.869998Z","response":" Then","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.869998Z","response":" Then","done":false}]
+ Then[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.887229Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.887229Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.904604Z","response":" their","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.904604Z","response":" their","done":false}]
+ their[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.921932Z","response":" behavior","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.921932Z","response":" behavior","done":false}]
+ behavior[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.939131Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.939131Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.956209Z","response":" like","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.956209Z","response":" like","done":false}]
+ like[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.973387Z","response":" hopping","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.973387Z","response":" hopping","done":false}]
+ hopping[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.990572Z","response":" and","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:17.990572Z","response":" and","done":false}]
+ and[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.007801Z","response":" their","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.007801Z","response":" their","done":false}]
+ their[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.025069Z","response":" natural","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.025069Z","response":" natural","done":false}]
+ natural[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.042264Z","response":" habitat","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.042264Z","response":" habitat","done":false}]
+ habitat[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.059483Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.059483Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.076717Z","response":" maybe","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.076717Z","response":" maybe","done":false}]
+ maybe[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.093834Z","response":" they","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.093834Z","response":" they","done":false}]
+ they[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.111058Z","response":" live","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.111058Z","response":" live","done":false}]
+ live[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.128291Z","response":" in","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.128291Z","response":" in","done":false}]
+ in[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.14549Z","response":" bur","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.14549Z","response":" bur","done":false}]
+ bur[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.162674Z","response":"rows","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.162674Z","response":"rows","done":false}]
+rows[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.179825Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.179825Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.197023Z","response":" Also","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.197023Z","response":" Also","done":false}]
+ Also[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.214223Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.214223Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.231376Z","response":" their","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.231376Z","response":" their","done":false}]
+ their[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.249155Z","response":" role","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.249155Z","response":" role","done":false}]
+ role[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.26679Z","response":" in","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.26679Z","response":" in","done":false}]
+ in[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.284219Z","response":" the","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.284219Z","response":" the","done":false}]
+ the[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.301716Z","response":" ecosystem","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.301716Z","response":" ecosystem","done":false}]
+ ecosystem[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.319361Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.319361Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.33682Z","response":" like","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.33682Z","response":" like","done":false}]
+ like[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.354729Z","response":" helping","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.354729Z","response":" helping","done":false}]
+ helping[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.372057Z","response":" with","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.372057Z","response":" with","done":false}]
+ with[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.389445Z","response":" seed","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.389445Z","response":" seed","done":false}]
+ seed[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.406971Z","response":" dispers","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.406971Z","response":" dispers","done":false}]
+ dispers[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.424847Z","response":"al","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.424847Z","response":"al","done":false}]
+al[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.442209Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.442209Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.459385Z","response":" But","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.459385Z","response":" But","done":false}]
+ But[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.477153Z","response":" the","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.477153Z","response":" the","done":false}]
+ the[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.49451Z","response":" user","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.49451Z","response":" user","done":false}]
+ user[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.511897Z","response":" asked","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.511897Z","response":" asked","done":false}]
+ asked[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.529011Z","response":" for","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.529011Z","response":" for","done":false}]
+ for[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.546278Z","response":" two","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.546278Z","response":" two","done":false}]
+ two[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.563523Z","response":" sentences","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.563523Z","response":" sentences","done":false}]
+ sentences[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.580823Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.580823Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.598209Z","response":" so","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.598209Z","response":" so","done":false}]
+ so[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.615409Z","response":" I","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.615409Z","response":" I","done":false}]
+ I[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.6327Z","response":" need","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.6327Z","response":" need","done":false}]
+ need[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.649884Z","response":" to","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.649884Z","response":" to","done":false}]
+ to[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.667166Z","response":" be","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.667166Z","response":" be","done":false}]
+ be[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.684387Z","response":" concise","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.684387Z","response":" concise","done":false}]
+[DEBUG] ollama_api_post: return 0
+[DEBUG] ollama_generate_json: return: 0
+ concise[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.701665Z","response":".
+
+","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.701665Z","response":".
+
+","done":false}]
+.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.718854Z","response":"Wait","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.718854Z","response":"Wait","done":false}]
+Wait[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.736154Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.736154Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.753419Z","response":" the","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.753419Z","response":" the","done":false}]
+ the[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.770679Z","response":" user","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.770679Z","response":" user","done":false}]
+ user[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.787945Z","response":" might","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.787945Z","response":" might","done":false}]
+ might[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.805239Z","response":" be","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.805239Z","response":" be","done":false}]
+ be[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.822923Z","response":" looking","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.822923Z","response":" looking","done":false}]
+ looking[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.840305Z","response":" for","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.840305Z","response":" for","done":false}]
+ for[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.85771Z","response":" a","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.85771Z","response":" a","done":false}]
+ a[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.875667Z","response":" simple","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.875667Z","response":" simple","done":false}]
+ simple[DEBUG] jq_sanitize: 105 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.893126Z","response":" description","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.893126Z","response":" description","done":false}]
+ description[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.91125Z","response":" without","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.91125Z","response":" without","done":false}]
+ without[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.928754Z","response":" too","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.928754Z","response":" too","done":false}]
+ too[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.946992Z","response":" much","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.946992Z","response":" much","done":false}]
+ much[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.964663Z","response":" detail","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.964663Z","response":" detail","done":false}]
+ detail[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.982773Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:18.982773Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.000989Z","response":" Let","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.000989Z","response":" Let","done":false}]
+ Let[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.018774Z","response":" me","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.018774Z","response":" me","done":false}]
+ me[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.036241Z","response":" check","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.036241Z","response":" check","done":false}]
+ check[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.053679Z","response":" the","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.053679Z","response":" the","done":false}]
+ the[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.071171Z","response":" example","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.071171Z","response":" example","done":false}]
+ example[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.088846Z","response":" response","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.088846Z","response":" response","done":false}]
+ response[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.106108Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.106108Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.123572Z","response":" The","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.123572Z","response":" The","done":false}]
+ The[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.141076Z","response":" example","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.141076Z","response":" example","done":false}]
+ example[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.158487Z","response":" uses","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.158487Z","response":" uses","done":false}]
+ uses[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.175942Z","response":" \"","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.175942Z","response":" \"","done":false}]
+ "[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.193297Z","response":"fl","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.193297Z","response":"fl","done":false}]
+fl[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.21072Z","response":"uffy","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.21072Z","response":"uffy","done":false}]
+uffy[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.228008Z","response":" ears","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.228008Z","response":" ears","done":false}]
+ ears[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.245349Z","response":"\"","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.245349Z","response":"\"","done":false}]
+"[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.262687Z","response":" and","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.262687Z","response":" and","done":false}]
+ and[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.28006Z","response":" \"","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.28006Z","response":" \"","done":false}]
+ "[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.297405Z","response":"h","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.297405Z","response":"h","done":false}]
+h[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.314843Z","response":"opping","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.314843Z","response":"opping","done":false}]
+opping[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.332187Z","response":"\"","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.332187Z","response":"\"","done":false}]
+"[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.350217Z","response":" to","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.350217Z","response":" to","done":false}]
+ to[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.368188Z","response":" highlight","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.368188Z","response":" highlight","done":false}]
+ highlight[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.386128Z","response":" their","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.386128Z","response":" their","done":false}]
+ their[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.40408Z","response":" physical","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.40408Z","response":" physical","done":false}]
+ physical[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.422023Z","response":" and","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.422023Z","response":" and","done":false}]
+ and[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.439965Z","response":" behavior","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.439965Z","response":" behavior","done":false}]
+ behavior[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.457938Z","response":" traits","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.457938Z","response":" traits","done":false}]
+ traits[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.475599Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.475599Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.493097Z","response":" So","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.493097Z","response":" So","done":false}]
+ So[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.511303Z","response":" I","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.511303Z","response":" I","done":false}]
+ I[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.528847Z","response":" should","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.528847Z","response":" should","done":false}]
+ should[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.54652Z","response":" stick","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.54652Z","response":" stick","done":false}]
+ stick[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.56394Z","response":" to","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.56394Z","response":" to","done":false}]
+ to[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.581397Z","response":" those","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.581397Z","response":" those","done":false}]
+ those[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.598795Z","response":" elements","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.598795Z","response":" elements","done":false}]
+ elements[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.616245Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.616245Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.633653Z","response":" Make","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.633653Z","response":" Make","done":false}]
+ Make[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.651146Z","response":" sure","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.651146Z","response":" sure","done":false}]
+ sure[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.668579Z","response":" each","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.668579Z","response":" each","done":false}]
+ each[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.686034Z","response":" sentence","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.686034Z","response":" sentence","done":false}]
+ sentence[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.703423Z","response":" covers","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.703423Z","response":" covers","done":false}]
+ covers[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.720845Z","response":" a","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.720845Z","response":" a","done":false}]
+ a[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.738391Z","response":" different","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.738391Z","response":" different","done":false}]
+ different[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.755814Z","response":" aspect","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.755814Z","response":" aspect","done":false}]
+ aspect[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.773287Z","response":":","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.773287Z","response":":","done":false}]
+:[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.790813Z","response":" physical","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.790813Z","response":" physical","done":false}]
+ physical[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.808666Z","response":" and","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.808666Z","response":" and","done":false}]
+ and[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.826772Z","response":" behavior","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.826772Z","response":" behavior","done":false}]
+ behavior[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.844995Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.844995Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.863075Z","response":" Also","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.863075Z","response":" Also","done":false}]
+ Also[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.880846Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.880846Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.899022Z","response":" maybe","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.899022Z","response":" maybe","done":false}]
+ maybe[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.916811Z","response":" mention","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.916811Z","response":" mention","done":false}]
+ mention[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.934708Z","response":" their","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.934708Z","response":" their","done":false}]
+ their[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.952293Z","response":" habitat","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.952293Z","response":" habitat","done":false}]
+ habitat[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.969986Z","response":" or","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.969986Z","response":" or","done":false}]
+ or[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.987616Z","response":" role","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:19.987616Z","response":" role","done":false}]
+ role[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.005178Z","response":" in","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.005178Z","response":" in","done":false}]
+ in[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.023283Z","response":" the","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.023283Z","response":" the","done":false}]
+ the[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.041834Z","response":" ecosystem","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.041834Z","response":" ecosystem","done":false}]
+ ecosystem[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.060267Z","response":" briefly","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.060267Z","response":" briefly","done":false}]
+ briefly[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.079361Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.079361Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.097572Z","response":" But","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.097572Z","response":" But","done":false}]
+ But[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.116532Z","response":" since","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.116532Z","response":" since","done":false}]
+ since[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.134943Z","response":" it","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.134943Z","response":" it","done":false}]
+ it[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.153746Z","response":"'s","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.153746Z","response":"'s","done":false}]
+'s[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.172362Z","response":" two","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.172362Z","response":" two","done":false}]
+ two[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.191221Z","response":" sentences","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.191221Z","response":" sentences","done":false}]
+ sentences[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.209894Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.209894Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.228526Z","response":" maybe","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.228526Z","response":" maybe","done":false}]
+ maybe[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.24779Z","response":" keep","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.24779Z","response":" keep","done":false}]
+ keep[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.266331Z","response":" it","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.266331Z","response":" it","done":false}]
+ it[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.284357Z","response":" to","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.284357Z","response":" to","done":false}]
+ to[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.302504Z","response":" two","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.302504Z","response":" two","done":false}]
+ two[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.320866Z","response":" main","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.320866Z","response":" main","done":false}]
+ main[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.338992Z","response":" points","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.338992Z","response":" points","done":false}]
+ points[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.357038Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.357038Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.375064Z","response":" Let","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.375064Z","response":" Let","done":false}]
+ Let[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.393237Z","response":" me","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.393237Z","response":" me","done":false}]
+ me[DEBUG] jq_sanitize: 103 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.411482Z","response":" structure","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.411482Z","response":" structure","done":false}]
+ structure[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.429698Z","response":" it","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.429698Z","response":" it","done":false}]
+ it[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.449186Z","response":":","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.449186Z","response":":","done":false}]
+:[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.469197Z","response":" first","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.469197Z","response":" first","done":false}]
+ first[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.487752Z","response":" sentence","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.487752Z","response":" sentence","done":false}]
+ sentence[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.507249Z","response":" about","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.507249Z","response":" about","done":false}]
+ about[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.525565Z","response":" physical","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.525565Z","response":" physical","done":false}]
+ physical[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.544989Z","response":" traits","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.544989Z","response":" traits","done":false}]
+ traits[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.563422Z","response":" and","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.563422Z","response":" and","done":false}]
+ and[DEBUG] jq_sanitize: 102 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.581364Z","response":" behavior","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.581364Z","response":" behavior","done":false}]
+ behavior[DEBUG] jq_sanitize: 93 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.59988Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.59988Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.61871Z","response":" second","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.61871Z","response":" second","done":false}]
+ second[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.636979Z","response":" about","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.636979Z","response":" about","done":false}]
+ about[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.654928Z","response":" habitat","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.654928Z","response":" habitat","done":false}]
+ habitat[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.672896Z","response":" and","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.672896Z","response":" and","done":false}]
+ and[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.690891Z","response":" role","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.690891Z","response":" role","done":false}]
+ role[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.708852Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.708852Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.727055Z","response":" That","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.727055Z","response":" That","done":false}]
+ That[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.745425Z","response":" should","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.745425Z","response":" should","done":false}]
+ should[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.763747Z","response":" work","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.763747Z","response":" work","done":false}]
+ work[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.781846Z","response":".
+","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.781846Z","response":".
+","done":false}]
+.[DEBUG] jq_sanitize: 111 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.800107Z","response":"\u003c/think\u003e","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.800107Z","response":"\u003c/think\u003e","done":false}]
+</think>[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.818483Z","response":"
+
+","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.818483Z","response":"
+
+","done":false}]
+[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.836573Z","response":"A","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.836573Z","response":"A","done":false}]
+A[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.854671Z","response":" rabbit","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.854671Z","response":" rabbit","done":false}]
+ rabbit[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.873158Z","response":" is","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.873158Z","response":" is","done":false}]
+ is[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.891244Z","response":" a","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.891244Z","response":" a","done":false}]
+ a[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.910753Z","response":" small","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.910753Z","response":" small","done":false}]
+ small[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.929372Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.929372Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.948393Z","response":" agile","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.948393Z","response":" agile","done":false}]
+ agile[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.96744Z","response":" mamm","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.96744Z","response":" mamm","done":false}]
+ mamm[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.986301Z","response":"al","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:20.986301Z","response":"al","done":false}]
+al[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.00489Z","response":" with","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.00489Z","response":" with","done":false}]
+ with[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.023244Z","response":" fluffy","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.023244Z","response":" fluffy","done":false}]
+ fluffy[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.041526Z","response":" ears","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.041526Z","response":" ears","done":false}]
+ ears[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.059564Z","response":" and","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.059564Z","response":" and","done":false}]
+ and[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.077668Z","response":" a","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.077668Z","response":" a","done":false}]
+ a[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.095655Z","response":" brown","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.095655Z","response":" brown","done":false}]
+ brown[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.113657Z","response":" or","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.113657Z","response":" or","done":false}]
+ or[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.131702Z","response":" gray","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.131702Z","response":" gray","done":false}]
+ gray[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.149881Z","response":" coat","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.149881Z","response":" coat","done":false}]
+ coat[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.167842Z","response":",","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.167842Z","response":",","done":false}]
+,[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.185892Z","response":" hopping","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.185892Z","response":" hopping","done":false}]
+ hopping[DEBUG] jq_sanitize: 104 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.204093Z","response":" gracefully","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.204093Z","response":" gracefully","done":false}]
+ gracefully[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.222312Z","response":" across","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.222312Z","response":" across","done":false}]
+ across[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.240514Z","response":" grass","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.240514Z","response":" grass","done":false}]
+ grass[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.258622Z","response":"y","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.258622Z","response":"y","done":false}]
+y[DEBUG] jq_sanitize: 100 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.276826Z","response":" fields","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.276826Z","response":" fields","done":false}]
+ fields[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.294981Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.294981Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.313396Z","response":" It","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.313396Z","response":" It","done":false}]
+ It[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.331731Z","response":" lives","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.331731Z","response":" lives","done":false}]
+ lives[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.349892Z","response":" in","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.349892Z","response":" in","done":false}]
+ in[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.368035Z","response":" bur","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.368035Z","response":" bur","done":false}]
+ bur[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.386224Z","response":"rows","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.386224Z","response":"rows","done":false}]
+rows[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.404585Z","response":" and","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.404585Z","response":" and","done":false}]
+ and[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.423071Z","response":" plays","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.423071Z","response":" plays","done":false}]
+ plays[DEBUG] jq_sanitize: 95 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.441295Z","response":" a","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.441295Z","response":" a","done":false}]
+ a[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.459508Z","response":" vital","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.459508Z","response":" vital","done":false}]
+ vital[DEBUG] jq_sanitize: 98 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.477677Z","response":" role","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.477677Z","response":" role","done":false}]
+ role[DEBUG] jq_sanitize: 96 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.495845Z","response":" in","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.495845Z","response":" in","done":false}]
+ in[DEBUG] jq_sanitize: 105 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.514029Z","response":" maintaining","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.514029Z","response":" maintaining","done":false}]
+ maintaining[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.532141Z","response":" plant","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.532141Z","response":" plant","done":false}]
+ plant[DEBUG] jq_sanitize: 105 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.550277Z","response":" populations","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.550277Z","response":" populations","done":false}]
+ populations[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.5684Z","response":" through","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.5684Z","response":" through","done":false}]
+ through[DEBUG] jq_sanitize: 97 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.586534Z","response":" its","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.586534Z","response":" its","done":false}]
+ its[DEBUG] jq_sanitize: 101 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.604612Z","response":" grazing","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.604612Z","response":" grazing","done":false}]
+ grazing[DEBUG] jq_sanitize: 99 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.62278Z","response":" habits","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.62278Z","response":" habits","done":false}]
+ habits[DEBUG] jq_sanitize: 94 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.640973Z","response":".","done":false}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.640973Z","response":".","done":false}]
+.[DEBUG] jq_sanitize: 1588 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.659123Z","response":"","done":true,"done_reason":"stop","context":[151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,151667,198,32313,11,279,1196,6801,752,311,7512,264,38724,304,1378,2805,22870,13,6771,752,1744,911,279,1376,13566,315,264,38724,382,5338,11,69144,525,2613,55569,448,67561,24230,13,2379,614,264,34847,13876,476,17545,22875,13,358,1265,6286,862,6961,4419,13,5005,11,862,7709,11,1075,92238,323,862,5810,38546,11,7196,807,3887,304,7795,1811,13,7281,11,862,3476,304,279,24982,11,1075,10476,448,10320,78735,278,13,1988,279,1196,4588,369,1378,22870,11,773,358,1184,311,387,63594,382,14190,11,279,1196,2578,387,3330,369,264,4285,4008,2041,2238,1753,7716,13,6771,752,1779,279,3110,2033,13,576,3110,5711,330,1489,29877,24230,1,323,330,71,7008,1,311,11167,862,6961,323,7709,24055,13,2055,358,1265,9214,311,1846,5424,13,7405,2704,1817,11652,14521,264,2155,12893,25,6961,323,7709,13,7281,11,7196,6286,862,38546,476,3476,304,279,24982,26753,13,1988,2474,432,594,1378,22870,11,7196,2506,432,311,1378,1887,3501,13,6771,752,5944,432,25,1156,11652,911,6961,24055,323,7709,11,2086,911,38546,323,3476,13,2938,1265,975,624,151668,271,32,38724,374,264,2613,11,61465,34941,278,448,67561,24230,323,264,13876,476,17545,22875,11,92238,78499,3941,16359,88,5043,13,1084,6305,304,7795,1811,323,11088,264,16198,3476,304,20337,6008,21910,1526,1181,83450,25785,13],"total_duration":4857608584,"load_duration":45691709,"prompt_eval_count":16,"prompt_eval_duration":81269000,"eval_count":267,"eval_duration":4730088458}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"qwen3:1.7b","created_at":"2025-07-30T16:08:21.659123Z","response":"","done":true,"done_reason":"stop","context":[151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,151667,198,32313,11,279,1196,6801,752,311,7512,264,38724,304,1378,2805,22870,13,6771,752,1744,911,279,1376,13566,315,264,38724,382,5338,11,69144,525,2613,55569,448,67561,24230,13,2379,614,264,34847,13876,476,17545,22875,13,358,1265,6286,862,6961,4419,13,5005,11,862,7709,11,1075,92238,323,862,5810,38546,11,7196,807,3887,304,7795,1811,13,7281,11,862,3476,304,279,24982,11,1075,10476,448,10320,78735,278,13,1988,279,1196,4588,369,1378,22870,11,773,358,1184,311,387,63594,382,14190,11,279,1196,2578,387,3330,369,264,4285,4008,2041,2238,1753,7716,13,6771,752,1779,279,3110,2033,13,576,3110,5711,330,1489,29877,24230,1,323,330,71,7008,1,311,11167,862,6961,323,7709,24055,13,2055,358,1265,9214,311,1846,5424,13,7405,2704,1817,11652,14521,264,2155,12893,25,6961,323,7709,13,7281,11,7196,6286,862,38546,476,3476,304,279,24982,26753,13,1988,2474,432,594,1378,22870,11,7196,2506,432,311,1378,1887,3501,13,6771,752,5944,432,25,1156,11652,911,6961,24055,323,7709,11,2086,911,38546,323,3476,13,2938,1265,975,624,151668,271,32,38724,374,264,2613,11,61465,34941,278,448,67561,24230,323,264,13876,476,17545,22875,11,92238,78499,3941,16359,88,5043,13,1084,6305,304,7795,1811,323,11088,264,16198,3476,304,20337,6008,21910,1526,1181,83450,25785,13],"total_duration":4857608584,"load_duration":45691709,"prompt_eval_count":16,"prompt_eval_duration":81269000,"eval_count":267,"eval_duration":4730088458}]
 
 [DEBUG] ollama_generate_stream: return: 0
 ```

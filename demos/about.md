@@ -1,15 +1,13 @@
-# ollama_lib_version, ollama_lib_about
+# ollama_lib_about, ollama_lib_version
 
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
 
 ## Demo
 
 ```bash
 ollama_lib_version
 ```
-```
 0.39.1
-```
 
 ```bash
 ollama_lib_about

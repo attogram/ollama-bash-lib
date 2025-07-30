@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "# Review of README.md"
+echo "# Review of [README.md](../README.md)"
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -9,7 +9,7 @@ startup() {
   source "$ollama_bash_lib"
   if ! ollama_installed; then echo "ERROR: Ollama Not Installed"; fi;
   if ! ollama_api_ping; then echo "ERROR: Ollama API not reachable"; fi
-  echo; echo "A demo of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
 }
 
 startup
@@ -30,4 +30,5 @@ Do a full review of this README:
 
 $(cat "../README.md")"
 
+#ollama_generate "$model" "$prompt"
 ollama_generate_stream "$model" "$prompt"
