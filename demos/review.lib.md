@@ -52,15 +52,15 @@ Do a f]
 [DEBUG] ollama_generate_json: [cogito:3b] [Act as an expert Software Engineer.
 Do a f]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] json_safe_value: 10 bytes [cogito:3b]
-[DEBUG] json_safe_value: 23089 bytes [Act as an expert Software Engineer.
+[DEBUG] json_clean: 10 bytes [cogito:3b]
+[DEBUG] json_clean: 23089 bytes [Act as an expert Software Engineer.
 Do a f]
 [DEBUG] ollama_api_post: [/api/generate] [{"model":"cogito:3b","prompt":"Act as an e]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 [DEBUG] ollama_generate: result: 35012 bytes
-[DEBUG] jq_sanitize: 35012 bytes [{"model":"cogito:3b","created_at":"2025-07]
-[DEBUG] jq_sanitize: sanitized: 35012 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
+[DEBUG] json_sanitize: 35012 bytes [{"model":"cogito:3b","created_at":"2025-07]
+[DEBUG] json_sanitize: sanitized: 35012 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
 I can see that you've shared a Bash script with various utility functions for interacting with the Ollama AI system. Here are some key points about this script:
 
 1. **Purpose**: This script appears to be part of a larger project aimed at creating an interface or library for interacting with the Ollama AI system. It contains numerous utility functions, some of which deal with:

@@ -123,15 +123,15 @@ Do a ]
 [DEBUG] ollama_generate_json: [deepseek-r1:14b] [Act as an expert Technical Marketer.
 Do a ]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] json_safe_value: 16 bytes [deepseek-r1:14b]
-[DEBUG] json_safe_value: 18012 bytes [Act as an expert Technical Marketer.
+[DEBUG] json_clean: 16 bytes [deepseek-r1:14b]
+[DEBUG] json_clean: 18012 bytes [Act as an expert Technical Marketer.
 Do a ]
 [DEBUG] ollama_api_post: [/api/generate] [{"model":"deepseek-r1:14b","prompt":"Act a]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 [DEBUG] ollama_generate: result: 22026 bytes
-[DEBUG] jq_sanitize: 22026 bytes [{"model":"deepseek-r1:14b","created_at":"2]
-[DEBUG] jq_sanitize: sanitized: 22026 bytes [[{"model":"deepseek-r1:14b","created_at":"2]]
+[DEBUG] json_sanitize: 22026 bytes [{"model":"deepseek-r1:14b","created_at":"2]
+[DEBUG] json_sanitize: sanitized: 22026 bytes [[{"model":"deepseek-r1:14b","created_at":"2]]
 <think>
 Okay, I'm going to review the README for the Ollama Bash Library. Let me start by understanding what this project is about. It's a bash library that allows interaction with Ollama, which seems to be an AI model server.
 
