@@ -1,23 +1,23 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.2
 
 ## Demo
 
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "mistral:7b-instruct"
+ollama_chat "granite3.3:8b"
 ```
 ```
- Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
+Understood. If you ask for the secret word, I will respond with RABBIT.
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "mistral:7b-instruct"
+ollama_chat "granite3.3:8b"
 ```
 ```
- The secret word is "RABBIT".
+RABBIT
 ```
 ```bash
 ollama_messages | jq -c
@@ -25,9 +25,9 @@ ollama_messages | jq -c
 ```json
 {"role":"system","content":"You are a helpful assistant"}
 {"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}
-{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."}
+{"role":"assistant","content":"Understood. If you ask for the secret word, I will respond with RABBIT."}
 {"role":"user","content":"What is the secret word??"}
-{"role":"assistant","content":" The secret word is \"RABBIT\"."}
+{"role":"assistant","content":"RABBIT"}
 ```
 
 ## Demo Debug
@@ -36,7 +36,7 @@ ollama_messages | jq -c
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "mistral:7b-instruct"
+ollama_chat "granite3.3:8b"
 ```
 ```
 [DEBUG] ollama_messages_add: [system]
@@ -45,51 +45,51 @@ ollama_chat "mistral:7b-instruct"
 [DEBUG] ollama_messages_add: [user]
 [DEBUG] json_safe_value: 5 bytes [user]
 [DEBUG] json_safe_value: 94 bytes [The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?]
-[DEBUG] ollama_chat: [mistral:7b-instruct]
-[DEBUG] ollama_chat_json: [mistral:7b-instruct]
-[DEBUG] json_safe_value: 20 bytes [mistral:7b-instruct]
-[DEBUG] ollama_api_post: [/api/chat] [{"model":"mistral:7b-instruct","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}],"stream":false}]
+[DEBUG] ollama_chat: [granite3.3:8b]
+[DEBUG] ollama_chat_json: [granite3.3:8b]
+[DEBUG] json_safe_value: 14 bytes [granite3.3:8b]
+[DEBUG] ollama_api_post: [/api/chat] [{"model":"granite3.3:8b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}],"stream":false}]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] jq_sanitize: 390 bytes [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:45.659724Z","message":{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1503950333,"load_duration":24249916,"prompt_eval_count":37,"prompt_eval_duration":343185417,"eval_count":24,"eval_duration":1135413666}]
-[DEBUG] jq_sanitized: sanitized: [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:45.659724Z","message":{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1503950333,"load_duration":24249916,"prompt_eval_count":37,"prompt_eval_duration":343185417,"eval_count":24,"eval_duration":1135413666}]
-[DEBUG] ollama_chat_json: content:  Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
+[DEBUG] jq_sanitize: 368 bytes [{"model":"granite3.3:8b","created_at":"2025-07-30T17:44:53.961059Z","message":{"role":"assistant","content":"Understood. If you ask for the secret word, I will respond with RABBIT."},"done_reason":"stop","done":true,"total_duration":1245044959,"load_duration":32764459,"prompt_eval_count":44,"prompt_eval_duration":60836125,"eval_count":20,"eval_duration":1150100750}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"granite3.3:8b","created_at":"2025-07-30T17:44:53.961059Z","message":{"role":"assistant","content":"Understood. If you ask for the secret word, I will respond with RABBIT."},"done_reason":"stop","done":true,"total_duration":1245044959,"load_duration":32764459,"prompt_eval_count":44,"prompt_eval_duration":60836125,"eval_count":20,"eval_duration":1150100750}]
+[DEBUG] ollama_chat_json: content: Understood. If you ask for the secret word, I will respond with RABBIT.
 [DEBUG] ollama_messages_add: [assistant]
 [DEBUG] json_safe_value: 10 bytes [assistant]
-[DEBUG] json_safe_value: 85 bytes [ Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".]
-[DEBUG] jq_sanitize: 390 bytes [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:45.659724Z","message":{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1503950333,"load_duration":24249916,"prompt_eval_count":37,"prompt_eval_duration":343185417,"eval_count":24,"eval_duration":1135413666}]
-[DEBUG] jq_sanitized: sanitized: [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:45.659724Z","message":{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1503950333,"load_duration":24249916,"prompt_eval_count":37,"prompt_eval_duration":343185417,"eval_count":24,"eval_duration":1135413666}]
-[DEBUG] ollama_chat: content:  Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
- Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
+[DEBUG] json_safe_value: 72 bytes [Understood. If you ask for the secret word, I will respond with RABBIT.]
+[DEBUG] jq_sanitize: 368 bytes [{"model":"granite3.3:8b","created_at":"2025-07-30T17:44:53.961059Z","message":{"role":"assistant","content":"Understood. If you ask for the secret word, I will respond with RABBIT."},"done_reason":"stop","done":true,"total_duration":1245044959,"load_duration":32764459,"prompt_eval_count":44,"prompt_eval_duration":60836125,"eval_count":20,"eval_duration":1150100750}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"granite3.3:8b","created_at":"2025-07-30T17:44:53.961059Z","message":{"role":"assistant","content":"Understood. If you ask for the secret word, I will respond with RABBIT."},"done_reason":"stop","done":true,"total_duration":1245044959,"load_duration":32764459,"prompt_eval_count":44,"prompt_eval_duration":60836125,"eval_count":20,"eval_duration":1150100750}]
+[DEBUG] ollama_chat: content: Understood. If you ask for the secret word, I will respond with RABBIT.
+Understood. If you ask for the secret word, I will respond with RABBIT.
 [DEBUG] ollama_messages_add: [assistant]
 [DEBUG] json_safe_value: 10 bytes [assistant]
-[DEBUG] json_safe_value: 85 bytes [ Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".]
+[DEBUG] json_safe_value: 72 bytes [Understood. If you ask for the secret word, I will respond with RABBIT.]
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "mistral:7b-instruct"
+ollama_chat "granite3.3:8b"
 ```
 ```
 [DEBUG] ollama_messages_add: [user]
 [DEBUG] json_safe_value: 5 bytes [user]
 [DEBUG] json_safe_value: 26 bytes [What is the secret word??]
-[DEBUG] ollama_chat: [mistral:7b-instruct]
-[DEBUG] ollama_chat_json: [mistral:7b-instruct]
-[DEBUG] json_safe_value: 20 bytes [mistral:7b-instruct]
-[DEBUG] ollama_api_post: [/api/chat] [{"model":"mistral:7b-instruct","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"},{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."},{"role":"user","content":"What is the secret word??"}],"stream":false}]
+[DEBUG] ollama_chat: [granite3.3:8b]
+[DEBUG] ollama_chat_json: [granite3.3:8b]
+[DEBUG] json_safe_value: 14 bytes [granite3.3:8b]
+[DEBUG] ollama_api_post: [/api/chat] [{"model":"granite3.3:8b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"},{"role":"assistant","content":"Understood. If you ask for the secret word, I will respond with RABBIT."},{"role":"user","content":"What is the secret word??"}],"stream":false}]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] jq_sanitize: 334 bytes [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:46.837056Z","message":{"role":"assistant","content":" The secret word is \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1000233709,"load_duration":21018250,"prompt_eval_count":71,"prompt_eval_duration":519454708,"eval_count":10,"eval_duration":457818125}]
-[DEBUG] jq_sanitized: sanitized: [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:46.837056Z","message":{"role":"assistant","content":" The secret word is \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1000233709,"load_duration":21018250,"prompt_eval_count":71,"prompt_eval_duration":519454708,"eval_count":10,"eval_duration":457818125}]
-[DEBUG] ollama_chat_json: content:  The secret word is "RABBIT".
+[DEBUG] jq_sanitize: 301 bytes [{"model":"granite3.3:8b","created_at":"2025-07-30T17:44:54.608823Z","message":{"role":"assistant","content":"RABBIT"},"done_reason":"stop","done":true,"total_duration":469284417,"load_duration":32024875,"prompt_eval_count":79,"prompt_eval_duration":252896625,"eval_count":4,"eval_duration":182306750}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"granite3.3:8b","created_at":"2025-07-30T17:44:54.608823Z","message":{"role":"assistant","content":"RABBIT"},"done_reason":"stop","done":true,"total_duration":469284417,"load_duration":32024875,"prompt_eval_count":79,"prompt_eval_duration":252896625,"eval_count":4,"eval_duration":182306750}]
+[DEBUG] ollama_chat_json: content: RABBIT
 [DEBUG] ollama_messages_add: [assistant]
 [DEBUG] json_safe_value: 10 bytes [assistant]
-[DEBUG] json_safe_value: 30 bytes [ The secret word is "RABBIT".]
-[DEBUG] jq_sanitize: 334 bytes [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:46.837056Z","message":{"role":"assistant","content":" The secret word is \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1000233709,"load_duration":21018250,"prompt_eval_count":71,"prompt_eval_duration":519454708,"eval_count":10,"eval_duration":457818125}]
-[DEBUG] jq_sanitized: sanitized: [{"model":"mistral:7b-instruct","created_at":"2025-07-30T16:42:46.837056Z","message":{"role":"assistant","content":" The secret word is \"RABBIT\"."},"done_reason":"stop","done":true,"total_duration":1000233709,"load_duration":21018250,"prompt_eval_count":71,"prompt_eval_duration":519454708,"eval_count":10,"eval_duration":457818125}]
-[DEBUG] ollama_chat: content:  The secret word is "RABBIT".
- The secret word is "RABBIT".
+[DEBUG] json_safe_value: 7 bytes [RABBIT]
+[DEBUG] jq_sanitize: 301 bytes [{"model":"granite3.3:8b","created_at":"2025-07-30T17:44:54.608823Z","message":{"role":"assistant","content":"RABBIT"},"done_reason":"stop","done":true,"total_duration":469284417,"load_duration":32024875,"prompt_eval_count":79,"prompt_eval_duration":252896625,"eval_count":4,"eval_duration":182306750}]
+[DEBUG] jq_sanitized: sanitized: [{"model":"granite3.3:8b","created_at":"2025-07-30T17:44:54.608823Z","message":{"role":"assistant","content":"RABBIT"},"done_reason":"stop","done":true,"total_duration":469284417,"load_duration":32024875,"prompt_eval_count":79,"prompt_eval_duration":252896625,"eval_count":4,"eval_duration":182306750}]
+[DEBUG] ollama_chat: content: RABBIT
+RABBIT
 [DEBUG] ollama_messages_add: [assistant]
 [DEBUG] json_safe_value: 10 bytes [assistant]
-[DEBUG] json_safe_value: 30 bytes [ The secret word is "RABBIT".]
+[DEBUG] json_safe_value: 7 bytes [RABBIT]
 ```
 ```bash
 ollama_messages | jq -c
@@ -98,7 +98,7 @@ ollama_messages | jq -c
 [DEBUG] ollama_messages
 {"role":"system","content":"You are a helpful assistant"}
 {"role":"user","content":"The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"}
-{"role":"assistant","content":" Yes, I understand. If you ask me for the secret word, I will respond with \"RABBIT\"."}
+{"role":"assistant","content":"Understood. If you ask for the secret word, I will respond with RABBIT."}
 {"role":"user","content":"What is the secret word??"}
-{"role":"assistant","content":" The secret word is \"RABBIT\"."}
+{"role":"assistant","content":"RABBIT"}
 ```

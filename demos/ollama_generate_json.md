@@ -1,28 +1,28 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.2
 
 ## Demo
 
 ```bash
-ollama_generate_json "dolphin-mistral:7b" "Describe a rabbit in 2 short sentences"
+ollama_generate_json "llava:7b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-{"model":"dolphin-mistral:7b","created_at":"2025-07-30T16:42:55.582153Z","response":"A rabbit is a small mammal known for its long ears and quick movements, often found in grassy fields and meadows. It is a herbivore that feeds on plants and has sharp teeth for chewing its food efficiently.","done":true,"done_reason":"stop","context":[32001,1587,13,1976,460,15052,721,262,28725,264,10865,16107,13892,28723,13,32000,28705,13,32001,2188,13,22836,264,16479,2581,297,28705,28750,2485,23748,32000,28705,13,32001,13892,13,28741,16479,2581,349,264,1741,27454,282,2651,354,871,1043,12446,304,2936,15071,28725,2608,1419,297,10109,28724,5080,304,528,13456,28723,661,349,264,559,28726,449,431,369,5575,28713,356,9923,304,659,10227,9033,354,997,9988,871,2887,23463,28723],"total_duration":6030111459,"load_duration":2879550625,"prompt_eval_count":37,"prompt_eval_duration":654605416,"eval_count":51,"eval_duration":2492253209}
+{"model":"llava:7b","created_at":"2025-07-30T17:45:50.970926Z","response":" A rabbit is a small, furry animal with long ears and a fluffy tail. They are known for their ability to burrow underground and their diet mainly consists of grass, leaves, and bark. ","done":true,"done_reason":"stop","context":[733,16289,28793,27984,264,16479,2581,297,28705,28750,2485,23748,733,28748,16289,28793,330,16479,2581,349,264,1741,28725,2982,643,8527,395,1043,12446,304,264,972,23892,8675,28723,1306,460,2651,354,652,5537,298,4564,671,21059,304,652,9751,11464,12335,302,10109,28725,8049,28725,304,19976,28723,28705],"total_duration":6152852875,"load_duration":3135700334,"prompt_eval_count":17,"prompt_eval_duration":898912417,"eval_count":44,"eval_duration":2116703208}
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_json "dolphin-mistral:7b" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_json "llava:7b" "Describe a rabbit in 2 short sentences"`
 ```
 ```json
-[DEBUG] ollama_generate_json: [dolphin-mistral:7b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [llava:7b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] json_safe_value: 19 bytes [dolphin-mistral:7b]
+[DEBUG] json_safe_value: 9 bytes [llava:7b]
 [DEBUG] json_safe_value: 39 bytes [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_api_post: [/api/generate] [{"model":"dolphin-mistral:7b","prompt":"Describe a rabbit in 2 short sentences","stream":false}]
-{"model":"dolphin-mistral:7b","created_at":"2025-07-30T16:42:58.175565Z","response":"A rabbit is a small mammal with long ears, soft fur, and an agile body that allows it to move quickly through grassy fields. They are social animals known for their rapid movements and ability to navigate narrow spaces with ease.","done":true,"done_reason":"stop","context":[32001,1587,13,1976,460,15052,721,262,28725,264,10865,16107,13892,28723,13,32000,28705,13,32001,2188,13,22836,264,16479,2581,297,28705,28750,2485,23748,32000,28705,13,32001,13892,13,28741,16479,2581,349,264,1741,27454,282,395,1043,12446,28725,2664,2982,28725,304,396,717,546,2187,369,5976,378,298,2318,4377,1059,10109,28724,5080,28723,1306,460,2809,8222,2651,354,652,8421,15071,304,5537,298,22689,8484,10599,395,12801,28723],"total_duration":2518527333,"load_duration":21910750,"prompt_eval_count":37,"prompt_eval_duration":51519291,"eval_count":50,"eval_duration":2444455792}[DEBUG] ollama_api_post: return 0
+[DEBUG] ollama_api_post: [/api/generate] [{"model":"llava:7b","prompt":"Describe a rabbit in 2 short sentences","stream":false}]
+{"model":"llava:7b","created_at":"2025-07-30T17:45:54.118407Z","response":" A rabbit is a small, furry mammal. It belongs to the family Leporidae and is known for its long ears, fluffy tail, and powerful hind legs. Rabbits are commonly found in grasslands and forests around the world, and they are often kept as pets. ","done":true,"done_reason":"stop","context":[733,16289,28793,27984,264,16479,2581,297,28705,28750,2485,23748,733,28748,16289,28793,330,16479,2581,349,264,1741,28725,2982,643,27454,282,28723,661,17827,298,272,2005,393,615,271,7305,304,349,2651,354,871,1043,12446,28725,972,23892,8675,28725,304,6787,21413,7969,28723,17467,7669,460,14473,1419,297,10109,5603,304,25770,1401,272,1526,28725,304,590,460,2608,4558,390,24642,28723,28705],"total_duration":3063710750,"load_duration":19000875,"prompt_eval_count":17,"prompt_eval_duration":49703375,"eval_count":62,"eval_duration":2994226542}[DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 
 ```
