@@ -1,11 +1,12 @@
 # ollama_ps, ollama_ps_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.4
 
 `ollama_ps`
 ```
-NAME        ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-llava:7b    8dd30f6b0cb1    6.2 GB    100% GPU     4096       4 minutes from now    
+NAME              ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+qwen3:1.7b        8f68893c685c    2.4 GB    100% GPU     4096       4 minutes from now    
+deepseek-r1:8b    6995872bfe4c    6.6 GB    100% GPU     4096       4 minutes from now    
 ```
 
 `ollama_ps_json | jq`
@@ -13,23 +14,41 @@ llava:7b    8dd30f6b0cb1    6.2 GB    100% GPU     4096       4 minutes from now
 {
   "models": [
     {
-      "name": "llava:7b",
-      "model": "llava:7b",
-      "size": 6182481920,
-      "digest": "8dd30f6b0cb19f555f2c7a7ebda861449ea2cc76bf1f44e262931f45fc81d081",
+      "name": "qwen3:1.7b",
+      "model": "qwen3:1.7b",
+      "size": 2392883541,
+      "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "llama",
+        "family": "qwen3",
         "families": [
-          "llama",
-          "clip"
+          "qwen3"
         ],
-        "parameter_size": "7B",
-        "quantization_level": "Q4_0"
+        "parameter_size": "2.0B",
+        "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-30T19:51:10.717254+02:00",
-      "size_vram": 6182481920,
+      "expires_at": "2025-07-30T22:19:01.698724+02:00",
+      "size_vram": 2392883541,
+      "context_length": 4096
+    },
+    {
+      "name": "deepseek-r1:8b",
+      "model": "deepseek-r1:8b",
+      "size": 6557205504,
+      "digest": "6995872bfe4c521a67b32da386cd21d5c6e819b6e0d62f79f64ec83be99f5763",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "8.2B",
+        "quantization_level": "Q4_K_M"
+      },
+      "expires_at": "2025-07-30T22:18:42.75539+02:00",
+      "size_vram": 6557205504,
       "context_length": 4096
     }
   ]
