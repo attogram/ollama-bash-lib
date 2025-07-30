@@ -7,17 +7,19 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "smollm2:360m"
+ollama_chat "gemma3n:e2b"
 ```
 ```
-Yes, that's correct. I'm here to assist you in your language learning journey. The secret word or phrase you're asking about should be something related to animals and/or a specific sequence of words.
+Yes, I understand. If you ask me for the secret word, I will respond with **RABBIT**. 
+
+Understood. 😊
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "smollm2:360m"
+ollama_chat "gemma3n:e2b"
 ```
 ```
-The secret word is RABBIT, which refers to an animal that lives on a farm in the United States.
+RABBIT.
 ```
 ```bash
 ollama_messages | jq
@@ -33,7 +35,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "Yes, that's correct. I'm here to assist you in your language learning journey. The secret word or phrase you're asking about should be something related to animals and/or a specific sequence of words."
+  "content": "Yes, I understand. If you ask me for the secret word, I will respond with **RABBIT**. \n\nUnderstood. 😊"
 }
 {
   "role": "user",
@@ -41,7 +43,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "The secret word is RABBIT, which refers to an animal that lives on a farm in the United States."
+  "content": "RABBIT."
 }
 ```
 
@@ -51,7 +53,7 @@ ollama_messages | jq
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "smollm2:360m"
+ollama_chat "gemma3n:e2b"
 ```
 ```
 [DEBUG] ollama_messages_add: [system] [You are a helpful assistant]
@@ -60,51 +62,91 @@ ollama_chat "smollm2:360m"
 [DEBUG] ollama_messages_add: [user] [The secret word is RABBIT. If I ask you fo]
 [DEBUG] json_clean: 5 bytes [user]
 [DEBUG] json_clean: 94 bytes [The secret word is RABBIT. If I ask you fo]
-[DEBUG] ollama_chat: [smollm2:360m]
-[DEBUG] ollama_chat_json: [smollm2:360m]
-[DEBUG] json_clean: 13 bytes [smollm2:360m]
-[DEBUG] ollama_api_post: [/api/chat] [{"model":"smollm2:360m","messages":[{"role]
+[DEBUG] ollama_chat: [gemma3n:e2b]
+[DEBUG] ollama_chat_json: [gemma3n:e2b]
+[DEBUG] json_clean: 12 bytes [gemma3n:e2b]
+[DEBUG] ollama_api_post: [/api/chat] [{"model":"gemma3n:e2b","messages":[{"role"]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] json_sanitize: 361 bytes [{"model":"smollm2:360m","created_at":"2025]
-[DEBUG] json_sanitize: sanitized: 361 bytes [[{"model":"smollm2:360m","created_at":"2025]]
-[DEBUG] ollama_chat_json: content: [I'm ready to help! Let's see what secrets you have in store for me.]
-[DEBUG] ollama_messages_add: [assistant] [I'm ready to help! Let's see what secrets ]
+[DEBUG] json_sanitize: 317 bytes [{"model":"gemma3n:e2b","created_at":"2025-]
+[DEBUG] json_sanitize: sanitized: 317 bytes [[{"model":"gemma3n:e2b","created_at":"2025-]]
+[DEBUG] ollama_chat_json: content: [Understood! 
+
+RABBIT]
+[DEBUG] ollama_messages_add: [assistant] [Understood! 
+
+RABBIT]
 [DEBUG] json_clean: 10 bytes [assistant]
-[DEBUG] json_clean: 68 bytes [I'm ready to help! Let's see what secrets ]
-[DEBUG] json_sanitize: 361 bytes [{"model":"smollm2:360m","created_at":"2025]
-[DEBUG] json_sanitize: sanitized: 361 bytes [[{"model":"smollm2:360m","created_at":"2025]]
-[DEBUG] ollama_chat: content: I'm ready to help! Let's see what secrets you have in store for me.
-I'm ready to help! Let's see what secrets you have in store for me.
-[DEBUG] ollama_messages_add: [assistant] [I'm ready to help! Let's see what secrets ]
+[DEBUG] json_clean: 21 bytes [Understood! 
+
+RABBIT]
+[DEBUG] json_sanitize: 317 bytes [{"model":"gemma3n:e2b","created_at":"2025-]
+[DEBUG] json_sanitize: sanitized: 317 bytes [[{"model":"gemma3n:e2b","created_at":"2025-]]
+[DEBUG] ollama_chat: content: Understood! 
+
+RABBIT
+Understood! 
+
+RABBIT
+[DEBUG] ollama_messages_add: [assistant] [Understood! 
+
+RABBIT]
 [DEBUG] json_clean: 10 bytes [assistant]
-[DEBUG] json_clean: 68 bytes [I'm ready to help! Let's see what secrets ]
+[DEBUG] json_clean: 21 bytes [Understood! 
+
+RABBIT]
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "smollm2:360m"
+ollama_chat "gemma3n:e2b"
 ```
 ```
 [DEBUG] ollama_messages_add: [user] [What is the secret word??]
 [DEBUG] json_clean: 5 bytes [user]
 [DEBUG] json_clean: 26 bytes [What is the secret word??]
-[DEBUG] ollama_chat: [smollm2:360m]
-[DEBUG] ollama_chat_json: [smollm2:360m]
-[DEBUG] json_clean: 13 bytes [smollm2:360m]
-[DEBUG] ollama_api_post: [/api/chat] [{"model":"smollm2:360m","messages":[{"role]
+[DEBUG] ollama_chat: [gemma3n:e2b]
+[DEBUG] ollama_chat_json: [gemma3n:e2b]
+[DEBUG] json_clean: 12 bytes [gemma3n:e2b]
+[DEBUG] ollama_api_post: [/api/chat] [{"model":"gemma3n:e2b","messages":[{"role"]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] json_sanitize: 450 bytes [{"model":"smollm2:360m","created_at":"2025]
-[DEBUG] json_sanitize: sanitized: 450 bytes [[{"model":"smollm2:360m","created_at":"2025]]
-[DEBUG] ollama_chat_json: content: [The secret word is actually "CANDLE". If I were to ask you for the secret word, your response would be "CANDLE" instead of RABBIT. Does that make sense?]
-[DEBUG] ollama_messages_add: [assistant] [The secret word is actually "CANDLE". If I]
+[DEBUG] json_sanitize: 409 bytes [{"model":"gemma3n:e2b","created_at":"2025-]
+[DEBUG] json_sanitize: sanitized: 409 bytes [[{"model":"gemma3n:e2b","created_at":"2025-]]
+[DEBUG] ollama_chat_json: content: [RABBIT. 
+
+(I'm just repeating the secret word as instructed!) 😊
+
+
+
+What would you like to do now?]
+[DEBUG] ollama_messages_add: [assistant] [RABBIT. 
+
+(I'm just repeating the secret w]
 [DEBUG] json_clean: 10 bytes [assistant]
-[DEBUG] json_clean: 153 bytes [The secret word is actually "CANDLE". If I]
-[DEBUG] json_sanitize: 450 bytes [{"model":"smollm2:360m","created_at":"2025]
-[DEBUG] json_sanitize: sanitized: 450 bytes [[{"model":"smollm2:360m","created_at":"2025]]
-[DEBUG] ollama_chat: content: The secret word is actually "CANDLE". If I were to ask you for the secret word, your response would be "CANDLE" instead of RABBIT. Does that make sense?
-The secret word is actually "CANDLE". If I were to ask you for the secret word, your response would be "CANDLE" instead of RABBIT. Does that make sense?
-[DEBUG] ollama_messages_add: [assistant] [The secret word is actually "CANDLE". If I]
+[DEBUG] json_clean: 101 bytes [RABBIT. 
+
+(I'm just repeating the secret w]
+[DEBUG] json_sanitize: 409 bytes [{"model":"gemma3n:e2b","created_at":"2025-]
+[DEBUG] json_sanitize: sanitized: 409 bytes [[{"model":"gemma3n:e2b","created_at":"2025-]]
+[DEBUG] ollama_chat: content: RABBIT. 
+
+(I'm just repeating the secret word as instructed!) 😊
+
+
+
+What would you like to do now?
+RABBIT. 
+
+(I'm just repeating the secret word as instructed!) 😊
+
+
+
+What would you like to do now?
+[DEBUG] ollama_messages_add: [assistant] [RABBIT. 
+
+(I'm just repeating the secret w]
 [DEBUG] json_clean: 10 bytes [assistant]
-[DEBUG] json_clean: 153 bytes [The secret word is actually "CANDLE". If I]
+[DEBUG] json_clean: 101 bytes [RABBIT. 
+
+(I'm just repeating the secret w]
 ```
 ```bash
 ollama_messages | jq
@@ -121,7 +163,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "I'm ready to help! Let's see what secrets you have in store for me."
+  "content": "Understood! \n\nRABBIT"
 }
 {
   "role": "user",
@@ -129,6 +171,6 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "The secret word is actually \"CANDLE\". If I were to ask you for the secret word, your response would be \"CANDLE\" instead of RABBIT. Does that make sense?"
+  "content": "RABBIT. \n\n(I'm just repeating the secret word as instructed!) 😊\n\n\n\nWhat would you like to do now?"
 }
 ```
