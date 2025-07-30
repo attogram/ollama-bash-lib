@@ -57,7 +57,7 @@ json_clean() {
   return $RETURN_SUCCESS
 }
 
-# Sanitize a string for use as a JSON value
+# Sanitize a string to use for jq
 #
 # Usage: json_sanitize "string"
 # Input: 1 - The string to sanitize
@@ -71,6 +71,7 @@ json_sanitize() {
   # Replace newlines (LF, ASCII 10) with literal \n using awk, then strip final literal \n
   sanitized=$(printf '%s' "$sanitized" | awk '{ ORS="\\n"; print }' | sed 's/\\n$//')
   # Remove all control chars 0-9, 11-12, 14-31
+  # TODO - don't remove control chars - instead replace them like jq -Rn does
   sanitized=$(printf '%s' "$sanitized" | tr -d '\000-\011\013\014\016-\037')
   printf '%s\n' "$sanitized"
   debug "json_sanitize: sanitized: $(echo "$sanitized" | wc -c | sed 's/ //g') bytes [[${sanitized:0:42}]]"
