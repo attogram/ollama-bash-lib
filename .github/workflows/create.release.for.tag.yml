@@ -23,7 +23,7 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: "Ollama Bash Lib ${{ github.ref_name }}"
           body: |
-            # Ollama Bash Lib ${{ github.ref_name }}
+            Ollama Bash Lib ${{ github.ref_name }}
 
             A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
               
