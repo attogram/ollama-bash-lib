@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo '# jq_sanitize'
+echo '# json_sanitize'
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -15,13 +15,13 @@ startup() {
 startup
 
 echo
-echo 'Usage: `jq_sanitize "string"`'
+echo 'Usage: `json_sanitize "string"`'
 echo
 
 echo
 echo '```'
 string='{"value":"abc def"}'
-clean=$(jq_sanitize "$string")
+clean=$(json_sanitize "$string")
 echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
@@ -30,7 +30,7 @@ echo
 echo '```'
 ff=$'\n'
 string="{\"value\":\"abc${ff}def\"}"
-clean=$(jq_sanitize "$string")
+clean=$(json_sanitize "$string")
 echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
@@ -45,7 +45,7 @@ string+=$(printf 'carriage-return:%b, ' '\013') # carriage return \r
 string+=$(printf 'escape:%b, ' '\027') # escape
 string+=$(printf 'unit-separator:%b' '\031') # unit separator
 string+=' :end'
-clean=$(jq_sanitize "$string")
+clean=$(json_sanitize "$string")
 echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'

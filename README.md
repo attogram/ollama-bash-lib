@@ -57,8 +57,8 @@ See the **[demos](demos)** directory for all demo scripts
 | [about.md](demos/about.md)                                             | Ollama Bash Lib variables and functions                                                                         | [about.sh](demos/about.sh)                                             |
 | [ollama_api_get.md](demos/ollama_api_get.md)                           | `ollama_api_get` usage and error handling                                                                       | [ollama_api_get.sh](demos/ollama_api_get.sh)                           |
 | [token.estimate.md](demos/token.estimate.md)                           | Estimated token count                                                                                           | [token.estimate.sh](demos/token.estimate.sh)                           |
-| [json_safe_value.md](demos/json_safe_value.md)                         | Sanitize string use as a json value                                                                             | [json_safe_value.sh](demos/json_safe_value.sh)                         |
-| [jq_sanitize.md](demos/jq_sanitize.md)                                 | Sanitize string for jq use                                                                                      | [jq_sanitize.sh](demos/jq_sanitize.sh)                                 |
+| [json_clean.md](demos/json_clean.md)                         | Sanitize string use as a json value                                                                             | [json_clean.sh](demos/json_clean.sh)                         |
+| [json_sanitize.md](demos/json_sanitize.md)                                 | Sanitize string for jq use                                                                                      | [json_sanitize.sh](demos/json_sanitize.sh)                                 |
 |                                                                        | Chat via Generate                                                                                               | [interactive.generate.sh](demos/interactive.generate.sh)               |
 
 ## Functions
@@ -128,8 +128,8 @@ See the **[demos](demos)** directory for all demo scripts
 
 | Function          | About                                   | Usage                      | Output                            | Return  |
 |-------------------|-----------------------------------------|----------------------------|-----------------------------------|---------|
-| `json_safe_value` | Escape a string for use as a JSON value | `json_safe_value "string"` | _"quoted json value"_ to `stdout` | `0`/`1` |
-| `jq_sanitize`     | Sanitize a string for jq use            | `jq_sanitize "string"`     | sanitized string to stdout        | `0`/`1` |
+| `json_clean` | Escape a string for use as a JSON value | `json_clean "string"` | _"quoted json value"_ to `stdout` | `0`/`1` |
+| `json_sanitize`     | Sanitize a string for jq use            | `json_sanitize "string"`     | sanitized string to stdout        | `0`/`1` |
 | `debug`           | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`          | message to `stderr`               | `0`/`1` |
 | `error`           | Error message                           | `error "message"`          | message to `stderr`               | `0`/`1` |
 
