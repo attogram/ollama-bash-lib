@@ -1,46 +1,45 @@
 # ollama_generate
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.0
+
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
 
 ## Demo
 
 ```bash
-ollama_generate "qwen3:1.7b" "Describe a rabbit in 2 short sentences"
+ollama_generate "qwen3:0.6b" "Describe a rabbit in 2 short sentences"
 ```
 ```
 <think>
-Okay, the user wants me to describe a rabbit in two short sentences. Let me start by thinking about the key characteristics of a rabbit. They are small mammals, usually brown or gray in color. They have long ears, which help them hear predators. Also, they are known for their speed and agility.
-
-I need to make sure each sentence is concise. The first sentence could highlight their physical features, like their size, color, and ears. The second sentence might focus on their behavior, such as their speed and how they move. I should avoid any technical terms to keep it simple. Let me check if there's anything else important. Maybe their habitat or typical behavior? But the user didn't specify, so sticking to the main points should be enough. Alright, putting it together now.
+Okay, the user wants me to describe a rabbit in two short sentences. Let me start by thinking about the key features of a rabbit. They're cute and playful, right? So first sentence could mention their friendly nature. Maybe they like to play with toys. Second sentence should highlight their physical characteristics. Maybe their fluffy ears or their ability to navigate. I need to keep it concise but vivid. Let me check if I'm using the correct terms and if it's all in two sentences. Yeah, that should work. Alright, time to put it all together.
 </think>
 
-A rabbit is a small, agile mammal with fluffy fur, large ears, and a quick, darting movement, often seen hopping across grassy fields. Its brown or gray coat blends seamlessly with its environment, helping it evade predators.
+A rabbit is a cute and playful creature with fluffy ears and a curious mind. They enjoy exploring and playing with their surroundings, often chasing toys or exploring quiet spaces.
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate "qwen3:1.7b" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate "qwen3:0.6b" "Describe a rabbit in 2 short sentences"`
 ```
 ```json
-[DEBUG] ollama_generate: [qwen3:1.7b] [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_generate_json: [qwen3:1.7b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate: [qwen3:0.6b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [qwen3:0.6b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] json_safe_value: 11 bytes [qwen3:1.7b]
+[DEBUG] json_safe_value: 11 bytes [qwen3:0.6b]
 [DEBUG] json_safe_value: 39 bytes [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_api_post: [/api/generate] [{"model":"qwen3:1.7b","prompt":"Describe a rabbit in 2 short sentences","stream":false}]
+[DEBUG] ollama_api_post: [/api/generate] [{"model":"qwen3:0.6b","prompt":"Describe a rabbit in 2 short sentences","stream":false}]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
-[DEBUG] ollama_generate: result: 2206 bytes
-[DEBUG] jq_sanitize: 2206 bytes [{"model":"qwen3:1.7b","created_at":"2025-07-29T22:25:18.650216Z","response":"\u003cthink\u003e
-Okay, the user wants me to describe a rabbit in two short sentences. Let me start by thinking about the key characteristics of a rabbit. They are small mammals, usually brown or gray in color. They have large ears, which help them stay cool. Also, they are known for their speed and agility. Maybe mention their habitat, like grasslands or burrows. Oh, and they are prey animals, so they have a cautious nature. Let me make sure each sentence is concise. First sentence: Highlight their physical traits and habitat. Second sentence: Focus on their behavior and characteristics. Need to keep it simple and clear. Check for any errors. Yeah, that should work.
+[DEBUG] ollama_generate: result: 2167 bytes
+[DEBUG] jq_sanitize: 2167 bytes [{"model":"qwen3:0.6b","created_at":"2025-07-30T10:42:26.729765Z","response":"\u003cthink\u003e
+Okay, the user wants me to describe a rabbit in two short sentences. Let me start by thinking about the key features of a rabbit. They are mammals, so they have fur, a nose, and ears. Also, they're social animals, which is a good point to mention. I should include some characteristics like their behavior, maybe their ability to survive in different environments. Oh, and their role in ecosystems. Wait, but how to make it concise? Let me check the example response. They did mention their habitat, maybe the forest or a garden. Also, their adaptability. Let me make sure each sentence covers a different aspect without being too vague. Alright, I think that's it.
 \u003c/think\u003e
 
-A rabbit is a small, agile mammal with large ears and a brown or gray coat, often found in grasslands or burrows, and it moves swiftly to evade predators. Its keen sense of hearing and cautious nature reflect its role as prey in natural ecosystems.","done":true,"done_reason":"stop","context":[151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,151667,198,32313,11,279,1196,6801,752,311,7512,264,38724,304,1378,2805,22870,13,6771,752,1191,553,7274,911,279,1376,17452,315,264,38724,13,2379,525,2613,55569,11,5990,13876,476,17545,304,1894,13,2379,614,3460,24230,11,892,1492,1105,4717,7010,13,7281,11,807,525,3881,369,862,4628,323,66641,13,10696,6286,862,38546,11,1075,16359,8166,476,7795,1811,13,8670,11,323,807,525,36593,9898,11,773,807,614,264,45778,6993,13,6771,752,1281,2704,1817,11652,374,63594,13,5512,11652,25,55994,862,6961,24055,323,38546,13,10440,11652,25,25806,389,862,7709,323,17452,13,14656,311,2506,432,4285,323,2797,13,4248,369,894,5975,13,21607,11,429,1265,975,624,151668,271,32,38724,374,264,2613,11,61465,34941,278,448,3460,24230,323,264,13876,476,17545,22875,11,3545,1730,304,16359,8166,476,7795,1811,11,323,432,10797,55551,311,76653,55117,13,11445,26891,5530,315,10778,323,45778,6993,8708,1181,3476,438,36593,304,5810,60851,13],"total_duration":3429230916,"load_duration":27781333,"prompt_eval_count":16,"prompt_eval_duration":18770666,"eval_count":195,"eval_duration":3382242459}]
+A rabbit is a small, furry mammal with a bushy tail and round ears, known for its quick agility and social behavior. They thrive in open habitats like forests or gardens, often playing a role in maintaining local ecosystems.","done":true,"done_reason":"stop","context":[151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,151667,198,32313,11,279,1196,6801,752,311,7512,264,38724,304,1378,2805,22870,13,6771,752,1191,553,7274,911,279,1376,4419,315,264,38724,13,2379,525,55569,11,773,807,614,18241,11,264,19142,11,323,24230,13,7281,11,807,2299,3590,9898,11,892,374,264,1661,1459,311,6286,13,358,1265,2924,1045,17452,1075,862,7709,11,7196,862,5726,311,17697,304,2155,21737,13,8670,11,323,862,3476,304,60851,13,13824,11,714,1246,311,1281,432,63594,30,6771,752,1779,279,3110,2033,13,2379,1521,6286,862,38546,11,7196,279,13638,476,264,13551,13,7281,11,862,10515,2897,13,6771,752,1281,2704,1817,11652,14521,264,2155,12893,2041,1660,2238,39046,13,97593,11,358,1744,429,594,432,624,151668,271,32,38724,374,264,2613,11,74419,34941,278,448,264,29673,88,9787,323,4778,24230,11,3881,369,1181,3974,66641,323,3590,7709,13,2379,40872,304,1787,70599,1075,35558,476,35436,11,3545,5619,264,3476,304,20337,2205,60851,13],"total_duration":1854397000,"load_duration":50508542,"prompt_eval_count":16,"prompt_eval_duration":9730291,"eval_count":193,"eval_duration":1793184417}]
 [DEBUG] jq_sanitized: return: 0
 <think>
-Okay, the user wants me to describe a rabbit in two short sentences. Let me start by thinking about the key characteristics of a rabbit. They are small mammals, usually brown or gray in color. They have large ears, which help them stay cool. Also, they are known for their speed and agility. Maybe mention their habitat, like grasslands or burrows. Oh, and they are prey animals, so they have a cautious nature. Let me make sure each sentence is concise. First sentence: Highlight their physical traits and habitat. Second sentence: Focus on their behavior and characteristics. Need to keep it simple and clear. Check for any errors. Yeah, that should work.
+Okay, the user wants me to describe a rabbit in two short sentences. Let me start by thinking about the key features of a rabbit. They are mammals, so they have fur, a nose, and ears. Also, they're social animals, which is a good point to mention. I should include some characteristics like their behavior, maybe their ability to survive in different environments. Oh, and their role in ecosystems. Wait, but how to make it concise? Let me check the example response. They did mention their habitat, maybe the forest or a garden. Also, their adaptability. Let me make sure each sentence covers a different aspect without being too vague. Alright, I think that's it.
 </think>
 
-A rabbit is a small, agile mammal with large ears and a brown or gray coat, often found in grasslands or burrows, and it moves swiftly to evade predators. Its keen sense of hearing and cautious nature reflect its role as prey in natural ecosystems.
+A rabbit is a small, furry mammal with a bushy tail and round ears, known for its quick agility and social behavior. They thrive in open habitats like forests or gardens, often playing a role in maintaining local ecosystems.
 [DEBUG] ollama_generate_stream_json: return: 0
 ```

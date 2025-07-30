@@ -1,5 +1,6 @@
-# Messages
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.0
+# ollama_messages, ollama_messages_add, ollama_messages_count
+
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
 ```
 
 ollama_messages_count: 0

@@ -1,11 +1,12 @@
 # Review of README.md
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.0
+
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
 
 ```bash
 prompt="Act as an expert Software Engineer.
 Do a full review of this README:
 
 $(cat "../README.md")"
-ollama_generate_stream "gemma:2b" "$prompt"
+ollama_generate_stream "llava:7b" "$prompt"
 ```
-I have reviewed the provided README and found the following aspects to be useful:* **Clear and concise overview:** The README provides a clear and concise overview of the project, including its purpose, features, and dependencies.* **Detailed usage instructions:** The README provides detailed usage instructions for each function, making it easy for users to learn how to use the library.* **Examples:** The README includes examples for each function, which makes it easier for users to understand how to use the library.* **License:** The project is licensed under the MIT License, which is a common open-source license that allows for free use and modification.* **Additional resources:** The README provides links to other resources, such as tutorials and examples, which can be helpful for users.Overall, the README is well-written and provides a valuable overview of the project. It is clear, concise, and easy to use.
+ This is a comprehensive README file for the Ollama Bash Lib, which is a collection of bash scripts and functions to interact with Ollama, an open-source language model built using PyTorch. The README provides detailed information about the library's installation requirements, usage instructions, and available features such as running prompt against all or some models, creating web pages with output and performance statistics, and starting a chat room between all or some models.The bash scripts mentioned in the README are:* `ollama_installed`: Checks if Ollama is installed on the system.* `ollama_ps`: Lists running model processes.* `ollama_version`: Displays Ollama version information.The library also includes internal functions such as `json_safe_value`, which escapes a string for use as a JSON value, and `debug` and `error`, which are used to log messages during development or debugging.The README also mentions the requirements for running Ollama Bash Lib, including bash version 3 or higher, Ollama, curl, jq, awk, grep, sed, tr, wc, and command. It is licensed under the MIT License. The Attogram Project is mentioned as a source of other AI-related projects, such as Multirun, Toolshed, LLM Council, and Small Models. 

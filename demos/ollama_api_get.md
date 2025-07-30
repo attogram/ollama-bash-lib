@@ -1,5 +1,6 @@
 # ollama_api_get
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.0
+
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
 ## Demo
 ```
 

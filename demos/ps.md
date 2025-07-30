@@ -1,41 +1,23 @@
 # ollama_ps, ollama_ps_json
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.0
+
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
+
+`ollama_ps`
+```
+NAME            ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+smollm2:360m    297281b699fc    1.6 GB    100% GPU     4096       4 minutes from now    
+qwen3:8b        500a1f067a9f    6.6 GB    100% GPU     4096       4 minutes from now    
 ```
 
-ollama_ps
-
-NAME             ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-granite3.3:2b    07bd1f170855    2.7 GB    100% GPU     4096       4 minutes from now    
-cogito:3b        bd144357d717    3.4 GB    100% GPU     4096       4 minutes from now    
-
-ollama_ps_json
-
+`ollama_ps_json | jq`
+```
 {
   "models": [
     {
-      "name": "granite3.3:2b",
-      "model": "granite3.3:2b",
-      "size": 2686878533,
-      "digest": "07bd1f170855240f9e162bf54ea494a8bc1c73d8cbd1365d7fccbeb7d2504947",
-      "details": {
-        "parent_model": "",
-        "format": "gguf",
-        "family": "granite",
-        "families": [
-          "granite"
-        ],
-        "parameter_size": "2.5B",
-        "quantization_level": "Q4_K_M"
-      },
-      "expires_at": "2025-07-30T00:30:38.630149+02:00",
-      "size_vram": 2686878533,
-      "context_length": 4096
-    },
-    {
-      "name": "cogito:3b",
-      "model": "cogito:3b",
-      "size": 3367856128,
-      "digest": "bd144357d717922daff29200122c3f2aab52d2a643ec73ce304f7827069ec74d",
+      "name": "smollm2:360m",
+      "model": "smollm2:360m",
+      "size": 1595405568,
+      "digest": "297281b699fc51376006233ca400cd664c4f7b80ed88a47ef084f1e4b089803b",
       "details": {
         "parent_model": "",
         "format": "gguf",
@@ -43,11 +25,30 @@ ollama_ps_json
         "families": [
           "llama"
         ],
-        "parameter_size": "3.6B",
+        "parameter_size": "361.82M",
+        "quantization_level": "F16"
+      },
+      "expires_at": "2025-07-30T12:48:25.324054+02:00",
+      "size_vram": 1595405568,
+      "context_length": 4096
+    },
+    {
+      "name": "qwen3:8b",
+      "model": "qwen3:8b",
+      "size": 6557205504,
+      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "8.2B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-07-30T00:30:33.064234+02:00",
-      "size_vram": 3367856128,
+      "expires_at": "2025-07-30T12:48:00.129685+02:00",
+      "size_vram": 6557205504,
       "context_length": 4096
     }
   ]

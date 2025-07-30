@@ -1,5 +1,6 @@
 # ollama_list, ollama_list_json
-A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.0
+
+A demo of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.39.1
 ```
 
 ollama_list

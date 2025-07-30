@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo '# ollama_generate_stream_json'
+echo '# ollama_vars'
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -14,25 +14,7 @@ startup() {
 
 startup
 
-model="$(ollama_model_random)"
-prompt="Describe a rabbit in 2 short sentences"
-
 echo
-echo '## Demo'
-echo
-echo '```bash'
-echo "ollama_generate_stream_json \"$model\" \"$prompt\""
 echo '```'
-echo '```json'
-ollama_generate_stream_json "$model" "$prompt"
-echo '```'
-
-echo
-echo "## Demo Debug"
-echo
-echo '```bash'
-echo "\`OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json \"$model\" \"$prompt\"\`"
-echo '```'
-echo '```json'
-OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "$model" "$prompt"
+ollama_vars
 echo '```'

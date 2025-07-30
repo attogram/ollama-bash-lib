@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.39.0"
+OLLAMA_LIB_VERSION="0.39.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Attogram Project <https://github.com/attogram>"
@@ -78,23 +78,7 @@ jq_sanitize() {
   # Remove all control chars 0-9, 11-12, 14-31
   sanitized=$(printf '%s' "$sanitized" | tr -d '\000-\011\013\014\016-\037')
   printf '%s\n' "$sanitized"
-  debug "jq_sanitized: return: 0"
-  return $RETURN_SUCCESS
-}
-
-# Ollama Functions
-
-# Is Ollama installed on the local system?
-#
-# Usage: if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
-# Input: none
-# Output: none
-# Returns: 0 if Ollama is installed, 1 if Ollama is not installed
-ollama_installed() {
-  debug "ollama_installed"
-  if [ -z "$(command -v "ollama" 2> /dev/null)" ]; then
-    return $RETURN_ERROR
-  fi
+  debug "jq_sanitized: sanitized: [$sanitized]"
   return $RETURN_SUCCESS
 }
 
@@ -443,8 +427,14 @@ ollama_chat_stream_json() {
 # Returns: 0 on success, 1 on error
 ollama_list() {
   debug "ollama_list"
+  local error_list
   ollama list
-  return $?
+  error_list=$?
+  if [ "$error_list" -gt 0 ]; then
+    error "ollama_list: error_list: $error_list"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
 # All available models, JSON version
@@ -454,8 +444,14 @@ ollama_list() {
 # Returns: 0 on success, 1 on error
 ollama_list_json() {
   debug "ollama_list_json"
+  local error_ollama_api_get
   ollama_api_get "/api/tags"
-  return $?
+  error_ollama_api_get=$?
+  if [ "$error_ollama_api_get" -gt 0 ]; then
+    error "ollama_list: error_ollama_api_get: $error_ollama_api_get"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
 # All available models, Bash array version
@@ -465,12 +461,16 @@ ollama_list_json() {
 # Returns: 0 on success, 1 on error
 ollama_list_array() {
   debug "ollama_list_array"
-  local models return
-  models=($(ollama list | awk '{if (NR > 1) print $1}' | sort)) # Get list of models, sorted alphabetically
-  return=$?
-  # TODO - If error, return 1
-  echo "${models[@]}"
-  return $return # TODO - also check echo status
+  local models error_list
+  # Get list from ollama cli, skip first line (headers), get first column (names), sort alphabetically
+  models=($(ollama list | awk '{if (NR > 1) print $1}' | sort))
+  error_list=$?
+  if [ "$error_list" -gt 0 ]; then
+    error "ollama_list_array: error_list: $error_list"
+    return $RETURN_ERROR
+  fi
+  echo "${models[@]}" # space separated list of model names
+  return $RETURN_SUCCESS
 }
 
 # Model Functions
@@ -497,18 +497,24 @@ ollama_model_random() {
 #
 # Usage: ollama_model_unload "model"
 # Input: 1 - Model name to unload
-# Output: none
+# Output: unload result, in json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_model_unload() {
+  debug result error_unload
   if [ -z "$1" ]; then
     debug "Error: ollama_model_unload: no model"
     return $RETURN_ERROR
   fi
-  local response return
-  response=$(ollama_api_post "/api/generate" "{\"model\":$(json_safe_value "$1"),\"keep_alive\":0}")
-  return=$?
-  debug "$response"
-  return $return # TODO - if Post error, get error info
+  local response result error_unload
+  result=$(ollama_api_post "/api/generate" "{\"model\":$(json_safe_value "$1"),\"keep_alive\":0}")
+  error_unload=$?
+  if [ "$error_unload" -gt 0 ]; then
+    error "ollama_model_unload: error_unload: $error_unload result: [$result]"
+    return $RETURN_ERROR
+  fi
+  # TODO - if result is {"error":"reason"} then error "$reason"; return $RETURN_ERROR
+  printf '%s\n' "$result"
+  return $RETURN_SUCCESS
 }
 
 # Processes Functions
@@ -521,7 +527,12 @@ ollama_model_unload() {
 ollama_ps() {
   debug "ollama_ps"
   ollama ps
-  return $?
+  local error_ollama=$?
+  if [ "$error_ollama" -gt 0 ]; then
+    error "ollama_ps: error_ollama: $error_ollama"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
 # Running model processes, JSON version
@@ -532,7 +543,12 @@ ollama_ps() {
 ollama_ps_json() {
   debug "ollama_ps_json"
   ollama_api_get "/api/ps"
-  return $?
+  local error_ollama_api_get=$?
+  if [ "$error_ollama_api_get" -gt 0 ]; then
+    error "ollama_ps_json: error_ollama_api_get: $error_ollama_api_get"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
 # Show Functions
@@ -545,7 +561,12 @@ ollama_ps_json() {
 ollama_show() {
   debug "ollama_show"
   ollama show "$1"
-  return $?
+  local error_ollama=$?
+  if [ "$error_ollama" -gt 0 ]; then
+    error "ollama_show: error_ollama: $error_ollama"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
 # Show model information, JSON version
@@ -556,10 +577,75 @@ ollama_show() {
 ollama_show_json() {
   debug "ollama_show_json"
   ollama_api_post "/api/show" "{\"model\":$(json_safe_value "$1")}"
-  return $?
+  local error_ollama_api_post=$?
+  if [ "$error_ollama_api_post" -gt 0 ]; then
+    error "ollama_show_json: error_ollama_api_post: $error_ollama_api_post"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
-# Version Functions
+# Ollama Functions
+
+# Is Ollama installed on the local system?
+#
+# Usage: if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
+# Input: none
+# Output: none
+# Returns: 0 if Ollama is installed, 1 if Ollama is not installed
+ollama_installed() {
+  debug "ollama_installed"
+  if [ -z "$(command -v "ollama" 2> /dev/null)" ]; then
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
+}
+
+# Ollama environment variables
+#
+# Usage: ollama_vars
+# Input: none
+# Output: text, to stdout
+# Returns: 0
+ollama_vars() {
+  echo "OLLAMA_DEBUG: $OLLAMA_DEBUG"
+  echo "OLLAMA_HOST: $OLLAMA_HOST"
+  echo "OLLAMA_KEEP_ALIVE: $OLLAMA_KEEP_ALIVE"
+  echo "OLLAMA_MAX_LOADED_MODELS: $OLLAMA_MAX_LOADED_MODELS"
+  echo "OLLAMA_MAX_QUEUE: $OLLAMA_MAX_QUEUE"
+  echo "OLLAMA_MODELS: $OLLAMA_MODELS"
+  echo "OLLAMA_NUM_PARALLEL: $OLLAMA_NUM_PARALLEL"
+  echo "OLLAMA_NOPRUNE: $OLLAMA_NOPRUNE"
+  echo "OLLAMA_ORIGINS: $OLLAMA_ORIGINS"
+  echo "OLLAMA_SCHED_SPREAD: $OLLAMA_SCHED_SPREAD"
+  echo "OLLAMA_FLASH_ATTENTION: $OLLAMA_FLASH_ATTENTION"
+  echo "OLLAMA_KV_CACHE_TYPE: $OLLAMA_KV_CACHE_TYPE"
+  echo "OLLAMA_LLM_LIBRARY: $OLLAMA_LLM_LIBRARY"
+  echo "OLLAMA_GPU_OVERHEAD: $OLLAMA_GPU_OVERHEAD"
+  echo "OLLAMA_LOAD_TIMEOUT: $OLLAMA_LOAD_TIMEOUT"
+  echo "OLLAMA_TMPDIR: $OLLAMA_TMPDIR"
+  echo "OLLAMA_MAX_VRAM: $OLLAMA_MAX_VRAM"
+  echo "OLLAMA_NOHISTORY: $OLLAMA_NOHISTORY"
+  echo "OLLAMA_MULTIUSER_CACHE: $OLLAMA_MULTIUSER_CACHE"
+  echo "OLLAMA_CONTEXT_LENGTH: $OLLAMA_CONTEXT_LENGTH"
+  echo "OLLAMA_NEW_ENGINE: $OLLAMA_NEW_ENGINE"
+  echo "OLLAMA_INTEL_GPU: $OLLAMA_INTEL_GPU"
+  echo "OLLAMA_RUNNERS_DIR: $OLLAMA_RUNNERS_DIR"
+  echo "OLLAMA_TEST_EXISTING: $OLLAMA_TEST_EXISTING"
+  echo "CUDA_VISIBLE_DEVICES: $CUDA_VISIBLE_DEVICES"
+  echo "GPU_DEVICE_ORDINAL: $GPU_DEVICE_ORDINAL"
+  echo "HSA_OVERRIDE_GFX_VERSION: $HSA_OVERRIDE_GFX_VERSION"
+  echo "HIP_PATH: $HIP_PATH"
+  echo "HIP_VISIBLE_DEVICES: $HIP_VISIBLE_DEVICES"
+  echo "ROCR_VISIBLE_DEVICES: $ROCR_VISIBLE_DEVICES"
+  echo "JETSON_JETPACK: $JETSON_JETPACK"
+  echo "LD_LIBRARY_PATHS: $LD_LIBRARY_PATH"
+  echo "HTTP_PROXY: $HTTP_PROXY"
+  echo "LOCALAPPDATA: $LOCALAPPDATA"
+  #echo "HOME: $HOME"
+  echo "TERM: $TERM"
+  return $RETURN_SUCCESS
+}
 
 # Ollama application version, TEXT version
 #
@@ -568,9 +654,13 @@ ollama_show_json() {
 # Returns: 0 on success, 1 on error
 ollama_version() {
   debug "ollama_version"
-  local versionJson
   ollama_api_get "/api/version" | jq -r ".version"
-  return $?
+  local error_ollama_api_get=$?
+  if [ "$error_ollama_api_get" -gt 0 ]; then
+    error "ollama_version: error_ollama_api_get: $error_ollama_api_get"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
 # Ollama application version, JSON version
@@ -581,7 +671,12 @@ ollama_version() {
 ollama_version_json() {
   debug "ollama_version_json"
   ollama_api_get "/api/version"
-  return $?
+  local error_ollama_api_get=$?
+  if [ "$error_ollama_api_get" -gt 0 ]; then
+    error "ollama_version_json: error_ollama_api_get: $error_ollama_api_get"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
 # Ollama application version, CLI version
@@ -592,7 +687,12 @@ ollama_version_json() {
 ollama_version_cli() {
   debug "ollama_version_cli"
   ollama --version
-  return $?
+  local error_ollama=$?
+  if [ "$error_ollama" -gt 0 ]; then
+    error "ollama_version_cli: error_ollama: $error_ollama"
+    return $RETURN_ERROR
+  fi
+  return $RETURN_SUCCESS
 }
 
 # Utility
@@ -686,7 +786,7 @@ estimate_tokens() {
 #
 # Usage: ollama_lib_about
 # Input: none
-# Output: text to stdout
+# Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_lib_about() {
   echo "$OLLAMA_LIB_NAME v$OLLAMA_LIB_VERSION"
@@ -701,6 +801,7 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
   echo "OLLAMA_LIB_API      : $OLLAMA_LIB_API"
   echo "OLLAMA_LIB_STREAM   : $OLLAMA_LIB_STREAM"
+  echo "OLLAMA_LIB_MESSAGES : ${#OLLAMA_LIB_MESSAGES[@]}"
   echo
   if [ -z "$(command -v compgen 2> /dev/null)" ]; then
     debug "ollama_lib_about: compgen Not Found"
@@ -709,14 +810,13 @@ ollama_lib_about() {
   echo "Functions:"
   echo
   compgen -A function | grep 'ollama_' | sort
-  return $?
 }
 
 # Ollama Bash Lib version
 #
 # Usage: ollama_lib_version
 # Input: none
-# Output: text to stdout
+# Output: semantic version number, to stdout
 # Returns: 0
 ollama_lib_version() {
   echo "$OLLAMA_LIB_VERSION"
