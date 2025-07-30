@@ -31,7 +31,7 @@ echo
 echo "## Demo Debug"
 echo
 echo '```bash'
-echo "\`OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json \"$model\" \"$prompt\"\`"
+echo "OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json \"$model\" \"$prompt\""
 echo '```'
 echo '```json'
 OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "$model" "$prompt"
