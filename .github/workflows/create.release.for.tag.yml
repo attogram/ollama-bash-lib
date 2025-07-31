@@ -46,7 +46,10 @@ jobs:
             MSG=$(git log -1 --pretty=format:"%s" $COMMIT | cut -c1-80)
             SHORT_SHA=$(git rev-parse --short $COMMIT)
             AUTHOR_NAME=$(git log -1 --pretty=format:"%an" $COMMIT)
-            CHANGES+="- $SHORT_SHA by $AUTHOR_NAME: $MSG"$'\n'
+            # Naively map author name to github username (lowercase, spaces to dashes)
+            GITHUB_USER=$(echo "$AUTHOR_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+            AUTHOR_LINK="[${AUTHOR_NAME}](https://github.com/${GITHUB_USER})"
+            CHANGES+="- $SHORT_SHA by $AUTHOR_LINK: $MSG"$'\n'
           done
 
           # Only add compare link if previous tag exists
