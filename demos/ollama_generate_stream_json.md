@@ -1,6 +1,6 @@
 # ollama_generate_stream_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.8
 
 ## Demo
 
@@ -8,46 +8,51 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ollama_generate_stream_json "hermes3:8b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.164357Z","response":"A","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.215435Z","response":" rabbit","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.266714Z","response":" is","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.318169Z","response":" a","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.369515Z","response":" small","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.420811Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.472185Z","response":" furry","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.523451Z","response":" mamm","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.57504Z","response":"al","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.627966Z","response":" known","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.680179Z","response":" for","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.732067Z","response":" its","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.783643Z","response":" long","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.835117Z","response":" ears","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.886708Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.938505Z","response":" powerful","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:53.990027Z","response":" hind","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.04637Z","response":" legs","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.099851Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.151426Z","response":" and","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.202778Z","response":" ability","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.254127Z","response":" to","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.30547Z","response":" reproduce","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.35686Z","response":" rapidly","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.408242Z","response":".","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.459642Z","response":" It","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.511314Z","response":" is","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.562855Z","response":" also","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.616526Z","response":" sometimes","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.669408Z","response":" referred","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.722243Z","response":" to","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.775059Z","response":" as","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.830562Z","response":" a","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.883478Z","response":" bunny","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.937105Z","response":" or","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:54.990713Z","response":" a","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.045892Z","response":" con","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.098379Z","response":"ey","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.1502Z","response":".","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.202046Z","response":"","done":true,"done_reason":"stop","context":[128039,882,198,75885,264,39824,304,220,17,2875,23719,128040,198,128039,78191,198,32,39824,374,264,2678,11,75519,36041,278,3967,369,1202,1317,25212,11,8147,48419,14535,11,323,5845,311,23645,19019,13,1102,374,1101,7170,14183,311,439,264,76614,477,264,390,1216,13],"total_duration":6241630209,"load_duration":3373802875,"prompt_eval_count":17,"prompt_eval_duration":827627875,"eval_count":40,"eval_duration":2039253333}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.013435Z","response":"A","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.067543Z","response":" rabbit","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.122525Z","response":" is","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.176505Z","response":" a","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.231376Z","response":" small","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.285592Z","response":",","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.339757Z","response":" furry","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.394559Z","response":" mamm","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.448543Z","response":"al","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.502775Z","response":" known","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.558247Z","response":" for","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.612914Z","response":" its","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.666786Z","response":" long","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.725627Z","response":" ears","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.782194Z","response":",","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.837328Z","response":" strong","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.891977Z","response":" hind","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.946261Z","response":" legs","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.000301Z","response":",","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.062213Z","response":" and","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.128558Z","response":" ability","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.200223Z","response":" to","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.416933Z","response":" reproduce","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.475174Z","response":" quickly","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.531615Z","response":".","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.594696Z","response":" It","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.658996Z","response":"'s","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.716814Z","response":" also","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.772548Z","response":" commonly","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.827977Z","response":" associated","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.884107Z","response":" with","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.938514Z","response":" the","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.994315Z","response":" children","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.050916Z","response":"'s","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.106216Z","response":" story","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.166232Z","response":" \"","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.221052Z","response":"Peter","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.275351Z","response":" Rabbit","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.331244Z","response":"\"","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.387649Z","response":" by","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.442693Z","response":" Be","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.497073Z","response":"atrix","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.551637Z","response":" Potter","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.607915Z","response":".","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.662677Z","response":"","done":true,"done_reason":"stop","context":[128039,882,198,75885,264,39824,304,220,17,2875,23719,128040,198,128039,78191,198,32,39824,374,264,2678,11,75519,36041,278,3967,369,1202,1317,25212,11,3831,48419,14535,11,323,5845,311,23645,6288,13,1102,596,1101,17037,5938,449,279,2911,596,3446,330,37659,49431,1,555,2893,2619,30427,13],"total_duration":7632288875,"load_duration":3380045000,"prompt_eval_count":17,"prompt_eval_duration":1595137958,"eval_count":45,"eval_duration":2651183208}
 ```
 
 ## Demo Debug
@@ -62,52 +67,42 @@ OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "hermes3:8b" "Describe a rabbit i
 [DEBUG] json_clean: 11 bytes [hermes3:8b]
 [DEBUG] json_clean: 39 bytes [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_api_post: [/api/generate] [{"model":"hermes3:8b","prompt":"Describe a]
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.378707Z","response":"A","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.432948Z","response":" rabbit","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.486555Z","response":" is","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.538136Z","response":" a","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.589492Z","response":" small","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.641087Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.692265Z","response":" fluffy","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.743382Z","response":" mamm","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.794467Z","response":"al","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.845793Z","response":" known","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.89699Z","response":" for","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.948381Z","response":" its","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:55.999875Z","response":" long","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.052134Z","response":" ears","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.104193Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.155508Z","response":" strong","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.207056Z","response":" hind","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.258661Z","response":" legs","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.31018Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.361639Z","response":" and","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.412952Z","response":" a","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.464193Z","response":" distinctive","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.515381Z","response":" bunny","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.566526Z","response":"-shaped","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.61799Z","response":" tail","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.669227Z","response":".","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.722277Z","response":" Rab","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.776523Z","response":"bits","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.828942Z","response":" are","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.88028Z","response":" adorable","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.93179Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:56.983188Z","response":" playful","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.035075Z","response":" creatures","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.087191Z","response":" that","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.13899Z","response":" are","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.190374Z","response":" often","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.241635Z","response":" kept","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.292911Z","response":" as","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.344186Z","response":" pets","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.395374Z","response":" or","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.446705Z","response":" found","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.498378Z","response":" in","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.550351Z","response":" natural","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.602557Z","response":" habitats","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.655315Z","response":".","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-30T22:45:57.70668Z","response":"","done":true,"done_reason":"stop","context":[128039,882,198,75885,264,39824,304,220,17,2875,23719,128040,198,128039,78191,198,32,39824,374,264,2678,11,68661,36041,278,3967,369,1202,1317,25212,11,3831,48419,14535,11,323,264,35947,76614,35831,9986,13,36824,11777,527,41708,11,57169,20566,430,527,3629,8774,439,26159,477,1766,304,5933,71699,13],"total_duration":2434494166,"load_duration":53702041,"prompt_eval_count":17,"prompt_eval_duration":51407000,"eval_count":46,"eval_duration":2328842209}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.86804Z","response":"A","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.929183Z","response":" rabbit","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.986105Z","response":" is","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.043141Z","response":" a","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.100487Z","response":" small","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.154915Z","response":",","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.209561Z","response":" fluffy","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.263733Z","response":" mamm","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.318016Z","response":"al","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.372144Z","response":" with","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.426304Z","response":" long","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.480704Z","response":" ears","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.534734Z","response":" and","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.5919Z","response":" a","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.646588Z","response":" cute","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.700362Z","response":",","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.754849Z","response":" rounded","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.809138Z","response":" face","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.864267Z","response":".","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.918608Z","response":" It","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.972813Z","response":"'s","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.027455Z","response":" known","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.082703Z","response":" for","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.136873Z","response":" its","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.191029Z","response":" playful","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.245644Z","response":" nature","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.29986Z","response":" and","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.354063Z","response":" hops","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.408794Z","response":" around","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.462918Z","response":" grass","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.517029Z","response":"y","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.571866Z","response":" fields","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.62656Z","response":" and","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.680666Z","response":" gardens","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.73723Z","response":".","done":false}
+{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.794385Z","response":"","done":true,"done_reason":"stop","context":[128039,882,198,75885,264,39824,304,220,17,2875,23719,128040,198,128039,78191,198,32,39824,374,264,2678,11,68661,36041,278,449,1317,25212,323,264,19369,11,18460,3663,13,1102,596,3967,369,1202,57169,7138,323,59218,2212,16763,88,5151,323,36536,13],"total_duration":2057193084,"load_duration":67917750,"prompt_eval_count":17,"prompt_eval_duration":61308375,"eval_count":36,"eval_duration":1927357125}
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 [DEBUG] ollama_generate_stream_json: return: 0

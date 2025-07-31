@@ -1,6 +1,6 @@
 # ollama_vars
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.8
 
 ```
 OLLAMA_DEBUG: 
@@ -9,7 +9,7 @@ OLLAMA_KEEP_ALIVE:
 OLLAMA_MAX_LOADED_MODELS: 
 OLLAMA_MAX_QUEUE: 
 OLLAMA_MODELS: 
-OLLAMA_NUM_PARALLEL: 1
+OLLAMA_NUM_PARALLEL: 
 OLLAMA_NOPRUNE: 
 OLLAMA_ORIGINS: 
 OLLAMA_SCHED_SPREAD: 
