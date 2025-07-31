@@ -40,4 +40,6 @@ echo; echo '## Review'
 demo
 
 echo; echo '## Review Debug'
+echo '```'
 demo 1
+echo '```'
