@@ -4,6 +4,7 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
 [Repo](https://github.com/attogram/ollama-bash-lib) - 
 [Usage](#usage) - 
+[Quickstart](#quickstart) -
 [Demos](#demos) - 
 [Requirements](#requirements) - 
 [License](#license) - 
@@ -34,6 +35,32 @@ if [ ! -f "$ollama_bash_lib" ]; then
   exit 1
 fi
 source "$ollama_bash_lib"
+```
+
+### Quickstart
+
+```bash
+# Get the library: via git or manually: https://github.com/attogram/ollama-bash-lib
+
+# Load the library
+% source ./ollama_bash_lib.sh 
+
+# Tab completion to view all functions
+% ollama_<TAB>
+ollama_api_get               ollama_installed             ollama_model_unload
+ollama_api_ping              ollama_lib_about             ollama_ps
+ollama_api_post              ollama_lib_version           ollama_ps_json
+ollama_chat                  ollama_list                  ollama_show
+ollama_chat_json             ollama_list_array            ollama_show_json
+ollama_chat_stream           ollama_list_json             ollama_vars
+ollama_chat_stream_json      ollama_messages              ollama_version
+ollama_generate              ollama_messages_add          ollama_version_cli
+ollama_generate_json         ollama_messages_clear        ollama_version_json
+ollama_generate_stream       ollama_messages_count
+ollama_generate_stream_json  ollama_model_random
+
+# Run demos and output results to *.md files
+% cd demos; ./run.demos.sh
 ```
 
 ## Demos
