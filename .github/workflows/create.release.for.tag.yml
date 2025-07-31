@@ -19,11 +19,8 @@ jobs:
 
       - name: Set Previous and Current Tag
         run: |
-          # Get current tag from the ref
           CURRENT_TAG="${GITHUB_REF#refs/tags/}"
           echo "CURRENT_TAG=$CURRENT_TAG" >> $GITHUB_ENV
-
-          # Try to get previous tag; fallback to empty string if none found
           PREV_COMMIT=$(git rev-list --tags --skip=1 --max-count=1)
           if [ -n "$PREV_COMMIT" ]; then
             PREV_TAG=$(git describe --tags --abbrev=0 $PREV_COMMIT)
@@ -33,9 +30,13 @@ jobs:
           echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
 
       - name: Generate Release Notes (in env var)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          declare -A USERMAP
+          USERMAP["Attogram Project"]="attogram"
+          
           CHANGES=""
-          # If there is a previous tag, get commits since previous tag. Otherwise, get all up to current tag.
           if [ -n "$PREV_TAG" ]; then
             COMMITS=$(git rev-list $PREV_TAG..$CURRENT_TAG)
           else
@@ -46,13 +47,29 @@ jobs:
             MSG=$(git log -1 --pretty=format:"%s" $COMMIT | cut -c1-80)
             SHORT_SHA=$(git rev-parse --short $COMMIT)
             AUTHOR_NAME=$(git log -1 --pretty=format:"%an" $COMMIT)
-            # Naively map author name to github username (lowercase, spaces to dashes)
-            GITHUB_USER=$(echo "$AUTHOR_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
-            AUTHOR_LINK="[${AUTHOR_NAME}](https://github.com/${GITHUB_USER})"
+            AUTHOR_EMAIL=$(git log -1 --pretty=format:"%ae" $COMMIT)
+
+            # Try hardcoded mapping first
+            if [[ -n "${USERMAP[$AUTHOR_NAME]}" ]]; then
+              GITHUB_USER="${USERMAP[$AUTHOR_NAME]}"
+            else
+              API_USER=$(curl -s -H "Authorization: token $GH_TOKEN" "https://api.github.com/search/users?q=${AUTHOR_EMAIL}+in:email" | jq -r '.items[0].login')
+              if [[ "$API_USER" != "null" && -n "$API_USER" ]]; then
+                GITHUB_USER="$API_USER"
+              else
+                GITHUB_USER=""
+              fi
+            fi
+
+            if [[ -n "$GITHUB_USER" ]]; then
+              AUTHOR_LINK="[${AUTHOR_NAME}](https://github.com/${GITHUB_USER})"
+            else
+              AUTHOR_LINK="${AUTHOR_NAME}"
+            fi
+
             CHANGES+="- $SHORT_SHA by $AUTHOR_LINK: $MSG"$'\n'
           done
 
-          # Only add compare link if previous tag exists
           if [ -n "$PREV_TAG" ]; then
             COMPARE_LINK="🔍 [View full diff](https://github.com/${{ github.repository }}/compare/$PREV_TAG...$CURRENT_TAG)"
           else
@@ -61,7 +78,6 @@ jobs:
 
           RELEASE_BODY="Ollama Bash Lib $CURRENT_TAG\n\nA Bash Library to interact with [Ollama](https://github.com/ollama/ollama)\n\nRepo: https://github.com/${{ github.repository }}\n\n## Changes\n\n${CHANGES}\n\n${COMPARE_LINK}"
 
-          # Export to GITHUB_ENV for later use
           echo "RELEASENOTES<<EOF" >> $GITHUB_ENV
           echo -e "$RELEASE_BODY" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
