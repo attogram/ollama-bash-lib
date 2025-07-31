@@ -72,11 +72,13 @@ jobs:
 
           if [ -n "$PREV_TAG" ]; then
             COMPARE_LINK="🔍 [View full diff](https://github.com/${{ github.repository }}/compare/$PREV_TAG...$CURRENT_TAG)"
+            ALL_CHANGES_LINK="🔗 [View all changes since last release](https://github.com/${{ github.repository }}/commits/$CURRENT_TAG)"
           else
             COMPARE_LINK=""
+            ALL_CHANGES_LINK=""
           fi
 
-          RELEASE_BODY="Ollama Bash Lib $CURRENT_TAG\n\nA Bash Library to interact with [Ollama](https://github.com/ollama/ollama)\n\nRepo: https://github.com/${{ github.repository }}\n\n## Changes\n\n${CHANGES}\n\n${COMPARE_LINK}"
+          RELEASE_BODY="Ollama Bash Lib $CURRENT_TAG\n\nA Bash Library to interact with [Ollama](https://github.com/ollama/ollama)\n\nRepo: https://github.com/${{ github.repository }}\n\n## Changes\n\n${CHANGES}\n\n${COMPARE_LINK}\n${ALL_CHANGES_LINK}"
 
           echo "RELEASENOTES<<EOF" >> $GITHUB_ENV
           echo -e "$RELEASE_BODY" >> $GITHUB_ENV
