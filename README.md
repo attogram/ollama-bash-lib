@@ -2,14 +2,14 @@
 
 A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
-[Repo](https://github.com/attogram/ollama-bash-lib) - 
-[Usage](#usage) - 
 [Quickstart](#quickstart) -
+[Usage](#usage) -
 [Demos](#demos) - 
 [Requirements](#requirements) - 
 [License](#license) - 
 [More Projects](#more-ai-from-the-attogram-project) -
-[Discord](https://discord.gg/BGQJCbYVBa)
+[Discord](https://discord.gg/BGQJCbYVBa) -
+[Repo](https://github.com/attogram/ollama-bash-lib)
 
 [Functions](#functions) : 
 [Api](#api-functions) -
@@ -19,23 +19,6 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 [Ollama](#ollama-functions) -
 [Utility](#utility-functions) - 
 [Internal](#internal-functions)
-
-## Usage
-
-Include in your shell or script:
-```bash
-source ./ollama_bash_lib.sh
-```
-
-Include in your script, with error checking:
-```bash
-ollama_bash_lib="path/to/ollama_bash_lib.sh"
-if [ ! -f "$ollama_bash_lib" ]; then
-  echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"
-  exit 1
-fi
-source "$ollama_bash_lib"
-```
 
 ### Quickstart
 
@@ -65,6 +48,23 @@ ollama_generate_stream_json  ollama_model_random
 
 # Run demos and output results to *.md files
 % cd demos; ./run.demos.sh
+```
+
+## Usage
+
+Include in your shell or script:
+```bash
+source ./ollama_bash_lib.sh
+```
+
+Include in your script, with error checking:
+```bash
+ollama_bash_lib="path/to/ollama_bash_lib.sh"
+if [ ! -f "$ollama_bash_lib" ]; then
+  echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"
+  exit 1
+fi
+source "$ollama_bash_lib"
 ```
 
 ## Demos
