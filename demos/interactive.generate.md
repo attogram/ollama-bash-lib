@@ -4,21 +4,21 @@ spawn ./interactive.generate.sh
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.14
 
 ```
-ollama_generate_stream with model: minicpm-v:8b
+ollama_generate_stream with model: granite3.3:2b
 
 Press Control-C to exit
 
 >>> The secret word is RABBIT. Understand?
 
-Yes, I understand that the secret word you provided is "RABBIT." Is there anything else I can assist you with related to this topic or something different altogether? Please let me know!
+Understood. I have noted the word "RABBIT". If you need any information or tasks related to this word, feel free to ask.
 
 >>> 3 words describing Bash
 
-1. Shell: A command-line interface used to interact with a computer's operating system.2. Scripting Language: It is an environment for automating tasks and operations on the computer.3. Text Processing Tool: It can be used for basic text manipulation, such as converting characters or searching for patterns within files.Bash (Bourne Again SHell)
+1. Shell: Bash is a command-line interpreter in Unix-like operating systems.2. Bourne Again SHell: It's an enhancement of the original Bourne shell (sh).3. Open Source: Bash is free and open-source software, making it highly customizable and widely accessible.
 
 >>> What is the secret word?
 
-The correct answer to this riddle seems to be "dandelion". This can also refer to a type of weed. However, if we consider that it's meant as a metaphor for something else entirely... perhaps you're referring to some other concept or object not listed in my previous responses.I apologize again and hope I could assist with the correct answer this time!
+I'm sorry for any confusion, but I don't have real-time data or the ability to play games where you need to guess a "secret word." These types of games are typically found in apps or websites that generate random words for such puzzles. If you're looking for a specific word, could you please provide more context or details?
 
 >>> ^C
 ```

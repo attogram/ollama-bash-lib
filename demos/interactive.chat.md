@@ -4,25 +4,25 @@ spawn ./interactive.chat.sh
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.14
 
 ```
-ollama_chat with model: smollm2:1.7b
+ollama_chat with model: dolphin3:8b
 
-Press Control-C to view message history and exit
+Press Control-C exit and view message history
 
 >>> The secret word is RABBIT. Understand?
 
-Yes, I understand. The secret word is indeed "RABBIT". If you need any other information or have different requests in the future, feel free to ask.
+Yes, I understand that the secret word you mentioned is "RABBIT". How can I assist you further with this information?
 
 >>> 3 words describing Bash
 
-1. Shell scripting language - Bash is a Unix shell and command-line interpreter that provides a simple and flexible way to write scripts for automation of tasks on Linux systems.
+1. Command-line: Bash (Bourne Again Shell) is a command language used to interact with the operating system's user interface.
 
-2. Text processing language - Bash is capable of performing text processing, including reading input from the user, processing it with commands or functions, and writing output back onto an output stream like the console.
+2. Scripting Language: Bash allows users and developers to write scripts, which are sets of commands saved in files that can be executed with just one command.
 
-3. Interactive command-line interface - As a command-line interpreter, Bash allows users to interactively execute shell scripts, run programs, and perform various other tasks by typing commands into its prompt.
+3. Shell Programming: Bash enables shell programming by interpreting and executing commands read from the terminal or a file input, allowing for automated tasks and system administration.
 
 >>> What is the secret word?
 
-The secret word is "QUICK".
+The secret word you've mentioned earlier is "RABBIT". Is there anything else I can help with related to this topic or perhaps another topic altogether?
 
 >>> ^C
 ```
@@ -30,11 +30,11 @@ Control-C shutdown
 
 7 Messages:
 ```json
-[1;39m{[0m[1;34m"role"[0m[1;39m:[0m[0;32m"system"[0m[1;39m,[0m[1;34m"content"[0m[1;39m:[0m[0;32m"You are a helpful assistant"[0m[1;39m[1;39m}[0m
-[1;39m{[0m[1;34m"role"[0m[1;39m:[0m[0;32m"user"[0m[1;39m,[0m[1;34m"content"[0m[1;39m:[0m[0;32m"The secret word is RABBIT. Understand?"[0m[1;39m[1;39m}[0m
-[1;39m{[0m[1;34m"role"[0m[1;39m:[0m[0;32m"assistant"[0m[1;39m,[0m[1;34m"content"[0m[1;39m:[0m[0;32m"Yes, I understand. The secret word is indeed \"RABBIT\". If you need any other information or have different requests in the future, feel free to ask."[0m[1;39m[1;39m}[0m
-[1;39m{[0m[1;34m"role"[0m[1;39m:[0m[0;32m"user"[0m[1;39m,[0m[1;34m"content"[0m[1;39m:[0m[0;32m"3 words describing Bash"[0m[1;39m[1;39m}[0m
-[1;39m{[0m[1;34m"role"[0m[1;39m:[0m[0;32m"assistant"[0m[1;39m,[0m[1;34m"content"[0m[1;39m:[0m[0;32m"1. Shell scripting language - Bash is a Unix shell and command-line interpreter that provides a simple and flexible way to write scripts for automation of tasks on Linux systems.\n\n2. Text processing language - Bash is capable of performing text processing, including reading input from the user, processing it with commands or functions, and writing output back onto an output stream like the console.\n\n3. Interactive command-line interface - As a command-line interpreter, Bash allows users to interactively execute shell scripts, run programs, and perform various other tasks by typing commands into its prompt."[0m[1;39m[1;39m}[0m
-[1;39m{[0m[1;34m"role"[0m[1;39m:[0m[0;32m"user"[0m[1;39m,[0m[1;34m"content"[0m[1;39m:[0m[0;32m"What is the secret word?"[0m[1;39m[1;39m}[0m
-[1;39m{[0m[1;34m"role"[0m[1;39m:[0m[0;32m"assistant"[0m[1;39m,[0m[1;34m"content"[0m[1;39m:[0m[0;32m"The secret word is \"QUICK\"."[0m[1;39m[1;39m}[0m
+{"role":"system","content":"You are a helpful assistant"}
+{"role":"user","content":"The secret word is RABBIT. Understand?"}
+{"role":"assistant","content":"Yes, I understand that the secret word you mentioned is \"RABBIT\". How can I assist you further with this information?"}
+{"role":"user","content":"3 words describing Bash"}
+{"role":"assistant","content":"1. Command-line: Bash (Bourne Again Shell) is a command language used to interact with the operating system's user interface.\n\n2. Scripting Language: Bash allows users and developers to write scripts, which are sets of commands saved in files that can be executed with just one command.\n\n3. Shell Programming: Bash enables shell programming by interpreting and executing commands read from the terminal or a file input, allowing for automated tasks and system administration."}
+{"role":"user","content":"What is the secret word?"}
+{"role":"assistant","content":"The secret word you've mentioned earlier is \"RABBIT\". Is there anything else I can help with related to this topic or perhaps another topic altogether?"}
 ```

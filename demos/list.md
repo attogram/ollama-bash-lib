@@ -22,8 +22,6 @@ qwen2.5-coder:7b    dae161e27b0e    4.7 GB    7 weeks ago
 qwen2.5vl:7b        5ced39dfa4ba    6.0 GB    8 weeks ago    
 qwen3:1.7b          8f68893c685c    1.4 GB    7 weeks ago    
 qwen3:8b            500a1f067a9f    5.2 GB    5 weeks ago    
-smollm2:1.7b        cef4a1e09247    1.8 GB    4 weeks ago    
-smollm2:360m        297281b699fc    725 MB    4 weeks ago    
 
 ollama_list_json
 
@@ -129,40 +127,6 @@ ollama_list_json
         ],
         "parameter_size": "8.2B",
         "quantization_level": "Q4_K_M"
-      }
-    },
-    {
-      "name": "smollm2:1.7b",
-      "model": "smollm2:1.7b",
-      "modified_at": "2025-07-03T19:29:45.646736864+02:00",
-      "size": 1820428533,
-      "digest": "cef4a1e09247f018ca0c482ad4c2ce1474aba5e87f245dacf97f07948d05d8b4",
-      "details": {
-        "parent_model": "",
-        "format": "gguf",
-        "family": "llama",
-        "families": [
-          "llama"
-        ],
-        "parameter_size": "1.7B",
-        "quantization_level": "Q8_0"
-      }
-    },
-    {
-      "name": "smollm2:360m",
-      "model": "smollm2:360m",
-      "modified_at": "2025-07-03T19:20:16.871802052+02:00",
-      "size": 725566512,
-      "digest": "297281b699fc51376006233ca400cd664c4f7b80ed88a47ef084f1e4b089803b",
-      "details": {
-        "parent_model": "",
-        "format": "gguf",
-        "family": "llama",
-        "families": [
-          "llama"
-        ],
-        "parameter_size": "361.82M",
-        "quantization_level": "F16"
       }
     },
     {

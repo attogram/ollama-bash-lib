@@ -12,7 +12,7 @@ interactive=(
 
 for demo in "${interactive[@]}"; do
   outfile_md=$(echo "$demo" | sed 's/\.sh$/.md/g')
-  echo "Run: Interactive: $demo > $outfile_md 2>&1"
+  echo "Expect: $demo > $outfile_md"
   (
     expect <<EOF
       spawn $demo

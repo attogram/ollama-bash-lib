@@ -19,7 +19,7 @@ shutdown() {
   echo
   echo "$(ollama_messages_count) Messages:"
   echo '```json'
-  ollama_messages | jq -c
+  ollama_messages
   echo '```'
   exit 0
 }
@@ -31,7 +31,7 @@ model="$(ollama_model_random)"
 echo
 echo '```'
 echo "ollama_chat with model: $model"
-echo; echo 'Press Control-C to view message history and exit'
+echo; echo 'Press Control-C exit and view message history'
 
 trap 'shutdown' SIGINT
 
