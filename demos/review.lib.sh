@@ -29,11 +29,11 @@ Output your review in Markdown format."
   if [[ "$1" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
   echo "task=\"$task\""
   echo "file=\"$file\""
-  echo "ollama_generate_stream \"$model\" \"\$task\\n\\n\$(cat \"\$file\")\""
+  echo "ollama_generate \"$model\" \"\$task\\n\\n\$(cat \"\$file\")\""
   echo '```'
 
   if [[ "$1" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
-  ollama_generate_stream "$model" "$task\n\n$(cat "$file")"
+  ollama_generate "$model" "$task\n\n$(cat "$file")"
 }
 
 echo; echo '## Review'
