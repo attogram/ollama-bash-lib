@@ -162,6 +162,8 @@ Ollama Bash Lib is licensed under the terms of the [MIT License](LICENSE).
 | **Small Models**    | [small-models][small-models]                 | Comparison of small open source LLMs (8b parameters or less)                                                                                                                                |
 | **AI Test Zone**    | [ai_test_zone][ai_test_zone]                 | Test results hosted on https://attogram.github.io/ai_test_zone/                                                                                                                             |
 
+For Help and Discussions please join the [Attogram Discord Channel](https://discord.gg/BGQJCbYVBa)
+
 [ollama-multirun]: <https://github.com/attogram/ollama-multirun> "Ollama Multirun"
 [ollama-bash-toolshed]: <https://github.com/attogram/ollama-bash-toolshed> "Ollama Bash Toolshed"
 [llm-council]: <https://github.com/attogram/llm-council> "LLM Council"
