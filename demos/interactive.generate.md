@@ -15,3 +15,10 @@ IT**. Is there anything you'd like me to do with that information? Do you want m
 
 >>> 
 What is the secret word?
+Here are 3 words to describe Bash:*   **Powerful:** Bash is incredibly versatile and capable of complex tasks.*   **Ubiquitous:** It's the default shell on most Linux and macOS systems.*   **Scriptable:**  It's designed for automating tasks through scripts.
+
+>>> 
+^C
+```
+Control-C shutdown
+
