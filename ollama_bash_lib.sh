@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.40.13"
+OLLAMA_LIB_VERSION="0.40.14"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -465,6 +465,7 @@ ollama_list_array() {
 # Get a random model
 #
 # Usage: ollama_model_random
+# Input: none
 # Output: 1 model name, to stdout
 # Returns: 0 on success, 1 on error
 ollama_model_random() {
@@ -636,6 +637,7 @@ ollama_vars() {
 # Ollama application version, TEXT version
 #
 # Usage: ollama_version
+# Input: none
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_version() {
@@ -652,6 +654,7 @@ ollama_version() {
 # Ollama application version, JSON version
 #
 # Usage: ollama_version_json
+# Input: none
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_version_json() {
@@ -668,6 +671,7 @@ ollama_version_json() {
 # Ollama application version, CLI version
 #
 # Usage: ollama_version_cli
+# Input: none
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_version_cli() {
