@@ -17,18 +17,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set Previous and Current Tag
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^)
+          echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
+          CURRENT_TAG="${GITHUB_REF#refs/tags/}"
+          echo "CURRENT_TAG=$CURRENT_TAG" >> $GITHUB_ENV
+
+      - name: Generate Release Notes (in env var)
+        run: |
+          CHANGES=""
+          for COMMIT in $(git rev-list $PREV_TAG..HEAD); do
+            MSG=$(git log -1 --pretty=format:"%s" $COMMIT | cut -c1-80)
+            SHORT_SHA=$(git rev-parse --short $COMMIT)
+            AUTHOR_NAME=$(git log -1 --pretty=format:"%an" $COMMIT)
+            CHANGES+="- $SHORT_SHA by $AUTHOR_NAME: $MSG"$'\n'
+          done
+
+          COMPARE_LINK="🔍 [View full diff](https://github.com/${{ github.repository }}/compare/$PREV_TAG...$CURRENT_TAG)"
+
+          RELEASE_BODY="Ollama Bash Lib $CURRENT_TAG\n\nA Bash Library to interact with [Ollama](https://github.com/ollama/ollama)\n\nRepo: https://github.com/${{ github.repository }}\n\n## Changes\n\n${CHANGES}\n\n${COMPARE_LINK}"
+
+          # Export to GITHUB_ENV for later use
+          echo "RELEASENOTES<<EOF" >> $GITHUB_ENV
+          echo -e "$RELEASE_BODY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
       - name: Create GitHub Release with Script
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: "Ollama Bash Lib ${{ github.ref_name }}"
-          body: |
-            Ollama Bash Lib ${{ github.ref_name }}
-
-            A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
-              
-            Repo: https://github.com/attogram/ollama-bash-lib
-          files: |
-            ollama_bash_lib.sh
+          tag_name: ${{ env.CURRENT_TAG }}
+          name: "Ollama Bash Lib ${{ env.CURRENT_TAG }}"
+          body: ${{ env.RELEASENOTES }}
+          files: ollama_bash_lib.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
