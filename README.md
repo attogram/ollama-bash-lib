@@ -45,6 +45,10 @@ source "$ollama_bash_lib"
 # Load the library
 % source ./ollama_bash_lib.sh 
 
+# Generate a completion
+% ollama_generate "mistral:7b" "Describe Bash in 3 words"
+ Powerful, Flexible, Scripting.
+ 
 # Tab completion to view all functions
 % ollama_<TAB>
 ollama_api_get               ollama_installed             ollama_model_unload
