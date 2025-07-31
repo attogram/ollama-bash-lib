@@ -16,36 +16,28 @@ startup
 
 model="$(ollama_model_random)"
 
-echo
-echo '## Review'
-echo
+demo() {
+  echo
+  echo '```bash'
+  if [[ "$debug" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
+  echo 'prompt="Act as a Marketing Expert.
+  Do a full review of this github project README.md.
+  Output your review in pure Markdown format.
 
-echo
-echo '```bash'
-echo 'prompt="Act as an expert Software Engineer.
-Do a full Code Review of this script:
+  $(cat "../ollama_bash_lib.sh")"'
+  echo "ollama_generate \"$model\" \"\$prompt\""
+  echo '```'
+  prompt="Act as an Expert Software Engineer.
+Do a full Code Review of this script.
+Output your review in pure Markdown format.
 
-$(cat "../ollama_bash_lib.sh")"'
-echo "ollama_generate \"$model\" \"\$prompt\""
-echo '```'
+  $(cat "$(cat "../ollama_bash_lib.sh")")"
+  if [[ "$debug" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
+  ollama_generate "$model" "$prompt"
+}
 
-prompt="Act as an expert Software Engineer.
-Do a full code review of this bash script:
+echo; echo '## Review'
+demo
 
-$(cat "../ollama_bash_lib.sh")"
-
-echo '```'
-ollama_generate "$model" "$prompt"
-echo '```'
-
-echo
-echo '## Review Debug'
-echo
-
-echo
-echo '```bash'
-echo "OLLAMA_LIB_DEBUG=1 ollama_generate \"$model\" \"\$prompt\""
-echo '```'
-echo '```'
-OLLAMA_LIB_DEBUG=1 ollama_generate "$model" "$prompt"
-echo '```'
+echo; echo '## Review Debug'
+demo 1

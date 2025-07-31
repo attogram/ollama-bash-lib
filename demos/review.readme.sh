@@ -8,7 +8,7 @@ startup() {
   # shellcheck source=../ollama_bash_lib.sh
   source "$ollama_bash_lib"
   if ! ollama_installed; then echo "ERROR: Ollama Not Installed"; fi;
-  if ! ollama_api_ping; then echo "ERROR: Ollama API not reachable"; fi
+  if ! ollama_api_ping; then echo "ERROR: Ollama API not reachable"; fi;
   echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
 }
 
@@ -16,34 +16,27 @@ startup
 
 model="$(ollama_model_random)"
 
-echo
-echo '## Review'
-echo
+demo() {
+  echo
+  echo '```bash'
+  if [[ "$debug" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
+  echo 'prompt="Act as a Marketing Expert.
+  Do a full review of this github project README.md.
+  Output your review in pure Markdown format.
 
-echo
-echo '```bash'
-echo 'prompt="Act as an expert Technical Marketer.
-Do a full review of this project README:
+  $(cat "../README.md")"'
+  echo "ollama_generate \"$model\" \"\$prompt\""
+  echo '```'
+  prompt="Act as an expert Technical Marketer.
+  Do a full review of this project README:
 
-$(cat "../README.md")"'
-echo "ollama_generate \"$model\" \"\$prompt\""
-echo '```'
-prompt="Act as an expert Technical Marketer.
-Do a full review of this project README:
+  $(cat "../README.md")"
+  if [[ "$debug" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
+  ollama_generate "$model" "$prompt"
+}
 
-$(cat "../README.md")"
-echo '```'
-ollama_generate "$model" "$prompt"
-echo '```'
+echo; echo '## Review'
+demo
 
-echo
-echo '## Review Debug'
-echo
-
-echo
-echo '```bash'
-echo "OLLAMA_LIB_DEBUG=1 ollama_generate \"$model\" \"\$prompt\""
-echo '```'
-echo '```'
-OLLAMA_LIB_DEBUG=1 ollama_generate "$model" "$prompt"
-echo '```'
+echo; echo '## Review Debug'
+demo 1
