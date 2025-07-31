@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.40.10"
+OLLAMA_LIB_VERSION="0.40.11"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>"
@@ -169,6 +169,8 @@ ollama_generate_json() {
 
 # Generate a completion, as streaming json
 #
+# Input: 1 - The model to use to generate a response
+# Input: 2 - The prompt
 # Usage: ollama_generate_stream_json "model" "prompt"
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
@@ -222,7 +224,7 @@ ollama_generate() {
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
-  debug "ollama_generate_stream: [$1] [$2]"
+  debug "ollama_generate_stream: [$1] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming
   local error_jq
   ollama_generate_json "$1" "$2" | while IFS= read -r line; do
