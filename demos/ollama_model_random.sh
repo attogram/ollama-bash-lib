@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+echo '# ollama_model_random'
+
+startup() {
+  ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
+  if [ ! -f "$ollama_bash_lib" ]; then echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"; exit 1; fi
+  # shellcheck source=../ollama_bash_lib.sh
+  source "$ollama_bash_lib"
+  if ! ollama_installed; then echo "ERROR: Ollama Not Installed"; fi;
+  if ! ollama_api_ping; then echo "ERROR: Ollama API not reachable"; fi
+  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+}
+
+startup
+
+demo() {
+  echo '```bash'
+  echo 'ollama_model_random'
+  echo 'ollama_model_random'
+  echo 'ollama_model_random'
+  echo '```'
+  echo '```'
+  ollama_model_random
+  ollama_model_random
+  ollama_model_random
+  echo '```'
+}
+
+echo; echo '# Demo'
+demo
+
+echo; echo '# Demo Debug'
+OLLAMA_LIB_DEBUG=1 demo
