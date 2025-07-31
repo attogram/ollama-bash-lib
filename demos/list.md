@@ -1,6 +1,6 @@
 # ollama_list, ollama_list_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.10
 ```
 
 ollama_list
@@ -16,7 +16,6 @@ gemma3n:e4b         15cb39fd9394    7.5 GB    2 weeks ago
 granite3.3:2b       07bd1f170855    1.5 GB    5 weeks ago    
 granite3.3:8b       fd429f23b909    4.9 GB    3 weeks ago    
 hermes3:8b          4f6b83f30b62    4.7 GB    3 weeks ago    
-llama3.2:3b         a80c4f17acd5    2.0 GB    3 weeks ago    
 minicpm-v:8b        c92bfad01205    5.5 GB    7 weeks ago    
 mistral:7b          f974a74358d6    4.1 GB    7 weeks ago    
 qwen2.5-coder:7b    dae161e27b0e    4.7 GB    7 weeks ago    
@@ -78,23 +77,6 @@ ollama_list_json
           "granite"
         ],
         "parameter_size": "8.2B",
-        "quantization_level": "Q4_K_M"
-      }
-    },
-    {
-      "name": "llama3.2:3b",
-      "model": "llama3.2:3b",
-      "modified_at": "2025-07-07T21:51:42.515372094+02:00",
-      "size": 2019393189,
-      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
-      "details": {
-        "parent_model": "",
-        "format": "gguf",
-        "family": "llama",
-        "families": [
-          "llama"
-        ],
-        "parameter_size": "3.2B",
         "quantization_level": "Q4_K_M"
       }
     },

@@ -21,17 +21,17 @@ demo() {
   echo '```bash'
   if [[ "$debug" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
   echo 'prompt="Act as a Marketing Expert.
-  Do a full review of this github project README.md.
-  Output your review in pure Markdown format.
+Do a full review of this github project README.md.
+Output your review in pure Markdown format.
 
-  $(cat "../ollama_bash_lib.sh")"'
+$(cat "../ollama_bash_lib.sh")"'
   echo "ollama_generate \"$model\" \"\$prompt\""
   echo '```'
   prompt="Act as an Expert Software Engineer.
 Do a full Code Review of this script.
 Output your review in pure Markdown format.
 
-  $(cat "$(cat "../ollama_bash_lib.sh")")"
+$(cat "$(cat "../ollama_bash_lib.sh")")"
   if [[ "$debug" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
   ollama_generate "$model" "$prompt"
 }

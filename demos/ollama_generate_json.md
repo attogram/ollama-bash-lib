@@ -1,28 +1,28 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.10
 
 ## Demo
 
 ```bash
-ollama_generate_json "smollm2:360m" "Describe a rabbit in 2 short sentences"
+ollama_generate_json "granite3.3:2b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-{"model":"smollm2:360m","created_at":"2025-07-31T18:05:12.467735Z","response":"A rabbit is typically slender and agile. It has large eyes that give it an adorable expression while its long legs allow it to move quickly across the ground. It usually has spots on its fur which can be brown or gray, with a rounded tail at the end of its back.","done":true,"done_reason":"stop","context":[1,9690,198,2683,359,253,5356,5646,11173,3365,3511,308,34519,28,7018,411,407,19712,8182,2,198,1,4093,198,37964,253,16024,281,216,34,1890,8545,2,198,1,520,9531,198,49,16024,314,3431,27833,284,31888,30,657,553,1507,3497,338,1928,357,354,39166,4352,979,624,986,7225,1167,357,288,1485,3112,1699,260,2118,30,657,2007,553,9265,335,624,9462,527,416,325,6354,355,11013,28,351,253,17421,5193,418,260,1112,282,624,1056,30],"total_duration":1011243792,"load_duration":31854250,"prompt_eval_count":38,"prompt_eval_duration":18120709,"eval_count":57,"eval_duration":960528458}
+{"model":"granite3.3:2b","created_at":"2025-07-31T18:33:18.686991Z","response":"1. A rabbit is a small, fluffy mammal known for its long ears and rapid hopping ability. 2. They are herbivorous, primarily feeding on grasses and other vegetation, and are often associated with purity and gentleness in various cultures.","done":true,"done_reason":"stop","context":[49152,2946,49153,39558,390,17071,2821,44,30468,225,36,34,36,38,32,203,4282,884,8080,278,659,30,18909,810,25697,32,2448,884,312,17247,19551,47330,32,0,203,49152,496,49153,8591,312,40810,328,225,36,4504,28842,0,203,49152,17594,49153,35,32,399,40810,438,312,5532,30,2022,2966,107,345,404,7904,8967,436,2819,1946,484,4177,461,26671,23592,7075,13609,32,225,36,32,11228,884,7791,84,387,271,3291,30,37897,6985,299,544,2914,2515,461,1604,5292,371,367,30,461,884,12270,5746,623,298,3673,461,485,304,1657,503,328,10297,40765,3009,32],"total_duration":3359924083,"load_duration":1524495458,"prompt_eval_count":51,"prompt_eval_duration":307725667,"eval_count":67,"eval_duration":1525981000}
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_json "smollm2:360m" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_json "granite3.3:2b" "Describe a rabbit in 2 short sentences"`
 ```
 ```json
-[DEBUG] ollama_generate_json: [smollm2:360m] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [granite3.3:2b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] json_clean: 13 bytes [smollm2:360m]
+[DEBUG] json_clean: 14 bytes [granite3.3:2b]
 [DEBUG] json_clean: 39 bytes [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_api_post: [/api/generate] [{"model":"smollm2:360m","prompt":"Describe]
-{"model":"smollm2:360m","created_at":"2025-07-31T18:05:12.87696Z","response":"A bunny is small and cute. It has fluffy fur with big brown eyes and round ears.","done":true,"done_reason":"stop","context":[1,9690,198,2683,359,253,5356,5646,11173,3365,3511,308,34519,28,7018,411,407,19712,8182,2,198,1,4093,198,37964,253,16024,281,216,34,1890,8545,2,198,1,520,9531,198,49,41172,314,1165,284,25489,30,657,553,33391,9462,351,2066,6354,3497,284,5075,10006,30],"total_duration":325181917,"load_duration":31335542,"prompt_eval_count":38,"prompt_eval_duration":14789208,"eval_count":20,"eval_duration":278331333}[DEBUG] ollama_api_post: return 0
+[DEBUG] ollama_api_post: [/api/generate] [{"model":"granite3.3:2b","prompt":"Describ]
+{"model":"granite3.3:2b","created_at":"2025-07-31T18:33:21.272535Z","response":"1. A rabbit is a small, predominantly white, fluffy mammal known for its long ears and powerful hind legs, capable of hopping at high speeds over various terrains. 2. They are herbivorous, feeding primarily on grasses, leaves, and roots, with a distinctive, rapid tail-thumping behavior when startled or agitated.","done":true,"done_reason":"stop","context":[49152,2946,49153,39558,390,17071,2821,44,30468,225,36,34,36,38,32,203,4282,884,8080,278,659,30,18909,810,25697,32,2448,884,312,17247,19551,47330,32,0,203,49152,496,49153,8591,312,40810,328,225,36,4504,28842,0,203,49152,17594,49153,35,32,399,40810,438,312,5532,30,4626,418,30512,631,8400,30,2022,2966,107,345,404,7904,8967,436,2819,1946,484,4177,461,27196,420,552,999,5360,30,31582,432,23592,7075,821,3857,8227,101,2288,10297,273,530,1907,32,225,36,32,11228,884,7791,84,387,271,3291,30,6985,299,37897,544,2914,2515,30,26243,30,461,33032,30,623,312,19088,661,30,26671,13203,31,349,2277,299,5853,1412,1477,1231,556,1894,283,733,32],"total_duration":2500621666,"load_duration":20802375,"prompt_eval_count":51,"prompt_eval_duration":23280584,"eval_count":91,"eval_duration":2455885583}[DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 
 ```

@@ -1,108 +1,111 @@
 # ollama_generate_stream_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.10
 
 ## Demo
 
 ```bash
-ollama_generate_stream_json "hermes3:8b" "Describe a rabbit in 2 short sentences"
+ollama_generate_stream_json "smollm2:1.7b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.013435Z","response":"A","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.067543Z","response":" rabbit","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.122525Z","response":" is","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.176505Z","response":" a","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.231376Z","response":" small","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.285592Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.339757Z","response":" furry","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.394559Z","response":" mamm","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.448543Z","response":"al","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.502775Z","response":" known","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.558247Z","response":" for","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.612914Z","response":" its","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.666786Z","response":" long","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.725627Z","response":" ears","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.782194Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.837328Z","response":" strong","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.891977Z","response":" hind","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:23.946261Z","response":" legs","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.000301Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.062213Z","response":" and","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.128558Z","response":" ability","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.200223Z","response":" to","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.416933Z","response":" reproduce","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.475174Z","response":" quickly","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.531615Z","response":".","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.594696Z","response":" It","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.658996Z","response":"'s","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.716814Z","response":" also","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.772548Z","response":" commonly","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.827977Z","response":" associated","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.884107Z","response":" with","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.938514Z","response":" the","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:24.994315Z","response":" children","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.050916Z","response":"'s","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.106216Z","response":" story","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.166232Z","response":" \"","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.221052Z","response":"Peter","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.275351Z","response":" Rabbit","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.331244Z","response":"\"","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.387649Z","response":" by","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.442693Z","response":" Be","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.497073Z","response":"atrix","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.551637Z","response":" Potter","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.607915Z","response":".","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.662677Z","response":"","done":true,"done_reason":"stop","context":[128039,882,198,75885,264,39824,304,220,17,2875,23719,128040,198,128039,78191,198,32,39824,374,264,2678,11,75519,36041,278,3967,369,1202,1317,25212,11,3831,48419,14535,11,323,5845,311,23645,6288,13,1102,596,1101,17037,5938,449,279,2911,596,3446,330,37659,49431,1,555,2893,2619,30427,13],"total_duration":7632288875,"load_duration":3380045000,"prompt_eval_count":17,"prompt_eval_duration":1595137958,"eval_count":45,"eval_duration":2651183208}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.374723Z","response":"A","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.398789Z","response":" bunny","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.422956Z","response":" rabbit","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.44737Z","response":" is","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.471418Z","response":" typically","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.495428Z","response":" a","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.518989Z","response":" small","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.543491Z","response":" mammal","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.566983Z","response":" with","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.590565Z","response":" long","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.614245Z","response":" ears","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.637766Z","response":" and","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.661521Z","response":" fur","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.68509Z","response":",","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.708472Z","response":" often","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.732272Z","response":" found","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.755775Z","response":" hopping","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.779452Z","response":" through","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.802913Z","response":" fields","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.827025Z","response":" or","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.850734Z","response":" forests","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.874177Z","response":".","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.897669Z","response":" It","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.921338Z","response":" has","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.945247Z","response":" sharp","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.968746Z","response":" teeth","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:32.9922Z","response":" for","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.015703Z","response":" eating","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.039784Z","response":" plants","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.063393Z","response":" and","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.087298Z","response":" can","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.111309Z","response":" be","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.13515Z","response":" seen","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.158899Z","response":" nib","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.182947Z","response":"bling","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.207712Z","response":" on","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.234579Z","response":" leaves","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.261701Z","response":" or","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.285746Z","response":" carrots","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.309457Z","response":" in","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.333353Z","response":" many","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.357099Z","response":" places","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.380557Z","response":" where","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.404602Z","response":" there","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.428501Z","response":" are","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.452503Z","response":" green","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.476229Z","response":" spaces","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.500195Z","response":".","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.52386Z","response":"","done":true,"done_reason":"stop","context":[1,9690,198,2683,359,253,5356,5646,11173,3365,3511,308,34519,28,7018,411,407,19712,8182,198,1,4093,198,37964,253,16024,281,216,34,1890,8545,2,198,1,520,9531,198,49,41172,16024,314,3431,253,1165,24366,351,986,10006,284,9462,28,1129,983,40808,738,3705,355,6495,30,657,553,7858,4077,327,3801,2109,284,416,325,2269,40703,14967,335,3711,355,18648,281,800,3373,837,665,359,2654,5600,30],"total_duration":3054817500,"load_duration":1660085084,"prompt_eval_count":37,"prompt_eval_duration":242929750,"eval_count":49,"eval_duration":1150011083}
 ```
 
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "hermes3:8b" "Describe a rabbit in 2 short sentences"
+OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "smollm2:1.7b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-[DEBUG] ollama_generate_stream_json: [hermes3:8b] [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_generate_json: [hermes3:8b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_stream_json: [smollm2:1.7b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [smollm2:1.7b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 1
-[DEBUG] json_clean: 11 bytes [hermes3:8b]
+[DEBUG] json_clean: 13 bytes [smollm2:1.7b]
 [DEBUG] json_clean: 39 bytes [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_api_post: [/api/generate] [{"model":"hermes3:8b","prompt":"Describe a]
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.86804Z","response":"A","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.929183Z","response":" rabbit","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:25.986105Z","response":" is","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.043141Z","response":" a","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.100487Z","response":" small","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.154915Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.209561Z","response":" fluffy","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.263733Z","response":" mamm","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.318016Z","response":"al","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.372144Z","response":" with","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.426304Z","response":" long","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.480704Z","response":" ears","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.534734Z","response":" and","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.5919Z","response":" a","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.646588Z","response":" cute","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.700362Z","response":",","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.754849Z","response":" rounded","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.809138Z","response":" face","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.864267Z","response":".","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.918608Z","response":" It","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:26.972813Z","response":"'s","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.027455Z","response":" known","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.082703Z","response":" for","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.136873Z","response":" its","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.191029Z","response":" playful","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.245644Z","response":" nature","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.29986Z","response":" and","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.354063Z","response":" hops","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.408794Z","response":" around","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.462918Z","response":" grass","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.517029Z","response":"y","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.571866Z","response":" fields","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.62656Z","response":" and","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.680666Z","response":" gardens","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.73723Z","response":".","done":false}
-{"model":"hermes3:8b","created_at":"2025-07-31T18:05:27.794385Z","response":"","done":true,"done_reason":"stop","context":[128039,882,198,75885,264,39824,304,220,17,2875,23719,128040,198,128039,78191,198,32,39824,374,264,2678,11,68661,36041,278,449,1317,25212,323,264,19369,11,18460,3663,13,1102,596,3967,369,1202,57169,7138,323,59218,2212,16763,88,5151,323,36536,13],"total_duration":2057193084,"load_duration":67917750,"prompt_eval_count":17,"prompt_eval_duration":61308375,"eval_count":36,"eval_duration":1927357125}
+[DEBUG] ollama_api_post: [/api/generate] [{"model":"smollm2:1.7b","prompt":"Describe]
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.66416Z","response":"Rab","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.690677Z","response":"bits","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.71745Z","response":" are","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.742948Z","response":" small","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.768404Z","response":" mammals","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.795522Z","response":" with","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.822274Z","response":" large","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.848902Z","response":" ears","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.87544Z","response":" and","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.902528Z","response":" sharp","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.92932Z","response":" teeth","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.95655Z","response":".","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:33.982911Z","response":" They","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.00923Z","response":" have","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.036151Z","response":" furry","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.063317Z","response":" bodies","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.090505Z","response":" and","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.117205Z","response":" long","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.143863Z","response":" legs","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.170836Z","response":" that","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.196967Z","response":" allow","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.223158Z","response":" them","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.249433Z","response":" to","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.275998Z","response":" hop","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.301547Z","response":" quickly","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.326779Z","response":" through","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.352795Z","response":" their","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.380254Z","response":" natural","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.406803Z","response":" habitat","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.433324Z","response":" of","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.459602Z","response":" forests","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.48637Z","response":" and","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.513365Z","response":" fields","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.539438Z","response":".","done":false}
+{"model":"smollm2:1.7b","created_at":"2025-07-31T18:33:34.565063Z","response":"","done":true,"done_reason":"stop","context":[1,9690,198,2683,359,253,5356,5646,11173,3365,3511,308,34519,28,7018,411,407,19712,8182,198,1,4093,198,37964,253,16024,281,216,34,1890,8545,2,198,1,520,9531,198,34750,9229,359,1165,10793,351,1507,10006,284,7858,4077,30,1069,457,31036,4135,284,986,7225,338,1167,601,288,4432,3112,738,480,1782,5981,282,6495,284,3705,30],"total_duration":952949792,"load_duration":26385709,"prompt_eval_count":37,"prompt_eval_duration":24408875,"eval_count":35,"eval_duration":901402791}
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 [DEBUG] ollama_generate_stream_json: return: 0
