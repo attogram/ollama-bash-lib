@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.40.8"
+OLLAMA_LIB_VERSION="0.40.9"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>"
@@ -413,7 +413,7 @@ ollama_chat_stream_json() {
 # Returns: 0 on success, 1 on error
 ollama_list() {
   debug "ollama_list"
-  ollama list
+  ollama list | sort
   local error_list=$?
   if [ "$error_list" -gt 0 ]; then
     error "ollama_list: error_list: $error_list"
