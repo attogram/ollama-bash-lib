@@ -7,7 +7,8 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 [Demos](#demos) - 
 [Requirements](#requirements) - 
 [License](#license) - 
-[More Projects](#more-ai-from-the-attogram-project)
+[More Projects](#more-ai-from-the-attogram-project) -
+[Discord](https://discord.gg/BGQJCbYVBa)
 
 [Functions](#functions) : 
 [Api](#api-functions) -
