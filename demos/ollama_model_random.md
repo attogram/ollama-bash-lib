@@ -1,6 +1,6 @@
 # ollama_model_random
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.6
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.8
 
 ## Demo
 ```bash
@@ -8,8 +8,8 @@ ollama_model_random
 local model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-llava:7b
-gemma3n:e4b
+granite3.3:2b
+qwen2.5-coder:7b
 ```
 
 ## Demo Debug
@@ -21,8 +21,12 @@ local model="$(ollama_model_random)"; echo "$model"
 ```
 [DEBUG] ollama_model_random
 [DEBUG] ollama_list_array
-llava-phi3:3.8b
+[DEBUG] ollama_list_array: 25 models found
+[DEBUG] ollama_model_random: 25 models found
+gemma:2b
 [DEBUG] ollama_model_random
 [DEBUG] ollama_list_array
-deepseek-r1:1.5b
+[DEBUG] ollama_list_array: 25 models found
+[DEBUG] ollama_model_random: 25 models found
+mistral:7b
 ```

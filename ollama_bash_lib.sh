@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.40.7"
+OLLAMA_LIB_VERSION="0.40.8"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>"
@@ -453,6 +453,7 @@ ollama_list_array() {
     return $RETURN_ERROR
   fi
   echo "${models[@]}" # space separated list of model names
+  debug "ollama_list_array: ${#models[@]} models found"
   return $RETURN_SUCCESS
 }
 
@@ -466,11 +467,12 @@ ollama_list_array() {
 ollama_model_random() {
   debug "ollama_model_random"
   local models=($(ollama_list_array))
+  debug "ollama_model_random: ${#models[@]} models found"
   if [ ${#models[@]} -eq 0 ]; then
     error "ollama_model_random: No Models Found"
     return $RETURN_ERROR
   fi
-  RANDOM=$(date +%s%N) # seed random with unixtime + microseconds
+  RANDOM=$(date +%N) # seed random with microseconds
   echo "${models[RANDOM%${#models[@]}]}"
   return $RETURN_SUCCESS
 }
