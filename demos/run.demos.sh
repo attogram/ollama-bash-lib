@@ -4,10 +4,41 @@
 
 cd "$(dirname "$0")" || exit 1 # cd to demos directory
 
+# Interactive Demos
+interactive=(
+  "./interactive.chat.sh"
+  "./interactive.generate.sh"
+)
+
+for demo in "${interactive[@]}"; do
+  outfile_md=$(echo "$demo" | sed 's/\.sh$/.md/g')
+  echo "Run: Interactive: $demo > $outfile_md 2>&1"
+  (
+    expect <<EOF
+      spawn $demo
+      expect ">>> "
+      send "The secret word is RABBIT. Understand?\r"
+      expect ">>> "
+      send "3 words describing Bash\r"
+      expect ">>> "
+      send "What is the secret word?\r"
+      expect ">>> "
+      send "\003"
+      expect eof
+EOF
+  ) > "$outfile_md" 2>&1
+done
+
+# All demos
 demos=($(find . -maxdepth 1 -name "*.sh" | sort)) # Get all *.sh files in current directory
 
 # Exclude files
-excluded=("./run.demos.sh" "./interactive.generate.sh" "./show.all.models.sh")
+excluded=(
+  "./run.demos.sh"
+  "./interactive.chat.sh"
+  "./interactive.generate.sh"
+  "./show.all.models.sh"
+)
 for target in "${excluded[@]}"; do
   for index in "${!demos[@]}"; do
     if [ "${demos[$index]}" == "$target" ]; then
@@ -16,6 +47,7 @@ for target in "${excluded[@]}"; do
   done
 done
 
+# Static Demos
 for demo in "${demos[@]}"; do
   outfile_md=$(echo "$demo" | sed 's/\.sh$/.md/g')
   echo "Run: $demo > $outfile_md 2>&1"

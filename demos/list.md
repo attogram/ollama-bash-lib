@@ -1,6 +1,6 @@
 # ollama_list, ollama_list_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.10
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.12
 ```
 
 ollama_list
@@ -19,7 +19,7 @@ hermes3:8b          4f6b83f30b62    4.7 GB    3 weeks ago
 minicpm-v:8b        c92bfad01205    5.5 GB    7 weeks ago    
 mistral:7b          f974a74358d6    4.1 GB    7 weeks ago    
 qwen2.5-coder:7b    dae161e27b0e    4.7 GB    7 weeks ago    
-qwen2.5vl:7b        5ced39dfa4ba    6.0 GB    7 weeks ago    
+qwen2.5vl:7b        5ced39dfa4ba    6.0 GB    8 weeks ago    
 qwen3:1.7b          8f68893c685c    1.4 GB    7 weeks ago    
 qwen3:8b            500a1f067a9f    5.2 GB    5 weeks ago    
 smollm2:1.7b        cef4a1e09247    1.8 GB    4 weeks ago    

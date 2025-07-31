@@ -1,6 +1,6 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.10
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.12
 
 ## Demo
 
@@ -10,16 +10,14 @@ ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret w
 ollama_chat "cogito:3b"
 ```
 ```
-Understood! If you ask me for the secret word "RABBIT," I'll simply respond with:
-
-RABBIT
+Yes, I understand that if someone asks me for the secret word, I should respond with "RABBIT." I'm ready to help with this task!
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
 ollama_chat "cogito:3b"
 ```
 ```
-I'm not supposed to reveal the secret word. But if you guess it correctly, I might tell you. Otherwise, I just say RABBIT! 😊
+RABBIT
 ```
 ```bash
 ollama_messages | jq
@@ -35,7 +33,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "Understood! If you ask me for the secret word \"RABBIT,\" I'll simply respond with:\n\nRABBIT"
+  "content": "Yes, I understand that if someone asks me for the secret word, I should respond with \"RABBIT.\" I'm ready to help with this task!"
 }
 {
   "role": "user",
@@ -43,7 +41,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "I'm not supposed to reveal the secret word. But if you guess it correctly, I might tell you. Otherwise, I just say RABBIT! 😊"
+  "content": "RABBIT"
 }
 ```
 
@@ -67,19 +65,19 @@ ollama_chat "cogito:3b"
 [DEBUG] json_clean: 10 bytes [cogito:3b]
 [DEBUG] ollama_api_post: [/api/chat] [{"model":"cogito:3b","messages":[{"role":"]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] json_sanitize: 430 bytes [{"model":"cogito:3b","created_at":"2025-07]
-[DEBUG] json_sanitize: sanitized: 430 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
-[DEBUG] ollama_chat_json: content: [Yes, I understand. If someone asks me what the secret word is, I should just reply "RABBIT" without any further explanation or context.]
-[DEBUG] ollama_messages_add: [assistant] [Yes, I understand. If someone asks me what]
+[DEBUG] json_sanitize: 300 bytes [{"model":"cogito:3b","created_at":"2025-07]
+[DEBUG] json_sanitize: sanitized: 300 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
+[DEBUG] ollama_chat_json: content: [Understood.]
+[DEBUG] ollama_messages_add: [assistant] [Understood.]
 [DEBUG] json_clean: 10 bytes [assistant]
-[DEBUG] json_clean: 136 bytes [Yes, I understand. If someone asks me what]
-[DEBUG] json_sanitize: 430 bytes [{"model":"cogito:3b","created_at":"2025-07]
-[DEBUG] json_sanitize: sanitized: 430 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
-[DEBUG] ollama_chat: content: Yes, I understand. If someone asks me what the secret word is, I should just reply "RABBIT" without any further explanation or context.
-Yes, I understand. If someone asks me what the secret word is, I should just reply "RABBIT" without any further explanation or context.
-[DEBUG] ollama_messages_add: [assistant] [Yes, I understand. If someone asks me what]
+[DEBUG] json_clean: 12 bytes [Understood.]
+[DEBUG] json_sanitize: 300 bytes [{"model":"cogito:3b","created_at":"2025-07]
+[DEBUG] json_sanitize: sanitized: 300 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
+[DEBUG] ollama_chat: content: Understood.
+Understood.
+[DEBUG] ollama_messages_add: [assistant] [Understood.]
 [DEBUG] json_clean: 10 bytes [assistant]
-[DEBUG] json_clean: 136 bytes [Yes, I understand. If someone asks me what]
+[DEBUG] json_clean: 12 bytes [Understood.]
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
@@ -94,19 +92,19 @@ ollama_chat "cogito:3b"
 [DEBUG] json_clean: 10 bytes [cogito:3b]
 [DEBUG] ollama_api_post: [/api/chat] [{"model":"cogito:3b","messages":[{"role":"]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] json_sanitize: 297 bytes [{"model":"cogito:3b","created_at":"2025-07]
-[DEBUG] json_sanitize: sanitized: 297 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
-[DEBUG] ollama_chat_json: content: [RABBIT.]
-[DEBUG] ollama_messages_add: [assistant] [RABBIT.]
+[DEBUG] json_sanitize: 296 bytes [{"model":"cogito:3b","created_at":"2025-07]
+[DEBUG] json_sanitize: sanitized: 296 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
+[DEBUG] ollama_chat_json: content: [RABBIT]
+[DEBUG] ollama_messages_add: [assistant] [RABBIT]
 [DEBUG] json_clean: 10 bytes [assistant]
-[DEBUG] json_clean: 8 bytes [RABBIT.]
-[DEBUG] json_sanitize: 297 bytes [{"model":"cogito:3b","created_at":"2025-07]
-[DEBUG] json_sanitize: sanitized: 297 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
-[DEBUG] ollama_chat: content: RABBIT.
-RABBIT.
-[DEBUG] ollama_messages_add: [assistant] [RABBIT.]
+[DEBUG] json_clean: 7 bytes [RABBIT]
+[DEBUG] json_sanitize: 296 bytes [{"model":"cogito:3b","created_at":"2025-07]
+[DEBUG] json_sanitize: sanitized: 296 bytes [[{"model":"cogito:3b","created_at":"2025-07]]
+[DEBUG] ollama_chat: content: RABBIT
+RABBIT
+[DEBUG] ollama_messages_add: [assistant] [RABBIT]
 [DEBUG] json_clean: 10 bytes [assistant]
-[DEBUG] json_clean: 8 bytes [RABBIT.]
+[DEBUG] json_clean: 7 bytes [RABBIT]
 ```
 ```bash
 ollama_messages | jq
@@ -123,7 +121,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "Yes, I understand. If someone asks me what the secret word is, I should just reply \"RABBIT\" without any further explanation or context."
+  "content": "Understood."
 }
 {
   "role": "user",
@@ -131,6 +129,6 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "RABBIT."
+  "content": "RABBIT"
 }
 ```

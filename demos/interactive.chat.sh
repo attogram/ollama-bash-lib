@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo '# ollama_generate_stream interactive'
+echo '# ollama_chat interactive'
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -17,6 +17,10 @@ shutdown() {
   echo '```'
   echo 'Control-C shutdown'
   echo
+  echo "$(ollama_messages_count) Messages:"
+  echo '```json'
+  ollama_messages | jq -c
+  echo '```'
   exit 0
 }
 
@@ -26,17 +30,21 @@ model="$(ollama_model_random)"
 
 echo
 echo '```'
-echo "ollama_generate_stream with model: $model"
-echo
-echo 'Press Control-C to exit'
+echo "ollama_chat with model: $model"
+echo; echo 'Press Control-C to view message history and exit'
 
 trap 'shutdown' SIGINT
+
+ollama_messages_clear
+ollama_messages_add "system" "You are a helpful assistant"
 
 while true; do
   echo
   echo -n '>>> '
   read -r prompt
   echo
-  ollama_generate_stream "$model" "$prompt"
-  echo
+  ollama_messages_add "user" "$prompt"
+  response=$(ollama_chat "$model" "$prompt")
+  echo "$response"
+  ollama_messages_add "assistant" "$response"
 done
