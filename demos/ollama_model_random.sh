@@ -15,20 +15,21 @@ startup() {
 startup
 
 demo() {
+  local debug="$1"
   echo '```bash'
+  if [[ "$debug" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
   echo 'ollama_model_random'
-  echo 'ollama_model_random'
-  echo 'ollama_model_random'
+  echo 'local model="$(ollama_model_random)"; echo "$model"'
   echo '```'
   echo '```'
+  if [[ "$debug" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
   ollama_model_random
-  ollama_model_random
-  ollama_model_random
+  local model="$(ollama_model_random)"; echo "$model"
   echo '```'
 }
 
-echo; echo '# Demo'
+echo; echo '## Demo'
 demo
 
-echo; echo '# Demo Debug'
-OLLAMA_LIB_DEBUG=1 demo
+echo; echo '## Demo Debug'
+demo 1
