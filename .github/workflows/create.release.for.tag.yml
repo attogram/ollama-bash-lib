@@ -19,22 +19,42 @@ jobs:
 
       - name: Set Previous and Current Tag
         run: |
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^)
-          echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
+          # Get current tag from the ref
           CURRENT_TAG="${GITHUB_REF#refs/tags/}"
           echo "CURRENT_TAG=$CURRENT_TAG" >> $GITHUB_ENV
+
+          # Try to get previous tag; fallback to empty string if none found
+          PREV_COMMIT=$(git rev-list --tags --skip=1 --max-count=1)
+          if [ -n "$PREV_COMMIT" ]; then
+            PREV_TAG=$(git describe --tags --abbrev=0 $PREV_COMMIT)
+          else
+            PREV_TAG=""
+          fi
+          echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
 
       - name: Generate Release Notes (in env var)
         run: |
           CHANGES=""
-          for COMMIT in $(git rev-list $PREV_TAG..HEAD); do
+          # If there is a previous tag, get commits since previous tag. Otherwise, get all up to current tag.
+          if [ -n "$PREV_TAG" ]; then
+            COMMITS=$(git rev-list $PREV_TAG..$CURRENT_TAG)
+          else
+            COMMITS=$(git rev-list $CURRENT_TAG)
+          fi
+
+          for COMMIT in $COMMITS; do
             MSG=$(git log -1 --pretty=format:"%s" $COMMIT | cut -c1-80)
             SHORT_SHA=$(git rev-parse --short $COMMIT)
             AUTHOR_NAME=$(git log -1 --pretty=format:"%an" $COMMIT)
             CHANGES+="- $SHORT_SHA by $AUTHOR_NAME: $MSG"$'\n'
           done
 
-          COMPARE_LINK="🔍 [View full diff](https://github.com/${{ github.repository }}/compare/$PREV_TAG...$CURRENT_TAG)"
+          # Only add compare link if previous tag exists
+          if [ -n "$PREV_TAG" ]; then
+            COMPARE_LINK="🔍 [View full diff](https://github.com/${{ github.repository }}/compare/$PREV_TAG...$CURRENT_TAG)"
+          else
+            COMPARE_LINK=""
+          fi
 
           RELEASE_BODY="Ollama Bash Lib $CURRENT_TAG\n\nA Bash Library to interact with [Ollama](https://github.com/ollama/ollama)\n\nRepo: https://github.com/${{ github.repository }}\n\n## Changes\n\n${CHANGES}\n\n${COMPARE_LINK}"
 
