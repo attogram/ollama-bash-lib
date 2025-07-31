@@ -17,23 +17,23 @@ startup
 model="$(ollama_model_random)"
 
 demo() {
+
+  task="Act as a Marketing Expert.
+Do a critical Review of this github project README.md file.
+Output your review in Markdown format."
+
+  file="../README.md"
+
   echo
   echo '```bash'
-  if [[ "$debug" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
-  echo 'prompt="Act as a Marketing Expert.
-Do a full review of this github project README.md.
-Output your review in pure Markdown format.
-
-$(cat "../README.md")"'
-  echo "ollama_generate \"$model\" \"\$prompt\""
+  if [[ "$1" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
+  echo "task=\"$task\""
+  echo "file=\"$file\""
+  echo "ollama_generate_stream \"$model\" \"\$task\\n\\n\$(cat \"$file\")"
   echo '```'
-  prompt="Act as an expert Technical Marketer.
-Do a full review of this project README:
-Output your review in pure Markdown format.
 
-$(cat "../README.md")"
-  if [[ "$debug" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
-  ollama_generate "$model" "$prompt"
+  if [[ "$1" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
+  ollama_generate_stream "$model" "$task\n\n$(cat "$file")"
 }
 
 echo; echo '## Review'
