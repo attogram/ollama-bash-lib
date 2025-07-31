@@ -4,8 +4,9 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.40.12"
+OLLAMA_LIB_VERSION="0.40.13"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
+OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>"
 
@@ -781,6 +782,7 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_NAME     : $OLLAMA_LIB_NAME"
   echo "OLLAMA_LIB_VERSION  : $OLLAMA_LIB_VERSION"
   echo "OLLAMA_LIB_URL      : $OLLAMA_LIB_URL"
+  echo "OLLAMA_LIB_DISCORD  : $OLLAMA_LIB_DISCORD"
   echo "OLLAMA_LIB_LICENSE  : $OLLAMA_LIB_LICENSE"
   echo "OLLAMA_LIB_COPYRIGHT: $OLLAMA_LIB_COPYRIGHT"
   echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
