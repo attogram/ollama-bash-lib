@@ -3,7 +3,7 @@ name: Release with Shell Script and Description
 on:
   push:
     tags:
-      - 'v*'  # Triggers on tags like v1.0.0
+      - 'v*'
 
 permissions:
   contents: write
@@ -21,12 +21,7 @@ jobs:
         run: |
           CURRENT_TAG="${GITHUB_REF#refs/tags/}"
           echo "CURRENT_TAG=$CURRENT_TAG" >> $GITHUB_ENV
-          PREV_COMMIT=$(git rev-list --tags --skip=1 --max-count=1)
-          if [ -n "$PREV_COMMIT" ]; then
-            PREV_TAG=$(git describe --tags --abbrev=0 $PREV_COMMIT)
-          else
-            PREV_TAG=""
-          fi
+          PREV_TAG=$(git tag --sort=-creatordate | grep -A1 "^$CURRENT_TAG$" | tail -n1)
           echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
 
       - name: Generate Release Notes (in env var)
@@ -35,7 +30,7 @@ jobs:
         run: |
           declare -A USERMAP
           USERMAP["Attogram Project"]="attogram"
-          
+
           CHANGES=""
           if [ -n "$PREV_TAG" ]; then
             COMMITS=$(git rev-list $PREV_TAG..$CURRENT_TAG)
