@@ -1,24 +1,26 @@
 spawn ./interactive.generate.sh
 # ollama_generate_stream interactive
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.12
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.14
 
 ```
-ollama_generate_stream with model: gemma3n:e4b
+ollama_generate_stream with model: minicpm-v:8b
 
 Press Control-C to exit
 
 >>> The secret word is RABBIT. Understand?
 
-3 words describing Bash
-Yes, I understand! The secret word is **RABBIT**. (It's a play on words - "rabbit" is spelled with a "b" instead of a "r" at the beginning!) Got it! ð Is there anything else I need to know or do with this information? Perhaps you want me to:* **Remember it?** (I will!)* **Use it in a sentence?** (e.g., "The secret word is RABBIT, so don't tell anyone!")* **Test me?** (e.g., "What's the secret word?")Let me know! 
+Yes, I understand that the secret word you provided is "RABBIT." Is there anything else I can assist you with related to this topic or something different altogether? Please let me know!
 
->>> 
-What is the secret word?
-Here are 3 words to describe Bash:*   **Powerful:** Bash is incredibly versatile and can automate complex tasks.*   **Ubiquitous:** It's the default shell on most Linux and macOS systems.*   **Flexible:** Highly customizable with scripting and aliases.
+>>> 3 words describing Bash
 
->>> 
-^C
+1. Shell: A command-line interface used to interact with a computer's operating system.2. Scripting Language: It is an environment for automating tasks and operations on the computer.3. Text Processing Tool: It can be used for basic text manipulation, such as converting characters or searching for patterns within files.Bash (Bourne Again SHell)
+
+>>> What is the secret word?
+
+The correct answer to this riddle seems to be "dandelion". This can also refer to a type of weed. However, if we consider that it's meant as a metaphor for something else entirely... perhaps you're referring to some other concept or object not listed in my previous responses.I apologize again and hope I could assist with the correct answer this time!
+
+>>> ^C
 ```
 Control-C shutdown
 
