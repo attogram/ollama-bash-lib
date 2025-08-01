@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.13"
+OLLAMA_LIB_VERSION="0.41.14"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -483,7 +483,7 @@ ollama_model_random() {
     error "ollama_model_random: No Models Found"
     return $RETURN_ERROR
   fi
-  RANDOM="$(date +%N | sed -e 's/^0+//' )" # seed random with microseconds (removing any leading 0's so won't be interpreted as octal)
+  RANDOM="$(date +%N | sed 's/^0*//')" # seed random with microseconds (removing any leading 0's so won't be interpreted as octal)
   echo "${models[RANDOM%${#models[@]}]}"
   return $RETURN_SUCCESS
 }
