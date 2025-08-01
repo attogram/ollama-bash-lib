@@ -21,6 +21,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          CURRENT_TAG="${GITHUB_REF#refs/tags/}"
           RELEASE_BODY="Ollama Bash Lib $CURRENT_TAG\n\nA Bash Library to interact with [Ollama](https://github.com/ollama/ollama)\n\nRepo: https://github.com/${{ github.repository }}\n"
           echo "RELEASENOTES<<EOF" >> $GITHUB_ENV
           echo -e "$RELEASE_BODY" >> $GITHUB_ENV
