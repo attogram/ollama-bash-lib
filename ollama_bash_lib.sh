@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.17"
+OLLAMA_LIB_VERSION="0.41.18"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -459,9 +459,10 @@ ollama_list_json() {
 # Returns: 0 on success, 1 on error
 ollama_list_array() {
   debug "ollama_list_array"
-  # Get list from ollama cli, skip first line (headers), get first column (names), sort alphabetically
-  local models
-  IFS=" " read -r -a models <<< "$(ollama list | awk '{if (NR > 1) print $1}' | sort)"
+  local models=()
+  while IFS= read -r line; do
+    models+=("$line")
+  done < <(ollama list | awk 'NR > 1 {print $1}' | sort)
   echo "${models[@]}" # space separated list of model names
   debug "ollama_list_array: ${#models[@]} models found: return 0"
   return $RETURN_SUCCESS
