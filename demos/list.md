@@ -1,6 +1,6 @@
 # ollama_list, ollama_list_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.13
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.18
 
 ```
 ollama_list
@@ -13,6 +13,12 @@ gemma3n:e4b       15cb39fd9394    7.5 GB    12 days ago
 mistral:7b        6577803aa9a0    4.4 GB    11 days ago    
 qwen2.5vl:7b      5ced39dfa4ba    6.0 GB    11 days ago    
 qwen3:8b          500a1f067a9f    5.2 GB    12 days ago    
+
+```
+ollama_list_array
+```
+```
+deepseek-r1:8b dolphin3:8b gemma3n:e4b mistral:7b qwen2.5vl:7b qwen3:8b
 ```
 
 ```

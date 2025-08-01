@@ -20,6 +20,12 @@ echo 'ollama_list'
 echo '```'
 echo '```'
 ollama_list
+echo
+echo '```'
+echo 'ollama_list_array'
+echo '```'
+echo '```'
+ollama_list_array
 echo '```'
 echo
 echo '```'

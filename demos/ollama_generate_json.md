@@ -1,29 +1,28 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.13
-./../ollama_bash_lib.sh: line 486: 021432900: value too great for base (error token is "021432900")
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.18
 
 ## Demo
 
 ```bash
-ollama_generate_json "deepseek-r1:8b" "Describe a rabbit in 2 short sentences"
+ollama_generate_json "qwen3:8b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-{"error":"json: cannot unmarshal string into Go struct field GenerateRequest.stream of type bool"}
+{"model":"qwen3:8b","created_at":"2025-08-01T23:47:49.9415655Z","response":"\u003cthink\u003e\nOkay, the user wants me to describe a rabbit in two short sentences. Let me start by thinking about the key characteristics of a rabbit. They're small mammals, right? So maybe mention their size and physical features. Also, their behavior—like hopping and being gentle. I should make sure each sentence is concise. First sentence could focus on appearance and movement. Second sentence might talk about their habits or personality. Let me check if I need to include any specific details like fur color or ears. The user didn't specify, so maybe keep it general. Avoid making the sentences too long. Let me try: \"A rabbit is a small, fluffy mammal known for its long ears and quick, hopping movements.\" Then the second sentence: \"It is often seen grazing in fields, embodying a gentle and curious nature.\" Hmm, that works. Let me make sure they're both short and capture the essence.\n\u003c/think\u003e\n\nA rabbit is a small, fluffy mammal known for its long ears and quick, hopping movements. It is often seen grazing in fields, embodying a gentle and curious nature.","done":true,"done_reason":"stop","context":[151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,151667,198,32313,11,279,1196,6801,752,311,7512,264,38724,304,1378,2805,22870,13,6771,752,1191,553,7274,911,279,1376,17452,315,264,38724,13,2379,2299,2613,55569,11,1290,30,2055,7196,6286,862,1379,323,6961,4419,13,7281,11,862,7709,2293,4803,92238,323,1660,21700,13,358,1265,1281,2704,1817,11652,374,63594,13,5512,11652,1410,5244,389,11094,323,7203,13,10440,11652,2578,3061,911,862,25785,476,17294,13,6771,752,1779,421,358,1184,311,2924,894,3151,3565,1075,18241,1894,476,24230,13,576,1196,3207,944,13837,11,773,7196,2506,432,4586,13,34006,3259,279,22870,2238,1293,13,6771,752,1430,25,330,32,38724,374,264,2613,11,67561,34941,278,3881,369,1181,1293,24230,323,3974,11,92238,19029,1189,5005,279,2086,11652,25,330,2132,374,3545,3884,83450,304,5043,11,80558,287,264,21700,323,22208,6993,1189,88190,11,429,4278,13,6771,752,1281,2704,807,2299,2176,2805,323,12322,279,27491,624,151668,271,32,38724,374,264,2613,11,67561,34941,278,3881,369,1181,1293,24230,323,3974,11,92238,19029,13,1084,374,3545,3884,83450,304,5043,11,80558,287,264,21700,323,22208,6993,13],"total_duration":21392664200,"load_duration":3691420800,"prompt_eval_count":16,"prompt_eval_duration":250798100,"eval_count":225,"eval_duration":17449940700}
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_json "deepseek-r1:8b" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_json "qwen3:8b" "Describe a rabbit in 2 short sentences"`
 ```
 ```json
-[DEBUG] ollama_generate_json: [deepseek-r1:8b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [qwen3:8b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
 [DEBUG] ollama_api_post: [/api/generate] [{
-  "model": "deepseek-r1:8b",
-  "prompt":]
-{"error":"json: cannot unmarshal string into Go struct field GenerateRequest.stream of type bool"}[DEBUG] ollama_api_post: return 0
+  "model": "qwen3:8b",
+  "prompt": "Desc]
+{"model":"qwen3:8b","created_at":"2025-08-01T23:48:14.3268384Z","response":"\u003cthink\u003e\nOkay, the user wants me to describe a rabbit in two short sentences. Let me start by thinking about the key characteristics of a rabbit. They're known for their long ears, fluffy tails, and soft fur. Maybe mention their behavior, like hopping or being prey animals. I should keep each sentence concise. First sentence could focus on physical appearance, the second on their behavior or habitat. Let me check if I need to include any specific details. The user might be looking for a simple, vivid description. Avoid complex words. Maybe something like: \"A rabbit has long ears, a fluffy tail, and soft fur, often hopping gracefully through fields.\" Then the second sentence could talk about their habits, like being nocturnal or their role in the ecosystem. Wait, maybe \"A rabbit is a small, agile creature with long ears and a fluffy tail, often seen darting through grassy fields.\" Hmm, that's two sentences. Let me make sure they're both short and capture the essence. Alternatively, \"Rabbits have long ears and soft fur, making them appear gentle and alert.\" Then the second sentence could be about their movement or diet. I need to ensure clarity and conciseness. Let me finalize the two sentences now.\n\u003c/think\u003e\n\nA rabbit has long ears, a fluffy tail, and soft fur, often hopping gracefully through fields. It is a small, agile creature known for its quick reflexes and nocturnal habits.","done":true,"done_reason":"stop","context":[151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,151667,198,32313,11,279,1196,6801,752,311,7512,264,38724,304,1378,2805,22870,13,6771,752,1191,553,7274,911,279,1376,17452,315,264,38724,13,2379,2299,3881,369,862,1293,24230,11,67561,63514,11,323,8413,18241,13,10696,6286,862,7709,11,1075,92238,476,1660,36593,9898,13,358,1265,2506,1817,11652,63594,13,5512,11652,1410,5244,389,6961,11094,11,279,2086,389,862,7709,476,38546,13,6771,752,1779,421,358,1184,311,2924,894,3151,3565,13,576,1196,2578,387,3330,369,264,4285,11,42020,4008,13,34006,6351,4244,13,10696,2494,1075,25,330,32,38724,702,1293,24230,11,264,67561,9787,11,323,8413,18241,11,3545,92238,78499,1526,5043,1189,5005,279,2086,11652,1410,3061,911,862,25785,11,1075,1660,92001,62450,476,862,3476,304,279,24982,13,13824,11,7196,330,32,38724,374,264,2613,11,61465,17218,448,1293,24230,323,264,67561,9787,11,3545,3884,55967,287,1526,16359,88,5043,1189,88190,11,429,594,1378,22870,13,6771,752,1281,2704,807,2299,2176,2805,323,12322,279,27491,13,38478,11,330,49,370,11516,614,1293,24230,323,8413,18241,11,3259,1105,4994,21700,323,5115,1189,5005,279,2086,11652,1410,387,911,862,7203,476,9968,13,358,1184,311,5978,31273,323,3529,23129,433,13,6771,752,54090,279,1378,22870,1431,624,151668,271,32,38724,702,1293,24230,11,264,67561,9787,11,323,8413,18241,11,3545,92238,78499,1526,5043,13,1084,374,264,2613,11,61465,17218,3881,369,1181,3974,32666,288,323,92001,62450,25785,13],"total_duration":23983680400,"load_duration":23527800,"prompt_eval_count":16,"prompt_eval_duration":78503800,"eval_count":294,"eval_duration":23881648800}[DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 
 ```
