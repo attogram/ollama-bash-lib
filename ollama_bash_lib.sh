@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.40.25"
+OLLAMA_LIB_VERSION="0.40.26"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -477,6 +477,8 @@ ollama_model_random() {
     return $RETURN_ERROR
   fi
   RANDOM=$(date +%N) # seed random with microseconds
+  # TODO - ERROR:line 479: 003369000: value too great for base (error token is "003369000")
+  #      - because any number starting with 0 is interpreted as octal
   echo "${models[RANDOM%${#models[@]}]}"
   return $RETURN_SUCCESS
 }
@@ -493,9 +495,10 @@ ollama_model_unload() {
     debug 'Error: ollama_model_unload: no model'
     return $RETURN_ERROR
   fi
-  local result=$(ollama_api_post "/api/generate" "{\"model\":$(json_clean "$1"),\"keep_alive\":0}")
+  local result
+  result="$(ollama_api_post "/api/generate" "{\"model\":$(json_clean "$1"),\"keep_alive\":0}")"
   local error_unload=$?
-  if [ "$error_unload" -gt 0 ]; then
+  if [[ "$error_unload" -gt 0 ]]; then
     error "ollama_model_unload: error_unload: $error_unload result: [$result]"
     return $RETURN_ERROR
   fi
@@ -513,10 +516,8 @@ ollama_model_unload() {
 # Returns: 0 on success, 1 on error
 ollama_ps() {
   debug "ollama_ps"
-  ollama ps
-  local error_ollama=$?
-  if [ "$error_ollama" -gt 0 ]; then
-    error "ollama_ps: error_ollama: $error_ollama"
+  if ! ollama ps; then
+    error "ollama_ps: ollama ps failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
@@ -529,10 +530,8 @@ ollama_ps() {
 # Returns: 0 on success, 1 on error
 ollama_ps_json() {
   debug "ollama_ps_json"
-  ollama_api_get "/api/ps"
-  local error_ollama_api_get=$?
-  if [ "$error_ollama_api_get" -gt 0 ]; then
-    error "ollama_ps_json: error_ollama_api_get: $error_ollama_api_get"
+  if ! ollama_api_get "/api/ps"; then
+    error "ollama_ps_json: ollama_api_get failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
@@ -547,10 +546,8 @@ ollama_ps_json() {
 # Returns: 0 on success, 1 on error
 ollama_show() {
   debug "ollama_show"
-  ollama show "$1"
-  local error_ollama=$?
-  if [ "$error_ollama" -gt 0 ]; then
-    error "ollama_show: error_ollama: $error_ollama"
+  if ! ollama show "$1"; then
+    error "ollama_show: ollama show failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
@@ -563,10 +560,8 @@ ollama_show() {
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
   debug "ollama_show_json"
-  ollama_api_post "/api/show" "{\"model\":$(json_clean "$1")}"
-  local error_ollama_api_post=$?
-  if [ "$error_ollama_api_post" -gt 0 ]; then
-    error "ollama_show_json: error_ollama_api_post: $error_ollama_api_post"
+  if ! ollama_api_post "/api/show" "{\"model\":$(json_clean "$1")}"; then
+    error "ollama_show_json: error_ollama_api_post failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
@@ -642,10 +637,8 @@ ollama_vars() {
 # Returns: 0 on success, 1 on error
 ollama_version() {
   debug "ollama_version"
-  ollama_api_get "/api/version" | jq -r ".version"
-  local error_ollama_api_get=$?
-  if [ "$error_ollama_api_get" -gt 0 ]; then
-    error "ollama_version: error_ollama_api_get: $error_ollama_api_get"
+  if ! ollama_api_get "/api/version" | jq -r ".version"; then
+    error "ollama_version: error_ollama_api_get|jq failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
@@ -659,10 +652,8 @@ ollama_version() {
 # Returns: 0 on success, 1 on error
 ollama_version_json() {
   debug "ollama_version_json"
-  ollama_api_get "/api/version"
-  local error_ollama_api_get=$?
-  if [ "$error_ollama_api_get" -gt 0 ]; then
-    error "ollama_version_json: error_ollama_api_get: $error_ollama_api_get"
+  if ! ollama_api_get "/api/version"; then
+    error "ollama_version_json: error_ollama_api_get failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
@@ -676,10 +667,8 @@ ollama_version_json() {
 # Returns: 0 on success, 1 on error
 ollama_version_cli() {
   debug "ollama_version_cli"
-  ollama --version
-  local error_ollama=$?
-  if [ "$error_ollama" -gt 0 ]; then
-    error "ollama_version_cli: error_ollama: $error_ollama"
+  if ! ollama --version; then
+    error "ollama_version_cli: ollama --version failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
@@ -811,5 +800,4 @@ ollama_lib_about() {
 # Returns: 0
 ollama_lib_version() {
   echo "$OLLAMA_LIB_VERSION"
-  return $RETURN_SUCCESS
 }
