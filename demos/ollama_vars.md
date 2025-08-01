@@ -1,6 +1,6 @@
 # ollama_vars
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.21
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.24
 
 ```
 OLLAMA_DEBUG: 
@@ -36,6 +36,6 @@ ROCR_VISIBLE_DEVICES:
 JETSON_JETPACK: 
 LD_LIBRARY_PATHS: 
 HTTP_PROXY: 
-LOCALAPPDATA: 
-TERM: xterm-256color
+LOCALAPPDATA: C:\Users\work\AppData\Local
+TERM: xterm
 ```

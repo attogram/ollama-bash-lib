@@ -1,6 +1,6 @@
 # json_sanitize
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.21
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.24
 
 Usage: `json_sanitize "string"`
 
@@ -17,6 +17,7 @@ clean : 21 bytes: [{"value":"abc\ndef"}]
 ```
 
 ```
+./json_sanitize.sh: line 41: warning: command substitution: ignored null byte in input
 string: 86 bytes: [start: null:, bell:, form-feed:
 , carriage-return:, escape:, unit-separator: :end]
 clean : 83 bytes: [start: null:, bell:, form-feed:\n, carriage-return:, escape:, unit-separator: :end]

@@ -1,6 +1,6 @@
 # ollama_model_random
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.21
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.24
 
 ## Demo
 ```bash
@@ -8,8 +8,8 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-hermes3:8b
-gemma3n:e4b
+mistral:7b
+qwen3:8b
 ```
 
 ## Demo Debug
@@ -21,12 +21,13 @@ model="$(ollama_model_random)"; echo "$model"
 ```
 [DEBUG] ollama_model_random
 [DEBUG] ollama_list_array
-[DEBUG] ollama_list_array: 16 models found
-[DEBUG] ollama_model_random: 16 models found
-minicpm-v:8b
+[DEBUG] ollama_list_array: 7 models found
+[DEBUG] ollama_model_random: 7 models found
+./../ollama_bash_lib.sh: line 479: 065648200: value too great for base (error token is "065648200")
+mistral:7b
 [DEBUG] ollama_model_random
 [DEBUG] ollama_list_array
-[DEBUG] ollama_list_array: 16 models found
-[DEBUG] ollama_model_random: 16 models found
-granite3.3:2b
+[DEBUG] ollama_list_array: 7 models found
+[DEBUG] ollama_model_random: 7 models found
+dolphin3:8b
 ```
