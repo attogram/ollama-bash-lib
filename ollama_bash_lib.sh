@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.40.24"
+OLLAMA_LIB_VERSION="0.40.25"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -628,7 +628,7 @@ ollama_vars() {
   echo "JETSON_JETPACK: $JETSON_JETPACK"
   echo "LD_LIBRARY_PATHS: $LD_LIBRARY_PATH"
   echo "HTTP_PROXY: $HTTP_PROXY"
-  echo "LOCALAPPDATA: $LOCALAPPDATA"
+  #echo "LOCALAPPDATA: $LOCALAPPDATA"
   #echo "HOME: $HOME"
   echo "TERM: $TERM"
   return $RETURN_SUCCESS
