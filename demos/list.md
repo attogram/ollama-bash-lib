@@ -13,6 +13,7 @@ gemma3n:e4b       15cb39fd9394    7.5 GB    12 days ago
 mistral:7b        6577803aa9a0    4.4 GB    11 days ago    
 qwen2.5vl:7b      5ced39dfa4ba    6.0 GB    11 days ago    
 qwen3:8b          500a1f067a9f    5.2 GB    12 days ago    
+```
 
 ```
 ollama_list_array
