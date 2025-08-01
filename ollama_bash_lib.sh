@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.6"
+OLLAMA_LIB_VERSION="0.41.7"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
