@@ -14,16 +14,17 @@ startup() {
 
 startup
 
+echo
 echo '```'
-
-echo
 echo 'ollama_list'
-echo
+echo '```'
+echo '```'
 ollama_list
-
+echo '```'
 echo
-echo 'ollama_list_json'
-echo
-ollama_list_json | jq "."
-
+echo '```'
+echo "ollama_list_json | jq '.'"
+echo '```'
+echo '```json'
+ollama_list_json | jq '.'
 echo '```'

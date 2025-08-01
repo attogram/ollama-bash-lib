@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.0"
+OLLAMA_LIB_VERSION="0.41.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -411,8 +411,17 @@ ollama_chat_stream_json() {
 # Returns: 0 on success, 1 on error
 ollama_list() {
   debug "ollama_list"
-  if ! ollama list | tail -n+2 | sort; then
-    error "ollama_list: ollama list|tail|sort failed"
+  local list
+  if ! list="$(ollama list)"; then # get ollama list
+    error "ollama_list: list=|ollama list failed"
+    return $RETURN_ERROR
+  fi
+  if ! echo "$list" | head -n+1; then # print header
+    error "ollama_list: echo|head failed"
+    return $RETURN_ERROR
+  fi
+  if ! echo "$list" | tail -n+2 | sort; then # sorted list of models
+    error "ollama_list: ollama echo|tail|sort failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
