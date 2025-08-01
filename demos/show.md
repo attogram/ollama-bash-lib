@@ -1,6 +1,7 @@
 # ollama_show, ollama_show_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.13
+./../ollama_bash_lib.sh: line 486: 009600500: value too great for base (error token is "009600500")
 
 ollama_show "deepseek-r1:8b"
 
@@ -17,12 +18,12 @@ ollama_show "deepseek-r1:8b"
     thinking      
 
   Parameters
+    temperature    0.6                          
+    top_p          0.95                         
     stop           "<｜begin▁of▁sentence｜>"    
     stop           "<｜end▁of▁sentence｜>"      
     stop           "<｜User｜>"                 
     stop           "<｜Assistant｜>"            
-    temperature    0.6                          
-    top_p          0.95                         
 
   License
     MIT License                    
