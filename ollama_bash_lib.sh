@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.10"
+OLLAMA_LIB_VERSION="0.41.12"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -162,7 +162,7 @@ ollama_generate_json() {
   json_payload=$(jq -n \
     --arg model "$1" \
     --arg prompt "$2" \
-    --argjson stream "$stream_bool" \
+    --arg stream "$stream_bool" \
     '{model: $model, prompt: $prompt, stream: $stream}')
   if ! ollama_api_post "/api/generate" "$json_payload"; then
     error "ollama_generate_json: ollama_api_post failed"
@@ -320,13 +320,16 @@ ollama_chat_json() {
     stream_bool="false"
   fi
 
-  local array_json="[${OLLAMA_LIB_MESSAGES[*]}]"
+  local array_json
+  # Join array elements with comma and wrap in []
+  array_json=$(printf ",%s" "${OLLAMA_LIB_MESSAGES[@]}")
+  array_json="[${array_json:1}]"   # Remove leading comma
 
   local json_payload
   json_payload=$(jq -n \
       --arg model "$1" \
       --argjson messages "$array_json" \
-      --argjson stream "$stream_bool" \
+      --arg stream "$stream_bool" \
       '{role: $role, messages: $messages, stream: $stream_bool}')
 
   local result
