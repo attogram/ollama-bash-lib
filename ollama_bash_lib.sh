@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.15"
+OLLAMA_LIB_VERSION="0.41.16"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -154,9 +154,9 @@ ollama_api_ping() {
 ollama_generate_json() {
   debug "ollama_generate_json: [$1] [${2:0:42}]"
   debug "ollama_generate_json: OLLAMA_LIB_STREAM: $OLLAMA_LIB_STREAM"
-  local stream_bool="true"
+  local stream_bool=true
   if [ "$OLLAMA_LIB_STREAM" -eq "0" ]; then
-    stream_bool="false"
+    stream_bool=false
   fi
   local json_payload
   json_payload=$(jq -n \
@@ -315,9 +315,9 @@ ollama_chat_json() {
     return $RETURN_ERROR
   fi
 
-  local stream_bool="true"
+  local stream_bool=true
   if [ "$OLLAMA_LIB_STREAM" -eq "0" ]; then
-    stream_bool="false"
+    stream_bool=false
   fi
 
   local array_json
