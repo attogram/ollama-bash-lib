@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.12"
+OLLAMA_LIB_VERSION="0.41.13"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -327,7 +327,7 @@ ollama_chat_json() {
 
   local json_payload
   json_payload=$(jq -n \
-      --arg model "$1" \
+      --arg role "$1" \
       --argjson messages "$array_json" \
       --arg stream "$stream_bool" \
       '{role: $role, messages: $messages, stream: $stream_bool}')
