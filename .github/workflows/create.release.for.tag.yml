@@ -19,7 +19,7 @@ jobs:
 
       - name: set current tag
         run: |
-          CURRENT_TAG="${GITHUB_REF#refs/tags/}"
+          run: echo "CURRENT_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Generate Release Notes (in env var)
         env:
