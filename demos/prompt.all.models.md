@@ -1,8 +1,8 @@
 # Prompt all models
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.26
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.0
 
-```
+```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
 
 IFS=" " read -r -a models <<< "$(ollama_list_array)"
@@ -18,20 +18,22 @@ prompt: What is your knowledge cutoff date? Respond with only the date.
 ## deepseek-r1:8b
 ```
 <think>
-Okay, user just asked about my knowledge cutoff date and specifically wants me to respond with only that date.
+Okay, user asked about my knowledge cutoff date and specifically requested to respond with only the date. 
 
-Hmm, this seems like a straightforward question - probably they want to know when their information was last updated before asking something else. Maybe checking if I can help with recent events or verifying the recency of data?
+Hmm, this seems like a straightforward information request but I should be careful not to overcomplicate it since they want just the bare minimum response. The format is very clear - "Respond with only the date." So no explanations or extra words needed.
 
-The response should be precise since they asked for "only the date". No need to add any explanations or context here unless they follow up.
+Let me confirm my knowledge cutoff period in my database... yes, it goes up to September 2023. That's when I last processed information from before. 
 
-I remember my cutoff is July 2024, so that's what I'll share. Simple and clean as requested.
+The user might be checking if they need to update their understanding of recent developments beyond this point. Or perhaps they're curious about how the AI works regarding knowledge boundaries. Either way, sticking strictly to the requested format is important here.
+
+I should respond with just "September 2023" as that's the most accurate representation of my knowledge cutoff date without any additional context.
 </think>
-July 2024
+September 2023
 ```
 
 ## dolphin3:8b
 ```
-2021-11-24
+2023-04-01
 ```
 
 ## gemma3n:e4b
@@ -53,7 +55,7 @@ September 2021
 ## qwen3:8b
 ```
 <think>
-Okay, the user is asking about my knowledge cutoff date. I need to make sure I provide the correct date. My training data is up to October 2024. Wait, but I should double-check that. Let me confirm. Yes, the latest data I have is from October 2024. So the answer should be October 2024. But the user wants only the date, so I should format it as "October 2024" without any extra text. Got it.
+Okay, the user is asking about my knowledge cutoff date. I need to make sure I provide the correct date without any extra information. Let me recall the last update date for my training data. I think it was October 2024. Wait, no, maybe it's earlier. Let me double-check. Oh right, the cutoff date is October 2024. So the answer should be October 2024. Just need to format it as "October 2024" without any additional text.
 </think>
 
 October 2024

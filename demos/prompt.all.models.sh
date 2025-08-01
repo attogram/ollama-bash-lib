@@ -16,7 +16,7 @@ startup
 
 
 echo
-echo '```'
+echo '```bash'
 echo 'prompt="What is your knowledge cutoff date? Respond with only the date."'
 echo
 # shellcheck disable=SC2016

@@ -1,6 +1,7 @@
 # ollama_api_get
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.24
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.0
+
 ## Demo
 ```
 
@@ -14,6 +15,7 @@ ollama_api_get " bad string!"
 
 [ERROR] ollama_api_get: error_curl: 3
 ```
+
 ## Demo Debug
 ```
 

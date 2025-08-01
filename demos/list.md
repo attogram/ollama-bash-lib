@@ -1,18 +1,16 @@
 # ollama_list, ollama_list_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.24
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.0
 ```
 
 ollama_list
 
-deepseek-r1:14b    c333b7232bdb    9.0 GB    12 days ago    
-deepseek-r1:8b     6995872bfe4c    5.2 GB    10 days ago    
-dolphin3:8b        d5ab9ae8e1f2    4.9 GB    10 days ago    
-gemma3n:e4b        15cb39fd9394    7.5 GB    12 days ago    
-mistral:7b         6577803aa9a0    4.4 GB    10 days ago    
-NAME               ID              SIZE      MODIFIED    
-qwen2.5vl:7b       5ced39dfa4ba    6.0 GB    10 days ago    
-qwen3:8b           500a1f067a9f    5.2 GB    12 days ago    
+deepseek-r1:8b    6995872bfe4c    5.2 GB    11 days ago    
+dolphin3:8b       d5ab9ae8e1f2    4.9 GB    11 days ago    
+gemma3n:e4b       15cb39fd9394    7.5 GB    12 days ago    
+mistral:7b        6577803aa9a0    4.4 GB    11 days ago    
+qwen2.5vl:7b      5ced39dfa4ba    6.0 GB    11 days ago    
+qwen3:8b          500a1f067a9f    5.2 GB    12 days ago    
 
 ollama_list_json
 
@@ -83,23 +81,6 @@ ollama_list_json
           "llama"
         ],
         "parameter_size": "7.2B",
-        "quantization_level": "Q4_K_M"
-      }
-    },
-    {
-      "name": "deepseek-r1:14b",
-      "model": "deepseek-r1:14b",
-      "modified_at": "2025-07-20T15:10:27.8791365+02:00",
-      "size": 8988112209,
-      "digest": "c333b7232bdb521236694ffbb5f5a6b11cc45d98e9142c73123b670fca400b09",
-      "details": {
-        "parent_model": "",
-        "format": "gguf",
-        "family": "qwen2",
-        "families": [
-          "qwen2"
-        ],
-        "parameter_size": "14.8B",
         "quantization_level": "Q4_K_M"
       }
     },
