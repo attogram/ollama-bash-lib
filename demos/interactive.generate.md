@@ -10,15 +10,17 @@ Press Control-C to exit
 
 >>> The secret word is RABBIT. Understand?
 
-Yes, I understand that the secret word you're referring to is "RABBIT". How can I assist3 words describing Bash
- you with this information?
+Yes, I understand. The secret word is "RABBIT". Is there anything else you would like3 words describing Bash
+ to know or discuss?
 
 >>> 
-1. Powerful2. VersWhat is the secret word?
-atile3. Command-line driven
+Powerful, Versatile, CommandWhat is the secret word?
+-line
 
 >>> 
-I don't know what
+The secret word is "HELP".
+
+>>> 
 ```
 Control-C shutdown
 
