@@ -1,11 +1,11 @@
 # ollama_ps, ollama_ps_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.24
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.40.25
 
 `ollama_ps`
 ```
-NAME               ID              SIZE     PROCESSOR          CONTEXT    UNTIL              
-deepseek-r1:14b    c333b7232bdb    14 GB    48%/52% CPU/GPU    16384      4 minutes from now    
+NAME           ID              SIZE      PROCESSOR          CONTEXT    UNTIL              
+dolphin3:8b    d5ab9ae8e1f2    8.7 GB    19%/81% CPU/GPU    16384      4 minutes from now    
 ```
 
 `ollama_ps_json | jq`
@@ -13,22 +13,22 @@ deepseek-r1:14b    c333b7232bdb    14 GB    48%/52% CPU/GPU    16384      4 minu
 {
   "models": [
     {
-      "name": "deepseek-r1:14b",
-      "model": "deepseek-r1:14b",
-      "size": 14218500096,
-      "digest": "c333b7232bdb521236694ffbb5f5a6b11cc45d98e9142c73123b670fca400b09",
+      "name": "dolphin3:8b",
+      "model": "dolphin3:8b",
+      "size": 8650752576,
+      "digest": "d5ab9ae8e1f22619a6be52e5694df422b7183a3883990a000188c363781ecb78",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "qwen2",
+        "family": "llama",
         "families": [
-          "qwen2"
+          "llama"
         ],
-        "parameter_size": "14.8B",
+        "parameter_size": "8.0B",
         "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-08-01T18:03:02.3445354+02:00",
-      "size_vram": 7330822144,
+      "expires_at": "2025-08-01T21:27:04.6179283+02:00",
+      "size_vram": 7015958528,
       "context_length": 16384
     }
   ]
