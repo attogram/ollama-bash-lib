@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.14"
+OLLAMA_LIB_VERSION="0.41.15"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -162,7 +162,7 @@ ollama_generate_json() {
   json_payload=$(jq -n \
     --arg model "$1" \
     --arg prompt "$2" \
-    --arg stream "$stream_bool" \
+    --argjson stream "$stream_bool" \
     '{model: $model, prompt: $prompt, stream: $stream}')
   if ! ollama_api_post "/api/generate" "$json_payload"; then
     error "ollama_generate_json: ollama_api_post failed"
@@ -329,7 +329,7 @@ ollama_chat_json() {
   json_payload=$(jq -n \
       --arg role "$1" \
       --argjson messages "$array_json" \
-      --arg stream "$stream_bool" \
+      --argjson stream "$stream_bool" \
       '{role: $role, messages: $messages, stream: $stream_bool}')
 
   local result
