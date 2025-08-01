@@ -26,20 +26,13 @@ Output your review in Markdown format."
 
   echo
   echo '```bash'
-  if [[ "$1" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
   echo "task=\"$task\""
   echo "file=\"$file\""
   echo "ollama_generate \"$model\" \"\$task\\n\\n\$(cat \"\$file\")\""
   echo '```'
 
-  if [[ "$1" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
   ollama_generate "$model" "$task\n\n$(cat "$file")"
 }
 
-echo; echo '## Review'
+echo
 demo
-
-echo; echo '## Review Debug'
-echo '```'
-demo 1
-echo '```'
