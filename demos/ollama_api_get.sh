@@ -14,6 +14,7 @@ startup() {
 
 startup
 
+echo
 echo '## Demo'
 echo '```'
 echo
@@ -32,6 +33,7 @@ echo
 ollama_api_get " bad sting! "
 echo '```'
 
+echo
 echo '## Demo Debug'
 echo '```'
 

@@ -28,8 +28,8 @@ demo() {
   echo '```'
 }
 
-echo; echo '## Demo'
+echo; echo '## Demo'; echo
 demo
 
-echo; echo '## Demo Debug'
+echo; echo '## Demo Debug'; echo
 demo 1

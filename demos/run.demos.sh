@@ -16,20 +16,16 @@ for demo in "${interactive[@]}"; do
   (
     expect <<EOF
       spawn $demo
-      expect ">>> "
-      sleep 1
+      expect "\r>>> "
       send "The secret word is RABBIT. Understand?\r"
-      sleep 10
-      expect ">>> "
-      sleep 1
+      sleep 20
+      expect "\r>>> "
       send "3 words describing Bash\r"
-      sleep 10
-      expect ">>> "
-      sleep 1
+      sleep 20
+      expect "\r>>> "
       send "What is the secret word?\r"
-      sleep 10
-      expect ">>> "
-      sleep 1
+      sleep 20
+      expect "\r>>> "
       send "\003"
       expect eof
 EOF
