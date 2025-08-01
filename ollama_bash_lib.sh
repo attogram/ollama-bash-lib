@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.7"
+OLLAMA_LIB_VERSION="0.41.8"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -17,6 +17,8 @@ OLLAMA_LIB_STREAM=0    # 0 = No streaming, 1 = Yes streaming
 RETURN_SUCCESS=0       # Standard success return value
 RETURN_ERROR=1         # Standard error return value
 
+set -o pipefail
+
 # Internal Functions
 
 # Debug message
@@ -27,7 +29,7 @@ RETURN_ERROR=1         # Standard error return value
 # Returns: 0 on success, 1 on error
 debug() {
   if [ "$OLLAMA_LIB_DEBUG" -eq "1" ]; then
-    >&2 echo -e "[DEBUG] $1"
+    printf "[DEBUG] %s\n" "$1" >&2
   fi
 }
 
@@ -38,7 +40,7 @@ debug() {
 # Output: message to stderr
 # Returns: 0 on success, 1 on error
 error() {
-  >&2 echo -e "[ERROR] $1"
+  printf "[ERROR] %s\n" "$1" >&2
 }
 
 # Escape a string for use as a JSON value
@@ -152,16 +154,18 @@ ollama_api_ping() {
 ollama_generate_json() {
   debug "ollama_generate_json: [$1] [${2:0:42}]"
   debug "ollama_generate_json: OLLAMA_LIB_STREAM: $OLLAMA_LIB_STREAM"
-  local json
-  json="{\"model\":$(json_clean "$1"),\"prompt\":$(json_clean "$2")"
+  local stream_bool="true"
   if [ "$OLLAMA_LIB_STREAM" -eq "0" ]; then
-    json+=",\"stream\":false"
+    stream_bool="false"
   fi
-  json+="}"
-  ollama_api_post "/api/generate" "$json"
-  local error_ollama_api_post=$?
-  if [ "$error_ollama_api_post" -gt 0 ]; then
-    error "ollama_generate_json: error_ollama_api_post: $error_ollama_api_post"
+  local json_payload
+  json_payload=$(jq -n \
+    --arg model "$1" \
+    --arg prompt "$2" \
+    --argejson stream "$stream_bool" \
+    '{model: $model, prompt: $prompt, stream: $stream}')
+  if ! ollama_api_post "/api/generate" "$json_payload"; then
+    error "ollama_generate_json: ollama_api_post failed"
     return $RETURN_ERROR
   fi
   debug 'ollama_generate_json: return: 0'
@@ -267,9 +271,12 @@ ollama_messages() {
 # Returns: 0
 ollama_messages_add() {
   debug "ollama_messages_add: [$1] [${2:0:42}]"
-  local role="$1"
-  local message="$2"
-  OLLAMA_LIB_MESSAGES+=("{\"role\":$(json_clean "$role"),\"content\":$(json_clean "$message")}")
+  local json_payload
+  json_payload=$(jq -n \
+      --arg role "$1" \
+      --arg content "$2" \
+      '{role: $role, content: $content}')
+  OLLAMA_LIB_MESSAGES+=("$json_payload")
 }
 
 # Clear all messages
@@ -278,7 +285,7 @@ ollama_messages_add() {
 # Output: none
 # Returns: 0
 ollama_messages_clear() {
-  debug "IN DEV - ollama_messages_clear"
+  debug "ollama_messages_clear"
   OLLAMA_LIB_MESSAGES=()
 }
 
@@ -308,22 +315,23 @@ ollama_chat_json() {
     return $RETURN_ERROR
   fi
 
-  # TODO - use jq to build json? better/easier array handling
-  local json
-  json="{\"model\":$(json_clean "$model"),\"messages\":["
-  json+=$(printf "%s," "${OLLAMA_LIB_MESSAGES[@]}")
-  json="$(echo "$json" | sed 's/,*$//g')" # strip last slash # TODO: See if you can use ${variable//search/replace} instead.
-  json+="]"
-  if [ "$OLLAMA_LIB_STREAM" -eq 0 ]; then
-    json+=",\"stream\":false"
+  local stream_bool="true"
+  if [ "$OLLAMA_LIB_STREAM" -eq "0" ]; then
+    stream_bool="false"
   fi
-  json+="}"
+
+  local array_json="[${OLLAMA_LIB_MESSAGES[*]}]"
+
+  local json_payload
+  json_payload=$(jq -n \
+      --arg model "$1" \
+      --argjson messages "$array_json" \
+      --argjson stream "$stream_bool" \
+      '{role: $role, messages: $messages, stream: $stream_bool}')
 
   local result
-  result=$(ollama_api_post "/api/chat" "$json")
-  local error_post=$?
-  if [ "$error_post" -gt 0 ]; then
-    error "ollama_chat_json: error_post: $error_post"
+  if ! result=$(ollama_api_post "/api/chat" "$json_payload"); then
+    error "ollama_chat_json: ollama_api_post failed"
     return $RETURN_ERROR
   fi
 
@@ -450,14 +458,10 @@ ollama_list_json() {
 ollama_list_array() {
   debug "ollama_list_array"
   # Get list from ollama cli, skip first line (headers), get first column (names), sort alphabetically
-  local models=($(ollama list | awk '{if (NR > 1) print $1}' | sort))
-  local error_list=$?
-  if [ "$error_list" -gt 0 ]; then
-    error "ollama_list_array: ollama list|awk|sort failed: $error_list"
-    return $RETURN_ERROR
-  fi
+  local models
+  IFS=" " read -r -a models <<< "$(ollama list | awk '{if (NR > 1) print $1}' | sort)"
   echo "${models[@]}" # space separated list of model names
-  debug "ollama_list_array: ${#models[@]} models found"
+  debug "ollama_list_array: ${#models[@]} models found: return 0"
   return $RETURN_SUCCESS
 }
 
@@ -494,11 +498,15 @@ ollama_model_unload() {
     debug 'Error: ollama_model_unload: no model'
     return $RETURN_ERROR
   fi
+
+  local json_payload
+  json_payload=$(jq -n \
+      --arg model "$1" \
+      --arg keep_alive '0' \
+      '{model: $model, keep_alive: $keep_alive}')
   local result
-  result="$(ollama_api_post "/api/generate" "{\"model\":$(json_clean "$1"),\"keep_alive\":0}")"
-  local error_unload=$?
-  if [[ "$error_unload" -gt 0 ]]; then
-    error "ollama_model_unload: error_unload: $error_unload result: [$result]"
+  if ! result="$(ollama_api_post "/api/generate" "$json_payload")"; then
+    error "ollama_model_unload: ollama_api_post failed [$result]"
     return $RETURN_ERROR
   fi
   # TODO - if result is {"error":"reason"} then error "$reason"; return $RETURN_ERROR
