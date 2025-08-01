@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.8"
+OLLAMA_LIB_VERSION="0.41.9"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -369,8 +369,7 @@ ollama_chat() {
     error "ollama_chat: error_jq_message_content: $error_jq_message_content"
     return $RETURN_ERROR
   fi
-  echo "$content"
-  ollama_messages_add "assistant" "$content"
+  printf '%s\n' "$content"
   return $RETURN_SUCCESS
 }
 
