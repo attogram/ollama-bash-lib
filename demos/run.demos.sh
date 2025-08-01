@@ -4,6 +4,32 @@
 
 cd "$(dirname "$0")" || exit 1 # cd to demos directory
 
+# All demos
+demos=($(find . -maxdepth 1 -name "*.sh" | sort)) # Get all *.sh files in current directory
+
+# Exclude files
+excluded=(
+  "./run.demos.sh"
+  "./interactive.chat.sh"
+  "./interactive.generate.sh"
+  "./show.all.models.sh"
+)
+for target in "${excluded[@]}"; do
+  for index in "${!demos[@]}"; do
+    if [ "${demos[$index]}" == "$target" ]; then
+      unset demos[$index]
+    fi
+  done
+done
+
+# Static Demos
+for demo in "${demos[@]}"; do
+  outfile_md=$(echo "$demo" | sed 's/\.sh$/.md/g')
+  echo "Run: $demo > $outfile_md 2>&1"
+  output=$($demo 2>&1) # run demo and redirect stderr to stdout
+  echo "$output" > "$outfile_md" 2>&1
+done
+
 # Interactive Demos
 interactive=(
   "./interactive.chat.sh"
@@ -30,30 +56,4 @@ for demo in "${interactive[@]}"; do
       expect eof
 EOF
   ) > "$outfile_md" 2>&1
-done
-
-# All demos
-demos=($(find . -maxdepth 1 -name "*.sh" | sort)) # Get all *.sh files in current directory
-
-# Exclude files
-excluded=(
-  "./run.demos.sh"
-  "./interactive.chat.sh"
-  "./interactive.generate.sh"
-  "./show.all.models.sh"
-)
-for target in "${excluded[@]}"; do
-  for index in "${!demos[@]}"; do
-    if [ "${demos[$index]}" == "$target" ]; then
-      unset demos[$index]
-    fi
-  done
-done
-
-# Static Demos
-for demo in "${demos[@]}"; do
-  outfile_md=$(echo "$demo" | sed 's/\.sh$/.md/g')
-  echo "Run: $demo > $outfile_md 2>&1"
-  output=$($demo 2>&1) # run demo and redirect stderr to stdout
-  echo "$output" > "$outfile_md" 2>&1
 done
