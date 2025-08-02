@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.19"
+OLLAMA_LIB_VERSION="0.41.20"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -43,22 +43,6 @@ error() {
   printf "[ERROR] %s\n" "$1" >&2
 }
 
-# Escape a string for use as a JSON value
-# - Use to clean a value (will escape "quotes")
-#
-# Usage: json_clean "string"
-# Input: 1 - The string to escape
-# Output: "quoted safe json value" to stdout
-# Returns: 0 on success, 1 on jq error
-json_clean() {
-  debug "json_clean: $(echo "$1" | wc -c | sed 's/ //g') bytes [${1:0:42}]"
-  if ! jq -Rn --arg str "$1" '$str'; then
-    error "json_clean: jq failed"
-    return $RETURN_ERROR
-  fi
-  return $RETURN_SUCCESS
-}
-
 # Sanitize a string to use for jq
 # - Use to clean a json block (will not escape "quotes")
 #
@@ -85,7 +69,7 @@ json_sanitize() {
 
 # GET request to the Ollama API
 #
-# Usage: ollama_api_get "/api/path"
+# Usage: ollama_api_get '/api/path'
 # Input: 1 = API URL path
 # Output: API call result, to stdout
 # Returns: 0 on success, 1 on error
@@ -103,7 +87,7 @@ ollama_api_get() {
 
 # POST request to the Ollama API
 #
-# Usage: ollama_api_post "/api/path" "{ json content }"
+# Usage: ollama_api_post '/api/path' "{ json content }"
 # Input: 1 - API URL path
 # Input: 2 - JSON content
 # Output: API call result, to stdout
@@ -164,7 +148,7 @@ ollama_generate_json() {
     --arg prompt "$2" \
     --argjson stream "$stream_bool" \
     '{model: $model, prompt: $prompt, stream: $stream}')
-  if ! ollama_api_post "/api/generate" "$json_payload"; then
+  if ! ollama_api_post '/api/generate' "$json_payload"; then
     error "ollama_generate_json: ollama_api_post failed"
     return $RETURN_ERROR
   fi
@@ -335,7 +319,7 @@ ollama_chat_json() {
       '{role: $role, messages: $messages, stream: $stream}')
 
   local result
-  if ! result=$(ollama_api_post "/api/chat" "$json_payload"); then
+  if ! result=$(ollama_api_post '/api/chat' "$json_payload"); then
     error "ollama_chat_json: ollama_api_post failed"
     return $RETURN_ERROR
   fi
@@ -446,7 +430,7 @@ ollama_list() {
 # Returns: 0 on success, 1 on error
 ollama_list_json() {
   debug "ollama_list_json"
-  if ! ollama_api_get "/api/tags"; then
+  if ! ollama_api_get '/api/tags'; then
     error "ollama_list_json: ollama_api_get failed"
     return $RETURN_ERROR
   fi
@@ -510,7 +494,7 @@ ollama_model_unload() {
       --arg keep_alive '0' \
       '{model: $model, keep_alive: $keep_alive}')
   local result
-  if ! result="$(ollama_api_post "/api/generate" "$json_payload")"; then
+  if ! result="$(ollama_api_post '/api/generate' "$json_payload")"; then
     error "ollama_model_unload: ollama_api_post failed [$result]"
     return $RETURN_ERROR
   fi
@@ -542,7 +526,7 @@ ollama_ps() {
 # Returns: 0 on success, 1 on error
 ollama_ps_json() {
   debug "ollama_ps_json"
-  if ! ollama_api_get "/api/ps"; then
+  if ! ollama_api_get '/api/ps'; then
     error "ollama_ps_json: ollama_api_get failed"
     return $RETURN_ERROR
   fi
@@ -568,11 +552,16 @@ ollama_show() {
 # Show model information, JSON version
 #
 # Usage: ollama_show_json "model"
+# Input: 1 - The model to show
 # Output: json, to stdout
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
-  debug "ollama_show_json"
-  if ! ollama_api_post "/api/show" "{\"model\":$(json_clean "$1")}"; then
+  debug "ollama_show_json: [$1]"
+  local json_payload
+  json_payload=$(jq -n \
+      --arg model "$1" \
+      '{model: $model}')
+  if ! ollama_api_post '/api/show' "$json_payload"; then
     error "ollama_show_json: error_ollama_api_post failed"
     return $RETURN_ERROR
   fi
@@ -649,7 +638,7 @@ ollama_vars() {
 # Returns: 0 on success, 1 on error
 ollama_version() {
   debug "ollama_version"
-  if ! ollama_api_get "/api/version" | jq -r ".version"; then
+  if ! ollama_api_get '/api/version' | jq -r ".version"; then
     error "ollama_version: error_ollama_api_get|jq failed"
     return $RETURN_ERROR
   fi
@@ -664,7 +653,7 @@ ollama_version() {
 # Returns: 0 on success, 1 on error
 ollama_version_json() {
   debug "ollama_version_json"
-  if ! ollama_api_get "/api/version"; then
+  if ! ollama_api_get '/api/version'; then
     error "ollama_version_json: error_ollama_api_get failed"
     return $RETURN_ERROR
   fi
