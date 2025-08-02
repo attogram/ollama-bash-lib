@@ -160,25 +160,28 @@ See the **[demos](demos)** directory for all demo scripts
 
 ### Internal Functions
 
-| Function          | About                                   | Usage                      | Output                            | Return  |
-|-------------------|-----------------------------------------|----------------------------|-----------------------------------|---------|
-| `json_clean` | Escape a string for use as a JSON value | `json_clean "string"` | _"quoted json value"_ to `stdout` | `0`/`1` |
-| `json_sanitize`     | Sanitize a string for jq use            | `json_sanitize "string"`     | sanitized string to stdout        | `0`/`1` |
-| `debug`           | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`          | message to `stderr`               | `0`/`1` |
-| `error`           | Error message                           | `error "message"`          | message to `stderr`               | `0`/`1` |
+| Function        | About                                   | Usage                      | Output                            | Return  |
+|-----------------|-----------------------------------------|----------------------------|-----------------------------------|---------|
+| `json_clean`    | Escape a string for use as a JSON value | `json_clean "string"`      | _"quoted json value"_ to `stdout` | `0`/`1` |
+| `json_sanitize` | Sanitize a string for jq use            | `json_sanitize "string"`   | sanitized string to stdout        | `0`/`1` |
+| `debug`         | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`          | message to `stderr`               | `0`/`1` |
+| `error`         | Error message                           | `error "message"`          | message to `stderr`               | `0`/`1` |
 
 ## Requirements
 
 * ```bash``` - v3 or higher, or equivalent
-* [```Ollama```](https://github.com/ollama/ollama)
-* ```curl```
-* ```jq``` - for JSON
-* ```awk```
-* ```grep```
-* ```sed```
-* ```tr```
-* ```wc```
-* ```command```
+* Standard tools: `grep`, `awk`, `sed`, `tr`, `wc`, `command`
+
+# Optional Requirements
+
+* [`Ollama`](https://github.com/ollama/ollama) - for LLM interaction
+* `curl` - for API requests
+* `jq` - for JSON handling
+
+If you don't have any of the optional requirements,
+the function `ollama_installed` is always available,
+plus the [_Utility_](#utility-functions) and [_Internal_](#internal-functions) functions.
+
 
 ## License
 
