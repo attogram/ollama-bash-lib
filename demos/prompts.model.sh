@@ -32,12 +32,19 @@ prompts=(
 
 echo
 echo "model: $model"
+echo
+echo "prompts:"
+for prompt in "${prompts[@]}"; do
+  tag=$(echo "$prompt" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:]' | tr ' ' '-')
+  printf '* [%s](#%s)\n' "$prompt" "$tag"
+done
 
 for prompt in "${prompts[@]}"; do
   echo
   echo "## $prompt"
-  echo '```'
+  echo
+  #echo '```'
   ollama_generate "$model" "$prompt"
   #ollama_generate_stream "$model" "$prompt"
-  echo '```'
+  #echo '```'
 done
