@@ -1,18 +1,18 @@
 # ollama_list, ollama_list_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.18
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.20
 
 ```
 ollama_list
 ```
 ```
 NAME              ID              SIZE      MODIFIED    
-deepseek-r1:8b    6995872bfe4c    5.2 GB    11 days ago    
-dolphin3:8b       d5ab9ae8e1f2    4.9 GB    11 days ago    
-gemma3n:e4b       15cb39fd9394    7.5 GB    12 days ago    
-mistral:7b        6577803aa9a0    4.4 GB    11 days ago    
-qwen2.5vl:7b      5ced39dfa4ba    6.0 GB    11 days ago    
-qwen3:8b          500a1f067a9f    5.2 GB    12 days ago    
+deepseek-r1:8b    6995872bfe4c    5.2 GB    12 days ago    
+dolphin3:8b       d5ab9ae8e1f2    4.9 GB    12 days ago    
+gemma3n:e4b       15cb39fd9394    7.5 GB    13 days ago    
+mistral:7b        6577803aa9a0    4.4 GB    12 days ago    
+qwen2.5vl:7b      5ced39dfa4ba    6.0 GB    12 days ago    
+qwen3:8b          500a1f067a9f    5.2 GB    13 days ago    
 ```
 
 ```

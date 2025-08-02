@@ -36,15 +36,15 @@ echo; echo 'Press Control-C exit and view message history'
 trap 'shutdown' SIGINT
 
 ollama_messages_clear
-ollama_messages_add "system" "You are a helpful assistant"
+ollama_messages_add 'system' 'You are a helpful assistant'
 
 while true; do
   echo
   echo -n '>>> '
   read -r prompt
   echo
-  ollama_messages_add "user" "$prompt"
-  response=$(ollama_chat "$model" "$prompt")
+  ollama_messages_add 'user' "$prompt"
+  response="$(ollama_chat "$model" "$prompt")"
   echo "$response"
-  ollama_messages_add "assistant" "$response"
+  ollama_messages_add 'assistant' "$response"
 done

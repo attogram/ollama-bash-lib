@@ -14,8 +14,8 @@ startup() {
 
 shutdown() {
   echo
-  echo '```'
   echo 'Control-C shutdown'
+  echo '```'
   echo
   exit 0
 }

@@ -1,20 +1,20 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.18
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.20
 
 ## Demo
 
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "qwen3:8b"
+ollama_chat "deepseek-r1:8b"
 ```
 ```
 null
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "qwen3:8b"
+ollama_chat "deepseek-r1:8b"
 ```
 ```
 null
@@ -43,17 +43,16 @@ ollama_messages | jq
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "qwen3:8b"
+ollama_chat "deepseek-r1:8b"
 ```
 ```
 [DEBUG] ollama_messages_add: [system] [You are a helpful assistant]
 [DEBUG] ollama_messages_add: [user] [The secret word is RABBIT. If I ask you fo]
-[DEBUG] ollama_chat: [qwen3:8b]
-[DEBUG] ollama_chat_json: [qwen3:8b]
+[DEBUG] ollama_chat: [deepseek-r1:8b]
+[DEBUG] ollama_chat_json: [deepseek-r1:8b]
 [DEBUG] ollama_api_post: [/api/chat] [{
-  "role": "qwen3:8b",
-  "messages": [
-  ]
+  "role": "deepseek-r1:8b",
+  "messages"]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] json_sanitize: 30 bytes [{"error":"model is required"}]
 [DEBUG] json_sanitize: sanitized: 30 bytes [[{"error":"model is required"}]]
@@ -67,16 +66,15 @@ null
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "qwen3:8b"
+ollama_chat "deepseek-r1:8b"
 ```
 ```
 [DEBUG] ollama_messages_add: [user] [What is the secret word??]
-[DEBUG] ollama_chat: [qwen3:8b]
-[DEBUG] ollama_chat_json: [qwen3:8b]
+[DEBUG] ollama_chat: [deepseek-r1:8b]
+[DEBUG] ollama_chat_json: [deepseek-r1:8b]
 [DEBUG] ollama_api_post: [/api/chat] [{
-  "role": "qwen3:8b",
-  "messages": [
-  ]
+  "role": "deepseek-r1:8b",
+  "messages"]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] json_sanitize: 30 bytes [{"error":"model is required"}]
 [DEBUG] json_sanitize: sanitized: 30 bytes [[{"error":"model is required"}]]
