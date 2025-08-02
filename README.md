@@ -172,7 +172,7 @@ See the **[demos](demos)** directory for all demo scripts
 * ```bash``` - v3 or higher, or equivalent
 * Standard tools: `grep`, `awk`, `sed`, `tr`, `wc`, `command`
 
-# Optional Requirements
+### Optional Requirements
 
 * [`Ollama`](https://github.com/ollama/ollama) - for LLM interaction
 * `curl` - for API requests
