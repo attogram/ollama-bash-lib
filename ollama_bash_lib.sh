@@ -266,7 +266,9 @@ ollama_messages() {
 
 # Add a message
 #
-# Usage: ollama_message_add "role" "message"
+# Usage: ollama_messages_add "role" "message"
+# Input: 1 - role (user/assistant/tool/system)
+# Input: 2 - the messages
 # Output: none
 # Returns: 0
 ollama_messages_add() {
