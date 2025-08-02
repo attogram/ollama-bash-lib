@@ -172,7 +172,7 @@ See the **[demos](demos)** directory for all demo scripts
 * ```bash``` - v3 or higher, or equivalent
 * [```Ollama```](https://github.com/ollama/ollama)
 * ```curl```
-* ```jq```
+* ```jq``` - for JSON
 * ```awk```
 * ```grep```
 * ```sed```
