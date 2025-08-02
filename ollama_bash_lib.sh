@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.20"
+OLLAMA_LIB_VERSION="0.41.21"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -306,17 +306,17 @@ ollama_chat_json() {
     stream_bool=false
   fi
 
-  local array_json
+  local messages_array_json
   # Join array elements with comma and wrap in []
-  array_json=$(printf ",%s" "${OLLAMA_LIB_MESSAGES[@]}")
-  array_json="[${array_json:1}]"   # Remove leading comma
+  messages_array_json=$(printf ",%s" "${OLLAMA_LIB_MESSAGES[@]}")
+  messages_array_json="[${messages_array_json:1}]" # Remove leading comma
 
   local json_payload
   json_payload=$(jq -n \
-      --arg role "$1" \
-      --argjson messages "$array_json" \
+      --arg model "$model" \
+      --argjson messages "$messages_array_json" \
       --argjson stream "$stream_bool" \
-      '{role: $role, messages: $messages, stream: $stream}')
+      '{model: $model, messages: $messages, stream: $stream}')
 
   local result
   if ! result=$(ollama_api_post '/api/chat' "$json_payload"); then
