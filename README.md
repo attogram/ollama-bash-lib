@@ -170,7 +170,7 @@ See the **[demos](demos)** directory for all demo scripts
 ## Requirements
 
 * ```bash``` - v3 or higher, or equivalent
-* Standard tools: `grep`, `awk`, `sed`, `tr`, `wc`, `command`
+* Standard tools: `grep`, `awk`, `sed`, `tr`, `wc`, `od`, `command`
 
 ### Optional Requirements
 
