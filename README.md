@@ -170,17 +170,17 @@ See the **[demos](demos)** directory for all demo scripts
 ## Requirements
 
 * ```bash``` - v3 or higher, or equivalent
-* Standard tools: `grep`, `awk`, `sed`, `tr`, `wc`, `od`, `command`
+* Standard tools: `awk`, `sed`, `tr`, `grep`, `wc`, `od`, `command`
 
 ### Optional Requirements
 
 * [`Ollama`](https://github.com/ollama/ollama) - for LLM interaction
-* `curl` - for API requests
-* `jq` - for JSON handling
+* [`curl`](https://curl.se/) - for API requests
+* [`jq`](https://jqlang.org) - for JSON handling
 
 If you don't have any of the optional requirements,
 the function `ollama_installed` is always available,
-plus the [_Utility_](#utility-functions) and [_Internal_](#internal-functions) functions.
+plus most [_Utility_](#utility-functions) and [_Internal_](#internal-functions) functions.
 
 ## License
 
