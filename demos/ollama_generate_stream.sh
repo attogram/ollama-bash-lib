@@ -15,7 +15,7 @@ startup() {
 startup
 
 model="$(ollama_model_random)"
-prompt="Describe a rabbit in 2 short sentences"
+prompt="Describe a rabbit in 3 words"
 
 echo
 echo '## Demo'

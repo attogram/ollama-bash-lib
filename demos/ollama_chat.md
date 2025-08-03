@@ -1,23 +1,23 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.21
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.0
 
 ## Demo
 
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "granite3.3:8b"
+ollama_chat "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS"
 ```
 ```
-Understood. If you ask for the secret word, I will respond with RABBIT.
+Understood.
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "granite3.3:8b"
+ollama_chat "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS"
 ```
 ```
-The secret word is RABBIT.
+RABBIT
 ```
 ```bash
 ollama_messages | jq
@@ -43,48 +43,38 @@ ollama_messages | jq
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "granite3.3:8b"
+ollama_chat "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS"
 ```
 ```
 [DEBUG] ollama_messages_add: [system] [You are a helpful assistant]
 [DEBUG] ollama_messages_add: [user] [The secret word is RABBIT. If I ask you fo]
-[DEBUG] ollama_chat: [granite3.3:8b]
-[DEBUG] ollama_chat_json: [granite3.3:8b]
+[DEBUG] ollama_chat: [hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS]
+[DEBUG] ollama_chat_json: [hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS]
 [DEBUG] ollama_api_post: [/api/chat] [{
-  "model": "granite3.3:8b",
-  "messages"]
+  "model": "hf.co/bartowski/Ministral-8B]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] json_sanitize: 372 bytes [{"model":"granite3.3:8b","created_at":"202]
-[DEBUG] json_sanitize: sanitized: 372 bytes [[{"model":"granite3.3:8b","created_at":"202]]
-[DEBUG] ollama_chat_json: content: [Understood. If you inquire about the secret word, I will respond with RABBIT.]
-[DEBUG] ollama_messages_add: [assistant] [Understood. If you inquire about the secre]
+[DEBUG] ollama_chat_json: content: [Understood!]
+[DEBUG] ollama_messages_add: [assistant] [Understood!]
 [DEBUG] ollama_chat_json: added response from assistant to messages
-[DEBUG] json_sanitize: 372 bytes [{"model":"granite3.3:8b","created_at":"202]
-[DEBUG] json_sanitize: sanitized: 372 bytes [[{"model":"granite3.3:8b","created_at":"202]]
-[DEBUG] ollama_chat: content: Understood. If you inquire about the secret word, I will respond with RABBIT.
-Understood. If you inquire about the secret word, I will respond with RABBIT.
+[DEBUG] ollama_chat: content: Understood!
+Understood!
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "granite3.3:8b"
+ollama_chat "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS"
 ```
 ```
 [DEBUG] ollama_messages_add: [user] [What is the secret word??]
-[DEBUG] ollama_chat: [granite3.3:8b]
-[DEBUG] ollama_chat_json: [granite3.3:8b]
+[DEBUG] ollama_chat: [hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS]
+[DEBUG] ollama_chat_json: [hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS]
 [DEBUG] ollama_api_post: [/api/chat] [{
-  "model": "granite3.3:8b",
-  "messages"]
+  "model": "hf.co/bartowski/Ministral-8B]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] json_sanitize: 320 bytes [{"model":"granite3.3:8b","created_at":"202]
-[DEBUG] json_sanitize: sanitized: 320 bytes [[{"model":"granite3.3:8b","created_at":"202]]
-[DEBUG] ollama_chat_json: content: [The secret word is RABBIT.]
-[DEBUG] ollama_messages_add: [assistant] [The secret word is RABBIT.]
+[DEBUG] ollama_chat_json: content: [RABBIT]
+[DEBUG] ollama_messages_add: [assistant] [RABBIT]
 [DEBUG] ollama_chat_json: added response from assistant to messages
-[DEBUG] json_sanitize: 320 bytes [{"model":"granite3.3:8b","created_at":"202]
-[DEBUG] json_sanitize: sanitized: 320 bytes [[{"model":"granite3.3:8b","created_at":"202]]
-[DEBUG] ollama_chat: content: The secret word is RABBIT.
-The secret word is RABBIT.
+[DEBUG] ollama_chat: content: RABBIT
+RABBIT
 ```
 ```bash
 ollama_messages | jq

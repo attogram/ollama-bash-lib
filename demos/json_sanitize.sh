@@ -15,7 +15,7 @@ startup() {
 startup
 
 echo
-echo 'Usage: `json_sanitize "string"`'
+echo 'Usage: json_sanitize "{ json object }"'
 echo
 
 echo
@@ -25,27 +25,37 @@ clean=$(json_sanitize "$string")
 echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
+echo '```json'
+printf '%s\n' "$clean" | jq
+echo '```'
+echo '```'
 
 echo
-echo '```'
+
 ff=$'\n'
 string="{\"value\":\"abc${ff}def\"}"
 clean=$(json_sanitize "$string")
-echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
-echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
+echo "- string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
+echo "- clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
+echo '```'
+echo '```json'
+printf '%s\n' "$clean" | jq
 echo '```'
 
 echo
 echo '```'
-string='start: '
-string+=$(printf 'null:%b, ' '\000') # null
+string='{"value":"'
+# string+=$(printf 'null:%b, ' '\000') # null - TODO
 string+=$(printf 'bell:%b, ' '\007') # bell
 string+=$(printf 'form-feed:%b, ' '\012') # form feed \n
 string+=$(printf 'carriage-return:%b, ' '\013') # carriage return \r
 string+=$(printf 'escape:%b, ' '\027') # escape
 string+=$(printf 'unit-separator:%b' '\031') # unit separator
-string+=' :end'
+string+='"}'
 clean=$(json_sanitize "$string")
 echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
+echo '```'
+echo '```json'
+printf '%s\n' "$clean" | jq
 echo '```'

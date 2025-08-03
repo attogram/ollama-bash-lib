@@ -15,7 +15,7 @@ startup() {
 startup
 
 model="$(ollama_model_random)"
-prompt="Describe a rabbit in 2 short sentences"
+prompt="Describe a rabbit in 3 words"
 
 echo
 echo '## Demo'
@@ -25,7 +25,7 @@ echo "ollama_generate_stream_json \"$model\" \"$prompt\""
 echo
 echo '```'
 echo '```json'
-ollama_generate_stream_json "$model" "$prompt"
+ollama_generate_stream_json "$model" "$prompt" | jq
 echo '```'
 
 echo
@@ -36,5 +36,5 @@ echo "OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json \"$model\" \"$prompt\""
 echo
 echo '```'
 echo '```json'
-OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "$model" "$prompt"
+OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "$model" "$prompt" | jq
 echo '```'
