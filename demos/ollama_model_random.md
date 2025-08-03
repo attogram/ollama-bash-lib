@@ -10,7 +10,7 @@ model="$(ollama_model_random)"; echo "$model"
 ```
 ```
 smollm2:1.7b
-granite3.3:2b
+granite3.3:8b
 ```
 
 ## Demo Debug
@@ -25,10 +25,10 @@ model="$(ollama_model_random)"; echo "$model"
 [DEBUG] ollama_list_array
 [DEBUG] ollama_list_array: 13 models found: return 0
 [DEBUG] ollama_model_random: 13 models found
-granite3.3:8b
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
 [DEBUG] ollama_model_random
 [DEBUG] ollama_list_array
 [DEBUG] ollama_list_array: 13 models found: return 0
 [DEBUG] ollama_model_random: 13 models found
-hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
+mistral:7b
 ```
