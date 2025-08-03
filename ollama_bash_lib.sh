@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.21"
+OLLAMA_LIB_VERSION="0.41.22"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -26,6 +26,7 @@ set -o pipefail
 # Usage: debug "message"
 # Input: 1 - the debug message
 # Output: message to stderr
+# Requires: none
 # Returns: 0 on success, 1 on error
 debug() {
   if [ "$OLLAMA_LIB_DEBUG" -eq "1" ]; then
@@ -38,6 +39,7 @@ debug() {
 # Usage: error "message"
 # Input: 1 - the error message
 # Output: message to stderr
+# Requires: none
 # Returns: 0 on success, 1 on error
 error() {
   printf "[ERROR] %s\n" "$1" >&2
@@ -49,6 +51,7 @@ error() {
 # Usage: json_sanitize "string"
 # Input: 1 - The string to sanitize
 # Output: sanitized string to stdout
+# Requires: none
 # Returns: 0 on success, 1 on error
 json_sanitize() {
   debug "json_sanitize: $(echo "$1" | wc -c | sed 's/ //g') bytes [${1:0:42}]"
@@ -72,6 +75,7 @@ json_sanitize() {
 # Usage: ollama_api_get '/api/path'
 # Input: 1 = API URL path
 # Output: API call result, to stdout
+# Requires: curl
 # Returns: 0 on success, 1 on error
 ollama_api_get() {
   debug "ollama_api_get: [$1]"
@@ -91,6 +95,7 @@ ollama_api_get() {
 # Input: 1 - API URL path
 # Input: 2 - JSON content
 # Output: API call result, to stdout
+# Requires: curl
 # Returns: 0 on success, 1 on error
 ollama_api_post() {
   debug "ollama_api_post: [$1] [${2:0:42}]"
@@ -109,6 +114,7 @@ ollama_api_post() {
 # Usage: ollama_api_ping
 # Input: none
 # Output: none
+# Requires: curl
 # Returns: 0 if API is reachable, 1 if API is not reachable
 ollama_api_ping() {
   debug 'ollama_api_ping'
@@ -134,6 +140,7 @@ ollama_api_ping() {
 # Input: 1 - The model to use to generate a response
 # Input: 2 - The prompt
 # Output: json, to stdout
+# Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
   debug "ollama_generate_json: [$1] [${2:0:42}]"
@@ -162,6 +169,7 @@ ollama_generate_json() {
 # Input: 2 - The prompt
 # Usage: ollama_generate_stream_json "model" "prompt"
 # Output: json, to stdout
+# Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream_json() {
   debug "ollama_generate_stream_json: [$1] [${2:0:42}]"
@@ -182,6 +190,7 @@ ollama_generate_stream_json() {
 # Input: 1 - The model to use to generate a response
 # Input: 2 - The prompt
 # Output: text, to stdout
+# Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate() {
   debug "ollama_generate: [$1] [${2:0:42}]"
@@ -208,6 +217,7 @@ ollama_generate() {
 # Input: 1 - The model to use to generate a response
 # Input: 2 - The prompt
 # Output: text, to stdout
+# Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
   debug "ollama_generate_stream: [$1] [${2:0:42}]"
@@ -237,6 +247,7 @@ ollama_generate_stream() {
 #
 # Usage: messages="$(ollama_messages)"
 # Output: json, 1 messages per line, to stdout
+# Requires: none
 # Returns: 0 on success, 1 on error
 ollama_messages() {
   debug "ollama_messages"
@@ -254,6 +265,7 @@ ollama_messages() {
 # Input: 1 - role (user/assistant/tool/system)
 # Input: 2 - the messages
 # Output: none
+# Requires: jq
 # Returns: 0
 ollama_messages_add() {
   debug "ollama_messages_add: [$1] [${2:0:42}]"
@@ -269,6 +281,7 @@ ollama_messages_add() {
 #
 # Usage: ollama_messages_clear
 # Output: none
+# Requires: none
 # Returns: 0
 ollama_messages_clear() {
   debug "ollama_messages_clear"
@@ -279,6 +292,7 @@ ollama_messages_clear() {
 #
 # Usage: ollama_messages_count
 # Output: number of messages, to stdout
+# Requires: none
 # Returns: 0
 ollama_messages_count() {
   debug "ollama_messages_count"
@@ -292,6 +306,7 @@ ollama_messages_count() {
 # Usage: ollama_chat_json "model"
 # Input: 1 - model
 # Output: json, to stdout
+# Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
   debug "ollama_chat_json: [$1]"
@@ -341,6 +356,7 @@ ollama_chat_json() {
 # Usage: ollama_chat "model"
 # Input: 1 - model
 # Output: text, to stdout
+# Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat() {
   debug "ollama_chat: [$1]"
@@ -367,6 +383,7 @@ ollama_chat() {
 # Usage: ollama_chat_stream "model"
 # Input: 1 - model
 # Output: streaming text, to stdout
+# Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
   debug "ollama_chat_stream: [$1]"
@@ -385,6 +402,7 @@ ollama_chat_stream() {
 # Usage: ollama_chat_stream_json "model"
 # Input: 1 - model
 # Output: streaming json, to stdout
+# Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream_json() {
   debug "ollama_chat_stream_json: [$1]"
@@ -404,6 +422,7 @@ ollama_chat_stream_json() {
 #
 # Usage: ollama_list
 # Output: text, to stdout
+# Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_list() {
   debug "ollama_list"
@@ -427,6 +446,7 @@ ollama_list() {
 #
 # Usage: ollama_list_json
 # Output: json, to stdout
+# Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_list_json() {
   debug "ollama_list_json"
@@ -442,6 +462,7 @@ ollama_list_json() {
 # Usage: IFS=" " read -r -a models <<< "$(ollama_list_array)"
 # Usage: models=($(ollama_list_array))
 # Output: space separated list of model names, to stdout
+# Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_list_array() {
   debug "ollama_list_array"
@@ -461,6 +482,7 @@ ollama_list_array() {
 # Usage: ollama_model_random
 # Input: none
 # Output: 1 model name, to stdout
+# Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_model_random() {
   debug "ollama_model_random"
@@ -480,6 +502,7 @@ ollama_model_random() {
 # Usage: ollama_model_unload "model"
 # Input: 1 - Model name to unload
 # Output: unload result, in json, to stdout
+# Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_model_unload() {
   debug 'ollama_model_unload'
@@ -509,6 +532,7 @@ ollama_model_unload() {
 #
 # Usage: ollama_ps
 # Output: text, to stdout
+# Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_ps() {
   debug "ollama_ps"
@@ -523,6 +547,7 @@ ollama_ps() {
 #
 # Usage: ollama_ps_json
 # Output: json, to stdout
+# Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_ps_json() {
   debug "ollama_ps_json"
@@ -539,6 +564,7 @@ ollama_ps_json() {
 #
 # Usage: ollama_show "model"
 # Output: text, to stdout
+# Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_show() {
   debug "ollama_show"
@@ -554,6 +580,7 @@ ollama_show() {
 # Usage: ollama_show_json "model"
 # Input: 1 - The model to show
 # Output: json, to stdout
+# Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
   debug "ollama_show_json: [$1]"
@@ -575,6 +602,7 @@ ollama_show_json() {
 # Usage: if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
 # Input: none
 # Output: none
+# Requires: none
 # Returns: 0 if Ollama is installed, 1 if Ollama is not installed
 ollama_installed() {
   debug "ollama_installed"
@@ -589,6 +617,7 @@ ollama_installed() {
 # Usage: ollama_vars
 # Input: none
 # Output: text, to stdout
+# Requires: none
 # Returns: 0
 ollama_vars() {
   echo "OLLAMA_DEBUG: $OLLAMA_DEBUG"
@@ -624,8 +653,6 @@ ollama_vars() {
   echo "JETSON_JETPACK: $JETSON_JETPACK"
   echo "LD_LIBRARY_PATHS: $LD_LIBRARY_PATH"
   echo "HTTP_PROXY: $HTTP_PROXY"
-  #echo "LOCALAPPDATA: $LOCALAPPDATA"
-  #echo "HOME: $HOME"
   echo "TERM: $TERM"
   return $RETURN_SUCCESS
 }
@@ -634,6 +661,7 @@ ollama_vars() {
 #
 # Usage: ollama_version
 # Input: none
+# Requires: ollama, curl, jq
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_version() {
@@ -650,6 +678,7 @@ ollama_version() {
 # Usage: ollama_version_json
 # Input: none
 # Output: json, to stdout
+# Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_version_json() {
   debug "ollama_version_json"
@@ -665,6 +694,7 @@ ollama_version_json() {
 # Usage: ollama_version_cli
 # Input: none
 # Output: text, to stdout
+# Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_version_cli() {
   debug "ollama_version_cli"
@@ -683,6 +713,7 @@ ollama_version_cli() {
 # Usage: verbose: estimate_tokens "string" 1
 # Output: token estimate, to stdout
 # Output: verbose: token estimate with error range, to stdout
+# Requires: none
 # Returns: 0 on success, 1 on error
 estimate_tokens() {
   debug "estimate_tokens" # $1"
@@ -767,6 +798,7 @@ estimate_tokens() {
 # Usage: ollama_lib_about
 # Input: none
 # Output: text, to stdout
+# Requires: compgen (for function list)
 # Returns: 0 on success, 1 on error
 ollama_lib_about() {
   echo "$OLLAMA_LIB_NAME v$OLLAMA_LIB_VERSION"
@@ -798,6 +830,7 @@ ollama_lib_about() {
 # Usage: ollama_lib_version
 # Input: none
 # Output: semantic version number, to stdout
+# Requires: none
 # Returns: 0
 ollama_lib_version() {
   echo "$OLLAMA_LIB_VERSION"
