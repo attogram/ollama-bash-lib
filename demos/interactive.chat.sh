@@ -46,5 +46,5 @@ while true; do
   ollama_messages_add 'user' "$prompt"
   response="$(ollama_chat "$model" "$prompt")"
   echo "$response"
-  ollama_messages_add 'assistant' "$response"
+  # ollama_messages_add 'assistant' "$response" # ollama_chat does this?
 done
