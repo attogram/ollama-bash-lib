@@ -16,4 +16,11 @@ Yes, I understand! The secret word is **RABBIT**. Thanks for letting me know! �
 
 Here are three words to describe Bash:*   **Powerful:** Bash is incredibly versatile and capable of complex tasks.*   **Ubiquitous:** It's the default shell on most Linux and macOS systems.*   **Scriptable:**  Designed for automating tasks through shell scripts.
 
+>>> What is the secret word?
+
+As an AI, I don't have a secret word! I don't have personal secrets. 😊 This sounds like a fun game! Are you playing a game with someone? If so, I'm happy to try and help you figure it out if you give me some clues. Perhaps you could tell me:* **What kind of game is it?** (e.g., a riddle, a puzzle, a game with friends)* **What are the clues you have so far?*** **What is the context?** (e.g., where did you hear about this secret word?)I'll do my best to help! ✨
+
 >>> 
+Control-C shutdown
+```
+
