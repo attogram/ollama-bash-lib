@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.23"
+OLLAMA_LIB_VERSION="0.42.0"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -45,27 +45,35 @@ error() {
   printf "[ERROR] %s\n" "$1" >&2
 }
 
-# Sanitize a string to use for jq
-# - Use to clean a json block (will not escape "quotes")
+# Sanitize a json object for jq use
 #
-# Usage: json_sanitize "string"
-# Input: 1 - The string to sanitize
-# Output: sanitized string to stdout
+# Usage: json_sanitize "{ json object }"
+# Input: 1 - JSON object
+# Output: sanitized JSON object
 # Requires: none
 # Returns: 0 on success, 1 on error
 json_sanitize() {
-  debug "json_sanitize: $(echo "$1" | wc -c | sed 's/ //g') bytes [${1:0:42}]"
-  local sanitized="$1"
-  # Replace carriage returns (CR, ASCII 13) with literal \r
-  sanitized=$(printf '%s' "$1" | sed $'s/\r/\\\\r/g')
-  # Replace newlines (LF, ASCII 10) with literal \n using awk, then strip final literal \n
-  sanitized=$(printf '%s' "$sanitized" | awk '{ ORS="\\n"; print }' | sed 's/\\n$//')
-  # Remove all control chars 0-9, 11-12, 14-31
-  # TODO - don't remove control chars - instead replace them like jq -Rn does
-  sanitized=$(printf '%s' "$sanitized" | tr -d '\000-\011\013\014\016-\037')
-  printf '%s\n' "$sanitized"
-  debug "json_sanitize: sanitized: $(echo "$sanitized" | wc -c | sed 's/ //g') bytes [[${sanitized:0:42}]]"
-  return $RETURN_SUCCESS
+  local input="$1"
+  local i out c ascii hex
+  out=""
+  i=0
+  while [ $i -lt ${#input} ]; do
+    c="${input:$i:1}"
+    # Bash 3.x: get ASCII code using printf and od (works for all printable, most control chars except NUL)
+    #           Suppress warnings from od about null bytes
+    ascii=$(printf '%s' "$c" | od -An -tuC 2>/dev/null | tr -d ' ')
+    # If blank, probably a NUL (Bash can't store NULs)
+    if [ -z "$ascii" ]; then
+      :
+    elif [ "$ascii" -ge 0 ] 2>/dev/null && [ "$ascii" -le 31 ]; then
+      hex=$(printf '%04x' "$ascii")
+      out="${out}\\u$hex"
+    else
+      out="${out}$c"
+    fi
+    i=$((i+1))
+  done
+  printf '%s' "$out"
 }
 
 # API Functions
@@ -519,7 +527,12 @@ ollama_model_unload() {
     error "ollama_model_unload: ollama_api_post failed [$result]"
     return $RETURN_ERROR
   fi
-  # TODO - if result is {"error":"reason"} then error "$reason"; return $RETURN_ERROR
+  local is_error
+  is_error=$(printf '%s' "$result" | jq -r .error)
+  if [ -n "$is_error" ]; then
+    error "ollama_model_unload: $is_error"
+    return $RETURN_ERROR
+  fi
   printf '%s\n' "$result"
   return $RETURN_SUCCESS
 }
