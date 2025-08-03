@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.41.22"
+OLLAMA_LIB_VERSION="0.41.23"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -224,12 +224,10 @@ ollama_generate_stream() {
   OLLAMA_LIB_STREAM=1 # Turn on streaming
   local error_jq
   ollama_generate_json "$1" "$2" | while IFS= read -r line; do
-    echo -n "$(json_sanitize "$line" | jq -r ".response")"
-    error_jq=$?
-    if [ "$error_jq" -gt 0 ]; then
-      error "ollama_generate_stream: error_jq: $error_jq"
-      return $RETURN_ERROR
-    fi
+  if ! echo -n "$(json_sanitize "$line" | jq -r ".response")"; then
+    error "ollama_generate_stream: json_sanitize|jq failed"
+    return $RETURN_ERROR
+  fi
   done
   local error_ollama_generate_json=$?
   OLLAMA_LIB_STREAM=0 # Turn off streaming
