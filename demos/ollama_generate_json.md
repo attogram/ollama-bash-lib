@@ -1,28 +1,28 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.20
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.21
 
 ## Demo
 
 ```bash
-ollama_generate_json "dolphin3:8b" "Describe a rabbit in 2 short sentences"
+ollama_generate_json "qwen2.5vl:7b" "Describe a rabbit in 2 short sentences"
 ```
 ```json
-{"model":"dolphin3:8b","created_at":"2025-08-02T22:04:59.6145762Z","response":"A rabbit is a small mammal known for its long ears and fast movement. They are often seen hopping around in fields and gardens.","done":true,"done_reason":"stop","context":[128257,9125,198,2675,527,96096,11,264,11190,15592,18328,13,128256,198,128257,882,198,75885,264,39824,304,220,17,2875,23719,128256,198,128257,78191,198,32,39824,374,264,2678,36041,278,3967,369,1202,1317,25212,323,5043,7351,13,2435,527,3629,3970,93338,2212,304,5151,323,36536,13],"total_duration":3963929200,"load_duration":3197323100,"prompt_eval_count":31,"prompt_eval_duration":130688000,"eval_count":28,"eval_duration":634400500}
+{"model":"qwen2.5vl:7b","created_at":"2025-08-03T18:54:41.2149398Z","response":"A rabbit is a small, furry animal with long ears and a short tail, often associated with agility and quick movements.","done":true,"done_reason":"stop","context":[151644,8948,198,2610,525,264,10950,17847,13,151645,198,151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,32,38724,374,264,2613,11,74419,9864,448,1293,24230,323,264,2805,9787,11,3545,5815,448,66641,323,3974,19029,13],"total_duration":3065182500,"load_duration":2175701100,"prompt_eval_count":28,"prompt_eval_duration":138610200,"eval_count":25,"eval_duration":749857300}
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_json "dolphin3:8b" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_json "qwen2.5vl:7b" "Describe a rabbit in 2 short sentences"`
 ```
 ```json
-[DEBUG] ollama_generate_json: [dolphin3:8b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [qwen2.5vl:7b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
 [DEBUG] ollama_api_post: [/api/generate] [{
-  "model": "dolphin3:8b",
-  "prompt": "D]
-{"model":"dolphin3:8b","created_at":"2025-08-02T22:05:00.7899159Z","response":"A rabbit is a small mammal with long ears and a fluffy tail. It's known for its fast hopping movements and typically has a white underside and brown or grey upper parts.","done":true,"done_reason":"stop","context":[128257,9125,198,2675,527,96096,11,264,11190,15592,18328,13,128256,198,128257,882,198,75885,264,39824,304,220,17,2875,23719,128256,198,128257,78191,198,32,39824,374,264,2678,36041,278,449,1317,25212,323,264,68661,9986,13,1102,596,3967,369,1202,5043,93338,19567,323,11383,706,264,4251,96321,323,14198,477,20366,8582,5596,13],"total_duration":874654100,"load_duration":27423000,"prompt_eval_count":31,"prompt_eval_duration":2613700,"eval_count":37,"eval_duration":844518000}[DEBUG] ollama_api_post: return 0
+  "model": "qwen2.5vl:7b",
+  "prompt": "]
+{"model":"qwen2.5vl:7b","created_at":"2025-08-03T18:54:42.2773609Z","response":"A rabbit is a small, furry animal with long ears and a short tail, often associated with agility and quick movements.","done":true,"done_reason":"stop","context":[151644,8948,198,2610,525,264,10950,17847,13,151645,198,151644,872,198,74785,264,38724,304,220,17,2805,22870,151645,198,151644,77091,198,32,38724,374,264,2613,11,74419,9864,448,1293,24230,323,264,2805,9787,11,3545,5815,448,66641,323,3974,19029,13],"total_duration":788832300,"load_duration":26233700,"prompt_eval_count":28,"prompt_eval_duration":31686100,"eval_count":25,"eval_duration":730381900}[DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 
 ```

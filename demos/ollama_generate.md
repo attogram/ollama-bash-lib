@@ -1,33 +1,33 @@
 # ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.20
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.21
 
 ## Demo
 
 ```bash
-ollama_generate "qwen2.5vl:7b" "Describe a rabbit in 2 short sentences"
+ollama_generate "granite3.3:8b" "Describe a rabbit in 2 short sentences"
 ```
 ```
-A rabbit is a small, furry animal with long ears and a short tail, often associated with agility and quick movements.
+A rabbit is a small, long-eared mammal known for its powerful hind limbs and distinctive breeding habits. They are often found in burrows or warrens and primarily herbivorous, feeding on grasses, dandelions, and various vegetables.
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate "qwen2.5vl:7b" "Describe a rabbit in 2 short sentences"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate "granite3.3:8b" "Describe a rabbit in 2 short sentences"`
 ```
 ```
-[DEBUG] ollama_generate: [qwen2.5vl:7b] [Describe a rabbit in 2 short sentences]
-[DEBUG] ollama_generate_json: [qwen2.5vl:7b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate: [granite3.3:8b] [Describe a rabbit in 2 short sentences]
+[DEBUG] ollama_generate_json: [granite3.3:8b] [Describe a rabbit in 2 short sentences]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
 [DEBUG] ollama_api_post: [/api/generate] [{
-  "model": "qwen2.5vl:7b",
-  "prompt": "]
+  "model": "granite3.3:8b",
+  "prompt": ]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
-[DEBUG] ollama_generate: result: 640 bytes
-[DEBUG] json_sanitize: 640 bytes [{"model":"qwen2.5vl:7b","created_at":"2025]
-[DEBUG] json_sanitize: sanitized: 640 bytes [[{"model":"qwen2.5vl:7b","created_at":"2025]]
-A rabbit is a small, furry animal with long ears and a short tail, often associated with agility and quick movements.
+[DEBUG] ollama_generate: result: 924 bytes
+[DEBUG] json_sanitize: 924 bytes [{"model":"granite3.3:8b","created_at":"202]
+[DEBUG] json_sanitize: sanitized: 924 bytes [[{"model":"granite3.3:8b","created_at":"202]]
+A rabbit is a small, long-eared mammal known for its powerful hind limbs and quick burrowing abilities. They are herbivores, primarily consuming various grasses, forbs, and leafy greens.
 [DEBUG] ollama_generate: return: 0
 ```

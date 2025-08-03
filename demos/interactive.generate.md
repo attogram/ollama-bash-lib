@@ -4,23 +4,16 @@ spawn ./interactive.generate.sh
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.21
 
 ```
-ollama_generate_stream with model: dolphin3:8b
+ollama_generate_stream with model: gemma3n:e4b
 
 Press Control-C to exit
 
 >>> The secret word is RABBIT. Understand?
 
-Yes, I understand that the secret word you have given me is "RABBIT". Is there anything else I can help you with?
+Yes, I understand! The secret word is **RABBIT**. Thanks for letting me know! 😊 Is there anything else I need to know or do with this information? Perhaps you want me to:* **Remember it?** (I will!)* **Use it in a sentence?*** **Try to find words related to it?** Just let me know! 
 
 >>> 3 words describing Bash
 
-1. Command-line interface2. Scripting language3. Unix-based environment
-
->>> What is the secret word?
-
-The secret word is "Helpful".
+Here are three words to describe Bash:*   **Powerful:** Bash is incredibly versatile and capable of complex tasks.*   **Ubiquitous:** It's the default shell on most Linux and macOS systems.*   **Scriptable:**  Designed for automating tasks through shell scripts.
 
 >>> 
-Control-C shutdown
-```
-

@@ -1,25 +1,31 @@
 # ollama_list, ollama_list_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.20
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.41.21
 
 ```
 ollama_list
 ```
 ```
-NAME              ID              SIZE      MODIFIED    
-deepseek-r1:8b    6995872bfe4c    5.2 GB    12 days ago    
-dolphin3:8b       d5ab9ae8e1f2    4.9 GB    12 days ago    
-gemma3n:e4b       15cb39fd9394    7.5 GB    13 days ago    
-mistral:7b        6577803aa9a0    4.4 GB    12 days ago    
-qwen2.5vl:7b      5ced39dfa4ba    6.0 GB    12 days ago    
-qwen3:8b          500a1f067a9f    5.2 GB    13 days ago    
+NAME                                                      ID              SIZE      MODIFIED       
+deepseek-r1:8b                                            6995872bfe4c    5.2 GB    12 days ago       
+dolphin3:8b                                               d5ab9ae8e1f2    4.9 GB    12 days ago       
+gemma3n:e2b                                               719372f8c7de    5.6 GB    3 hours ago       
+gemma3n:e4b                                               15cb39fd9394    7.5 GB    2 weeks ago       
+granite3.3:2b                                             07bd1f170855    1.5 GB    13 seconds ago    
+granite3.3:8b                                             fd429f23b909    4.9 GB    2 minutes ago     
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS    d6e3345a2af6    4.4 GB    3 hours ago       
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M    33f561b5281e    5.7 GB    3 hours ago       
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L    bcbfe32e5762    6.8 GB    4 hours ago       
+mistral:7b                                                6577803aa9a0    4.4 GB    12 days ago       
+qwen2.5vl:7b                                              5ced39dfa4ba    6.0 GB    12 days ago       
+qwen3:8b                                                  500a1f067a9f    5.2 GB    2 weeks ago       
 ```
 
 ```
 ollama_list_array
 ```
 ```
-deepseek-r1:8b dolphin3:8b gemma3n:e4b mistral:7b qwen2.5vl:7b qwen3:8b
+deepseek-r1:8b dolphin3:8b gemma3n:e2b gemma3n:e4b granite3.3:2b granite3.3:8b hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L mistral:7b qwen2.5vl:7b qwen3:8b
 ```
 
 ```
@@ -28,6 +34,108 @@ ollama_list_json | jq '.'
 ```json
 {
   "models": [
+    {
+      "name": "granite3.3:2b",
+      "model": "granite3.3:2b",
+      "modified_at": "2025-08-03T20:54:11.3482609+02:00",
+      "size": 1545321637,
+      "digest": "07bd1f170855240f9e162bf54ea494a8bc1c73d8cbd1365d7fccbeb7d2504947",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "granite",
+        "families": [
+          "granite"
+        ],
+        "parameter_size": "2.5B",
+        "quantization_level": "Q4_K_M"
+      }
+    },
+    {
+      "name": "granite3.3:8b",
+      "model": "granite3.3:8b",
+      "modified_at": "2025-08-03T20:52:15.6705564+02:00",
+      "size": 4942891653,
+      "digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "granite",
+        "families": [
+          "granite"
+        ],
+        "parameter_size": "8.2B",
+        "quantization_level": "Q4_K_M"
+      }
+    },
+    {
+      "name": "gemma3n:e2b",
+      "model": "gemma3n:e2b",
+      "modified_at": "2025-08-03T17:53:33.6294197+02:00",
+      "size": 5621616562,
+      "digest": "719372f8c7deee188821a4dcbaf75efa13a342d7e88a79d4fc2412b24947f6fd",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "gemma3n",
+        "families": [
+          "gemma3n"
+        ],
+        "parameter_size": "4.5B",
+        "quantization_level": "Q4_K_M"
+      }
+    },
+    {
+      "name": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS",
+      "model": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS",
+      "modified_at": "2025-08-03T17:46:43.2887526+02:00",
+      "size": 4448227285,
+      "digest": "d6e3345a2af633b74d678e0eeb07d64ed0204a27ea43ab87c438c5dce6ec8e82",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.02B",
+        "quantization_level": "unknown"
+      }
+    },
+    {
+      "name": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M",
+      "model": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M",
+      "modified_at": "2025-08-03T17:34:28.0779621+02:00",
+      "size": 5724147669,
+      "digest": "33f561b5281e341c47cbe7f41e4f141a0695bb41924a5711a98d32f8cf50daac",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.02B",
+        "quantization_level": "unknown"
+      }
+    },
+    {
+      "name": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L",
+      "model": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L",
+      "modified_at": "2025-08-03T16:36:32.1504738+02:00",
+      "size": 6847631317,
+      "digest": "bcbfe32e5762e18863d4caa81f1e23b9b1691b29352582625ce9fcc4b26860dc",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.02B",
+        "quantization_level": "unknown"
+      }
+    },
     {
       "name": "deepseek-r1:8b",
       "model": "deepseek-r1:8b",
