@@ -5,27 +5,27 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ## Demo
 
 ```bash
-ollama_generate "dolphin3:8b" "Describe a rabbit in 3 words"
+ollama_generate "granite3.3:8b" "Describe a rabbit in 3 words"
 ```
 ```
-Furry, Ears, Hops.
+"Fluffy, Long-eared, Hopping."
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate "dolphin3:8b" "Describe a rabbit in 3 words"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate "granite3.3:8b" "Describe a rabbit in 3 words"`
 ```
 ```
-[DEBUG] ollama_generate: [dolphin3:8b] [Describe a rabbit in 3 words]
-[DEBUG] ollama_generate_json: [dolphin3:8b] [Describe a rabbit in 3 words]
+[DEBUG] ollama_generate: [granite3.3:8b] [Describe a rabbit in 3 words]
+[DEBUG] ollama_generate_json: [granite3.3:8b] [Describe a rabbit in 3 words]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
 [DEBUG] ollama_api_post: [/api/generate] [{
-  "model": "dolphin3:8b",
-  "prompt": "D]
+  "model": "granite3.3:8b",
+  "prompt": ]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
-[DEBUG] ollama_generate: result: 474 bytes
-Cute, fluffy, and fast.
+[DEBUG] ollama_generate: result: 583 bytes
+Small, fluffy, hopping mammal.
 [DEBUG] ollama_generate: return: 0
 ```

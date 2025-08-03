@@ -10,7 +10,7 @@ ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret w
 ollama_chat "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS"
 ```
 ```
-Understood.
+Yes, I understand. If you ask me for the secret word, I will respond with "RABBIT".
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
@@ -53,11 +53,11 @@ ollama_chat "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS"
 [DEBUG] ollama_api_post: [/api/chat] [{
   "model": "hf.co/bartowski/Ministral-8B]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] ollama_chat_json: content: [Understood!]
-[DEBUG] ollama_messages_add: [assistant] [Understood!]
+[DEBUG] ollama_chat_json: content: [Yes, I understand.]
+[DEBUG] ollama_messages_add: [assistant] [Yes, I understand.]
 [DEBUG] ollama_chat_json: added response from assistant to messages
-[DEBUG] ollama_chat: content: Understood!
-Understood!
+[DEBUG] ollama_chat: content: Yes, I understand.
+Yes, I understand.
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"

@@ -14,12 +14,12 @@ gemma3n:e4b                                               15cb39fd9394    7.5 GB
 granite3.3:2b                                             07bd1f170855    1.5 GB    3 hours ago    
 granite3.3:8b                                             fd429f23b909    4.9 GB    3 hours ago    
 hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS    d6e3345a2af6    4.4 GB    6 hours ago    
-hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M    33f561b5281e    5.7 GB    6 hours ago    
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M    33f561b5281e    5.7 GB    7 hours ago    
 hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L    bcbfe32e5762    6.8 GB    7 hours ago    
-mistral:7b                                                6577803aa9a0    4.4 GB    2 hours ago    
+mistral:7b                                                6577803aa9a0    4.4 GB    3 hours ago    
 qwen2.5vl:7b                                              5ced39dfa4ba    6.0 GB    13 days ago    
 qwen3:8b                                                  500a1f067a9f    5.2 GB    2 weeks ago    
-smollm2:1.7b                                              cef4a1e09247    1.8 GB    2 hours ago    
+smollm2:1.7b                                              cef4a1e09247    1.8 GB    3 hours ago    
 ```
 
 ```

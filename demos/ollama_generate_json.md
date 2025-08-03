@@ -5,56 +5,48 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ## Demo
 
 ```bash
-ollama_generate_json "qwen2.5vl:7b" "Describe a rabbit in 3 words"
+ollama_generate_json "gemma3n:e4b" "Describe a rabbit in 3 words"
 ```
 ```json
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-08-03T21:28:08.9340124Z",
-  "response": "Fluffy, cute, hopping.",
+  "model": "gemma3n:e4b",
+  "created_at": "2025-08-03T22:07:33.987238Z",
+  "response": "Fluffy, quick, curious. \n",
   "done": true,
   "done_reason": "stop",
   "context": [
-    151644,
-    8948,
-    198,
-    2610,
-    525,
-    264,
-    10950,
-    17847,
-    13,
-    151645,
-    198,
-    151644,
-    872,
-    198,
-    74785,
-    264,
-    38724,
-    304,
-    220,
-    18,
-    4244,
-    151645,
-    198,
-    151644,
-    77091,
-    198,
-    3882,
-    29877,
-    11,
-    18838,
-    11,
-    92238,
-    13
+    105,
+    2364,
+    107,
+    82858,
+    496,
+    27973,
+    528,
+    236743,
+    236800,
+    4171,
+    106,
+    107,
+    105,
+    4368,
+    107,
+    105723,
+    236760,
+    35411,
+    236764,
+    3823,
+    236764,
+    23210,
+    236761,
+    236743,
+    107
   ],
-  "total_duration": 3373741800,
-  "load_duration": 2996682100,
-  "prompt_eval_count": 27,
-  "prompt_eval_duration": 147494600,
-  "eval_count": 8,
-  "eval_duration": 229059800
+  "total_duration": 5227264400,
+  "load_duration": 4527123900,
+  "prompt_eval_count": 16,
+  "prompt_eval_duration": 277064800,
+  "eval_count": 10,
+  "eval_duration": 421543000
 }
 
 ```
@@ -62,63 +54,55 @@ ollama_generate_json "qwen2.5vl:7b" "Describe a rabbit in 3 words"
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_json "qwen2.5vl:7b" "Describe a rabbit in 3 words"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_json "gemma3n:e4b" "Describe a rabbit in 3 words"`
 ```
 ```json
-[DEBUG] ollama_generate_json: [qwen2.5vl:7b] [Describe a rabbit in 3 words]
+[DEBUG] ollama_generate_json: [gemma3n:e4b] [Describe a rabbit in 3 words]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
 [DEBUG] ollama_api_post: [/api/generate] [{
-  "model": "qwen2.5vl:7b",
-  "prompt": "]
+  "model": "gemma3n:e4b",
+  "prompt": "D]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
 {
-  "model": "qwen2.5vl:7b",
-  "created_at": "2025-08-03T21:28:09.4737468Z",
-  "response": "Fluffy, cute, hopping.",
+  "model": "gemma3n:e4b",
+  "created_at": "2025-08-03T22:07:34.8010008Z",
+  "response": "Fluffy, quick, curious. \n",
   "done": true,
   "done_reason": "stop",
   "context": [
-    151644,
-    8948,
-    198,
-    2610,
-    525,
-    264,
-    10950,
-    17847,
-    13,
-    151645,
-    198,
-    151644,
-    872,
-    198,
-    74785,
-    264,
-    38724,
-    304,
-    220,
-    18,
-    4244,
-    151645,
-    198,
-    151644,
-    77091,
-    198,
-    3882,
-    29877,
-    11,
-    18838,
-    11,
-    92238,
-    13
+    105,
+    2364,
+    107,
+    82858,
+    496,
+    27973,
+    528,
+    236743,
+    236800,
+    4171,
+    106,
+    107,
+    105,
+    4368,
+    107,
+    105723,
+    236760,
+    35411,
+    236764,
+    3823,
+    236764,
+    23210,
+    236761,
+    236743,
+    107
   ],
-  "total_duration": 266742900,
-  "load_duration": 26817300,
-  "prompt_eval_count": 27,
-  "prompt_eval_duration": 31528700,
-  "eval_count": 8,
-  "eval_duration": 208396900
+  "total_duration": 511795500,
+  "load_duration": 55892500,
+  "prompt_eval_count": 16,
+  "prompt_eval_duration": 47182100,
+  "eval_count": 10,
+  "eval_duration": 408215600
 }
 
 ```
