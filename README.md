@@ -161,12 +161,12 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 ### Utility Functions
 
-| Function          | About                                   | Usage                                                        | Output                                                          | Return  |
-|-------------------|-----------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
-| `estimate_tokens` | Estimated number of tokens in a string  | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
-| `json_sanitize`   | Sanitize a json object for jq use       | `json_sanitize "{ json object }"`                            | sanitized json object to `stdout`                               | `0`/`1` |
-| `debug`           | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
-| `error`           | Error message                           | `error "message"`                                            | message to `stderr`                                             | `0`/`1` |
+| Function                                                                                | About                                   | Usage                                                        | Output                                                          | Return  |
+|-----------------------------------------------------------------------------------------|-----------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
+| `estimate_tokens`                                                                       | Estimated number of tokens in a string  | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
+| `json_sanitize`                                                                         | Sanitize a json object for jq use       | `json_sanitize "{ json object }"`                            | sanitized json object to `stdout`                               | `0`/`1` |
+| [`debug`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L31) | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
+| [`error`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L44) | Error message                           | `error "message"`                                            | message to `stderr`                                             | `0`/`1` |
 
 ## Requirements
 
