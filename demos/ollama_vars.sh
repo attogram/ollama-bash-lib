@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo '# ollama_vars'
+echo '# ollama_app_vars'
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -16,5 +16,5 @@ startup
 
 echo
 echo '```'
-ollama_vars
+ollama_app_vars
 echo '```'
