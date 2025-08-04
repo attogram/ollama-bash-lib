@@ -101,20 +101,20 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 ### Api Functions
 
-| Function          | About                          | Usage                                            | Output                      | Return                                             |
-|-------------------|--------------------------------|--------------------------------------------------|-----------------------------|----------------------------------------------------|
-| `ollama_api_get`  | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error       |
-| `ollama_api_post` | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error       | 
-| `ollama_api_ping` | Ping the Ollama API            | `ollama_api_ping`                                | none                        | `0` API is reachable<br />`1` API is not reachable |
+| Function                                                                                           | About                          | Usage                                            | Output                      | Return                                             |
+|----------------------------------------------------------------------------------------------------|--------------------------------|--------------------------------------------------|-----------------------------|----------------------------------------------------|
+| [`ollama_api_get`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L88)   | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error       |
+| [`ollama_api_post`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L108) | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error       | 
+| [`ollama_api_ping`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L127) | Ping the Ollama API            | `ollama_api_ping`                                | none                        | `0` API is reachable<br />`1` API is not reachable |
 
 ### Generate Functions
 
-| Function                      | About                               | Usage                                          | Output                     | Return  |
-|-------------------------------|-------------------------------------|------------------------------------------------|----------------------------|---------|
-| `ollama_generate`             | Generate completion                 | `ollama_generate "model" "prompt"`             | text to `stdout`           | `0`/`1` | 
-| `ollama_generate_json`        | Generate completion, in json        | `ollama_generate_json "model" "prompt"`        | json to `stdout`           | `0`/`1` | 
-| `ollama_generate_stream`      | Generate completion stream          | `ollama_generate_stream "model" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
-| `ollama_generate_stream_json` | Generate completion stream, in json | `ollama_generate_stream_json "model" "prompt"` | streaming json to `stdout` | `0`/`1` | 
+| Function                                                                                                       | About                               | Usage                                          | Output                     | Return  |
+|----------------------------------------------------------------------------------------------------------------|-------------------------------------|------------------------------------------------|----------------------------|---------|
+| [`ollama_generate`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L203)             | Generate completion                 | `ollama_generate "model" "prompt"`             | text to `stdout`           | `0`/`1` | 
+| [`ollama_generate_json`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L153)        | Generate completion, in json        | `ollama_generate_json "model" "prompt"`        | json to `stdout`           | `0`/`1` | 
+| [`ollama_generate_stream`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L230)      | Generate completion stream          | `ollama_generate_stream "model" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
+| [`ollama_generate_stream_json`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L182) | Generate completion stream, in json | `ollama_generate_stream_json "model" "prompt"` | streaming json to `stdout` | `0`/`1` | 
 
 ### Chat Functions
 
