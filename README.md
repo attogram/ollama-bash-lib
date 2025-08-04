@@ -24,7 +24,8 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 ### Quickstart
 
 ```bash
-# Get the library: via git or manually: https://github.com/attogram/ollama-bash-lib
+% git clone https://github.com/attogram/ollama-bash-lib.git
+% cd ollama-bash-lib
 
 # Load the library
 % source ./ollama_bash_lib.sh 
