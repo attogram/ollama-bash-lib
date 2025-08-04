@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.0"
+OLLAMA_LIB_VERSION="0.42.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -590,7 +590,7 @@ ollama_show() {
 #
 # Usage: ollama_show_json "model"
 # Input: 1 - The model to show
-# Output: json, to stdout
+# Output: json, to stdoutF
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
@@ -606,31 +606,31 @@ ollama_show_json() {
   return $RETURN_SUCCESS
 }
 
-# Ollama Functions
+# Ollama App Functions
 
-# Is Ollama installed on the local system?
+# Is Ollama App installed on the local system?
 #
-# Usage: if ollama_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
+# Usage: if ollama_app_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
 # Input: none
 # Output: none
 # Requires: none
 # Returns: 0 if Ollama is installed, 1 if Ollama is not installed
-ollama_installed() {
-  debug "ollama_installed"
+ollama_app_installed() {
+  debug "ollama_app_installed"
   if [ -z "$(command -v "ollama" 2> /dev/null)" ]; then
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
 }
 
-# Ollama environment variables
+# Ollama App environment variables
 #
-# Usage: ollama_vars
+# Usage: ollama_app_vars
 # Input: none
 # Output: text, to stdout
 # Requires: none
 # Returns: 0
-ollama_vars() {
+ollama_app_vars() {
   echo "OLLAMA_DEBUG: $OLLAMA_DEBUG"
   echo "OLLAMA_HOST: $OLLAMA_HOST"
   echo "OLLAMA_KEEP_ALIVE: $OLLAMA_KEEP_ALIVE"
@@ -668,49 +668,49 @@ ollama_vars() {
   return $RETURN_SUCCESS
 }
 
-# Ollama application version, TEXT version
+# Ollama App version, TEXT version
 #
-# Usage: ollama_version
+# Usage: ollama_app_version
 # Input: none
 # Requires: ollama, curl, jq
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
-ollama_version() {
-  debug "ollama_version"
+ollama_app_version() {
+  debug "ollama_app_version"
   if ! ollama_api_get '/api/version' | jq -r ".version"; then
-    error "ollama_version: error_ollama_api_get|jq failed"
+    error "ollama_app_version: error_ollama_api_get|jq failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
 }
 
-# Ollama application version, JSON version
+# Ollama App version, JSON version
 #
-# Usage: ollama_version_json
+# Usage: ollama_app_version_json
 # Input: none
 # Output: json, to stdout
 # Requires: ollama, curl
 # Returns: 0 on success, 1 on error
-ollama_version_json() {
-  debug "ollama_version_json"
+ollama_app_version_json() {
+  debug "ollama_app_version_json"
   if ! ollama_api_get '/api/version'; then
-    error "ollama_version_json: error_ollama_api_get failed"
+    error "ollama_app_version_json: error_ollama_api_get failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
 }
 
-# Ollama application version, CLI version
+# Ollama App version, CLI version
 #
-# Usage: ollama_version_cli
+# Usage: ollama_app_version_cli
 # Input: none
 # Output: text, to stdout
 # Requires: ollama
 # Returns: 0 on success, 1 on error
-ollama_version_cli() {
-  debug "ollama_version_cli"
+ollama_app_version_cli() {
+  debug "ollama_app_version_cli"
   if ! ollama --version; then
-    error "ollama_version_cli: ollama --version failed"
+    error "ollama_app_version_cli: ollama --version failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS

@@ -34,17 +34,19 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
  
 # Tab completion to view all functions
 % ollama_<TAB>
-ollama_api_get               ollama_installed             ollama_model_unload
-ollama_api_ping              ollama_lib_about             ollama_ps
-ollama_api_post              ollama_lib_version           ollama_ps_json
-ollama_chat                  ollama_list                  ollama_show
-ollama_chat_json             ollama_list_array            ollama_show_json
-ollama_chat_stream           ollama_list_json             ollama_vars
-ollama_chat_stream_json      ollama_messages              ollama_version
-ollama_generate              ollama_messages_add          ollama_version_cli
-ollama_generate_json         ollama_messages_clear        ollama_version_json
-ollama_generate_stream       ollama_messages_count
-ollama_generate_stream_json  ollama_model_random
+ollama_api_get               ollama_chat_stream_json      ollama_messages_add
+ollama_api_ping              ollama_generate              ollama_messages_clear
+ollama_api_post              ollama_generate_json         ollama_messages_count
+ollama_app_installed         ollama_generate_stream       ollama_model_random
+ollama_app_vars              ollama_generate_stream_json  ollama_model_unload
+ollama_app_version           ollama_lib_about             ollama_ps
+ollama_app_version_cli       ollama_lib_version           ollama_ps_json
+ollama_app_version_json      ollama_list                  ollama_show
+ollama_chat                  ollama_list_array            ollama_show_json
+ollama_chat_json             ollama_list_json
+ollama_chat_stream           ollama_messages
+
+
 
 # Run demos and output results to *.md files
 % cd demos; ./run.demos.sh
@@ -141,14 +143,14 @@ See the **[demos](demos)** directory for all demo scripts
 
 ### Ollama Functions
 
-| Function              | About                            | Usage                                                                       | Output           | Return                               |
-|-----------------------|----------------------------------|-----------------------------------------------------------------------------|------------------|--------------------------------------|
-| `ollama_installed`    | Is Ollama installed?             | `if ollama_installed; then echo "Installed"; else echo "Not Installed"; fi` | none             | `0` installed<br />`1` not installed |
-| `ollama_ps`           | Running model processes          | `ollama_ps`                                                                 | text to `stdout` | `0`/`1`                              |
-| `ollama_ps_json`      | Running model processes, in json | `ollama_ps_json`                                                            | json to `stdout` | `0`/`1`                              |
-| `ollama_version`      | Ollama version                   | `ollama_version`                                                            | text to `stdout` | `0`/`1`                              |
-| `ollama_version_json` | Ollama version, in json          | `ollama_version_json`                                                       | json to `stdout` | `0`/`1`                              |
-| `ollama_version_cli`  | Ollama version, from cli         | `ollama_version_cli`                                                        | text to `stdout` | `0`/`1`                              |
+| Function                  | About                            | Usage                                                                           | Output           | Return                               |
+|---------------------------|----------------------------------|---------------------------------------------------------------------------------|------------------|--------------------------------------|
+| `ollama_app_installed`    | Is Ollama installed?             | `if ollama_app_installed; then echo "Installed"; else echo "Not Installed"; fi` | none             | `0` installed<br />`1` not installed |
+| `ollama_app_version`      | Ollama version                   | `ollama_app_version`                                                            | text to `stdout` | `0`/`1`                              |
+| `ollama_app_version_json` | Ollama version, in json          | `ollama_app_version_json`                                                       | json to `stdout` | `0`/`1`                              |
+| `ollama_app_version_cli`  | Ollama version, from cli         | `ollama_app_version_cli`                                                        | text to `stdout` | `0`/`1`                              |
+| `ollama_ps`               | Running model processes          | `ollama_ps`                                                                     | text to `stdout` | `0`/`1`                              |
+| `ollama_ps_json`          | Running model processes, in json | `ollama_ps_json`                                                                | json to `stdout` | `0`/`1`                              |
 
 ### Utility Functions
 
@@ -178,7 +180,7 @@ See the **[demos](demos)** directory for all demo scripts
 * [`jq`](https://jqlang.org) - for JSON handling
 
 If you don't have any of the optional requirements,
-the function `ollama_installed` is always available,
+the function `ollama_app_installed` is always available,
 plus most [_Utility_](#utility-functions) and [_Internal_](#internal-functions) functions.
 
 ## License
