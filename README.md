@@ -9,7 +9,8 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 [License](#license) - 
 [More](#more-from-the-attogram-project) -
 [Discord][discord-invite] -
-[Repo](https://github.com/attogram/ollama-bash-lib)
+[Repo](https://github.com/attogram/ollama-bash-lib) -
+[Download](https://raw.githubusercontent.com/attogram/ollama-bash-lib/refs/heads/main/ollama_bash_lib.sh)
 
 [Functions](#functions) : 
 [Api](#api-functions) -
