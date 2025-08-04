@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Run all Ollama Bash Lib Demos, saving output to .txt files
+# Run all Ollama Bash Lib Demos, saving output to .md files
 
 cd "$(dirname "$0")" || exit 1 # cd to demos directory
 

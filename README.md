@@ -17,8 +17,8 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 [Chat](#chat-functions) - 
 [Model](#model-functions) -
 [Ollama](#ollama-functions) -
-[Utility](#utility-functions) - 
-[Internal](#internal-functions)
+[Lib](#lib-functions) -
+[Utility](#utility-functions)
 
 ### Quickstart
 
@@ -46,8 +46,6 @@ ollama_chat                  ollama_list_array            ollama_show_json
 ollama_chat_json             ollama_list_json
 ollama_chat_stream           ollama_messages
 
-
-
 # Run demos and output results to *.md files
 % cd demos; ./run.demos.sh
 ```
@@ -73,30 +71,32 @@ source "$ollama_bash_lib"
 
 See the **[demos](demos)** directory for all demo scripts
 
-| Demo                                                                   | About                                                                                                       | Script                                                                 |
-|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
-| [review.lib.md](demos/review.lib.md)                                   | Code Review of [`ollama_bash_lib.sh`](ollama_bash_lib.sh)                                                   | [review.lib.sh](demos/review.lib.sh)                                   |
-| [review.readme.md](demos/review.readme.md)                             | Marketing Review of this [`README.md`](README.md)                                                           | [review.readme.sh](demos/review.readme.sh)                             |
-| [prompt.all.models.md](demos/prompt.all.models.md)                     | Send a prompt to all models                                                                                 | [prompt.all.models.sh](demos/prompt.all.models.sh)                     |
-| [prompts.model.md](demos/prompts.model.md)                             | Send many prompts to a model                                                                                | [prompts.model.sh](demos/prompts.model.sh)                             |
-| [ollama_chat.md](demos/ollama_chat.md)                                 | Chat completion with `ollama_messages_add` and `ollama_chat`                                                | [ollama_chat.sh](demos/ollama_chat.sh)                                 |
-| [ollama_generate.md](demos/ollama_generate.md)                         | Generate completion with `ollama_generate`                                                                  | [ollama_generate.sh](demos/ollama_generate.sh)                         |
-| [ollama_generate_json.md](demos/ollama_generate_json.md)               | Generate completion, json output with `ollama_generate_json`                                                | [ollama_generate_json.sh](demos/ollama_generate_json.sh)               |
-| [ollama_generate_stream.md](demos/ollama_generate_stream.md)           | Generate completion, streaming with `ollama_generate_stream`                                                | [ollama_generate_stream.sh](demos/ollama_generate_stream.sh)           |
-| [ollama_generate_stream_json.md](demos/ollama_generate_stream_json.md) | Generate completion, streaming and json output with `ollama_generate_stream_json`                           | [ollama_generate_stream_json.sh](demos/ollama_generate_stream_json.sh) |
-| [ollama_model_random.md](demos/ollama_model_random.md)                 | Random model name with `ollama_model_random`                                                                | [ollama_model_random.sh](demos/ollama_model_random.sh)                 |
-| [list.md](demos/list.md)                                               | Ollama model list with `ollama_list`, `ollama_list_array` and `ollama_list_json`                            | [list.sh](demos/list.sh)                                               |
-| [ps.md](demos/ps.md)                                                   | Ollama running processes with `ollama_ps` and `ollama_ps_json`                                              | [ps.sh](demos/ps.sh)                                                   |
-| [show.md](demos/show.md)                                               | Model info with `ollama_show` and `ollama_show_json`                                                        | [show.sh](demos/show.sh)                                               |
-| [messages.md](demos/messages.md)                                       | Messages with `ollama_messages`, `ollama_messages_add`, `ollama_messages_count` and `ollama_messages_clear` | [messages.sh](demos/messages.sh)                                       |
-| [version.md](demos/version.md)                                         | Ollama version with `ollama_app_version`, `ollama_app_version_json` and `ollama_app_version_cli`            | [version.sh](demos/version.sh)                                         |
-| [about.md](demos/about.md)                                             | Ollama Bash Lib info with `ollama_lib_about` and `ollama_lib_version`                                       | [about.sh](demos/about.sh)                                             |
-| [ollama_api_get.md](demos/ollama_api_get.md)                           | `ollama_api_get` usage and error handling                                                                   | [ollama_api_get.sh](demos/ollama_api_get.sh)                           |
-| [ollama_app_vars.md](demos/ollama_app_vars.md)                         | Ollama environmental variables with `ollama_app_vars`                                                       | [ollama_app_vars.sh](demos/ollama_app_vars.sh)                         |
-| [token.estimate.md](demos/token.estimate.md)                           | Estimated token count with `estimate_tokens` (very rough estimate only)                                     | [token.estimate.sh](demos/token.estimate.sh)                           |
-| [json_sanitize.md](demos/json_sanitize.md)                             | Sanitize string for jq with `json_sanitize`                                                                 | [json_sanitize.sh](demos/json_sanitize.sh)                             |
-| <!-- [interactive.chat.md](demos/interactive.chat.md) -->              | Interactive Chat completion, with message history                                                           | [interactive.chat.sh](demos/interactive.chat.sh)                       |
-| <!-- [interactive.generate.md](demos/interactive.generate.md) -->      | Interactive Generate completion, no history                                                                 | [interactive.generate.sh](demos/interactive.generate.sh)               |
+| Demo                                                                   | About                                                                                                                          | Script                                                                 |
+|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| [review.lib.md](demos/review.lib.md)                                   | Code Review of [`ollama_bash_lib.sh`](ollama_bash_lib.sh)                                                                      | [review.lib.sh](demos/review.lib.sh)                                   |
+| [review.readme.md](demos/review.readme.md)                             | Marketing Review of this [`README.md`](README.md)                                                                              | [review.readme.sh](demos/review.readme.sh)                             |
+| [prompt.all.models.md](demos/prompt.all.models.md)                     | Send a prompt to all models                                                                                                    | [prompt.all.models.sh](demos/prompt.all.models.sh)                     |
+| [prompts.model.md](demos/prompts.model.md)                             | Send many prompts to a model                                                                                                   | [prompts.model.sh](demos/prompts.model.sh)                             |
+| [ollama_chat.md](demos/ollama_chat.md)                                 | Chat completion with [`ollama_messages_add`](#chat-functions) and [`ollama_chat`](#chat-functions)                             | [ollama_chat.sh](demos/ollama_chat.sh)                                 |
+| [ollama_generate.md](demos/ollama_generate.md)                         | Generate completion with [`ollama_generate`](#generate-functions)                                                              | [ollama_generate.sh](demos/ollama_generate.sh)                         |
+| [ollama_generate_json.md](demos/ollama_generate_json.md)               | Generate completion, json output with [`ollama_generate_json`](#generate-functions)                                            | [ollama_generate_json.sh](demos/ollama_generate_json.sh)               |
+| [ollama_generate_stream.md](demos/ollama_generate_stream.md)           | Generate completion, streaming with [`ollama_generate_stream`](#generate-functions)                                            | [ollama_generate_stream.sh](demos/ollama_generate_stream.sh)           |
+| [ollama_generate_stream_json.md](demos/ollama_generate_stream_json.md) | Generate completion, streaming and json output with [`ollama_generate_stream_json`](#generate-functions)                       | [ollama_generate_stream_json.sh](demos/ollama_generate_stream_json.sh) |
+| [ollama_model_random.md](demos/ollama_model_random.md)                 | Random model name with [`ollama_model_random`](#model-functions)                                                               | [ollama_model_random.sh](demos/ollama_model_random.sh)                 |
+| [list.md](demos/list.md)                                               | Ollama model list with [`ollama_list`](#model-functions), `ollama_list_array` and `ollama_list_json`                           | [list.sh](demos/list.sh)                                               |
+| [ps.md](demos/ps.md)                                                   | Ollama running processes with [`ollama_ps`](#ollama-functions) and [`ollama_ps_json`](#ollama_functions)                       | [ps.sh](demos/ps.sh)                                                   |
+| [show.md](demos/show.md)                                               | Model info with [`ollama_show`](#model-functions) and [`ollama_show_json`](#model-functions)                                   | [show.sh](demos/show.sh)                                               |
+| [messages.md](demos/messages.md)                                       | Messages with [`ollama_messages`](#chat-functions), `ollama_messages_add`, `ollama_messages_count` and `ollama_messages_clear` | [messages.sh](demos/messages.sh)                                       |
+| [version.md](demos/version.md)                                         | Ollama version with [`ollama_app_version`](#ollama-functions), `ollama_app_version_json` and `ollama_app_version_cli`          | [version.sh](demos/version.sh)                                         |
+| [about.md](demos/about.md)                                             | Ollama Bash Lib info with [`ollama_lib_about`](#lib-functions) and [`ollama_lib_version`](#lib-functions)                      | [about.sh](demos/about.sh)                                             |
+| [ollama_api_get.md](demos/ollama_api_get.md)                           | [`ollama_api_get`](#api-functions) usage and error handling                                                                    | [ollama_api_get.sh](demos/ollama_api_get.sh)                           |
+| [ollama_app_vars.md](demos/ollama_app_vars.md)                         | Ollama environmental variables with [`ollama_app_vars`](#ollama-functions)                                                     | [ollama_app_vars.sh](demos/ollama_app_vars.sh)                         |
+| [token.estimate.md](demos/token.estimate.md)                           | Estimated token count with [`estimate_tokens`](#utility-functions) (very rough estimate only)                                  | [token.estimate.sh](demos/token.estimate.sh)                           |
+| [json_sanitize.md](demos/json_sanitize.md)                             | Sanitize string for jq usage with [`json_sanitize`](#utility-functions)                                                        | [json_sanitize.sh](demos/json_sanitize.sh)                             |
+| <!-- [interactive.chat.md](demos/interactive.chat.md) -->              | Interactive Chat completion (with message history)                                                                             | [interactive.chat.sh](demos/interactive.chat.sh)                       |
+| <!-- [interactive.generate.md](demos/interactive.generate.md) -->      | Interactive Generate completion (no message history)                                                                           | [interactive.generate.sh](demos/interactive.generate.sh)               |
+
+To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/run.demos.sh)
 
 ## Functions
 
@@ -153,21 +153,21 @@ See the **[demos](demos)** directory for all demo scripts
 | `ollama_ps`               | Running model processes          | `ollama_ps`                                                                     | text to `stdout` | `0`/`1`                              |
 | `ollama_ps_json`          | Running model processes, in json | `ollama_ps_json`                                                                | json to `stdout` | `0`/`1`                              |
 
-### Utility Functions
+### Lib Functions
 
 | Function              | About                                           | Usage                                                        | Output                                                          | Return  |
 |-----------------------|-------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
-| `estimate_tokens`     | Estimated number of tokens in a string          | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
 | `ollama_lib_about`    | About Ollama Bash Lib, lists vars and functions | `ollama_lib_about`                                           | text to `stdout`                                                | `0`/`1` |
 | `ollama_lib_version`  | Ollama Bash Lib version                         | `ollama_lib_version`                                         | text to `stdout`                                                | `0`/`1` |
 
-### Internal Functions
+### Utility Functions
 
-| Function        | About                                   | Usage                             | Output                            | Return  |
-|-----------------|-----------------------------------------|-----------------------------------|-----------------------------------|---------|
-| `json_sanitize` | Sanitize a json object for jq use       | `json_sanitize "{ json object }"` | sanitized json object to `stdout` | `0`/`1` |
-| `debug`         | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`                 | message to `stderr`               | `0`/`1` |
-| `error`         | Error message                           | `error "message"`                 | message to `stderr`               | `0`/`1` |
+| Function          | About                                   | Usage                                                        | Output                                                          | Return  |
+|-------------------|-----------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
+| `estimate_tokens` | Estimated number of tokens in a string  | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
+| `json_sanitize`   | Sanitize a json object for jq use       | `json_sanitize "{ json object }"`                            | sanitized json object to `stdout`                               | `0`/`1` |
+| `debug`           | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
+| `error`           | Error message                           | `error "message"`                                            | message to `stderr`                                             | `0`/`1` |
 
 ## Requirements
 
