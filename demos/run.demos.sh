@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
-#
-# Run all Ollama Bash Lib Demos, saving output to .md files
 
-cd "$(dirname "$0")" || exit 1 # cd to demos directory
+echo "Run all Ollama Bash Lib Demos, save output to .md files"
+echo
+
+cd "$(dirname "$0")" || exit 1 # cd to directory this script is in
+
+echo "Demo directory: $(pwd)"
+echo
 
 # All demos
 demos=($(find . -maxdepth 1 -name "*.sh" | sort)) # Get all *.sh files in current directory
@@ -17,10 +21,13 @@ excluded=(
 for target in "${excluded[@]}"; do
   for index in "${!demos[@]}"; do
     if [ "${demos[$index]}" == "$target" ]; then
-      unset demos[$index]
+      unset "demos[$index]"
     fi
   done
 done
+
+echo "Running ${#demos[@]} demos: ${demos[*]}"
+echo
 
 # Static Demos
 for demo in "${demos[@]}"; do

@@ -49,7 +49,7 @@ ollama_chat_json             ollama_list_json
 ollama_chat_stream           ollama_messages
 
 # Run demos and output results to *.md files
-% cd demos; ./run.demos.sh
+% ./demos/run.demos.sh
 ```
 
 ## Usage
