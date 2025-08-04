@@ -1,6 +1,6 @@
-# ollama_vars
+# ollama_app_vars
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.1
 
 ```
 OLLAMA_DEBUG: 

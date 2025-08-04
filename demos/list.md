@@ -12,8 +12,8 @@ dolphin3:8b                                               d5ab9ae8e1f2    4.9 GB
 gemma3n:e2b                                               719372f8c7de    5.6 GB    26 hours ago    
 gemma3n:e4b                                               15cb39fd9394    7.5 GB    2 weeks ago     
 granite3.3:2b                                             07bd1f170855    1.5 GB    23 hours ago    
-granite3.3:8b                                             fd429f23b909    4.9 GB    23 hours ago    
-hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS    d6e3345a2af6    4.4 GB    26 hours ago    
+granite3.3:8b                                             fd429f23b909    4.9 GB    24 hours ago    
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS    d6e3345a2af6    4.4 GB    27 hours ago    
 hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M    33f561b5281e    5.7 GB    27 hours ago    
 hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L    bcbfe32e5762    6.8 GB    28 hours ago    
 mistral:7b                                                6577803aa9a0    4.4 GB    23 hours ago    

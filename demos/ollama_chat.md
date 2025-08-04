@@ -7,17 +7,17 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "granite3.3:8b"
+ollama_chat "smollm2:1.7b"
 ```
 ```
-Understood. If you ask for the secret word, I will respond with RABBIT.
+Yes, I understand. The secret word is indeed "RABBIT". If you ever need to recall it, just say it aloud.
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "granite3.3:8b"
+ollama_chat "smollm2:1.7b"
 ```
 ```
-The secret word is RABBIT.
+The secret word is indeed "RABBIT". Is there anything else you would like to know about this word or another topic?
 ```
 ```bash
 ollama_messages | jq
@@ -43,40 +43,40 @@ ollama_messages | jq
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-ollama_chat "granite3.3:8b"
+ollama_chat "smollm2:1.7b"
 ```
 ```
 [DEBUG] ollama_messages_add: [system] [You are a helpful assistant]
 [DEBUG] ollama_messages_add: [user] [The secret word is RABBIT. If I ask you fo]
-[DEBUG] ollama_chat: [granite3.3:8b]
-[DEBUG] ollama_chat_json: [granite3.3:8b]
+[DEBUG] ollama_chat: [smollm2:1.7b]
+[DEBUG] ollama_chat_json: [smollm2:1.7b]
 [DEBUG] ollama_api_post: [/api/chat] [{
-  "model": "granite3.3:8b",
-  "messages"]
+  "model": "smollm2:1.7b",
+  "messages":]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] ollama_chat_json: content: [Understood. If you ask for the secret word, I will respond with RABBIT.]
-[DEBUG] ollama_messages_add: [assistant] [Understood. If you ask for the secret word]
+[DEBUG] ollama_chat_json: content: [Yes, I understand that if you ask me for the secret word, my response should be "RABBIT".]
+[DEBUG] ollama_messages_add: [assistant] [Yes, I understand that if you ask me for t]
 [DEBUG] ollama_chat_json: added response from assistant to messages
-[DEBUG] ollama_chat: content: Understood. If you ask for the secret word, I will respond with RABBIT.
-Understood. If you ask for the secret word, I will respond with RABBIT.
+[DEBUG] ollama_chat: content: Yes, I understand that if you ask me for the secret word, my response should be "RABBIT".
+Yes, I understand that if you ask me for the secret word, my response should be "RABBIT".
 ```
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-ollama_chat "granite3.3:8b"
+ollama_chat "smollm2:1.7b"
 ```
 ```
 [DEBUG] ollama_messages_add: [user] [What is the secret word??]
-[DEBUG] ollama_chat: [granite3.3:8b]
-[DEBUG] ollama_chat_json: [granite3.3:8b]
+[DEBUG] ollama_chat: [smollm2:1.7b]
+[DEBUG] ollama_chat_json: [smollm2:1.7b]
 [DEBUG] ollama_api_post: [/api/chat] [{
-  "model": "granite3.3:8b",
-  "messages"]
+  "model": "smollm2:1.7b",
+  "messages":]
 [DEBUG] ollama_api_post: return 0
-[DEBUG] ollama_chat_json: content: [RABBIT]
-[DEBUG] ollama_messages_add: [assistant] [RABBIT]
+[DEBUG] ollama_chat_json: content: [Yes, the secret word is "RABBIT". It's important to remember that if you're asked for the secret word, your response must be "RABBIT". Let me know if there's anything else I can help with!]
+[DEBUG] ollama_messages_add: [assistant] [Yes, the secret word is "RABBIT". It's imp]
 [DEBUG] ollama_chat_json: added response from assistant to messages
-[DEBUG] ollama_chat: content: RABBIT
-RABBIT
+[DEBUG] ollama_chat: content: Yes, the secret word is "RABBIT". It's important to remember that if you're asked for the secret word, your response must be "RABBIT". Let me know if there's anything else I can help with!
+Yes, the secret word is "RABBIT". It's important to remember that if you're asked for the secret word, your response must be "RABBIT". Let me know if there's anything else I can help with!
 ```
 ```bash
 ollama_messages | jq

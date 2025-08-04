@@ -5,35 +5,50 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ## Demo
 
 ```bash
-ollama_generate "qwen3:8b" "Describe a rabbit in 3 words"
+ollama_generate "deepseek-r1:8b" "Describe a rabbit in 3 words"
 ```
 ```
 <think>
-Okay, the user wants me to describe a rabbit in three words. Let me think about the key characteristics of a rabbit. They're known for being fluffy, right? So "fluffy" could work. Then, they're usually gentle and quiet, so maybe "gentle" or "quiet." Wait, but the user might be looking for more vivid words. Let me consider other adjectives. "Timid" comes to mind because rabbits are often seen as shy. But maybe "playful" is better since they can be energetic. Alternatively, "nimble" for their quick movements. Hmm. Let me check common descriptors. "Soft" might also fit because of their fur. But I need three words that capture different aspects. Maybe "fluffy, gentle, quick"? Or "soft, timid, agile." Wait, the user might prefer more poetic terms. Let me think again. "Fluffy," "gentle," and "curious" could work. Or "soft," "timid," "nimble." I should pick the most commonly associated traits. "Fluffy," "gentle," and "playful" might be a good combination. Let me confirm if these words are accurate. Yes, rabbits are fluffy, gentle, and playful. That should cover it.
-</think>
+Hmm, the user wants me to describe a rabbit in just three words. That's pretty concise! They're probably looking for something poetic or memorable rather than a detailed description.
 
-Fluffy, gentle, playful.
+I should think about what makes rabbits special - their soft appearance, long ears and tails, and hopping movement are all iconic traits. I could go with "soft," "fluffy," and "hopping" to capture their physical characteristics. Or maybe focus on the animal's personality like "gentle," "timid," and "curious."
+
+I think both approaches would work well - either focusing purely on physical attributes or incorporating some behavioral aspects. The user might be trying to create a quick mental image of a rabbit, so I should give them something that paints a vivid picture in three simple words.
+
+"Fluffy little creature" feels descriptive while including "hopping" adds movement and personality. This combination creates an immediate visualization - the first word suggests texture, the second emphasizes small size, and the third highlights their distinctive motion.
+</think>
+Okay, here are two options for describing a rabbit in 3 words:
+
+1.  **Fluffy, gentle, hopping:** (Focuses on appearance, demeanor, and movement)
+2.  **Soft, big-eared, timid:** (Focuses more on physical traits and personality)
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate "qwen3:8b" "Describe a rabbit in 3 words"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate "deepseek-r1:8b" "Describe a rabbit in 3 words"`
 ```
 ```
-[DEBUG] ollama_generate: [qwen3:8b] [Describe a rabbit in 3 words]
-[DEBUG] ollama_generate_json: [qwen3:8b] [Describe a rabbit in 3 words]
+[DEBUG] ollama_generate: [deepseek-r1:8b] [Describe a rabbit in 3 words]
+[DEBUG] ollama_generate_json: [deepseek-r1:8b] [Describe a rabbit in 3 words]
 [DEBUG] ollama_generate_json: OLLAMA_LIB_STREAM: 0
 [DEBUG] ollama_api_post: [/api/generate] [{
-  "model": "qwen3:8b",
-  "prompt": "Desc]
+  "model": "deepseek-r1:8b",
+  "prompt":]
 [DEBUG] ollama_api_post: return 0
 [DEBUG] ollama_generate_json: return: 0
-[DEBUG] ollama_generate: result: 1859 bytes
+[DEBUG] ollama_generate: result: 2795 bytes
 <think>
-Okay, the user wants me to describe a rabbit in three words. Let me think about the key characteristics of a rabbit. They're known for their soft fur, so maybe "soft-furred" is a good start. Then, they have long ears, so "long-eared" could work. Lastly, rabbits are often associated with being gentle or timid, so "gentle" might fit. Let me check if these words are concise and capture the essence. Alternatively, maybe "nimble" instead of gentle? Wait, the user might want more specific traits. Let me make sure each word is distinct and accurate. Soft-furred, long-eared, gentle. Yeah, that seems to cover appearance and temperament. I think that's a solid answer.
-</think>
+Hmm, the user asked me to describe a rabbit in just three words. That's interesting because rabbits are complex creatures with lots of traits.
 
-Soft-furred, long-eared, gentle.
+I need to think about what makes a rabbit stand out most clearly and concisely to someone who might not know much about them. The query seems simple but could be an icebreaker or creative exercise, maybe testing if I can capture something universal.
+
+Rabbits have several defining characteristics: they're small, furry animals with long ears that are often associated with softness and speed. But in three words only, I need to pick the most iconic ones. "Small," "soft" and "fast" come to mind as a good balance - these cover size, texture and movement without being too specific.
+
+The user might be looking for something fun or relatable, perhaps wanting to spark imagination or get a quick mental image of a rabbit. It's possible they're curious about animals in general or just exploring creative constraints with me.
+
+I should choose words that are accessible and evocative - not technical terms like "herbivore" but everyday language that brings up vivid imagery for most people. This keeps the response inclusive and engaging, especially if it's meant to be playful.
+</think>
+Small, soft, fast
 [DEBUG] ollama_generate: return: 0
 ```

@@ -1,11 +1,11 @@
 # ollama_ps, ollama_ps_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.1
 
 `ollama_ps`
 ```
-NAME                                                      ID              SIZE      PROCESSOR          CONTEXT    UNTIL              
-hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L    bcbfe32e5762    8.3 GB    11%/89% CPU/GPU    4096       4 minutes from now    
+NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
+mistral:7b    6577803aa9a0    5.8 GB    100% GPU     4096       4 minutes from now    
 ```
 
 `ollama_ps_json | jq`
@@ -13,10 +13,10 @@ hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L    bcbfe32e5762    8.3 GB
 {
   "models": [
     {
-      "name": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L",
-      "model": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L",
-      "size": 8253194240,
-      "digest": "bcbfe32e5762e18863d4caa81f1e23b9b1691b29352582625ce9fcc4b26860dc",
+      "name": "mistral:7b",
+      "model": "mistral:7b",
+      "size": 5778720768,
+      "digest": "6577803aa9a036369e481d648a2baebb381ebc6e897f2bb9a766a2aa7bfbc1cf",
       "details": {
         "parent_model": "",
         "format": "gguf",
@@ -24,11 +24,11 @@ hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L    bcbfe32e5762    8.3 GB
         "families": [
           "llama"
         ],
-        "parameter_size": "8.02B",
-        "quantization_level": "unknown"
+        "parameter_size": "7.2B",
+        "quantization_level": "Q4_K_M"
       },
-      "expires_at": "2025-08-04T00:34:28.1304015+02:00",
-      "size_vram": 7332593664,
+      "expires_at": "2025-08-04T20:51:32.8694193+02:00",
+      "size_vram": 5778720768,
       "context_length": 4096
     }
   ]

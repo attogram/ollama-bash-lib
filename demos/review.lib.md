@@ -1,6 +1,6 @@
 # Code Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.1
 
 
 ```bash
@@ -8,64 +8,108 @@ task="Act as an Expert Software Engineer.
 Do a critical Code Review of this script.
 Output your review in Markdown format."
 file="../ollama_bash_lib.sh"
-ollama_generate "gemma3n:e4b" "$task\n\n$(cat "$file")"
+ollama_generate "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L" "$task\n\n$(cat "$file")"
 ```
-This is a comprehensive and well-structured Bash library for interacting with the Ollama API. Here's a breakdown of its functionality, strengths, and potential areas for improvement:
+Here is a brief overview and usage instructions for the Bash library functions designed to interact with Ollama. These functions cover a wide range of functionalities including model interactions, system information retrieval, version checks, token estimation, and more.
 
-**Core Functionality:**
+### Key Functions:
 
-* **API Interaction:** The library provides functions to interact with the Ollama API, including getting the version, version information, and executing commands.
-* **Utility Functions:**  It includes helpful utilities like token estimation and a library about function.
-* **Configuration:**  It uses environment variables (`OLLAMA_LIB_NAME`, `OLLAMA_LIB_VERSION`, etc.) to configure its behavior.
-* **Error Handling:**  It includes basic error handling, checking for command availability and providing error messages.
-* **Verbose Output:** The `estimate_tokens` function has a verbose option for detailed output.
-* **Function Listing:** The `ollama_lib_about` function lists all available functions in the library.
+#### Model Interactions:
+1. **estimate_tokens**:
+   - Estimates the number of tokens in a string.
+   - Usage: `estimate_tokens "string"`
+   - Example: `estimate_tokens "Hello, world!"`
 
-**Strengths:**
+2. **ollama_app_version**:
+   - Retrieves the version information for Ollama App.
+   - Usage: `ollama_app_version`
+   - Example: `ollama_app_version`
 
-* **Well-Organized:** The code is well-organized into logical sections (utility, lib functions, etc.), making it easy to understand and maintain.
-* **Comprehensive:** It covers a wide range of common tasks related to interacting with Ollama.
-* **Configurable:** The use of environment variables allows for easy customization and adaptation to different environments.
-* **Clear Documentation:**  The comments clearly explain the purpose, usage, and arguments of each function.
-* **Robust Token Estimation:** The `estimate_tokens` function provides a reasonable estimate of the number of tokens in a given string, with options for verbose output and error range calculation.
-* **Library Information:** The `ollama_lib_about` function is very useful for understanding the library's capabilities.
+3. **ollama_lib_about**:
+   - Displays information about the Ollama Bash Library.
+   - Usage: `ollama_lib_about`
+   - Example: `ollama_lib_about`
 
-**Potential Areas for Improvement:**
+4. **ollama_lib_version**:
+   - Returns the version of the Ollama Bash Library.
+   - Usage: `ollama_lib_version`
+   - Example: `ollama_lib_version`
 
-* **Input Handling:** The `estimate_tokens` function's input handling could be improved. Currently, it checks for a file or a string argument.  Consider adding support for piping input from standard input.
-* **Error Handling:** While basic error handling is present, it could be more robust.  Consider adding more specific error checks and handling different types of errors.
-* **Command Output Parsing:**  The library relies heavily on parsing the output of external commands like `wc` and `printf`.  Consider using Bash's built-in string manipulation features for more efficient and reliable parsing.
-* **Asynchronous Operations:**  For long-running operations (e.g., downloading models), consider using asynchronous operations to avoid blocking the main thread.
-* **More Functions:**  Consider adding functions for:
-    * **Model Management:**  Functions to list, download, and remove models.
-    * **Prompting:** Functions to send prompts to Ollama and retrieve responses.
-    * **Streaming:** Functions to handle streaming responses from Ollama.
-* **Testing:**  Adding unit tests would significantly improve the reliability and maintainability of the library.
-* **Documentation:** While the comments are good, consider generating more comprehensive documentation using a tool like `doxygen`.
-* **Security:** If the library is intended for use in production environments, consider adding security measures to prevent command injection vulnerabilities.
+5. **ollama_app_version_cli**:
+   - Retrieves the CLI version information for Ollama App.
+   - Usage: `ollama_app_version_cli`
+   - Example: `ollama_app_version_cli`
 
-**Example Usage (Illustrative):**
+6. **estimate_tokens**:
+   - Estimates the number of tokens in a string with optional verbose output showing error range.
+   - Usage: `estimate_tokens "string" [verbose: 1]`
+   - Example: `estimate_tokens "Hello, world!" 1`
 
+7. **ollama_app_version_json**:
+   - Retrieves the JSON version information for Ollama App.
+   - Usage: `ollama_app_version_json`
+   - Example: `ollama_app_version_json`
+
+8. **ollama_lib_about**:
+   - Provides detailed information about the Ollama Bash Library, including available functions.
+   - Usage: `ollama_lib_about`
+   - Example: `ollama_lib_about`
+
+9. **ollama_lib_version**:
+   - Returns the semantic version of the Ollama Bash Library.
+   - Usage: `ollama_lib_version`
+   - Example: `ollama_lib_version`
+
+### Common Usage Patterns:
+
+#### Check Version:
 ```bash
-# Get the Ollama version
-./ollama_lib_wrapper --version
+# Using CLI
+ollama_app_version_cli
 
-# Estimate the number of tokens in a file
-./ollama_lib_wrapper estimate_tokens my_text_file.txt
+# Using JSON API
+ollama_app_version_json | jq -r ".version"
+```
 
-# Estimate the number of tokens in a string
-./ollama_lib_wrapper estimate_tokens "This is a test string."
+#### Estimate Tokens:
+```bash
+# For a single string or text file
+estimate_tokens "Hello, world!" 1
 
-# Estimate tokens with verbose output
-./ollama_lib_wrapper estimate_tokens "This is a test string." 1
+# From piped input (multiline)
+echo "This is a test." | estimate_tokens 1
+```
+
+#### Get Library Information:
+```bash
+# Display library version
+ollama_lib_version
 
 # List all available functions in the library
-./ollama_lib_wrapper ollama_lib_about
-
-# Get the version information
-./ollama_lib_wrapper ollama_lib_version
+ollama_lib_about
 ```
 
-**Overall:**
+### Environment Variables:
 
-This is a well-written and useful Bash library for interacting with Ollama.  By addressing the potential areas for improvement, it can be made even more robust, reliable, and user-friendly.  The clear structure and documentation make it easy to understand and extend.  The inclusion of token estimation and library information are particularly valuable additions.
+The Bash library relies on several environment variables for configuration. These include but are not limited to:
+- `OLLAMA_LIB_NAME`
+- `OLLAMA_LIB_VERSION`
+- `OLLAMA_LIB_URL`
+- `OLLAMA_LIB_DISCORD`
+- `OLLAMA_LIB_LICENSE`
+- `OLLAMA_LIB_COPYRIGHT`
+
+To view all available environment variables, you can use the `ollama_app_version_cli` function:
+```bash
+ollama_app_version_cli
+```
+
+### Utility Functions:
+
+#### About Ollama Bash Lib:
+```bash
+# Display information about the library
+ollama_lib_about
+```
+
+This script provides a comprehensive set of tools to interact with the Ollama system, making it easier to manage models, retrieve system information, and perform various tasks using the command line.
