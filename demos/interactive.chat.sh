@@ -56,8 +56,8 @@ while true; do
   fi;
   echo
   ollama_messages_add 'user' "$prompt" # Add user prompt to history
-  #response=$(ollama_chat "$model" "$prompt") # Get response from model
-  response=$(OLLAMA_LIB_DEBUG=1 ollama_chat "$model" "$prompt") # Get response from model, in debug mode
+  response=$(ollama_chat "$model" "$prompt") # Get response from model
+  #response=$(OLLAMA_LIB_DEBUG=1 ollama_chat "$model" "$prompt") # Get response from model, in debug mode
   printf '%s\n' "$response"
   ollama_messages_add "assistant" "$response" # Add model response to history
 done
