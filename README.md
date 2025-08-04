@@ -33,7 +33,7 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 # Generate a completion
 % ollama_generate "mistral:7b" "Describe Bash in 3 words"
  Powerful, Flexible, Scripting.
- 
+
 # Tab completion to view all functions
 % ollama_<TAB>
 ollama_api_get               ollama_chat_stream_json      ollama_messages_add
