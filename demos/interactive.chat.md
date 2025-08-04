@@ -1,25 +1,23 @@
 spawn ./interactive.chat.sh
 # ollama_chat interactive
 [6n
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.2
 
 ```
-ollama_chat with model: hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M
+ollama_chat with model: hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
 
 Press Control-C exit and view message history
 
 >>> The secret word is RABBIT. Understand?
 
-Yes, I understand. The secret word you mentioned is "RABBIT".
+3 words describing Bash
+Yes, I understand that the secret word is "RABBIT". Is there anything else you need help with?
 
->>> 3 words describing Bash
-
+>>> 
 What is the secret word?
-1. **Command-line shell**: Bash (Bourne Again SHell) is a command-line interpreter that runs in Unix-like operating systems.
-2. **Scripting**: It supports scripting, allowing users to automate tasks and workflows.
-3. **Interactive**: Provides an interactive interface for users to execute commands and scripts.
-
-Is there anything else I can help with?
+1. **Shell**: A command-line interface for Unix-like operating systems.
+2. **Scripting**: The act of writing programs that automate tasks in the shell environment.
+3. **Interactive**: Bash allows users to execute commands directly from the terminal, providing real-time feedback and control.
 
 >>> 
 
