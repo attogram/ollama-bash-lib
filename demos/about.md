@@ -1,24 +1,24 @@
 # ollama_lib_about, ollama_lib_version
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.1
 
 ## Demo
 
 ```bash
 ollama_lib_version
 ```
-0.42.0
+0.42.1
 
 ```bash
 ollama_lib_about
 ```
 ```
-Ollama Bash Lib v0.42.0
+Ollama Bash Lib v0.42.1
 
 A Bash Library to interact with Ollama
 
 OLLAMA_LIB_NAME     : Ollama Bash Lib
-OLLAMA_LIB_VERSION  : 0.42.0
+OLLAMA_LIB_VERSION  : 0.42.1
 OLLAMA_LIB_URL      : https://github.com/attogram/ollama-bash-lib
 OLLAMA_LIB_DISCORD  : https://discord.gg/BGQJCbYVBa
 OLLAMA_LIB_LICENSE  : MIT
@@ -33,6 +33,11 @@ Functions:
 ollama_api_get
 ollama_api_ping
 ollama_api_post
+ollama_app_installed
+ollama_app_vars
+ollama_app_version
+ollama_app_version_cli
+ollama_app_version_json
 ollama_chat
 ollama_chat_json
 ollama_chat_stream
@@ -41,7 +46,6 @@ ollama_generate
 ollama_generate_json
 ollama_generate_stream
 ollama_generate_stream_json
-ollama_installed
 ollama_lib_about
 ollama_lib_version
 ollama_list
@@ -57,8 +61,4 @@ ollama_ps
 ollama_ps_json
 ollama_show
 ollama_show_json
-ollama_vars
-ollama_version
-ollama_version_cli
-ollama_version_json
 ```

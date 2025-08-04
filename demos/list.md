@@ -1,25 +1,25 @@
 # ollama_list, ollama_list_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.1
 
 ```
 ollama_list
 ```
 ```
-NAME                                                      ID              SIZE      MODIFIED    
-deepseek-r1:8b                                            6995872bfe4c    5.2 GB    13 days ago    
-dolphin3:8b                                               d5ab9ae8e1f2    4.9 GB    13 days ago    
-gemma3n:e2b                                               719372f8c7de    5.6 GB    6 hours ago    
-gemma3n:e4b                                               15cb39fd9394    7.5 GB    2 weeks ago    
-granite3.3:2b                                             07bd1f170855    1.5 GB    3 hours ago    
-granite3.3:8b                                             fd429f23b909    4.9 GB    3 hours ago    
-hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS    d6e3345a2af6    4.4 GB    6 hours ago    
-hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M    33f561b5281e    5.7 GB    7 hours ago    
-hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L    bcbfe32e5762    6.8 GB    7 hours ago    
-mistral:7b                                                6577803aa9a0    4.4 GB    3 hours ago    
-qwen2.5vl:7b                                              5ced39dfa4ba    6.0 GB    13 days ago    
-qwen3:8b                                                  500a1f067a9f    5.2 GB    2 weeks ago    
-smollm2:1.7b                                              cef4a1e09247    1.8 GB    3 hours ago    
+NAME                                                      ID              SIZE      MODIFIED     
+deepseek-r1:8b                                            6995872bfe4c    5.2 GB    13 days ago     
+dolphin3:8b                                               d5ab9ae8e1f2    4.9 GB    13 days ago     
+gemma3n:e2b                                               719372f8c7de    5.6 GB    26 hours ago    
+gemma3n:e4b                                               15cb39fd9394    7.5 GB    2 weeks ago     
+granite3.3:2b                                             07bd1f170855    1.5 GB    23 hours ago    
+granite3.3:8b                                             fd429f23b909    4.9 GB    23 hours ago    
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS    d6e3345a2af6    4.4 GB    26 hours ago    
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M    33f561b5281e    5.7 GB    27 hours ago    
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L    bcbfe32e5762    6.8 GB    28 hours ago    
+mistral:7b                                                6577803aa9a0    4.4 GB    23 hours ago    
+qwen2.5vl:7b                                              5ced39dfa4ba    6.0 GB    13 days ago     
+qwen3:8b                                                  500a1f067a9f    5.2 GB    2 weeks ago     
+smollm2:1.7b                                              cef4a1e09247    1.8 GB    23 hours ago    
 ```
 
 ```
