@@ -47,9 +47,6 @@ ollama_app_version_json      ollama_list                  ollama_show
 ollama_chat                  ollama_list_array            ollama_show_json
 ollama_chat_json             ollama_list_json
 ollama_chat_stream           ollama_messages
-
-# Run demos and output results to *.md files
-% ./demos/run.demos.sh
 ```
 
 ## Usage
