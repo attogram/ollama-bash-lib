@@ -30,11 +30,13 @@ demo() {
   printf '%s\n' "printf '%s\n' \"\$response\""
   echo "ollama_messages_add 'assistant' \"\$response\""
   echo '```'
+  if [ "$OLLAMA_LIB_DEBUG" -gt 0 ]; then echo '```'; fi
   ollama_messages_add "system" "You are a helpful assistant"
   ollama_messages_add "user" "The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"
   response="$(ollama_chat "$model")"
   printf '%s\n' "$response"
   ollama_messages_add 'assistant' "$response"
+  if [ "$OLLAMA_LIB_DEBUG" -gt 0 ]; then echo '```'; fi
   echo
 
   echo '```bash'
@@ -43,10 +45,12 @@ demo() {
   printf '%s\n' "printf '%s\n' \"\$response\""
   echo "ollama_messages_add 'assistant' \"\$response\""
   echo '```'
+  if [ "$OLLAMA_LIB_DEBUG" -gt 0 ]; then echo '```'; fi
   ollama_messages_add "user" "What is the secret word??"
   response="$(ollama_chat "$model")"
   printf '%s\n' "$response"
   ollama_messages_add 'assistant' "$response"
+  if [ "$OLLAMA_LIB_DEBUG" -gt 0 ]; then echo '```'; fi
   echo
 
   echo '```bash'

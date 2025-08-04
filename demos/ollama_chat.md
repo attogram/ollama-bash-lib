@@ -7,19 +7,19 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-response="$(ollama_chat "qwen2.5vl:7b")"
+response="$(ollama_chat "smollm2:1.7b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
-Understood. The secret word is RABBIT.
+Yes, I understand. If you want me to use the secret word "RABBIT," please let me know by saying so.
 
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-response="$(ollama_chat "qwen2.5vl:7b")"
+response="$(ollama_chat "smollm2:1.7b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
-The secret word is RABBIT.
+The secret word is "RABBIT". Please remember to say it if you need assistance.
 
 ```bash
 ollama_messages | jq
@@ -35,7 +35,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "Understood. The secret word is RABBIT."
+  "content": "Yes, I understand. If you want me to use the secret word \"RABBIT,\" please let me know by saying so."
 }
 {
   "role": "user",
@@ -43,7 +43,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "The secret word is RABBIT."
+  "content": "The secret word is \"RABBIT\". Please remember to say it if you need assistance."
 }
 ```
 
@@ -53,16 +53,17 @@ ollama_messages | jq
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-response="$(ollama_chat "qwen2.5vl:7b")"
+response="$(ollama_chat "smollm2:1.7b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
-[DEBUG] 00:49:41:095931100: ollama_messages_add: [system] [You are a helpful assistant]
-[DEBUG] 00:49:41:118763000: ollama_messages_add: [user] [The secret word is RABBIT. If I ask you fo]
-[DEBUG] 00:49:41:149131000: ollama_chat: [qwen2.5vl:7b]
-[DEBUG] 00:49:41:167881600: ollama_chat_json: [qwen2.5vl:7b]
-[DEBUG] 00:49:41:210582800: ollama_chat_json: json_payload: {
-  "model": "qwen2.5vl:7b",
+```
+[DEBUG] 00:53:47:587309200: ollama_messages_add: [system] [You are a helpful assistant]
+[DEBUG] 00:53:47:610501700: ollama_messages_add: [user] [The secret word is RABBIT. If I ask you fo]
+[DEBUG] 00:53:47:640423900: ollama_chat: [smollm2:1.7b]
+[DEBUG] 00:53:47:658060500: ollama_chat_json: [smollm2:1.7b]
+[DEBUG] 00:53:47:685420100: ollama_chat_json: json_payload: {
+  "model": "smollm2:1.7b",
   "messages": [
     {
       "role": "system",
@@ -75,27 +76,29 @@ ollama_messages_add 'assistant' "$response"
   ],
   "stream": false
 }
-[DEBUG] 00:49:41:227989600: ollama_api_post: [/api/chat] [{
-  "model": "qwen2.5vl:7b",
+[DEBUG] 00:53:47:701060000: ollama_api_post: [/api/chat] [{
+  "model": "smollm2:1.7b",
   "messages":]
-[DEBUG] 00:49:42:334487500: ollama_api_post: return 0
-[DEBUG] 00:49:54:865666700: ollama_chat_json: content: [Understood. The secret word is RABBIT.]
-[DEBUG] 00:49:54:879006500: ollama_chat_json: return 0
-[DEBUG] 00:50:06:403160700: ollama_chat: return: 0
-Understood. The secret word is RABBIT.
-[DEBUG] 00:50:06:415043200: ollama_messages_add: [assistant] [Understood. The secret word is RABBIT.]
+[DEBUG] 00:53:48:427821800: ollama_api_post: return 0
+[DEBUG] 00:54:01:387890400: ollama_chat_json: content: [Yes, I understand that if asked about the ]
+[DEBUG] 00:54:01:399046800: ollama_chat_json: return 0
+[DEBUG] 00:54:14:286665500: ollama_chat: return: 0
+Yes, I understand that if asked about the secret word, I should respond with RABBIT.
+[DEBUG] 00:54:14:299626700: ollama_messages_add: [assistant] [Yes, I understand that if asked about the ]
+```
 
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-response="$(ollama_chat "qwen2.5vl:7b")"
+response="$(ollama_chat "smollm2:1.7b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
-[DEBUG] 00:50:06:440362700: ollama_messages_add: [user] [What is the secret word??]
-[DEBUG] 00:50:06:470868000: ollama_chat: [qwen2.5vl:7b]
-[DEBUG] 00:50:06:487612800: ollama_chat_json: [qwen2.5vl:7b]
-[DEBUG] 00:50:06:516352900: ollama_chat_json: json_payload: {
-  "model": "qwen2.5vl:7b",
+```
+[DEBUG] 00:54:14:322544700: ollama_messages_add: [user] [What is the secret word??]
+[DEBUG] 00:54:14:351537500: ollama_chat: [smollm2:1.7b]
+[DEBUG] 00:54:14:368210200: ollama_chat_json: [smollm2:1.7b]
+[DEBUG] 00:54:14:395652300: ollama_chat_json: json_payload: {
+  "model": "smollm2:1.7b",
   "messages": [
     {
       "role": "system",
@@ -107,7 +110,7 @@ ollama_messages_add 'assistant' "$response"
     },
     {
       "role": "assistant",
-      "content": "Understood. The secret word is RABBIT."
+      "content": "Yes, I understand that if asked about the secret word, I should respond with RABBIT."
     },
     {
       "role": "user",
@@ -116,21 +119,22 @@ ollama_messages_add 'assistant' "$response"
   ],
   "stream": false
 }
-[DEBUG] 00:50:06:535183100: ollama_api_post: [/api/chat] [{
-  "model": "qwen2.5vl:7b",
+[DEBUG] 00:54:14:411556400: ollama_api_post: [/api/chat] [{
+  "model": "smollm2:1.7b",
   "messages":]
-[DEBUG] 00:50:07:357366800: ollama_api_post: return 0
-[DEBUG] 00:50:18:538296600: ollama_chat_json: content: [The secret word is RABBIT.]
-[DEBUG] 00:50:18:551841300: ollama_chat_json: return 0
-[DEBUG] 00:50:29:480747900: ollama_chat: return: 0
+[DEBUG] 00:54:15:109751700: ollama_api_post: return 0
+[DEBUG] 00:54:25:679896100: ollama_chat_json: content: [The secret word is RABBIT.]
+[DEBUG] 00:54:25:692629100: ollama_chat_json: return 0
+[DEBUG] 00:54:36:488675500: ollama_chat: return: 0
 The secret word is RABBIT.
-[DEBUG] 00:50:29:493790400: ollama_messages_add: [assistant] [The secret word is RABBIT.]
+[DEBUG] 00:54:36:501988200: ollama_messages_add: [assistant] [The secret word is RABBIT.]
+```
 
 ```bash
 ollama_messages | jq
 ```
 ```json
-[DEBUG] 00:50:29:523477000: ollama_messages
+[DEBUG] 00:54:36:530770200: ollama_messages
 {
   "role": "system",
   "content": "You are a helpful assistant"
@@ -141,7 +145,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "Understood. The secret word is RABBIT."
+  "content": "Yes, I understand that if asked about the secret word, I should respond with RABBIT."
 }
 {
   "role": "user",
