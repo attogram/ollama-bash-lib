@@ -14,28 +14,41 @@ startup() {
 
 startup
 
-model=$(ollama_model_random)
+# enter model as 1st arg, or use random model by default
+model="$1"
+if [ -z "$model" ]; then
+  model="$(ollama_model_random)"
+fi
 
 demo() {
+
   echo '```bash'
   if [ "$OLLAMA_LIB_DEBUG" -gt 0 ]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
   echo 'ollama_messages_add "system" "You are a helpful assistant"'
   echo 'ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"'
-  echo "ollama_chat \"$model\""
-  echo '```'
+  echo "response=\"\$(ollama_chat \"$model\")\""
+  printf '%s\n' "printf '%s\n' \"\$response\""
+  echo "ollama_messages_add 'assistant' \"\$response\""
   echo '```'
   ollama_messages_add "system" "You are a helpful assistant"
   ollama_messages_add "user" "The secret word is RABBIT. If I ask you for the secret word, respond with RABBIT. Understand?"
-  ollama_chat "$model"
-  echo '```'
+  response="$(ollama_chat "$model")"
+  printf '%s\n' "$response"
+  ollama_messages_add 'assistant' "$response"
+  echo
+
   echo '```bash'
   echo 'ollama_messages_add "user" "What is the secret word??"'
-  echo "ollama_chat \"$model\""
-  echo '```'
+  echo "response=\"\$(ollama_chat \"$model\")\""
+  printf '%s\n' "printf '%s\n' \"\$response\""
+  echo "ollama_messages_add 'assistant' \"\$response\""
   echo '```'
   ollama_messages_add "user" "What is the secret word??"
-  ollama_chat "$model"
-  echo '```'
+  response="$(ollama_chat "$model")"
+  printf '%s\n' "$response"
+  ollama_messages_add 'assistant' "$response"
+  echo
+
   echo '```bash'
   echo 'ollama_messages | jq'
   echo '```'

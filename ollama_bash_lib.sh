@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.3"
+OLLAMA_LIB_VERSION="0.42.4"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -30,7 +30,7 @@ set -o pipefail
 # Returns: 0 on success, 1 on error
 debug() {
   if [ "$OLLAMA_LIB_DEBUG" -eq "1" ]; then
-    printf "[DEBUG] %s\n" "$1" >&2
+    printf "[DEBUG] $(date '+%H:%M:%S:%N'): %s\n" "$1" >&2
   fi
 }
 
@@ -315,7 +315,7 @@ ollama_messages_count() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
-  debug "ollama_chat_json: [$1]"
+  debug "ollama_chat_json: [${1:0:42}]"
   local model="$1"
   if [ -z "$model" ]; then
     error 'ollama_chat_json: Model Not Found. Usage: ollama_chat_json "model"'
@@ -327,8 +327,8 @@ ollama_chat_json() {
     stream_bool=false
   fi
 
-  local messages_array_json
   # Join array elements with comma and wrap in []
+  local messages_array_json
   messages_array_json=$(printf ",%s" "${OLLAMA_LIB_MESSAGES[@]}")
   messages_array_json="[${messages_array_json:1}]" # Remove leading comma
 
@@ -339,6 +339,8 @@ ollama_chat_json() {
       --argjson stream "$stream_bool" \
       '{model: $model, messages: $messages, stream: $stream}')
 
+  debug "ollama_chat_json: json_payload: $json_payload"
+
   local result
   if ! result=$(ollama_api_post '/api/chat' "$json_payload"); then
     error "ollama_chat_json: ollama_api_post failed"
@@ -347,14 +349,14 @@ ollama_chat_json() {
 
   content=$(json_sanitize "$result" | jq -r ".message.content")
   local error_jq_message_content=$?
-  debug "ollama_chat_json: content: [$content]"
+  debug "ollama_chat_json: content: [${content:0:42}]"
   if [ "$error_jq_message_content" -gt 0 ]; then
     error "ollama_chat_json: error_jq_message_content: $error_jq_message_content"
     return $RETURN_ERROR
   fi
-  ollama_messages_add "assistant" "$content"
-  debug "ollama_chat_json: added response from assistant to messages"
+
   echo "$result"
+  debug "ollama_chat_json: return 0"
 }
 
 # Chat completion request as text
@@ -365,22 +367,29 @@ ollama_chat_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat() {
-  debug "ollama_chat: [$1]"
+  debug "ollama_chat: [${1:0:42}]"
   local model="$1"
   if [ -z "$model" ]; then
-    error "ollama_chat: Model Not Found. Usage: ollama_chat \"model\""
+    error 'ollama_chat: Model Not Found. Usage: ollama_chat "model"'
     return $RETURN_ERROR
   fi
   OLLAMA_LIB_STREAM=0
-  local content
-  content=$(json_sanitize "$(ollama_chat_json "$model")" | jq -r ".message.content")
-  local error_jq_message_content=$?
-  debug "ollama_chat: content: $content"
-  if [ "$error_jq_message_content" -gt 0 ]; then
-    error "ollama_chat: error_jq_message_content: $error_jq_message_content"
+
+  local response
+  if ! response=$(ollama_chat_json "$model"); then
+    error 'ollama_chat: ollama_chat_json failed'
     return $RETURN_ERROR
   fi
-  printf '%s\n' "$content"
+
+  local message_content
+  if ! message_content=$(json_sanitize "$response" | jq -r ".message.content"); then
+    error 'ollama_chat: json_sanitize|jq failed'
+    return $RETURN_ERROR
+  fi
+
+  printf '%s\n' "$message_content"
+
+  debug 'ollama_chat: return: 0'
   return $RETURN_SUCCESS
 }
 
