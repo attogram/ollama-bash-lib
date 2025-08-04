@@ -95,8 +95,8 @@ See the **[demos](demos)** directory for all demo scripts
 | [ollama_app_vars.md](demos/ollama_app_vars.md)                         | `ollama_app_vars` - Ollama environmental variables                                                              | [ollama_app_vars.sh](demos/ollama_app_vars.sh)                         |
 | [token.estimate.md](demos/token.estimate.md)                           | Estimated token count                                                                                           | [token.estimate.sh](demos/token.estimate.sh)                           |
 | [json_sanitize.md](demos/json_sanitize.md)                             | Sanitize string for jq use                                                                                      | [json_sanitize.sh](demos/json_sanitize.sh)                             |
-| [interactive.chat.md](demos/interactive.chat.md)                       | Interactive session via Chat completion, with message history                                                   | [interactive.chat.sh](demos/interactive.chat.sh)                       |
-| [interactive.generate.md](demos/interactive.generate.md)               | Interactive session via Generate completion, no history                                                         | [interactive.generate.sh](demos/interactive.generate.sh)               |
+| <!-- [interactive.chat.md](demos/interactive.chat.md) -->              | Interactive session via Chat completion, with message history                                                   | [interactive.chat.sh](demos/interactive.chat.sh)                       |
+| <!-- [interactive.generate.md](demos/interactive.generate.md) -->      | Interactive session via Generate completion, no history                                                         | [interactive.generate.sh](demos/interactive.generate.sh)               |
 
 ## Functions
 
