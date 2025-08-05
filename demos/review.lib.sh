@@ -19,7 +19,7 @@ model="$(ollama_model_random)"
 demo() {
 
   task="Act as an Expert Software Engineer.
-Do a critical Code Review of this script.
+Do a Code Review of this script.
 Output your review in Markdown format."
 
   file="../ollama_bash_lib.sh"
@@ -28,6 +28,7 @@ Output your review in Markdown format."
   echo '```bash'
   echo "task=\"$task\""
   echo "file=\"$file\""
+  # shellcheck disable=SC2028
   echo "ollama_generate \"$model\" \"\$task\\n\\n\$(cat \"\$file\")\""
   echo '```'
 

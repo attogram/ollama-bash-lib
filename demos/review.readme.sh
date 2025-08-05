@@ -18,8 +18,8 @@ model="$(ollama_model_random)"
 
 demo() {
 
-  task="Act as a Marketing Expert.
-Do a critical Review of this github project README.md file.
+  task="Act as a Technical Marketing Expert.
+Do a Marketing Review of this github project README.md file.
 Output your review in Markdown format."
 
   file="../README.md"
@@ -28,6 +28,7 @@ Output your review in Markdown format."
   echo '```bash'
   echo "task=\"$task\""
   echo "file=\"$file\""
+  # shellcheck disable=SC2028
   echo "ollama_generate \"$model\" \"\$task\\n\\n\$(cat \"\$file\")\""
   echo '```'
 
