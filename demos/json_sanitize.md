@@ -1,6 +1,6 @@
 # json_sanitize
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.4
 
 Usage: json_sanitize "{ json object }"
 

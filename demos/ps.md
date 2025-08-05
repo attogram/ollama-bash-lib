@@ -1,11 +1,11 @@
 # ollama_ps, ollama_ps_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.4
 
 `ollama_ps`
 ```
 NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-mistral:7b    6577803aa9a0    5.8 GB    100% GPU     4096       4 minutes from now    
+mistral:7b    f974a74358d6    5.6 GB    100% GPU     4096       4 minutes from now    
 ```
 
 `ollama_ps_json | jq`
@@ -15,8 +15,8 @@ mistral:7b    6577803aa9a0    5.8 GB    100% GPU     4096       4 minutes from n
     {
       "name": "mistral:7b",
       "model": "mistral:7b",
-      "size": 5778720768,
-      "digest": "6577803aa9a036369e481d648a2baebb381ebc6e897f2bb9a766a2aa7bfbc1cf",
+      "size": 5560649728,
+      "digest": "f974a74358d62a017b37c6f424fcdf2744ca02926c4f952513ddf474b2fa5091",
       "details": {
         "parent_model": "",
         "format": "gguf",
@@ -25,10 +25,10 @@ mistral:7b    6577803aa9a0    5.8 GB    100% GPU     4096       4 minutes from n
           "llama"
         ],
         "parameter_size": "7.2B",
-        "quantization_level": "Q4_K_M"
+        "quantization_level": "Q4_0"
       },
-      "expires_at": "2025-08-04T20:51:32.8694193+02:00",
-      "size_vram": 5778720768,
+      "expires_at": "2025-08-05T13:35:25.892481+02:00",
+      "size_vram": 5560649728,
       "context_length": 4096
     }
   ]

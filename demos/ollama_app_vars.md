@@ -1,6 +1,6 @@
 # ollama_app_vars
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.3
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.4
 
 ```
 OLLAMA_AUTH             : 	# Enables authentication between the Ollama client and server
@@ -14,7 +14,7 @@ OLLAMA_KEEP_ALIVE       : 	# The duration that models stay loaded in memory (def
 OLLAMA_KV_CACHE_TYPE    : 	# Quantization type for the K/V cache (default: f16)
 OLLAMA_LLM_LIBRARY      : 	# Set LLM library to bypass autodetection
 OLLAMA_LOAD_TIMEOUT     : 	# How long to allow model loads to stall before giving up (default "5m")
-OLLAMA_MAX_LOADED_MODELS: 1	# Maximum number of loaded models per GPU
+OLLAMA_MAX_LOADED_MODELS: 	# Maximum number of loaded models per GPU
 OLLAMA_MAX_QUEUE        : 	# Maximum number of queued requests
 OLLAMA_MAX_VRAM         : 	
 OLLAMA_MODELS           : 	# The path to the models directory
@@ -37,5 +37,5 @@ HTTP_PROXY              :
 JETSON_JETPACK          : 	
 LD_LIBRARY_PATHS        : 	
 ROCR_VISIBLE_DEVICES    : 	# Set which AMD devices are visible by UUID or numeric ID
-TERM                    : xterm	
+TERM                    : xterm-256color	
 ```
