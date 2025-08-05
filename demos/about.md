@@ -24,7 +24,7 @@ OLLAMA_LIB_DISCORD  : https://discord.gg/BGQJCbYVBa
 OLLAMA_LIB_LICENSE  : MIT
 OLLAMA_LIB_COPYRIGHT: Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>
 OLLAMA_LIB_DEBUG    : 0
-OLLAMA_LIB_API      : http://localhost:11434
+OLLAMA_LIB_API      : ollama.com
 OLLAMA_LIB_STREAM   : 0
 OLLAMA_LIB_MESSAGES : 0
 

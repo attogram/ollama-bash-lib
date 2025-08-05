@@ -1,4 +1,6 @@
 # ollama_model_random
+[ERROR] ollama_api_ping: unknown result: []
+ERROR: Ollama API not reachable
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.7
 
@@ -9,8 +11,8 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-granite3.3:8b
-smollm2:1.7b
+gpt-oss:120b
+gpt-oss:20b
 ```
 
 ## Demo Debug
@@ -21,14 +23,14 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-[DEBUG] 21:05:32:638143500: ollama_model_random
-[DEBUG] 21:05:32:655053400: ollama_list_array
-[DEBUG] 21:05:32:776462000: ollama_list_array: 13 models found: return 0
-[DEBUG] 21:05:32:788950900: ollama_model_random: 13 models found
-dolphin3:8b
-[DEBUG] 21:05:32:828365700: ollama_model_random
-[DEBUG] 21:05:32:845672700: ollama_list_array
-[DEBUG] 21:05:32:961580400: ollama_list_array: 13 models found: return 0
-[DEBUG] 21:05:32:973844700: ollama_model_random: 13 models found
-mistral:7b
+[DEBUG] 23:18:49:321942900: ollama_model_random
+[DEBUG] 23:18:49:339088600: ollama_list_array
+[DEBUG] 23:18:50:246316300: ollama_list_array: 2 models found: return 0
+[DEBUG] 23:18:50:276961200: ollama_model_random: 2 models found
+gpt-oss:20b
+[DEBUG] 23:18:50:329152800: ollama_model_random
+[DEBUG] 23:18:50:346464600: ollama_list_array
+[DEBUG] 23:18:51:147557900: ollama_list_array: 2 models found: return 0
+[DEBUG] 23:18:51:163654900: ollama_model_random: 2 models found
+gpt-oss:20b
 ```
