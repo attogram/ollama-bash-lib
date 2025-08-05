@@ -1,2680 +1,3139 @@
 # ollama_show, ollama_show_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.4
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.7
 
-ollama_show "minicpm-v:8b"
+ollama_show "qwen3:8b"
 
 ```
   Model
-    architecture        qwen2    
-    parameters          7.6B     
-    context length      32768    
-    embedding length    3584     
-    quantization        Q4_0     
+    architecture        qwen3     
+    parameters          8.2B      
+    context length      40960     
+    embedding length    4096      
+    quantization        Q4_K_M    
 
   Capabilities
     completion    
-    vision        
-
-  Projector
-    architecture        clip       
-    parameters          503.97M    
-    embedding length    1152       
-    dimensions          0          
+    tools         
+    thinking      
 
   Parameters
-    stop    "<|im_start|>"    
-    stop    "<|im_end|>"      
+    repeat_penalty    1                 
+    stop              "<|im_start|>"    
+    stop              "<|im_end|>"      
+    temperature       0.6               
+    top_k             20                
+    top_p             0.95              
 
   License
-    Version 1.0, June 5, 2024               
-    © 2024 OpenBMB. All rights reserved.    
-    ...                                     
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
 
 ```
 
 
-ollama_show_json "minicpm-v:8b"
+ollama_show_json "qwen3:8b"
 
 ```
 {
-  "license": "Version 1.0, June 5, 2024\n© 2024 OpenBMB. All rights reserved.\n\n## Part One: Preamble\n\nWe are opening the entire series of the globally leading MiniCPM edge-side large language models, including the flagship edge-side models MiniCPM-2.4B and MiniCPM-1.2B, as well as the world's most powerful edge multimodal models MiniCPM-V series. The aforementioned weights are completely open for all academic research. Commercial use is also allowed after filling out a registration questionnaire. Community use of the MiniCPM series models must comply with Apache 2.0 and the \"MiniCPM Model Community License Agreement.\"\nTherefore, you and the MiniCPM development team agree to the following \"MiniCPM Model Community License Agreement\":\n\n## Part Two: Licensing and Redistributio\n\n####  1. Grant of Rights\nYou are granted a non-exclusive, worldwide, non-transferable, royalty-free, limited license to use, copy, distribute, reproduce, create derivative works from, and modify MiniCPM materials in accordance with OpenBMB's intellectual property rights or other rights in the MiniCPM materials.\n####  2. Distribution and Redistribution\n- If you distribute or provide MiniCPM series model materials (or any derivative works thereof), or use any product or service of them, you must (A) provide a copy of this agreement; and (B) prominently display \"Built with 面壁MiniCPM\" on the relevant website, user interface, blog post, about page, or product documentation. If you create, train, fine-tune, or improve an AI model using the MiniCPM series models, the model must include \"MiniCPM\" in its name.\n- You must retain the following attribution statement in all distributed MiniCPM-related materials: \"MiniCPM is licensed under the MiniCPM Model Community License, © OpenBMB Platforms, Inc. All rights reserved.\"\n- Your use of MiniCPM materials must comply with applicable laws and regulations and the \"MiniCPM Model Community License Agreement,\" which is incorporated into this agreement by reference.\n- You may not use MiniCPM series models or their outputs and results to improve any other large language models (other than MiniCPM or its derivatives).\n####  3. Additional Commercial Terms\nIf you or your affiliates' services or products deploy the model on edge-side devices not exceeding 5,000 units, or provide applications with a daily active user count (DAU) of less than 1 million, you can apply to OpenBMB for permission and, after filling out the registration questionnaire, may be allowed to use it commercially for free. Otherwise, please email (cpm@modelbest.cn) to apply for authorization from OpenBMB, which may, at its discretion, grant permission, and you will not have the right to exercise any rights under this agreement.\n####  4. Usage-based Restrictions\nThe restrictions set forth in Appendix A are considered usage-based restrictions. Therefore, you may not use the model or its derivatives for designated restricted uses. You may use the model under this license, including only for lawful purposes and in compliance with the terms of the license. Usage includes creating any content, fine-tuning, updating, running, training, evaluating, and/or re-parameterizing the model. You should require all users of the model or its derivatives to comply with the terms of this section.\n\n## Part Three: Other Terms\n####  5. Trademarks and Related\nThis license does not grant you the right to use OpenBMB, OpenBMB Intelligence, MiniCPM trademarks, trade names, logos, or otherwise imply a relationship between the parties; any rights not expressly granted herein are reserved by OpenBMB.\n####  6. Disclaimer\nUnless required by applicable law or agreed to in writing, OpenBMB provides the model and supplemental materials \"as is,\" without any warranty or condition, express or implied, including but not limited to all express and implied warranties or conditions of title, non-infringement, merchantability, or fitness for a particular purpose. You are solely responsible for determining the appropriateness of using or redistributing the model, its derivatives, and supplemental materials, and assume any risks associated with exercising the permissions under this license.\n\n## Appendix A: Usage Restrictions\nYou agree not to use the model or its derivatives for:\n- Any use that violates applicable national or international laws or regulations or infringes upon the legal rights and interests of any third party;\n- Any military purposes;\n- Exploiting, harming, or attempting to exploit or harm minors in any way;\n- Generating or disseminating verifiable false information and/or content with the intent to harm others;\n- Generating or disseminating inappropriate content that must comply with applicable regulatory requirements;\n- Unauthorized generation or dissemination of personally identifiable information, or unreasonable use thereof;\n- Defamation, demeaning, or otherwise harassing others;\n- Fully automated decision-making that adversely affects individuals' legal rights or creates or modifies binding, enforceable obligations;\n- Any use intended to or having the effect of discriminating or harming individuals or groups based on online or offline social behaviors or known or predicted personal characteristics;\n- Exploiting the vulnerabilities of specific groups due to their age, social, physical, or psychological characteristics, in a manner that materially distorts the behavior of group members, leading to or likely leading to physical or psychological harm to the person or others;\n- Any use intended to or having the effect of discriminating against individuals or groups based on legally protected characteristics or categories.\n",
-  "modelfile": "# Modelfile generated by \"ollama show\"\n# To build a new Modelfile based on this, replace FROM with:\n# FROM minicpm-v:8b\n\nFROM /Users/davidbarberi/.ollama/models/blobs/sha256-262843d4806aeb402336980badd414a72576b20b1e5d537647da15f16c4a4df0\nFROM /Users/davidbarberi/.ollama/models/blobs/sha256-f8a805e9e62085805c69c427287acefc284932eb4abfe6e1b1ce431d27e2f4e0\nTEMPLATE \"\"\"{{- if .Messages }}\n{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1 -}}\n<|im_start|>{{ .Role }}\n{{ .Content }}\n{{- if $last }}\n{{- if (ne .Role \"assistant\") }}<|im_end|>\n<|im_start|>assistant\n{{ end }}\n{{- else }}<|im_end|>\n{{ end }}\n{{- end }}\n{{- else }}\n{{- if .System }}<|im_start|>system\n{{ .System }}<|im_end|>\n{{ end }}{{ if .Prompt }}<|im_start|>user\n{{ .Prompt }}<|im_end|>\n{{ end }}<|im_start|>assistant\n{{ end }}{{ .Response }}{{ if .Response }}<|im_end|>{{ end }}\"\"\"\nPARAMETER stop <|im_start|>\nPARAMETER stop <|im_end|>\nLICENSE \"\"\"Version 1.0, June 5, 2024\n© 2024 OpenBMB. All rights reserved.\n\n## Part One: Preamble\n\nWe are opening the entire series of the globally leading MiniCPM edge-side large language models, including the flagship edge-side models MiniCPM-2.4B and MiniCPM-1.2B, as well as the world's most powerful edge multimodal models MiniCPM-V series. The aforementioned weights are completely open for all academic research. Commercial use is also allowed after filling out a registration questionnaire. Community use of the MiniCPM series models must comply with Apache 2.0 and the \"MiniCPM Model Community License Agreement.\"\nTherefore, you and the MiniCPM development team agree to the following \"MiniCPM Model Community License Agreement\":\n\n## Part Two: Licensing and Redistributio\n\n####  1. Grant of Rights\nYou are granted a non-exclusive, worldwide, non-transferable, royalty-free, limited license to use, copy, distribute, reproduce, create derivative works from, and modify MiniCPM materials in accordance with OpenBMB's intellectual property rights or other rights in the MiniCPM materials.\n####  2. Distribution and Redistribution\n- If you distribute or provide MiniCPM series model materials (or any derivative works thereof), or use any product or service of them, you must (A) provide a copy of this agreement; and (B) prominently display \"Built with 面壁MiniCPM\" on the relevant website, user interface, blog post, about page, or product documentation. If you create, train, fine-tune, or improve an AI model using the MiniCPM series models, the model must include \"MiniCPM\" in its name.\n- You must retain the following attribution statement in all distributed MiniCPM-related materials: \"MiniCPM is licensed under the MiniCPM Model Community License, © OpenBMB Platforms, Inc. All rights reserved.\"\n- Your use of MiniCPM materials must comply with applicable laws and regulations and the \"MiniCPM Model Community License Agreement,\" which is incorporated into this agreement by reference.\n- You may not use MiniCPM series models or their outputs and results to improve any other large language models (other than MiniCPM or its derivatives).\n####  3. Additional Commercial Terms\nIf you or your affiliates' services or products deploy the model on edge-side devices not exceeding 5,000 units, or provide applications with a daily active user count (DAU) of less than 1 million, you can apply to OpenBMB for permission and, after filling out the registration questionnaire, may be allowed to use it commercially for free. Otherwise, please email (cpm@modelbest.cn) to apply for authorization from OpenBMB, which may, at its discretion, grant permission, and you will not have the right to exercise any rights under this agreement.\n####  4. Usage-based Restrictions\nThe restrictions set forth in Appendix A are considered usage-based restrictions. Therefore, you may not use the model or its derivatives for designated restricted uses. You may use the model under this license, including only for lawful purposes and in compliance with the terms of the license. Usage includes creating any content, fine-tuning, updating, running, training, evaluating, and/or re-parameterizing the model. You should require all users of the model or its derivatives to comply with the terms of this section.\n\n## Part Three: Other Terms\n####  5. Trademarks and Related\nThis license does not grant you the right to use OpenBMB, OpenBMB Intelligence, MiniCPM trademarks, trade names, logos, or otherwise imply a relationship between the parties; any rights not expressly granted herein are reserved by OpenBMB.\n####  6. Disclaimer\nUnless required by applicable law or agreed to in writing, OpenBMB provides the model and supplemental materials \"as is,\" without any warranty or condition, express or implied, including but not limited to all express and implied warranties or conditions of title, non-infringement, merchantability, or fitness for a particular purpose. You are solely responsible for determining the appropriateness of using or redistributing the model, its derivatives, and supplemental materials, and assume any risks associated with exercising the permissions under this license.\n\n## Appendix A: Usage Restrictions\nYou agree not to use the model or its derivatives for:\n- Any use that violates applicable national or international laws or regulations or infringes upon the legal rights and interests of any third party;\n- Any military purposes;\n- Exploiting, harming, or attempting to exploit or harm minors in any way;\n- Generating or disseminating verifiable false information and/or content with the intent to harm others;\n- Generating or disseminating inappropriate content that must comply with applicable regulatory requirements;\n- Unauthorized generation or dissemination of personally identifiable information, or unreasonable use thereof;\n- Defamation, demeaning, or otherwise harassing others;\n- Fully automated decision-making that adversely affects individuals' legal rights or creates or modifies binding, enforceable obligations;\n- Any use intended to or having the effect of discriminating or harming individuals or groups based on online or offline social behaviors or known or predicted personal characteristics;\n- Exploiting the vulnerabilities of specific groups due to their age, social, physical, or psychological characteristics, in a manner that materially distorts the behavior of group members, leading to or likely leading to physical or psychological harm to the person or others;\n- Any use intended to or having the effect of discriminating against individuals or groups based on legally protected characteristics or categories.\n\"\"\"\n",
-  "parameters": "stop                           \"<|im_start|>\"\nstop                           \"<|im_end|>\"",
-  "template": "{{- if .Messages }}\n{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1 -}}\n<|im_start|>{{ .Role }}\n{{ .Content }}\n{{- if $last }}\n{{- if (ne .Role \"assistant\") }}<|im_end|>\n<|im_start|>assistant\n{{ end }}\n{{- else }}<|im_end|>\n{{ end }}\n{{- end }}\n{{- else }}\n{{- if .System }}<|im_start|>system\n{{ .System }}<|im_end|>\n{{ end }}{{ if .Prompt }}<|im_start|>user\n{{ .Prompt }}<|im_end|>\n{{ end }}<|im_start|>assistant\n{{ end }}{{ .Response }}{{ if .Response }}<|im_end|>{{ end }}",
+  "license": "                                 Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, excluding those notices that do not\n          pertain to any part of the Derivative Works, in at least one\n          of the following places: within a NOTICE text file distributed\n          as part of the Derivative Works; within the Source form or\n          documentation, if provided along with the Derivative Works; or,\n          within a display generated by the Derivative Works, if and\n          wherever such third-party notices normally appear. The contents\n          of the NOTICE file are for informational purposes only and\n          do not modify the License. You may add Your own attribution\n          notices within Derivative Works that You distribute, alongside\n          or as an addendum to the NOTICE text from the Work, provided\n          that such additional attribution notices cannot be construed\n          as modifying the License.\n\n      You may add Your own copyright statement to Your modifications and\n      may provide additional or different license terms and conditions\n      for use, reproduction, or distribution of Your modifications, or\n      for any such Derivative Works as a whole, provided Your use,\n      reproduction, and distribution of the Work otherwise complies with\n      the conditions stated in this License.\n\n   5. Submission of Contributions. Unless You explicitly state otherwise,\n      any Contribution intentionally submitted for inclusion in the Work\n      by You to the Licensor shall be under the terms and conditions of\n      this License, without any additional terms or conditions.\n      Notwithstanding the above, nothing herein shall supersede or modify\n      the terms of any separate license agreement you may have executed\n      with Licensor regarding such Contributions.\n\n   6. Trademarks. This License does not grant permission to use the trade\n      names, trademarks, service marks, or product names of the Licensor,\n      except as required for reasonable and customary use in describing the\n      origin of the Work and reproducing the content of the NOTICE file.\n\n   7. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides the Work (and each\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n      implied, including, without limitation, any warranties or conditions\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n      PARTICULAR PURPOSE. You are solely responsible for determining the\n      appropriateness of using or redistributing the Work and assume any\n      risks associated with Your exercise of permissions under this License.\n\n   8. Limitation of Liability. In no event and under no legal theory,\n      whether in tort (including negligence), contract, or otherwise,\n      unless required by applicable law (such as deliberate and grossly\n      negligent acts) or agreed to in writing, shall any Contributor be\n      liable to You for damages, including any direct, indirect, special,\n      incidental, or consequential damages of any character arising as a\n      result of this License or out of the use or inability to use the\n      Work (including but not limited to damages for loss of goodwill,\n      work stoppage, computer failure or malfunction, or any and all\n      other commercial damages or losses), even if such Contributor\n      has been advised of the possibility of such damages.\n\n   9. Accepting Warranty or Additional Liability. While redistributing\n      the Work or Derivative Works thereof, You may choose to offer,\n      and charge a fee for, acceptance of support, warranty, indemnity,\n      or other liability obligations and/or rights consistent with this\n      License. However, in accepting such obligations, You may act only\n      on Your own behalf and on Your sole responsibility, not on behalf\n      of any other Contributor, and only if You agree to indemnify,\n      defend, and hold each Contributor harmless for any liability\n      incurred by, or claims asserted against, such Contributor by reason\n      of your accepting any such warranty or additional liability.\n\n   END OF TERMS AND CONDITIONS\n\n   APPENDIX: How to apply the Apache License to your work.\n\n      To apply the Apache License to your work, attach the following\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\n      replaced with your own identifying information. (Don't include\n      the brackets!)  The text should be enclosed in the appropriate\n      comment syntax for the file format. We also recommend that a\n      file or class name and description of purpose be included on the\n      same \"printed page\" as the copyright notice for easier\n      identification within third-party archives.\n   Copyright 2024 Alibaba Cloud\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n       http://www.apache.org/licenses/LICENSE-2.0\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.",
+  "modelfile": "# Modelfile generated by \"ollama show\"\n# To build a new Modelfile based on this, replace FROM with:\n# FROM qwen3:8b\n\nFROM C:\\Users\\work\\.ollama\\models\\blobs\\sha256-a3de86cd1c132c822487ededd47a324c50491393e6565cd14bafa40d0b8e686f\nTEMPLATE \"\"\"\n{{- $lastUserIdx := -1 -}}\n{{- range $idx, $msg := .Messages -}}\n{{- if eq $msg.Role \"user\" }}{{ $lastUserIdx = $idx }}{{ end -}}\n{{- end }}\n{{- if or .System .Tools }}<|im_start|>system\n{{ if .System }}\n{{ .System }}\n{{- end }}\n{{- if .Tools }}\n\n# Tools\n\nYou may call one or more functions to assist with the user query.\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{{- range .Tools }}\n{\"type\": \"function\", \"function\": {{ .Function }}}\n{{- end }}\n</tools>\n\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\n<tool_call>\n{\"name\": <function-name>, \"arguments\": <args-json-object>}\n</tool_call>\n{{- end -}}\n<|im_end|>\n{{ end }}\n{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1 -}}\n{{- if eq .Role \"user\" }}<|im_start|>user\n{{ .Content }}\n{{- if and $.IsThinkSet (eq $i $lastUserIdx) }}\n   {{- if $.Think -}}\n      {{- \" \"}}/think\n   {{- else -}}\n      {{- \" \"}}/no_think\n   {{- end -}}\n{{- end }}<|im_end|>\n{{ else if eq .Role \"assistant\" }}<|im_start|>assistant\n{{ if (and $.IsThinkSet (and .Thinking (or $last (gt $i $lastUserIdx)))) -}}\n<think>{{ .Thinking }}</think>\n{{ end -}}\n{{ if .Content }}{{ .Content }}\n{{- else if .ToolCalls }}<tool_call>\n{{ range .ToolCalls }}{\"name\": \"{{ .Function.Name }}\", \"arguments\": {{ .Function.Arguments }}}\n{{ end }}</tool_call>\n{{- end }}{{ if not $last }}<|im_end|>\n{{ end }}\n{{- else if eq .Role \"tool\" }}<|im_start|>user\n<tool_response>\n{{ .Content }}\n</tool_response><|im_end|>\n{{ end }}\n{{- if and (ne .Role \"assistant\") $last }}<|im_start|>assistant\n{{ if and $.IsThinkSet (not $.Think) -}}\n<think>\n\n</think>\n\n{{ end -}}\n{{ end }}\n{{- end }}\"\"\"\nPARAMETER temperature 0.6\nPARAMETER top_k 20\nPARAMETER top_p 0.95\nPARAMETER repeat_penalty 1\nPARAMETER stop <|im_start|>\nPARAMETER stop <|im_end|>\nLICENSE \"\"\"                                 Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, excluding those notices that do not\n          pertain to any part of the Derivative Works, in at least one\n          of the following places: within a NOTICE text file distributed\n          as part of the Derivative Works; within the Source form or\n          documentation, if provided along with the Derivative Works; or,\n          within a display generated by the Derivative Works, if and\n          wherever such third-party notices normally appear. The contents\n          of the NOTICE file are for informational purposes only and\n          do not modify the License. You may add Your own attribution\n          notices within Derivative Works that You distribute, alongside\n          or as an addendum to the NOTICE text from the Work, provided\n          that such additional attribution notices cannot be construed\n          as modifying the License.\n\n      You may add Your own copyright statement to Your modifications and\n      may provide additional or different license terms and conditions\n      for use, reproduction, or distribution of Your modifications, or\n      for any such Derivative Works as a whole, provided Your use,\n      reproduction, and distribution of the Work otherwise complies with\n      the conditions stated in this License.\n\n   5. Submission of Contributions. Unless You explicitly state otherwise,\n      any Contribution intentionally submitted for inclusion in the Work\n      by You to the Licensor shall be under the terms and conditions of\n      this License, without any additional terms or conditions.\n      Notwithstanding the above, nothing herein shall supersede or modify\n      the terms of any separate license agreement you may have executed\n      with Licensor regarding such Contributions.\n\n   6. Trademarks. This License does not grant permission to use the trade\n      names, trademarks, service marks, or product names of the Licensor,\n      except as required for reasonable and customary use in describing the\n      origin of the Work and reproducing the content of the NOTICE file.\n\n   7. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides the Work (and each\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n      implied, including, without limitation, any warranties or conditions\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n      PARTICULAR PURPOSE. You are solely responsible for determining the\n      appropriateness of using or redistributing the Work and assume any\n      risks associated with Your exercise of permissions under this License.\n\n   8. Limitation of Liability. In no event and under no legal theory,\n      whether in tort (including negligence), contract, or otherwise,\n      unless required by applicable law (such as deliberate and grossly\n      negligent acts) or agreed to in writing, shall any Contributor be\n      liable to You for damages, including any direct, indirect, special,\n      incidental, or consequential damages of any character arising as a\n      result of this License or out of the use or inability to use the\n      Work (including but not limited to damages for loss of goodwill,\n      work stoppage, computer failure or malfunction, or any and all\n      other commercial damages or losses), even if such Contributor\n      has been advised of the possibility of such damages.\n\n   9. Accepting Warranty or Additional Liability. While redistributing\n      the Work or Derivative Works thereof, You may choose to offer,\n      and charge a fee for, acceptance of support, warranty, indemnity,\n      or other liability obligations and/or rights consistent with this\n      License. However, in accepting such obligations, You may act only\n      on Your own behalf and on Your sole responsibility, not on behalf\n      of any other Contributor, and only if You agree to indemnify,\n      defend, and hold each Contributor harmless for any liability\n      incurred by, or claims asserted against, such Contributor by reason\n      of your accepting any such warranty or additional liability.\n\n   END OF TERMS AND CONDITIONS\n\n   APPENDIX: How to apply the Apache License to your work.\n\n      To apply the Apache License to your work, attach the following\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\n      replaced with your own identifying information. (Don't include\n      the brackets!)  The text should be enclosed in the appropriate\n      comment syntax for the file format. We also recommend that a\n      file or class name and description of purpose be included on the\n      same \"printed page\" as the copyright notice for easier\n      identification within third-party archives.\n   Copyright 2024 Alibaba Cloud\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n       http://www.apache.org/licenses/LICENSE-2.0\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\"\"\"\n",
+  "parameters": "stop                           \"<|im_start|>\"\nstop                           \"<|im_end|>\"\ntemperature                    0.6\ntop_k                          20\ntop_p                          0.95\nrepeat_penalty                 1",
+  "template": "\n{{- $lastUserIdx := -1 -}}\n{{- range $idx, $msg := .Messages -}}\n{{- if eq $msg.Role \"user\" }}{{ $lastUserIdx = $idx }}{{ end -}}\n{{- end }}\n{{- if or .System .Tools }}<|im_start|>system\n{{ if .System }}\n{{ .System }}\n{{- end }}\n{{- if .Tools }}\n\n# Tools\n\nYou may call one or more functions to assist with the user query.\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{{- range .Tools }}\n{\"type\": \"function\", \"function\": {{ .Function }}}\n{{- end }}\n</tools>\n\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\n<tool_call>\n{\"name\": <function-name>, \"arguments\": <args-json-object>}\n</tool_call>\n{{- end -}}\n<|im_end|>\n{{ end }}\n{{- range $i, $_ := .Messages }}\n{{- $last := eq (len (slice $.Messages $i)) 1 -}}\n{{- if eq .Role \"user\" }}<|im_start|>user\n{{ .Content }}\n{{- if and $.IsThinkSet (eq $i $lastUserIdx) }}\n   {{- if $.Think -}}\n      {{- \" \"}}/think\n   {{- else -}}\n      {{- \" \"}}/no_think\n   {{- end -}}\n{{- end }}<|im_end|>\n{{ else if eq .Role \"assistant\" }}<|im_start|>assistant\n{{ if (and $.IsThinkSet (and .Thinking (or $last (gt $i $lastUserIdx)))) -}}\n<think>{{ .Thinking }}</think>\n{{ end -}}\n{{ if .Content }}{{ .Content }}\n{{- else if .ToolCalls }}<tool_call>\n{{ range .ToolCalls }}{\"name\": \"{{ .Function.Name }}\", \"arguments\": {{ .Function.Arguments }}}\n{{ end }}</tool_call>\n{{- end }}{{ if not $last }}<|im_end|>\n{{ end }}\n{{- else if eq .Role \"tool\" }}<|im_start|>user\n<tool_response>\n{{ .Content }}\n</tool_response><|im_end|>\n{{ end }}\n{{- if and (ne .Role \"assistant\") $last }}<|im_start|>assistant\n{{ if and $.IsThinkSet (not $.Think) -}}\n<think>\n\n</think>\n\n{{ end -}}\n{{ end }}\n{{- end }}",
   "details": {
     "parent_model": "",
     "format": "gguf",
-    "family": "qwen2",
+    "family": "qwen3",
     "families": [
-      "qwen2",
-      "clip"
+      "qwen3"
     ],
-    "parameter_size": "7.6B",
-    "quantization_level": "Q4_0"
+    "parameter_size": "8.2B",
+    "quantization_level": "Q4_K_M"
   },
   "model_info": {
-    "general.architecture": "qwen2",
-    "general.file_type": 2,
-    "general.parameter_count": 7612763648,
+    "general.architecture": "qwen3",
+    "general.basename": "Qwen3",
+    "general.file_type": 15,
+    "general.license": "apache-2.0",
+    "general.parameter_count": 8190735360,
     "general.quantization_version": 2,
-    "qwen2.attention.head_count": 28,
-    "qwen2.attention.head_count_kv": 4,
-    "qwen2.attention.layer_norm_rms_epsilon": 0.000001,
-    "qwen2.block_count": 28,
-    "qwen2.context_length": 32768,
-    "qwen2.embedding_length": 3584,
-    "qwen2.feed_forward_length": 18944,
-    "qwen2.rope.freq_base": 1000000,
-    "tokenizer.ggml.bos_token_id": 151644,
+    "general.size_label": "8B",
+    "general.type": "model",
+    "qwen3.attention.head_count": 32,
+    "qwen3.attention.head_count_kv": 8,
+    "qwen3.attention.key_length": 128,
+    "qwen3.attention.layer_norm_rms_epsilon": 0.000001,
+    "qwen3.attention.value_length": 128,
+    "qwen3.block_count": 36,
+    "qwen3.context_length": 40960,
+    "qwen3.embedding_length": 4096,
+    "qwen3.feed_forward_length": 12288,
+    "qwen3.rope.freq_base": 1000000,
+    "tokenizer.ggml.add_bos_token": false,
+    "tokenizer.ggml.bos_token_id": 151643,
     "tokenizer.ggml.eos_token_id": 151645,
     "tokenizer.ggml.merges": null,
     "tokenizer.ggml.model": "gpt2",
-    "tokenizer.ggml.padding_token_id": 0,
+    "tokenizer.ggml.padding_token_id": 151643,
     "tokenizer.ggml.pre": "qwen2",
     "tokenizer.ggml.token_type": null,
-    "tokenizer.ggml.tokens": null,
-    "tokenizer.ggml.unknown_token_id": 128244
-  },
-  "projector_info": {
-    "clip.has_minicpmv_projector": true,
-    "clip.has_text_encoder": false,
-    "clip.has_vision_encoder": true,
-    "clip.minicpmv_version": 3,
-    "clip.projector_type": "resampler",
-    "clip.use_gelu": true,
-    "clip.vision.attention.head_count": 16,
-    "clip.vision.attention.layer_norm_epsilon": 0.000001,
-    "clip.vision.block_count": 26,
-    "clip.vision.embedding_length": 1152,
-    "clip.vision.feed_forward_length": 4304,
-    "clip.vision.image_mean": null,
-    "clip.vision.image_size": 448,
-    "clip.vision.image_std": null,
-    "clip.vision.patch_size": 14,
-    "clip.vision.projection_dim": 0,
-    "general.architecture": "clip",
-    "general.description": "image encoder for MiniCPM-V",
-    "general.file_type": 1,
-    "general.parameter_count": 503973104
+    "tokenizer.ggml.tokens": null
   },
   "tensors": [
     {
-      "name": "token_embd.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        151666
-      ]
-    },
-    {
-      "name": "blk.0.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.0.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.0.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.0.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.0.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.0.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.0.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.0.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.0.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.0.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.0.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.0.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.1.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.1.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.1.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.1.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.1.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.1.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.1.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.1.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.1.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.1.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.1.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.1.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.2.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.2.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.2.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.2.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.2.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.2.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.2.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.2.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.2.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.2.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.2.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.2.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.3.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.3.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.3.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.3.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.3.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.3.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.3.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.3.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.3.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.3.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.3.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.3.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.4.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.4.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.4.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.4.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.4.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.4.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.4.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.4.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.4.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.4.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.4.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.4.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.5.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.5.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.5.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.5.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.5.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.5.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.5.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.5.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.5.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.5.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.5.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.5.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.6.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.6.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.6.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.6.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.6.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.6.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.6.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.6.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.6.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.6.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.6.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.6.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.7.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.7.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.7.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.7.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.7.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.7.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.7.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.7.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.7.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.7.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.7.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.7.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.8.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.8.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.8.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.8.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.8.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.8.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.8.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.10.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.10.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.10.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.10.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.10.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.10.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.10.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.10.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.10.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.10.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.10.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.10.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.11.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.11.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.11.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.11.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.11.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.11.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.11.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.11.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.11.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.11.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.11.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.11.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.12.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.12.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.12.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.12.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.12.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.12.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.12.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.12.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.12.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.12.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.12.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.12.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.13.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.13.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.13.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.13.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.13.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.13.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.13.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.13.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.8.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.8.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.8.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.8.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.8.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.9.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.9.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.9.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.9.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.9.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.9.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.9.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.9.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.9.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.9.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.9.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.9.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.13.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.13.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.13.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.13.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.14.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.14.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.14.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.14.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.14.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.14.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.14.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.14.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.14.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.14.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.14.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.14.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.15.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.15.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.15.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.15.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.15.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.15.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.15.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.15.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.15.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.15.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.15.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.15.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.16.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.16.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.16.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.16.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.16.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.16.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.16.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.16.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.16.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.16.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.16.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.16.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.17.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.17.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.17.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.17.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.17.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.17.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.17.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.17.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.17.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.17.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.17.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.17.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.18.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.18.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.18.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.18.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.18.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.18.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.18.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.18.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.18.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.18.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.18.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.18.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.19.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.19.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.19.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.19.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.19.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.19.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.19.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.19.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.19.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.19.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.19.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.19.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.20.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.20.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.20.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.20.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.20.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.20.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.20.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.20.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.20.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.20.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.20.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.20.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.21.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.21.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.21.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.21.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.21.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.21.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.21.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.21.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.21.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.21.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.21.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.21.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.22.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.22.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.22.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.22.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.22.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.22.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.22.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.22.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.22.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.22.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.22.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.22.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.23.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.23.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.23.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.23.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.23.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.23.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.23.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.23.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.23.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.23.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.23.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.23.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.24.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.24.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.24.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.24.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.24.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.24.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.24.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.24.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.24.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.24.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.24.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.24.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.25.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.25.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.25.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.25.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.25.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.25.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.25.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.25.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.25.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.25.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.25.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.25.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.26.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.26.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.26.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.26.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.26.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.26.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.26.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.26.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.26.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.26.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.26.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.26.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.27.attn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.27.ffn_down.weight",
-      "type": "Q4_0",
-      "shape": [
-        18944,
-        3584
-      ]
-    },
-    {
-      "name": "blk.27.ffn_gate.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.27.ffn_up.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        18944
-      ]
-    },
-    {
-      "name": "blk.27.ffn_norm.weight",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.27.attn_k.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.27.attn_k.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
-      ]
-    },
-    {
-      "name": "blk.27.attn_output.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.27.attn_q.bias",
-      "type": "F32",
-      "shape": [
-        3584
-      ]
-    },
-    {
-      "name": "blk.27.attn_q.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        3584
-      ]
-    },
-    {
-      "name": "blk.27.attn_v.bias",
-      "type": "F32",
-      "shape": [
-        512
-      ]
-    },
-    {
-      "name": "blk.27.attn_v.weight",
-      "type": "Q4_0",
-      "shape": [
-        3584,
-        512
+      "name": "output.weight",
+      "type": "Q6_K",
+      "shape": [
+        4096,
+        151936
       ]
     },
     {
       "name": "output_norm.weight",
       "type": "F32",
       "shape": [
-        3584
+        4096
       ]
     },
     {
-      "name": "output.weight",
+      "name": "token_embd.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        151936
+      ]
+    },
+    {
+      "name": "blk.0.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.0.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.0.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.0.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.0.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.0.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.0.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.0.ffn_down.weight",
       "type": "Q6_K",
       "shape": [
-        3584,
-        151666
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.0.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.0.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.0.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.1.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.1.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.1.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.1.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.1.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.1.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.1.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.1.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.1.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.1.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.1.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.2.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.2.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.2.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.2.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.2.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.2.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.2.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.2.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.2.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.2.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.2.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.3.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.3.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.3.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.3.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.3.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.3.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.3.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.3.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.3.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.3.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.3.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.4.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.4.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.4.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.4.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.4.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.4.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.4.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.4.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.4.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.4.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.4.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.5.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.5.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.5.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.5.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.5.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.5.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.5.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.5.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.5.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.5.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.5.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.6.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.6.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.6.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.6.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.6.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.6.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.6.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.6.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.6.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.6.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.6.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.7.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.7.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.7.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.7.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.7.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.7.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.7.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.7.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.7.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.7.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.7.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.8.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.8.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.8.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.8.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.8.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.8.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.8.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.8.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.8.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.8.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.8.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.9.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.9.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.9.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.9.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.9.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.9.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.9.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.10.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.10.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.10.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.10.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.10.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.10.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.10.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.10.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.10.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.10.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.10.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.11.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.11.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.11.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.11.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.11.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.11.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.11.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.11.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.11.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.11.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.11.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.12.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.12.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.12.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.12.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.12.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.12.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.12.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.12.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.12.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.12.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.12.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.13.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.13.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.13.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.13.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.13.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.13.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.13.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.13.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.13.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.13.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.13.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.14.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.14.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.14.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.14.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.14.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.14.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.14.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.14.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.14.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.14.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.14.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.15.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.15.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.15.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.15.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.15.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.15.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.15.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.15.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.15.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.15.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.15.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.16.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.16.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.16.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.16.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.16.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.16.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.16.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.16.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.16.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.16.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.16.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.17.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.17.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.17.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.17.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.17.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.17.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.17.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.17.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.17.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.17.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.17.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.18.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.18.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.18.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.18.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.18.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.18.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.18.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.18.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.18.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.18.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.18.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.19.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.19.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.19.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.19.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.19.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.19.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.19.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.19.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.19.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.19.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.19.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.20.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.20.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.20.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.20.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.20.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.20.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.20.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.20.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.20.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.20.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.20.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.21.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.21.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.21.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.21.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.21.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.21.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.21.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.21.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.21.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.21.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.21.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.22.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.22.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.22.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.22.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.22.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.22.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.22.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.22.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.22.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.22.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.22.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.23.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.23.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.23.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.23.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.23.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.23.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.23.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.23.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.23.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.23.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.23.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.24.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.24.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.24.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.24.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.24.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.24.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.24.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.24.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.24.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.24.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.24.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.25.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.25.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.25.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.25.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.25.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.25.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.25.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.25.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.25.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.25.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.25.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.26.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.26.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.26.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.26.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.26.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.26.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.26.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.26.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.26.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.26.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.26.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.27.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.27.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.27.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.27.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.27.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.27.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.27.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.27.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.27.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.27.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.27.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.28.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.28.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.28.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.28.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.28.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.28.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.28.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.28.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.28.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.28.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.28.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.29.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.29.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.29.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.29.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.29.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.29.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.29.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.29.ffn_down.weight",
+      "type": "Q4_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.29.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.29.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.29.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.30.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.30.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.30.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.30.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.30.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.30.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.30.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.30.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.30.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.30.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.30.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.31.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.31.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.31.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.31.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.31.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.31.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.31.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.31.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.31.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.31.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.31.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.32.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.32.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.32.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.32.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.32.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.32.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.32.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.32.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.32.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.32.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.32.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.33.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.33.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.33.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.33.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.33.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.33.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.33.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.33.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.33.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.33.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.33.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.34.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.34.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.34.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.34.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.34.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.34.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.34.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.34.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.34.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.34.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.34.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.35.attn_k.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.35.attn_k_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.35.attn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.35.attn_output.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.35.attn_q.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "blk.35.attn_q_norm.weight",
+      "type": "F32",
+      "shape": [
+        128
+      ]
+    },
+    {
+      "name": "blk.35.attn_v.weight",
+      "type": "F16",
+      "shape": [
+        4096,
+        1024
+      ]
+    },
+    {
+      "name": "blk.35.ffn_down.weight",
+      "type": "Q6_K",
+      "shape": [
+        12288,
+        4096
+      ]
+    },
+    {
+      "name": "blk.35.ffn_gate.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
+      ]
+    },
+    {
+      "name": "blk.35.ffn_norm.weight",
+      "type": "F32",
+      "shape": [
+        4096
+      ]
+    },
+    {
+      "name": "blk.35.ffn_up.weight",
+      "type": "Q4_K",
+      "shape": [
+        4096,
+        12288
       ]
     }
   ],
   "capabilities": [
     "completion",
-    "vision"
+    "tools",
+    "thinking"
   ],
-  "modified_at": "2025-06-08T22:19:16.066567907+02:00"
+  "modified_at": "2025-07-20T14:30:40.3324961+02:00"
 }
 ```

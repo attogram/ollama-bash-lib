@@ -1,8 +1,8 @@
 # escape_control_characters
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.7
 
-Usage: escape_control_characters "{ json object }"
+Usage: escape_control_characters "string"
 
 
 ```
@@ -10,9 +10,7 @@ string: 20 bytes: [{"value":"abc def"}]
 clean : 20 bytes: [{"value":"abc def"}]
 ```
 ```json
-{
-  "value": "abc def"
-}
+{"value":"abc def"}
 ```
 ```
 
@@ -21,9 +19,7 @@ def"}]
 - clean : 25 bytes: [{"value":"abc\u000adef"}]
 ```
 ```json
-{
-  "value": "abc\ndef"
-}
+{"value":"abc\ndef"}
 ```
 
 ```
@@ -32,7 +28,5 @@ string: 79 bytes: [{"value":"bell:, form-feed:
 clean : 104 bytes: [{"value":"bell:\u0007, form-feed:\u000a, carriage-return:\u000b, escape:\u0017, unit-separator:\u0019"}]
 ```
 ```json
-{
-  "value": "bell:\u0007, form-feed:\n, carriage-return:\u000b, escape:\u0017, unit-separator:\u0019"
-}
+{"value":"bell:\u0007, form-feed:\n, carriage-return:\u000b, escape:\u0017, unit-separator:\u0019"}
 ```

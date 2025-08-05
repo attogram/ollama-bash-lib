@@ -1,49 +1,44 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.4
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.7
 
 ## Demo
 
 ```bash
-ollama_generate_json "gemma3:4b" "Describe a rabbit in 3 words"
+ollama_generate_json "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L" "Describe a rabbit in 3 words"
 ```
 ```json
 {
-  "model": "gemma3:4b",
-  "created_at": "2025-08-05T11:22:33.397039Z",
-  "response": "Fluffy, quick, adorable.",
+  "model": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L",
+  "created_at": "2025-08-05T19:03:50.4893098Z",
+  "response": "Fluffy, Hoppy, Sweet",
   "done": true,
   "done_reason": "stop",
   "context": [
-    105,
-    2364,
-    107,
-    82858,
-    496,
-    27973,
-    528,
-    236743,
-    236800,
-    4171,
-    106,
-    107,
-    105,
-    4368,
-    107,
-    6720,
-    29130,
-    236764,
-    3823,
-    236764,
-    42579,
-    236761
+    3,
+    5847,
+    13089,
+    1261,
+    40710,
+    1294,
+    1032,
+    1051,
+    6619,
+    4,
+    20961,
+    124603,
+    1044,
+    29702,
+    9025,
+    1044,
+    48126
   ],
-  "total_duration": 3676427458,
-  "load_duration": 2617812958,
-  "prompt_eval_count": 16,
-  "prompt_eval_duration": 820285708,
+  "total_duration": 4940103900,
+  "load_duration": 4416111500,
+  "prompt_eval_count": 11,
+  "prompt_eval_duration": 169790900,
   "eval_count": 8,
-  "eval_duration": 236492167
+  "eval_duration": 353148400
 }
 
 ```
@@ -51,52 +46,47 @@ ollama_generate_json "gemma3:4b" "Describe a rabbit in 3 words"
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_json "gemma3:4b" "Describe a rabbit in 3 words"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_json "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L" "Describe a rabbit in 3 words"`
 ```
 ```json
-[DEBUG] 13:22:33:425016000: ollama_generate_json: [gemma3:4b] [Describe a rabbit in 3 words]
-[DEBUG] 13:22:33:432617000: ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] 13:22:33:446302000: ollama_api_post: [/api/generate] [{
-  "model": "gemma3:4b",
-  "prompt": "Des]
-[DEBUG] 13:22:33:847863000: ollama_api_post: return 0
-[DEBUG] 13:22:33:856283000: ollama_generate_json: return: 0
+[DEBUG] 21:03:50:515983000: ollama_generate_json: [hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L] [Describe a rabbit in 3 words]
+[DEBUG] 21:03:50:531008100: ollama_generate_json: OLLAMA_LIB_STREAM: 0
+[DEBUG] 21:03:50:558842300: ollama_api_post: [/api/generate] [{
+  "model": "hf.co/bartowski/Ministral-8B]
+[DEBUG] 21:03:51:287914200: ollama_api_post: return 0
+[DEBUG] 21:03:51:298712000: ollama_generate_json: return: 0
 {
-  "model": "gemma3:4b",
-  "created_at": "2025-08-05T11:22:33.836324Z",
-  "response": "Fluffy, quick, gentle.",
+  "model": "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L",
+  "created_at": "2025-08-05T19:03:51.2679926Z",
+  "response": "Fluffy, quick, long ears.",
   "done": true,
   "done_reason": "stop",
   "context": [
-    105,
-    2364,
-    107,
-    82858,
-    496,
-    27973,
-    528,
-    236743,
-    236800,
-    4171,
-    106,
-    107,
-    105,
-    4368,
-    107,
-    6720,
-    29130,
-    236764,
-    3823,
-    236764,
-    14617,
-    236761
+    3,
+    5847,
+    13089,
+    1261,
+    40710,
+    1294,
+    1032,
+    1051,
+    6619,
+    4,
+    20961,
+    124603,
+    1044,
+    7586,
+    1044,
+    2730,
+    32961,
+    1046
   ],
-  "total_duration": 371504125,
-  "load_duration": 88093042,
-  "prompt_eval_count": 16,
-  "prompt_eval_duration": 44991584,
-  "eval_count": 8,
-  "eval_duration": 237986583
+  "total_duration": 458483300,
+  "load_duration": 28943800,
+  "prompt_eval_count": 11,
+  "prompt_eval_duration": 47405600,
+  "eval_count": 9,
+  "eval_duration": 381626400
 }
 
 ```

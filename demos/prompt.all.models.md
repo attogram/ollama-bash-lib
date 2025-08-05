@@ -1,6 +1,6 @@
 # Prompt all models
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.4
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.7
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -11,47 +11,30 @@ for model in "${models[@]}"; do
   ollama_generate "$model" "$prompt"
 done
 ```
-16 models: cogito:3b deepseek-r1:1.5b deepseek-r1:8b dolphin3:8b gemma3:4b gemma3n:e2b gemma3n:e4b granite3.3:2b granite3.3:8b hermes3:8b minicpm-v:8b mistral:7b qwen2.5-coder:7b qwen2.5vl:7b qwen3:1.7b qwen3:8b
+13 models: deepseek-r1:8b dolphin3:8b gemma3n:e2b gemma3n:e4b granite3.3:2b granite3.3:8b hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L mistral:7b qwen2.5vl:7b qwen3:8b smollm2:1.7b
 
 prompt: What is your knowledge cutoff date? Respond with only the date.
-
-## cogito:3b
-```
-2023
-```
-
-## deepseek-r1:1.5b
-```
-<think>
-I'm DeepSeek-R1 created exclusively by DeepSeek. For the most accurate and up-to-date information about my knowledge, I suggest you run a human-like thought through the entire process myself.
-</think>
-
-I'm DeepSeek-R1 created exclusively by DeepSeek. For the most accurate and up-to-date information about my knowledge, I suggest you run a human-like thought through the entire process myself.
-```
 
 ## deepseek-r1:8b
 ```
 <think>
-Hmm, the user is asking about my knowledge cutoff date and wants just a simple response with that date.
+Hmm, the user is asking about my knowledge cutoff date and wants me to respond with just that information.
 
-This seems like a straightforward question where they're probably testing or verifying how current (or outdated) my information is. I should give them exactly what they asked for without any extra fluff - just the date in ISO format as requested.
+This seems straightforward - they're simply requesting a specific piece of data from my capabilities as DeepSeek's AI assistant. My knowledge database was last updated before July 2024, so I should provide that exact figure without any additional explanation or commentary since they specifically asked for only the date format.
+
+The user might be testing my boundaries or perhaps planning to ask follow-up questions where knowing this cutoff is relevant. Either way, sticking strictly to their request ensures clarity and efficiency in our interaction. There's no need to add more context unless they explicitly asks for it afterward.
 </think>
-2023-10-25
+July 2024
 ```
 
 ## dolphin3:8b
 ```
-March 15, 2023
-```
-
-## gemma3:4b
-```
-September 2021
+2023-10-01
 ```
 
 ## gemma3n:e2b
 ```
-2023-04-13
+2023-04-04
 ```
 
 ## gemma3n:e4b
@@ -67,27 +50,27 @@ September 2021
 
 ## granite3.3:8b
 ```
-April 2024
+April 2024.
 ```
 
-## hermes3:8b
+## hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
 ```
-My knowledge comes from training data up until 2021. I don't have real-time access to new information beyond that cutoff date. So my official response must be: 2021.
+2023-10
 ```
 
-## minicpm-v:8b
+## hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q5_K_M
+```
+2023-10
+```
+
+## hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:Q6_K_L
 ```
 2021-09
 ```
 
 ## mistral:7b
 ```
-2021-09-14 (Last updated)
-```
-
-## qwen2.5-coder:7b
-```
-2023-10-06
+ My knowledge cutoff date is 2021.
 ```
 
 ## qwen2.5vl:7b
@@ -95,24 +78,16 @@ My knowledge comes from training data up until 2021. I don't have real-time acce
 2023-09-01
 ```
 
-## qwen3:1.7b
-```
-<think>
-Okay, the user is asking about my knowledge cutoff date. Let me make sure I understand what they're looking for.
-
-First, I need to recall when the knowledge cutoff was for the model. The cutoff date is the date after which the model stops providing information. For this model, the cutoff date is July 30, 2024. That's when the training data was last updated. 
-
-But wait, the user might not know the exact date. I should confirm that the cutoff date is July 30, 2024. Also, I need to make sure I don't include any extra information. The response should just be the date. Let me check again. Yes, the cutoff date is indeed July 30, 2024. So the answer is straightforward.
-</think>
-
-July 30, 2024
-```
-
 ## qwen3:8b
 ```
 <think>
-Okay, the user is asking about my knowledge cutoff date. I need to make sure I provide the correct date. Let me recall the information I have. My training data is up to October 2024. Wait, but I should double-check that. The official documentation states that my knowledge is cutoff as of October 2024. So the answer should be October 2024. I need to respond with just the date, no extra text. Let me confirm once more to avoid any mistakes. Yes, October 2024 is correct.
+Okay, the user is asking about my knowledge cutoff date. I need to make sure I provide the correct date without any extra information. My knowledge was last updated in October 2024. Let me confirm that again. Yes, that's right. I should just state the date clearly.
 </think>
 
 October 2024
+```
+
+## smollm2:1.7b
+```
+2019-03-31
 ```
