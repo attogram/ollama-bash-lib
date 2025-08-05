@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.5"
+OLLAMA_LIB_VERSION="0.42.6"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -91,7 +91,7 @@ ollama_api_get() {
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
     error "ollama_api_get: error_curl: $error_curl"
-    return $RETURN_ERROR
+    return $error_curl
   fi
   debug 'ollama_api_get: return: 0'
   return $RETURN_SUCCESS
@@ -110,8 +110,8 @@ ollama_api_post() {
   curl -s -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
-    error "ollama_api_get: error_curl: $error_curl"
-    return $RETURN_ERROR
+    error "ollama_api_post: error_curl: $error_curl"
+    return $error_curl
   fi
   debug 'ollama_api_post: return 0'
   return $RETURN_SUCCESS
@@ -522,7 +522,7 @@ ollama_model_random() {
 ollama_model_unload() {
   debug 'ollama_model_unload'
   if [ -z "$1" ]; then
-    debug 'Error: ollama_model_unload: no model'
+    error 'ollama_model_unload: no model. Usage: ollama_model_unload "model"'
     return $RETURN_ERROR
   fi
 
@@ -609,7 +609,7 @@ ollama_show_json() {
       --arg model "$1" \
       '{model: $model}')
   if ! ollama_api_post '/api/show' "$json_payload"; then
-    error "ollama_show_json: error_ollama_api_post failed"
+    error "ollama_show_json: ollama_api_post failed"
     return $RETURN_ERROR
   fi
   return $RETURN_SUCCESS
