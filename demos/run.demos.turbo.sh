@@ -4,7 +4,7 @@
 echo "Run all Ollama Bash Lib Demos, save output to .md files"
 echo
 
-OLLAMA_HOST=ollama.com
+export OLLAMA_HOST=ollama.com
 
 echo "OLLAMA_HOST: $OLLAMA_HOST"
 echo
