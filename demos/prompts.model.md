@@ -2,9 +2,9 @@
 [ERROR] ollama_api_ping: unknown result: []
 ERROR: Ollama API not reachable
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.9
 
-model: gpt-oss:20b
+model: gpt-oss:120b
 
 prompts:
 * [My hovercraft is full of eels](#my-hovercraft-is-full-of-eels)

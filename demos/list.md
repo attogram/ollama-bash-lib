@@ -2,7 +2,7 @@
 [ERROR] ollama_api_ping: unknown result: []
 ERROR: Ollama API not reachable
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.9
 
 ```
 ollama_list
