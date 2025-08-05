@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.6"
+OLLAMA_LIB_VERSION="0.42.7"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -87,7 +87,7 @@ escape_control_characters() {
 # Returns: 0 on success, 1 on error
 ollama_api_get() {
   debug "ollama_api_get: [$1]"
-  curl -s -X GET "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json'
+  curl -s -N -X GET "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json'
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
     error "ollama_api_get: error_curl: $error_curl"
@@ -107,7 +107,7 @@ ollama_api_get() {
 # Returns: 0 on success, 1 on error
 ollama_api_post() {
   debug "ollama_api_post: [$1] [${2:0:42}]"
-  curl -s -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
+  curl -s -N -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
     error "ollama_api_post: error_curl: $error_curl"
@@ -204,7 +204,7 @@ ollama_generate() {
   debug "ollama_generate: [$1] [${2:0:42}]"
   OLLAMA_LIB_STREAM=0
   local result
-  result=$(ollama_generate_json "$1" "$2")
+  result="$(ollama_generate_json "$1" "$2" 2>/dev/null)"
   local error_ollama_generate_json=$?
   debug "ollama_generate: result: $(echo "$result" | wc -c | sed 's/ //g') bytes"
   if [ "$error_ollama_generate_json" -gt 0 ]; then
