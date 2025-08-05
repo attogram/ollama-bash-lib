@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.4"
+OLLAMA_LIB_VERSION="0.42.5"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -45,14 +45,14 @@ error() {
   printf "[ERROR] %s\n" "$1" >&2
 }
 
-# Sanitize a json object for jq use
+# escape_control_characters
 #
-# Usage: json_sanitize "{ json object }"
-# Input: 1 - JSON object
-# Output: sanitized JSON object
+# Usage: escape_control_characters "string"
+# Input: 1 - string
+# Output: string with control characters escaped
 # Requires: none
 # Returns: 0 on success, 1 on error
-json_sanitize() {
+escape_control_characters() {
   local input="$1"
   local i out c ascii hex
   out=""
@@ -211,8 +211,8 @@ ollama_generate() {
     error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
     return $RETURN_ERROR
   fi
-  if ! json_sanitize "$result" | jq -r ".response"; then
-    error "ollama_generate: json_sanitize|jq failed"
+  if ! escape_control_characters "$result" | jq -r ".response"; then
+    error "ollama_generate: escape_control_characters|jq failed"
     return $RETURN_ERROR
   fi
   debug 'ollama_generate: return: 0'
@@ -232,8 +232,8 @@ ollama_generate_stream() {
   OLLAMA_LIB_STREAM=1 # Turn on streaming
   local error_jq
   ollama_generate_json "$1" "$2" | while IFS= read -r line; do
-  if ! echo -n "$(json_sanitize "$line" | jq -r ".response")"; then
-    error "ollama_generate_stream: json_sanitize|jq failed"
+  if ! echo -n "$(escape_control_characters "$line" | jq -r ".response")"; then
+    error "ollama_generate_stream: escape_control_characters|jq failed"
     return $RETURN_ERROR
   fi
   done
@@ -347,7 +347,7 @@ ollama_chat_json() {
     return $RETURN_ERROR
   fi
 
-  content=$(json_sanitize "$result" | jq -r ".message.content")
+  content=$(escape_control_characters "$result" | jq -r ".message.content")
   local error_jq_message_content=$?
   debug "ollama_chat_json: content: [${content:0:42}]"
   if [ "$error_jq_message_content" -gt 0 ]; then
@@ -382,8 +382,8 @@ ollama_chat() {
   fi
 
   local message_content
-  if ! message_content=$(json_sanitize "$response" | jq -r ".message.content"); then
-    error 'ollama_chat: json_sanitize|jq failed'
+  if ! message_content=$(escape_control_characters "$response" | jq -r ".message.content"); then
+    error 'ollama_chat: escape_control_characters|jq failed'
     return $RETURN_ERROR
   fi
 

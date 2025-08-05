@@ -1,8 +1,8 @@
-# json_sanitize
+# escape_control_characters
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.4
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.5
 
-Usage: json_sanitize "{ json object }"
+Usage: escape_control_characters "{ json object }"
 
 
 ```
