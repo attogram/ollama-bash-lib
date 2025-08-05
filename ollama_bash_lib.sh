@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.7"
+OLLAMA_LIB_VERSION="0.42.9"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -86,7 +86,7 @@ escape_control_characters() {
 # Requires: curl
 # Returns: 0 on success, 1 on error
 ollama_api_get() {
-  debug "ollama_api_get: [$1]"
+  debug "ollama_api_get: [${OLLAMA_LIB_API}$1]"
   curl -s -N -X GET "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json'
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
@@ -106,7 +106,7 @@ ollama_api_get() {
 # Requires: curl
 # Returns: 0 on success, 1 on error
 ollama_api_post() {
-  debug "ollama_api_post: [$1] [${2:0:42}]"
+  debug "ollama_api_post: [${OLLAMA_LIB_API}$1] [${2:0:42}]"
   curl -s -N -X POST "${OLLAMA_LIB_API}$1" -H 'Content-Type: application/json' -d "$2"
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
