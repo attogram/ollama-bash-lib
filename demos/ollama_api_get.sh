@@ -14,49 +14,38 @@ startup() {
 
 startup
 
-echo
-echo '## Demo'
-echo '```'
-echo
-echo "ollama_api_get \"/api/version\""
-echo
-ollama_api_get "/api/version"
+demo() {
+  echo
+  echo '```'
+  echo 'ollama_api_get'
+  echo
+  result=$(ollama_api_get)
+  echo "result: lines: $(echo "$result" | wc -l)"
+  echo "result: output: ${result:0:42}"
+  echo '```';
 
-echo
-echo "ollama_api_get \"/error/path/not/found\""
-echo
-ollama_api_get "/error/path/not/found"
+  echo
+  echo '```'
+  echo "ollama_api_get \"/api/version\""
+  echo
+  result=$(  ollama_api_get "/api/version")
+  echo "result: lines: $(echo "$result" | wc -l)"
+  echo "result: output: ${result:0:42}"
+  echo '```';
+}
 
+echo; echo '## Setup'; echo
+echo "OLLAMA_HOST: $OLLAMA_HOST"
 echo
-echo "ollama_api_get \" bad string!\""
+echo "OLLAMA_LIB_API: $OLLAMA_LIB_API"
 echo
-ollama_api_get " bad sting! "
-echo '```'
 
-echo
-echo '## Demo Debug'
-echo '```'
+echo; echo '## Demo'; echo
+demo
 
+echo; echo '## Demo Debug'
 echo
-echo "OLLAMA_LIB_DEBUG=1"
-echo
-OLLAMA_LIB_DEBUG=1
-
-echo "ollama_api_get \"/api/version\""
-ollama_api_get "/api/version"
-ollama_api_get_return=$?
-echo "ollama_api_get returned: $ollama_api_get_return"
-
-echo
-echo "ollama_api_get \"/error/path/not/found\""
-ollama_api_get "/error/path/not/found"
-ollama_api_get_return=$?
-echo "ollama_api_get returned: $ollama_api_get_return"
-
-echo
-echo "ollama_api_get \" bad string!\""
-ollama_api_get " bad sting! "
-ollama_api_get_return=$?
-echo "ollama_api_get returned: $ollama_api_get_return"
-
-echo '```'
+echo "\`export OLLAMA_LIB_DEBUG=1\`"; echo;
+export OLLAMA_LIB_DEBUG=1
+demo
+export OLLAMA_LIB_DEBUG=0
