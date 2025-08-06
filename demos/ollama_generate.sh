@@ -14,6 +14,11 @@ startup() {
 
 startup
 
+echo; echo '## Setup'; echo
+echo "OLLAMA_HOST: $OLLAMA_HOST"
+echo "OLLAMA_LIB_API: $OLLAMA_LIB_API"
+echo
+
 model="$(ollama_model_random)"
 prompt="Describe a rabbit in 3 words"
 
@@ -31,7 +36,7 @@ echo
 echo "## Demo Debug"
 echo
 echo '```bash'
-echo "\`OLLAMA_LIB_DEBUG=1 ollama_generate \"$model\" \"$prompt\"\`"
+echo "OLLAMA_LIB_DEBUG=1 ollama_generate \"$model\" \"$prompt\""
 echo '```'
 echo '```'
 OLLAMA_LIB_DEBUG=1 ollama_generate "$model" "$prompt"

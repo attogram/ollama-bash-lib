@@ -19,6 +19,7 @@ demo() {
   echo '```bash'
   if [[ "$debug" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
   echo 'ollama_model_random'
+  # shellcheck disable=SC2016
   echo 'model="$(ollama_model_random)"; echo "$model"'
   echo '```'
   echo '```'
