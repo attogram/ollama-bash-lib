@@ -4,17 +4,15 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.10"
+OLLAMA_LIB_VERSION="0.42.12"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>"
 
 OLLAMA_LIB_API=${OLLAMA_HOST:-"http://localhost:11434"} # Ollama API URL, No slash at end
-OLLAMA_LIB_DEBUG=0      # 0 = No debug messages, 1 = Yes debug messages
 OLLAMA_LIB_MESSAGES=()  # Array of messages
 OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
-OLLAMA_LIB_TURBO_KEY='' # API key for access to Ollama Turbo Mode
 
 RETURN_SUCCESS=0       # Standard success return value
 RETURN_ERROR=1         # Standard error return value
@@ -45,7 +43,7 @@ _error() {
   printf "[ERROR] %s\n" "$1" >&2
 }
 
-# _escape_control_characters
+# Escape control characters in a string
 #
 # Usage: _escape_control_characters "string"
 # Input: 1 - string
@@ -53,27 +51,34 @@ _error() {
 # Requires: none
 # Returns: 0
 _escape_control_characters() {
-  local input="$1"
-  local i out c ascii hex
-  out=""
-  i=0
-  while [ $i -lt ${#input} ]; do
-    c="${input:$i:1}"
-    # Bash 3.x: get ASCII code using printf and od (works for all printable, most control chars except NUL)
-    #           Suppress warnings from od about null bytes
-    ascii=$(printf '%s' "$c" | od -An -tuC 2>/dev/null | tr -d ' ')
-    # If blank, probably a NUL (Bash can't store NULs)
-    if [ -z "$ascii" ]; then
-      :
-    elif [ "$ascii" -ge 0 ] 2>/dev/null && [ "$ascii" -le 31 ]; then
-      hex=$(printf '%04x' "$ascii")
-      out="${out}\\u$hex"
-    else
-      out="${out}$c"
-    fi
-    i=$((i+1))
-  done
-  printf '%s' "$out"
+    _debug "_escape_control_characters: [${1:0:42}]"
+    local input=$1
+    local byte # will hold one decimal value per loop iteration
+    local out='' # result accumulator
+    while IFS= read -r byte; do
+        set -- $byte # Using `set -- $byte` expands the line into positional parameters.
+        for byte in "$@"; do
+            [ -z "$byte" ] && continue # Guard against empty strings (possible on an empty input)
+            if (( byte >= 0 && byte <= 31 )); then # Decide what to emit for this byte
+                out+=$(printf '\\u%04x' "$byte") # Control character → Unicode escape \uXXXX
+            else
+                out+=$(printf '\\%03o' "$byte") # keep‑as‑is - Printable / part of a multibyte UTF‑8 sequence.
+            fi
+        done
+    done < <(printf '%s' "$input" | od -An -tuC -v)
+    # Grab the raw bytes of the argument in ONE call to `od`.
+    #    - `-An`  : no address column
+    #    - `-tuC` : unsigned decimal byte values
+    #    - `-v`   : do not squeeze repeated lines
+    # `od` separates numbers with spaces, but also inserts newlines
+    # every 16 values.  The `read` loop sees each *line* at a time,
+    # so we have to split the line into individual numbers ourselves.
+    # The process substitution supplies the output of od to the while‑read.
+    # The outer `printf` guarantees that we are feeding *exactly* the bytes
+    # of $input (no extra newline) to od.
+
+    _debug "_escape_control_characters: out: [${out:0:42}]"
+    printf '%b' "$out" # Expand the octal escapes so the caller gets the original UTF‑8 characters
 }
 
 # API Functions
@@ -101,10 +106,10 @@ _call_curl() {
     _debug "_call_curl: Turbo Mode"
     curl_args+=( -H "Authorization: Bearer ${OLLAMA_LIB_TURBO_KEY}" ) # API Key
   fi
-  curl_args+=( -X ${method} )
-  curl_args+=( ${OLLAMA_LIB_API}${endpoint} )
+  curl_args+=( "-X" "${method}" )
+  curl_args+=( "${OLLAMA_LIB_API}${endpoint}" )
   if [[ -n "${json_body}" ]]; then
-    _debug "_call_curl: adding json body"
+    _debug "_call_curl: adding json body: [${json_body:0:120}]"
     curl_args+=( -d "${json_body}" )
   fi
   #_debug "_call_curl: curl_args: [${curl_args[*]}]"
@@ -164,16 +169,15 @@ ollama_api_ping() {
     _debug "ollama_api_ping: function not available in Turbo Mode"
     return $RETURN_SUCCESS
   fi
-  return $RETURN_SUCCESS
   local result
   if ! result=$(ollama_api_get ""); then
-    _error "ollama_api_ping: result=ollama_api_get failed"
+    _debug "ollama_api_ping: result=ollama_api_get failed"
     return $RETURN_ERROR
   fi
   if [[ "$result" == "Ollama is running" ]]; then # Valid as of Ollama 0.11
     return $RETURN_SUCCESS
   fi
-  _error "ollama_api_ping: unknown result: [${result:0:70}...]"
+  _debug "ollama_api_ping: unknown result: [${result:0:42}...]"
   return $RETURN_ERROR
 }
 
@@ -201,31 +205,10 @@ ollama_generate_json() {
     --argjson stream "$stream_bool" \
     '{model: $model, prompt: $prompt, stream: $stream}')
   if ! ollama_api_post '/api/generate' "$json_payload"; then
-    _error "ollama_generate_json: ollama_api_post failed"
+    _error 'ollama_generate_json: ollama_api_post failed'
     return $RETURN_ERROR
   fi
-  _debug 'ollama_generate_json: return: 0'
-  return $RETURN_SUCCESS
-}
-
-# Generate a completion, as streaming json
-#
-# Input: 1 - The model to use to generate a response
-# Input: 2 - The prompt
-# Usage: ollama_generate_stream_json "model" "prompt"
-# Output: json, to stdout
-# Requires: curl, jq
-# Returns: 0 on success, 1 on error
-ollama_generate_stream_json() {
-  _debug "ollama_generate_stream_json: [$1] [${2:0:42}]"
-  OLLAMA_LIB_STREAM=1 # Turn on streaming
-  if ! ollama_generate_json "$1" "$2"; then
-    _error "ollama_generate_stream_json: ollama_generate_json failed"
-    OLLAMA_LIB_STREAM=0 # Turn off streaming
-    return $RETURN_ERROR
-  fi
-  OLLAMA_LIB_STREAM=0 # Turn off streaming
-  _debug 'ollama_generate_stream_json: return: 0'
+  _debug 'ollama_generate_json: success: return: 0'
   return $RETURN_SUCCESS
 }
 
@@ -254,6 +237,27 @@ ollama_generate() {
     return $RETURN_ERROR
   fi
   _debug 'ollama_generate: return: 0'
+  return $RETURN_SUCCESS
+}
+
+# Generate a completion, as streaming json
+#
+# Input: 1 - The model to use to generate a response
+# Input: 2 - The prompt
+# Usage: ollama_generate_stream_json "model" "prompt"
+# Output: json, to stdout
+# Requires: curl, jq
+# Returns: 0 on success, 1 on error
+ollama_generate_stream_json() {
+  _debug "ollama_generate_stream_json: [$1] [${2:0:42}]"
+  OLLAMA_LIB_STREAM=1 # Turn on streaming
+  if ! ollama_generate_json "$1" "$2"; then
+    _error "ollama_generate_stream_json: ollama_generate_json failed"
+    OLLAMA_LIB_STREAM=0 # Turn off streaming
+    return $RETURN_ERROR
+  fi
+  OLLAMA_LIB_STREAM=0 # Turn off streaming
+  _debug 'ollama_generate_stream_json: return: 0'
   return $RETURN_SUCCESS
 }
 
@@ -875,15 +879,17 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
   echo "OLLAMA_LIB_API      : $OLLAMA_LIB_API"
   echo "OLLAMA_LIB_STREAM   : $OLLAMA_LIB_STREAM"
-  echo "OLLAMA_LIB_MESSAGES : ${#OLLAMA_LIB_MESSAGES[@]}"
-  echo
+  echo "OLLAMA_LIB_MESSAGES : (${#OLLAMA_LIB_MESSAGES[@]} messages)"
+  echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
+  #  echo
   if [ -z "$(command -v compgen 2> /dev/null)" ]; then
     _debug "ollama_lib_about: compgen Not Found"
     return $RETURN_ERROR
   fi
+  echo
   echo "Functions:"
   echo
-  compgen -A function | grep 'ollama_' | sort
+  compgen -A function | grep 'ollama_' | sort | column
 }
 
 # Ollama Bash Lib version
