@@ -65,7 +65,8 @@ echo; echo '## Demo'; echo
 demo
 
 ollama_messages_clear
-OLLAMA_LIB_DEBUG=1
 
+OLLAMA_LIB_DEBUG=1
 echo; echo '## Demo Debug'; echo
 demo
+OLLAMA_LIB_DEBUG=0
