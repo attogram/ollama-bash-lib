@@ -1,8 +1,8 @@
-# escape_control_characters
+# _escape_control_characters
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.9
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.10
 
-Usage: escape_control_characters "string"
+Usage: _escape_control_characters "string"
 
 
 ```

@@ -14,7 +14,7 @@ demos=($(find . -maxdepth 1 -name "*.sh" | sort)) # Get all *.sh files in curren
 # Exclude files
 excluded=(
   "./run.demos.sh"
-  "./run.demos.turbo.sh"
+  "./run.turbo.demos.sh"
   "./interactive.chat.sh"
   "./interactive.generate.sh"
   "./show.all.models.sh"

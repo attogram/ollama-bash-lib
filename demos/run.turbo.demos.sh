@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 
-export OLLAMA_HOST=ollama.com
-
 echo "Run all Ollama Bash Lib Demos, save output to .md files"
+echo
+echo "Turbo Mode"
+echo
+
+echo -n 'Enter Ollama API Key: '
+read -r api_key
+
+export OLLAMA_LIB_TURBO_KEY="$api_key"
+export OLLAMA_HOST="https://ollama.com"
+
 echo
 echo "OLLAMA_HOST: $OLLAMA_HOST"
 echo
@@ -16,7 +24,7 @@ demos=($(find . -maxdepth 1 -name "*.sh" | sort)) # Get all *.sh files in curren
 
 excluded=(
   "./run.demos.sh"
-  "./run.demos.turbo.sh"
+  "./run.turbo.demos.sh"
   "./interactive.chat.sh"
   "./interactive.generate.sh"
   "./show.all.models.sh"

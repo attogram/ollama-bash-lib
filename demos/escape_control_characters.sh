@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo '# escape_control_characters'
+echo '# _escape_control_characters'
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -15,13 +15,13 @@ startup() {
 startup
 
 echo
-echo 'Usage: escape_control_characters "string"'
+echo 'Usage: _escape_control_characters "string"'
 echo
 
 echo
 echo '```'
 string='{"value":"abc def"}'
-clean=$(escape_control_characters "$string")
+clean=$(_escape_control_characters "$string")
 echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
@@ -34,7 +34,7 @@ echo
 
 ff=$'\n'
 string="{\"value\":\"abc${ff}def\"}"
-clean=$(escape_control_characters "$string")
+clean=$(_escape_control_characters "$string")
 echo "- string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
 echo "- clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
@@ -52,7 +52,7 @@ string+=$(printf 'carriage-return:%b, ' '\013') # carriage return \r
 string+=$(printf 'escape:%b, ' '\027') # escape
 string+=$(printf 'unit-separator:%b' '\031') # unit separator
 string+='"}'
-clean=$(escape_control_characters "$string")
+clean=$(_escape_control_characters "$string")
 echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$string")]"
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
