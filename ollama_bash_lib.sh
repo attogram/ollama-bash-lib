@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.12"
+OLLAMA_LIB_VERSION="0.42.14"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -50,36 +50,63 @@ _error() {
 # Output: string with control characters escaped
 # Requires: none
 # Returns: 0
+#
+# @generated-ai: gpt-oss:120b
+# ----------------------------------------------------------------------
+# Escape control characters in a string but keep the surrounding JSON
+# syntax (braces, quotes, commas, …) unchanged.
+#
+# Input  : any Bash string – it may already be a JSON fragment.
+# Output : the same fragment, but every control byte (U+0000‑U+001F
+#          and DEL) is turned into a JSON‑legal escape:
+#            * \b, \t, \n, \f, \r for the five most common controls
+#            * \u00XX for any other control character
+#          Printable / UTF‑8 bytes are emitted unchanged.
+# Requires: no external programs (only standard POSIX tools).
+# ----------------------------------------------------------------------
 _escape_control_characters() {
-    _debug "_escape_control_characters: [${1:0:42}]"
     local input=$1
-    local byte # will hold one decimal value per loop iteration
-    local out='' # result accumulator
-    while IFS= read -r byte; do
-        set -- $byte # Using `set -- $byte` expands the line into positional parameters.
-        for byte in "$@"; do
-            [ -z "$byte" ] && continue # Guard against empty strings (possible on an empty input)
-            if (( byte >= 0 && byte <= 31 )); then # Decide what to emit for this byte
-                out+=$(printf '\\u%04x' "$byte") # Control character → Unicode escape \uXXXX
+    local out=''                     # accumulator for the escaped result
+
+    # ------------------------------------------------------------------
+    # 1️⃣  Feed the exact bytes of $input to od – one decimal number per
+    #     byte (no address column, unsigned, never squeeze repeats).
+    # ------------------------------------------------------------------
+    while IFS= read -r line; do
+        set -- $line                # turn the space‑separated list into $1 $2 …
+        for b in "$@"; do
+            # ---------------------------------------------------------
+            # 2️⃣  Control characters (U+0000‑U+001F and DEL)
+            # ---------------------------------------------------------
+            if (( b >= 0 && b <= 31 )) || (( b == 127 )); then
+                case $b in
+                    8)  out+='\\b' ;;                 # backspace
+                    9)  out+='\\t' ;;                 # horizontal tab
+                    10) out+='\\n' ;;                 # line feed (LF)
+                    12) out+='\\f' ;;                 # form feed
+                    13) out+='\\r' ;;                 # carriage return
+                    *) out+=$(printf '\\u%04x' "$b") ;;   # any other control → \u00XX
+                esac
+            # ---------------------------------------------------------
+            # 3️⃣  Printable / UTF‑8 bytes – copy them unchanged
+            # ---------------------------------------------------------
             else
-                out+=$(printf '\\%03o' "$byte") # keep‑as‑is - Printable / part of a multibyte UTF‑8 sequence.
+                # Build a one‑byte variable that contains the raw byte.
+                #   printf '\\%03o' produces a back‑slash‑octal escape,
+                #   which we then expand with %b (only octal is expanded,
+                #   not the \u escapes we added above).
+                printf -v chr '\\%03o' "$b"
+                out+=$(printf '%b' "$chr")
             fi
         done
     done < <(printf '%s' "$input" | od -An -tuC -v)
-    # Grab the raw bytes of the argument in ONE call to `od`.
-    #    - `-An`  : no address column
-    #    - `-tuC` : unsigned decimal byte values
-    #    - `-v`   : do not squeeze repeated lines
-    # `od` separates numbers with spaces, but also inserts newlines
-    # every 16 values.  The `read` loop sees each *line* at a time,
-    # so we have to split the line into individual numbers ourselves.
-    # The process substitution supplies the output of od to the while‑read.
-    # The outer `printf` guarantees that we are feeding *exactly* the bytes
-    # of $input (no extra newline) to od.
 
-    _debug "_escape_control_characters: out: [${out:0:42}]"
-    printf '%b' "$out" # Expand the octal escapes so the caller gets the original UTF‑8 characters
+    # ------------------------------------------------------------------
+    # 4️⃣  No further interpretation – just print the accumulator.
+    # ------------------------------------------------------------------
+    printf '%s' "$out"
 }
+
 
 # API Functions
 
