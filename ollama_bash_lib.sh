@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.14"
+OLLAMA_LIB_VERSION="0.42.15"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -62,7 +62,6 @@ _error() {
 #            * \b, \t, \n, \f, \r for the five most common controls
 #            * \u00XX for any other control character
 #          Printable / UTF‑8 bytes are emitted unchanged.
-# Requires: no external programs (only standard POSIX tools).
 # ----------------------------------------------------------------------
 _escape_control_characters() {
     local input=$1
@@ -73,18 +72,18 @@ _escape_control_characters() {
     #     byte (no address column, unsigned, never squeeze repeats).
     # ------------------------------------------------------------------
     while IFS= read -r line; do
-        set -- $line                # turn the space‑separated list into $1 $2 …
+        set -- $line                # split the od line into numbers
         for b in "$@"; do
             # ---------------------------------------------------------
             # 2️⃣  Control characters (U+0000‑U+001F and DEL)
             # ---------------------------------------------------------
             if (( b >= 0 && b <= 31 )) || (( b == 127 )); then
                 case $b in
-                    8)  out+='\\b' ;;                 # backspace
-                    9)  out+='\\t' ;;                 # horizontal tab
-                    10) out+='\\n' ;;                 # line feed (LF)
-                    12) out+='\\f' ;;                 # form feed
-                    13) out+='\\r' ;;                 # carriage return
+                    8)  out+="\\b" ;;                 # backspace
+                    9)  out+="\\t" ;;                 # horizontal tab
+                    10) out+="\\n" ;;                 # line feed (LF)
+                    12) out+="\\f" ;;                 # form‑feed
+                    13) out+="\\r" ;;                 # carriage‑return
                     *) out+=$(printf '\\u%04x' "$b") ;;   # any other control → \u00XX
                 esac
             # ---------------------------------------------------------
@@ -106,7 +105,6 @@ _escape_control_characters() {
     # ------------------------------------------------------------------
     printf '%s' "$out"
 }
-
 
 # API Functions
 
