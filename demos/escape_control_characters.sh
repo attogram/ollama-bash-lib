@@ -26,7 +26,7 @@ echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$s
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
 echo '```json'
-printf '%s\n' "$clean" | jq -c
+printf '%s\n' "$clean" | jq -r -c
 echo '```'
 echo '```'
 
@@ -39,7 +39,7 @@ echo "- string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "
 echo "- clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
 echo '```json'
-printf '%s\n' "$clean" | jq -c
+printf '%s\n' "$clean" | jq -r -c
 echo '```'
 
 echo
@@ -57,5 +57,5 @@ echo "string: $(echo "$string" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$s
 echo "clean : $(echo "$clean" | wc -c | sed 's/ //g') bytes: [$(printf '%s' "$clean")]"
 echo '```'
 echo '```json'
-printf '%s\n' "$clean" | jq -c
+printf '%s\n' "$clean" | jq -r -c
 echo '```'
