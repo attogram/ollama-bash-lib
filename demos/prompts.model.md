@@ -1,8 +1,8 @@
 # Send a list of prompts to a model
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.19
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.20
 
-model: gpt-oss:120b
+model: gpt-oss:20b
 
 prompts:
 * [My hovercraft is full of eels](#my-hovercraft-is-full-of-eels)
@@ -19,317 +19,263 @@ prompts:
 
 ## My hovercraft is full of eels
 
-That certainly paints a vivid picture! 🐍🛸
-
-If you’re literally dealing with a swarm of slippery eels hitching a ride in your hover‑craft, you’ve got a delightful (and potentially slippery) engineering challenge on your hands:
-
-1. **Safety first** – Eels can give a surprisingly strong wriggle. Wear gloves and consider a waterproof apron so you don’t end up with an unexpected “electric” shock from the slime.
-2. **Ventilation** – Eels need oxygenated water. If they’re in a tank, make sure the water’s circulating and filtered; otherwise, you might be heading toward a smelly, stagnant situation.
-3. **Weight balance** – A full tank of eels can add a lot of mass. Check your hover‑craft’s lift capacity and adjust the ballast or power settings accordingly.
-4. **Eel‑friendly exit** – Design a spill‑proof hatch or a gentle ramp so the eels can be released back into a suitable aquatic environment without injury.
-5. **Legal considerations** – Depending on where you are, there may be regulations about transporting wildlife, especially if the eels are a protected species. A quick check with your local wildlife authority can save you trouble later.
-
-If, on the other hand, “full of eels” is a metaphor for feeling tangled up in a tricky situation, let me know—I’m happy to help you sort through whatever’s giving you a slippery feel!
+Ah, a classic Monty‑Python moment—very “hovercrafts” of the absurd!  Don’t worry, we’ll keep the eels in a safe, 25‑degree‑C, hermetically‑sealed environment.  If you need an emergency eel‑ejector or a complimentary “I’m‑in‑a‑situation‑that‑I’d‑like‑a‑boat‑scoop” sticker, just let me know!
 
 ## Explain the theory of relativity in very simple terms.
 
-**The Theory of Relativity – a super‑quick, kid‑friendly rundown**
+**The theory of relativity – in the simplest way possible**
+
+Imagine the universe is a giant, invisible “fabric” – not a sheet of paper, but a stretchy, four‑dimensional space‑time that keeps everything in place. There are two main ideas people usually talk about, called *special relativity* and *general relativity*.
 
 ---
 
-## 1️⃣ Special Relativity (the “speed‑and‑time” part)
+### 1. Special Relativity (What happens when nothing is “standing still” or “free‑falling”)
 
-| What it says | Everyday picture |
-|---------------|-----------------|
-| **Nothing can go faster than light.** | Imagine a race where the fastest runner is a flash of light. No matter how hard you sprint, you’ll never catch up. |
-| **Time and space are linked – they can stretch or squeeze.** | Think of a rubber sheet that can be pulled tight or relaxed. If you move really fast across the sheet, the sheet (space) and the clock (time) on your side get a little “stretched” for you, but not for someone standing still. |
-| **If two people measure the same thing, they can disagree on how long it took or how far it was, but the math still works out.** | Two friends watch a car drive by. One is on a moving train, the other on the platform. They’ll each say the car took a different amount of time to pass, but if they both do the proper calculations, they’ll agree on the car’s actual speed. |
-| **E = mc²** – energy (E) and mass (m) are interchangeable; the “c” is the speed of light (a huge number). | A tiny amount of matter can become a huge burst of energy, just like a tiny spark can set off a big firework. This is why the Sun shines and why atomic bombs work. |
+| What it says | Simple idea / picture |
+|--------------|-----------------------|
+| **Speed of light is constant** | No matter how fast you’re moving, light always goes at about 300 000 km/s. Think of a runner who keeps the same pace no matter which direction or how fast the crowd runs along. |
+| **Time can stretch or shrink** | A clock that runs while you’re moving really fast will tick *slower* compared to a clock that stays still. Imagine a race where the runner carries a stopwatch; the stopwatch slows down for the other observer. |
+| **Length changes** | Objects that move very fast look a bit *shorter* in the direction of motion to a stationary observer. It’s like squeezing a ruler if you were moving nearly the speed of light. |
+| **Mass increases with speed** | The faster something moves, the heavier it becomes (approaching the speed of light it would need infinite energy to move—so nothing can reach that speed). Think of a bike that gets harder to pedal the faster you go. |
+| **Energy = Mass × Speed of light² (E=mc²)** | That famous equation simply says that mass and energy are two sides of the same coin. A little mass can become a huge amount of energy (as in nuclear power). |
 
-**Key takeaway:**  
-When you move *really* fast (close to the speed of light), your clock runs a tiny bit slower and distances shrink a little for you. For everyday speeds (cars, airplanes) the effect is so tiny you can’t notice it.
-
----
-
-## 2️⃣ General Relativity (the “gravity‑bends‑space” part)
-
-| What it says | Everyday picture |
-|---------------|-----------------|
-| **Mass and energy tell space‑time how to curve; curved space‑time tells objects how to move.** | Picture a stretchy trampoline. Put a heavy bowling ball in the middle – the fabric dips. Roll a marble nearby and it spirals toward the ball, not because a hidden pull is tugging it, but because the surface is curved. |
-| **Gravity isn’t a mysterious force pulling you; it’s you following the straightest path (a “geodesic”) in a curved space‑time.** | Walking on a hill, you naturally follow the slope downhill – you don’t need a “force” pushing you; the shape of the ground does the work. |
-| **Time runs slower where gravity is stronger.** | Up high on a mountain, clocks tick a tiny bit faster than they do at sea level. GPS satellites have to correct for this, or else your phone’s navigation would quickly go haywire. |
-| **Light bends when it passes near massive objects.** | Starlight skims the Sun and gets nudged a little, making the star appear in a slightly different spot (observed during solar eclipses). |
-
-**Key takeaway:**  
-Mass (like Earth, the Sun, or a black hole) bends the “fabric” of space‑time, and anything moving—including light—gets steered by that bend. Gravity is just the story of objects following the curves.
+*Key takeaway*: In a world where everything moves at moderate speeds compared to light, time, space, and mass act very “normally.” But as speeds approach light speed, they behave differently in a predictable way.
 
 ---
 
-## Putting It All Together (in one sentence)
+### 2. General Relativity (What happens when there is mass, gravity, or acceleration)
 
-*Special relativity* tells us that moving fast changes how we measure time and distance, while *general relativity* tells us that mass warps space‑time, making objects (and even light) follow curved paths that we feel as gravity.
+| What it says | Simple idea / picture |
+|--------------|-----------------------|
+| **Gravity isn’t just a force, it’s curvature** | Imagine placing a heavy bowling ball on a trampoline. The trampoline “deforms.” If you roll a smaller marble on the trampoline, it will spiral toward the bowling ball because the surface curves. In the universe, massive objects (stars, planets) bend the “fabric” of space‑time. |
+| **Everything follows curved paths** | The Earth orbits the Sun not because of a mysterious invisible pull but because the Sun’s mass curves space around it, and the Earth simply travels along the curved path. |
+| **Time runs slower where gravity is stronger** | A clock on the surface of a heavy planet ticks a tiny bit slower than a clock floating far away in space. This is why GPS satellites have to correct their clocks. |
+| **Large objects can bend light** | Light passes near a massive body (like the Sun) and bends slightly. That's why stars appear to shift their positions during a solar eclipse. |
+
+*Key takeaway*: Massive bodies make space‑time bend; all objects—including light—follow the curves. Gravity is not a “push” or “pull” but a bending of the landscape you move on.
 
 ---
 
-### Quick “Why It Matters”
+### Putting them together
 
-- **GPS** works because satellites correct for both the speed‑related (special) and gravity‑related (general) time differences.
-- **The Sun’s energy** comes from mass turning into energy (E=mc²).
-- **Black holes** are extreme pockets where space‑time is curved so sharply that even light can’t escape.
+* **Special relativity** tells you how time, space, mass, and energy behave when you are moving with constant speed, and there’s no acceleration or gravity.
+* **General relativity** takes that further, describing how massive objects cause space‑time to curve, which in turn tells us how objects move (and even how light travels).
 
----
-
-### A Simple Analogy to Remember
-
-> **Space‑time is a stretchy, flexible sheet.**  
-> - **Fast travel** = walking quickly on the sheet, which slightly stretches the sheet for you.  
-> - **Mass** = placing a heavy ball on the sheet, making a dip.  
-> - **Gravity** = rolling marbles that slide into the dip because the sheet is curved, not because an invisible hand pulls them.
-
-That’s the essence of Einstein’s theory of relativity, boiled down to everyday language! 🚀✨
+Even with all the fancy math, the core idea is simple:  
+**The universe is a four‑dimensional “fabric,” and everything in it moves by following the geometry of that fabric.**
 
 ## Invent a new holiday and describe how people celebrate it.
 
-**Holiday Name:** **World Story‑Weave Day**  
-**Date:** The first Saturday of October (so it’s always a weekend, yet still marks a point in the calendar year)
+**The Holiday**  
+**Name:** Harmony Day (also called “Dia de la Armonía” in Spanish‑speaking regions, “Harmonietag” in Germany, “Samanthari” in Japan, “Joi Amity” in English‑speaking places)  
+**Date:** 15 May every year (the first full‑moon after the vernal equinox in the Northern Hemisphere, and the first full‑moon after the autumnal equinox in the Southern Hemisphere).  
+**Why 15 May?** The month of May worldwide is already a time of renewal (the U.S. has “Mother’s Day” and the U.K. “May Day” festivals); 15 May sits midway between the equinoxes, giving a symbolic “middle‑point” where summer and winter feel equally reachable. It also historically lines up with the ancient lunar calendar dates that many cultures used for “meeting of hearts” rituals.  
 
 ---
 
-## 1. What the Holiday Is About  
+## Origin Story  
+In 1999, a linguist‑environmentalist couple moved to a hilltop hamlet in the Andes where locals gathered each spring to “speak to the wind.” They noticed how the old, weather‑worn wooden wind chimes inside the community hall seemed to hum a new song when each person whispered their intent, and how a single shared dream could bring several families together. The couple proposed turning that spontaneous “wind conversation” into a yearly celebration that would *listen* to neighbors, nature, and one another.  
 
-World Story‑Weave Day celebrates the universal human impulse to **create, share, and remix stories**—whether those stories are told through words, music, dance, visual art, games, food, or even the way we arrange a garden. The day reminds us that every culture, community, and individual is a thread in a larger tapestry of narratives, and that weaving those threads together makes the world richer, more empathetic, and more inventive.
-
----
-
-## 2. Core Themes  
-
-| Theme | Symbol | How It’s Expressed |
-|-------|--------|-------------------|
-| **Connection** | A woven ribbon of many colors | People intentionally link their stories with those of others. |
-| **Transformation** | A chameleon‑like “story‑seed” (a small, multi‑colored stone) | Stories are retold with a fresh spin or combined with another tale. |
-| **Playfulness** | A stylized, open‑book spiral | Games, improv, and spontaneous performance are encouraged. |
-| **Inclusivity** | A circle of interlocking hands (different skin tones) | Everyone, regardless of age, language, or ability, is invited to contribute. |
+The idea was formalized in a short, heartfelt petition named **“Let’s Harmonize”** at a local university. It received unanimous approval from the council in 2001, setting 15 May as the inaugural date. Within five years, the holiday had spread to cities in North America, Europe, Asia, and Africa, each adding its own flavor while keeping the core principle: *to tune into others and the environment, then to act on that shared resonance.*
 
 ---
 
-## 3. How People Celebrate  
-
-### A. Morning: “Story‑Seed Planting”
-
-1. **Gather a story‑seed** – a smooth, multicolored stone (or a small token if stones aren’t available).  
-2. **Write a brief personal vignette** (1–2 paragraphs) on a reusable “Story Card” – a piece of cardstock with a tiny QR code that links to a shared online archive.  
-3. **Plant the seed** in a community garden, balcony pot, or even a decorative bowl of sand. The act symbolizes sowing the seed of a narrative that will grow as people pass it on throughout the day.
-
-### B. Mid‑Morning: “Weave‑Walk”
-
-- **Neighborhood or campus “Weave‑Walks”** are organized, where volunteers carry a portable “Story‑Weave Banner” – a long, fabric strip with loops for attaching cloth tags.  
-- As walkers pass homes, schools, cafés, or parks, residents **attach a tag** containing a short phrase, doodle, or QR‑code link to a recorded story.  
-- By the end of the walk, the banner becomes a literal tapestry of the community’s voices.
-
-### C. Afternoon: “Mash‑Up Market”
-
-1. **Pop‑up stalls** set up in town squares, libraries, or online platforms.  
-2. Each stall focuses on a medium:  
-   - **Word‑Weavers** – writers collaborate in real‑time to rewrite classic fairy tales with modern twists.  
-   - **Melody‑Melders** – musicians improvise using lyrics contributed by passersby.  
-   - **Pixel‑Patchworks** – digital artists remix fan art, memes, and traditional illustrations into a giant collaborative mural displayed on a projection wall.  
-   - **Taste‑Tellers** – chefs create “story plates” where each ingredient represents a character or plot point; diners guess the narrative before the dish is revealed.  
-3. **Swap‑Stations** – people bring a favorite book, comic, board game, or family recipe and exchange it for another, encouraging the physical passing of stories.
-
-### D. Evening: “Campfire of Echoes” (Physical & Virtual)
-
-- Communities gather around a bonfire, fire pit, or video‑chat “campfire” room.  
-- Participants **take turns sharing** a story that began earlier in the day (the story‑seed they planted, a tag from the Weave‑Banner, or a mash‑up created at a stall).  
-- The twist: **each retelling must incorporate at least one new element contributed by the previous storyteller** (a new character, a line of dialogue, a different setting).  
-- The growing narrative spirals outward, illustrating how stories transform as they travel.
-
-### E. Night: “Starlight Silent Story”
-
-- After the open sharing, everyone **writes a brief “silent story”** on a piece of biodegradable paper: a sequence of symbols, emojis, or simple drawings that convey a micro‑tale without words.  
-- The papers are released (carefully) into a communal “river of light” — a shallow, illuminated water feature, or, virtually, a timed livestream where each paper appears as a floating pixel.  
-- The silent stories drift and eventually fade, reminding us that stories, like stars, shine briefly but leave a lingering glow.
+## Core Traditions  
+| Activity | How it’s Done | What It Signifies |
+|---|---|---|
+| **Echo Circles** | Groups (families, friends, neighbors) stand in a circle and chant the phrase “I hear you. I see you.” They pass a small, hand‑made wooden drum (the “Echo Drum”). | A communal affirmation that everyone’s voice matters. |
+| **Lantern Release or Seed “Lanterns”** | Participants write the one thing they want to “light up” in someone else’s life (an apology, a wish, a memory) on a biodegradable paper lantern. Many now use seed‑paper lanterns that can be planted after the release. | Sending positivity into the world and literally sowing future growth. |
+| **Community Potluck & “Taste of Unity” Menu** | Each household prepares a dish that originated in another culture represented in their community; dishes are shared. The menu can be coordinated via a simple app, but the point is a spontaneous tasting of others. | Celebrating shared humanity through food. |
+| **Listening Walk** | In parks or near bodies of water, groups walk silently at sunrise and listen. Afterwards, a small ceremony with a single “thank you” spoken to the Earth is held. | A pause to acknowledge the natural world’s presence. |
+| **Planting & Rewilding Project** | In some regions, the day is dedicated to planting native trees/flowers or creating a “wildlife corridor” in an unused plot. Children receive a small seed packet called a “Dream‑Seed” to nurture over a year. | Rebuilding ecosystems as a community’s living legacy. |
 
 ---
 
-## 4. Traditions & Fun Extras  
-
-| Tradition | Description |
-|-----------|-------------|
-| **Story‑Weave Attire** | People wear clothing with visible stitching or woven patterns. Some families knit a small patch together the night before, symbolizing readiness to add their thread to the larger tapestry. |
-| **The “Threaded Toast”** | At dinner parties, each guest raises a glass of a special “Story‑Spice” cider (infused with cinnamon, star‑anise, and orange zest). When they sip, they say one word that represents the main theme of the story they’ll share later. |
-| **Global “Story‑Bridge”** | Major cities coordinate a live‑streamed “bridge” where a storyteller from one location tells a tale that ends with a cliff‑hanger. The next city’s storyteller picks up that cliff‑hanger and continues the plot. The chain can loop around the world several times. |
-| **“Legacy Lanterns”** | In the closing minutes, participants light small LED lanterns (eco‑friendly) and place them on a communal “River of Light” (a reflective pool or a digital river on a screen). Each lantern’s glow represents a story that will continue beyond the day. |
-
----
-
-## 5. Why It Resonates  
-
-1. **Universal Appeal:** Everyone tells stories—through jokes, recipes, memes, or moves on a dance floor. World Story‑Weave Day honors all of them.  
-2. **Community Building:** The physical act of attaching tags, swapping items, and weaving stories together creates tangible bonds.  
-3. **Creativity Boost:** The “must‑add‑something‑new” rule forces participants to think on their feet and explore cross‑medium combinations.  
-4. **Inclusive:** No prior skill is required—anyone can plant a seed, attach a tag, or whisper a line into a fire.  
-5. **Digital‑Friendly:** QR codes, livestream bridges, and online archives ensure the holiday works for remote villages, bustling metropolises, and everything in between.
+## Variations Around the World  
+| Country | How It’s Celebrated | Unique Add‑ons |
+|---|---|---|
+| **United States** | *Community Service Fairs*: Instead of a potluck, many schools host “service booths” where volunteers can sign up for summer projects (cleanups, tutoring). | A “Harmony Billboard” in each town lists ongoing projects for residents to join. |
+| **Japan** | *Samanthari*: Schools close early, and students go to a local shrine to lay a small stone tablet with their wish. They then go back to class to plant a tree in the school garden. | The use of *tsukiji* (rice crackers) shaped like open hands. |
+| **Brazil** | *Dia de Armonia*: Afro‑Brazilian drums are played and people perform a short dance called “Onda de Vida” (Wave of Life). | A “Rain Dance” where lanterns are hung to mimic rainfall over the city. |
+| **Kenya** | *Joi Amity* festival: A communal “story‑circle” where elder’s recount local legends; young people write poems. | A “water‑sharing” ritual where buckets filled at a community well are passed among families. |
+| **Germany** | *Harmonietag*: Citizens decorate public buildings with colorful “Harmonie‑Bande” ribbons. An evening concert featuring local choirs and instrumental ensembles is televised. | The tradition of giving a small “Harmonie‑Token” (a silver leaf charm) to neighbors. |
 
 ---
 
-## 6. Getting Started (If You Want to Celebrate Tomorrow)
+## How You Might Celebrate It Yourself  
+1. **Start with an Echo** – Stand in a quiet place, put a hand over your heart, and say the mantra *“I hear you. I see you.”*  
+2. **Make a Lantern** – Choose a small biodegradable lantern or a seed‑paper sheet; write a kindness note on it.  
+3. **Plan a Small Service** – Offer 30 min of your time to a local garden, shelter, or community center.  
+4. **Cook a World Dish** – Try your hand at a recipe you’ve never made; if you can’t, find a recipe online and imagine you’re living somewhere else for a day.  
+5. **Plant a Dream‑Seed** – Whether inside a pot or in the dirt, sow a seed that represents hope or a personal growth goal. Keep it in a place where you’ll remember to water it as the year goes by.  
 
-1. **Print a few “Story Cards”** (a blank side + QR code to a free online doc).  
-2. **Collect small stones or tokens** as story‑seeds.  
-3. **Create a simple banner** from an old sheet or fabric, and cut out cloth tags (about 2×2 inches).  
-4. Invite friends or neighbors for a **15‑minute “Weave‑Walk”** around your block.  
-5. End with a **“Campfire of Echoes”**—even a backyard fire pit works, or a Zoom call with everyone sharing their mini‑story.  
+---
 
-Enjoy the weaving! 🎉📖✨
+## Why It Works  
+Harmony Day is built on three “harmonies”:  
+
+- **Between people** – By echoing, listening, and serving one another.  
+- **Between people and nature** – Through planting and mindful observation.  
+- **Between cultures** – By sharing food and stories, people literally taste each other’s roots.  
+
+The day is intentionally short, focused, and scalable: you can participate solo, with family, or as part of a larger community. It doesn’t need expensive costumes or elaborate décor—just a willingness to listen and to leave a small, intentional spark behind.
+
+--- 
+
+So next **15 May**—the day the moon is at its fullest on the halfway point of spring—take a breath, gather your lantern, and share a moment of genuine listening. You’ll leave the day with a subtle, lasting echo that keeps growing with every act of kindness you sow.
 
 ## If a train travels at 60 miles per hour for 3 hours, how far does it go?
 
-The distance traveled is given by:
+A train traveling at a constant speed of **60 miles per hour** covers a distance equal to that speed multiplied by the time it travels.
 
 \[
 \text{Distance} = \text{Speed} \times \text{Time}
 \]
 
-Here, the speed is 60 miles per hour and the time is 3 hours:
-
 \[
-\text{Distance} = 60 \,\text{mph} \times 3 \,\text{h} = 180 \,\text{miles}
+\text{Distance} = 60\ \text{mph} \times 3\ \text{h}
 \]
 
-**So the train will travel 180 miles.**
+\[
+\text{Distance} = 180\ \text{miles}
+\]
+
+So the train travels **180 miles**.
 
 ## Translate to French: 'The weather is nice today.'
 
-« Il fait beau aujourd’hui. »
+Il fait beau aujourd'hui.
 
 ## Is the following review positive or negative? 'I loved the movie, it was fantastic!'
 
-The review is positive.
+Positive
 
 ## If all cats are animals and some animals are playful, can we say some cats are playful?
 
-No – the conclusion **“some cats are playful”** does not follow logically from the two premises given.
+**Short answer:**  
+No. From “All cats are animals” and “Some animals are playful” you cannot conclude that “Some cats are playful.”
 
-**Why not?**
+### Why?
 
-1. **Premise 1:** *All cats are animals.*  
-   This tells us that the set of cats is a subset of the set of animals.
+| Statement | Logical form | What it tells us |
+|-----------|--------------|------------------|
+| All cats are animals. | ∀x (Cat(x) → Animal(x)) | Every cat is an animal, but it doesn't say *which* animals are cats. |
+| Some animals are playful. | ∃x (Animal(x) ∧ Playful(x)) | There is at least one animal that is playful, but that animal might or might not be a cat. |
 
-2. **Premise 2:** *Some animals are playful.*  
-   This tells us that there exists at least one animal (or possibly many) that is playful, but it says nothing about **which** animals those are.
+The second statement guarantees at least one playful animal exists, but that animal could belong to any animal species that are **not** cats (dogs, rabbits, etc.). Therefore, without additional information that links the playful animals to cats, we cannot assert that any cat is playful.
 
-From these two statements we only know:
+### Counter‑example
 
-- Cats ⊆ Animals
-- Playful ∩ Animals ≠ ∅ (the intersection of “playful” and “animals” is non‑empty)
+Imagine a world where:
+1. **Cats** = {Whiskers, Mittens}
+2. **Other animals** (that are playful) = {Buddy the dog, Fluffy the rabbit}
+3. **Playful** = {Buddy, Fluffy}
 
-But we have no information about the intersection of **cats** and **playful**. It’s perfectly possible that the playful animals are all non‑cats (e.g., playful dogs, playful birds, etc.), in which case **no cat** would be playful. Conversely, it could also be the case that some cats are playful. The premises alone don’t determine which situation holds.
+Here:
+- All cats are animals (true).
+- Some animals are playful (Buddy and Fluffy, true).
+- But **no cat** is playful (false).
 
-**Conclusion:**  
-The argument is *invalid*; we cannot deduce “some cats are playful” without an additional premise such as “some animals that are playful are cats” or “some cats are playful.”
+So the conclusion “Some cats are playful” is not logically forced.
+
+### When would it be true?
+
+You would need an extra premise such as:
+- “All playful animals are cats.”  
+- Or “Some playful animals are cats.”  
+- Or “All cats are playful.”  
+
+These would make the inference safe.
+
+---
+
+**Bottom line:** The information given is insufficient. The safest answer is *no,* we cannot say that some cats are playful.
 
 ## Write a Bash function that returns the sum of a list of numbers.
 
-Here’s a compact, reusable Bash function that adds up any number of arguments you pass to it.  
-It prints the sum to **stdout** so you can capture it in a variable or use it directly in a pipeline.
+Below is a tiny, self‑contained Bash function that takes any number of numeric arguments and prints their sum.
 
 ```bash
-#-------------------------------------------------
-# sum_numbers  –  sum a list of numbers
-#
-# Usage:
-#   total=$(sum_numbers 3 7 2.5 -1)
-#   echo "The total is $total"
-#-------------------------------------------------
-sum_numbers() {
-    local sum=0
-    local val
+# sum() – compute the sum of all its arguments
+sum() {
+    local total=0          # accumulator
+    local num
 
-    # Loop over all arguments
-    for val in "$@"; do
-        # Optional: skip empty arguments
-        [[ -z $val ]] && continue
-
-        # Validate that the argument looks like a number (integer or decimal)
-        if [[ $val =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
-            # Use bc for floating‑point arithmetic; fallback to integer if bc is missing.
-            if command -v bc >/dev/null 2>&1; then
-                sum=$(echo "$sum + $val" | bc -l)
-            else
-                # Bash can do integer math natively; this will truncate fractions.
-                sum=$((sum + val))
-            fi
+    for num in "$@"; do
+        # Basic sanity check – allow integers (negative or positive)
+        if [[ "$num" =~ ^-?[0-9]+$ ]]; then
+            total=$((total + num))
         else
-            echo "Warning: '$val' is not a valid number – ignored" >&2
+            printf 'sum: warning: ignoring non‑numeric argument "%s"\n' "$num" >&2
         fi
     done
 
-    # Print the result (no trailing newline if you prefer)
-    printf "%s\n" "$sum"
+    # Return the computed sum via stdout
+    printf '%d\n' "$total"
 }
 ```
 
-### How it works
-1. **Initialization** – `sum` starts at zero.
-2. **Iteration** – For each argument (`$@`), we:
-   - Skip empty strings.
-   - Verify the argument looks like a number using a regular expression.
-   - If `bc` is available, we use it (`bc -l`) to handle both integers and decimals precisely.
-   - If `bc` is not installed, Bash’s built‑in integer arithmetic (`$((…))`) is used (fractional parts are dropped).
-3. **Output** – The final sum is printed with `printf`, which makes it easy to capture or pipe.
-
-### Example usage
+### How to use it
 
 ```bash
-# Simple integer sum
-echo "$(sum_numbers 1 2 3 4)"           # → 10
+#!/usr/bin/env bash
+source ./sum.sh   # if you saved the function in sum.sh
 
-# Mixed integers & floats
-total=$(sum_numbers 5.5 -2 3.25)
-echo "Total = $total"                  # → Total = 6.75
-
-# Ignoring non‑numeric input
-sum_numbers 7 foo 3                   # prints warning for “foo” and returns 10
+# Example calls
+printf 'Sum of 1 2 3 4: %s\n' "$(sum 1 2 3 4)"           # → 10
+printf 'Sum of -5 10 3: %s\n' "$(sum -5 10 3)"           # → 8
+printf 'Sum with a bad argument: %s\n' "$(sum 3 5 foo 2)" # → 10 (foo ignored)
 ```
 
-Feel free to drop the `sum_numbers` function into your scripts or source it from a library file. It’s portable, handles basic validation, and works with both integer and floating‑point values. Happy scripting!
+### Why this works
+
+* **`"$@"`** expands to all positional arguments, safely quoted, so each argument is processed individually.
+* The **`local`** keyword keeps the variables `total` and `num` local to the function, preventing accidental clashes with the caller’s environment.
+* The arithmetic expression `$((total + num))` performs integer addition directly in Bash.
+* If you prefer the function to return the value in a variable instead of printing it, you could simply set a global variable or use a command‑substitution as shown above.
+
+Feel free to drop this function into your scripts or `.bashrc`—it’s tiny, dependency‑free, and works on any POSIX‑compatible shell that supports Bash style syntax.
 
 ## If you drop a glass on the floor, what is most likely to happen?
 
-When a glass is dropped onto a hard floor, the most common result is that it **breaks or shatters**. The impact forces exceed the material’s tensile strength, causing cracks that quickly propagate through the glass. Depending on the type of glass, the height of the drop, and the floor surface, you might see one of the following variations:
+If you let a typical glass simply fall to a hard floor, it will almost always snap or shatter on impact.  
 
-| Factor | Typical outcome |
-|--------|-----------------|
-| **Standard drinking glass** (thin, soda‑lime glass) | Immediate break into many sharp shards; often the rim and sides split first. |
-| **Tempered or safety glass** (e.g., some beer mugs, certain kitchen glassware) | Breaks into relatively large, less‑sharp “chunks” rather than a spider‑web of tiny shards. |
-| **Borosilicate glass** (e.g., Pyrex) | More resistant; may survive a low‑height drop but often cracks or chips at the point of impact. |
-| **Drop height** | Higher drops increase kinetic energy, making a clean shatter more likely. |
-| **Floor surface** | Hard surfaces (tile, concrete, hardwood) create a louder, more violent break. A carpet or rug can absorb some energy and may result in fewer pieces or only a crack. |
+- **Why it happens:** Glass is a brittle material; it doesn’t absorb impact energy by bending or compressing but breaks when the stress from the hit exceeds its tensile strength.  
+- **Typical outcome:** The glass cracks, then splits into several shards or fragments, which can spread across the floor.  
+- **Factors that can change it:** 
+  - *Height of drop*: A very small drop might leave it only slightly cracked, a higher drop almost guarantees full breakage.  
+  - *Glass type*: Tempered or laminated glass is designed to stay intact or break into less dangerous pieces.  
+  - *Surface*: A carpet or a rubber mat reduces the impact force; a hard tile or wood floor transmits it more directly.  
+  - *Shape and thickness*: Thick, round, or specially engineered bottles can sometimes survive a light fall.
 
-### Why it happens
-- **Impact energy**: When the glass contacts the floor, its kinetic energy (½ mv²) is suddenly transferred to the glass structure. If this energy exceeds the material’s fracture toughness, cracks form.
-- **Stress concentration**: The point of first contact experiences the highest stress. Tiny surface imperfections or micro‑cracks act as initiation sites for larger fractures.
-- **Brittle behavior**: Glass lacks plastic deformation; it does not bend under stress but cracks abruptly once its limit is passed.
-
-### Safety tips (if this occurs)
-1. **Stay calm** and avoid touching broken pieces with bare hands.
-2. **Ventilate the area** to disperse any tiny shards that may become airborne.
-3. **Sweep carefully** with a broom, then use a damp paper towel or a cloth to pick up the finest particles.
-4. **Dispose of shards** in a puncture‑resistant container (e.g., a thick cardboard box or a rigid plastic bag) before placing them in the trash.
-5. **Wear protective gloves** if you need to handle larger fragments. 
-
-In short, dropping a glass on a typical hard floor almost always results in it breaking—often into many sharp pieces. The exact pattern of breakage depends on the glass type, drop height, and floor surface.
+In everyday situations, however, a plain drinking glass dropped from even a few inches will shatter into pieces.
 
 ## A rectangle has a length of 10 meters and a width of 4 meters. What is its area?
 
-The area of a rectangle is found by multiplying its length by its width:
+The area \(A\) of a rectangle is calculated by multiplying its length \(L\) by its width \(W\):
 
 \[
-\text{Area} = \text{length} \times \text{width} = 10 \,\text{m} \times 4 \,\text{m} = 40 \,\text{m}^2.
+A = L \times W
 \]
 
-So, the rectangle’s area is **40 square meters**.
+Given:
+- Length \(L = 10\) meters
+- Width \(W = 4\) meters
+
+\[
+A = 10 \, \text{m} \times 4 \, \text{m} = 40 \, \text{m}^2
+\]
+
+So, the rectangle's area is **40 square meters**.
 
 ## What is the largest ocean on Earth?
 
-The **Pacific Ocean** is the largest ocean on Earth. It covers more than 63 million square miles (about 165 million square kilometers), which is roughly one‑third of the planet’s surface and more than the combined area of all the other oceans.
+The largest ocean on Earth is the **Pacific Ocean**.
+
+### Quick Facts
+- **Area:** ~63.8 million km² (about 155 million square miles), covering more than 30% of the planet’s surface.
+- **Depth:** Deepest point is the Mariana Trench, reaching about 10,994 m (36,070 ft) below sea level.
+- **Surface Coverage:** Roughly equal to the combined area of all of Earth’s continents and landmasses.
+- **Countries Along Its Coast:** Around 50 nations have Pacific coastlines, from the Americas to Asia and Oceania.
+
+Its vastness and depth have made the Pacific a center for diverse marine life, climatic regulation, and geological activity.

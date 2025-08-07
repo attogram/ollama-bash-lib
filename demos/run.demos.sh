@@ -8,6 +8,20 @@ cd "$(dirname "$0")" || exit 1 # cd to directory this script is in
 echo "Demo directory: $(pwd)"
 echo
 
+source ../ollama_bash_lib.sh
+
+if [[ -z "$OLLAMA_LIB_TURBO_KEY" ]]; then
+  echo 'Enter API Key for Turbo Mode, or Press Enter for Local mode'
+  echo
+fi
+
+ollama_app_turbo 'on'
+
+echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
+echo "OLLAMA_HOST: $OLLAMA_HOST"
+echo "OLLAMA_LIB_API: $OLLAMA_LIB_API"
+echo
+
 # All demos
 demos=($(find . -maxdepth 1 -name "*.sh" | sort)) # Get all *.sh files in current directory
 

@@ -1,13 +1,13 @@
 # ollama_show, ollama_show_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.19
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.20
 
-ollama_show "gpt-oss:20b"
+ollama_show "gpt-oss:120b"
 
 ```
   Model
     architecture        gptoss    
-    parameters          20.9B     
+    parameters          116.8B    
     context length      131072    
     embedding length    2880      
     quantization        MXFP4     
@@ -15,21 +15,21 @@ ollama_show "gpt-oss:20b"
 ```
 
 
-ollama_show_json "gpt-oss:20b"
+ollama_show_json "gpt-oss:120b"
 
 ```
 {
   "details": {
-    "parent_model": "gpt-oss:20b",
+    "parent_model": "gpt-oss:120b",
     "format": "",
     "family": "gptoss",
     "families": null,
-    "parameter_size": "20914757184",
+    "parameter_size": "116829156672",
     "quantization_level": "MXFP4"
   },
   "model_info": {
     "general.architecture": "gptoss",
-    "general.parameter_count": 20914757184,
+    "general.parameter_count": 116829156672,
     "gptoss.context_length": 131072,
     "gptoss.embedding_length": 2880
   },
