@@ -23,7 +23,7 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
 ### Quickstart
 
-```bash
+```
 % git clone https://github.com/attogram/ollama-bash-lib.git
 % cd ollama-bash-lib
 
@@ -36,17 +36,17 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
 # Tab completion to view all functions
 % ollama_<TAB>
-ollama_api_get               ollama_chat_stream_json      ollama_messages_add
-ollama_api_ping              ollama_generate              ollama_messages_clear
-ollama_api_post              ollama_generate_json         ollama_messages_count
-ollama_app_installed         ollama_generate_stream       ollama_model_random
+ollama_api_get               ollama_chat_stream           ollama_messages
+ollama_api_ping              ollama_chat_stream_json      ollama_messages_add
+ollama_api_post              ollama_generate              ollama_messages_clear
+ollama_app_installed         ollama_generate_json         ollama_messages_count
+ollama_app_turbo             ollama_generate_stream       ollama_model_random
 ollama_app_vars              ollama_generate_stream_json  ollama_model_unload
 ollama_app_version           ollama_lib_about             ollama_ps
 ollama_app_version_cli       ollama_lib_version           ollama_ps_json
 ollama_app_version_json      ollama_list                  ollama_show
 ollama_chat                  ollama_list_array            ollama_show_json
 ollama_chat_json             ollama_list_json
-ollama_chat_stream           ollama_messages
 ```
 
 ## Usage
@@ -101,20 +101,20 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 ### Api Functions
 
-| Function                                                                                           | About                          | Usage                                            | Output                      | Return                                             |
-|----------------------------------------------------------------------------------------------------|--------------------------------|--------------------------------------------------|-----------------------------|----------------------------------------------------|
-| [`ollama_api_get`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L88)   | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error       |
-| [`ollama_api_post`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L108) | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error       | 
-| [`ollama_api_ping`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L127) | Ping the Ollama API            | `ollama_api_ping`                                | none                        | `0` API is reachable<br />`1` API is not reachable |
+| Function           | About                          | Usage                                            | Output                      | Return                                             |
+|--------------------|--------------------------------|--------------------------------------------------|-----------------------------|----------------------------------------------------|
+| `ollama_api_get`   | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error       |
+| `ollama_api_post`  | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error       | 
+| `ollama_api_ping`  | Ping the Ollama API            | `ollama_api_ping`                                | none                        | `0` API is reachable<br />`1` API is not reachable |
 
 ### Generate Functions
 
-| Function                                                                                                       | About                               | Usage                                          | Output                     | Return  |
-|----------------------------------------------------------------------------------------------------------------|-------------------------------------|------------------------------------------------|----------------------------|---------|
-| [`ollama_generate`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L203)             | Generate completion                 | `ollama_generate "model" "prompt"`             | text to `stdout`           | `0`/`1` | 
-| [`ollama_generate_json`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L153)        | Generate completion, in json        | `ollama_generate_json "model" "prompt"`        | json to `stdout`           | `0`/`1` | 
-| [`ollama_generate_stream`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L230)      | Generate completion stream          | `ollama_generate_stream "model" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
-| [`ollama_generate_stream_json`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L182) | Generate completion stream, in json | `ollama_generate_stream_json "model" "prompt"` | streaming json to `stdout` | `0`/`1` | 
+| Function                      | About                               | Usage                                          | Output                     | Return  |
+|-------------------------------|-------------------------------------|------------------------------------------------|----------------------------|---------|
+| `ollama_generate`             | Generate completion                 | `ollama_generate "model" "prompt"`             | text to `stdout`           | `0`/`1` | 
+| `ollama_generate_json`        | Generate completion, in json        | `ollama_generate_json "model" "prompt"`        | json to `stdout`           | `0`/`1` | 
+| `ollama_generate_stream`      | Generate completion stream          | `ollama_generate_stream "model" "prompt"`      | streaming text to `stdout` | `0`/`1` | 
+| `ollama_generate_stream_json` | Generate completion stream, in json | `ollama_generate_stream_json "model" "prompt"` | streaming json to `stdout` | `0`/`1` | 
 
 ### Chat Functions
 
@@ -143,14 +143,15 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 ### Ollama Functions
 
-| Function                  | About                            | Usage                                                                           | Output           | Return                               |
-|---------------------------|----------------------------------|---------------------------------------------------------------------------------|------------------|--------------------------------------|
-| `ollama_app_installed`    | Is Ollama installed?             | `if ollama_app_installed; then echo "Installed"; else echo "Not Installed"; fi` | none             | `0` installed<br />`1` not installed |
-| `ollama_app_version`      | Ollama version                   | `ollama_app_version`                                                            | text to `stdout` | `0`/`1`                              |
-| `ollama_app_version_json` | Ollama version, in json          | `ollama_app_version_json`                                                       | json to `stdout` | `0`/`1`                              |
-| `ollama_app_version_cli`  | Ollama version, from cli         | `ollama_app_version_cli`                                                        | text to `stdout` | `0`/`1`                              |
-| `ollama_ps`               | Running model processes          | `ollama_ps`                                                                     | text to `stdout` | `0`/`1`                              |
-| `ollama_ps_json`          | Running model processes, in json | `ollama_ps_json`                                                                | json to `stdout` | `0`/`1`                              |
+| Function                  | About                            | Usage                                                                           | Output              | Return                               |
+|---------------------------|----------------------------------|---------------------------------------------------------------------------------|---------------------|--------------------------------------|
+| `ollama_app_installed`    | Is Ollama installed?             | `if ollama_app_installed; then echo "Installed"; else echo "Not Installed"; fi` | none                | `0` installed<br />`1` not installed |
+| `ollama_app_turbo`        | Turn Turbo Mode on/off           | `ollama_app_turbo on` or `ollama_app_turbo off`                                 | Prompts for api key | `0`/`1`                              |
+| `ollama_app_version`      | Ollama version                   | `ollama_app_version`                                                            | text to `stdout`    | `0`/`1`                              |
+| `ollama_app_version_json` | Ollama version, in json          | `ollama_app_version_json`                                                       | json to `stdout`    | `0`/`1`                              |
+| `ollama_app_version_cli`  | Ollama version, from cli         | `ollama_app_version_cli`                                                        | text to `stdout`    | `0`/`1`                              |
+| `ollama_ps`               | Running model processes          | `ollama_ps`                                                                     | text to `stdout`    | `0`/`1`                              |
+| `ollama_ps_json`          | Running model processes, in json | `ollama_ps_json`                                                                | json to `stdout`    | `0`/`1`                              |
 
 ### Lib Functions
 
@@ -161,12 +162,12 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 ### Utility Functions
 
-| Function                                                                                                    | About                                   | Usage                                                        | Output                                                          | Return  |
-|-------------------------------------------------------------------------------------------------------------|-----------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
-| `estimate_tokens`                                                                                           | Estimated number of tokens in a string  | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
-| [`escape_control_characters`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L55) | escape_control_characters               | `escape_control_characters "string"`                         | escaped string to `stdout`                                      | `0`/`1` |
-| [`debug`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L31)                     | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `debug "message"`                                            | message to `stderr`                                             | `0`/`1` |
-| [`error`](https://github.com/attogram/ollama-bash-lib/blob/main/ollama_bash_lib.sh#L44)                     | Error message                           | `error "message"`                                            | message to `stderr`                                             | `0`/`1` |
+| Function                     | About                                   | Usage                                                        | Output                                                          | Return  |
+|------------------------------|-----------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
+| `estimate_tokens`            | Estimated number of tokens in a string  | `estimate_tokens "string"`<br />`estimate_tokens "string" 1` | estimate to `stdout`<br />estimate with error range to `stdout` | `0`/`1` |
+| `_escape_control_characters` | escape_control_characters               | `_escape_control_characters "string"`                        | escaped string to `stdout`                                      | `0`/`1` |
+| `_debug`                     | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `_debug "message"`                                           | message to `stderr`                                             | `0`/`1` |
+| `_error`                     | Error message                           | `_error "message"`                                           | message to `stderr`                                             | `0`/`1` |
 
 ## Requirements
 
@@ -181,7 +182,7 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 If you don't have any of the optional requirements,
 the function `ollama_app_installed` is always available,
-plus most [_Utility_](#utility-functions) and [_Internal_](#internal-functions) functions.
+plus most [_Utility_](#utility-functions) functions.
 
 ## License
 
