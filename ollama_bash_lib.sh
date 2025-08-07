@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.20"
+OLLAMA_LIB_VERSION="0.42.21"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -280,16 +280,21 @@ ollama_generate_stream_json() {
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
   _debug "ollama_generate_stream: [$1] [${2:0:42}]"
-  OLLAMA_LIB_STREAM=1 # Turn on streaming
-  local error_jq
-  ollama_generate_json "$1" "$2" | while IFS= read -r line; do
-  if ! echo -n "$(_escape_control_characters "$line" | jq -r ".response")"; then
-    _error "ollama_generate_stream: _escape_control_characters|jq failed"
-    return 1
+  OLLAMA_LIB_STREAM=1 # Turn on streaming for the API request
+  local error_ollama_generate_json
+  if [ "$OLLAMA_LIB_SAFE_MODE" -eq 1 ]; then # Safe‑mode: escape control characters *before* handing the data to jq
+    ollama_generate_json "$1" "$2" |
+      _escape_control_characters |
+      jq -j '.response' |
+      while IFS= read -r -d '' chunk; do # read the whole stream without stripping newlines
+        printf '%s' "$chunk"
+      done
+  else # Normal mode – just let jq emit the response field.
+    ollama_generate_json "$1" "$2" |
+      jq -j '.response'
   fi
-  done
-  local error_ollama_generate_json=$?
-  OLLAMA_LIB_STREAM=0 # Turn off streaming
+  error_ollama_generate_json=$?
+  OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
   if [ "$error_ollama_generate_json" -gt 0 ]; then
     _error "ollama_generate_stream: error_ollama_generate_json: $error_ollama_generate_json"
     return 1
