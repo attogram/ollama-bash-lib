@@ -1,873 +1,897 @@
 # ollama_generate_stream_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.14
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.18
 
 ## Demo
 
 ```bash
-ollama_generate_stream_json "gpt-oss:120b" "Describe a rabbit in 3 words"
+ollama_generate_stream_json "gpt-oss:20b" "Describe a rabbit in 3 words"
 
 ```
 ```json
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.840650007Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.226635242Z",
   "response": "",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.840669789Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.226662205Z",
   "response": "",
   "thinking": "The",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.840676531Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.22667041Z",
   "response": "",
   "thinking": " user",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.84191626Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.227767447Z",
   "response": "",
-  "thinking": " asks",
+  "thinking": " wants",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.841924451Z",
-  "response": "",
-  "thinking": ":",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.841930008Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.841936522Z",
-  "response": "",
-  "thinking": "Describe",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.843583329Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.227777777Z",
   "response": "",
   "thinking": " a",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.843591276Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.227785425Z",
+  "response": "",
+  "thinking": " description",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.228960628Z",
+  "response": "",
+  "thinking": " of",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.22896935Z",
+  "response": "",
+  "thinking": " a",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.228975185Z",
   "response": "",
   "thinking": " rabbit",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.843597733Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.228981532Z",
   "response": "",
   "thinking": " in",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.843605357Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.231886693Z",
   "response": "",
   "thinking": " ",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.843610164Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.23189775Z",
   "response": "",
   "thinking": "3",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.843615649Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.23190429Z",
   "response": "",
   "thinking": " words",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.843901257Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.231911851Z",
   "response": "",
-  "thinking": "\".",
+  "thinking": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.852951921Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.231917627Z",
   "response": "",
-  "thinking": " This",
+  "thinking": " That's",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.852960883Z",
-  "response": "",
-  "thinking": " is",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.852966866Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.852973521Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.232619118Z",
   "response": "",
   "thinking": " straightforward",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.852979329Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.232626894Z",
   "response": "",
-  "thinking": " request",
+  "thinking": ":",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.852984251Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.232854844Z",
   "response": "",
-  "thinking": ",",
+  "thinking": " pick",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.85299265Z",
-  "response": "",
-  "thinking": " no",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.852997943Z",
-  "response": "",
-  "thinking": " policy",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.853003543Z",
-  "response": "",
-  "thinking": " violation",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.853008411Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.853013698Z",
-  "response": "",
-  "thinking": " Provide",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.853018362Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.233861238Z",
   "response": "",
   "thinking": " ",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.853023678Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.23579699Z",
   "response": "",
   "thinking": "3",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.853028344Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.235810704Z",
+  "response": "",
+  "thinking": " descriptive",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.239012129Z",
   "response": "",
   "thinking": " words",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.853453526Z",
-  "response": "",
-  "thinking": " describing",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.868280179Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.868293083Z",
-  "response": "",
-  "thinking": " rabbit",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.868300513Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.242195488Z",
   "response": "",
   "thinking": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.871552756Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.246058945Z",
   "response": "",
-  "thinking": " Could",
+  "thinking": " Maybe",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.877058943Z",
-  "response": "",
-  "thinking": " be",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.879899823Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.250223139Z",
   "response": "",
   "thinking": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.885060836Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.255090179Z",
   "response": "",
   "thinking": "fl",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.888733472Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.259558776Z",
   "response": "",
   "thinking": "uffy",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.893527196Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.26567785Z",
+  "response": "",
+  "thinking": ",",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.268990501Z",
+  "response": "",
+  "thinking": " swift",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.275425669Z",
+  "response": "",
+  "thinking": ",",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.278592731Z",
+  "response": "",
+  "thinking": " curious",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.282148238Z",
   "response": "",
   "thinking": "\",",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.901346962Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.286996546Z",
   "response": "",
   "thinking": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.905058147Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.291119471Z",
   "response": "",
-  "thinking": "tim",
+  "thinking": "soft",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.907105209Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.297324939Z",
   "response": "",
-  "thinking": "id",
+  "thinking": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.910821918Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.30085247Z",
   "response": "",
-  "thinking": "\",",
+  "thinking": " nim",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.915508751Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.305706361Z",
   "response": "",
-  "thinking": " \"",
+  "thinking": "ble",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.919729995Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.309771615Z",
   "response": "",
-  "thinking": "h",
+  "thinking": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.929487687Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.31865536Z",
   "response": "",
-  "thinking": "oppy",
+  "thinking": " playful",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.92950247Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.320007223Z",
   "response": "",
   "thinking": "\".",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.934964637Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.328601803Z",
   "response": "",
-  "thinking": " We",
+  "thinking": " Something",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.939846225Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.328616264Z",
   "response": "",
-  "thinking": " just",
+  "thinking": " like",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.941461692Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.333989339Z",
   "response": "",
-  "thinking": " output",
+  "thinking": " that",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.946417954Z",
-  "response": "",
-  "thinking": " ",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.953806436Z",
-  "response": "",
-  "thinking": "3",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.955546145Z",
-  "response": "",
-  "thinking": " words",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.966546579Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.33689951Z",
   "response": "",
   "thinking": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.99044398Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.341925384Z",
+  "response": "",
+  "thinking": " Or",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.345954011Z",
+  "response": "",
+  "thinking": " \"",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.352663975Z",
+  "response": "",
+  "thinking": "pl",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.356730982Z",
+  "response": "",
+  "thinking": "ush",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.359624533Z",
+  "response": "",
+  "thinking": ",",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.363890249Z",
+  "response": "",
+  "thinking": " quick",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.36974207Z",
+  "response": "",
+  "thinking": ",",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.373680287Z",
+  "response": "",
+  "thinking": " alert",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.377863971Z",
+  "response": "",
+  "thinking": "\".",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.381761717Z",
+  "response": "",
+  "thinking": " We",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.390530562Z",
+  "response": "",
+  "thinking": " should",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.390811246Z",
+  "response": "",
+  "thinking": " produce",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.39525245Z",
+  "response": "",
+  "thinking": " an",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.399817043Z",
+  "response": "",
+  "thinking": " answer",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.404873054Z",
+  "response": "",
+  "thinking": " with",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.409325062Z",
+  "response": "",
+  "thinking": " exactly",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.413210783Z",
+  "response": "",
+  "thinking": " ",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.418308958Z",
+  "response": "",
+  "thinking": "3",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.422633672Z",
+  "response": "",
+  "thinking": " words",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.427367448Z",
+  "response": "",
+  "thinking": " describing",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.432604651Z",
+  "response": "",
+  "thinking": " a",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.435985744Z",
+  "response": "",
+  "thinking": " rabbit",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.440317633Z",
+  "response": "",
+  "thinking": ".",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.444953815Z",
+  "response": "",
+  "thinking": " Probably",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.449840858Z",
+  "response": "",
+  "thinking": " no",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.454591163Z",
+  "response": "",
+  "thinking": " additional",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.459070023Z",
+  "response": "",
+  "thinking": " punctuation",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.466879677Z",
+  "response": "",
+  "thinking": ".",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.466892256Z",
+  "response": "",
+  "thinking": " Let's",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.474043018Z",
+  "response": "",
+  "thinking": " output",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.478069164Z",
+  "response": "",
+  "thinking": ":",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.480846783Z",
+  "response": "",
+  "thinking": " \"",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.484865809Z",
+  "response": "",
+  "thinking": "Fl",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.489296235Z",
+  "response": "",
+  "thinking": "uffy",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.493912887Z",
+  "response": "",
+  "thinking": ",",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.499261078Z",
+  "response": "",
+  "thinking": " swift",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.5044102Z",
+  "response": "",
+  "thinking": ",",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.510208767Z",
+  "response": "",
+  "thinking": " curious",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.512860508Z",
+  "response": "",
+  "thinking": "\".",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.517008507Z",
+  "response": "",
+  "thinking": " I'll",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.521378553Z",
+  "response": "",
+  "thinking": " produce",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.526437158Z",
+  "response": "",
+  "thinking": " that",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.530490961Z",
+  "response": "",
+  "thinking": ".",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.56392549Z",
   "response": "Fl",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.996112125Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.574107976Z",
   "response": "uffy",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:58.999246166Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.574119005Z",
   "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.004556455Z",
-  "response": " timid",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.58577922Z",
+  "response": " swift",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.008601132Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.585791756Z",
   "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.014725265Z",
-  "response": " h",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.629037817Z",
+  "response": " curious",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.022937312Z",
-  "response": "oppy",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.022951051Z",
-  "response": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.0267166Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.643802518Z",
   "response": "",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.026721524Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:58.64380826Z",
   "response": "",
   "done": true,
   "done_reason": "stop",
-  "total_duration": 434571396,
+  "total_duration": 630509824,
   "prompt_eval_count": 81,
-  "eval_count": 70
+  "eval_count": 102
 }
 ```
 
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "gpt-oss:120b" "Describe a rabbit in 3 words"
+OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json "gpt-oss:20b" "Describe a rabbit in 3 words"
 
 ```
 ```json
-[DEBUG] 00:48:59:589711600: ollama_generate_stream_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 00:48:59:600038900: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 00:48:59:610217700: ollama_generate_json: OLLAMA_LIB_STREAM: 1
-[DEBUG] 00:48:59:635298600: ollama_api_post: [/api/generate] [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":true}]
-[DEBUG] 00:48:59:646208900: _call_curl: [POST] [/api/generate] [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":true}]
-[DEBUG] 00:48:59:656767900: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 00:48:59:667813900: _call_curl: Turbo Mode
-[DEBUG] 00:48:59:678405800: _call_curl: adding json body: [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":true}]
-[DEBUG] 00:49:00:642215500: ollama_api_post: success: return 0
-[DEBUG] 00:49:00:654430100: ollama_generate_json: success: return: 0
-[DEBUG] 00:49:00:665494100: ollama_generate_stream_json: return: 0
+[DEBUG] 21:35:59:140836800: ollama_generate_stream_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
+[DEBUG] 21:35:59:151752700: ollama_generate_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
+[DEBUG] 21:35:59:162839500: ollama_generate_json: OLLAMA_LIB_STREAM: 1
+[DEBUG] 21:35:59:186876800: ollama_api_post: [/api/generate] [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true}]
+[DEBUG] 21:35:59:197206000: _call_curl: [POST] [/api/generate] [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true}]
+[DEBUG] 21:35:59:211931300: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 21:35:59:223769900: _call_curl: Turbo Mode
+[DEBUG] 21:35:59:235862500: _call_curl: adding json body: [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true}]
+[DEBUG] 21:36:00:149424300: ollama_api_post: success: return 0
+[DEBUG] 21:36:00:160347400: ollama_generate_json: success: return: 0
+[DEBUG] 21:36:00:170963200: ollama_generate_stream_json: return: 0
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949927407Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.661219971Z",
   "response": "",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949945789Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.661244546Z",
   "response": "",
-  "thinking": "The",
+  "thinking": "We",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949955266Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.661255089Z",
   "response": "",
-  "thinking": " user",
+  "thinking": " must",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949962062Z",
-  "response": "",
-  "thinking": " asks",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949967531Z",
-  "response": "",
-  "thinking": ":",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949973151Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949977861Z",
-  "response": "",
-  "thinking": "Describe",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.94998288Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949988081Z",
-  "response": "",
-  "thinking": " rabbit",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.949992698Z",
-  "response": "",
-  "thinking": " in",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950000549Z",
-  "response": "",
-  "thinking": " ",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950006391Z",
-  "response": "",
-  "thinking": "3",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.95001108Z",
-  "response": "",
-  "thinking": " words",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950016535Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950021244Z",
-  "response": "",
-  "thinking": " That's",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950025646Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950031835Z",
-  "response": "",
-  "thinking": " straightforward",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950037357Z",
-  "response": "",
-  "thinking": " request",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950042165Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950049771Z",
-  "response": "",
-  "thinking": " We",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950054946Z",
-  "response": "",
-  "thinking": " can",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950059565Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.66126223Z",
   "response": "",
   "thinking": " comply",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950065036Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.661267906Z",
   "response": "",
-  "thinking": ".",
+  "thinking": " with",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950069809Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.661273536Z",
   "response": "",
-  "thinking": " Provide",
+  "thinking": " Open",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.950076033Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.66127852Z",
   "response": "",
-  "thinking": " three",
+  "thinking": "AI",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.952573873Z",
-  "response": "",
-  "thinking": " words",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.953009055Z",
-  "response": "",
-  "thinking": " describing",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.981779606Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.981790041Z",
-  "response": "",
-  "thinking": " rabbit",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.981796684Z",
-  "response": "",
-  "thinking": ":",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.981802456Z",
-  "response": "",
-  "thinking": " e",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.981807414Z",
-  "response": "",
-  "thinking": ".g",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.981817609Z",
-  "response": "",
-  "thinking": ".,",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.99511276Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.995127462Z",
-  "response": "",
-  "thinking": "fl",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:48:59.998850435Z",
-  "response": "",
-  "thinking": "uffy",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.014732945Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.014744322Z",
-  "response": "",
-  "thinking": " swift",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.014751602Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.014757642Z",
-  "response": "",
-  "thinking": " timid",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.020089914Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.022348256Z",
-  "response": "",
-  "thinking": " There's",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.023909624Z",
-  "response": "",
-  "thinking": " no",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.029371147Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.661283506Z",
   "response": "",
   "thinking": " policy",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.033507182Z",
-  "response": "",
-  "thinking": " violation",
-  "done": false
-}
-{
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.037767193Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.661288846Z",
   "response": "",
   "thinking": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.050997655Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.661293453Z",
+  "response": "",
+  "thinking": " No",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.662860705Z",
+  "response": "",
+  "thinking": " problem",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.662869311Z",
+  "response": "",
+  "thinking": ".",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.662917939Z",
   "response": "",
   "thinking": " Provide",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.051011957Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.664026266Z",
   "response": "",
-  "thinking": " the",
+  "thinking": " ",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.054717065Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.664046133Z",
   "response": "",
-  "thinking": " answer",
+  "thinking": "3",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.058335559Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.665760493Z",
+  "response": "",
+  "thinking": " words",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.665769597Z",
+  "response": "",
+  "thinking": " description",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.665776641Z",
   "response": "",
   "thinking": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.097278712Z",
-  "response": "Fl",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.665782936Z",
+  "response": "",
+  "thinking": " Let's",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.097288654Z",
-  "response": "uffy",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.666033157Z",
+  "response": "",
+  "thinking": " output",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.097295236Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.666042378Z",
+  "response": "",
+  "thinking": " them",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.666048228Z",
+  "response": "",
+  "thinking": ".",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.707217623Z",
+  "response": "Soft",
+  "done": false
+}
+{
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.707228011Z",
   "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.106018296Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.707234617Z",
   "response": " swift",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.106028449Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.712163527Z",
   "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.113973521Z",
-  "response": " timid",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.712503533Z",
+  "response": " curious",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.113983581Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.717857935Z",
   "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.117282829Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.722423016Z",
   "response": "",
   "done": false
 }
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-06T22:49:00.117287723Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-07T19:35:59.72243021Z",
   "response": "",
   "done": true,
   "done_reason": "stop",
-  "total_duration": 417834244,
+  "total_duration": 290831045,
   "prompt_eval_count": 81,
-  "eval_count": 66
+  "eval_count": 37
 }
 ```
