@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.19"
+OLLAMA_LIB_VERSION="0.42.20"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -670,6 +670,51 @@ ollama_app_installed() {
   if [ -z "$(command -v "ollama" 2> /dev/null)" ]; then
     return 1
   fi
+  return 0
+}
+
+# Turbo Mode on/off
+#
+# Usage: ollama_app_turbo "on" OR ollama_app_turbo "off"
+# Input: 1 - The mode: empty, "on" or "off", default to "on"
+# Output: if OLLAMA_LIB_TURBO_KEY is not set, then prompts user to enter key
+# Requires: a valid API key from ollama.com
+# Returns: 0 on success, 1 on error
+ollama_app_turbo() {
+  _debug "ollama_app_turbo: [${1:0:42}]"
+  local host_api
+  case "$1" in
+    on|ON|true|TRUE|1|'')
+      _debug "ollama_app_turbo: Turning Turbo Mode ON"
+      local api_key
+      if [[ -z "$OLLAMA_LIB_TURBO_KEY" ]]; then # If api key is not set
+        echo -n 'Enter Ollama API Key (input hidden): '
+        read -r -s api_key # Read api_key silently
+        echo
+        if [[ -z "$api_key" ]]; then
+          _error 'ollama_app_turbo: Ollama API Key empty'
+          return 1
+        fi
+        export OLLAMA_LIB_TURBO_KEY="$api_key" # Set the api key
+      fi
+      host_api='https://ollama.com' # Ollama Cloud Service
+      ;;
+    off|OFF|false|FALSE|0)
+      _debug "ollama_app_turbo: Turning Turbo Mode OFF"
+      unset OLLAMA_LIB_TURBO_KEY # Erase the api key
+      host_api='http://localhost:11434' # Local Ollama
+      ;;
+    *)
+      _error "ollama_app_turbo: Unknown mode: Usage: ollama_app_turbo on, or ollama_app_turbo off"
+      return 1
+      ;;
+  esac
+
+  _debug "ollama_app_turbo: OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
+  export OLLAMA_HOST="$host_api" # Set host
+  _debug "ollama_app_turbo: OLLAMA_HOST: $OLLAMA_HOST"
+  export OLLAMA_LIB_API="$host_api" # Set api
+  _debug "ollama_app_turbo: OLLAMA_LIB_API: $OLLAMA_LIB_API"
   return 0
 }
 
