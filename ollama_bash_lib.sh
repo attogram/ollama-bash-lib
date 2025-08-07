@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.17"
+OLLAMA_LIB_VERSION="0.42.18"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -45,66 +45,53 @@ _error() {
 }
 
 # Escape control characters in a string
+# Keep the surrounding JSON syntax unchanged (braces, quotes, commas, etc)
 #
 # Usage: _escape_control_characters "string"
-# Input: 1 - string
-# Output: string with control characters escaped
-# Requires: none
-# Returns: 0
-#
-# @generated-ai: gpt-oss:120b
-# ----------------------------------------------------------------------
-# Escape control characters in a string but keep the surrounding JSON
-# syntax (braces, quotes, commas, …) unchanged.
-#
-# Input  : any Bash string – it may already be a JSON fragment.
+# Input  : 1 - any Bash string – it may already be a JSON fragment.
 # Output : the same fragment, but every control byte (U+0000‑U+001F
 #          and DEL) is turned into a JSON‑legal escape:
 #            * \b, \t, \n, \f, \r for the five most common controls
 #            * \u00XX for any other control character
 #          Printable / UTF‑8 bytes are emitted unchanged.
-# ----------------------------------------------------------------------
+# Requires: none
+# Returns: 0
+# @ai-assist gpt-oss:120b
 _escape_control_characters() {
-    local input=$1
-    local out=''                     # accumulator for the escaped result
-
-    # ------------------------------------------------------------------
-    # 1️⃣  Feed the exact bytes of $input to od – one decimal number per
-    #     byte (no address column, unsigned, never squeeze repeats).
-    # ------------------------------------------------------------------
+    if [ "$OLLAMA_LIB_SAFE_MODE" -ne "1" ]; then
+      _debug "_escape_control_characters: Safe Mode OFF"
+      echo "$1"
+      return $RETURN_SUCCESS
+    fi
+    _debug "_escape_control_characters: [${1:0:120}]"
+    local input="$1"
+    local out='' # accumulator for the escaped result
+    # Feed the exact bytes of $input to od – one decimal number per
+    # byte (no address column, unsigned, never squeeze repeats).
     while IFS= read -r line; do
-        set -- $line                # split the od line into numbers
+        set -- "$line" # split the od line into numbers
         for b in "$@"; do
-            # ---------------------------------------------------------
-            # 2️⃣  Control characters (U+0000‑U+001F and DEL)
-            # ---------------------------------------------------------
-            if (( b >= 0 && b <= 31 )) || (( b == 127 )); then
+            if (( b >= 0 && b <= 31 )) || (( b == 127 )); then # Control characters (U+0000‑U+001F and DEL)
                 case $b in
-                    8)  out+="\\b" ;;                 # backspace
-                    9)  out+="\\t" ;;                 # horizontal tab
-                    10) out+="\\n" ;;                 # line feed (LF)
-                    12) out+="\\f" ;;                 # form‑feed
-                    13) out+="\\r" ;;                 # carriage‑return
-                    *) out+=$(printf '\\u%04x' "$b") ;;   # any other control → \u00XX
+                    8)  out+="\\b" ;; # backspace
+                    9)  out+="\\t" ;; # horizontal tab
+                    10) out+="\\n" ;; # line feed (LF)
+                    12) out+="\\f" ;; # form‑feed
+                    13) out+="\\r" ;; # carriage‑return
+                    *) out+=$(printf '\\u%04x' "$b") ;; # any other control → \u00XX
                 esac
-            # ---------------------------------------------------------
-            # 3️⃣  Printable / UTF‑8 bytes – copy them unchanged
-            # ---------------------------------------------------------
-            else
-                # Build a one‑byte variable that contains the raw byte.
-                #   printf '\\%03o' produces a back‑slash‑octal escape,
-                #   which we then expand with %b (only octal is expanded,
-                #   not the \u escapes we added above).
+            else # Printable / UTF‑8 bytes – copy them unchanged
+                 # Build a one‑byte variable that contains the raw byte.
+                 #   printf '\\%03o' produces a back‑slash‑octal escape,
+                 #   which we then expand with %b (only octal is expanded,
+                 #   not the \u escapes we added above).
                 printf -v chr '\\%03o' "$b"
                 out+=$(printf '%b' "$chr")
             fi
         done
     done < <(printf '%s' "$input" | od -An -tuC -v)
-
-    # ------------------------------------------------------------------
-    # 4️⃣  No further interpretation – just print the accumulator.
-    # ------------------------------------------------------------------
-    printf '%s' "$out"
+    _debug "_escape_control_characters: out: [${out:0:120}]"
+    printf '%s' "$out" # print the accumulator
 }
 
 # API Functions
@@ -921,7 +908,7 @@ ollama_lib_about() {
   if ! command -v column >/dev/null; then
       _debug 'ollama_lib_about: column Not Found'
       compgen -A function -X '!*ollama_*' | sort
-      return $RETURN_ERROR
+      return $RETURN_SUCCESS
   fi
 
   compgen -A function -X '!*ollama_*' | sort | column
