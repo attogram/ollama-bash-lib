@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.16"
+OLLAMA_LIB_VERSION="0.42.17"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -13,6 +13,7 @@ OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <http
 OLLAMA_LIB_API=${OLLAMA_HOST:-"http://localhost:11434"} # Ollama API URL, No slash at end
 OLLAMA_LIB_MESSAGES=()  # Array of messages
 OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
+OLLAMA_LIB_SAFE_MODE=0  # 0 = no safe mode, 1 = Safe Mode: escape all inputs
 
 RETURN_SUCCESS=0       # Standard success return value
 RETURN_ERROR=1         # Standard error return value
@@ -889,7 +890,7 @@ estimate_tokens() {
 # Input: none
 # Output: text, to stdout
 # Requires: compgen (for function list)
-# Returns: 0 on success, 1 on error
+# Returns: 0 on success, 1 on missing compgen or colum
 ollama_lib_about() {
   echo "$OLLAMA_LIB_NAME v$OLLAMA_LIB_VERSION"
   echo
@@ -901,20 +902,29 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_DISCORD  : $OLLAMA_LIB_DISCORD"
   echo "OLLAMA_LIB_LICENSE  : $OLLAMA_LIB_LICENSE"
   echo "OLLAMA_LIB_COPYRIGHT: $OLLAMA_LIB_COPYRIGHT"
-  echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
   echo "OLLAMA_LIB_API      : $OLLAMA_LIB_API"
+  echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
   echo "OLLAMA_LIB_STREAM   : $OLLAMA_LIB_STREAM"
+  echo "OLLAMA_LIB_SAFE_MODE: $OLLAMA_LIB_SAFE_MODE"
   echo "OLLAMA_LIB_MESSAGES : (${#OLLAMA_LIB_MESSAGES[@]} messages)"
   echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
-  #  echo
-  if [ -z "$(command -v compgen 2> /dev/null)" ]; then
-    _debug "ollama_lib_about: compgen Not Found"
-    return $RETURN_ERROR
+
+  if ! command -v compgen >/dev/null; then
+      _debug 'ollama_lib_about: compgen Not Found'
+      return $RETURN_ERROR
   fi
+
   echo
   echo "Functions:"
   echo
-  compgen -A function | grep 'ollama_' | sort | column
+
+  if ! command -v column >/dev/null; then
+      _debug 'ollama_lib_about: column Not Found'
+      compgen -A function -X '!*ollama_*' | sort
+      return $RETURN_ERROR
+  fi
+
+  compgen -A function -X '!*ollama_*' | sort | column
 }
 
 # Ollama Bash Lib version
