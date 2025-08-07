@@ -1,24 +1,24 @@
 # ollama_lib_about, ollama_lib_version
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.23
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.24
 
 ## Demo
 
 ```bash
 ollama_lib_version
 ```
-0.42.23
+0.42.24
 
 ```bash
 ollama_lib_about
 ```
 ```
-Ollama Bash Lib v0.42.23
+Ollama Bash Lib v0.42.24
 
 A Bash Library to interact with Ollama
 
 OLLAMA_LIB_NAME     : Ollama Bash Lib
-OLLAMA_LIB_VERSION  : 0.42.23
+OLLAMA_LIB_VERSION  : 0.42.24
 OLLAMA_LIB_URL      : https://github.com/attogram/ollama-bash-lib
 OLLAMA_LIB_DISCORD  : https://discord.gg/BGQJCbYVBa
 OLLAMA_LIB_LICENSE  : MIT
