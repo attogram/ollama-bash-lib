@@ -1,6 +1,6 @@
 # _escape_control_characters
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.10
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.18
 
 Usage: _escape_control_characters "string"
 
@@ -16,17 +16,19 @@ clean : 20 bytes: [{"value":"abc def"}]
 
 - string: 20 bytes: [{"value":"abc
 def"}]
-- clean : 25 bytes: [{"value":"abc\u000adef"}]
+- clean : 20 bytes: [{"value":"abc
+def"}]
 ```
 ```json
-{"value":"abc\ndef"}
+jq: parse error: Invalid string: control characters from U+0000 through U+001F must be escaped at line 2, column 4
 ```
 
 ```
 string: 79 bytes: [{"value":"bell:, form-feed:
 , carriage-return:, escape:, unit-separator:"}]
-clean : 104 bytes: [{"value":"bell:\u0007, form-feed:\u000a, carriage-return:\u000b, escape:\u0017, unit-separator:\u0019"}]
+clean : 79 bytes: [{"value":"bell:, form-feed:
+, carriage-return:, escape:, unit-separator:"}]
 ```
 ```json
-{"value":"bell:\u0007, form-feed:\n, carriage-return:\u000b, escape:\u0017, unit-separator:\u0019"}
+jq: parse error: Invalid string: control characters from U+0000 through U+001F must be escaped at line 2, column 48
 ```

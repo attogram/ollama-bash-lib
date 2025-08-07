@@ -11,6 +11,10 @@ if [ -z "$OLLAMA_LIB_TURBO_KEY" ]; then
   export OLLAMA_LIB_TURBO_KEY="$api_key"
 fi
 
+echo
+echo -n 'Output to *.turbo.md files? [Y/n] (default: Y) (n = output to *.md files): '
+read -r output_mode
+
 export OLLAMA_HOST="https://ollama.com"
 
 echo
@@ -45,7 +49,11 @@ echo "Running ${#demos[@]} demos: ${demos[*]}"
 echo
 
 for demo in "${demos[@]}"; do
-  outfile_md="$(echo "$demo" | sed 's/\.sh$/.turbo.md/g')"
+  if [[ -z $output_mode || $output_mode == [Yy] ]]; then
+    outfile_md="$(echo "$demo" | sed 's/\.sh$/.turbo.md/g')"
+  else
+    outfile_md="$(echo "$demo" | sed 's/\.sh$/.md/g')"
+  fi
   echo "Run: $demo > $outfile_md 2>&1"
   output=$($demo 2>&1) # run demo and redirect stderr to stdout
   echo "$output" > "$outfile_md" 2>&1
