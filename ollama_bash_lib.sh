@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.22"
+OLLAMA_LIB_VERSION="0.42.23"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -121,7 +121,14 @@ _call_curl() {
   if [[ -n "${json_body}" ]]; then
     _debug "_call_curl: json_body: [${json_body:0:120}]"
     curl_args+=( "-d" "@-" )
+    _debug "_call_curl: curl_args: ${curl_args[*]}"
     echo "$json_body" | curl "${curl_args[@]}"
+    local error_curl=$?
+    if [ "$error_curl" -gt 0 ]; then
+      _error "_call_curl: curl error: $error_curl"
+      return "$error_curl"
+    fi
+    return 0
   fi
   curl "${curl_args[@]}"
 }
