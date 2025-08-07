@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.21"
+OLLAMA_LIB_VERSION="0.42.22"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -116,13 +116,13 @@ _call_curl() {
     _debug "_call_curl: Turbo Mode"
     curl_args+=( -H "Authorization: Bearer ${OLLAMA_LIB_TURBO_KEY}" ) # API Key
   fi
-  curl_args+=( "-X" "${method}" )
-  curl_args+=( "${OLLAMA_LIB_API}${endpoint}" )
+  curl_args+=( "-X" "${method}" ) # GET or POST
+  curl_args+=( "${OLLAMA_LIB_API}${endpoint}" ) # URL
   if [[ -n "${json_body}" ]]; then
-    _debug "_call_curl: adding json body: [${json_body:0:120}]"
-    curl_args+=( -d "${json_body}" )
+    _debug "_call_curl: json_body: [${json_body:0:120}]"
+    curl_args+=( "-d" "@-" )
+    echo "$json_body" | curl "${curl_args[@]}"
   fi
-  #_debug "_call_curl: curl_args: [${curl_args[*]}]"
   curl "${curl_args[@]}"
 }
 
