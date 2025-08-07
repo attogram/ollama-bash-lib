@@ -1,6 +1,6 @@
 # Send a list of prompts to a model
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.20
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.23
 
 model: gpt-oss:20b
 
@@ -19,263 +19,270 @@ prompts:
 
 ## My hovercraft is full of eels
 
-Ah, a classic Monty‑Python moment—very “hovercrafts” of the absurd!  Don’t worry, we’ll keep the eels in a safe, 25‑degree‑C, hermetically‑sealed environment.  If you need an emergency eel‑ejector or a complimentary “I’m‑in‑a‑situation‑that‑I’d‑like‑a‑boat‑scoop” sticker, just let me know!
+Ah, the classic Monty‑Python moment – the one that gets everyone in stitches and a little bit alarmed: “My hover‑craft is full of eels.” 😂
+
+There’s a whole universe of possibilities here:
+
+| # | Scenario | What the eels are doing | How you might tackle it |
+|---|----------|------------------------|------------------------|
+| 1 | **Real‑World Hovercraft** | Slick, slippery, and probably taking a detour through the riverbank. | Check the hull, tighten the hull clips, and let a qualified marine vet do a “slip‑proof” inspection. |
+| 2 | **Sci‑Fi Hovercraft** | The eels are bioluminescent data collectors, sending you “eel‑encoded” instructions. | Plug your data pad into the eel‑communication port and listen to the Morse code of the fish. |
+| 3 | **Fantasy Floating Ship** | These are the guardian eels of the sea‑tide gate. | Offer them a bowl of kelp and a polite apology for the intrusion. |
+| 4 | **Monty‑Python Parody** | The eels have taken over the crew and now only speak in nonsense words. | Remember the key phrase: “I’m the great one, you’re the little eel!” and then shout “NIBBLE!” |
+| 5 | **Your Storytelling Prompt** | They’ve become your eccentric crew members. | Write the opening chapter: “On the creaky hover‑craft of the Drifter, Ellie, and Finn – the eels –…” |
+
+Whether you’re chasing a joke, writing a creative piece, or just looking for a quick laugh, you’ve got a lot of options. If you’d like me to flesh this out into a short story, comedic sketch, or even a detailed technical guide (for the real hovercraft enthusiasts), just let me know! 🌊🚤🐟
 
 ## Explain the theory of relativity in very simple terms.
 
-**The theory of relativity – in the simplest way possible**
+**The theory of relativity in plain English**
 
-Imagine the universe is a giant, invisible “fabric” – not a sheet of paper, but a stretchy, four‑dimensional space‑time that keeps everything in place. There are two main ideas people usually talk about, called *special relativity* and *general relativity*.
+Imagine you’re on a fast‑moving train, and you throw a ball straight up. From the train, the ball comes straight back down. But if you were standing outside on the platform, you’d see the ball curve forward because the train is moving.  
 
----
+Relativity says two big things:
 
-### 1. Special Relativity (What happens when nothing is “standing still” or “free‑falling”)
+| **What it changes** | **Why it matters** |
+|---------------------|--------------------|
+| **Speed of light is always the same** | No matter how fast you’re going, light travels at the same speed (about 300,000 km/s). |
+| **Things that move fast (or are near huge gravity) behave oddly** | Time slows, lengths shrink, and what we think of as “gravity” is actually space bending. |
 
-| What it says | Simple idea / picture |
-|--------------|-----------------------|
-| **Speed of light is constant** | No matter how fast you’re moving, light always goes at about 300 000 km/s. Think of a runner who keeps the same pace no matter which direction or how fast the crowd runs along. |
-| **Time can stretch or shrink** | A clock that runs while you’re moving really fast will tick *slower* compared to a clock that stays still. Imagine a race where the runner carries a stopwatch; the stopwatch slows down for the other observer. |
-| **Length changes** | Objects that move very fast look a bit *shorter* in the direction of motion to a stationary observer. It’s like squeezing a ruler if you were moving nearly the speed of light. |
-| **Mass increases with speed** | The faster something moves, the heavier it becomes (approaching the speed of light it would need infinite energy to move—so nothing can reach that speed). Think of a bike that gets harder to pedal the faster you go. |
-| **Energy = Mass × Speed of light² (E=mc²)** | That famous equation simply says that mass and energy are two sides of the same coin. A little mass can become a huge amount of energy (as in nuclear power). |
+### 1. **Special Relativity** – “Nothing’s faster than light; space and time mix”
+- **Time dilation:** A clock on a fast train ticks slower compared to one on the ground. If you could travel near light speed, you’d age slower than your friends back home.
+- **Length contraction:** Things moving fast look shorter in the direction of motion. A speeding bullet looks a bit squashed to an outside observer.
+- **Mass–energy equivalence:** \(E=mc^2\) means that even a tiny bit of mass can be turned into a huge amount of energy (that’s the idea behind nuclear power).
 
-*Key takeaway*: In a world where everything moves at moderate speeds compared to light, time, space, and mass act very “normally.” But as speeds approach light speed, they behave differently in a predictable way.
+### 2. **General Relativity** – “Gravity is not a force; it’s curvature”
+Space‑time is like a stretched rubber sheet. A heavy ball (the Sun) sits on the sheet and makes a dent. Smaller balls (planets) roll around that dent—this is what we feel as gravity.  
+Because space‑time itself is bent, clocks near the Sun tick a tiny bit slower than clocks far away. That’s why GPS satellites need careful adjustment; they’re flying in slightly different “gravity” and “speed” conditions.
 
----
-
-### 2. General Relativity (What happens when there is mass, gravity, or acceleration)
-
-| What it says | Simple idea / picture |
-|--------------|-----------------------|
-| **Gravity isn’t just a force, it’s curvature** | Imagine placing a heavy bowling ball on a trampoline. The trampoline “deforms.” If you roll a smaller marble on the trampoline, it will spiral toward the bowling ball because the surface curves. In the universe, massive objects (stars, planets) bend the “fabric” of space‑time. |
-| **Everything follows curved paths** | The Earth orbits the Sun not because of a mysterious invisible pull but because the Sun’s mass curves space around it, and the Earth simply travels along the curved path. |
-| **Time runs slower where gravity is stronger** | A clock on the surface of a heavy planet ticks a tiny bit slower than a clock floating far away in space. This is why GPS satellites have to correct their clocks. |
-| **Large objects can bend light** | Light passes near a massive body (like the Sun) and bends slightly. That's why stars appear to shift their positions during a solar eclipse. |
-
-*Key takeaway*: Massive bodies make space‑time bend; all objects—including light—follow the curves. Gravity is not a “push” or “pull” but a bending of the landscape you move on.
-
----
-
-### Putting them together
-
-* **Special relativity** tells you how time, space, mass, and energy behave when you are moving with constant speed, and there’s no acceleration or gravity.
-* **General relativity** takes that further, describing how massive objects cause space‑time to curve, which in turn tells us how objects move (and even how light travels).
-
-Even with all the fancy math, the core idea is simple:  
-**The universe is a four‑dimensional “fabric,” and everything in it moves by following the geometry of that fabric.**
+**Bottom line:**  
+Relativity tells us the universe is a single, flexible fabric. Light moves at a fixed speed, and moving or heavy objects tug on that fabric, making time slow down, distances shrink, and the paths of all things curve. It’s the rulebook that keeps the planets in orbit, clocks in sync, and explains why we can only ever travel at or below light speed.
 
 ## Invent a new holiday and describe how people celebrate it.
 
-**The Holiday**  
-**Name:** Harmony Day (also called “Dia de la Armonía” in Spanish‑speaking regions, “Harmonietag” in Germany, “Samanthari” in Japan, “Joi Amity” in English‑speaking places)  
-**Date:** 15 May every year (the first full‑moon after the vernal equinox in the Northern Hemisphere, and the first full‑moon after the autumnal equinox in the Southern Hemisphere).  
-**Why 15 May?** The month of May worldwide is already a time of renewal (the U.S. has “Mother’s Day” and the U.K. “May Day” festivals); 15 May sits midway between the equinoxes, giving a symbolic “middle‑point” where summer and winter feel equally reachable. It also historically lines up with the ancient lunar calendar dates that many cultures used for “meeting of hearts” rituals.  
+**Lumen Narrativa – The Festival of Lanterned Stories**
 
 ---
 
-## Origin Story  
-In 1999, a linguist‑environmentalist couple moved to a hilltop hamlet in the Andes where locals gathered each spring to “speak to the wind.” They noticed how the old, weather‑worn wooden wind chimes inside the community hall seemed to hum a new song when each person whispered their intent, and how a single shared dream could bring several families together. The couple proposed turning that spontaneous “wind conversation” into a yearly celebration that would *listen* to neighbors, nature, and one another.  
+### The Big Picture
 
-The idea was formalized in a short, heartfelt petition named **“Let’s Harmonize”** at a local university. It received unanimous approval from the council in 2001, setting 15 May as the inaugural date. Within five years, the holiday had spread to cities in North America, Europe, Asia, and Africa, each adding its own flavor while keeping the core principle: *to tune into others and the environment, then to act on that shared resonance.*
+Lumen Narrativa is a celebration of imagination, memory, and community. It is held on the evening of the first full moon following the summer solstice (the “Moon’s Whisper” night). The idea is simple: *every story, no matter how big or small, deserves a light to travel.*
 
----
-
-## Core Traditions  
-| Activity | How it’s Done | What It Signifies |
-|---|---|---|
-| **Echo Circles** | Groups (families, friends, neighbors) stand in a circle and chant the phrase “I hear you. I see you.” They pass a small, hand‑made wooden drum (the “Echo Drum”). | A communal affirmation that everyone’s voice matters. |
-| **Lantern Release or Seed “Lanterns”** | Participants write the one thing they want to “light up” in someone else’s life (an apology, a wish, a memory) on a biodegradable paper lantern. Many now use seed‑paper lanterns that can be planted after the release. | Sending positivity into the world and literally sowing future growth. |
-| **Community Potluck & “Taste of Unity” Menu** | Each household prepares a dish that originated in another culture represented in their community; dishes are shared. The menu can be coordinated via a simple app, but the point is a spontaneous tasting of others. | Celebrating shared humanity through food. |
-| **Listening Walk** | In parks or near bodies of water, groups walk silently at sunrise and listen. Afterwards, a small ceremony with a single “thank you” spoken to the Earth is held. | A pause to acknowledge the natural world’s presence. |
-| **Planting & Rewilding Project** | In some regions, the day is dedicated to planting native trees/flowers or creating a “wildlife corridor” in an unused plot. Children receive a small seed packet called a “Dream‑Seed” to nurture over a year. | Rebuilding ecosystems as a community’s living legacy. |
+Where spring festivals celebrate birth and the earth’s renewal, Lumen Narrativa celebrates the birth of ideas, the renewal of narratives, and the illumination that the sharing of a story can bring.
 
 ---
 
-## Variations Around the World  
-| Country | How It’s Celebrated | Unique Add‑ons |
-|---|---|---|
-| **United States** | *Community Service Fairs*: Instead of a potluck, many schools host “service booths” where volunteers can sign up for summer projects (cleanups, tutoring). | A “Harmony Billboard” in each town lists ongoing projects for residents to join. |
-| **Japan** | *Samanthari*: Schools close early, and students go to a local shrine to lay a small stone tablet with their wish. They then go back to class to plant a tree in the school garden. | The use of *tsukiji* (rice crackers) shaped like open hands. |
-| **Brazil** | *Dia de Armonia*: Afro‑Brazilian drums are played and people perform a short dance called “Onda de Vida” (Wave of Life). | A “Rain Dance” where lanterns are hung to mimic rainfall over the city. |
-| **Kenya** | *Joi Amity* festival: A communal “story‑circle” where elder’s recount local legends; young people write poems. | A “water‑sharing” ritual where buckets filled at a community well are passed among families. |
-| **Germany** | *Harmonietag*: Citizens decorate public buildings with colorful “Harmonie‑Bande” ribbons. An evening concert featuring local choirs and instrumental ensembles is televised. | The tradition of giving a small “Harmonie‑Token” (a silver leaf charm) to neighbors. |
+## 1. Historical Spark
+
+Legend says that long ago, a child named Mara built a wooden lantern from reclaimed timber and a fragment of stained glass. She carried it to the riverbank each evening to watch the stars, hoping it would guide lost sailors. One stormy night, her lantern was swept away and drifted downriver, where fishermen found it in a puddle. The lantern was open; inside was a scrawled note: “Stories do not sink; let them rise.” The river community vowed to honor that message, and thus the festival was born.
 
 ---
 
-## How You Might Celebrate It Yourself  
-1. **Start with an Echo** – Stand in a quiet place, put a hand over your heart, and say the mantra *“I hear you. I see you.”*  
-2. **Make a Lantern** – Choose a small biodegradable lantern or a seed‑paper sheet; write a kindness note on it.  
-3. **Plan a Small Service** – Offer 30 min of your time to a local garden, shelter, or community center.  
-4. **Cook a World Dish** – Try your hand at a recipe you’ve never made; if you can’t, find a recipe online and imagine you’re living somewhere else for a day.  
-5. **Plant a Dream‑Seed** – Whether inside a pot or in the dirt, sow a seed that represents hope or a personal growth goal. Keep it in a place where you’ll remember to water it as the year goes by.  
+## 2. Materials & Preparations
+
+| Item                 | Typical Use                                               |
+|----------------------|-----------------------------------------------------------|
+| Paper (rice, bamboo, or even recycled journals) | Build the walls of the lantern.                     |
+| Silk or translucent fabric | Add color & texture, let light diffuse.            |
+| Wax, beeswax paste | Seal the lantern & add a mild fragrance.                 |
+| Tiny LED lights or tealight candles | Illuminate from inside.                            |
+| Pens, markers | Write short stories, poems, or wishes.                     |
+| Fresh flowers or herbs | Adorn the lantern for added symbolism.               |
+| A safe launching platform (riverbank, lake, rooftop, or a high shed) | Hold lanterns for release.                        |
+
+Communities set up “Lantern Workstations” in parks, schools, or community centers. Workshops guide children through paper‑cutting, folding, and storytelling. For those who prefer writing to crafting, there’s the **Story Bank** — a shared online or physical notebook that everyone contributes to.
 
 ---
 
-## Why It Works  
-Harmony Day is built on three “harmonies”:  
+## 3. Daily Rituals
 
-- **Between people** – By echoing, listening, and serving one another.  
-- **Between people and nature** – Through planting and mindful observation.  
-- **Between cultures** – By sharing food and stories, people literally taste each other’s roots.  
+### Morning – “The Forge”
 
-The day is intentionally short, focused, and scalable: you can participate solo, with family, or as part of a larger community. It doesn’t need expensive costumes or elaborate décor—just a willingness to listen and to leave a small, intentional spark behind.
+Families gather early to build lanterns. Elders might begin with a collective chant that recounts local myths. Children scribble their dreams or write micro‑prose in the lantern’s belly. Some families practice the *Lantern Exchange*: a rotating tradition where two households trade a handmade lantern and a written tale on a weekly basis.
 
---- 
+### Midday – “The Feast of Imprints”
 
-So next **15 May**—the day the moon is at its fullest on the halfway point of spring—take a breath, gather your lantern, and share a moment of genuine listening. You’ll leave the day with a subtle, lasting echo that keeps growing with every act of kindness you sow.
+In the main square or on the meadow, a communal feast is set up. Food varies by region, but the staple is a “Story Plate”: a shared dish that everyone touches, symbolizing shared nourishment. In temperate climates, this might be a cheese platter with seasonal breads, while in tropical regions it could be grilled fish with coconut rice. The accompaniment is often hot spiced cider, or in the desert, a cup of sweet mint tea.
+
+Around the feast table, local storytellers — poets, actors, musicians, and even street performers — perform short, inspired pieces, often reacting to the lanterns already crafted.
+
+### Afternoon – “The Parade of Light”
+
+In many towns, lanterns are bound to small, colorful floats made from baskets, recycled wood, and garlands. Musicians in traditional costumes march through the streets, each footfall accompanied by a rhythmic “tinkle” from the lanterns. Children line up on the side of the road, each holding a lantern that glows softly, creating a living constellation of tiny suns.
+
+#### Special Events:
+- **Lantern Design Contest**: Judged by community elders and local artisans.
+- **Story Path**: A long chain of lanterns (at least 50) representing a community‑written story, each lantern containing a line of the narrative.
+- **The Whispering Lantern**: For a moment, the crowd stands still, letting the lanterns’ soft glow fill the night. No sound but the gentle rustling of the wind.
+
+---
+
+## 4. Evening – “The Release”
+
+As twilight settles, the city’s riverbank, seaside, or rooftop is lined with stands. Participants gather lanterns, each bearing a story – or a wish. Some people write their names or their beloved’s names, others write generic affirmations like “Hope,” “Joy,” or “Courage.” A short ceremony follows:
+
+1. **Blessing**: A local elder or a choir sings a short hymn about how stories bind the present to the past.
+2. **Lighting**: The lanterns light from within – some with candles, some with LEDs.
+3. **Release**: 
+   - *In the water*: Lanterns drift across the river or lake, their flames reflecting on the ripples. After a while, they’re gently retrieved for use in a second night’s “Lantern Feast.”
+   - *Into the sky*: In open towns or high rooftops, lanterns are allowed to rise, swirling like tiny fireflies toward the moon and stars.
+
+The release is accompanied by a light‑instrument ensemble (harps, flutes, subtle drums). The sound mingles with the lantern’s glow, creating a dreamlike atmosphere.
+
+---
+
+## 5. Traditions & Variants
+
+| Tradition                          | Purpose & How It Works                                      |
+|------------------------------------|-------------------------------------------------------------|
+| **Lantern Inheritance**            | Families pass a handmade lantern each generation, adding a new story. |
+| **Story Swap Night**               | In certain neighborhoods, people bring their lanterns to a communal circle and trade them, thereby sharing each other’s stories. |
+| **The Lantern Ledger**             | Every year a central library catalogs all lanterns and their stories, preserving local history. |
+| **Recycling Relay**                | After the festival, communities collect the lanterns, recycle the wood and paper, and build a giant communal structure the next year. |
+| **The Wish Lantern Wall**          | A wall in the city’s central plaza where people hang a lantern bearing a wish for the next year. |
+
+---
+
+## 6. Cultural Impact
+
+Lumen Narrativa has become more than an aesthetic festival; it’s a social glue:
+
+- **Literacy & Creativity**: Children write for the first time, learning to turn ideas into text.
+- **Intergenerational Bonding**: The lantern‑making process lets elders share stories and techniques with younger members.
+- **Environment**: Communities emphasize renewable materials, encouraging recycling and responsible production.
+- **Tourism**: Coastal towns attract visitors for the floating lanterns, and inland towns for their lantern‑parades.
+
+---
+
+### Quick‑Start Checklist for a Small Town
+
+1. **Pick a Launch Spot**: Riverbank, lake, or high roof.
+2. **Set Up Lantern Workshops**: In local schools, libraries, or community centers.
+3. **Create an Event Schedule**: Forge, feast, parade, release.
+4. **Engage Local Artists**: Invite musicians, painters, and poets to perform.
+5. **Plan Recyclability**: Make sure all materials are compostable or recyclable.
+6. **Promote Digital Participation**: A social media hashtag (#LumenNarrativa) for lantern photos.
+7. **Document the Lanterns**: A local newspaper or blog compiles images and stories for posterity.
+
+---
+
+With Lumen Narrativa, people gather not just to light a fire, but to spark connection. Lanterns drift like living stars, stories unfold like constellations, and communities glow from within — forever bright, forever shared.
 
 ## If a train travels at 60 miles per hour for 3 hours, how far does it go?
 
-A train traveling at a constant speed of **60 miles per hour** covers a distance equal to that speed multiplied by the time it travels.
+The train travels
 
 \[
-\text{Distance} = \text{Speed} \times \text{Time}
+\text{distance} = \text{speed} \times \text{time}
+                = 60\ \text{mph} \times 3\ \text{h}
+                = 180\ \text{miles}.
 \]
 
-\[
-\text{Distance} = 60\ \text{mph} \times 3\ \text{h}
-\]
-
-\[
-\text{Distance} = 180\ \text{miles}
-\]
-
-So the train travels **180 miles**.
+So it goes **180 miles**.
 
 ## Translate to French: 'The weather is nice today.'
 
-Il fait beau aujourd'hui.
+« Il fait beau aujourd'hui. »
 
 ## Is the following review positive or negative? 'I loved the movie, it was fantastic!'
 
-Positive
+positive
 
 ## If all cats are animals and some animals are playful, can we say some cats are playful?
 
-**Short answer:**  
-No. From “All cats are animals” and “Some animals are playful” you cannot conclude that “Some cats are playful.”
+No.  
 
-### Why?
+From the two statements we can only conclude that
 
-| Statement | Logical form | What it tells us |
-|-----------|--------------|------------------|
-| All cats are animals. | ∀x (Cat(x) → Animal(x)) | Every cat is an animal, but it doesn't say *which* animals are cats. |
-| Some animals are playful. | ∃x (Animal(x) ∧ Playful(x)) | There is at least one animal that is playful, but that animal might or might not be a cat. |
+* every cat is an animal, and  
+* at least one animal (the “some” part) is playful.
 
-The second statement guarantees at least one playful animal exists, but that animal could belong to any animal species that are **not** cats (dogs, rabbits, etc.). Therefore, without additional information that links the playful animals to cats, we cannot assert that any cat is playful.
+But we have no information about whether that playful animal is a cat, a dog, a reptile, or any other kind of animal. It could be entirely unrelated to cats. Therefore we cannot logically infer that there exists a playful cat.
 
-### Counter‑example
+**Illustrative counter‑example**
 
-Imagine a world where:
-1. **Cats** = {Whiskers, Mittens}
-2. **Other animals** (that are playful) = {Buddy the dog, Fluffy the rabbit}
-3. **Playful** = {Buddy, Fluffy}
+| statement | example world |
+|-----------|---------------|
+| All cats are animals. | Every feline creature is indeed an animal. |
+| Some animals are playful. | A dog named “Buddy” that chases balls is playful. |
 
-Here:
-- All cats are animals (true).
-- Some animals are playful (Buddy and Fluffy, true).
-- But **no cat** is playful (false).
+In this world, the only playful animal is a dog, not a cat. Thus the second statement does not force a cat to be playful.
 
-So the conclusion “Some cats are playful” is not logically forced.
+**Logical take‑away**
 
-### When would it be true?
+- ∀x (Cat(x) → Animal(x))   – universal “all” over cats.  
+- ∃x (Animal(x) ∧ Playful(x)) – existential “some” over animals.  
 
-You would need an extra premise such as:
-- “All playful animals are cats.”  
-- Or “Some playful animals are cats.”  
-- Or “All cats are playful.”  
+From these, you can derive ∃x (Animal(x) ∧ Playful(x)) (a play‑ful animal exists), but you cannot derive ∃x (Cat(x) ∧ Playful(x)) (a playful cat exists).
 
-These would make the inference safe.
-
----
-
-**Bottom line:** The information given is insufficient. The safest answer is *no,* we cannot say that some cats are playful.
+In short: **We cannot conclude that some cats are playful.**
 
 ## Write a Bash function that returns the sum of a list of numbers.
 
-Below is a tiny, self‑contained Bash function that takes any number of numeric arguments and prints their sum.
+Here’s a small, reusable Bash function that adds up a list of numbers and prints the sum:
 
 ```bash
-# sum() – compute the sum of all its arguments
+# add the numbers passed as arguments
 sum() {
-    local total=0          # accumulator
-    local num
-
-    for num in "$@"; do
-        # Basic sanity check – allow integers (negative or positive)
-        if [[ "$num" =~ ^-?[0-9]+$ ]]; then
-            total=$((total + num))
-        else
-            printf 'sum: warning: ignoring non‑numeric argument "%s"\n' "$num" >&2
-        fi
+    local total=0
+    for n in "$@"; do
+        # Using arithmetic expansion – works with integers
+        total=$((total + n))
     done
-
-    # Return the computed sum via stdout
-    printf '%d\n' "$total"
+    echo "$total"
 }
 ```
 
 ### How to use it
 
 ```bash
-#!/usr/bin/env bash
-source ./sum.sh   # if you saved the function in sum.sh
+# Sum three numbers
+result=$(sum 4 7 12)
+echo "Sum is: $result"   # => Sum is: 23
 
-# Example calls
-printf 'Sum of 1 2 3 4: %s\n' "$(sum 1 2 3 4)"           # → 10
-printf 'Sum of -5 10 3: %s\n' "$(sum -5 10 3)"           # → 8
-printf 'Sum with a bad argument: %s\n' "$(sum 3 5 foo 2)" # → 10 (foo ignored)
+# Sum from a variable array
+nums=(2 5 9 13)
+echo "Summing ${nums[@]} gives: $(sum "${nums[@]}")"   # => 29
 ```
 
-### Why this works
+**Notes**
 
-* **`"$@"`** expands to all positional arguments, safely quoted, so each argument is processed individually.
-* The **`local`** keyword keeps the variables `total` and `num` local to the function, preventing accidental clashes with the caller’s environment.
-* The arithmetic expression `$((total + num))` performs integer addition directly in Bash.
-* If you prefer the function to return the value in a variable instead of printing it, you could simply set a global variable or use a command‑substitution as shown above.
+* The function expects integer arguments. If you need to handle floats or arbitrary‑precision, call `bc`, `awk`, or `perl` instead.
+* Bash’s `return` can only send a value between 0‑255, so we normally echo the result instead of returning it. You can capture that echo with command substitution (`$(sum …)`).
 
-Feel free to drop this function into your scripts or `.bashrc`—it’s tiny, dependency‑free, and works on any POSIX‑compatible shell that supports Bash style syntax.
+##### Float support (optional)
+If you do need decimals, you can modify the body to use `awk`:
+
+```bash
+sum() {
+    awk '{s+=$1} END{print s}' <<<"$*"
+}
+```
+
+That will correctly sum inputs like `3.5 4.2 1.1`.
 
 ## If you drop a glass on the floor, what is most likely to happen?
 
-If you let a typical glass simply fall to a hard floor, it will almost always snap or shatter on impact.  
-
-- **Why it happens:** Glass is a brittle material; it doesn’t absorb impact energy by bending or compressing but breaks when the stress from the hit exceeds its tensile strength.  
-- **Typical outcome:** The glass cracks, then splits into several shards or fragments, which can spread across the floor.  
-- **Factors that can change it:** 
-  - *Height of drop*: A very small drop might leave it only slightly cracked, a higher drop almost guarantees full breakage.  
-  - *Glass type*: Tempered or laminated glass is designed to stay intact or break into less dangerous pieces.  
-  - *Surface*: A carpet or a rubber mat reduces the impact force; a hard tile or wood floor transmits it more directly.  
-  - *Shape and thickness*: Thick, round, or specially engineered bottles can sometimes survive a light fall.
-
-In everyday situations, however, a plain drinking glass dropped from even a few inches will shatter into pieces.
+If you drop a glass on a hard surface (the usual kitchen or living‑room floor), the default outcome is that it will break – typically cracking into multiple shards, sometimes shattering into a spray of glass. It only stays intact if the drop is very gentle or the glass is particularly tough (e.g., tempered or thick glass). In almost every normal case you’ll hear a sharp crack and, if you’re close enough, see a cluster of glittering fragments. So the “most likely” thing that happens is that the glass will shatter and produce sharp pieces.
 
 ## A rectangle has a length of 10 meters and a width of 4 meters. What is its area?
 
-The area \(A\) of a rectangle is calculated by multiplying its length \(L\) by its width \(W\):
+The area of a rectangle is calculated by multiplying its length by its width.
 
 \[
-A = L \times W
+\text{Area} = \text{length} \times \text{width}
 \]
 
 Given:
-- Length \(L = 10\) meters
-- Width \(W = 4\) meters
+- Length \( = 10 \text{ m} \)
+- Width \( = 4 \text{ m} \)
 
 \[
-A = 10 \, \text{m} \times 4 \, \text{m} = 40 \, \text{m}^2
+\text{Area} = 10 \text{ m} \times 4 \text{ m} = 40 \text{ m}^2
 \]
 
-So, the rectangle's area is **40 square meters**.
+So, the rectangle’s area is **40 square meters**.
 
 ## What is the largest ocean on Earth?
 
 The largest ocean on Earth is the **Pacific Ocean**.
-
-### Quick Facts
-- **Area:** ~63.8 million km² (about 155 million square miles), covering more than 30% of the planet’s surface.
-- **Depth:** Deepest point is the Mariana Trench, reaching about 10,994 m (36,070 ft) below sea level.
-- **Surface Coverage:** Roughly equal to the combined area of all of Earth’s continents and landmasses.
-- **Countries Along Its Coast:** Around 50 nations have Pacific coastlines, from the Americas to Asia and Oceania.
-
-Its vastness and depth have made the Pacific a center for diverse marine life, climatic regulation, and geological activity.

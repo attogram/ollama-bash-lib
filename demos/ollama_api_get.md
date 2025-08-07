@@ -1,6 +1,6 @@
 # ollama_api_get
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.20
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.23
 
 ## Setup
 
@@ -42,11 +42,11 @@ result: output: {"version":"0.0.0"}
 ```
 ollama_api_get
 
-[DEBUG] 00:09:14:089596700: ollama_api_get: []
-[DEBUG] 00:09:14:099922400: _call_curl: [GET] [] []
-[DEBUG] 00:09:14:110589400: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 00:09:14:121076700: _call_curl: Turbo Mode
-[DEBUG] 00:09:14:382935100: ollama_api_get: success: return 0
+[DEBUG] 00:54:59:777333500: ollama_api_get: []
+[DEBUG] 00:54:59:786972800: _call_curl: [GET] [] []
+[DEBUG] 00:54:59:797859600: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 00:54:59:808837900: _call_curl: Turbo Mode
+[DEBUG] 00:55:00:052342700: ollama_api_get: success: return 0
 result: lines: 392
 result: output: 
 
@@ -62,11 +62,11 @@ result: output:
 ```
 ollama_api_get "/api/version"
 
-[DEBUG] 00:09:14:428986500: ollama_api_get: [/api/version]
-[DEBUG] 00:09:14:439662700: _call_curl: [GET] [/api/version] []
-[DEBUG] 00:09:14:450862400: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 00:09:14:462697300: _call_curl: Turbo Mode
-[DEBUG] 00:09:14:702127300: ollama_api_get: success: return 0
+[DEBUG] 00:55:00:090757900: ollama_api_get: [/api/version]
+[DEBUG] 00:55:00:102207300: _call_curl: [GET] [/api/version] []
+[DEBUG] 00:55:00:112761800: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 00:55:00:124123700: _call_curl: Turbo Mode
+[DEBUG] 00:55:00:371923500: ollama_api_get: success: return 0
 result: lines: 1
 result: output: {"version":"0.0.0"}
 ```
