@@ -1,6 +1,8 @@
 # Code Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)
+./../ollama_bash_lib.sh: line 700: return: : numeric argument required
+ERROR: Ollama Not Installed
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.25
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.26
 
 
 ```bash
@@ -8,362 +10,162 @@ task="Act as an Expert Software Engineer.
 Do a Code Review of this script.
 Output your review in Markdown format."
 file="../ollama_bash_lib.sh"
-ollama_generate "gpt-oss:120b" "$task\n\n$(cat "$file")"
+ollama_generate "gpt-oss:20b" "$task\n\n$(cat "$file")"
 ```
-# Code Review – **ollama‑bash‑lib**  
+# Code‑Review Report – *Ollama Bash Lib*  
+*Prepared for the Attogram Project – 2025 08 08*
 
-*Version examined: `0.42.25` (2025)*  
+---
 
----  
+## 1.  General Impression
 
-## 1. Overall Impression  
+The script is a sizeable Bash library aimed at providing a convenient wrapper around the Ollama API.  
+It contains:
 
-The library is a fairly complete Bash wrapper around the Ollama HTTP API.  
-It provides a consistent debugging/error‑handling scheme, decent documentation
-in the form of per‑function comments, and a clear public‑API (`ollama_…`).  
+* A good amount of documentation (comments, usage notes).
+* A clear separation between internal helper functions (`_debug`, `_error`, `_required`, …) and public API functions (`ollama_generate`, `ollama_chat`, …).
+* A consistent naming convention (`ollama_*` for public, `_` prefix for private).
+* Some advanced logic: e.g. safe‑mode control‑character escaping, streaming support, Turbo mode.
 
-The code is mostly functional, but there are several **bugs, portability
-issues, and maintainability concerns** that should be addressed before the
-library is used in production or released publicly.
+Despite that, several bugs, style issues, and missing safeguards are present.  
+Below is a detailed audit together with concrete improvement suggestions.
 
----  
+---
 
-## 2. Strengths  
+## 2.  Bug Analysis & Fixes
 
-| Aspect | Comments |
-|--------|----------|
-| **Modular design** – internal helpers (`_debug`, `_error`, `_call_curl`) are isolated from user‑facing functions. |
-| **Extensive inline documentation** – each function includes a usage block, inputs, outputs, and return‑code expectations. |
-| **Debug flag support** – `$OLLAMA_LIB_DEBUG` toggles verbose output without affecting normal operation. |
-| **Turbo‑mode handling** – the library can switch between local and cloud endpoints and stores the API key in an env var. |
-| **Safe‑mode option** – an attempt to sanitise control characters before feeding JSON to `jq`. |
-| **Message‑store** – an array‑based message buffer makes building multi‑turn chats straightforward. |
+| # | Issue | Impact | Fix |
+|---|-------|--------|-----|
+| 1 | **`_debug` numeric comparison** uses `[ "$OLLAMA_LIB_DEBUG" -eq "1" ]`. If the variable is unset, Bash reports `unary operator expected`. | Hidden bugs; scripts break when debugging disabled. | Replace with: `if (( OLLAMA_LIB_DEBUG )); then … fi` or `if [[ $OLLAMA_LIB_DEBUG == 1 ]]; then … fi`. Ensure the variable is quoted. |
+| 2 | **`ollama_app_installed`** uses `return "$(_required "ollama")"`. The command substitution returns *empty* (since `_required` prints nothing), so `return` receives an empty string and fails. | Function always returns 0, even when `ollama` is missing. | Use: `return "$(command -v ollama >/dev/null 2>&1; echo $?)"` or simply `if ! command -v ollama >/dev/null; then return 1; fi`. |
+| 3 | **`_escape_control_characters`** reads the input using `od` and `read -r line`. For large inputs, the number of bytes handled by `od` can be huge, potentially exhausting memory. | Rare but possible OOM in edge cases. | Use a block‑size pipe like `dd` or `printf '%s' "$1" | od -An -tuC | tr -d '\n'…` but a simpler and safer implementation can be used. For production, add a size check. |
+| 4 | **`OLLAMA_LIB_TURBO_KEY` & `OLLAMA_HOST`** are exported inside `ollama_app_turbo`, but the **initial value** of `OLLAMA_LIB_API` is also exported. If a user calls `ollama_app_turbo` *after* sourcing, the old value remains until changed. | Unexpected API endpoint. | Set `export OLLAMA_LIB_API="$host_api"` *before* creating any variables that depend on it (e.g. at the top or inside functions). |
+| 5 | **`ollama_generate`** discards the exit status of `_escape_control_characters` and `jq` by using `if ! _escape_control_characters "$result" | jq -r ".response"; then …`. Since `_escape_control_characters` may output nothing on errors, the pipe’s status is that of `jq`. | Silent failures when escaping fails. | Capture status separately: `escape_output=$(_escape_control_characters "$result")` followed by `if ! echo "$escape_output" | jq -r '.response'; then …`. |
+| 6 | **Streaming logic** in `ollama_generate_stream` uses `while IFS= read -r -d '' chunk`. The `-d ''` (empty delimiter) is a GNU `read` extension; it will read up to the next NUL. The JSON stream from Ollama is *newline‑delimited*. The pipeline will not output anything. | No streaming to the terminal. | Use `-r` only: `while IFS= read -r chunk; do … done`. |
+| 7 | **`_required`** does not give user feedback on missing commands. It also returns `1` silently. Public functions often call it without checking, e.g. `ollama_app_installed`. | Silent misconfiguration. | Add optional `echo` or `_error` with guidance, or make `_required` return the exit status to the caller correctly (do not suppress it). |
+| 8 | **Possible shellcheck warnings**:  
+  * Unquoted `${1:0:120}` in debug messages can break if prompt contains spaces.  
+  * `$OLLAMA_LIB_TURBO_KEY` used unquoted in export. | Minor bugs, formatting issues. | Quote all expansions: `"$1"` and `"$OLLAMA_LIB_TURBO_KEY"`. |
+| 9 | **Parameter handling** in `ollama_generate_json` uses `--argjson stream "$stream_bool"`. `$stream_bool` is a Bash boolean (`true`/`false`). `jq` expects boolean *without* quotes. Passing the string will result in a *string* JSON value. The API expects a boolean. | API rejects or misinterprets the request. | Remove quotes: `--argjson stream "$stream_bool"` **already correct**? Actually you pass *string*, not boolean. The correct way is `--argjson stream "$stream_bool"` **with no `$`?** Wrong: `--argjson stream "$stream_bool"` passes the Bash string; this is correct because `$stream_bool` holds `true`/`false`. The issue is that `$stream_bool` is a string not a boolean; but `jq` will treat it as a string, not a bool. Should use `--argjson stream "$stream_bool"` is actually fine? Let's test: `jq -n --argjson stream true '{stream: $stream}'` yields {"stream":true}. So OK. No fix. |
+| 10 | **`_debug` usage** inside functions *before* setting a local variable that will be used in the message. Example: `local json_payload` then `json_payload="$(jq ...)"`. The debug message `"_debug "ollama_generate_json: [$1] [${2:0:42}]"` prints the prompt before it is sanitized, which might contain quotes / newlines. | Output may become garbled. | Escape prompt in debug using `printf %q` or limit to first 30 chars. |
 
----  
+---
 
-## 3. Critical Issues  
+## 3.  Style / Maintainability Recommendations
 
-### 3.1 Safe‑mode logic is inverted  
+| Area | Recommendation |
+|------|----------------|
+| **Variable Scope** | All global variables (`OLLAMA_*`) should be explicitly declared `declare -A` or `local` where appropriate inside functions to avoid accidental name clashes. |
+| **Quoting** | Ensure every variable expansion is quoted: `"$VAR"`, `${VAR:-default}`. This protects against word splitting and glob expansion. |
+| **Consistent Error Handling** | Prefer `set -euo pipefail` in a library? Not advisable. Instead, after each critical call, check `status=$?`, then `_error` and `return $status`. |
+| **Use `printf` over `echo`** | For portability, replace all `echo` with `printf`. |
+| **Avoid `eval`/`set --`** | The use of `set -- "$line"` in `_escape_control_characters` is fine but keep in mind its behaviour. |
+| **Logging** | Implement a single verbose mode (`OLLAMA_LIB_DEBUG`) that can be toggled at runtime: `if (( OLLAMA_LIB_DEBUG )); then …`. Prefer `tee` or `logger` for separate logs. |
+| **Documentation** | Add `:help` style usage documentation for each public function. |
+| **Command Availability** | At the *top* of the file, test and fail fast for required external tools (`curl`, `jq`, `column`, `compgen`). This prevents half‑working scripts. |
+| **Return Values** | Public functions should always return a status code; print results to stdout/stderr accordingly. Consider adding `declare -a` for list outputs. |
+| **Testing** | Provide a unit‑test harness (e.g. Bats) that can mock `curl` / `jq` responses, ensuring the library behaves correctly. |
+
+---
+
+## 4.  Security Review
+
+| Item | Assessment | Suggested Fix |
+|------|------------|---------------|
+| **Command Injection** | Parameters (`model`, `prompt`) are directly inserted into the `jq` command as `--arg`. This is safe as `jq` escapes automatically. However, using `--argjson messages "$messages_array_json"` where `messages_array_json` originates from user input could be dangerous if it contains `jq` code? It is parsed as raw JSON fragment, which is safe if constructed correctly using `jq`. | Validate that each message payload is constructed via `jq` as seen. Good. |
+| **Sensitive Data Exposure** | `OLLAMA_LIB_TURBO_KEY` is exported and might be printed unintentionally via `printf` or debug logs. | Never include `$OLLAMA_LIB_TURBO_KEY` in debug logs. Sanitize by printing length only (`(${#OLLAMA_LIB_TURBO_KEY})`). |
+| **Untrusted Network Requests** | All `curl` calls go through `OLLAMA_LIB_API` which may be set via the environment (`OLLAMA_HOST`). Nothing stops a malicious user from pointing this to a spy server. | Add a validation step: if the host is HTTPS, enforce TLS; if not, warn. Provide a configuration option to reject non‑HTTPS by default. |
+| **Streaming Output** | When streaming, the library directly pipes the response to the terminal. In contexts where output is captured, this may produce JSON fragments interleaved with the consumer's output. | Offer a "quiet" mode or an option to capture streaming JSON in a file. |
+
+---
+
+## 5.  Performance / Efficiency
+
+* **Large Prompts**:  
+  `printf '%s' "$input" | od -An -tuC` creates a full copy of the input in memory. For large prompts (GB range) this may exhaust RAM.  
+  **Solution**: Use `while read -r -N1 char; do …` or `xxd -p -c1` to stream byte‑by‑byte, though this complicates the escape logic.  
+  *In practice*, prompts are usually < 1 MB; this optimisation may be premature.
+
+* **JSON Construction**:  
+  Using `jq -c -n --arg ...` builds a new JSON each call – fast enough for shell. No changes needed.
+
+---
+
+## 6.  Usability Enhancements
+
+1. **Command‑line Autocompletion**  
+   Provide `_ollama_lib_completion` that attaches to `compgen` and offers model names via `ollama list`.  
+
+2. **Retry Mechanism**  
+   Expose `OLLAMA_LIB_RETRY` with exponential back‑off for transient network errors.  
+
+3. **Verbose Flag**  
+   Add `OLLAMA_LIB_VERBOSE=1` to duplicate all outgoing `curl` and `jq` commands to stderr.
+
+4. **Error Codes**  
+   Distinguish between network, API, and user‑input errors via specific return codes (e.g., 2 for network, 3 for API error).  
+
+5. **Help Text**  
+   `--help` integration: `ollama_generate --help` prints usage, e.g. `printf "$DOCSTRING" | less`.  
+
+---
+
+## 7.  Suggested Refactor Snapshot
 
 ```bash
-_escape_control_characters() {
-    if [ "$OLLAMA_LIB_SAFE_MODE" -ne "1" ]; then
-      #_debug "_escape_control_characters: Safe Mode OFF"
-      echo "$1"
-      return 0
-    fi
-    ...
+# Example snippet for safer _debug
+_debug() {
+  (( OLLAMA_LIB_DEBUG )) || return
+  printf '[DEBUG] %s: %s\n' "$(strftime '%H:%M:%S' -R)" "$1" >&2
 }
 ```
 
-*Problem*: The function **does nothing** when `SAFE_MODE` is *off* (the intended default) and only runs the escaping routine when it is *on*.  
-
-*Impact*: Users who enable safe‑mode (`OLLAMA_LIB_SAFE_MODE=1`) get the expected behaviour, but the default path (`0`) still calls the function, which merely echoes the input – no escaping occurs. This defeats the purpose of safe mode and makes the flag confusing.
-
-*Fix*: Invert the test (or rename the flag to `OLLAMA_LIB_ESCAPE_CTRL`). Example:
-
 ```bash
-_escape_control_characters() {
-    if [ "${OLLAMA_LIB_SAFE_MODE:-0}" -ne 1 ]; then
-        _debug "_escape_control_characters: Safe mode disabled → passthrough"
-        printf '%s' "$1"
-        return 0
-    fi
-    # ... perform escaping ...
+# Public function skeleton with consistent return handling
+ollama_generate() {
+  local model="$1" prompt="$2"
+  if [[ -z $model || -z $prompt ]]; then
+    _error 'ollama_generate: model and prompt must be supplied'
+    return 1
+  fi
+
+  local json
+  json="$(ollama_generate_json "$model" "$prompt")" || return 1
+
+  local response
+  response="$( _escape_control_characters "$json" | jq -r '.response' )" || return 1
+
+  printf '%s\n' "$response"
+  return 0
 }
 ```
 
-### 3.2 Unquoted parameter expansions & array length tests  
-
-Many tests use `${#array[@]}` without quoting:
-
-```bash
-if [ ${#OLLAMA_LIB_MESSAGES[@]} -eq 0 ]; then
-```
-
-If the array is unset or the script is executed with `set -u`, an *unbound variable* error is raised.  
-
-*Fix*: Always quote expansions, even numeric ones:
-
-```bash
-if [ "${#OLLAMA_LIB_MESSAGES[@]}" -eq 0 ]; then
-```
-
-The same pattern appears in numerous places (`$OLLAMA_LIB_TURBO_KEY`, `$OLLAMA_LIB_DEBUG`, etc.).  
-
-### 3.3 Inconsistent use of `[` vs `[[`  
-
-`[` does not support pattern matching or the `-eq` when operands are empty, leading to cryptic `integer expression expected` errors.  
-
-*Recommendation*: Use Bash’s `[[ … ]]` for all conditional tests involving variables:
-
-```bash
-if [[ "${OLLAMA_LIB_DEBUG:-0}" -eq 1 ]]; then …
-```
-
-### 3.4 Potential command‑injection in JSON construction  
-
-The library builds JSON payloads by concatenating already‑escaped JSON fragments stored in the global `OLLAMA_LIB_MESSAGES` array:
-
-```bash
-messages_array_json=$(printf ",%s" "${OLLAMA_LIB_MESSAGES[@]}")
-messages_array_json="[${messages_array_json:1}]"
-```
-
-If a message contains characters that need JSON escaping (e.g., `"` or newlines) the *already‑escaped* fragment may break the resulting JSON if the escaping routine was bypassed (safe mode off).  
-
-*Impact*: Badly formed API requests → API errors or, in worst case, injection attacks when the server interprets malformed JSON.
-
-*Fix*: Build the `messages` array **entirely with `jq`**, which guarantees proper escaping:
-
-```bash
-local messages_json
-messages_json=$(jq -nc --argjson msgs "$(printf '%s\n' "${OLLAMA_LIB_MESSAGES[@]}" | jq -s '.') '$msgs')
-```
-
-Or, more directly:
-
-```bash
-local messages_json
-messages_json=$(jq -n --argjson msgs "$(printf '%s\n' "${OLLAMA_LIB_MESSAGES[@]}" | jq -s .)" '$msgs')
-```
-
-### 3.5 Global variable leakage  
-
-Functions such as `ollama_chat_json` assign to `content` without `local`:
-
-```bash
-content=$(_escape_control_characters "$result" | jq -r ".message.content")
-```
-
-This pollutes the global namespace and can unintentionally overwrite a variable with the same name in a caller’s context.
-
-*Fix*: Declare all intermediate variables as `local`:
-
-```bash
-local content
-content=$(_escape_control_characters "$result" | jq -r ".message.content")
-```
-
-### 3.6 Unreliable random selection  
-
-```bash
-RANDOM="$(date +%N | sed 's/^0*//')"   # seed random with microseconds
-echo "${models[RANDOM%${#models[@]}]}"
-```
-
-*Problems*:
-
-1. Overwrites Bash’s built‑in `RANDOM` variable, breaking any later use of it.  
-2. `date +%N` can produce values with leading zeros; the `sed` command strips them, but if the result is empty (e.g., on systems that don’t support `%N`), `RANDOM` becomes empty → syntax error.
-
-*Fix*: Use a *local* variable for seeding and preserve Bash’s `RANDOM`:
-
-```bash
-local seed
-seed=$(date +%s%N)   # seconds + nanoseconds (POSIX‑compatible)
-RANDOM=$((seed % 32768))   # reseed
-echo "${models[RANDOM % ${#models[@]}]}"
-```
-
-Or simply rely on Bash’s built‑in randomisation without manual seeding.
-
-### 3.7 Incomplete error handling for optional dependencies  
-
-The library assumes `jq`, `curl`, and `column` are present, but many functions do not verify their existence before using them. For example, `ollama_generate_json` calls `jq` unconditionally.
-
-*Impact*: On a system lacking `jq`, the script will exit with an obscure “command not found” error.
-
-*Fix*: Add a helper that checks for required commands at load time or before each public function:
-
-```bash
-_require() {
-    local missing=()
-    for cmd in "$@"; do
-        command -v "$cmd" >/dev/null || missing+=("$cmd")
-    done
-    if (( ${#missing[@]} )); then
-        _error "Missing required command(s): ${missing[*]}"
-        return 1
-    fi
-}
-```
-
-and invoke e.g. `_require jq curl` at the top of functions that need them.
-
-### 3.8 Return‑code confusion in `_call_curl`  
-
-When a POST request includes a JSON body, the function does:
-
-```bash
-echo "$json_body" | curl "${curl_args[@]}"
-local error_curl=$?
-if [ "$error_curl" -gt 0 ]; then
-    _error "_call_curl: curl error: $error_curl"
-    return "$error_curl"
-fi
-return 0
-```
-
-If `curl` exits with a **non‑zero status**, the function returns that exact status.  
-Later callers (e.g., `ollama_api_post`) treat any non‑zero as *error* and also return the same code, which is fine.  
-
-However, for **GET** requests the function simply `curl "${curl_args[@]}"` without capturing the exit status, then returns whatever `curl` returns implicitly. This inconsistency makes debugging harder.
-
-*Fix*: Capture the status for both branches:
-
-```bash
-local curl_output
-curl_output=$(curl "${curl_args[@]}")
-local curl_rc=$?
-printf '%s' "$curl_output"
-return "$curl_rc"
-```
-
-(Or use `curl -f` to make it exit on HTTP errors.)
-
-### 3.9 Use of `printf '%s' "$result" | jq -r .error` without guarding against *non‑JSON* output  
-
-If the API returns plain text (e.g., when Ollama is not running), `jq` will exit with status 4, and the function reports a generic “error”.  
-A more user‑friendly message could be added.
-
-### 3.10 Documentation typos & consistency  
-
-* `ollama_show_json` comment ends with `json, to stdoutF` (extra “F”).  
-* Some comments claim “Return 0 on success, 1 on error” but the implementation returns the actual curl exit code (e.g., 7 for connection refused).  
-
-While not functional bugs, they create confusion for callers.
-
----  
-
-## 4. Recommendations & Best‑Practice Improvements  
-
-Below are concrete steps to improve reliability, security, and maintainability.
-
-### 4.1 Refactor the “core” helpers  
-
-Create a small *initialisation* block at the top of the script:
-
-```bash
-# ------------------------------------------------------------------
-#  Initialization
-# ------------------------------------------------------------------
-set -o errexit   # abort on unhandled errors
-set -o pipefail  # propagate failures through pipes
-set -o nounset   # treat unset variables as errors
-# Optional: set -o errtrace for better stack traces
-```
-
-Wrap all helper functions in a namespace (e.g., prefix `ollama_` for public, `_ollama_` for private) to avoid name clashes.
-
-### 4.2 Consolidate environment‑variable defaults  
-
-```bash
-: "${OLLAMA_HOST:=http://localhost:11434}"
-: "${OLLAMA_LIB_API:=${OLLAMA_HOST}}"
-: "${OLLAMA_LIB_DEBUG:=0}"
-: "${OLLAMA_LIB_STREAM:=0}"
-: "${OLLAMA_LIB_SAFE_MODE:=0}"
-```
-
-Using `:` ensures the variable is always defined, removing the need for many `-z` checks.
-
-### 4.3 Centralise command‑dependency checks  
-
-```bash
-_ensure_deps() {
-    _require curl jq
-    # column is optional – only for `ollama_lib_about`
-}
-_ensure_deps   # run when the library is sourced
-```
-
-### 4.4 Safer JSON construction with `jq`  
-
-All payloads should be built via `jq`:
-
-```bash
-json_payload=$(jq -n \
-    --arg model "$1" \
-    --arg prompt "$2" \
-    --argjson stream "$OLLAMA_LIB_STREAM" \
-    '{model:$model, prompt:$prompt, stream:$stream}')
-```
-
-When adding a message:
-
-```bash
-ollama_messages_add() {
-    local role=$1 content=$2
-    OLLAMA_LIB_MESSAGES+=("$(jq -nc --arg role "$role" --arg content "$content" '{role:$role, content:$content}')")
-}
-```
-
-This eliminates manual escaping bugs.
-
-### 4.5 Improve streaming handling  
-
-The current stream functions rely on `jq -j '.response'` which discards newlines.  
-If the user wants to preserve the exact streaming output, use `jq -r` (raw output) and avoid `-j`:
-
-```bash
-jq -r '.response'   # prints each chunk as it arrives, preserving newlines
-```
-
-Also, the `while IFS= read -r -d '' chunk` construct is unnecessary; `jq` already streams correctly.
-
-### 4.6 Add unit‑tests  
-
-Create a `tests/` directory with **BATS** (Bash Automated Testing System) or plain Bash test scripts that:
-
-* Verify that `ollama_lib_version` returns the expected string.  
-* Confirm that `ollama_messages_add` correctly JSON‑escapes special characters.  
-* Mock `curl` (using a wrapper script) to exercise error paths (connection failure, non‑200 HTTP).  
-
-Continuous Integration (GitHub Actions) can run these tests on every push.
-
-### 4.7 Reduce global state  
-
-Expose a `ollama_new_context` function that returns a *opaque* identifier (e.g., an associative array name) and stores per‑context data (`messages`, `stream`, `safe_mode`) there. This would enable multiple concurrent chats within the same shell.
-
-### 4.8 Minor style clean‑ups  
-
-* Use `local` for *every* variable inside functions.  
-* Prefer `printf '%s\n'` over `echo` for predictable handling of backslashes and `-n`.  
-* Quote all parameter expansions, even when they appear inside `[[ … ]]`.  
-* Use `$'\n'` or `printf '\n'` instead of literal newlines inside `printf` format strings.  
-
----  
-
-## 5. Summary of Action Items  
-
-| # | Issue | Suggested Fix |
-|---|-------|----------------|
-| 1 | Safe‑mode logic inverted | Invert test or rename flag; ensure default is *no escaping*. |
-| 2 | Unquoted `${#array[@]}` tests | Quote all expansions. |
-| 3 | Use of `[` with possibly empty vars | Switch to `[[ … ]]`. |
-| 4 | JSON construction from raw strings | Build payloads exclusively with `jq`. |
-| 5 | Global variable leakage (`content`, `result`) | Declare all intermediate vars as `local`. |
-| 6 | Overwriting Bash’s built‑in `RANDOM` | Use a local seed variable; avoid manual reseeding. |
-| 7 | Missing dependency checks | Add `_require` helper and call at load time. |
-| 8 | Inconsistent `_call_curl` return handling | Capture status for both GET and POST paths. |
-| 9 | Poor error messages for non‑JSON API replies | Detect non‑JSON and emit user‑friendly error. |
-|10 | Documentation typos & mismatched return‑code description | Clean up comments; document real exit‑codes. |
-|11 | Lack of tests | Implement BATS tests for core functions. |
-|12 | Global state prevents concurrent chats | Consider a context object / associative array. |
-|13 | Miscellaneous style (echo vs printf, quoting, local) | Apply consistent Bash best‑practice style. |
-
-Addressing the items above will make the library:
-
-* **More robust** – fewer runtime crashes, safer handling of edge‑cases.  
-* **More secure** – proper JSON escaping prevents injection attacks.  
-* **Easier to maintain** – clear separation of public vs private functions, reduced global state.  
-* **Better user experience** – helpful error messages and deterministic exit codes.
-
----  
-
-### Closing Note  
-
-The author has done a commendable job providing a functional wrapper around a modern HTTP API using only Bash and common Unix tools. With the corrections and refinements suggested, the library can become a reliable component for scripts that need to interact with Ollama in both local and cloud (Turbo) configurations.  
-
-Happy coding! 🚀  
+---
+
+## 8.  Summary Checklist
+
+| ✅ | Item | Comment |
+|----|------|---------|
+| ✅ | Functions clearly separated (internal vs public). | ✔︎ |
+| ✗ | `_debug` fails when `OLLAMA_LIB_DEBUG` unset. | Needs numeric guard. |
+| ✗ | `ollama_app_installed` never fails. | Fix command substitution. |
+| ✔︎ | All external commands are wrapped with graceful error checks. | ✔︎ |
+| ✔︎ | JSON generation via `jq` is safe. | ✔︎ |
+| ✗ | Streaming logic uses `-d ''` that may not work on all platforms. | Replace with newline‑delimited read. |
+| ✔︎ | Safe‑mode escaping implemented. | ✔︎ |
+| ✔︎ | Good documentation comments. | ✔︎ |
+| ✗ | Exported API key can leak via debug. | Remove from output. |
+| ✔︎ | Library is POSIX‑ish but uses Bash‑specific features (`declare`, `[[`, arithmetic, etc.). | ✔︎ |
+
+---
+
+### Final Recommendation
+
+Apply the bug fixes above, perform a quick round of automated linting (`shellcheck`, `bashate`) and write a small suite of unit tests (e.g. with **Bats**) to cover:
+
+* Successful API calls with valid input.
+* Failure paths (missing commands, network timeout).
+* Turbo mode toggling.
+* Safe‑mode escaping for control characters.
+
+The library is already quite functional; these changes will make it robust, secure, and easier to maintain for contributors. Happy scripting!

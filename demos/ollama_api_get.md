@@ -1,6 +1,8 @@
 # ollama_api_get
+./../ollama_bash_lib.sh: line 700: return: : numeric argument required
+ERROR: Ollama Not Installed
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.25
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.26
 
 ## Setup
 
@@ -42,11 +44,11 @@ result: output: {"version":"0.0.0"}
 ```
 ollama_api_get
 
-[DEBUG] 20:20:20:204287300: ollama_api_get: []
-[DEBUG] 20:20:20:219994800: _call_curl: [GET] [] []
-[DEBUG] 20:20:20:230932200: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 20:20:20:241243400: _call_curl: Turbo Mode
-[DEBUG] 20:20:20:571397700: ollama_api_get: success: return 0
+[DEBUG] 22:26:13:474894300: ollama_api_get: []
+[DEBUG] 22:26:13:485685900: _call_curl: [GET] [] []
+[DEBUG] 22:26:13:496839800: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 22:26:13:507250200: _call_curl: Turbo Mode
+[DEBUG] 22:26:13:765433100: ollama_api_get: success: return 0
 result: lines: 392
 result: output: 
 
@@ -62,11 +64,11 @@ result: output:
 ```
 ollama_api_get "/api/version"
 
-[DEBUG] 20:20:20:607505600: ollama_api_get: [/api/version]
-[DEBUG] 20:20:20:617997700: _call_curl: [GET] [/api/version] []
-[DEBUG] 20:20:20:629251200: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 20:20:20:640413300: _call_curl: Turbo Mode
-[DEBUG] 20:20:20:880345800: ollama_api_get: success: return 0
+[DEBUG] 22:26:13:810876200: ollama_api_get: [/api/version]
+[DEBUG] 22:26:13:822884100: _call_curl: [GET] [/api/version] []
+[DEBUG] 22:26:13:836108600: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 22:26:13:847668600: _call_curl: Turbo Mode
+[DEBUG] 22:26:14:055494900: ollama_api_get: success: return 0
 result: lines: 1
 result: output: {"version":"0.0.0"}
 ```

@@ -1,6 +1,8 @@
 # Prompt all models
+./../ollama_bash_lib.sh: line 700: return: : numeric argument required
+ERROR: Ollama Not Installed
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.25
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.26
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."

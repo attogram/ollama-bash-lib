@@ -1,6 +1,8 @@
 # ollama_list, ollama_list_json
+./../ollama_bash_lib.sh: line 700: return: : numeric argument required
+ERROR: Ollama Not Installed
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.25
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.26
 
 ```
 ollama_list

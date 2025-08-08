@@ -1,6 +1,8 @@
 # ollama_app_version, ollama_app_version_json, ollama_app_version_cli
+./../ollama_bash_lib.sh: line 700: return: : numeric argument required
+ERROR: Ollama Not Installed
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.25
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.26
 ```
 
 ollama_app_version
@@ -16,5 +18,5 @@ ollama_app_version_json
 ollama_app_version_cli
 
 ollama version is 0.0.0
-Warning: client version is 0.11.4-rc0
+Warning: client version is 0.11.4
 ```

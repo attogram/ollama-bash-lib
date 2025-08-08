@@ -1,6 +1,8 @@
 # Review of project [README.md](../README.md)
+./../ollama_bash_lib.sh: line 700: return: : numeric argument required
+ERROR: Ollama Not Installed
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.25
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.26
 
 
 ```bash
@@ -8,190 +10,178 @@ task="Act as a Technical Marketing Expert.
 Do a Marketing Review of this github project README.md file.
 Output your review in Markdown format."
 file="../README.md"
-ollama_generate "gpt-oss:120b" "$task\n\n$(cat "$file")"
+ollama_generate "gpt-oss:20b" "$task\n\n$(cat "$file")"
 ```
-# 📊 Technical Marketing Review – **Ollama Bash Lib** README  
+# 🚀 Marketing Review – *Ollama Bash Lib* README
 
-> **Goal:** Turn a solid developer‑oriented README into a magnet for users, contributors, and ecosystem partners while preserving its technical clarity.
-
----
-
-## 1️⃣ Executive Summary
-
-| ✅ What works well | ⚠️ What needs attention |
-|-------------------|--------------------------|
-| **Clear purpose** – “A Bash Library to interact with Ollama”. | **Header hierarchy** – multiple H2s/H3s with long titles make scanning harder. |
-| **Rich demo matrix** – 20+ ready‑to‑run scripts, each with a markdown doc. | **Call‑to‑Action (CTA) noise** – many links in the top nav, but no focal CTA (“Get started in 30 s”). |
-| **Comprehensive function catalog** (API, Generate, Chat, Model, etc.) | **Missing visual cues** – no screenshots, GIFs, or emoji badges to break the wall of tables. |
-| **Self‑contained quickstart** – clone → source → one‑liner. | **SEO & discoverability** – limited use of keywords like “bash LLM client”, “Ollama CLI wrapper”. |
-| **Open‑source licensing & community links** (Discord, related projects). | **Installation guidance** – optional requirements are listed but not version‑checked. |
-| **Consistent formatting** (tables, code fences, markdown links). | **Documentation depth** – no “Why use a Bash lib?” or “Use‑case scenarios” section. |
-
-Overall, the README is **technically excellent** but **lacks the marketing polish** that turns a dev tool into a widely‑adopted community project.
+> **TL;DR**  
+> The README is a solid technical doc that shows the library’s power, but it can be *far more* persuasive.  
+> A few layout tweaks, a clearer call‑to‑action and a sharper focus on the pain points it solves will turn casual readers into users, contributors and evangelists.
 
 ---
 
-## 2️⃣ Detailed Evaluation
+## 1. First Impressions
 
-### 2.1 Content Architecture
-| Aspect | Current State | Recommendation |
-|--------|--------------|----------------|
-| **Hero Section** | Minimal title and nav links. | Add a **hero banner** with a concise tagline, a one‑sentence value proposition, and a primary CTA button (e.g., “Start Generating →”). |
-| **Quickstart** | Good but buried after nav. | Keep it but **highlight** with a distinct background or a numbered “Get Started in 30 s” block. |
-| **Demos** | Long table of scripts. | Split into **Featured Demos** (top 3 most compelling) and “Full Demo List →”. Use emojis or icons to illustrate each demo type. |
-| **Functions** | Exhaustive tables per category. | Keep for reference, but move to a **separate docs page** (e.g., `docs/functions.md`). In the README, summarize the main categories with a “View Full API →” link. |
-| **Requirements** | Listed as bullet list. | Add a **badge** (e.g., `bash ≥3`, `curl`, `jq`) and a small “What’s optional?” note. |
-| **License & More** | Simple list. | Keep, but add a **“Contribute”** badge and a note about the roadmap. |
-
-### 2.2 Tone & Messaging
-* **Current tone:** Very factual, command‑line centric.  
-* **Suggested shift:** Blend **developer‑first clarity** with **benefit‑driven language**. Example:
-
-> “Run LLM prompts directly from any Bash script—no Python, no Docker, just native shell power.”
-
-### 2.3 Visual & Branding Elements
-| Element | Gap | Quick Wins |
-|--------|-----|------------|
-| **Badges** | None | Add GitHub stars, forks, license, latest release, and Bash version badge at the top. |
-| **Screenshots / GIFs** | None | Record a 5‑second GIF of `ollama_generate` output and embed next to the Quickstart. |
-| **Icons / Emojis** | Sparse (only tables) | Use emojis to differentiate sections (`⚡ Quickstart`, `🚀 Demos`, `🔧 API`, `💡 Why Bash?`). |
-| **Consistent color styling** | Plain markdown | Leverage GitHub’s markdown syntax highlighting for code blocks (`bash` language). |
-
-### 2.4 SEO & Discoverability
-* **Keyword gaps:** “Bash LLM client”, “Ollama CLI wrapper”, “shell AI toolkit”.  
-* **Meta data:** GitHub README is already indexed, but adding a **short description** (150‑char) in the repo’s description field improves search hits.  
-* **Cross‑linking:** Link from related repos (Ollama‑Multirun, Bash Toolshed) back to this README with anchor text like “Bash library for Ollama”.  
-* **External promotion:** Publish a **blog post** (e.g., “How to call Ollama from Bash in 30 seconds”) and embed the README.
-
-### 2.5 Community & Adoption
-| Current | Needed |
-|---------|--------|
-| Discord link present. | Promote a **“Get Involved”** section: label issues `good first issue`, link to contribution guide, and add a `CODE_OF_CONDUCT`. |
-| Demo scripts provided. | Add a **“Showcase”** gallery of real‑world use cases (e.g., CI pipeline integration, GitHub Actions step). |
-| No contribution guidelines. | Create a `CONTRIBUTING.md` with steps to run tests, lint, and submit PRs. |
+| Element | Score (1–5) | Comment |
+|---------|-------------|---------|
+| **Visual hook** | 3 | The hero badge and hero title are fine, but the “Get Started in 30 seconds” link feels buried. |
+| **Clarity** | 4 | The text explains the *what* and *how*, but the *why* is missing. |
+| **Navigation** | 3 | Section links are present, but the table of contents is missing a quick‑jump to the **FAQ**. |
+| **Branding** | 2 | The README tells the story of Attogram a bit, but the library lives too much in a “toolshed” mindset. |
 
 ---
 
-## 3️⃣ Actionable Recommendations  
+## 2. Strengths
 
-### 🎯 Short‑Term ( ≤ 1 week )
-1. **Hero Block & Primary CTA**  
-   ```markdown
-   # Ollama Bash Lib
-   **Run LLM prompts straight from your shell**  
-   [▶️ Get Started in 30 s](#quickstart) • [💬 Join Discord](https://discord.gg/BGQJCbYVBa)
-   ```
-2. **Add Badges** (GitHub markdown):
-   ```markdown
-   ![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat)
-   ![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)
-   ![Bash ≥3](https://img.shields.io/badge/bash-%3E=3-blue?logo=gnu-bash)
-   ```
-3. **Insert a GIF** of a single‑line generation (`ollama_generate "mistral:7b" "Describe Bash in 3 words"`).  
-   Place it right under the Quickstart code block.
-4. **Condense Function Tables** – keep only the top‑level categories with a “View Full API → docs/functions.md” link.
-5. **Add “Why Bash?” Section** (2‑3 bullet points) to address “Why use this library?”.
-6. **Create `CONTRIBUTING.md`** and link to it from the README.
-
-### 📈 Mid‑Term ( 2–4 weeks )
-1. **Dedicated Docs Site** (GitHub Pages) – host the full API reference, demos, and troubleshooting guide.  
-2. **Write a Blog Post / Medium Article** that walks through a real scenario (e.g., “Automated commit‑message generation with Ollama and Bash”). Cross‑link back to the repo.  
-3. **Add a “Showcase” Gallery** with screenshots of users’ projects (use GitHub Issues to collect submissions).  
-4. **Implement Version Badge** via `GitHub Actions` that updates on each release.  
-5. **Enhance SEO** – sprinkle target keywords naturally throughout the README, especially in headings (`## Bash LLM Client`, `## Ollama CLI Wrapper`).  
-
-### 🌐 Long‑Term ( > 1 month )
-1. **Publish a Video Tutorial** (YouTube, 2‑min) covering installation, quickstart, and one demo. Embed the video in the README.  
-2. **Integrate with GitHub Marketplace** – expose a reusable Action that installs the lib and runs a demo.  
-3. **Create a “Roadmap”** page (public) to attract contributors and signal project health.  
-4. **Host a Monthly “Live Coding” session** on Discord to showcase new features and gather feedback.  
+| Strength | Why it matters |
+|----------|----------------|
+| **Markdown‑friendly tables** | Makes the API surface clear – developers love tabular specs. |
+| **Demo catalog** | Shows real‑world use‑cases and builds credibility. |
+| **Detailed function docs** | Reduces friction for newcomers; a developer’s cheat‑sheet. |
+| **Robust “Quickstart”** | Git clone + source + one‑liner = low‑bar entry. |
+| **Live badges** | Immediate credibility: license, bash requirement. |
+| **Open‑source call‑to‑action** | Links to Discord and project repo at the top. |
 
 ---
 
-## 4️⃣ Sample Refreshed README Snippet  
+## 3. What’s Missing for a Marketing‑Ready README?
+
+| Issue | Impact | Suggested Fix |
+|-------|--------|---------------|
+| **Missing USP / Hook** | Readers don’t instantly know *why* they should use a Bash lib for LLMs. | Add a 1‑sentence “Value‑prop” block at the very top:  
+> *“Turn your shell into a lightning‑fast LLM playground – no Python, no node – just Bash.”* |
+| **No pain‑point articulation** | Developers have to infer benefits themselves. | Add a “Why Bash?” paragraph explaining latency, automation, CI pipelines, quick prototyping. |
+| **Sparse “Use‑Case” section** | The demos are great, but a quick “What can you build?” list turns the doc into a cheat sheet. | Add 3‑4 bullet‐point examples: “Generate commit messages”, “Run a prompt‑driven CI check”, “Create prompt‑based documentation”. |
+| **No screenshots** | All commands are text; visual examples boost trust. | Embed a short terminal snippet or quick GIF of a live generate call. |
+| **Call‑to‑action (CTA) weak** | There’s a few links, but the CTA could be stronger: “Try it now!”, “Install with homebrew”, “Join the dev community.” | Add bolded CTA link near the top:  
+> **👉 [Try it in 15 seconds](#quickstart)** |
+| **Navigation missing** | A long file can feel daunting. | Add a mini “Table of contents” with expand/collapse for each section; include “FAQ” and “Contribution Guide” links. |
+| **Missing “What’s New” / Changelog** | Users need to know which version supports what. | Add a short changelog section at the top or a link to a changelog file. |
+| **No license icon** | Already present, but consider adding a “MIT” badge in the top area next to the license. | Add an MIT license badge right below the main header. |
+| **Accessibility** | Long tables might break on mobile. | Use `summary` elements for tables or break up large tables into smaller cards. |
+| **SEO / Visibility** | The README is the first PR review. | Sprinkle relevant tags: “Bash”, “LLM”, “CLI”, “OpenAI alternative”, “automation”. |
+
+---
+
+## 4. Suggested Markdown Rewrite
+
+Below is an outline that mixes marketing copy with technical detail. Feel free to copy‑paste and adjust as needed.
 
 ```markdown
-# Ollama Bash Lib
-**Run LLM prompts straight from your shell – no Python, no Docker.**  
+# Ollama Bash Lib  
+*Your shell, powered by your favourite LLM.*
 
-[▶️ Get Started in 30 s](#quickstart) • [💬 Join Discord](https://discord.gg/BGQJCbYVBa)  
+![MIT License][badge-lic] ![Bash ≥ 3][badge-bash]
 
-![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat)
-![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)
-![Bash ≥3](https://img.shields.io/badge/bash-%3E=3-blue?logo=gnu-bash)
+> **Take 30 seconds to unleash GPT‑style prompts inside your terminal. No Python, no Node – just Bash.**
 
 ---
 
-## ⚡ Quickstart (under 30 s)
+## ⚡️ Quick‑Start
 
-```bash
-git clone https://github.com/attogram/ollama-bash-lib.git
-cd ollama-bash-lib
-source ollama_bash_lib.sh
+> **Clone, source, generate**  
+> ```bash
+> git clone https://github.com/attogram/ollama-bash-lib  
+> cd ollama-bash-lib && source ollama_bash_lib.sh  
+> ollama_generate "mistral:7b" "Describe Bash in 3 words"
+> # → Powerful, Flexible, Scripting.
+> ```
 
-# One‑line generation
-ollama_generate "mistral:7b" "Describe Bash in 3 words"
-# → Powerful, Flexible, Scripting.
+Want to try it live?  
+[Run the playground in GitHub Codespaces] | [Install via Homebrew](https://formulae.brew.sh/formula/ollama-bash-lib)  
+
+---
+
+## 🚀 What Ollama Bash Lib Lets You Do
+
+- **Instant LLM prompts** inside your existing shell scripts or Makefiles.  
+- **Stream responses** for real‑time command‑line UI.  
+- **Chat + memory** using `ollama_messages_add` for multi‑turn interactions.  
+- **Model introspection** (list, show, random, unload) and **process monitoring**.  
+- **Zero‑dependency wrapper** around the **Ollama** local API.
+
+---
+
+## 🎬 Demos – 30+ Ready‑to‑Run Scripts
+
+| # | Demo | What it Shows |
+|---|------|---------------|
+| 1 | `review.lib.sh` | Code‑reviewing the Bash library itself |
+| 2 | `ollama_chat.sh` | State‑full chat with context persistence |
+| 3 | `list.sh` | Fetch and use model list in a Bash array |
+| 4 | `interactive.generate.sh` | Full‑screen prompt terminal |
+
+*Run all demos* – `./demos/run.demos.sh` – *and see the output in Markdown directly.*
+
+---
+
+## 📄 API Reference (Trimmed)
+
+| Function | Purpose | Example |
+|---------|---------|---------|
+| `ollama_generate` | One‑liner generation | `ollama_generate "gpt4o-mini" "Explain Bash in 3 sentences"` |
+| `ollama_chat` | Stateful chat | `ollama_chat "mistral:7b"` |
+| `ollama_list` | Get model list | `ollama_list` |
+| `ollama_app_installed` | Guard against missing Ollama | `if ollama_app_installed; then …` |
+
+> *Full docs table lives in the original README – copy‑paste into the reference section as needed.*
+
+---
+
+## 📦 Requirements
+
+- **Bash** ≥ 3.0 (or any POSIX shell)
+- *Optional*: `curl`, `jq` (for JSON), `Ollama` CLI
+
+If you can’t install `Ollama`, just use `ollama_app_installed` and any utility functions for local testing.
+
+---
+
+## 📚 Contributing
+
+Pull requests welcome!  
+See **[CONTRIBUTING.md]** for guidelines.  
+Join the dialogue on [Discord] or the project’s GitHub Discussions.
+
+---
+
+## 📞 Community & Support
+
+- **Discord** – [Join the Attogram Project Discord][discord-invite]
+- **GitHub Discussions** – [Open an issue] or comment on existing ones
+- **Twitter/X** – @attogramprojects
+
+---
+
+## 🔖 License
+
+MIT © [Attogram](https://github.com/attogram)
+
+[badge-lic]: https://img.shields.io/badge/License-MIT-blue.svg
+[badge-bash]: https://img.shields.io/badge/Bash%3E%3D3-brightgreen.svg
+[discord-invite]: https://discord.gg/BGQJCbYVBa
 ```
 
-![demo-gif](https://raw.githubusercontent.com/attogram/ollama-bash-lib/main/assets/quickstart.gif)
+---
+
+## 5. Quick Checklist for the Next Commit
+
+| ✅ | Task | Notes |
+|----|------|-------|
+| ✔️ | Add a one‑liner value proposition at the top | Use Markdown or a highlighted block. |
+| ✔️ | Include an “What can I build?” section + screenshots | Visual proof saves time. |
+| ✔️ | Tighten navigation: mini‑table of contents + FAQ | Use header anchors. |
+| ✔️ | Update *Changelog* link | Even a `CHANGELOG.md` with semver is a plus. |
+| ✔️ | Strengthen CTA | Add “Try it in 15 seconds” links & install instructions. |
+| ✔️ | Add GitHub Actions badge (build status) | Demonstrates active maintenance. |
+| ✔️ | Add “Contributing” and “Community” blocks | Encourages contributions and engagement. |
+| ✔️ | Test mobile‑view** – ensure tables wrap or break gracefully. | Use `summary` tags or split tables. |
 
 ---
 
-## 🚀 Featured Demos
+## 6. Final Verdict
 
-| Demo | What you’ll see |
-|------|-----------------|
-| **ollama_chat.sh** | Interactive chat with message history |
-| **ollama_generate_stream.sh** | Real‑time streaming output |
-| **ollama_model_random.sh** | Pick a random model and query it |
-| *…and 17 more* → [Full Demo List](demos/)
+**The README is technically sound and comprehensive.**  
+By tightening the narrative around **why it matters** and **how it enables real‑world workflows**, you’ll quickly convert browsers into users, and users into advocates.  
 
----
-
-## 📚 API Overview
-* **Generate** – `ollama_generate`, `ollama_generate_stream`, …  
-* **Chat** – `ollama_chat`, `ollama_chat_stream`, `ollama_messages_*`  
-* **Model** – `ollama_show`, `ollama_list`, `ollama_model_random`  
-* **Utility** – `_debug`, `_error`, `_escape_control_characters`
-
-🔎 **Full reference →** [`docs/functions.md`](docs/functions.md)
-
----
-
-## 🛠️ Requirements
-
-| Tool | Minimum | ✅ Already built‑in | 📦 Optional |
-|------|---------|-------------------|-------------|
-| **bash** | 3.0+ | ✔️ | — |
-| **curl** | any | ✔️ | — |
-| **jq** | 1.6+ | ✖️ | for JSON output |
-| **Ollama** | 0.1.30+ | ✖️ | LLM backend |
-
----
-
-## 🤝 Contribute
-
-* Open issues labeled `good first issue`.  
-* Follow our [CONTRIBUTING guidelines](CONTRIBUTING.md).  
-* Join the conversation on **Discord**.
-
----
-
-## 📜 License
-
-MIT – see [LICENSE](LICENSE).
-
-```
-
-*(The snippet shows the new visual hierarchy, CTAs, badges, and a trimmed API section.)*
-
----
-
-## 5️⃣ Bottom Line
-
-- **Strength:** The repo already provides a **complete, well‑tested Bash wrapper** with an impressive demo suite.  
-- **Weakness:** The README leans heavily on raw technical data, missing the **marketing hooks** that draw new users and contributors.  
-- **Opportunity:** By adding **visual branding, concise benefit statements, clear CTAs, and SEO‑friendly content**, this project can become the go‑to Bash‑based entry point for anyone wanting to experiment with Ollama.  
-
-Implement the short‑term actions this week, and you’ll see **higher star counts, more forks, and a surge in community activity** within the first month. 🚀
+Happy editing – your Bash‑powered LLM playground will thank you!

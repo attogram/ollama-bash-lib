@@ -1,6 +1,8 @@
 # ollama_model_random
+./../ollama_bash_lib.sh: line 700: return: : numeric argument required
+ERROR: Ollama Not Installed
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.25
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.26
 
 ## Demo
 
@@ -9,8 +11,8 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-gpt-oss:120b
 gpt-oss:20b
+gpt-oss:120b
 ```
 
 ## Demo Debug
@@ -21,14 +23,14 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-[DEBUG] 20:20:41:175720500: ollama_model_random
-[DEBUG] 20:20:41:190145500: ollama_list_array
-[DEBUG] 20:20:41:574475100: ollama_list_array: 2 models found: return 0
-[DEBUG] 20:20:41:585868400: ollama_model_random: 2 models found
+[DEBUG] 22:26:30:992618700: ollama_model_random
+[DEBUG] 22:26:31:007637800: ollama_list_array
+[DEBUG] 22:26:31:379393300: ollama_list_array: 2 models found: return 0
+[DEBUG] 22:26:31:393804200: ollama_model_random: 2 models found
 gpt-oss:20b
-[DEBUG] 20:20:41:622231400: ollama_model_random
-[DEBUG] 20:20:41:638965300: ollama_list_array
-[DEBUG] 20:20:42:001566300: ollama_list_array: 2 models found: return 0
-[DEBUG] 20:20:42:012584800: ollama_model_random: 2 models found
+[DEBUG] 22:26:31:409674500: ollama_model_random
+[DEBUG] 22:26:31:425753500: ollama_list_array
+[DEBUG] 22:26:31:796163300: ollama_list_array: 2 models found: return 0
+[DEBUG] 22:26:31:809407200: ollama_model_random: 2 models found
 gpt-oss:20b
 ```
