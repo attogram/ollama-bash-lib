@@ -1,8 +1,6 @@
 # estimate_tokens
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.24
 ```
-
 estimate_tokens "string"
 estimate_tokens "string" 1 (verbose)
 
@@ -15,10 +13,10 @@ tokens : 7
 verbose: 7 ± 6 (range 1 to 7)
 
 (contents of ../README.md)
-tokens : 5455
-verbose: 5455 ± 3439 (range 2016 to 5455)
+tokens : 5333
+verbose: 5333 ± 3376 (range 1957 to 5333)
 
 (contents of ../ollama_bash_lib.sh)
-tokens : 7493
-verbose: 7493 ± 2253 (range 5240 to 7493)
+tokens : 6910
+verbose: 6910 ± 2120 (range 4790 to 6910)
 ```
