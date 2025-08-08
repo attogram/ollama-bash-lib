@@ -24,7 +24,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          RELEASE_BODY="Ollama Bash Lib $CURRENT_TAG\n\nA Bash Library to interact with [Ollama](https://github.com/ollama/ollama)\n\nRun LLM prompts straight from your shell. Command line access to the ghost in the machine.\n\nRepo: https://github.com/${{ github.repository }}\n"
+          RELEASE_BODY="Ollama Bash Lib $CURRENT_TAG\n\nA Bash Library to interact with Ollama\n\nRun LLM prompts straight from your shell. Command line access to the ghost in the machine.\n\nRepo: https://github.com/${{ github.repository }}\n"
           echo "RELEASENOTES<<EOF" >> $GITHUB_ENV
           echo -e "$RELEASE_BODY" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
