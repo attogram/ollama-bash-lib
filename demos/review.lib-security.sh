@@ -20,6 +20,7 @@ demo() {
 
   task="Act as an Expert Security Professional.
 Do a Security Review of this bash script.
+Require that script works in Bash v3 or higher.
 Output your review in Markdown format."
 
   file="../ollama_bash_lib.sh"
