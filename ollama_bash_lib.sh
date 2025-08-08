@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.30"
+OLLAMA_LIB_VERSION="0.42.31"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -298,7 +298,6 @@ ollama_generate_stream_json() {
 ollama_generate_stream() {
   _debug "ollama_generate_stream: [$1] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming for the API request
-  local error_ollama_generate_json
   if [[ "$OLLAMA_LIB_SAFE_MODE" -eq 1 ]]; then # Safe‑mode: escape control characters *before* handing the data to jq
     ollama_generate_json "$1" "$2" |
       _escape_control_characters |
@@ -310,7 +309,7 @@ ollama_generate_stream() {
     ollama_generate_json "$1" "$2" |
       jq -j '.response'
   fi
-  error_ollama_generate_json=$?
+  local error_ollama_generate_json=$?
   OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
   if [[ "$error_ollama_generate_json" -gt 0 ]]; then
     _error "ollama_generate_stream: error_ollama_generate_json: $error_ollama_generate_json"
