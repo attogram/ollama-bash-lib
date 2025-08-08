@@ -1,6 +1,6 @@
 # Security Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.29
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.30
 
 
 ```bash
@@ -8,197 +8,100 @@ task="Act as an Expert Security Professional.
 Do a Security Review of this bash script.
 Output your review in Markdown format."
 file="../ollama_bash_lib.sh"
-ollama_generate "gpt-oss:120b" "$task\n\n$(cat "$file")"
+ollama_generate "gpt-oss:20b" "$task\n\n$(cat "$file")"
 ```
-# Security Review – **Ollama Bash Lib**  
+# Security Review – Ollama Bash Library  
+*(The review covers the current upstream implementation.  All findings are based on typical security best‑practice for shell scripts, the behavior of the tools used (`curl`, `jq`, `od`, `printf`, `jq`, `awk` …) and the API it talks to.)*
 
-*Version examined: `0.42.29` (2025)*  
+---
 
----  
+## 1.  Scope & Threat Model
+* The script is intended to run locally on a user’s machine, and it invokes the Ollama HTTP API and the local `ollama` CLI.
+* The primary user‑controlled inputs are:
+  * **Command‑line arguments** (`ollama_*` functions that accept `model`, `prompt`, etc.).
+  * **Environment variables** (`OLLAMA_HOST`, `OLLAMA_AUTH`, `OLLAMA_TURBO_KEY`, `OLLAMA_DEBUG`, …).
+* The threat surface is limited to **information leakage**, **arbitrary command execution** (via injection), and **resource exhaustion**.  
+* There is *no* user authentication, nor does the script write to privileged files.
 
-## 1. Executive Summary  
+---
 
-| Aspect | Rating | Comments |
-|--------|--------|----------|
-| **Confidentiality** | ⚠️ Medium | API‑key (`OLLAMA_LIB_TURBO_KEY`) is kept in a shell variable only; however it may be inadvertently exported or leaked via debugging output. |
-| **Integrity** | ✅ Good | JSON payloads are built with `jq`, which safely escapes user‑supplied values. |
-| **Availability** | ⚠️ Medium | Several functions read unlimited amounts of data into Bash variables (e.g., `_call_curl`, `ollama_generate_json`). An attacker controlling the remote Ollama server could cause extreme memory consumption. |
-| **Overall** | ⚠️ **Needs hardening** | The library is functional but several security‑related defaults are weak (safe‑mode off, no strict Bash options, uncontrolled environment variables, long‑running processes). |
+## 2.  Overall Architecture
+```
+[ User ]─► ollama_* functions ─►
+          ├─ build JSON (jq) ─► safe ⇒ _escape_control_characters
+          └─ curl POST/GET  (Authorization optional)
+```
 
-Below is a detailed analysis of the code, identified risks, and concrete mitigation recommendations.
+*All user data is wrapped in JSON via `jq` before being sent to `curl`, effectively sanitizing the payloads.  The only “raw” input that makes it into a shell command is the URL which is derived from the `OLLAMA_HOST`/`OLLAMA_API` variables.  
+There is no `eval` or `xargs` usage that could execute arbitrary code.*
 
----  
+---
 
-## 2. Detailed Findings  
+## 3.  Detailed Findings
 
-### 2.1. Secure Bash Practices  
+| Feature | Finding | Impact | Recommendation |
+| --- | --- | --- | --- |
+| **Input Sanitization** | All arguments to `jq` are passed via `--arg`/`--argjson`. | Safe – no injection into shell or JSON. | ✅ No action required. |
+| **Environment Variable Usage** | `OLLAMA_HOST`, `OLLAMA_TURBO_KEY`, `OLLAMA_DEBUG`, etc. can be set arbitrarily. | If an attacker can set `OLLAMA_HOST`, they could force the library to talk to an arbitrary API (SSRF). If `OLLAMA_DEBUG=1`, the script will log internal JSON fragments which may contain sensitive data. | • Add validation or defaults for `OLLAMA_HOST`. <br>• Warn if `OLLAMA_DEBUG` is enabled. |
+| **Command Substitution** | Uses `$(ollama list)` etc. without quoting. | No injection risk because the output is read into arrays or printed only. | ❗ None. |
+| **Curl Invocation** | `curl -s -N` with `-d "@-"`. <br> No `--fail` or exit‑code handling for HTTP status codes. | The script may silently succeed when the server returns a non‑2xx status, potentially hiding errors. | Add `--fail` or parse `-w "%{http_code}"`. |
+| **_escape_control_characters** | Built using `od` and `printf` – heavy but accurate. | Handles only UTF‑8 byte‑based control escapes. Does not escape malformed UTF‑8 sequences. | Consider validating UTF‑8 before processing. |
+| **Debug Logging** | `_debug` prints timestamps and raw data fragments when `OLLAMA_LIB_DEBUG` is set. | If the user is unaware, running in a shared environment could leak passwords or API keys. | • Document that debug may leak secrets. <br>• Add a `--no-credentials` flag for debug prints. |
+| **Turbo Mode Key Disclosure** | `ollama_lib_about` prints the length of `OLLAMA_LIB_TURBO_KEY` but **never** the key itself. | Good practice. | ✅|
+| **Environment Variable Exposure** | `ollama_app_vars` prints every `OLLAMA_*` value, including possibly sensitive ones like `OLLAMA_AUTH`. | If a user calls `ollama_app_vars` in an environment where secrets are set, those secrets are printed to stdout. | • Provide a “--no-secrets” mode. <br>• At minimum, warn the user that secrets may be exposed. |
+| **Unquoted Array Expansion** | `printf '%s\n' "${OLLAMA_LIB_MESSAGES[@]}"` and `printf "%s" "$result"` – unquoted `$result` when feeding to `jq`. | If the JSON contains `$` or backticks, this could cause command substitutions in Bash *if* the code is used in a context that evaluates the string. However, here it is passed directly to a pipe; it is not evaluated. | ✅ No issue. |
+| **Resource Exhaustion** | Large prompts or model names can produce huge JSON payloads. <br> No size limits are enforced. | May lead to memory blow‑ups or DoS. | Add a configurable maximum prompt length. |
+| **Missing `set -euo pipefail`** | The script never uses shell options to abort on unset variables or failed pipelines. | Silent failures may occur. | Add `set -euo pipefail` at the top of the script. |
+| **Potential Null Byte in Streaming** | `jq -j '.response' | while IFS= read -r -d '' chunk; do` assumes null‑delimited chunks. <br> If `jq` emits non‑null‑delimited output, the loop may block. | Can cause deadlock or incorrect output in rare API responses. | Use `while IFS= read -r; do` and handle newlines explicitly. |
+| **Authorization Header Injection** | Constructs header as `"Authorization: Bearer ${OLLAMA_LIB_TURBO_KEY}"`. <br> If key contains `"`, the header will break. | Very unlikely with a token; but theoretically possible. | Escape or quote key using `printf '%q'`. |
+| **Use of `eval`?** | None. | ✅ | — |
 
-| Finding | Impact | Explanation |
-|---------|--------|-------------|
-| **Missing `set -euo pipefail`** | Medium | Without `set -e` the script continues after a failing command, possibly leading to undefined state. `set -u` would catch accidental use of undefined variables, and `pipefail` would propagate errors from pipelines. |
-| **No `IFS` sanitisation** | Low | Functions that iterate over strings (e.g., `ollama_list_array`) rely on the default `IFS`. An attacker could inject newlines or spaces into environment variables that later become part of a word‑splitting context. |
-| **No `umask` enforcement** | Low | Temporary files are not used, but future extensions that write to disk could inherit an insecure default file mode. |
+---
 
-### 2.2. Input Validation & Injection Risks  
+## 4.  Best‑Practice Improvements
 
-| Function | Issue | Likelihood | Mitigation |
-|----------|-------|------------|------------|
-| `_escape_control_characters` | Safe‑mode is **disabled by default** (`OLLAMA_LIB_SAFE_MODE=0`). When disabled the function simply `echo "$1"` and returns the unmodified string, meaning control characters (e.g., `\b`, `\n`, `\r`, `\u0000`) can pass straight into JSON payloads. In combination with downstream `jq -r ".response"` this could break JSON parsing or lead to **JSON injection**. | High (if a malicious user can influence prompts, system messages, or model output). | Enable safe‑mode by default (`OLLAMA_LIB_SAFE_MODE=1`). If a user explicitly disables it, issue a warning and require the caller to acknowledge the risk. |
-| `ollama_generate_json`, `ollama_chat_json`, `ollama_model_unload` | JSON payloads are built with `jq -c -n`, which safely quotes inputs. No injection risk here. | – | Keep this pattern; avoid manual string concatenation. |
-| `_call_curl` – `curl_args+=( "${OLLAMA_LIB_API}${endpoint}" )` | `endpoint` is supplied by the caller. If an attacker could inject something like `"; rm -rf /; echo "` it would be treated as part of the URL, *not* executed, because it is stored in an array element. However, if the endpoint contains a newline, `curl` would interpret it as a header separator and may cause HTTP request smuggling. | Low (requires control of `$endpoint`). | Validate that `endpoint` starts with a `/` and contains no newlines or control characters (`[[ $endpoint =~ ^/[^[:cntrl:]]*$ ]]`). |
-| `ollama_app_turbo` – reads API key with `read -s` and stores it in `OLLAMA_LIB_TURBO_KEY`. The key is later echoed in debug output (`_debug "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"`). | Medium – the length is safe, but the key value could be printed if the debugging flag is turned on (`OLLAMA_LIB_DEBUG=1`). | Never log the value itself, only its length. Add a conditional: `[[ $OLLAMA_LIB_DEBUG -eq 1 ]] && _debug "OLLAMA_LIB_TURBO_KEY set (${#OLLAMA_LIB_TURBO_KEY} chars)"`. |
-| `ollama_model_random` – uses `$RANDOM%${#models[@]}` inside arithmetic expansion. If `${#models[@]}` is 0 the modulus is zero, causing a division‑by‑zero error. | Low (only when no models are installed). | Guard with `[[ ${#models[@]} -gt 0 ]]` before performing the modulus. |
+| Area | Action | Rationale |
+|------|--------|-----------|
+| **Shell Options** | Add `set -euo pipefail` + `IFS=$'\n\t'` at top. | Prevents silent errors, uses safe IFS. |
+| **HTTP Error Checking** | Add `--fail` to curl or inspect `$?` and HTTP code. | Ensures API errors are surfaced. |
+| **Debug Mode** | Add a separate flag (`OLLAMA_LIB_DEBUG=1` should prefix all debug lines) and enforce that no secrets are part of log output. | Prevent accidental leakage. |
+| **Command‑Line Option Parsing** | Use `getopts` or a minimal parser for functions that accept command‑line options (e.g., `ollama_app_turbo`) to avoid ambiguous input. | Reduces accidental misuse. |
+| **Size Limits** | Define a constant `MAX_PROMPT_BYTES` and truncate or error out if exceeded. | Protect against DoS. |
+| **SSRF Mitigation** | Validate `OLLAMA_HOST` matches a whitelist of allowed URLs (`http://localhost*`, `https://ollama.com`). | Prevent malicious setting of `OLLAMA_HOST`. |
+| **Environment Secret Safeguards** | Provide `--hide-secrets` to `ollama_app_vars` or warn before printing `OLLAMA_AUTH`. | Minimizes accidental exposure. |
+| **Error Handling** | Replace all direct `if !` with an explicit `case` or a helper that maps curl exit codes to meaningful messages. | Easier debugging. |
+| **Code Comments** | Add a “Security‑Reassess” header to the top of the file indicating which sections have been audited. | For easier future reviews. |
+| **Update `curl` and `jq` dependencies** | Use `command -v curl jq` early and fail fast if missing. | Prevent undefined behavior. |
 
-### 2.3. Secret / Credential Handling  
+---
 
-| Observation | Issue | Recommendation |
-|-------------|-------|----------------|
-| API key stored in a **plain shell variable** (`OLLAMA_LIB_TURBO_KEY`). It is not exported, but a subshell invoked by the library (e.g., `curl`) may inherit it via the environment if the user later runs `export -p`. | Medium – accidental export could leak the secret to child processes. | Store the key in a **read‑only** variable (`readonly OLLAMA_LIB_TURBO_KEY`) after it is set, and explicitly unset it (`unset OLLAMA_LIB_TURBO_KEY`) when the script exits or on `trap EXIT`. |
-| Debug mode can print the **full key** if a developer inadvertently adds a line such as `_debug "$OLLAMA_LIB_TURBO_KEY"`. | High (potential leakage). | Enforce a coding rule: *Never* reference `$OLLAMA_LIB_TURBO_KEY` in debugging or logging. Add a wrapper `_debug_secret` that prints only masked value (`*****`). |
-| The key is never persisted to disk, which is good, but the script does **not** enforce a timeout or rotation. | Low (outside the scope of the library). | Document best‑practice for the end‑user: rotate the key regularly, keep it in a secure password manager, and avoid keeping the library running for long periods. |
+## 5.  Summary of Risks
 
-### 2.4. Resource Exhaustion / DoS  
+| Risk | Severity | Mitigation |
+|------|----------|------------|
+| **Information Leakage via Debug Logging** | Low – only if `OLLAMA_LIB_DEBUG=1`. | Disable by default; document behaviour. |
+| **SSRF via `OLLAMA_HOST`** | Medium – depends on malicious environment injection. | Input validation, whitelist. |
+| **Command/Substitution Injection** | None – all payloads go through `jq`. | None. |
+| **Secrets Exposure in `ollama_app_vars`** | Medium – when secrets are set. | Provide controlled output or warnings. |
+| **Resource Exhaustion / DoS** | Medium – large prompts. | Add size limits. |
+| **HTTP Error Masking** | Low – API errors are not flagged. | Add `--fail` / HTTP‑code handling. |
 
-| Function | Potential Abuse | Impact |
-|----------|----------------|--------|
-| `_call_curl` → `curl "${curl_args[@]}"` | The remote Ollama server could return an arbitrarily large JSON payload (e.g., with huge `response` fields). The script captures the output in a Bash variable (e.g., `result="$(ollama_api_get …)"`). Bash variables are stored in memory; a malicious server could cause the script to consume gigabytes of RAM, leading to a denial‑of‑service. | High if the library is used in a long‑running daemon. |
-| `ollama_generate`, `ollama_chat` | Same issue – they read the entire response before processing. | High |
-| `ollama_list_array` – loops over the output of `ollama list`. If the list is extremely long, the local array `models` may become huge. | Medium |
+---
 
-**Mitigations**  
+## 6.  Recommendations Checklist
 
-* Use `curl --max-filesize` or `--limit-rate` to bound the response size.  
-* Stream large responses directly to `jq` instead of loading the whole payload into a Bash variable (`curl … | jq …`).  
-* Set a reasonable default for `OLLAMA_LIB_MAX_RESPONSE_SIZE` (e.g., 10 MiB) and abort when exceeded.  
+- [ ] Add shell safety settings (`set -euo pipefail`, `IFS=$'\n\t'`).
+- [ ] Switch `curl` to `--fail` or check HTTP status code.
+- [ ] Tighten `OLLAMA_HOST` validation.
+- [ ] Disable debug dumps by default; make optional.
+- [ ] Provide a `--hide-secrets` or warn about printing `OLLAMA_AUTH`.
+- [ ] Add configurable maximum prompt/message lengths.
+- [ ] Refactor streaming loop to handle generic newline‑delimited input.
+- [ ] Document all environment variables that can affect behaviour.
+- [ ] Run the script through a static analysis tool (`shellcheck --severity=error`) and include its output.
 
-### 2.5. Path & Environment Manipulation  
+---
 
-| Observation | Issue | Recommendation |
-|-------------|-------|----------------|
-| `OLLAMA_LIB_API` is built from `${OLLAMA_HOST:-http://localhost:11434}`. The script later does `export OLLAMA_HOST="$host_api"` and `OLLAMA_LIB_API="$host_api"` in `ollama_app_turbo`. If an attacker can influence `OLLAMA_HOST` (e.g., by exporting it before sourcing the library), they could cause subsequent API calls to go to a malicious host. | Medium | Validate that `OLLAMA_HOST` is a well‑formed URL (`[[ $OLLAMA_HOST =~ ^https?://[[:alnum:].-]+(:[0-9]+)?$ ]]`) before using it. |
-| No `PATH` sanitisation before invoking external binaries (`curl`, `jq`, `ollama`). If a malicious directory appears earlier in `$PATH`, the library could execute a compromised binary. | Medium | At start of the script, set a minimal `PATH`, e.g., `PATH="/usr/bin:/bin"` or use `command -v` with full path (`/usr/bin/curl`). |
+## 7.  Final Verdict
 
-### 2.6. Error Handling & Exit Codes  
-
-* Most functions capture the exit status of the previous command (`$?`) and propagate it correctly.  
-* However, several branches use `return` inside a pipeline (`if ! result="$(ollama_api_get …)"; then`). In Bash, the exit status of a pipeline is the status of the **last** command, not the assignment. This is safe because the assignment is the only command, but if the implementation ever changes, the behaviour may change unexpectedly.  
-
-**Recommendation** – enable `set -o pipefail` globally to avoid silent failures.
-
-### 2.7. Logging & Debug Output  
-
-* `_debug` prints timestamps and messages to `stderr`.  
-* The library does not filter or truncate potentially large payloads; e.g., `_debug "_call_curl: json_body: [${3:0:120}]"` limits to 120 characters, which is good.  
-* Ensure that **no** secret is ever interpolated into debug output (already noted for the API key).  
-
----  
-
-## 3. Recommendations – Actionable Hardening Steps  
-
-1. **Enable strict Bash mode at the top of the file**  
-
-   ```bash
-   set -euo pipefail
-   IFS=$'\n\t'   # safe word splitting
-   ```
-
-2. **Make safe mode the default**
-
-   ```bash
-   : "${OLLAMA_LIB_SAFE_MODE:=1}"
-   ```
-
-   If a user explicitly disables it, issue a clear warning:
-
-   ```bash
-   if [[ $OLLAMA_LIB_SAFE_MODE -eq 0 ]]; then
-       _error "Safe mode disabled – control characters will not be escaped."
-   fi
-   ```
-
-3. **Sanitise external inputs**  
-
-   ```bash
-   _validate_endpoint() {
-       local ep=$1
-       [[ $ep =~ ^/[^[:cntrl:]]*$ ]] || { _error "Invalid endpoint: $ep"; return 1; }
-       return 0
-   }
-   ```
-
-   Call this before any API request.
-
-4. **Protect the API key**  
-
-   * Store as **read‑only**: `readonly OLLAMA_LIB_TURBO_KEY` after it is set.  
-   * Mask when logging:  
-
-     ```bash
-     _debug "OLLAMA_LIB_TURBO_KEY set (${#OLLAMA_LIB_TURBO_KEY} chars)"
-     ```
-
-   * Unset on script exit:  
-
-     ```bash
-     trap 'unset OLLAMA_LIB_TURBO_KEY' EXIT
-     ```
-
-5. **Limit response size & stream when possible**  
-
-   ```bash
-   local max=10485760   # 10 MiB
-   curl ... --max-filesize "$max" | jq …   # fail if larger
-   ```
-
-   For streaming endpoints (`ollama_generate_stream*`), keep the pipeline and avoid variable assignment.
-
-6. **Lock down the execution environment**  
-
-   ```bash
-   export PATH="/usr/bin:/bin"
-   ```
-
-   Or resolve absolute paths (`/usr/bin/curl`, `/usr/bin/jq`, `/usr/bin/ollama`).
-
-7. **Validate host URL**  
-
-   ```bash
-   _validate_host() {
-       [[ $1 =~ ^https?://[[:alnum:].-]+(:[0-9]+)?$ ]] || \
-          { _error "Invalid OLLAMA_HOST: $1"; return 1; }
-   }
-   ```
-
-   Call in `ollama_app_turbo` and when the library is sourced.
-
-8. **Graceful handling of empty model list**  
-
-   ```bash
-   if (( ${#models[@]} == 0 )); then
-       _error "No models available."
-       return 1
-   fi
-   ```
-
-9. **Document security‑aware usage**  
-
-   * Advise users to keep `OLLAMA_LIB_DEBUG=0` in production.  
-   * Recommend running the script under a non‑privileged user and using a separate network namespace if connecting to untrusted Ollama servers.
-
----  
-
-## 4. Conclusion  
-
-The **Ollama Bash Lib** provides a convenient wrapper around the Ollama API, and it follows many good practices (JSON built with `jq`, clear error handling, debug toggles). Nevertheless, several security‑related defaults are weak:
-
-* **Safe‑mode is off** by default, allowing control characters to flow unchecked into JSON.  
-* **Debug output can leak the API key** when verbosity is enabled.  
-* **No strict Bash mode** and no input sanitisation make the script more prone to accidental misuse.  
-* **Unbounded response handling** opens a path for denial‑of‑service attacks.
-
-By applying the hardening recommendations above—especially turning safe‑mode on, adding strict Bash options, sanitising host/endpoint inputs, and protecting the API key—the library can be made robust enough for production environments.  
-
----  
-
-*Prepared by: **[Your Name]**, Security Engineer*  
-*Date: 2025‑08‑08*  
+The Ollama Bash Library is **mostly secure** with respect to shell‑level injection, command misuse, and privileged escalation.  The main concerns are around **information disclosure** (debug logs, environment display) and **potential SSRF** if the `OLLAMA_HOST` variable is set by an attacker.  Applying the above mitigations will harden the script against accidental misuse and make it easier to audit in the future.
