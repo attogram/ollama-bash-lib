@@ -2,23 +2,94 @@
 
 echo "# estimate_tokens"
 
-startup() {
-  ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
-  if [ ! -f "$ollama_bash_lib" ]; then echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"; exit 1; fi
-  # shellcheck source=../ollama_bash_lib.sh
-  source "$ollama_bash_lib"
-  #if ! ollama_app_installed; then echo "ERROR: Ollama Not Installed"; fi;
-  #if ! ollama_api_ping; then echo "ERROR: Ollama API not reachable"; fi
-  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+# Estimate the number of tokens in a string
+#
+# Usage: estimate_tokens "string"
+# Usage: verbose: estimate_tokens "string" 1
+# Output: token estimate, to stdout
+# Output: verbose: token estimate with error range, to stdout
+# Requires: none
+# Returns: 0 on success, 1 on error
+estimate_tokens() {
+  #_debug "estimate_tokens" # $1"
+  local string verbose tokensWords words tokensChars chars tokensBytes bytes tokens
+
+  if [ -t 0 ]; then # Not piped input
+    if [ -f "$1" ]; then
+      #_debug "Getting string from file (arg 1 is filename)"
+      string=$(<"$1")
+    elif [ -n "$1" ]; then
+      #_debug "Getting string from arg 1"
+      string="$1"
+    else
+      #_debug "Usage: estimate_tokens <text|string|file> [verbose: 1])"
+      return 1
+    fi
+    verbose=${2:-0} # verbose is arg 2
+  else
+    #_debug "Getting string from piped input, multiline"
+    string=$(cat -)
+    verbose=${1:-0} # verbose is arg 1
+  fi
+  #_debug "verbose: $verbose"
+
+  words=$(echo "$string" | wc -w)
+  chars=$(printf "%s" "$string" | wc -m)
+  bytes=$(printf "%s" "$string" | wc -c)
+
+  tokensWords=$(( (words * 100) / 75 )) # 1 token = 0.75 words
+  #_debug "words      : $words"
+  #_debug "tokensWords: $tokensWords"
+
+  tokensChars=$(( (chars + 1) / 4 )) # 1 token = 4 characters
+  #_debug "chars      : $chars"
+  #_debug "tokensChars: $tokensChars"
+
+  tokensBytes=$(( (bytes + 1) / 4 )) # 1 token = 4 bytes
+  #_debug "bytes      : $bytes"
+  #_debug "tokensBytes: $tokensBytes"
+
+  # Get largest estimate
+  tokens=$tokensBytes
+  (( tokensChars > tokens )) && tokens=$tokensChars
+  (( tokensWords > tokens )) && tokens=$tokensWords
+  #_debug "tokens     : $tokens"
+
+  if [ "$verbose" -eq 0 ]; then
+   echo "$tokens"
+   return 0
+  fi
+
+  local min max offsetMin offsetMax error
+
+  min=$tokensWords
+  (( tokensChars < min )) && min=$tokensChars
+  (( tokensBytes < min )) && min=$tokensBytes
+  #_debug "min        : $min"
+
+  max=$tokensWords
+  (( tokensChars > max )) && max=$tokensChars
+  (( tokensBytes > max )) && max=$tokensBytes
+  #_debug "max        : $max"
+
+  offsetMin=$(( max - tokens ))
+  #_debug "offsetMin  : $offsetMin"
+
+  offsetMax=$(( tokens - min ))
+  #_debug "offsetMax  : $offsetMax"
+
+  error=$offsetMin
+  (( error < offsetMax )) && error=$offsetMax
+  #_debug "error      : $error"
+
+  echo "$tokens ± $error (range $min to $max)"
+  return 0
 }
 
-startup
-
-echo '```'
 echo
+echo '```'
 echo "estimate_tokens \"string\""
 echo "estimate_tokens \"string\" 1 (verbose)"
-OLLAMA_LIB_DEBUG=0
 
 echo
 string="My hovercraft is full of eels"
