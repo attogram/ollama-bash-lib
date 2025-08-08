@@ -7,7 +7,7 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 [▶️ Get Started in 30 seconds](#quickstart) • [💬 Join Discord][discord-invite]
 
 ![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)
-![Bash ≥3](https://img.shields.io/badge/bash-%3E=3-blue?logo=gnu-bash)
+![Bash ≥3.1](https://img.shields.io/badge/bash-%3E=3.1-blue?logo=gnu-bash)
 <!-- ![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat) -->
 
 [Quickstart](#quickstart) -
@@ -176,7 +176,7 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 ## Requirements
 
-* ```bash``` - v3 or higher, or equivalent
+* ```bash``` - v3.1 or higher, or equivalent
 * Standard tools: `awk`, `sed`, `tr`, `grep`, `wc`, `od`, `command`
 
 ### Optional Requirements
