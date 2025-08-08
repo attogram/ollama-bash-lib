@@ -2,7 +2,7 @@
 ./../ollama_bash_lib.sh: line 700: return: : numeric argument required
 ERROR: Ollama Not Installed
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.26
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.27
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -24,5 +24,5 @@ prompt: What is your knowledge cutoff date? Respond with only the date.
 
 ## gpt-oss:20b
 ```
-2024-06
+2023-10
 ```

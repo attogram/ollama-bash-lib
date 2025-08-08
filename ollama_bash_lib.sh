@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.26"
+OLLAMA_LIB_VERSION="0.42.27"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -25,9 +25,8 @@ OLLAMA_LIB_SAFE_MODE=0  # 0 = no safe mode, 1 = Safe Mode: uses _escape_control_
 # Requires: none
 # Returns: 0 on success, 1 on error
 _debug() {
-  if [ "$OLLAMA_LIB_DEBUG" -eq "1" ]; then
-    printf "[DEBUG] $(date '+%H:%M:%S:%N'): %s\n" "$1" >&2
-  fi
+  (( OLLAMA_LIB_DEBUG )) || return
+  printf "[DEBUG] $(date '+%H:%M:%S:%N'): %s\n" "$1" >&2
 }
 
 # Error message
@@ -46,7 +45,7 @@ _error() {
 # Usage: _required "command"
 # Input: 1 - the command (ollama, curl, etc)
 # Output: none
-# Requires: none
+# Requires: command
 # Returns: 0 if command exists, 1 if command does not exist
 _required() {
   local cmd="$1"
@@ -54,7 +53,9 @@ _required() {
     _debug '_require called without a command name. Usage: _require "command"'
     return 1
   fi
-  if command -v "$cmd" >/dev/null; then
+  command -v "$cmd" >/dev/null
+  local command_error=$?
+  if (( "$command_error" > 0 )) then
     return 0 # command exists
   fi
   return 1 # command is missing
@@ -258,7 +259,6 @@ ollama_generate() {
   _debug "ollama_generate: [$1] [${2:0:42}]"
   OLLAMA_LIB_STREAM=0
   local result
-  #result="$(ollama_generate_json "$1" "$2" 2>/dev/null)"
   result="$(ollama_generate_json "$1" "$2")"
   local error_ollama_generate_json=$?
   _debug "ollama_generate: result: $(echo "$result" | wc -c | sed 's/ //g') bytes"

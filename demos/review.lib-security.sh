@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "# Code Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)"
+echo "# Security Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)"
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -18,9 +18,8 @@ model="$(ollama_model_random)"
 
 demo() {
 
-  task="Act as an Expert Software Engineer.
-Do a Code Review of this script.
-Require that script works in Bash v3 or higher.
+  task="Act as an Expert Security Professional.
+Do a Security Review of this bash script.
 Output your review in Markdown format."
 
   file="../ollama_bash_lib.sh"
