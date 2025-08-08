@@ -4,13 +4,14 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.27"
+OLLAMA_LIB_VERSION="0.42.29"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>"
 
-OLLAMA_LIB_API="${OLLAMA_HOST:-"http://localhost:11434"}" # Ollama API URL, No slash at end
+OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
+OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}"
 OLLAMA_LIB_MESSAGES=()  # Array of messages
 OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
 OLLAMA_LIB_SAFE_MODE=0  # 0 = no safe mode, 1 = Safe Mode: uses _escape_control_characters
@@ -40,25 +41,16 @@ _error() {
   printf "[ERROR] %s\n" "$1" >&2
 }
 
-# Require check - does a command exist?
+# Does a command exist?
 #
-# Usage: _required "command"
+# Usage: _exists "command"
 # Input: 1 - the command (ollama, curl, etc)
 # Output: none
 # Requires: command
-# Returns: 0 if command exists, 1 if command does not exist
-_required() {
-  local cmd="$1"
-  if [[ -z "$cmd" ]]; then
-    _debug '_require called without a command name. Usage: _require "command"'
-    return 1
-  fi
-  command -v "$cmd" >/dev/null
-  local command_error=$?
-  if (( "$command_error" > 0 )) then
-    return 0 # command exists
-  fi
-  return 1 # command is missing
+# Returns: 0 if command exists, non-zero if command does not exist
+_exists() {
+  command -v "$1" >/dev/null 2>&1
+  return $?
 }
 
 # Escape control characters in a string
@@ -73,42 +65,44 @@ _required() {
 #          Printable / UTF‑8 bytes are emitted unchanged.
 # Requires: none
 # Returns: 0
-# @ai-assist gpt-oss:120b
 _escape_control_characters() {
-    if [ "$OLLAMA_LIB_SAFE_MODE" -ne "1" ]; then
-      #_debug "_escape_control_characters: Safe Mode OFF"
-      echo "$1"
-      return 0
-    fi
-    _debug "_escape_control_characters: [${1:0:120}]"
-    local input="$1"
-    local out='' # accumulator for the escaped result
-    # Feed the exact bytes of $input to od – one decimal number per
-    # byte (no address column, unsigned, never squeeze repeats).
-    while IFS= read -r line; do
-        set -- "$line" # split the od line into numbers
-        for b in "$@"; do
-            if (( b >= 0 && b <= 31 )) || (( b == 127 )); then # Control characters (U+0000‑U+001F and DEL)
-                case $b in
-                    8)  out+="\\b" ;; # backspace
-                    9)  out+="\\t" ;; # horizontal tab
-                    10) out+="\\n" ;; # line feed (LF)
-                    12) out+="\\f" ;; # form‑feed
-                    13) out+="\\r" ;; # carriage‑return
-                    *) out+="$(printf '\\u%04x' "$b")" ;; # any other control → \u00XX
-                esac
-            else # Printable / UTF‑8 bytes – copy them unchanged
-                 # Build a one‑byte variable that contains the raw byte.
-                 #   printf '\\%03o' produces a back‑slash‑octal escape,
-                 #   which we then expand with %b (only octal is expanded,
-                 #   not the \u escapes we added above).
-                printf -v chr '\\%03o' "$b"
-                out+="$(printf '%b' "$chr")"
-            fi
-        done
-    done < <(printf '%s' "$input" | od -An -tuC -v)
-    _debug "_escape_control_characters: out: [${out:0:120}]"
-    printf '%s' "$out" # print the accumulator
+    if [[ "$OLLAMA_LIB_SAFE_MODE" -ne "1" ]]; then
+    #_debug "_escape_control_characters: Safe Mode OFF"
+    echo "$1"
+    return 0
+  fi
+  jq -Rs . <<<"$1"
+
+# @ai-assist gpt-oss:120b
+#    _debug "_escape_control_characters: [${1:0:120}]"
+#    local input="$1"
+#    local out='' # accumulator for the escaped result
+#    # Feed the exact bytes of $input to od – one decimal number per
+#    # byte (no address column, unsigned, never squeeze repeats).
+#    while IFS= read -r line; do
+#        set -- "$line" # split the od line into numbers
+#        for b in "$@"; do
+#            if (( b >= 0 && b <= 31 )) || (( b == 127 )); then # Control characters (U+0000‑U+001F and DEL)
+#                case $b in
+#                    8)  out+="\\b" ;; # backspace
+#                    9)  out+="\\t" ;; # horizontal tab
+#                    10) out+="\\n" ;; # line feed (LF)
+#                    12) out+="\\f" ;; # form‑feed
+#                    13) out+="\\r" ;; # carriage‑return
+#                    *) out+="$(printf '\\u%04x' "$b")" ;; # any other control → \u00XX
+#                esac
+#            else # Printable / UTF‑8 bytes – copy them unchanged
+#                 # Build a one‑byte variable that contains the raw byte.
+#                 #   printf '\\%03o' produces a back‑slash‑octal escape,
+#                 #   which we then expand with %b (only octal is expanded,
+#                 #   not the \u escapes we added above).
+#                printf -v chr '\\%03o' "$b"
+#                out+="$(printf '%b' "$chr")"
+#            fi
+#        done
+#    done < <(printf '%s' "$input" | od -An -tuC -v)
+#    _debug "_escape_control_characters: out: [${out:0:120}]"
+#    printf '%s' "$out" # print the accumulator
 }
 
 # API Functions
@@ -697,7 +691,7 @@ ollama_show_json() {
 # Returns: 0 if Ollama is installed, 1 if Ollama is not installed
 ollama_app_installed() {
   _debug "ollama_app_installed"
-  return "$(_required "ollama")"
+  _exists "ollama"
 }
 
 # Turbo Mode on/off
@@ -722,7 +716,7 @@ ollama_app_turbo() {
           _error 'ollama_app_turbo: Ollama API Key empty'
           return 1
         fi
-        export OLLAMA_LIB_TURBO_KEY="$api_key" # Set the api key
+        OLLAMA_LIB_TURBO_KEY="$api_key" # Set the api key
       fi
       host_api='https://ollama.com' # Ollama Cloud Service
       ;;
@@ -740,7 +734,7 @@ ollama_app_turbo() {
   _debug "ollama_app_turbo: OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
   export OLLAMA_HOST="$host_api" # Set host
   _debug "ollama_app_turbo: OLLAMA_HOST: $OLLAMA_HOST"
-  export OLLAMA_LIB_API="$host_api" # Set api
+  OLLAMA_LIB_API="$host_api" # Set api
   _debug "ollama_app_turbo: OLLAMA_LIB_API: $OLLAMA_LIB_API"
   return 0
 }
@@ -867,14 +861,14 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_SAFE_MODE: $OLLAMA_LIB_SAFE_MODE"
   echo "OLLAMA_LIB_MESSAGES : (${#OLLAMA_LIB_MESSAGES[@]} messages)"
   echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
-  if ! _required "compgen"; then
+  if ! _exists "compgen"; then
     _debug 'ollama_lib_about: compgen Not Found'
     return 1
   fi
   echo
   echo "Functions:"
   echo
-  if ! _required "column"; then
+  if ! _exists "column"; then
     _debug 'ollama_lib_about: column Not Found'
     compgen -A function -X '!*ollama_*' | sort
     return 0
