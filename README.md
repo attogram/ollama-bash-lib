@@ -115,6 +115,13 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 | `ollama_api_post`  | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error       | 
 | `ollama_api_ping`  | Ping the Ollama API            | `ollama_api_ping`                                | none                        | `0` API is reachable<br />`1` API is not reachable |
 
+### Helper Functions
+
+| Function      | About                                                                                                            | Usage                                                  | Output | Return  |
+|---------------|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|--------|---------|
+| `oe`          | Alias for `ollama_eval`                                                                                          | `oe "task" "model"`                                    |        | `0`/`1` | 
+| `ollama_eval` | Generates a bash one-liner and prompts user permission to run it<br />If no model specified, uses a random model | `ollama_eval "task" "model"`<br />`ollama_eval "task"` |        | `0`/`1` | 
+
 ### Generate Functions
 
 | Function                      | About                               | Usage                                          | Output                     | Return  |
