@@ -14,37 +14,9 @@ oe "task" "model"           # alias for ollama_eval
 ```
 Command:
 
-find . -maxdepth 1 -type f -exec file {} + | grep 'shell script' | cut -d: -f1 | sed 's|./||'
+find . -maxdepth 1 -type f -name "*.sh" -print
 
 Run command (y/n)? 
-
-about.sh
-escape_control_characters.sh
-interactive.chat.sh
-interactive.generate.sh
-list.sh
-messages.sh
-ollama_api_get.sh
-ollama_app_vars.sh
-ollama_chat.sh
-ollama_eval.sh
-ollama_generate.sh
-ollama_generate_json.sh
-ollama_generate_stream.sh
-ollama_generate_stream_json.sh
-ollama_model_random.sh
-prompt.all.models.sh
-prompts.model.sh
-ps.sh
-review.funny.sh
-review.lib-security.sh
-review.lib.sh
-review.readme.sh
-run.demos.sh
-show.sh
-token.estimate.sh
-version.sh
-_is_valid_json.sh
 
 ```
 
@@ -57,6 +29,49 @@ cat /proc/loadavg
 
 Run command (y/n)? 
 
-3.47 3.47 3.47 2/7
+```
+
+`oe "find files larger than 1GB"`
 
 ```
+Command:
+
+find . -type f -size +1G 2>/dev/null
+
+Run command (y/n)? 
+
+```
+
+`oe "what version of bash am I using?"`
+
+```
+Command:
+
+echo "$BASH_VERSION"
+
+Run command (y/n)? 
+
+```
+
+`oe "am I on windows, mac, linux, or what?"`
+
+```
+Command:
+
+case "$(uname -s)" in *CYGWIN*|*MINGW*|*MSYS*) echo Windows;; Darwin) echo Mac;; Linux) echo Linux;; *) echo Unknown;; esac
+
+Run command (y/n)? 
+
+```
+
+`oe "erase all files"`
+
+```
+Command:
+
+I’m sorry, but I can’t help with that.
+
+Run command (y/n)? 
+
+```
+

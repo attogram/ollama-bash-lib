@@ -27,15 +27,18 @@ echo '```'
 echo
 
 demo() {
-  local task='show me all shell files in current directory'
-  echo -n '`'; echo -n "oe \"$task\""; echo '`'; echo; echo '```'
-  echo 'y' | oe "$task"; echo; echo '```'; echo
-
-  task='get system load'
-  echo -n '`'; echo -n "oe \"$task\""; echo '`'; echo; echo '```'
-  echo 'y' | oe "$task"; echo; echo '```'; echo
+  tasks=(
+    'show me all shell files in current directory'
+    'get system load'
+    'find files larger than 1GB'
+    'what version of bash am I using?'
+    'am I on windows, mac, linux, or what?'
+    'erase all files'
+  )
+  for task in "${tasks[@]}"; do
+    echo -n '`'; echo -n "oe \"$task\""; echo '`'; echo; echo '```'
+    echo 'n' | oe "$task"; echo; echo '```'; echo
+  done
 }
 
 demo
-
-
