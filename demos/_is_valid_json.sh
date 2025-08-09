@@ -42,7 +42,11 @@ echo '| test | result | return |'
 echo '|------|--------|--------|'
 
 for test_string in "${test_strings[@]}"; do
-  printf '| _is_valid_json \"%s\" ' "$test_string"
+  display="${test_string//$'\n'/'<br />'}"
+  display="${display//$'\r'/'<br />'}"
+  display="${display//$'\013'/'<br />'}"
+  # shellcheck disable=SC2016
+  printf '| _is_valid_json \"%s\" ' "$display"
   _is_valid_json "$test_string"
   exit_code=$?
   if (( "$exit_code" > 0 )); then
