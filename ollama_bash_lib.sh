@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.44"
+OLLAMA_LIB_VERSION="0.42.45"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -29,7 +29,7 @@ _debug() {
   local msg="$1"
   msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'} # never show the private key
   # some date implementations do not support %N nanoseconds
-  printf "[DEBUG] $(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi): %s\n" "$1" >&2
+  printf "[DEBUG] $(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi): %s\n" "$msg" >&2
 }
 
 # Error message
