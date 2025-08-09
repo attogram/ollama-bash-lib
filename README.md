@@ -37,23 +37,32 @@ git clone https://github.com/attogram/ollama-bash-lib.git
 cd ollama-bash-lib
 source ollama_bash_lib.sh
 
-# One‑line generation
+# One line generation
 ollama_generate "mistral:7b" "Describe Bash in 3 words"
-# → Powerful, Flexible, Scripting.
+# Powerful, Flexible, Scripting.
 
-# Tab completion to view all functions
-% ollama_<TAB>
-# ollama_api_get               ollama_chat_stream           ollama_messages
-# ollama_api_ping              ollama_chat_stream_json      ollama_messages_add
-# ollama_api_post              ollama_generate              ollama_messages_clear
-# ollama_app_installed         ollama_generate_json         ollama_messages_count
-# ollama_app_turbo             ollama_generate_stream       ollama_model_random
-# ollama_app_vars              ollama_generate_stream_json  ollama_model_unload
-# ollama_app_version           ollama_lib_about             ollama_ps
-# ollama_app_version_cli       ollama_lib_version           ollama_ps_json
+# Command line assist
+oe "find all files larger then 10GB"
+# Command:
+#
+# find . -type f -size +10G
+#
+# Run command (y/n)?
+
+# Tab completion to view available library functions
+ollama_<TAB>
+# ollama_api_get               ollama_chat_stream_json      ollama_messages_add
+# ollama_api_ping              ollama_eval                  ollama_messages_clear
+# ollama_api_post              ollama_generate              ollama_messages_count
+# ollama_app_installed         ollama_generate_json         ollama_model_random
+# ollama_app_turbo             ollama_generate_stream       ollama_model_unload
+# ollama_app_vars              ollama_generate_stream_json  ollama_ps
+# ollama_app_version           ollama_lib_about             ollama_ps_json
+# ollama_app_version_cli       ollama_lib_version           ollama_search
 # ollama_app_version_json      ollama_list                  ollama_show
 # ollama_chat                  ollama_list_array            ollama_show_json
 # ollama_chat_json             ollama_list_json
+# ollama_chat_stream           ollama_messages
 ```
 
 ## Usage
