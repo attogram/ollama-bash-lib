@@ -1,24 +1,24 @@
 # ollama_lib_about, ollama_lib_version
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.41
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.43
 
 ## Demo
 
 ```bash
 ollama_lib_version
 ```
-0.42.41
+0.42.43
 
 ```bash
 ollama_lib_about
 ```
 ```
-Ollama Bash Lib v0.42.41
+Ollama Bash Lib v0.42.43
 
 A Bash Library to interact with Ollama
 
 OLLAMA_LIB_NAME     : Ollama Bash Lib
-OLLAMA_LIB_VERSION  : 0.42.41
+OLLAMA_LIB_VERSION  : 0.42.43
 OLLAMA_LIB_URL      : https://github.com/attogram/ollama-bash-lib
 OLLAMA_LIB_DISCORD  : https://discord.gg/BGQJCbYVBa
 OLLAMA_LIB_LICENSE  : MIT
@@ -31,10 +31,9 @@ OLLAMA_LIB_TURBO_KEY: (57 characters)
 
 Functions:
 
-_call_curl			ollama_eval
-_debug				ollama_generate
-_error				ollama_generate_json
-_escape_control_characters	ollama_generate_stream
+_call_curl			ollama_generate
+_debug				ollama_generate_json
+_error				ollama_generate_stream
 _exists				ollama_generate_stream_json
 _is_valid_json			ollama_lib_about
 oe				ollama_lib_version
@@ -51,4 +50,5 @@ ollama_chat			ollama_ps
 ollama_chat_json		ollama_ps_json
 ollama_chat_stream		ollama_show
 ollama_chat_stream_json		ollama_show_json
+ollama_eval
 ```

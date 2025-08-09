@@ -8,7 +8,7 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 
 ![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)
 ![Bash ≥3.2](https://img.shields.io/badge/bash-%3E=3.2-blue?logo=gnu-bash)
-<!-- ![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat) -->
+![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat)
 
 [Quickstart](#quickstart) -
 [Usage](#usage) -

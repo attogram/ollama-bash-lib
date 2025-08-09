@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.42"
+OLLAMA_LIB_VERSION="0.42.43"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -136,6 +136,7 @@ _call_curl() {
     return 0
   fi
   curl "${curl_args[@]}"
+  return $?
 }
 
 # GET request to the Ollama API
@@ -933,7 +934,8 @@ ollama_eval() {
   prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}"
   prompt+="The working directory is $(pwd)"
   prompt+="Reply ONLY with the ready-to-run linux one-liner.\n"
-  prompt+="If you can not do the task, then respond with only an 'echo \"reason\"' that explains your reason."
+  prompt+="If you can not do the task, but you can tell the user how to do it, then respond with only an 'echo' with instructions"
+  prompt+="If you can not do the task, then respond with only an 'echo' that explains your reason."
   prompt+='Do NOT add any extra commentary or description or formatting.'
   local cmd
   _debug "ollama_eval: prompt: [${prompt:0:240}]"
