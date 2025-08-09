@@ -18,13 +18,14 @@ model="$(ollama_model_random)"
 
 demo() {
 
-  task="Generate list of possible Descriptions of the Ollama Bash Lib
-Descriptions must be 500 words or less.
+  task="Generate a list of Descriptions of Ollama Bash Lib.
+Descriptions must be 250 words or less.
 Review the README.md file below for context.
-Generate 3 serious descriptions,
+Generate 2 serious descriptions,
 and 5 generally funny,
 and 5 funny for programmers,
 and 5 funny for sysadmins,
+and 5 funny for devops,
 and 5 just crazy.
 Output in Markdown format.
 "

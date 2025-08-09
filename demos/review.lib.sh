@@ -20,7 +20,7 @@ demo() {
 
   task="Act as an Expert Software Engineer.
 Do a Code Review of this script.
-Require that script works in Bash v3 or higher.
+Require that script works in Bash v3.2 or higher.
 Output your review in Markdown format."
 
   file="../ollama_bash_lib.sh"

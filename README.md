@@ -7,7 +7,7 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 [▶️ Get Started in 30 seconds](#quickstart) • [💬 Join Discord][discord-invite]
 
 ![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)
-![Bash ≥3.1](https://img.shields.io/badge/bash-%3E=3.1-blue?logo=gnu-bash)
+![Bash ≥3.2](https://img.shields.io/badge/bash-%3E=3.2-blue?logo=gnu-bash)
 <!-- ![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat) -->
 
 [Quickstart](#quickstart) -
@@ -22,6 +22,7 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 
 [Functions](#functions) : 
 [Api](#api-functions) -
+[Helper](#helper-functions) -
 [Generate](#generate-functions) - 
 [Chat](#chat-functions) - 
 [Model](#model-functions) -
@@ -98,6 +99,7 @@ See the **[demos](demos)** directory for all demo scripts
 | [version.md](demos/version.md)                                         | Ollama version with [`ollama_app_version`](#ollama-functions), `ollama_app_version_json` and `ollama_app_version_cli`          | [version.sh](demos/version.sh)                                         |
 | [about.md](demos/about.md)                                             | Ollama Bash Lib info with [`ollama_lib_about`](#lib-functions) and [`ollama_lib_version`](#lib-functions)                      | [about.sh](demos/about.sh)                                             |
 | [ollama_api_get.md](demos/ollama_api_get.md)                           | [`ollama_api_get`](#api-functions) tests                                                                                       | [ollama_api_get.sh](demos/ollama_api_get.sh)                           |
+| [_is_valid_json.md](demos/_is_valid_json.md)                           | Is a string valid json? with `_is_valid_json`                                                                                  | [_is_valid_json.sh](demos/_is_valid_json.sh)                           |
 | [ollama_app_vars.md](demos/ollama_app_vars.md)                         | Ollama environmental variables with [`ollama_app_vars`](#ollama-functions)                                                     | [ollama_app_vars.sh](demos/ollama_app_vars.sh)                         |
 | [escape_control_characters.md](demos/escape_control_characters.md)     | Escape control characters with [`escape_control_characters`](#utility-functions)                                               | [escape_control_characters.sh](demos/escape_control_characters.sh)     |
 | <!-- [interactive.chat.md](demos/interactive.chat.md) -->              | Interactive Chat completion (with message history)                                                                             | [interactive.chat.sh](demos/interactive.chat.sh)                       |
@@ -177,15 +179,16 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 ### Utility Functions
 
-| Function                     | About                                   | Usage                                                        | Output                                                          | Return  |
-|------------------------------|-----------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|---------|
-| `_escape_control_characters` | escape_control_characters               | `_escape_control_characters "string"`                        | escaped string to `stdout`                                      | `0`/`1` |
-| `_debug`                     | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `_debug "message"`                                           | message to `stderr`                                             | `0`/`1` |
-| `_error`                     | Error message                           | `_error "message"`                                           | message to `stderr`                                             | `0`/`1` |
+| Function                     | About                                   | Usage                                 | Output                     | Return                                          |
+|------------------------------|-----------------------------------------|---------------------------------------|----------------------------|-------------------------------------------------|
+| `_is_valid_json`             | Is a string valid JSON?                 | `_is_valid_json "string"`             | none                       | `0` if valid json<br />`1` or higher if invalid |
+| `_escape_control_characters` | Escape control characters from string   | `_escape_control_characters "string"` | escaped string to `stdout` | `0`/`1`                                         |
+| `_debug`                     | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `_debug "message"`                    | message to `stderr`        | `0`/`1`                                         |
+| `_error`                     | Error message                           | `_error "message"`                    | message to `stderr`        | `0`/`1`                                         |
 
 ## Requirements
 
-* ```bash``` - v3.1 or higher, or equivalent
+* ```bash``` - v3.2 or higher, or equivalent
 * Standard tools: `awk`, `sed`, `tr`, `grep`, `wc`, `od`, `command`
 
 ### Optional Requirements
@@ -194,9 +197,7 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 * [`curl`](https://curl.se/) - for API requests
 * [`jq`](https://jqlang.org) - for JSON handling
 
-If you don't have any of the optional requirements,
-the function `ollama_app_installed` is always available,
-plus most [_Utility_](#utility-functions) functions.
+If you don't have any of the optional requirements, the function `ollama_app_installed` is always available.
 
 ## License
 

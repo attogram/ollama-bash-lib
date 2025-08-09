@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.36"
+OLLAMA_LIB_VERSION="0.42.38"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -51,6 +51,48 @@ _error() {
 _exists() {
   command -v "$1" >/dev/null 2>&1
   return $?
+}
+
+# Is a string valid JSON?
+#
+# Usage: _is_valid_json "string"
+# Input: 1 - the string to be tested
+# Output: none
+# Requires: jq
+# Returns: 0 if valid, 1 or higher if not valid
+_is_valid_json() {
+  printf '%s' "$1" | jq -e '.' >/dev/null 2>&1
+  local return_code=$?
+  case $return_code in
+    0) # Exit code 0: The JSON is valid.
+      _debug '_is_valid_json: VALID: return 0'
+      return 0
+      ;;
+    1) # (Failure) The last value output was either false or null.
+      _debug '_is_valid_json: FAILURE jq: output false or null: return 1'
+      return 1
+      ;;
+    2) # (Usage Error): There was a problem with how the jq command was used, such as incorrect command-line options.
+      _debug '_is_valid_json: USAGE ERROR jq: incorrect command-line options: return 2'
+      return 2
+      ;;
+    3) # (Compile Error): The jq filter program itself had a syntax error.
+      _debug '_is_valid_json: COMPILE ERROR jq: filter syntax error: return 3'
+      return 3
+      ;;
+    4) # (No Output): No valid result was ever produced. This can happen if the filter's output is empty.
+      _debug '_is_valid_json: NO OUTPUT jq: result empty: return 4'
+      return 4
+      ;;
+    5) # (halt_error)
+      _debug '_is_valid_json: HALT_ERROR jq: return 5'
+      return 5
+      ;;
+    *) # Any other exit code.
+      _debug "_is_valid_json: UNKNOWN jq error: return $return_code"
+      return "$return_code"
+      ;;
+  esac
 }
 
 # Escape control characters in a string
@@ -170,7 +212,6 @@ _escape_control_characters() {
   _debug "_escape_control_characters: out: [${out:0:120}]"
   printf '%s' "$out"
 }
-
 
 # API Functions
 
@@ -945,12 +986,19 @@ ollama_lib_about() {
   echo
   echo "Functions:"
   echo
+  local other_functions=$'oe\n_debug\n_error\n_exists\n_call_curl\n_escape_control_characters\n_is_valid_json\n'
   if ! _exists "column"; then
     _debug 'ollama_lib_about: column Not Found'
-    compgen -A function -X '!*ollama_*' | sort
+    {
+      printf '%s' "$other_functions"
+      compgen -A function -X '!*ollama_*'
+    } | sort
     return 0
   fi
-  compgen -A function -X '!*ollama_*' | sort | column
+  {
+    printf '%s' "$other_functions"
+    compgen -A function -X '!*ollama_*'
+  } | sort | column
 }
 
 # Ollama Bash Lib version
