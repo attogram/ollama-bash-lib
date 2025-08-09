@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.41"
+OLLAMA_LIB_VERSION="0.42.42"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -883,7 +883,7 @@ ollama_lib_about() {
   echo
   echo "Functions:"
   echo
-  local other_functions=$'oe\n_debug\n_error\n_exists\n_call_curl\n_escape_control_characters\n_is_valid_json\n'
+  local other_functions=$'oe\n_debug\n_error\n_exists\n_call_curl\n_is_valid_json\n'
   if ! _exists "column"; then
     _debug 'ollama_lib_about: column Not Found'
     {
