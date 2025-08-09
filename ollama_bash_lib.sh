@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.38"
+OLLAMA_LIB_VERSION="0.42.39"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -93,124 +93,6 @@ _is_valid_json() {
       return "$return_code"
       ;;
   esac
-}
-
-# Escape control characters in a string
-# Keep the surrounding JSON syntax unchanged (braces, quotes, commas, etc)
-#
-# Usage: _escape_control_characters "string"
-# Input  : 1 - any Bash string – it may already be a JSON fragment.
-# Output : the same fragment, but every control byte (U+0000‑U+001F
-#          and DEL) is turned into a JSON‑legal escape:
-#            * \b, \t, \n, \f, \r for the five most common controls
-#            * \u00XX for any other control character
-#          Printable / UTF‑8 bytes are emitted unchanged.
-# Requires: none
-# Returns: 0
-_DEPRECATED_escape_control_characters() {
-  if (( OLLAMA_LIB_SAFE_MODE != 1 )); then # If Safe Mode is OFF, do not escape control characters
-    printf '%s' "$1"
-    return 0
-  fi
-  # @ai-assist gpt-oss:120b
-  _debug "_escape_control_characters: [${1:0:120}]"
-  local input="$1"
-  local out='' # accumulator for the escaped result
-  # Feed the exact bytes of $input to od – one decimal number per
-  # byte (no address column, unsigned, never squeeze repeats).
-  while IFS= read -r line; do
-    set -- "$line" # split the od line into numbers
-    for b in "$@"; do
-      if (( b >= 0 && b <= 31 )) || (( b == 127 )); then # Control characters (U+0000‑U+001F and DEL)
-        case $b in
-          8)  out+="\\b" ;; # backspace
-          9)  out+="\\t" ;; # horizontal tab
-          10) out+="\\n" ;; # line feed (LF)
-          12) out+="\\f" ;; # form‑feed
-          13) out+="\\r" ;; # carriage‑return
-          *) out+="$(printf '\\u%04x' "$b")" ;; # any other control → \u00XX
-        esac
-      else # Printable / UTF‑8 bytes – copy them unchanged
-        #    Build a one‑byte variable that contains the raw byte.
-        #    printf '\\%03o' produces a back‑slash‑octal escape,
-        #    which we then expand with %b (only octal is expanded,
-        #    not the \u escapes we added above).
-        printf -v chr '\\%03o' "$b"
-        out+="$(printf '%b' "$chr")"
-      fi
-    done
-  done < <(printf '%s' "$input" | od -An -tuC -v)
-  _debug "_escape_control_characters: out: [${out:0:120}]"
-  printf '%s' "$out" # print the accumulator
-}
-
-# Escape control characters in a string, leaving surrounding JSON syntax
-# unchanged.  Returns the escaped string on stdout.
-#
-#   _escape_control_characters "some string"
-#
-# If OLLAMA_LIB_SAFE_MODE is 1, bytes 0‑31 and 127 are turned into JSON‑legal
-# escapes:
-#   * \b, \t, \n, \f, \r for the five most common controls
-#   * \u00XX for any other control character
-# Printable / UTF‑8 bytes are emitted unchanged.
-_escape_control_characters() {
-  # --------------------------------------------------------------
-  # 1️⃣  Safe‑mode shortcut – when safe‑mode is OFF we simply echo the
-  #      original argument unchanged.
-  # --------------------------------------------------------------
-  if (( OLLAMA_LIB_SAFE_MODE != 1 )); then   # safe‑mode OFF → no escaping
-    printf '%s' "$1"
-    return 0
-  fi
-
-  _debug "_escape_control_characters: [${1:0:120}]"
-
-  local input="${1}"
-  local out=''                # accumulator for the escaped result
-
-  # --------------------------------------------------------------
-  # 2️⃣  Turn the input into a stream of *decimal* byte values,
-  #      one per line.
-  #
-  #    od -An -tuC -v   → unsigned decimal bytes, no address column,
-  #                       never squeeze repeats.
-  #    tr -s ' ' '\n'   → replace every space with a newline.
-  #    The first space in od’s output creates a blank line; we will
-  #    ignore any line that does **not** consist solely of digits.
-  # --------------------------------------------------------------
-  while IFS= read -r b; do
-    # Keep only lines that are pure numbers (skip blank lines and any
-    # stray whitespace that may have survived the tr command).
-    [[ $b =~ ^[0-9]+$ ]] || continue
-
-    # --------------------------------------------------------------
-    # 3️⃣  Is the byte a control character (U+0000‑U+001F or DEL)?
-    # --------------------------------------------------------------
-    if (( b >= 0 && b <= 31 )) || (( b == 127 )); then
-      case $b in
-        8)  out+='\\b' ;;               # backspace
-        9)  out+='\\t' ;;               # horizontal tab
-        10) out+='\\n' ;;               # line feed (LF)
-        12) out+='\\f' ;;               # form‑feed
-        13) out+='\\r' ;;               # carriage‑return
-        *) out+="$(printf '\\u%04x' "$b")" ;;   # any other control → \u00XX
-      esac
-    else
-      # ------------------------------------------------------------
-      # 4️⃣  Printable / UTF‑8 byte – copy unchanged.
-      #
-      #    Build a one‑byte string with an octal escape and then expand
-      #    it with %b.  %b expands *only* octal escapes, leaving the \u
-      #    sequences we added above untouched.
-      # ------------------------------------------------------------
-      printf -v chr '\\%03o' "$b"
-      out+="$(printf '%b' "$chr")"
-    fi
-  done < <(printf '%s' "$input" | od -An -tuC -v | tr -s ' ' '\n')
-
-  _debug "_escape_control_characters: out: [${out:0:120}]"
-  printf '%s' "$out"
 }
 
 # API Functions
@@ -361,6 +243,7 @@ ollama_generate_json() {
 ollama_generate() {
   _debug "ollama_generate: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=0 # Turn off streaming
+
   local result
   result="$(ollama_generate_json "$1" "$2")"
   local error_ollama_generate_json=$?
@@ -369,18 +252,20 @@ ollama_generate() {
     _error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
     return 1
   fi
-  local escaped_result
-  escaped_result="$(_escape_control_characters "$result")"
-  if [[ -z "$escaped_result" ]]; then
-    _error 'ollama_generate: _escape_control_characters failed'
+
+  if ! _is_valid_json "$result"; then
+    _error "ollama_generate: model response is not valid JSON"
+    # TODO - fix json, escape control characters, fix linebreaks, etc
     return 1
   fi
+
   local result_response
   result_response="$(echo "$result" | jq -r '.response')"
   if [[ -z "$result_response" ]]; then
     _error 'ollama_generate: jq failed to get .response'
     return 1
   fi
+
   printf '%s\n' "$result_response"
   _debug 'ollama_generate: success: return: 0'
   return 0
@@ -416,19 +301,17 @@ ollama_generate_stream_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
-  _debug "ollama_generate_stream: [$1] [${2:0:42}]"
+  _debug "ollama_generate_stream: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming for the API request
-  if [[ "$OLLAMA_LIB_SAFE_MODE" -eq 1 ]]; then # Safe‑mode: escape control characters *before* handing the data to jq
-    ollama_generate_json "$1" "$2" |
-      _escape_control_characters |
-      jq -j '.response' |
-      while IFS= read -r -d '' chunk; do # read the whole stream without stripping newlines
-        printf '%s' "$chunk"
-      done
-  else # Normal mode – just let jq emit the response field.
-    ollama_generate_json "$1" "$2" |
-      jq -j '.response'
-  fi
+
+  ollama_generate_json "$1" "$2" | jq -j '.response'
+
+#  if ! _is_valid_json "$result"; then
+#    _error "ollama_generate: model response is not valid JSON"
+#    # TODO - fix json, escape control characters, fix linebreaks, etc
+#    return 1
+#  fi
+
   local error_ollama_generate_json=$?
   OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
   if [[ "$error_ollama_generate_json" -gt 0 ]]; then
@@ -529,13 +412,21 @@ ollama_chat_json() {
       '{model: $model, messages: $messages, stream: $stream}')"
 
   _debug "ollama_chat_json: json_payload: [${json_payload:0:120}]"
+
   local result
   if ! result="$(ollama_api_post '/api/chat' "$json_payload")"; then
     _error "ollama_chat_json: ollama_api_post failed"
     return 1
   fi
+
+  if ! _is_valid_json "$result"; then
+    _error "ollama_chat_json: response is not valid JSON"
+    # TODO - fix json, escape control characters, fix linebreaks, etc
+    return 1
+  fi
+
   local content
-  content="$(_escape_control_characters "$result" | jq -r ".message.content")"
+  content="$(echo "$result" | jq -r ".message.content")"
   local error_jq_message_content=$?
   _debug "ollama_chat_json: content: [${content:0:42}]"
   if [[ "$error_jq_message_content" -gt 0 ]]; then
@@ -567,9 +458,15 @@ ollama_chat() {
     _error 'ollama_chat: ollama_chat_json response empty'
     return 1
   fi
+  if ! _is_valid_json "$response"; then
+    _error "ollama_chat: response is not valid JSON"
+    # TODO - fix json, escape control characters, fix linebreaks, etc
+    return 1
+  fi
+
   local message_content
-  if ! message_content="$(_escape_control_characters "$response" | jq -r ".message.content")"; then
-    _error 'ollama_chat: _escape_control_characters|jq failed'
+  if ! message_content="$(echo "$response" | jq -r ".message.content")"; then
+    _error 'ollama_chat: failed to get .message.content'
     return 1
   fi
   printf '%s\n' "$message_content"
@@ -1033,7 +930,10 @@ ollama_eval() {
   fi
   local prompt='Write a bash one-liner using common linux utilities that will carry out the following task:'
   prompt+="\n\n$task\n\n"
+  prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}"
+  prompt+="The working directory is $(pwd)"
   prompt+="Reply ONLY with the ready-to-run linux one-liner.\n"
+  prompt+="If you can not do the task, then respond with only an 'echo \"reason\"' that explains your reason."
   prompt+='Do NOT add any extra commentary or description or formatting.'
   local cmd
   _debug "ollama_eval: prompt: [${prompt:0:240}]"

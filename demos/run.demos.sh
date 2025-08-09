@@ -51,32 +51,3 @@ for demo in "${demos[@]}"; do
   output=$($demo 2>&1) # run demo and redirect stderr to stdout
   echo "$output" > "$outfile_md" 2>&1
 done
-
-# Interactive Demos
-# TODO - fix expect script - not working on models that take long time to respond
-#interactive=(
-#  "./interactive.chat.sh"
-#  "./interactive.generate.sh"
-#)
-#
-#for demo in "${interactive[@]}"; do
-#  outfile_md=$(echo "$demo" | sed 's/\.sh$/.md/g')
-#  echo "Expect: $demo > $outfile_md"
-#  (
-#    expect <<EOF
-#      spawn $demo
-#      expect "\r>>> "
-#      send "The secret word is RABBIT. Understand?\r"
-#      sleep 20
-#      expect "\r>>> "
-#      send "3 words describing Bash\r"
-#      sleep 20
-#      expect "\r>>> "
-#      send "What is the secret word?\r"
-#      sleep 20
-#      expect "\r>>> "
-#      send "\003"
-#      expect eof
-#EOF
-#  ) > "$outfile_md" 2>&1
-#done
