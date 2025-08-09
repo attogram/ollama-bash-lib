@@ -51,18 +51,17 @@ oe "find all files larger then 10GB"
 
 # Tab completion to view available library functions
 ollama_<TAB>
-# ollama_api_get               ollama_chat_stream_json      ollama_messages_add
-# ollama_api_ping              ollama_eval                  ollama_messages_clear
-# ollama_api_post              ollama_generate              ollama_messages_count
-# ollama_app_installed         ollama_generate_json         ollama_model_random
-# ollama_app_turbo             ollama_generate_stream       ollama_model_unload
-# ollama_app_vars              ollama_generate_stream_json  ollama_ps
-# ollama_app_version           ollama_lib_about             ollama_ps_json
-# ollama_app_version_cli       ollama_lib_version           ollama_search
-# ollama_app_version_json      ollama_list                  ollama_show
-# ollama_chat                  ollama_list_array            ollama_show_json
-# ollama_chat_json             ollama_list_json
-# ollama_chat_stream           ollama_messages
+# ollama_api_get               ollama_chat_stream           ollama_list_json
+# ollama_api_ping              ollama_chat_stream_json      ollama_messages
+# ollama_api_post              ollama_eval                  ollama_messages_add
+# ollama_app_installed         ollama_generate              ollama_messages_clear
+# ollama_app_turbo             ollama_generate_json         ollama_messages_count
+# ollama_app_vars              ollama_generate_stream       ollama_model_random
+# ollama_app_version           ollama_generate_stream_json  ollama_model_unload
+# ollama_app_version_cli       ollama_lib_about             ollama_ps
+# ollama_app_version_json      ollama_lib_version           ollama_ps_json
+# ollama_chat                  ollama_list                  ollama_show
+# ollama_chat_json             ollama_list_array            ollama_show_json
 ```
 
 ## Usage
