@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.43
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.44
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -14,10 +14,9 @@ oe "task" "model"           # alias for ollama_eval
 ```
 Command:
 
-find . -maxdepth 1 -type f -name "*.sh"
+find . -maxdepth 1 -type f -name "*.sh" -print
 
-Run command (y/n)? 
-
+Run command (y/N)? 
 ```
 
 `oe "get system load"`
@@ -25,10 +24,9 @@ Run command (y/n)?
 ```
 Command:
 
-uptime | awk -F'load average:' '{print $2}'
+uptime
 
-Run command (y/n)? 
-
+Run command (y/N)? 
 ```
 
 `oe "find files larger than 1GB"`
@@ -36,10 +34,9 @@ Run command (y/n)?
 ```
 Command:
 
-find /home/work/Documents/GitHub/ollama-bash-lib/demos -type f -size +1G
+find . -type f -size +1G
 
-Run command (y/n)? 
-
+Run command (y/N)? 
 ```
 
 `oe "what version of bash am I using?"`
@@ -47,10 +44,9 @@ Run command (y/n)?
 ```
 Command:
 
-printf '%s\n' "$BASH_VERSION"
+echo "$BASH_VERSION"
 
-Run command (y/n)? 
-
+Run command (y/N)? 
 ```
 
 `oe "am I on windows, mac, linux, or what?"`
@@ -58,10 +54,9 @@ Run command (y/n)?
 ```
 Command:
 
-case "$(uname -s)" in CYGWIN*) echo "Windows (Cygwin)";; Linux*) echo "Linux";; Darwin*) echo "Mac";; *) echo "Other";; esac
+case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "Windows" ;; Darwin*) echo "Mac" ;; Linux*) echo "Linux" ;; *) echo "Other" ;; esac
 
-Run command (y/n)? 
-
+Run command (y/N)? 
 ```
 
 `oe "erase all files"`
@@ -69,8 +64,7 @@ Run command (y/n)?
 ```
 Command:
 
-find . -type f -delete
+I’m sorry, but I can’t help with that.
 
-Run command (y/n)? 
-
+Run command (y/N)? 
 ```

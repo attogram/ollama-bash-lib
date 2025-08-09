@@ -1,6 +1,6 @@
 # Taglines for Ollama Bash Lib
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.43
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.44
 
 
 ```bash
@@ -18,46 +18,50 @@ Output in Markdown format.
 file="../README.md"
 ollama_generate "gpt-oss:20b" "$task\n\n$(cat "$file")"
 ```
-# Ollama Bash Lib – Description Gallery  
+# Ollama Bash Lib Descriptions (≤250 words each)
 
-## Serious  
-- **Serious 1** –  
-  *ollama-bash-lib* is a lightweight Bash library that lets you harness OpenAI‑compatible local LLMs from the shell. By wrapping the Ollama HTTP API, it provides high‑level functions for generating text, streaming responses, querying models, and running quick command‑line assistants. Designed to work with **Bash ≥ 3.2**, it requires only **curl** and **jq**, allowing scripts to embed AI logic directly, automate shell tasks, and script complex workflows without any dependency on higher‑level programming languages.
+## 2 Serious Descriptions  
 
-- **Serious 2** –  
-  The library exposes functions like `ollama_generate`, `ollama_chat`, and `oe`, as well as helpers for model discovery and system checks. It supports JSON streaming, tab completion, and a lightweight prompt helper that builds Bash one‑liners on the fly. By bundling API interactions in shell functions, developers can prototype AI‑powered scripts in minutes, and sysadmins can delegate routine queries to a local LLM without leaving the terminal.
+- **Utility‑first Bash toolkit for Ollama** – The Ollama Bash Lib is a lightweight, fully‑portable Bash library that exposes the Ollama API via shell functions. It lets you run LLM prompts, chat sessions, list and manage models, and inspect running processes—all from the comfort of your terminal. The library is written for Bash ≥ 3.2, supports streaming outputs, JSON handling, and integrates with common tools like `curl` and `jq`. It’s designed for quick prototyping, automation scripts, and CI/CD pipelines where you need on‑demand AI inference without a heavyweight client.
 
-## Generally Funny  
-- **1** – If your shell could gossip, *ollama‑bash‑lib* would be the confessional, answering secrets in one‑liners and streaming jokes while you compile. Just remember to backup your history; the AI might remember more than your parents.  
-- **2** – Want a coffee machine that knows your life? Use *ollama_bash_lib* to ask for brewing instructions. It'll also suggest how many espresso shots you need to survive debugging nights, but make sure you have a coffee filter, not a firewall.  
-- **3** – When you get stuck in a scripting loop, just call `oe` and let the LLM type the next line. If nothing works, blame it on the LLM and enjoy a well‑deserved break; the terminal will still be waiting for your comeback.  
-- **4** – *Ollama‑bash‑lib* turns your terminal into a Swiss Army knife for AI: It can generate, chat, and even produce code snippets that look like they came from a random hacker. Just avoid using them in production unless you enjoy the surprise.  
-- **5** – The library is so lightweight that if you were to ship it on a carrier pigeon, the pigeon would finish the trip before the code runs. Trust me, even the pigeon might need a prompt.
+- **Command‑line AI assistant** – This library turns every shell prompt into a *possible* dialogue with a language model. Whether you want to auto‑generate shell commands, verify code snippets, or generate documentation, the lib provides functions like `ollama_generate`, `oe` (eval), and `ollama_chat` that prompt user consent before executing the returned Bash code. It also ships with helper tools for model introspection (`ollama_list`, `ollama_show`), process monitoring (`ollama_ps`), and sandboxed evaluation of arbitrary prompts—making the terminal a living, learning interface.
 
-## Funny for Programmers  
-- **1** – Compile your logic and let *ollama‑bash‑lib* run an LLM on your code comments. It understands the difference between `// TODO` and `/* TODO */` better than most of your QA team.  
-- **2** – Replace `printf` with `ollama_generate` and watch your logs turn literary. Your devs will finally get why `stderr` is so dramatic.  
-- **3** – When you hit a bug you can't explain, run `oe('debug this')`. The LLM might output a stack trace in haiku form. Debugging has never been so poetic.  
-- **4** – This library lets you ask the model for a quick implementation of your function while you stare at the commit diff. It's like pair programming, but the pair never asks for coffee.  
-- **5** – If the infinite loop was a recursive function, *ollama‑bash‑lib* is the tail recursion optimizer, ensuring the shell never crashes by returning a witty apology instead of a stack overflow.
+## 5 Generally Funny Descriptions  
 
-## Funny for Sysadmins  
-- **1** – Use *ollama_bash_lib* to ping the LLM; if it responds with “pong,” you know your network is fine. If it says “404,” it’s either the model or your firewall.  
-- **2** – Deploying this library is easier than backing up `/etc`. Just source it, run a prompt, and watch the LLM ask how many servers are down. No scripts, just a chat.  
-- **3** – The only place where `sudo` is needed is to give the LLM permission to delete the old logs. It will happily remove anything that isn’t “important.”  
-- **4** – You may have a script that restarts nginx, but a prompt asking “why isn’t nginx listening on 80?” will auto‑generate a fix that even ITIL can’t explain.  
-- **5** – `/var/log/syslog` is just a text file, but with *ollama_bash_lib* the logs can talk back. Next time your monitor shows “error,” ask the AI the reason instead of Googling “Segmentation fault.”
+1. **Your terminal’s new therapist** – Ask it anything (“Why did the rabbit cross the `rsync`?”) and watch it spit out a witty shell command that actually *does* the job.  
+2. **The ghost‑in‑the‑machine, but with a Bash twist** – A spectral library that turns your `sudo`‑free shell into a chatbot that will only reveal its secrets if you promise to keep its prompts confidential.  
+3. **The AI‑powered shortcut for your keyboard** – “Ctrl‑C to close this message? No, generate the next command first!”—it’s less a tool and more a personality.  
+4. **The “AI‑nore” that never says no** – If the model refuses, the lib just writes a `# TODO` comment to your `bashrc`.  
+5. **Your new AI‑enabled kitchen** – It can whip up scripts, but it can also tell you why your coffee machine is offline with a `curl`‑driven explanation.
 
-## Funny for DevOps  
-- **1** – Your CI pipeline now has a dedicated AI reviewer. Instead of code owners, it now checks the commit message against the LLM’s sense of humor. Failures mean jokes that need refinement.  
-- **2** – In production you can ask the LLM what the latency is expected to be between two containers. The answer will be a rhyming haiku plus a YAML block.  
-- **3** – With *ollama‑bash‑lib*, roll back deployments by having the LLM generate the entire diff. It’s an automated, AI‑driven, “undo‑this‐sorry” switcheroo.  
-- **4** – If your Kubernetes cluster is down, simply ask the LLM to fix the node. It will provide one‑liners that run within the cluster. If you don’t know Kubernetes, you will be amazed.  
-- **5** – Now you can use the LLM to auto‑generate the Dockerfile for your service, right after your git push. It even includes best practice comments like “// Keep this image small.”
+## 5 Funny for Programmers  
 
-## Crazy  
-- **1** – Imagine if your CLI was the portal to a tiny galaxy of models, and each command was a starship. *ollama‑bash‑lib* is the warp drive, taking you from `ls` to “lightweight AI” in an instant. May the recursion be with you.  
-- **2** – If the moon is made of cheese, you can ask the LLM to taste it via *ollama_bash_lib*, and it will return a texture analysis that proves the cheese is actually lactose‑free.  
-- **3** – This library is the equivalent of a black hole in your terminal: it sucks in all your input, outputs a new universe of code, and once you hit `exit`, you can never come back to the old shell.  
-- **4** – You can now write shell scripts that compile into quantum circuits by simply generating prompts. The LLM will transform your loops into superposition arrays, and your CPU will run them as if it was a quantum computer.  
-- **5** – By sourcing this library, you temporarily become a time‑traveler who can ask the future state of your stack via the LLM and get the response coded in Bash. If you use it after midnight, you might just become the god of your own terminal.
+1. **The debugger that actually asks for guidance** – Pass it a segfault stack trace, and it will generate a `printf`‑based crash reporter that you can test in your next commit.  
+2. **The REPL that refuses to give direct answers** – It only replies in Bash syntax; you’ll need to learn `eval` to decode the truth.  
+3. **CLI auto‑corrector for syntactically erroneous code** – “I typed `gith` instead of `git`? Here’s a script that runs both your commands and fixes the typo.”  
+4. **The code review assistant who’s always right** – It auto‑generates a failing build comment in the style of a stern professor, complete with `#`‑prefixed suggestions.  
+5. **The AI that does `sed` magic for you** – Tell it “Replace all `cat` with `less`”, and watch it spit out a `sed -i` command that even satisfies your paranoid Vim session.
+
+## 5 Funny for Sysadmins  
+
+1. **The “server whisperer” that audits your `ps` output** – It can read the process list, then suggest which services are hogging RAM like a hungry daemon.  
+2. **The log‑collector that knows all the secrets** – Instead of scrolling through your logs, ask it “Show me the last 10 lines that started with ‘ERROR’” and it will pipe that directly to `less -S`.  
+3. **The automatic sudo‑granter** – “Need root privileges to kill bad processes?” The lib asks once, then remembers the session via a single‐time token.  
+4. **The backup planner** – Provide a list of directories and it will generate a cron job that backs them up at `/home/${USER}/backup-$(date +%F)` via `tar`.  
+5. **The network sniffer that writes the data in bash** – It streams `tcpdump` output as a `while read` loop that logs every packet to a file named after the host that sent it.
+
+## 5 Funny for DevOps  
+
+1. **The CI‑pipeline that talks back** – It will evaluate your test failure logs and produce a single `docker run` command that reproduces the environment.  
+2. **The deployment planner that’s actually a fortune teller** – “Will version v2.1 hit production on 19 Nov?” It answers with a random number of possible “next steps” scripts.  
+3. **The “auto‑rollback” script that knows all the ways to undo chaos** – It offers a set of Docker image tags to roll back to, and a `kubectl delete` suggestion for the offending pod.  
+4. **The Kubernetes whisperer** – Provide a YAML file and it will generate the exact `kubeapply` command line with environment variables already set, so you never type a `kubectl` again.  
+5. **The secret manager that’s secretly a magician** – It returns a random secret for your config files only once, then deletes it from memory like it’s a magic card.
+
+## 5 Crazy Descriptions  
+
+1. **The library that makes your terminal a portal** – Cross the digital divide, summon a chatbot, and watch it rewrite your Bash scripts into alien glyphs.  
+2. **The AI that compiles shell code in the afterlife** – Ask it to compile `echo "Hello"` into binary; it will spin up a tiny VM in your CPU’s unused cache to return a binary file.  
+3. **The “time‑travel” command runner** – It sends your command to a future model that runs 100× faster, then streams back the result as if it had already happened.  
+4. **The echo that never stops** – It will echo your terminal input to a loop that never exits, unless you answer “No” to a tiny prompt in the middle.  
+5. **The script that predicts your next typo** – Before you type, it predicts and auto‑corrects your misspelling, but sometimes it does it for fun, rewriting your command entirely.

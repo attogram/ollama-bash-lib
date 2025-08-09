@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.43"
+OLLAMA_LIB_VERSION="0.42.44"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -26,6 +26,8 @@ OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
 # Returns: 0 on success, 1 on error
 _debug() {
   (( OLLAMA_LIB_DEBUG )) || return
+  local msg="$1"
+  msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'} # never show the private key
   # some date implementations do not support %N nanoseconds
   printf "[DEBUG] $(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi): %s\n" "$1" >&2
 }
@@ -127,7 +129,7 @@ _call_curl() {
   if [[ -n "${json_body}" ]]; then
     _debug "_call_curl: json_body: [${json_body:0:120}]"
     curl_args+=( "-d" "@-" )
-    echo "$json_body" | curl "${curl_args[@]}"
+    printf '%s' "$json_body" | curl "${curl_args[@]}"
     local error_curl=$?
     if [ "$error_curl" -gt 0 ]; then
       _error "_call_curl: curl error: $error_curl"
@@ -929,14 +931,14 @@ ollama_eval() {
     model="$(ollama_model_random)"
     _debug "ollama_eval: using random model: $model"
   fi
-  local prompt='Write a bash one-liner using common linux utilities that will carry out the following task:'
-  prompt+="\n\n$task\n\n"
-  prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}"
-  prompt+="The working directory is $(pwd)"
-  prompt+="Reply ONLY with the ready-to-run linux one-liner.\n"
-  prompt+="If you can not do the task, but you can tell the user how to do it, then respond with only an 'echo' with instructions"
-  prompt+="If you can not do the task, then respond with only an 'echo' that explains your reason."
-  prompt+='Do NOT add any extra commentary or description or formatting.'
+  local prompt='Write a bash one-liner that will carry out the following task:'
+prompt+="\n\n$task\n\n"
+prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}.\n"
+#prompt+="The working directory is $(pwd)\n"
+prompt+="If you can not do the task but you can tell the user how to do it, then respond with an 'echo' with instructions.\n"
+prompt+="If you can not do the task for any other reason, then respond with an 'echo' with your reason.\n"
+prompt+='Do NOT add any commentary, description, formatting, markdown or anything extraneous.\n'
+prompt+="Reply ONLY with the ready-to-run linux one-liner.\n"
   local cmd
   _debug "ollama_eval: prompt: [${prompt:0:240}]"
   cmd="$(ollama_generate "$model" "$prompt")"
@@ -945,17 +947,16 @@ ollama_eval() {
     _error 'ollama_eval: generate failed'
     return 1
   fi
-  printf 'Command:\n\n%s\n\nRun command (y/n)? ' "$cmd"
-  local permission
+  printf 'Command:\n\n%s\n\nRun command (y/N)? ' "$cmd"
   read -r permission
+  case "$permission" in
+      [Yy]) ;; # proceed with eval
+      *) return 0 ;; # do NOT proceed
+  esac
+  _debug "ollama_eval: eval cmd: [${1:0:240}]"
   echo
-  if [[ "$permission" == 'y' ]]; then
-    _debug 'ollama_eval: eval cmd'
-    echo
-    eval "$cmd"
-    return $? # return eval error status
-  fi
-  return 0
+  eval "$cmd" # WARNING - potentially dangerous eval command!
+  return $? # return eval error status
 }
 
 # Alias for ollama_eval

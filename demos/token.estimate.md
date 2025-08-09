@@ -17,6 +17,6 @@ tokens : 5874
 verbose: 5874 ± 3694 (range 2180 to 5874)
 
 (contents of ../ollama_bash_lib.sh)
-tokens : 7339
-verbose: 7339 ± 2194 (range 5145 to 7339)
+tokens : 7383
+verbose: 7383 ± 2210 (range 5173 to 7383)
 ```

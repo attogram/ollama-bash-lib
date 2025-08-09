@@ -1,6 +1,6 @@
 # Security Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.43
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.44
 
 
 ```bash
@@ -9,203 +9,173 @@ Do a Security Review of this bash script.
 Require that script works in Bash v3.2 or higher.
 Output your review in Markdown format."
 file="../ollama_bash_lib.sh"
-ollama_generate "gpt-oss:120b" "$task\n\n$(cat "$file")"
+ollama_generate "gpt-oss:20b" "$task\n\n$(cat "$file")"
 ```
-# Security Review – Ollama Bash Library  
-**Target Bash version:** ≥ 3.2  
+# 📋 Security Review – *Ollama Bash Lib* (v0.42.44)
+
+> Target Bash version: **≥ 3.2**  
+> Target platform: any Unix‑like system with Bash, `curl`, `jq`, `ollama` (some checks omitted).
+
+The library exposes a large surface that talks to an external HTTP API and, in certain modes, can evaluate arbitrary shell commands. Below you’ll find a systematic assessment of the implementation, followed by concrete recommendations.
 
 ---
 
-## 1.  Overview  
+## 1. Security Highlights
 
-The script implements a fairly large Bash “library” for interacting with the Ollama API (both local and cloud‑based).  
-It provides helper functions for:
-
-* HTTP calls via `curl` (`_call_curl`, `ollama_api_*`)  
-* JSON handling via `jq` (`_is_valid_json`, payload builders)  
-* Message‑stack management (`ollama_messages_*`)  
-* Chat / generation endpoints (streaming & non‑streaming)  
-* Miscellaneous utilities (model listing, version info, environment inspection)  
-
-Overall the code is well‑structured, uses arrays, and makes good use of `curl` argument arrays to avoid word‑splitting issues.  
-
-Nevertheless, a number of security‑relevant concerns and hardening opportunities exist, especially around **input handling**, **command execution**, and **environment exposure**.
-
----
-
-## 2.  Security Findings  
-
-| # | Area | Issue | Severity | Explanation |
-|---|------|-------|----------|-------------|
-| 1 | **`ollama_eval` / `oe`** | **Unsanitised `eval` of LLM‑generated code** | Critical | The function obtains a one‑liner from the LLM (`ollama_generate`) and, after a simple *y/n* prompt, runs `eval "$cmd"`. The LLM output is **untrusted**; a compromised or malicious model can embed malicious shell syntax, arbitrary commands, or code that modifies the environment. |
-| 2 | **`read` for permission** | No strict validation of the answer | Medium | The script accepts any string equal to `y`. An attacker could supply `yes`, `Y`, or a trailing newline to bypass the prompt if the script is wrapped in another automation. |
-| 3 | **Environment variable exposure** | `OLLAMA_LIB_TURBO_KEY` stored in a normal shell variable (visible to `ps`/`/proc`) | Medium | When Turbo mode is enabled, the API key is stored in a plain variable and later exported as `OLLAMA_HOST`. If the script is run with `set -x` (debug) or the process is inspected (e.g., via `ps eww`), the key could be read. |
-| 4 | **Lack of strict Bash options** | No `set -euo pipefail`, no `IFS` sanitisation | Medium | Errors are not fatal by default; the script may continue with partially‑initialised state, leading to undefined behaviour. |
-| 5 | **External command reliance without fallback** | Functions assume presence of `jq`, `curl`, `ollama`, `column`, `compgen` | Low | If any of these binaries are missing or replaced with malicious versions (e.g., via a compromised `$PATH`), the script may fail or execute malicious code. |
-| 6 | **Potential command injection in `_call_curl`** | `json_body` is piped via `echo "$json_body"` | Low | `echo` interprets back‑slash escape sequences (e.g., `\n`, `\c`). A crafted payload containing `\c` could truncate the JSON sent to the server. Using `printf %s` would be safer. |
-| 7 | **`_exists` uses `command -v`** | May be tricked by alias or function shadowing | Low | An attacker who can influence `$PATH` could place a malicious executable earlier in the path, causing the script to call the wrong program. |
-| 8 | **Array handling for messages** | No bounds checking | Low | A very large number of messages could exhaust memory, leading to denial‑of‑service. |
-| 9 | **Error handling of `jq`** | `_is_valid_json` treats any non‑zero exit‑code as an error but still proceeds in callers that ignore the return value | Low | Calls that do not check the result (e.g., `ollama_generate_stream`) may process malformed JSON. |
-|10| **Use of `RANDOM%${#array[@]}`** | In Bash 3.2, `$RANDOM` is 0‑32767 and not cryptographically strong | Low | For non‑security‑critical random model selection it is fine, but it should be noted that it is not suitable for security‑critical randomness. |
+| Category | Summary | Severity | Remediation |
+|----------|---------|----------|-------------|
+| **Untrusted Data → eval** | `ollama_eval` (and alias `oe`) `eval`s a response from Ollama. The caller can specify the task, and the LLM may return any one‑liner. | ★★★★ (high) | • Remove `eval` or replace with `printf '%s\n' "$cmd"` + manual execution.<br>• If you *must* execute, use `bash -c "$cmd"` + sanitise known safe commands. |
+| **Key Exposure** | `OLLAMA_LIB_TURBO_KEY` is *redacted* in `_debug`, but raw prints may leak it if the debug logic is bypassed or disabled. | ★★ | Keep the key only in a secret vault; never let it be written to disk. |
+| **Command Injection** | Some arguments (model name, prompt, etc.) are sent to `curl` via `jq -c -n ...`. `jq` properly escapes JSON so injection is mitigated *provided* the environment that calls the library doesn’t tamper with `jq` itself. | ★ | Use `--arg` consistently and avoid shell interpolation on raw user input. |
+| **Unvalidated Input to API** | Endpoints and JSON are built from caller’s arguments without validation beyond `jq`. If the caller passes a malformed prompt, the API may treat it as legitimate. | ★ | Validate request bodies against the Ollama schema when possible. |
+| **Process Injection / DoS** | Unbounded output from the API is streamed directly to stdout; if an attacker has control over the LLM, they might produce very large payloads to exhaust disk I/O. | ★★ | Apply size limits; e.g. via `head` or custom logic. |
+| **Sensitive Tools Non‑Existence Checks** | The library does *not* check for presence of required binaries (`curl`, `jq`, `ollama`). Failure will surface as runtime errors but can cause silent failure or leakage of errors. | ★ | Pre‑flight `_exists` on startup or before each critical call. |
+| **Redirects & TLS** | `curl` is invoked with default TLS checks. An attacker controlling the API host (via `OLLAMA_HOST`) could perform a MITM. | ★★ | Enforce `--tlsv1.2` or stronger and validate server certs. |
+| **Debug Logging** | `_debug` logs timestamps and content, including raw prompts. Even with redaction, large prompts could clutter logs. | ★ | Filter or truncate debug logs in production. |
+| **Missing `set -euo pipefail`** | Library functions silently ignore errors in many places, e.g. ignoring the return value of a failed `jq`. | ★ | Use strict error handling or report failures back to caller. |
 
 ---
 
-## 3.  Compatibility with Bash 3.2  
+## 2. Functional & Bash‑3.2 Compatibility
 
-| Feature | Compatibility | Comments |
-|---------|----------------|----------|
-| Indexed arrays (`ARR=()`, `ARR+=()`) | ✅ | Supported since Bash 2.0 |
-| `local` in functions | ✅ | Supported |
-| `[[ … ]]` test construct | ✅ | Supported |
-| `${var:-default}` parameter expansion | ✅ | Supported |
-| Process substitution `< <(...)` | ✅ | Supported |
-| `$(( ))` arithmetic expansion | ✅ | Supported |
-| `command -v` | ✅ | Supported |
-| `printf -v` (not used) | — | Not required |
-| `declare -A` (associative arrays) | **Not used** | Good – avoided for compatibility |
-| `${BASH_VERSION}` usage | ✅ | Variable exists |
-| `(( OLLAMA_LIB_DEBUG ))` arithmetic test | ✅ | Works |
+| Feature | Bash 3.2 | Notes |
+|---------|----------|-------|
+| `${var:0:42}` (substring) | ✔ | Works since Bash 3.1 |
+| Arrays and `${ARRAY[@]}` | ✔ | Available from Bash 3.0 |
+| Process substitution `< <(...)` | ✔ | Available |
+| `local` inside functions | ✔ | OK |
+| `[[ … ]]` | ✔ | OK |
+| `printf '%s\t%s\n'` | ✔ | OK |
+| `read -r -s arg` | ✔ | OK |
+| Arithmetic expansion `$((RANDOM % n))` | ✔ | ✔ (but needs `n > 0`) |
 
-Overall the script should run unchanged on Bash 3.2. The only possible snag is the use of `[[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]` where the variable may be undefined; Bash treats an undefined variable as empty, which is fine.  
+**Potential portability hiccups**
 
-**Conclusion:** No Bash‑3.2 incompatibilities were detected.
+1. **`date '+%H:%M:%S:%N'`** – The `%N` (nanoseconds) field may not be supported on all OSes; the fallback path attempts it anyway.
+2. **`printf '%s\n' "$result"`** – If `result` contains embedded null bytes the output will truncate; rare but possible.
+3. **`column`** – Not required but used by `ollama_lib_about`; not available on all distributions. The code handles its absence gracefully.
+4. **`process substitution`** inside `while ... < <(...)` – Requires Bash (which we do). POSIX‑sh shells would fail.
+
+Overall, the script will run on any Bash 3.2+ system, but may behave unexpectedly if any of the external utilities are missing.
 
 ---
 
-## 4.  Recommendations  
+## 3. Detailed Issue Analysis
 
-### 4.1  Eliminate / Harden `eval`  
+### 3.1 `ollama_eval` / `oe`
 
-* **Never** directly `eval` output from an LLM.  
-* Replace the interactive flow with a **sandboxed execution** (e.g., run the command in a subshell with `set -euo pipefail` and a restricted `PATH`).  
-* If execution is absolutely required, prompt the user *twice* and display the command in a read‑only manner, or require explicit `sudo`/`chmod` to run it.
+  *It uses `eval "$cmd"` to execute a one‑liner returned by the LLM.*
+
+  - **Why problematic**: Anything that reaches the shell is executed with the **full privileges** of the caller, including `sudo` if invoked as root.  
+  - **Risk surface**: Arbitrary code execution, privilege escalation, data loss.  
+  - **Mitigation**:  
+    * Completely remove `eval` and return the generated string to the caller.  
+    * If mandatory, sanitize: run the command through `bash -xrc` pipe‑filtered, or whitelist a set of allowed commands.  
+    * Add a runtime flag to disable `ollama_eval` in security‑critical contexts.
+
+### 3.2 `OLLAMA_LIB_TURBO_KEY` Handling
+
+  - The key is stored in memory and exported to `OLLAMA_LIB_API` when turbo mode is turned on.  
+  - The debug routine attempts to redact it, but any accidental `echo $OLLAMA_LIB_TURBO_KEY` or script crash could leak it.  
+  - **Fix**: Store the key in a file with restrictive permissions (`chmod 600`) or use a secret manager. In Bash scripts, `env` can be used to keep it unset after use.
+
+### 3.3 Unvalidated Endpoint & Query
+
+  ```bash
+  _call_curl "GET" "$1"
+  ```
+
+  - `$1` originates from the caller; if the caller is trusted, this is fine.  
+  - If the caller is an external user or LLM response, a crafted endpoint (`/../../../../var/run/tinydns`) could attempt a path traversal.  
+  - **Mitigation**: Validate that `$1` starts with a single `/` and contains only allowed characters (`/`, `-`, `_`, `[0-9a-zA-Z]`).
+
+### 3.4 External Utility Checks
+
+  ```bash
+  _exists "curl"
+  ```
+
+  - Some functions (e.g., `ollama_list`) directly invoke `ollama list` without a pre‑flight check.  
+  - If the tool is missing, the script silently returns non‑zero, leading to confusion.  
+  - **Fix**: Call `_exists` at script start, or wrap all calls with a guard.
+
+### 3.5 Error Handling for `jq`
+
+  - `_is_valid_json` will exit with 1 for a JSON with content `false` or `null`; the caller often treats this as a hard error.  
+  - Subsequent `jq -r '.response'` might silently produce empty output if the JSON is `null`.  
+  - **Recommendation**: Explicitly check for `null` and handle it gracefully.
+
+### 3.6 Potential Log Exposure
+
+  `_debug` logs raw user prompts and responses in the `ollama_eval` path, which may contain secrets or sensitive data.  
+  - Turn off debug (`export OLLAMA_LIB_DEBUG=0`) or filter logs in production.
+
+### 3.7 `ollama_app_turbo`
+
+  - It sets `export OLLAMA_HOST="$host_api"`; this environment variable may also be used by other tools.  
+  - If a rogue user writes a malicious `OLLAMA_HOST` into the environment before sourcing the library, the library could make requests to an attacker’s server.  
+  - **Mitigation**: Validate `OLLAMA_HOST` against an allow‑list or use strict patterns.
+
+---
+
+## 4. Recommendations
+
+| # | Change | Rationale | Implementation Tip |
+|---|--------|-----------|--------------------|
+| 1 | **Remove or sandbox `eval`** in `ollama_eval`. | Prevent arbitrary code execution. | Return the command to the caller; let the user decide, or run under `set -o nounset` + explicit command list. |
+| 2 | **Sanitize all external inputs** that form part of a request or command. | Protect against injection or path exploitation. | Use regex checks: `/^[\/\-\w]+$/`, or canonicalize with `realpath`. |
+| 3 | **Strict error handling**: set `set -euo pipefail` in all executable scripts, or explicitly check `if ! ...; then ...; fi`. | Avoid silently ignoring failures. | Add at the top of *any* script that calls this library or modify functions to propagate failure. |
+| 4 | **Validate required binaries** (`curl`, `jq`, `ollama`, `column`). | Provide early, clear error messages. | At library init: `for cmd in curl jq ollama; do _exists "$cmd" || { _error "$cmd missing"; exit 1; }; done` |
+| 5 | **Redact debug output** more aggressively or disable in production. | Reduce risk of leaking secrets. | `export OLLAMA_LIB_DEBUG=0` before including library. |
+| 6 | **Use HTTPS by default** for external API calls. | Mitigate MITM. | Add `--proto '=https'` flag to `curl`, or enforce `OLLAMA_HOST` to start with `https://`. |
+| 7 | **Limit response size** from `curl` (e.g., `--max-filesize`). | Avoid resource exhaustion. | In `_call_curl`, add `--max-filesize 10485760` (10 MiB) or similar. |
+| 8 | **Store secret keys in secure storage** (e.g., `~/.config/ollama/api.key` with 600 perms). | Avoid memory exposure. | Create helper function `ollama_lib_read_key` that reads file with permissions check. |
+| 9 | **Document environment expectations** (e.g., Bash 3.2+, `curl` 7.58+, `jq` 1.5+). | Prevent undocumented failures. | Update README or auto‑detect version and warn. |
+|10 | **Add unit tests for edge cases** (empty prompt, invalid JSON, missing binary, etc.). | Ensure reliability. | Use `bats` or simple test harness. |
+
+---
+
+## 5. Sample Improved `ollama_eval`
 
 ```bash
-if [[ "$permission" == y ]]; then
-    printf '%s\n' "Running under restricted PATH..."
-    PATH="/usr/bin:/bin" bash -c "$cmd"
-fi
-```
+ollama_eval() {
+  local task="${1:?Task required}"
+  local model="${2:-$(ollama_model_random)}"
 
-### 4.2  Strengthen Permission Prompt  
+  # Build prompt
+  local prompt="Write a bash one‑liner that will carry out the following task:
+$task
+Your answer must be ONLY a valid shell command. No comments or markdown."
+  local cmd
+  cmd=$(ollama_generate "$model" "$prompt")
 
-```bash
-read -r -p "Run command (y/N)? " permission
-case "$permission" in
-    [Yy]) ;;    # proceed
-    *) return 0 ;;
-esac
-```
+  [[ -z $cmd ]] && { _error "generation failed"; return 1; }
 
-### 4.3  Protect Sensitive Variables  
+  printf 'Command:\n\n%s\n\nRun command (y/N)? ' "$cmd"
+  read -r reply
+  [[ ${reply,,} != y ]] && return 0   # User declined
 
-* Store the Turbo API key in a **temporary file with restrictive permissions** (`mktemp -p "$HOME/.config/ollama"`) and read it only when needed.  
-* Unset it (`unset OLLAMA_LIB_TURBO_KEY`) as soon as the request finishes.  
-* Do **not** export the key; avoid `export OLLAMA_HOST` if it leaks via environment.
-
-### 4.4  Adopt Strict Bash Options  
-
-Add at the very top of the library (or require the caller to source it with these set):
-
-```bash
-set -euo pipefail
-IFS=$'\n\t'   # safer field splitting
-```
-
-Wrap any function that must tolerate failures with `set +e`/`set -e` locally.
-
-### 4.5  Verify External Dependencies  
-
-Provide a **bootstrap check** before any API call:
-
-```bash
-_require_cmd() {
-    local cmd=$1
-    if ! command -v "$cmd" >/dev/null 2>&1; then
-        _error "Required command '$cmd' not found"
-        return 1
-    fi
+  # SAFETY: run under a subshell with restricted PATH
+  (
+    export PATH="/usr/bin:/bin"          # Adjust to safe path if needed
+    bash -c "$cmd"
+  )
+  printf 'Command exit status: %d\n' $?   # return the command exit status
 }
 ```
 
-Call `_require_cmd curl` and `_require_cmd jq` early, and abort if missing.
-
-### 4.6  Safer JSON Transmission  
-
-Replace:
-
-```bash
-echo "$json_body" | curl "${curl_args[@]}"
-```
-
-with:
-
-```bash
-printf '%s' "$json_body" | curl "${curl_args[@]}"
-```
-
-`printf` does not interpret back‑slash escapes.
-
-### 4.7  Harden `_exists`  
-
-Prefer `type -P` over `command -v` to avoid functions/aliases:
-
-```bash
-_exists() { type -P "$1" >/dev/null 2>&1; }
-```
-
-### 4.8  Limit Message Stack Size  
-
-Add a simple guard:
-
-```bash
-MAX_MESSAGES=1024
-ollama_messages_add() {
-    (( ${#OLLAMA_LIB_MESSAGES[@]} < MAX_MESSAGES )) || {
-        _error "Message stack limit reached"
-        return 1
-    }
-    ...
-}
-```
-
-### 4.9  Log Sensitive Operations Carefully  
-
-When `OLLAMA_LIB_DEBUG=1`, the script prints request payloads – this could expose API keys or confidential prompts. Recommend disabling debug in production or redacting sensitive fields:
-
-```bash
-_debug() {
-    (( OLLAMA_LIB_DEBUG )) || return
-    local msg=$1
-    # simple redaction example
-    msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'}
-    printf "[DEBUG] %s\n" "$msg" >&2
-}
-```
-
-### 4.10  Document Threat Model  
-
-Add a **Security Considerations** section in the README describing:
-
-* The risk of running LLM‑generated code.  
-* The importance of protecting the Turbo API key.  
-* Recommendations for running the library inside a container or isolated environment.
+> *Notice*: No `eval`. The command is executed with a **limited PATH** and no extra credentials.  
+> *Caveat*: Still allows arbitrary commands; consider further whitelisting.
 
 ---
 
-## 5.  Summary of Action Items  
+## 6. Concluding Assessment
 
-| Action | Priority |
-|--------|----------|
-| Remove or sandbox `eval` in `ollama_eval` / `oe`. | **Critical** |
-| Harden the user confirmation prompt. | Medium |
-| Store Turbo API key securely and avoid exporting it. | Medium |
-| Add `set -euo pipefail` (or require callers to set). | Medium |
-| Verify required commands early and abort if missing. | Low |
-| Replace `echo` with `printf` for JSON payloads. | Low |
-| Use `type -P` in `_exists` to avoid alias hijacking. | Low |
-| Impose a maximum size on `OLLAMA_LIB_MESSAGES`. | Low |
-| Redact sensitive data when `DEBUG` is enabled. | Low |
-| Update documentation with security guidance. | Low |
+| Aspect | Status | Confidence |
+|--------|--------|------------|
+| **General security hygiene** | **Moderate** – missing `eval` mitigations, key handling, and defensive coding. | Medium |
+| **Bash 3.2 compatibility** | **Good** – script uses only features available from Bash 3.2+. | High |
+| **Operational resilience** | **Needs improvement** – missing tool checks, silent failures. | Medium |
+| **Exposure surface** | **Potential** – untrusted prompts can produce dangerous code. | High (if `eval` remains) |
 
-Implementing the *critical* fix (removing arbitrary `eval`) eliminates the biggest attack surface. The remaining mitigations further reduce risk, improve robustness, and keep the library friendly for Bash 3.2 environments.
+> **Recommendation**: Revise the handling of `ollama_eval`, tighten input validation, add pre‑flight binary checks, and enforce strict error handling. Once those changes are in place, the library will be robust enough for production use on Bash 3.2+ hosts.
