@@ -1,6 +1,6 @@
 # _escape_control_characters
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.34
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.35
 
 Usage: _escape_control_characters "string"
 

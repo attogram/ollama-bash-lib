@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.34"
+OLLAMA_LIB_VERSION="0.42.35"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -65,7 +65,7 @@ _exists() {
 #          Printable / UTF‑8 bytes are emitted unchanged.
 # Requires: none
 # Returns: 0
-_escape_control_characters() {
+_DEPRECATED_escape_control_characters() {
   if (( OLLAMA_LIB_SAFE_MODE != 1 )); then # If Safe Mode is OFF, do not escape control characters
     printf '%s' "$1"
     return 0
@@ -101,6 +101,76 @@ _escape_control_characters() {
   _debug "_escape_control_characters: out: [${out:0:120}]"
   printf '%s' "$out" # print the accumulator
 }
+
+# Escape control characters in a string, leaving surrounding JSON syntax
+# unchanged.  Returns the escaped string on stdout.
+#
+#   _escape_control_characters "some string"
+#
+# If OLLAMA_LIB_SAFE_MODE is 1, bytes 0‑31 and 127 are turned into JSON‑legal
+# escapes:
+#   * \b, \t, \n, \f, \r for the five most common controls
+#   * \u00XX for any other control character
+# Printable / UTF‑8 bytes are emitted unchanged.
+_escape_control_characters() {
+  # --------------------------------------------------------------
+  # 1️⃣  Safe‑mode shortcut – when safe‑mode is OFF we simply echo the
+  #      original argument unchanged.
+  # --------------------------------------------------------------
+  if (( OLLAMA_LIB_SAFE_MODE != 1 )); then   # safe‑mode OFF → no escaping
+    printf '%s' "$1"
+    return 0
+  fi
+
+  _debug "_escape_control_characters: [${1:0:120}]"
+
+  local input="${1}"
+  local out=''                # accumulator for the escaped result
+
+  # --------------------------------------------------------------
+  # 2️⃣  Turn the input into a stream of *decimal* byte values,
+  #      one per line.
+  #
+  #    od -An -tuC -v   → unsigned decimal bytes, no address column,
+  #                       never squeeze repeats.
+  #    tr -s ' ' '\n'   → replace every space with a newline.
+  #    The first space in od’s output creates a blank line; we will
+  #    ignore any line that does **not** consist solely of digits.
+  # --------------------------------------------------------------
+  while IFS= read -r b; do
+    # Keep only lines that are pure numbers (skip blank lines and any
+    # stray whitespace that may have survived the tr command).
+    [[ $b =~ ^[0-9]+$ ]] || continue
+
+    # --------------------------------------------------------------
+    # 3️⃣  Is the byte a control character (U+0000‑U+001F or DEL)?
+    # --------------------------------------------------------------
+    if (( b >= 0 && b <= 31 )) || (( b == 127 )); then
+      case $b in
+        8)  out+='\\b' ;;               # backspace
+        9)  out+='\\t' ;;               # horizontal tab
+        10) out+='\\n' ;;               # line feed (LF)
+        12) out+='\\f' ;;               # form‑feed
+        13) out+='\\r' ;;               # carriage‑return
+        *) out+="$(printf '\\u%04x' "$b")" ;;   # any other control → \u00XX
+      esac
+    else
+      # ------------------------------------------------------------
+      # 4️⃣  Printable / UTF‑8 byte – copy unchanged.
+      #
+      #    Build a one‑byte string with an octal escape and then expand
+      #    it with %b.  %b expands *only* octal escapes, leaving the \u
+      #    sequences we added above untouched.
+      # ------------------------------------------------------------
+      printf -v chr '\\%03o' "$b"
+      out+="$(printf '%b' "$chr")"
+    fi
+  done < <(printf '%s' "$input" | od -An -tuC -v | tr -s ' ' '\n')
+
+  _debug "_escape_control_characters: out: [${out:0:120}]"
+  printf '%s' "$out"
+}
+
 
 # API Functions
 
@@ -248,8 +318,8 @@ ollama_generate_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate() {
-  _debug "ollama_generate: [$1] [${2:0:42}]"
-  OLLAMA_LIB_STREAM=0
+  _debug "ollama_generate: [${1:0:42}] [${2:0:42}]"
+  OLLAMA_LIB_STREAM=0 # Turn off streaming
   local result
   result="$(ollama_generate_json "$1" "$2")"
   local error_ollama_generate_json=$?
@@ -258,11 +328,20 @@ ollama_generate() {
     _error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
     return 1
   fi
-  if ! _escape_control_characters "$result" | jq -r ".response"; then
-    _error "ollama_generate: _escape_control_characters|jq failed"
+  local escaped_result
+  escaped_result="$(_escape_control_characters "$result")"
+  if [[ -z "$escaped_result" ]]; then
+    _error 'ollama_generate: _escape_control_characters failed'
     return 1
   fi
-  _debug 'ollama_generate: return: 0'
+  local result_response
+  result_response="$(echo "$result" | jq -r '.response')"
+  if [[ -z "$result_response" ]]; then
+    _error 'ollama_generate: jq failed to get .response'
+    return 1
+  fi
+  printf '%s\n' "$result_response"
+  _debug 'ollama_generate: success: return: 0'
   return 0
 }
 
@@ -883,4 +962,53 @@ ollama_lib_about() {
 # Returns: 0
 ollama_lib_version() {
   echo "$OLLAMA_LIB_VERSION"
+}
+
+# Helper Functions
+
+# Command Line Eval
+#
+# Alias: oe
+# Usage: ollama_eval "task" "model"
+# Input: 1 - The task to be run on the command line
+# Input: 2 - Model to use to generate command (Optional) If empty, uses random model
+# Output: prompts user for permission, then runs command
+# Requires: none
+# Returns: 0 on success, 1 or higher on error
+ollama_eval() {
+  _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
+  local task="$1"
+  local model="$2"
+  if [[ -z "$model" ]]; then
+    model="$(ollama_model_random)"
+    _debug "ollama_eval: using random model: $model"
+  fi
+  local prompt='Write a bash one-liner using common linux utilities that will carry out the following task:'
+  prompt+="\n\n$task\n\n"
+  prompt+="Reply ONLY with the ready-to-run linux one-liner.\n"
+  prompt+='Do NOT add any extra commentary or description or formatting.'
+  local cmd
+  _debug "ollama_eval: prompt: [${prompt:0:240}]"
+  cmd="$(ollama_generate "$model" "$prompt")"
+  _debug "ollama_eval: cmd: [${1:0:240}]"
+  if [[ -z "$cmd" ]]; then
+    _error 'ollama_eval: generate failed'
+    return 1
+  fi
+  printf 'Command:\n\n%s\n\nRun command (y/n)? ' "$cmd"
+  local permission
+  read -r permission
+  echo
+  if [[ "$permission" == 'y' ]]; then
+    _debug 'ollama_eval: eval cmd'
+    echo
+    eval "$cmd"
+    return $? # return eval error status
+  fi
+  return 0
+}
+
+# Alias for ollama_eval
+oe() {
+  ollama_eval "$1" "$2"
 }
