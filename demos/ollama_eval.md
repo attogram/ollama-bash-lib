@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.40
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.41
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -14,7 +14,7 @@ oe "task" "model"           # alias for ollama_eval
 ```
 Command:
 
-find . -maxdepth 1 -type f \( -name "*.sh" -o -name "*.bash" -o -name "*.zsh" \) -printf "%f\n"
+ls -1 *.sh 2>/dev/null
 
 Run command (y/n)? 
 
@@ -25,7 +25,7 @@ Run command (y/n)?
 ```
 Command:
 
-uptime
+uptime | awk -F'load average:' '{print $2}'
 
 Run command (y/n)? 
 
@@ -47,7 +47,7 @@ Run command (y/n)?
 ```
 Command:
 
-echo $BASH_VERSION
+echo "$BASH_VERSION"
 
 Run command (y/n)? 
 
@@ -58,7 +58,7 @@ Run command (y/n)?
 ```
 Command:
 
-case "$(uname -s)" in *Linux*) echo Linux;; *Darwin*) echo macOS;; *CYGWIN*) echo Windows;; *) echo "unknown $(uname -s)";; esac
+echo "$(uname -o)"
 
 Run command (y/n)? 
 

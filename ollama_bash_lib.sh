@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.40"
+OLLAMA_LIB_VERSION="0.42.41"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -26,7 +26,8 @@ OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
 # Returns: 0 on success, 1 on error
 _debug() {
   (( OLLAMA_LIB_DEBUG )) || return
-  printf "[DEBUG] $(date '+%H:%M:%S:%N'): %s\n" "$1" >&2
+  # some date implementations do not support %N nanoseconds
+  printf "[DEBUG] $(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi): %s\n" "$1" >&2
 }
 
 # Error message
