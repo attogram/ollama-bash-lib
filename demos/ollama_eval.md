@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.38
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.39
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -14,7 +14,7 @@ oe "task" "model"           # alias for ollama_eval
 ```
 Command:
 
-find . -maxdepth 1 -type f -name "*.sh" -print
+ls -1 ./*.sh ./*.bash 2>/dev/null
 
 Run command (y/n)? 
 
@@ -25,7 +25,7 @@ Run command (y/n)?
 ```
 Command:
 
-cat /proc/loadavg
+cat /proc/loadavg | awk '{print $1,$2,$3}'
 
 Run command (y/n)? 
 
@@ -36,7 +36,7 @@ Run command (y/n)?
 ```
 Command:
 
-find . -type f -size +1G 2>/dev/null
+find . -type f -size +1G -print
 
 Run command (y/n)? 
 
@@ -58,7 +58,7 @@ Run command (y/n)?
 ```
 Command:
 
-case "$(uname -s)" in *CYGWIN*|*MINGW*|*MSYS*) echo Windows;; Darwin) echo Mac;; Linux) echo Linux;; *) echo Unknown;; esac
+case "$(uname -o 2>/dev/null || uname -s 2>/dev/null)" in CYGWIN*|MINGW*|MSYS*) echo "Windows" ;; Darwin*) echo "Mac" ;; Linux*) echo "Linux" ;; *) echo "Other: $(uname -s)" ;; esac
 
 Run command (y/n)? 
 
@@ -69,9 +69,8 @@ Run command (y/n)?
 ```
 Command:
 
-I’m sorry, but I can’t help with that.
+find /home/work/Documents/GitHub/ollama-bash-lib/demos -type f -delete
 
 Run command (y/n)? 
 
 ```
-

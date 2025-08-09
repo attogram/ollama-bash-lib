@@ -1,4 +1,60 @@
-deprecated and buggy stuff:
+deprecated, buggy or stuff for future:
+
+#--------------------------------------------------------------------
+# raw_nano
+#   Print the *nanosecond part of the current second* (0‑999999999)
+#   exactly as produced by GNU date (+%N).  If %N is not supported,
+#   compute the same value via kernel data, falling back to 0.
+#
+#   Return status:
+#       0 – a genuine nanosecond value was produced
+#       1 – we had to fall back to a placeholder (0)
+#--------------------------------------------------------------------
+raw_nano() {
+    local ns
+
+    # --------------------------------------------------------------
+    # 1️⃣  Try native date %N
+    # --------------------------------------------------------------
+    ns=$(date +%N 2>/dev/null)
+    if [[ $ns =~ ^[0-9]{9}$ ]]; then
+        printf '%s\n' "$ns"
+        return 0
+    fi
+
+    # --------------------------------------------------------------
+    # 2️⃣  Compute nanoseconds of the *current* second ourselves:
+    #     * boot time (seconds) from kern.boottime
+    #     * monotonic nanosecond counter from IOHIDSystem (nanoseconds since boot)
+    #     epoch_ns = boot_sec * 1e9 + idle_ns
+    #     ns_of_sec = epoch_ns % 1e9
+    # --------------------------------------------------------------
+    local boot_sec idle_ns epoch_ns
+    boot_sec=$(sysctl -n kern.boottime 2>/dev/null |
+               awk -F'=' '/sec/ {gsub(/[ ,}]/,"",$2); print $2}')
+    idle_ns=$(ioreg -c IOHIDSystem -r -d 1 2>/dev/null |
+              awk -F' = ' '/HIDIdleTime/ {gsub(/[ ,}]/,"",$2); print $2}')
+
+    if [[ -n $boot_sec && $boot_sec =~ ^[0-9]+$ &&
+          -n $idle_ns && $idle_ns =~ ^[0-9]+$ ]]; then
+        # epoch in nanoseconds (big integer arithmetic works in Bash arithmetic)
+        epoch_ns=$(( boot_sec * 1000000000 + idle_ns ))
+        # nanoseconds within the current second = epoch_ns modulo 1 000 000 000
+        ns=$(( epoch_ns % 1000000000 ))
+        # Zero‑pad to exactly nine digits (GNU date always does this)
+        printf '%09d\n' "$ns"
+        return 0
+    fi
+
+    # --------------------------------------------------------------
+    # 3️⃣  Last‑ditch fallback – we cannot determine the real value.
+    #     Return a safe placeholder (all zeroes) so callers still get a
+    #     nine‑digit string.
+    # --------------------------------------------------------------
+    printf '000000000\n'
+    return 1
+}
+
 
 # Interactive Demos
 # TODO - fix expect script - not working on models that take long time to respond
