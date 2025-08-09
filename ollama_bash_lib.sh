@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.39"
+OLLAMA_LIB_VERSION="0.42.40"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -14,7 +14,6 @@ OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No sla
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}"
 OLLAMA_LIB_MESSAGES=()  # Array of messages
 OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
-OLLAMA_LIB_SAFE_MODE=0  # 0 = no safe mode, 1 = Safe Mode: uses _escape_control_characters
 
 # Internal Functions
 
@@ -106,7 +105,7 @@ _is_valid_json() {
 # Requires: curl
 # Returns: 0 on success, curl return status on error
 _call_curl() {
-  _debug "_call_curl: [$1] [$2] [${3:0:120}]"
+  _debug "_call_curl: [${1:0:42}] [${2:0:42}] [${3:0:120}]"
   _debug "_call_curl: OLLAMA_LIB_API: $OLLAMA_LIB_API"
   local method="$1" # GET or POST
   local endpoint="$2"
@@ -115,6 +114,7 @@ _call_curl() {
   curl_args=(
     -s # Silent (no progress meter)
     -N # No buffering (for streamed responses)
+    -f # Return a non‑zero status on HTTP errors (4xx/5xx)
     -H 'Content-Type: application/json' # JSON Content Type
   )
   if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
@@ -145,7 +145,7 @@ _call_curl() {
 # Requires: curl
 # Returns: 0 on success, curl return status on error
 ollama_api_get() {
-  _debug "ollama_api_get: [$1]"
+  _debug "ollama_api_get: [${1:0:42}]"
   _call_curl "GET" "$1"
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
@@ -165,7 +165,7 @@ ollama_api_get() {
 # Requires: curl
 # Returns: 0 on success, curl return status on error
 ollama_api_post() {
-  _debug "ollama_api_post: [$1] [${2:0:120}]"
+  _debug "ollama_api_post: [${1:0:42}] [${2:0:120}]"
   _call_curl "POST" "$1" "$2"
   local error_curl=$?
   if [ "$error_curl" -gt 0 ]; then
@@ -212,7 +212,7 @@ ollama_api_ping() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
-  _debug "ollama_generate_json: [$1] [${2:0:42}]"
+  _debug "ollama_generate_json: [${1:0:42}] [${2:0:42}]"
   _debug "ollama_generate_json: OLLAMA_LIB_STREAM: $OLLAMA_LIB_STREAM"
   local stream_bool=true
   if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
@@ -280,7 +280,7 @@ ollama_generate() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream_json() {
-  _debug "ollama_generate_stream_json: [$1] [${2:0:42}]"
+  _debug "ollama_generate_stream_json: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming
   if ! ollama_generate_json "$1" "$2"; then
     _error "ollama_generate_stream_json: ollama_generate_json failed"
@@ -349,7 +349,7 @@ ollama_messages() {
 # Requires: jq
 # Returns: 0
 ollama_messages_add() {
-  _debug "ollama_messages_add: [$1] [${2:0:42}]"
+  _debug "ollama_messages_add: [${1:0:42}] [${2:0:42}]"
   local json_payload
   json_payload="$(jq -c -n \
       --arg role "$1" \
@@ -482,7 +482,7 @@ ollama_chat() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
-  _debug "ollama_chat_stream: [$1]"
+  _debug "ollama_chat_stream: [${1:0:42}]"
   OLLAMA_LIB_STREAM=1
   if ! ollama_chat "$1"; then
     _error "ollama_chat_stream: ollama_chat failed"
@@ -501,7 +501,7 @@ ollama_chat_stream() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream_json() {
-  _debug "ollama_chat_stream_json: [$1]"
+  _debug "ollama_chat_stream_json: [${1:0:42}]"
   OLLAMA_LIB_STREAM=1
   if ! ollama_chat_json "$1"; then
     _error "ollama_chat_stream_json: ollama_chat_json failed"
@@ -683,7 +683,7 @@ ollama_show() {
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
-  _debug "ollama_show_json: [$1]"
+  _debug "ollama_show_json: [${1:0:42}]"
   local json_payload
   json_payload="$(jq -c -n \
       --arg model "$1" \
@@ -858,7 +858,7 @@ ollama_app_version_cli() {
 # Input: none
 # Output: text, to stdout
 # Requires: compgen (for function list)
-# Returns: 0 on success, 1 on missing compgen or colum
+# Returns: 0 on success, 1 on missing compgen or column
 ollama_lib_about() {
   echo "$OLLAMA_LIB_NAME v$OLLAMA_LIB_VERSION"
   echo
@@ -873,7 +873,6 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_API      : $OLLAMA_LIB_API"
   echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
   echo "OLLAMA_LIB_STREAM   : $OLLAMA_LIB_STREAM"
-  echo "OLLAMA_LIB_SAFE_MODE: $OLLAMA_LIB_SAFE_MODE"
   echo "OLLAMA_LIB_MESSAGES : (${#OLLAMA_LIB_MESSAGES[@]} messages)"
   echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
   if ! _exists "compgen"; then

@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.39
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.40
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -14,7 +14,7 @@ oe "task" "model"           # alias for ollama_eval
 ```
 Command:
 
-ls -1 ./*.sh ./*.bash 2>/dev/null
+find . -maxdepth 1 -type f \( -name "*.sh" -o -name "*.bash" -o -name "*.zsh" \) -printf "%f\n"
 
 Run command (y/n)? 
 
@@ -25,7 +25,7 @@ Run command (y/n)?
 ```
 Command:
 
-cat /proc/loadavg | awk '{print $1,$2,$3}'
+uptime
 
 Run command (y/n)? 
 
@@ -36,7 +36,7 @@ Run command (y/n)?
 ```
 Command:
 
-find . -type f -size +1G -print
+find . -type f -size +1G
 
 Run command (y/n)? 
 
@@ -47,7 +47,7 @@ Run command (y/n)?
 ```
 Command:
 
-echo "$BASH_VERSION"
+echo $BASH_VERSION
 
 Run command (y/n)? 
 
@@ -58,7 +58,7 @@ Run command (y/n)?
 ```
 Command:
 
-case "$(uname -o 2>/dev/null || uname -s 2>/dev/null)" in CYGWIN*|MINGW*|MSYS*) echo "Windows" ;; Darwin*) echo "Mac" ;; Linux*) echo "Linux" ;; *) echo "Other: $(uname -s)" ;; esac
+case "$(uname -s)" in *Linux*) echo Linux;; *Darwin*) echo macOS;; *CYGWIN*) echo Windows;; *) echo "unknown $(uname -s)";; esac
 
 Run command (y/n)? 
 
@@ -69,7 +69,7 @@ Run command (y/n)?
 ```
 Command:
 
-find /home/work/Documents/GitHub/ollama-bash-lib/demos -type f -delete
+find . -type f -delete
 
 Run command (y/n)? 
 

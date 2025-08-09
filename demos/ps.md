@@ -1,6 +1,6 @@
 # ollama_ps, ollama_ps_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.39
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.40
 
 `ollama_ps`
 ```
@@ -10,7 +10,6 @@ Error: unauthorized
 
 `ollama_ps_json | jq`
 ```
-{
-  "error": "unauthorized"
-}
+[ERROR] ollama_api_get: curl error: 22
+[ERROR] ollama_ps_json: ollama_api_get failed
 ```
