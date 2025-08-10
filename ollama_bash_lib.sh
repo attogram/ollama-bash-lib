@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.43.0"
+OLLAMA_LIB_VERSION="0.43.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -1022,7 +1022,7 @@ ollama_eval() {
   printf '\n%s generated the command:\n\n%s\n\n' "$model" "$cmd"
   local dangerous=(
     rm mv dd mkfs shred shutdown reboot init kill pkill killall umount mount userdel groupdel passwd su sudo
-    bash '/bin/sh' 'systemctl\s+poweroff' 'systemctl\s+reboot' 'systemctl\s+halt'
+    bash '/bin/sh' 'systemctl\s+poweroff' 'systemctl\s+reboot' 'systemctl\s+halt' '-delete'
   )
   local IFS='|'
   local danger_regex="\b(${dangerous[*]})\b" # Turn the dangerous array into a regex that matches any whole‑word occurrence

@@ -12,6 +12,7 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 
 [Quickstart](#quickstart) -
 [Usage](#usage) -
+[Howto](#howto) - 
 [Demos](#demos) - 
 [Requirements](#requirements) - 
 [License](#license) - 
@@ -19,6 +20,12 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 [Discord][discord-invite] -
 [Repo](https://github.com/attogram/ollama-bash-lib) -
 [Download](https://raw.githubusercontent.com/attogram/ollama-bash-lib/refs/heads/main/ollama_bash_lib.sh)
+
+[Howto](#howto) : 
+[Get Tech Support](#howto-get-technical-support) -
+[Chat](#howto-chat) -
+[Use Turbo Mode](#howto-use-ollama-turbo-mode) -
+[Debug](#howto-debug)
 
 [Functions](#functions) : 
 [Api](#api-functions) -
@@ -79,6 +86,92 @@ if [[ ! -f "$ollama_bash_lib" ]]; then
   exit 1
 fi
 source "$ollama_bash_lib"
+```
+
+## Howto
+
+### Howto get Technical Support
+
+Free technical support is available on the [Attogram Discord Server][discord-invite]
+
+You are welcome to join us in the [`#ollama-bash-lib` channel][discord-invite]
+
+### Howto chat
+
+See [`./demos/interactive.chat.sh`](./demos/interactive.chat.sh)
+for an example of an interactive chat session.
+
+Chat is based on a list of messages that is sent to the model on every request.
+
+
+Add a message:
+```
+ollama_messages_add user "Hello"
+```
+
+Send the message list to the model:
+```
+ollama_chat gpt-oss:20b
+```
+
+This will do a Chat Completion, based on the message list, and send it to `stdout`.
+
+You are responsible for adding the response into the message list:
+```
+response="$(ollama_chat gpt-oss:20b)"
+ollama_messages_add assistant "$response"
+echo "$response"
+```
+
+View the current message list (in JSON format) with `ollama_messages`
+
+Clear the message list with `ollama_messages_clear`
+
+Get the message count with `ollama_messages_count`
+
+### Howto use Ollama Turbo Mode
+
+Signup and purchase a Turbo Mode subscription from https://ollama.com
+
+Create an API key via https://ollama.com/settings/keys
+
+Copy the key and keep it in a safe place! 
+You will only be shown the full key once.
+
+Use command `ollama_app_turbo` to turn Turbo Mode on/off.
+You will be prompted to enter your API key.
+```
+$ ollama_app_turbo on
+Enter Ollama API Key (input hidden):
+```
+
+This will set and export `OLLAMA_LIB_API` and `OLLAMA_HOST` to `https://ollama.com`,
+and set `OLLAMA_LIB_TURBO_KEY` to your key.
+
+Note: `OLLAMA_LIB_TURBO_KEY` is never exported.
+You must decide yourself if you want to export it into your environment.
+```
+export OLLAMA_LIB_KEY=my.super.secret.key
+```
+
+If the key is set, then `ollama_app_turbo on` will not prompt you again for the key.
+
+To turn **off** Turbo Mode, simply use `ollama_app_turbo off`.
+This will unset `OLLAMA_LIB_TURBO_KEY`
+and reset `OLLAMA_LIB_API` and `OLLAMA_HOST` to `http://localhost:11434`
+
+Use `ollama_lib_about` to view your current settings.
+
+### Howto debug
+
+The `OLLAMA_LIB_DEBUG` variable controls if debug messages are sent to `stderr`
+
+Set `OLLAMA_LIB_DEBUG=1` to turn on debugging. 
+Set `OLLAMA_LIB_DEBUG=0` to turn off debugging.
+
+Examples:
+```
+OLLAMA_LIB_DEBUG=1 ollama_generate gpt-oss:20b "Three words about debugging"
 ```
 
 ## Demos

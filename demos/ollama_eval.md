@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.1
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -13,9 +13,9 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-ls -1 *.sh 2>/dev/null
+ls *.sh
 
 Run command (y/N)? 
 ```
@@ -26,7 +26,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-cat /proc/loadavg
+uptime
 
 Run command (y/N)? 
 ```
@@ -48,9 +48,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-echo $BASH_VERSION
+echo "$BASH_VERSION"
 
 Run command (y/N)? 
 ```
@@ -59,9 +59,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo windows;; Darwin*) echo mac;; Linux*) echo linux;; *) echo "unknown: $(uname -s)";; esac
+case "$(uname -s)" in *Linux*) echo Linux;; *Darwin*) echo mac;; *CYGWIN*|*MINGW*|*MSYS*) echo Windows;; *) echo "Unknown $(uname -s)";; esac
 
 Run command (y/N)? 
 ```
@@ -70,9 +70,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-find . -type f -delete
+find . -mindepth 1 -delete
 
 Run command (y/N)? 
 ```
