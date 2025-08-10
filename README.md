@@ -12,7 +12,6 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 
 [Quickstart](#quickstart) -
 [Usage](#usage) -
-[Howto](#howto) - 
 [Demos](#demos) - 
 [Requirements](#requirements) - 
 [License](#license) - 
