@@ -28,12 +28,14 @@ echo
 
 demo() {
   tasks=(
+    'make a pretty screensaver in bash'
     'show me all shell files in current directory'
     'get system load'
     'find files larger than 1GB'
     'what version of bash am I using?'
     'am I on windows, mac, linux, or what?'
     'erase all files'
+    'destroy this computer!'
   )
   for task in "${tasks[@]}"; do
     echo -n '`'; echo -n "oe \"$task\""; echo '`'; echo; echo '```'
