@@ -1,6 +1,6 @@
 # Prompt all models
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.4
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -22,5 +22,5 @@ prompt: What is your knowledge cutoff date? Respond with only the date.
 
 ## gpt-oss:20b
 ```
-2024-06
+2024-06-01
 ```

@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.43.3"
+OLLAMA_LIB_VERSION="0.43.4"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -1008,7 +1008,7 @@ ollama_eval() {
   local prompt='Write a bash one-liner to do the following task:\n\n'
   prompt+="$task\n\n"
   prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}.\n"
-  prompt+="The working directory is $(pwd)\n"
+  #prompt+="The working directory is $(pwd)\n"
   prompt+="If you can not do the task but you can instruct the user how to do it, then reply with an 'echo' command with your instructions.\n"
   prompt+="If you can not do the task for any other reason, then reply with an 'echo' command with your reason.\n"
   prompt+="Reply ONLY with the ready-to-run bash one-liner.\n"
@@ -1027,17 +1027,21 @@ ollama_eval() {
 
   printf '%s\n\n' "$cmd"
 
-  local errors
-  errors=$(timeout 1 bash -n <<<"$cmd" 2>&1) # check if is valid bash syntax, with timeout
-  local valid=$?
-
-  _debug "ollama_eval: valid:$valid  errors:[$errors]"
-
-  if [[ "$valid" -gt 0 ]]; then
-    printf '❌ Invalid Bash Syntax:\n%s\n\n' "$errors"
+  local first=${cmd%%[[:space:]]*}
+  if ! _exists "$first"; then
+    printf '❌ Invalid command: %s.\n' "$first"
     return 1
   else
-    printf '✅ Valid Bash Syntax\n\n'
+    printf '✅ Valid command: %s\n' "$first"
+  fi
+
+  local errors
+  if ! errors=$(timeout 1 bash -n <<<"$cmd" 2>&1); then
+    local rc=$?
+    printf "❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
+    return 1
+  else
+    printf '✅ Valid Bash Syntax\n'
   fi
 
   local dangerous=(
@@ -1048,10 +1052,10 @@ ollama_eval() {
   local danger_regex="\b(${dangerous[*]})\b" # Turn the dangerous array into a regex that matches any whole‑word occurrence
   if [[ "$cmd" =~ $danger_regex ]]; then # Scan the command. If a dangerous token is found, capture it for the warning.
     local bad="${BASH_REMATCH[1]}"
-    printf '⚠️ WARNING: The generated command contains a potentially dangerous token: "%s"\n\n' "$bad"
+    printf '⚠️ WARNING: The generated command contains a potentially dangerous token: "%s"\n' "$bad"
   fi
 
-  printf 'Run command (y/N)? '
+  printf '\nRun command (y/N)? '
   read -r permission
   case "$permission" in
     [Yy]) ;;       # proceed with eval

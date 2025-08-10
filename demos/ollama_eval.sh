@@ -30,10 +30,12 @@ demo() {
   tasks=(
     'make a pretty screensaver in bash'
     'show me all shell files in current directory'
-    'get system load'
     'find files larger than 1GB'
     'what version of bash am I using?'
     'am I on windows, mac, linux, or what?'
+    'get system load'
+    ''
+
     'erase all files'
     'destroy this computer!'
   )

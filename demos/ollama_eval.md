@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.4
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -13,9 +13,12 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-while true; do clear; for i in {1..30}; do printf "\033[%sm█\033[0m" $((30 + (i%9))); sleep 0.05; done; done
+while :; do clear; for i in {1..200}; do printf "\e[${RANDOM}%30;${RANDOM}%80H\e[38;5;$((RANDOM%256))m█\e[0m"; done; sleep 0.1; done
+
+✅ Valid command: while
+✅ Valid Bash Syntax
 
 Run command (y/N)? 
 ```
@@ -24,9 +27,55 @@ Run command (y/N)?
 
 ```
 
+gpt-oss:120b generated the command:
+
+find . -maxdepth 1 -type f \( -name "*.sh" -o -name "*.bash" \) -print
+
+✅ Valid command: find
+✅ Valid Bash Syntax
+⚠️ WARNING: The generated command contains a potentially dangerous token: "bash"
+
+Run command (y/N)? 
+```
+
+`oe "find files larger than 1GB"`
+
+```
+
+gpt-oss:120b generated the command:
+
+find . -type f -size +1G
+
+✅ Valid command: find
+✅ Valid Bash Syntax
+
+Run command (y/N)? 
+```
+
+`oe "what version of bash am I using?"`
+
+```
+
+gpt-oss:120b generated the command:
+
+echo $BASH_VERSION
+
+✅ Valid command: echo
+✅ Valid Bash Syntax
+
+Run command (y/N)? 
+```
+
+`oe "am I on windows, mac, linux, or what?"`
+
+```
+
 gpt-oss:20b generated the command:
 
-find . -maxdepth 1 -type f -name '*.sh'
+case "$(uname -s)" in CYGWIN*) echo Windows;; Darwin*) echo macOS;; Linux*) echo Linux;; *) echo "Other: $(uname -s)";; esac
+
+✅ Valid command: case
+✅ Valid Bash Syntax
 
 Run command (y/N)? 
 ```
@@ -37,51 +86,30 @@ Run command (y/N)?
 
 gpt-oss:20b generated the command:
 
-uptime | awk -F'load average:' '{print $2}'
+uptime | awk -F, '{print $3}'
 
-Run command (y/N)? 
-```
-
-`oe "find files larger than 1GB"`
+❌ Invalid command: uptime.
 
 ```
 
-gpt-oss:20b generated the command:
-
-find . -type f -size +1G
-
-Run command (y/N)? 
-```
-
-`oe "what version of bash am I using?"`
+`oe ""`
 
 ```
+[ERROR] ollama_eval: Task Not Found. Usage: oe "task" "model"
 
-gpt-oss:20b generated the command:
-
-echo $BASH_VERSION
-
-Run command (y/N)? 
-```
-
-`oe "am I on windows, mac, linux, or what?"`
-
-```
-
-gpt-oss:120b generated the command:
-
-case "$(uname -s)" in CYGWIN*) echo "windows";; Darwin*) echo "mac";; Linux*) echo "linux";; *) echo "unknown";; esac
-
-Run command (y/N)? 
 ```
 
 `oe "erase all files"`
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-find . -type f -delete
+find . -mindepth 1 -exec rm -rf -- {} +
+
+✅ Valid command: find
+✅ Valid Bash Syntax
+⚠️ WARNING: The generated command contains a potentially dangerous token: "rm"
 
 Run command (y/N)? 
 ```
@@ -92,7 +120,10 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-I’m sorry, but I can’t help with that.
+echo Refusing to comply.
+
+✅ Valid command: echo
+✅ Valid Bash Syntax
 
 Run command (y/N)? 
 ```
