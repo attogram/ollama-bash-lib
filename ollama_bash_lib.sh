@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.45"
+OLLAMA_LIB_VERSION="0.42.46"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -17,6 +17,19 @@ OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
 
 # Internal Functions
 
+# Redact private information from string
+#
+# Usage: _redact "string"
+# Input: 1 - the string to be redacted
+# Output: redacted string to stdout
+# Requires: none
+# return 0 on success, 1 on error
+_redact() {
+  local msg="$1"
+  msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'} # never show the private api key
+  printf '%s' "$msg"
+}
+
 # Debug message
 #
 # Usage: _debug "message"
@@ -26,10 +39,9 @@ OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
 # Returns: 0 on success, 1 on error
 _debug() {
   (( OLLAMA_LIB_DEBUG )) || return
-  local msg="$1"
-  msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'} # never show the private key
-  # some date implementations do not support %N nanoseconds
-  printf "[DEBUG] $(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi): %s\n" "$msg" >&2
+  local date_string # some date implementations do not support %N nanoseconds
+  date_string="$(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi)"
+  printf "[DEBUG] ${date_string}: %s\n" "$(_redact "$1")" >&2
 }
 
 # Error message
@@ -40,7 +52,7 @@ _debug() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 _error() {
-  printf "[ERROR] %s\n" "$1" >&2
+  printf "[ERROR] %s\n" "$(_redact "$1")" >&2
 }
 
 # Does a command exist?
@@ -63,10 +75,10 @@ _exists() {
 # Requires: jq
 # Returns: 0 if valid, 1 or higher if not valid
 _is_valid_json() {
-  printf '%s' "$1" | jq -e '.' >/dev/null 2>&1
+  printf '%s' "$1" | jq -e '.' >/dev/null 2>&1 # use -e for jq exit-status mode
   local return_code=$?
   case $return_code in
-    0) # Exit code 0: The JSON is valid.
+    0) # Exit code 0: The JSON is valid and "truthy"
       _debug '_is_valid_json: VALID: return 0'
       return 0
       ;;
@@ -86,11 +98,11 @@ _is_valid_json() {
       _debug '_is_valid_json: NO OUTPUT jq: result empty: return 4'
       return 4
       ;;
-    5) # (halt_error)
+    5) # (Halt Error)
       _debug '_is_valid_json: HALT_ERROR jq: return 5'
       return 5
       ;;
-    *) # Any other exit code.
+    *) # (Unknown)
       _debug "_is_valid_json: UNKNOWN jq error: return $return_code"
       return "$return_code"
       ;;
@@ -102,14 +114,22 @@ _is_valid_json() {
 # Call curl
 #
 # Input: 1 - method (GET or POST)
-# Input: 2 - endpoint
+# Input: 2 - endpoint (/api/path) (optional)
 # Input: 3 - { json body } (optional)
 # Output: curl result
 # Requires: curl
-# Returns: 0 on success, curl return status on error
+# Returns: 0 on success, 1 or higher on error (curl return status)
 _call_curl() {
   _debug "_call_curl: [${1:0:42}] [${2:0:42}] [${3:0:120}]"
   _debug "_call_curl: OLLAMA_LIB_API: $OLLAMA_LIB_API"
+  if ! _exists 'curl'; then
+    _error '_call_curl: curl Not Found'
+    return 1
+  fi
+  if [[ -z "$1" || ( "$1" != "GET" && "$1" != "POST" ) ]]; then
+    _error '_call_curl: Method Not Found. Usage: _call_curl "GET|POST" "/api/path" "{ optional json content }"'
+    return 1
+  fi
   local method="$1" # GET or POST
   local endpoint="$2"
   local json_body="$3"
@@ -129,7 +149,7 @@ _call_curl() {
   if [[ -n "${json_body}" ]]; then
     _debug "_call_curl: json_body: [${json_body:0:120}]"
     curl_args+=( "-d" "@-" )
-    printf '%s' "$json_body" | curl "${curl_args[@]}"
+    printf '%s' "$json_body" | curl "${curl_args[@]}" # call curl, with args and with input (json_body) piped in
     local error_curl=$?
     if [ "$error_curl" -gt 0 ]; then
       _error "_call_curl: curl error: $error_curl"
@@ -137,7 +157,7 @@ _call_curl() {
     fi
     return 0
   fi
-  curl "${curl_args[@]}"
+  curl "${curl_args[@]}" # call curl, only with args
   return $?
 }
 
@@ -201,7 +221,7 @@ ollama_api_ping() {
   if [[ "$result" == "Ollama is running" ]]; then # Valid as of Ollama 0.11
     return 0
   fi
-  _debug "ollama_api_ping: unknown result: [${result:0:42}...]"
+  _debug "ollama_api_ping: unknown result: [${result:0:42}]"
   return 1
 }
 
@@ -577,6 +597,35 @@ ollama_list_array() {
 
 # Model Functions
 
+# Is a model name valid?
+# If model name is empty, then get a random model
+#
+# Usage: _is_valid_model "model"
+# Input: 1 - the model name
+# Output: The valid model name, or a random model name if input 1 is empty, or empty string on error
+# Requires: none
+# Returns: 0 if model name is valid, 1 if model name is not valid
+_is_valid_model() {
+  local model="${1:-}" # The Model Name, may be empty
+  if [[ -z "$model" ]]; then
+    _debug '_is_valid_model: Model Not Found: getting random model'
+    model="$(ollama_model_random)"
+    if [[ -z "$model" ]]; then
+      _debug '_is_valid_model: Model Not Found: ollama_model_random failed'
+      printf ''
+      return 1
+    fi
+  fi
+  if [[ ! "$model" =~ ^[a-zA-Z0-9._:-]+$ ]]; then
+    _debug "_is_valid_model: INVALID: [${model:0:120}]"
+    printf ''
+    return 1
+  fi
+  _debug "_is_valid_model: VALID: [${model:0:120}]"
+  printf '%s' "$model"
+  return 0
+}
+
 # Get a random model
 #
 # Usage: ollama_model_random
@@ -886,7 +935,7 @@ ollama_lib_about() {
   echo
   echo "Functions:"
   echo
-  local other_functions=$'oe\n_debug\n_error\n_exists\n_call_curl\n_is_valid_json\n'
+  local other_functions=$'oe\n_debug\n_error\n_exists\n_call_curl\n_is_valid_json\n_is_valid_model\n'
   if ! _exists "column"; then
     _debug 'ollama_lib_about: column Not Found'
     {

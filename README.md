@@ -155,15 +155,16 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 
 ### Model Functions
 
-| Function              | About                                                       | Usage                           | Output                                          | Return  |
-|-----------------------|-------------------------------------------------------------|---------------------------------|-------------------------------------------------|---------|
-| `ollama_model_random` | Get a random model                                          | `ollama_model_random`           | 1 model name to `stdout`                        | `0`/`1` | 
-| `ollama_model_unload` | Unload a model from memory<br />(Clear context for a model) | `ollama_model_unload`           | none                                            | `0`/`1` | 
-| `ollama_show`         | Show model information                                      | `ollama_show "model"`           | text to `stdout`                                | `0`/`1` |
-| `ollama_show_json`    | Show model information, in json                             | `ollama_show_json "model"`      | json to `stdout`                                | `0`/`1` |
-| `ollama_list`         | List all available models                                   | `ollama_list`                   | text to `stdout`                                | `0`/`1` |
-| `ollama_list_json`    | List all available models, in json                          | `ollama_list_json`              | json to `stdout`                                | `0`/`1` |
-| `ollama_list_array`   | List all available models, for bash array                   | `models=($(ollama_list_array))` | space separated list of model names to `stdout` | `0`/`1` |
+| Function              | About                                                             | Usage                           | Output                                          | Return                                         |
+|-----------------------|-------------------------------------------------------------------|---------------------------------|-------------------------------------------------|------------------------------------------------|
+| `ollama_model_random` | Get a random model                                                | `ollama_model_random`           | 1 model name to `stdout`                        | `0`/`1`                                        | 
+| `ollama_model_unload` | Unload a model from memory<br />(Clear context for a model)       | `ollama_model_unload`           | none                                            | `0`/`1`                                        | 
+| `ollama_show`         | Show model information                                            | `ollama_show "model"`           | text to `stdout`                                | `0`/`1`                                        |
+| `ollama_show_json`    | Show model information, in json                                   | `ollama_show_json "model"`      | json to `stdout`                                | `0`/`1`                                        |
+| `ollama_list`         | List all available models                                         | `ollama_list`                   | text to `stdout`                                | `0`/`1`                                        |
+| `ollama_list_json`    | List all available models, in json                                | `ollama_list_json`              | json to `stdout`                                | `0`/`1`                                        |
+| `ollama_list_array`   | List all available models, for bash array                         | `models=($(ollama_list_array))` | space separated list of model names to `stdout` | `0`/`1`                                        |
+| `_is_valid_model`     | Validate a model name<br />(or get random model if name is empty) | `_is_valid_model "model"`       | valid model name, or empty string, to `stdout`  | `0` if model name is valid<br />`1` if invalid |
 
 ### Ollama Functions
 

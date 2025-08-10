@@ -13,10 +13,10 @@ tokens : 7
 verbose: 7 ± 6 (range 1 to 7)
 
 (contents of ../README.md)
-tokens : 5874
-verbose: 5874 ± 3694 (range 2180 to 5874)
+tokens : 6032
+verbose: 6032 ± 3802 (range 2230 to 6032)
 
 (contents of ../ollama_bash_lib.sh)
-tokens : 7383
-verbose: 7383 ± 2210 (range 5173 to 7383)
+tokens : 7800
+verbose: 7800 ± 2275 (range 5525 to 7800)
 ```

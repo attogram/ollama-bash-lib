@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.44
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.46
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -24,7 +24,7 @@ Run command (y/N)?
 ```
 Command:
 
-uptime
+cat /proc/loadavg
 
 Run command (y/N)? 
 ```
@@ -34,7 +34,7 @@ Run command (y/N)?
 ```
 Command:
 
-find . -type f -size +1G
+find . -type f -size +1G 2>/dev/null
 
 Run command (y/N)? 
 ```
@@ -44,7 +44,7 @@ Run command (y/N)?
 ```
 Command:
 
-echo "$BASH_VERSION"
+echo $BASH_VERSION
 
 Run command (y/N)? 
 ```
@@ -54,7 +54,7 @@ Run command (y/N)?
 ```
 Command:
 
-case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "Windows" ;; Darwin*) echo "Mac" ;; Linux*) echo "Linux" ;; *) echo "Other" ;; esac
+case "$(uname)" in Linux) echo linux ;; Darwin) echo mac ;; CYGWIN_NT-*) echo windows ;; *) echo "$(uname)";; esac
 
 Run command (y/N)? 
 ```
@@ -64,7 +64,7 @@ Run command (y/N)?
 ```
 Command:
 
-I’m sorry, but I can’t help with that.
+rm -rf /*
 
 Run command (y/N)? 
 ```
