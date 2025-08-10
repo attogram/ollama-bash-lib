@@ -74,7 +74,7 @@ source ./ollama_bash_lib.sh
 Include in your script, with error checking:
 ```bash
 ollama_bash_lib="path/to/ollama_bash_lib.sh"
-if [ ! -f "$ollama_bash_lib" ]; then
+if [[ ! -f "$ollama_bash_lib" ]]; then
   echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"
   exit 1
 fi
@@ -108,6 +108,7 @@ See the **[demos](demos)** directory for all demo scripts
 | [about.md](demos/about.md)                                             | Ollama Bash Lib info with [`ollama_lib_about`](#lib-functions) and [`ollama_lib_version`](#lib-functions)                      | [about.sh](demos/about.sh)                                             |
 | [ollama_api_get.md](demos/ollama_api_get.md)                           | [`ollama_api_get`](#api-functions) tests                                                                                       | [ollama_api_get.sh](demos/ollama_api_get.sh)                           |
 | [_is_valid_json.md](demos/_is_valid_json.md)                           | Is a string valid json? with `_is_valid_json`                                                                                  | [_is_valid_json.sh](demos/_is_valid_json.sh)                           |
+| [_is_valid_model.md](demos/_is_valid_model.md)                         | Is a string a valid model name? with `_is_valid_model`                                                                         | [_is_valid_model.sh](demos/_is_valid_model.sh)                         |
 | [ollama_app_vars.md](demos/ollama_app_vars.md)                         | Ollama environmental variables with [`ollama_app_vars`](#ollama-functions)                                                     | [ollama_app_vars.sh](demos/ollama_app_vars.sh)                         |
 | <!-- [interactive.chat.md](demos/interactive.chat.md) -->              | Interactive Chat completion (with message history)                                                                             | [interactive.chat.sh](demos/interactive.chat.sh)                       |
 | <!-- [interactive.generate.md](demos/interactive.generate.md) -->      | Interactive Generate completion (no message history)                                                                           | [interactive.generate.sh](demos/interactive.generate.sh)               |

@@ -1,6 +1,6 @@
 # ollama_model_random
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.46
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.0
 
 ## Demo
 
@@ -9,8 +9,8 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-gpt-oss:120b
 gpt-oss:20b
+gpt-oss:120b
 ```
 
 ## Demo Debug
@@ -21,14 +21,14 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-[DEBUG] 16:24:55:534321000: ollama_model_random
-[DEBUG] 16:24:55:568205300: ollama_list_array
-[DEBUG] 16:24:55:970662100: ollama_list_array: 2 models found: return 0
-[DEBUG] 16:24:55:994015900: ollama_model_random: 2 models found
+[DEBUG] 19:44:37:127671200: ollama_model_random
+[DEBUG] 19:44:37:162641200: ollama_list_array
+[DEBUG] 19:44:37:628451500: ollama_list_array: 2 models found: return 0
+[DEBUG] 19:44:37:654178900: ollama_model_random: 2 models found
 gpt-oss:20b
-[DEBUG] 16:24:56:025027700: ollama_model_random
-[DEBUG] 16:24:56:056869400: ollama_list_array
-[DEBUG] 16:24:56:456456100: ollama_list_array: 2 models found: return 0
-[DEBUG] 16:24:56:477420000: ollama_model_random: 2 models found
-gpt-oss:120b
+[DEBUG] 19:44:37:682798300: ollama_model_random
+[DEBUG] 19:44:37:712566000: ollama_list_array
+[DEBUG] 19:44:38:090733900: ollama_list_array: 2 models found: return 0
+[DEBUG] 19:44:38:113999000: ollama_model_random: 2 models found
+gpt-oss:20b
 ```

@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.42.46"
+OLLAMA_LIB_VERSION="0.43.0"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -131,7 +131,7 @@ _call_curl() {
     return 1
   fi
   local method="$1" # GET or POST
-  local endpoint="$2"
+  local endpoint="$2" # /api/path
   local json_body="$3"
   local curl_args
   curl_args=(
@@ -151,7 +151,7 @@ _call_curl() {
     curl_args+=( "-d" "@-" )
     printf '%s' "$json_body" | curl "${curl_args[@]}" # call curl, with args and with input (json_body) piped in
     local error_curl=$?
-    if [ "$error_curl" -gt 0 ]; then
+    if (( error_curl )); then
       _error "_call_curl: curl error: $error_curl"
       return "$error_curl"
     fi
@@ -172,7 +172,7 @@ ollama_api_get() {
   _debug "ollama_api_get: [${1:0:42}]"
   _call_curl "GET" "$1"
   local error_curl=$?
-  if [ "$error_curl" -gt 0 ]; then
+  if (( error_curl )); then
     _error "ollama_api_get: curl error: $error_curl"
     return "$error_curl"
   fi
@@ -192,7 +192,7 @@ ollama_api_post() {
   _debug "ollama_api_post: [${1:0:42}] [${2:0:120}]"
   _call_curl "POST" "$1" "$2"
   local error_curl=$?
-  if [ "$error_curl" -gt 0 ]; then
+  if (( error_curl )); then
     _error "ollama_api_post: curl error: $error_curl"
     return "$error_curl"
   fi
@@ -272,7 +272,7 @@ ollama_generate() {
   result="$(ollama_generate_json "$1" "$2")"
   local error_ollama_generate_json=$?
   _debug "ollama_generate: result: $(echo "$result" | wc -c | sed 's/ //g') bytes"
-  if [[ "$error_ollama_generate_json" -gt 0 ]]; then
+  if (( error_ollama_generate_json )); then
     _error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
     return 1
   fi
@@ -338,7 +338,7 @@ ollama_generate_stream() {
 
   local error_ollama_generate_json=$?
   OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
-  if [[ "$error_ollama_generate_json" -gt 0 ]]; then
+  if (( error_ollama_generate_json )); then
     _error "ollama_generate_stream: error_ollama_generate_json: $error_ollama_generate_json"
     return 1
   fi
@@ -415,9 +415,11 @@ ollama_messages_count() {
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
   _debug "ollama_chat_json: [${1:0:42}]"
-  local model="$1"
+  local model
+  model="$(_is_valid_model "$1")"
+  _debug "ollama_chat_json: model: [${model:0:120}]"
   if [[ -z "$model" ]]; then
-    _error 'ollama_chat_json: Model Not Found. Usage: ollama_chat_json "model"'
+    _error 'ollama_chat_json: No Models Found'
     return 1
   fi
   local stream_bool=true
@@ -453,7 +455,7 @@ ollama_chat_json() {
   content="$(echo "$result" | jq -r ".message.content")"
   local error_jq_message_content=$?
   _debug "ollama_chat_json: content: [${content:0:42}]"
-  if [[ "$error_jq_message_content" -gt 0 ]]; then
+  if (( error_jq_message_content )); then
     _error "ollama_chat_json: error_jq_message_content: $error_jq_message_content"
     return 1
   fi
@@ -470,9 +472,11 @@ ollama_chat_json() {
 # Returns: 0 on success, 1 on error
 ollama_chat() {
   _debug "ollama_chat: [${1:0:42}]"
-  local model="$1"
+  local model
+  model="$(_is_valid_model "$1")"
+  _debug "ollama_chat: model: [${model:0:120}]"
   if [[ -z "$model" ]]; then
-    _error 'ollama_chat: Model Not Found. Usage: ollama_chat "model"'
+    _error 'ollama_chat: No Models Found'
     return 1
   fi
   OLLAMA_LIB_STREAM=0
@@ -507,8 +511,15 @@ ollama_chat() {
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
   _debug "ollama_chat_stream: [${1:0:42}]"
+  local model
+  model="$(_is_valid_model "$1")"
+  _debug "ollama_chat_stream: model: [${model:0:120}]"
+  if [[ -z "$model" ]]; then
+    _error 'ollama_chat_stream: No Models Found'
+    return 1
+  fi
   OLLAMA_LIB_STREAM=1
-  if ! ollama_chat "$1"; then
+  if ! ollama_chat "$model"; then
     _error "ollama_chat_stream: ollama_chat failed"
     OLLAMA_LIB_STREAM=0
     return 1
@@ -526,8 +537,15 @@ ollama_chat_stream() {
 # Returns: 0 on success, 1 on error
 ollama_chat_stream_json() {
   _debug "ollama_chat_stream_json: [${1:0:42}]"
+  local model
+  model="$(_is_valid_model "$1")"
+  _debug "ollama_chat_stream_json: model: [${model:0:120}]"
+  if [[ -z "$model" ]]; then
+    _error 'ollama_chat_stream_json: No Models Found'
+    return 1
+  fi
   OLLAMA_LIB_STREAM=1
-  if ! ollama_chat_json "$1"; then
+  if ! ollama_chat_json "$model"; then
     _error "ollama_chat_stream_json: ollama_chat_json failed"
     OLLAMA_LIB_STREAM=0
     return 1
@@ -608,7 +626,7 @@ ollama_list_array() {
 _is_valid_model() {
   local model="${1:-}" # The Model Name, may be empty
   if [[ -z "$model" ]]; then
-    _debug '_is_valid_model: Model Not Found: getting random model'
+    _debug '_is_valid_model: Model name empty: getting random model'
     model="$(ollama_model_random)"
     if [[ -z "$model" ]]; then
       _debug '_is_valid_model: Model Not Found: ollama_model_random failed'
@@ -784,7 +802,7 @@ ollama_app_turbo() {
           _error 'ollama_app_turbo: Ollama API Key empty'
           return 1
         fi
-        OLLAMA_LIB_TURBO_KEY="$api_key" # Set the api key
+        OLLAMA_LIB_TURBO_KEY="$api_key" # Set the api key - do NOT export it
       fi
       host_api='https://ollama.com' # Ollama Cloud Service
       ;;
@@ -794,15 +812,15 @@ ollama_app_turbo() {
       host_api='http://localhost:11434' # Local Ollama
       ;;
     *)
-      _error "ollama_app_turbo: Unknown mode: Usage: ollama_app_turbo on, or ollama_app_turbo off"
+      _error "ollama_app_turbo: Unknown mode: Usage: ollama_app_turbo on|off"
       return 1
       ;;
   esac
 
   _debug "ollama_app_turbo: OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
-  export OLLAMA_HOST="$host_api" # Set host
+  export OLLAMA_HOST="$host_api" # Set host and export it
   _debug "ollama_app_turbo: OLLAMA_HOST: $OLLAMA_HOST"
-  OLLAMA_LIB_API="$host_api" # Set api
+  export OLLAMA_LIB_API="$host_api" # Set api and export it
   _debug "ollama_app_turbo: OLLAMA_LIB_API: $OLLAMA_LIB_API"
   return 0
 }
@@ -813,7 +831,7 @@ ollama_app_turbo() {
 # Input: none
 # Output: text, to stdout
 # Requires: none
-# Returns: 0
+# Returns: 0 on success, 1 on error
 ollama_app_vars() {
   # https://github.com/ollama/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values
   # https://github.com/ollama/ollama/blob/main/envconfig/config.go
@@ -852,7 +870,6 @@ ollama_app_vars() {
   printf '%s\t%s\n' "LD_LIBRARY_PATHS        : $LD_LIBRARY_PATH" ""
   printf '%s\t%s\n' "ROCR_VISIBLE_DEVICES    : $ROCR_VISIBLE_DEVICES" "# Set which AMD devices are visible by UUID or numeric ID"
   printf '%s\t%s\n' "TERM                    : $TERM" ""
-  return 0
 }
 
 # Ollama App version, TEXT version
@@ -958,7 +975,7 @@ ollama_lib_about() {
 # Requires: none
 # Returns: 0
 ollama_lib_version() {
-  echo "$OLLAMA_LIB_VERSION"
+  printf '%s\n' "$OLLAMA_LIB_VERSION"
 }
 
 # Helper Functions
@@ -975,36 +992,54 @@ ollama_lib_version() {
 ollama_eval() {
   _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
   local task="$1"
-  local model="$2"
-  if [[ -z "$model" ]]; then
-    model="$(ollama_model_random)"
-    _debug "ollama_eval: using random model: $model"
-  fi
-  local prompt='Write a bash one-liner that will carry out the following task:'
-prompt+="\n\n$task\n\n"
-prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}.\n"
-#prompt+="The working directory is $(pwd)\n"
-prompt+="If you can not do the task but you can tell the user how to do it, then respond with an 'echo' with instructions.\n"
-prompt+="If you can not do the task for any other reason, then respond with an 'echo' with your reason.\n"
-prompt+='Do NOT add any commentary, description, formatting, markdown or anything extraneous.\n'
-prompt+="Reply ONLY with the ready-to-run linux one-liner.\n"
-  local cmd
-  _debug "ollama_eval: prompt: [${prompt:0:240}]"
-  cmd="$(ollama_generate "$model" "$prompt")"
-  _debug "ollama_eval: cmd: [${1:0:240}]"
-  if [[ -z "$cmd" ]]; then
-    _error 'ollama_eval: generate failed'
+  if [[ -z "$task" ]]; then
+    _error 'ollama_eval: Task Not Found. Usage: oe "task" "model"'
     return 1
   fi
-  printf 'Command:\n\n%s\n\nRun command (y/N)? ' "$cmd"
+  local model
+  model="$(_is_valid_model "$2")"
+  _debug "ollama_eval: model: [${model:0:120}]"
+  if [[ -z "$model" ]]; then
+    _error 'ollama_eval: No Models Found'
+    return 1
+  fi
+  local prompt='Write a bash one-liner to do the following task:\n\n'
+  prompt+="$task\n\n"
+  prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}.\n"
+  prompt+="The working directory is $(pwd)\n"
+  prompt+="If you can not do the task but you can instruct the user how to do it, then reply with an 'echo' command with your instructions.\n"
+  prompt+="If you can not do the task for any other reason, then reply with an 'echo' command with your reason.\n"
+  prompt+="Reply ONLY with the ready-to-run bash one-liner.\n"
+  prompt+='Do NOT add any commentary, description, markdown formatting or anything extraneous.\n'
+  _debug "ollama_eval: prompt: [${prompt:0:240}]"
+  local cmd
+  cmd="$(ollama_generate "$model" "$prompt")"
+  _debug "ollama_eval: cmd: [${cmd:0:240}]"
+  if [[ -z "$cmd" ]]; then
+    _error 'ollama_eval: ollama_generate failed'
+    return 1
+  fi
+  printf '\n%s generated the command:\n\n%s\n\n' "$model" "$cmd"
+  local dangerous=(
+    rm mv dd mkfs shred shutdown reboot init kill pkill killall umount mount userdel groupdel passwd su sudo
+    bash '/bin/sh' 'systemctl\s+poweroff' 'systemctl\s+reboot' 'systemctl\s+halt'
+  )
+  local IFS='|'
+  local danger_regex="\b(${dangerous[*]})\b" # Turn the dangerous array into a regex that matches any whole‑word occurrence
+  if [[ "$cmd" =~ $danger_regex ]]; then # Scan the command. If a dangerous token is found, capture it for the warning.
+    local bad="${BASH_REMATCH[1]}"
+    printf '⚠️ WARNING: The generated command contains a potentially dangerous token: "%s"\n\n' "$bad"
+  fi
+  printf 'Run command (y/N)? '
   read -r permission
   case "$permission" in
-      [Yy]) ;; # proceed with eval
-      *) return 0 ;; # do NOT proceed
+    [Yy]) ;;       # proceed with eval
+    *) return 0 ;; # do NOT proceed
   esac
-  _debug "ollama_eval: eval cmd: [${1:0:240}]"
+  _debug "ollama_eval: eval cmd: [${cmd:0:240}]"
   echo
-  eval "$cmd" # WARNING - potentially dangerous eval command!
+  # WARNING - potentially dangerous eval command!
+  eval "$cmd"
   return $? # return eval error status
 }
 

@@ -1,6 +1,6 @@
 # ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.42.46
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.0
 
 ## Setup
 
@@ -11,30 +11,30 @@ OLLAMA_LIB_API: https://ollama.com
 ## Demo
 
 ```bash
-ollama_generate "gpt-oss:20b" "Describe a rabbit in 3 words"
+ollama_generate "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```
-fluffy curious agile
+Soft, curious, swift.
 ```
 
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate "gpt-oss:20b" "Describe a rabbit in 3 words"
+OLLAMA_LIB_DEBUG=1 ollama_generate "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```
-[DEBUG] 16:24:44:372400300: ollama_generate: [gpt-oss:20b] [Describe a rabbit in 3 words]
-[DEBUG] 16:24:44:409403200: ollama_generate_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
-[DEBUG] 16:24:44:430963200: ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] 16:24:44:465524900: ollama_api_post: [/api/generate] [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":false}]
-[DEBUG] 16:24:44:496761100: _call_curl: [POST] [/api/generate] [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":false}]
-[DEBUG] 16:24:44:517472800: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 16:24:44:539287000: _call_curl: Turbo Mode
-[DEBUG] 16:24:44:571695500: _call_curl: json_body: [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":false}]
-[DEBUG] 16:24:45:590075300: ollama_api_post: success: return 0
-[DEBUG] 16:24:45:621231100: ollama_generate_json: success: return: 0
-[DEBUG] 16:24:45:669712300: ollama_generate: result: 470 bytes
-[DEBUG] 16:24:45:716342500: _is_valid_json: VALID: return 0
-fluffy, swift, gentle
-[DEBUG] 16:24:45:768580000: ollama_generate: success: return: 0
+[DEBUG] 19:44:26:130212200: ollama_generate: [gpt-oss:120b] [Describe a rabbit in 3 words]
+[DEBUG] 19:44:26:161086700: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
+[DEBUG] 19:44:26:186736200: ollama_generate_json: OLLAMA_LIB_STREAM: 0
+[DEBUG] 19:44:26:223396900: ollama_api_post: [/api/generate] [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
+[DEBUG] 19:44:26:253689800: _call_curl: [POST] [/api/generate] [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
+[DEBUG] 19:44:26:284751300: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 19:44:26:319785600: _call_curl: Turbo Mode
+[DEBUG] 19:44:26:343034900: _call_curl: json_body: [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
+[DEBUG] 19:44:27:338940700: ollama_api_post: success: return 0
+[DEBUG] 19:44:27:360445700: ollama_generate_json: success: return: 0
+[DEBUG] 19:44:27:413490300: ollama_generate: result: 382 bytes
+[DEBUG] 19:44:27:462153100: _is_valid_json: VALID: return 0
+Fluffy, timid, swift.
+[DEBUG] 19:44:27:523341200: ollama_generate: success: return: 0
 ```
