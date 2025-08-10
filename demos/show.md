@@ -1,6 +1,6 @@
 # ollama_show, ollama_show_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.2
 
 ollama_show "gpt-oss:20b"
 

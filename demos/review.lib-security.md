@@ -1,6 +1,6 @@
 # Security Review of [ollama_bash_lib.sh](../ollama_bash_lib.sh)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.2
 
 
 ```bash
@@ -11,246 +11,153 @@ Output your review in Markdown format."
 file="../ollama_bash_lib.sh"
 ollama_generate "gpt-oss:120b" "$task\n\n$(cat "$file")"
 ```
-# Security Review – **Ollama Bash Library**  
-*Version 0.43.1 – Bash ≥ 3.2*  
+# Security Review – **Ollama Bash Lib**  
+**Version:** 0.43.2  
+**Target Bash:** ≥ 3.2  
 
 ---
 
-## 1. Executive Summary  
+## 1. Overview  
 
-The library implements a fairly comprehensive wrapper around the Ollama HTTP API using `curl` and `jq`. Overall the code is well‑structured, makes good use of functions, and respects Bash 3.2 compatibility.  
+The script provides a Bash‑only client library for the Ollama inference API.  
+It bundles a fairly large set of convenience functions (API wrappers, model handling, chat, streaming, etc.) and relies on external tools:
 
-However, several security‑relevant issues have been identified:
+| Tool   | Used for |
+|--------|----------|
+| `curl` | HTTP requests |
+| `jq`   | JSON construction / parsing |
+| `ollama` (CLI) | Local model enumeration & management |
+| `column`, `compgen` | Optional pretty‑printing |
 
-| Severity | Issue |
-|----------|-------|
-| **Critical** | Un‑restricted `eval` of AI‑generated command in `ollama_eval`. |
-| **High** | Potential leakage of the Turbo API key via `ollama_lib_about` and environment variables. |
-| **Medium** | Incomplete input validation for API endpoints and model names – path traversal / injection possible if a caller supplies malicious strings. |
-| **Medium** | Use of Bash regular‑expression word‑boundary `\b` (unsupported in Bash 3.2) makes the “dangerous‑command” filter ineffective. |
-| **Low** | No `set -euo pipefail` / strict mode – unexpected failures may be ignored. |
-| **Low** | Missing checks for the presence of `jq` (used throughout). |
-| **Low** | Inconsistent exit‑status handling for functions that pipe through external commands (`curl`, `jq`). |
-
-The remainder of the code follows reasonable safe‑coding practices (proper quoting, use of `--arg` for jq, no command‑substitution with uncontrolled data, etc.).
+The library is meant to be sourced by other Bash programs or used interactively.
 
 ---
 
 ## 2. Threat Model  
 
-| Asset | Potential Attacker | Goal |
-|-------|--------------------|------|
-| **API key (`OLLAMA_LIB_TURBO_KEY`)** | Any local user who can read the process environment or call `ollama_lib_about`. | Exfiltrate the key to use the Ollama Cloud service. |
-| **System shell** | Malicious or compromised model output. | Execute arbitrary commands with the privileges of the user running the script. |
-| **API endpoint** | An attacker controlling the script’s arguments. | Inject path components (`../../etc/passwd`) or malicious query strings into the HTTP request. |
-| **Log output** | Anyone with read access to stderr/stdout. | Harvest the key from debug logs if `OLLAMA_LIB_DEBUG` is enabled. |
+| Asset | Potential Adversary | Impact |
+|-------|--------------------|--------|
+| **API key** (`OLLAMA_LIB_TURBO_KEY`) | Any process that can read the script’s debug output or environment | Unauthorized use of the paid Ollama Cloud API |
+| **Generated commands** (`ollama_eval`) | User of the library (or a compromised script) | Arbitrary command execution on the host |
+| **User‑supplied data** (model name, prompts, messages) | Malicious user or attacker controlling input | Injection into HTTP request body, JSON, or Bash eval |
+| **Environment variables** (`OLLAMA_HOST`, `OLLAMA_LIB_API`) | Other processes spawned from the same shell | Unintended redirection of traffic, Man‑in‑the‑Middle |
+| **Debug output** | Anyone with console access | Disclosure of internal data (API key, URLs, payloads) |
+
+The review focuses on **information disclosure**, **command injection**, **unsafe handling of user‑controlled data**, and **compatibility with Bash 3.2**.
 
 ---
 
-## 3. Detailed Findings  
+## 3. Findings  
 
-### 3.1. Code Execution (`eval`) – **Critical**  
+### 3.1. Information Disclosure  
 
-`ollama_eval()` builds a command string (`cmd`) from the LLM output and then runs:
+| Issue | Description | Severity |
+|-------|------------|----------|
+| **Redaction only touches one secret** (`OLLAMA_LIB_TURBO_KEY`). | `_redact` replaces the turbo API key but any other sensitive values (e.g., custom headers, tokens stored in other env vars) are printed as‑is in debug logs. | Medium |
+| **Debug logging of full payloads** (`_debug "_call_curl: json_body: [${json_body:0:120}]"`). | Even with truncation, the first 120 characters can contain secrets, API paths, or user‑provided data. When `OLLAMA_LIB_DEBUG=1` a malicious user could trigger verbose logging to extract data. | Medium |
+| **Exporting `OLLAMA_HOST` and `OLLAMA_LIB_API`** in `ollama_app_turbo`. | The function modifies the environment of the calling shell, potentially affecting unrelated scripts that reuse the same shell. | Low |
 
-```bash
-eval "$cmd"
-```
+### 3.2. Command Injection  
 
-* The command is **not** sanitized beyond a simple regex that tries to detect dangerous tokens.  
-* Bash’s `[[ … =~ … ]]` does **not** support `\b` word‑boundary, so the regex never matches on many platforms (including Bash 3.2).  
-* Even if the regex worked, the list of “dangerous” words is incomplete (e.g., `chmod`, `chown`, `sed`, `awk`, `printf`, redirections like `> /etc/shadow`).  
-* An attacker who can influence the generated prompt (or simply runs the function with a malicious model) can cause arbitrary code execution.
+| Issue | Description | Severity |
+|-------|------------|----------|
+| **Unchecked `eval` in `ollama_eval`**. | The function automatically runs the generated command via `eval "$cmd"` after a simple “Y/N” prompt. If the LLM is compromised or the prompt is malicious, any string that expands to a valid Bash command (including pipelines, redirections, variable assignments) will be executed with the caller’s privileges. | **Critical** |
+| **`$cmd` used in regex check before prompting** – the regex is built from a static *dangerous* list, but tokens can be obfuscated (e.g., `"r\\\$((rm -rf /))"`). The check only warns; it does not prevent execution. | High |
+| **Potential injection via JSON body**. Functions like `ollama_generate_json` embed user‑supplied `$1` and `$2` directly into a JSON document built with `jq`. `jq --arg` is safe, but if `jq` is missing the script falls back to plain string concatenation in some places (e.g., `ollama_chat_json` builds `messages_array_json` via `printf`). If a message contains `"\"` or newline characters the resulting JSON may become malformed, leading to an unexpected API request that could be abused. | Medium |
 
-### 3.2. Secret Exposure – **High**  
+### 3.3. Unsafe JSON Construction  
 
-* `ollama_lib_about` prints the length of `OLLAMA_LIB_TURBO_KEY` (`(${#OLLAMA_LIB_TURBO_KEY} characters)`).  
-* The key is also exported into the environment (`export OLLAMA_LIB_API="$host_api"` and `export OLLAMA_HOST="$host_api"`). Environment variables are visible to any child process and can be read via `/proc/<pid>/environ`.  
-* Debug logging (`_debug`) writes the *redacted* string, but the redaction only replaces the exact value of `$OLLAMA_LIB_TURBO_KEY`. If the key appears in another context (e.g., URL‑encoded), it will be printed in clear text.
+| Issue | Description | Severity |
+|-------|------------|----------|
+| **`messages_array_json` assembled with `printf ",%s"`**. | The code assumes each element of `OLLAMA_LIB_MESSAGES` is already a valid JSON object. No quoting/escaping is performed, so a malformed element (e.g., containing a comma) corrupts the final JSON array sent to the API. | Medium |
+| **`--argjson stream "$stream_bool"`** – `stream_bool` is set to the literal strings `true`/`false`. This works but is tied to `jq` version; older `jq` may reject non‑boolean literals. | Low |
+| **Missing check for `jq` presence** before functions that rely on it (e.g., `ollama_chat_json`, `ollama_generate_json`). If `jq` is absent, the script will exit with a cryptic error from `jq` command not found, potentially leaking stack traces. | Low |
 
-### 3.3. Input Validation – **Medium**  
+### 3.4. Environment & Variable Handling  
 
-* **Model names**: `_is_valid_model` checks only a simple regex `^[a-zA-Z0-9._:-]+$`. This permits `..` sequences that could be used for path traversal in commands that later treat the model name as a filesystem path (e.g., `ollama show "$1"`).  
-* **API endpoints**: Functions `_call_curl` and the higher‑level wrappers accept any string as the second argument (`endpoint`). If a caller passes something like `"/api/../etc/passwd"` the resulting URL could be malformed or malicious. No sanitisation is performed.  
-* **JSON payloads**: The library builds JSON with `jq --arg`, which is safe, but any function that directly concatenates strings (e.g., `ollama_generate` when manually constructing prompts) could produce malformed JSON that later leads to unexpected behaviours.
+| Issue | Description | Severity |
+|-------|------------|----------|
+| **Global mutable state** (`OLLAMA_LIB_STREAM`, `OLLAMA_LIB_MESSAGES`). | Functions mutate these globals without a clear “reset” contract. If a caller forgets to reset the flag, a later unrelated request may unintentionally stream data, causing the script to hang or leak partial output. | Low |
+| **`set -o pipefail`** is used, but the script frequently ignores the exit status of pipelines (e.g., `echo "$list" | tail -n+2 | sort`). In Bash 3.2 `pipefail` is available, but failing commands could be silently ignored. | Low |
+| **Use of `$(bash --version | head -n1)`** inside `ollama_eval` to fallback when `$BASH_VERSION` is empty. This spawns a subshell, which may be disallowed on hardened environments. | Low |
 
-### 3.4. Regular‑Expression Word Boundary – **Medium**  
+### 3.5. Compatibility with Bash 3.2  
 
-```bash
-local danger_regex="\b(${dangerous[*]})\b"
-```
+| Observation | Impact |
+|-------------|--------|
+| **Arrays** – fully supported in Bash 3.2. | ✅ |
+| **`${var//pattern/repl}`** – pattern replacement is supported. | ✅ |
+| **`[[ … =~ … ]]` regex operator** – present, but capture groups (`BASH_REMATCH`) work. | ✅ |
+| **`local` inside functions** – supported. | ✅ |
+| **`printf '%s' "${array[@]}"`** – works. | ✅ |
+| **`declare -A` (associative arrays)** – *not used*, so no issue. | ✅ |
+| **`printf -v`** – not used. | ✅ |
+| **Parentheses in `[[ … || ( … && … ) ]]`** – Bash 3.2 treats them as grouping, which is valid. | ✅ |
 
-* Bash’s built‑in regex engine does **not** understand `\b`. The pattern is treated as a literal `\b`, thus the filter never triggers.  
-* Result: the “dangerous‑command” detector is effectively disabled.
-
-### 3.5. Error‑Handling & Strict Mode – **Low**  
-
-* The script never enables `set -euo pipefail`. Consequently, failures in pipelines (e.g., `printf … | curl …`) can be ignored, and unset variables may be used accidentally.  
-* Functions such as `_call_curl` return the raw `curl` status, but callers sometimes ignore it (`ollama_list_json` simply runs `_call_curl` and returns 0 irrespective of the HTTP payload).  
-
-### 3.6. Dependency Checks – **Low**  
-
-* `_call_curl` verifies the presence of `curl`.  
-* Many functions rely on `jq` but do **not** call `_exists "jq"` before using it. If `jq` is missing, the script aborts with a cryptic “command not found” rather than a graceful error.
-
-### 3.7. Bash‑3.2 Compatibility – **Low**  
-
-* All syntax used (`local`, arrays, `${var:offset:length}`, arithmetic `(( ))`) is supported in Bash 3.2.  
-* The only potential compatibility issue is the use of `declare -A` (associative arrays) – not present here.  
-* However, the `[[ … =~ … ]]` regex engine in Bash 3.2 is *not* PCRE; it lacks `\b`, which is already a functional problem.
+Overall the script is **compatible with Bash 3.2**.
 
 ---
 
 ## 4. Recommendations  
 
-Below are concrete mitigations grouped by severity.
+### 4.1. Harden Secrets & Debug Logging  
 
-### 4.1. Eliminate `eval` / Sandbox Generation  
+1. **Centralise redaction** – keep a list of variables that should be censored (`OLLAMA_LIB_TURBO_KEY`, any `*_TOKEN`, `*_SECRET`) and replace them in `_redact`.  
+2. **Make debug logging opt‑in per‑module**, not a global `OLLAMA_LIB_DEBUG` that may be turned on inadvertently.  
+3. **Never export the API key**; keep it strictly in the script’s environment. If it must be exported for child processes, consider using a temporary file descriptor with restrictive permissions.
 
-**Recommendation:** Replace `eval "$cmd"` with a **restricted execution** model:
+### 4.2. Eliminate or Guard `eval`  
 
-* Print the generated command and require the user to copy‑paste it manually, **or**
-* Execute the command in a subshell with reduced privileges (e.g., using `sudo -u nobody` or a container).  
+* **Avoid `eval` altogether.** Instead, write the generated command to a temporary script file (`mktemp`) and run it with `bash "$tmpfile"` after user confirmation.  
+* If `eval` must stay, **strictly whitelist allowed characters** (e.g., `^[a-zA-Z0-9_./\-\$ ]+$`) before execution, and reject anything else.  
 
-**Example refactor:**
+### 4.3. Improve JSON Safety  
 
-```bash
-# Replace:
-eval "$cmd"
+* Use `jq` **exclusively** to build JSON objects, even for the messages array:  
+  ```bash
+  messages_json=$(printf '%s\n' "${OLLAMA_LIB_MESSAGES[@]}" | jq -s '.')
+  ```
+* Validate that `jq` exists at **script load time**; abort early with a clear message.  
+* When constructing `messages_array_json`, escape the content or pass the array directly to `jq` as shown above.
 
-# With:
-printf "\n--- Generated command (review before running) ---\n%s\n--- End ---\n" "$cmd"
-printf "Run the command now? (y/N) "
-read -r answer
-if [[ $answer =~ ^[Yy]$ ]]; then
-    # Run in a restricted environment
-    bash -c "$cmd"   # still risky, but at least not using eval
-fi
-```
+### 4.4. Safer API Calls  
 
-If `eval` must stay, **strictly whitelist** allowed characters:
+* When sending a JSON body, always use `curl --data @-` **with `printf '%s' "$json_body"`** **quoted** (already done). Ensure that `json_body` is never derived from untrusted command substitution without quoting.  
+* Add a sanity check on the HTTP status returned by `curl` (`-w '%{http_code}'`) and reject non‑200 responses before piping output to downstream parsers.
 
-```bash
-if [[ $cmd =~ ^[[:alnum:]_./\ -]+$ ]]; then
-    eval "$cmd"
-else
-    _error "Generated command contains unsafe characters."
-fi
-```
+### 4.5. Harden Input Validation  
 
-### 4.2. Harden Dangerous‑Token Detection  
+* **Model names** – the current regex `^[a-zA-Z0-9._:-]+$` is acceptable, but also reject names containing whitespace.  
+* **Prompt strings** – they are passed to the API unchanged. Consider limiting length (e.g., `[[ ${#prompt} -le 8192 ]]`) to avoid denial‑of‑service via huge payloads.
 
-* Use Bash’s `[[ … =~ … ]]` without `\b` and expand the dangerous list.  
-* Build the regex with word‑boundary equivalents (`(^|[[:space:];|])`).
+### 4.6. Reduce Global Side‑Effects  
 
-```bash
-local IFS='|'
-local danger_regex='(^|[[:space:];|])('"${dangerous[*]}"')([[:space:];|]|$)'
-if [[ $cmd =~ $danger_regex ]]; then
-    _error "Command contains prohibited token: ${BASH_REMATCH[2]}"
-    return 1
-fi
-```
+* Make functions **pure** where possible: accept a `stream` flag argument rather than toggling the global `OLLAMA_LIB_STREAM`.  
+* Provide a `ollama_reset` helper that clears `OLLAMA_LIB_MESSAGES` and resets `OLLAMA_LIB_STREAM` to the default.
 
-### 4.3. Prevent Secret Leakage  
+### 4.7. Defensive Error Handling  
 
-* **Never** expose the key length or the key itself in any output.  
-* Keep the key **out of the environment**; store it only in a shell variable that is *not* exported.  
+* After any pipeline, check `${PIPESTATUS[0]}` if `pipefail` is not enough.  
+* Return distinct error codes for common failure modes (e.g., 101 = missing `curl`, 102 = missing `jq`, 103 = API key not set).
 
-```bash
-# Remove export
-# export OLLAMA_LIB_API="$host_api"
-OLLAMA_LIB_API="$host_api"   # keep as ordinary variable
-```
+### 4.8. Documentation & Safe Defaults  
 
-* In `ollama_lib_about`, remove the line that prints the key length.  
-
-* Ensure debug logging redacts the key even when it appears in other contexts (URL‑encoded, JSON). A more robust approach is to replace any occurrence of the key *regardless of surrounding characters*:
-
-```bash
-_redact() {
-    local msg="$1"
-    if [[ -n $OLLAMA_LIB_TURBO_KEY ]]; then
-        msg=${msg//"$OLLAMA_LIB_TURBO_KEY"/'[REDACTED]'}
-        # also redact URL‑encoded version
-        local enc_key
-        enc_key=$(printf '%s' "$OLLAMA_LIB_TURBO_KEY" | jq -s -R -r @uri)
-        msg=${msg//"$enc_key"/'[REDACTED]'}
-    fi
-    printf '%s' "$msg"
-}
-```
-
-### 4.4. Validate & Sanitize API Endpoints & Model Names  
-
-* **Endpoint sanitisation** – reject characters other than alphanumerics, `/`, `-`, `_`, and `.`.  
-
-```bash
-_is_valid_endpoint() {
-    [[ $1 =~ ^/[-_/a-zA-Z0-9]+$ ]]
-}
-```
-
-* Use this check in `_call_curl` before concatenating the URL.
-
-* For model names, forbid `..` and leading `-` which could be interpreted as options by the `ollama` CLI.
-
-```bash
-_is_valid_model() {
-    local model="${1:-}"
-    if [[ -z $model ]]; then
-        model=$(ollama_model_random) || return 1
-    fi
-    [[ $model =~ ^[a-zA-Z0-9._:-]+$ ]] || return 1
-    [[ $model != *..* ]] || return 1   # block path traversal
-    printf '%s' "$model"
-}
-```
-
-### 4.5. Enable Strict Bash Mode  
-
-At the top of the script, add:
-
-```bash
-set -euo pipefail
-IFS=$'\n\t'   # sensible IFS
-```
-
-* Wrap external commands that may fail in `|| { _error "..."; return $?; }` to keep a meaningful exit status.
-
-### 4.6. Verify `jq` Availability Early  
-
-Add a **library‑initialisation** function that checks required external tools:
-
-```bash
-_ensure_dependencies() {
-    for cmd in curl jq; do
-        if ! _exists "$cmd"; then
-            _error "Required command not found: $cmd"
-            return 1
-        fi
-    done
-}
-_ensure_dependencies || exit 1
-```
-
-### 4.7. Miscellaneous Improvements  
-
-| Area | Suggestion |
-|------|------------|
-| **Logging** | Write debug logs to a dedicated file (e.g., `$HOME/.ollama_lib/debug.log`) when `OLLAMA_LIB_DEBUG=1` instead of noisy `stderr`. |
-| **HTTP errors** | Use `curl --fail-with-body` (available in newer curl) to capture error payloads for better diagnostics. |
-| **Random model selection** | Use `shuf -n1` if available, otherwise keep the current `$RANDOM%${#models[@]}` but guard against empty `$models`. |
-| **Function documentation** | Add `# Requires: jq` tags consistently, and include a note about the unsafe `eval`. |
-| **Version detection** | Provide a runtime check that the Bash version is ≥ 3.2 and exit with a friendly message otherwise. |
+* Document that **`ollama_app_turbo`** overwrites `OLLAMA_HOST` globally and advise users to call it in a subshell if they need temporary Turbo mode.  
+* Provide an example of safe use of `ollama_eval` with the new “write‑to‑tempfile” approach.
 
 ---
 
 ## 5. Conclusion  
 
-The **Ollama Bash Library** is a functional and fairly secure wrapper when used by trusted users. The principal risk lies in the `ollama_eval` function, which executes AI‑generated code without sufficient sanitisation, and in the inadvertent exposure of the Turbo API key. By applying the mitigations above—especially removing or sandboxing `eval`, tightening input validation, and protecting secrets—the library can be hardened to a level appropriate for production or shared‑host environments.
+The **Ollama Bash Lib** is functional and compatible with Bash 3.2, but it contains several **high‑impact security weaknesses**:
 
---- 
+* **Critical command‑injection risk** via `eval` in `ollama_eval`.  
+* **Partial secret redaction**, leading to possible API‑key leakage when debugging is enabled.  
+* **JSON construction that can be malformed** if a caller inserts unexpected characters.
 
-*Prepared by: [Your Name], Security Engineer*  
+Addressing the recommendations above—especially removing `eval`, centralising secret handling, and enforcing strict JSON generation with `jq`—will substantially raise the security posture of the library while preserving its ease of use.  
+
+---  
+
+*Prepared by: [Your Name], Security Analyst*  
 *Date: 2025‑08‑10*  

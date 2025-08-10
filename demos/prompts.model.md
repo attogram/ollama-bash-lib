@@ -1,6 +1,6 @@
 # Send a list of prompts to a model
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.2
 
 model: gpt-oss:20b
 
@@ -19,129 +19,149 @@ prompts:
 
 ## My hovercraft is full of eels
 
-Ah, the age‑old Monty Python one‑liner that has terrified hovercraft engineers for centuries:
-
-> *“My hover‑craft is full of eels.”*
-
----
-
-### 🎭 Monty‑Python 101
-
-The line first appeared in *Monty Python and the Holy Grail*, where the “eels” are a ridiculous, absurd threat—because, as the Montys themselves say, the *Holy Grail* is “the finest English folklore in the world.” (Seriously, it’s the *finest*, not the *funniest*.)
-
-### 🐍 The eels
-
-In the sketch, it’s revealed the eels are *not* ordinary eels, but **“a most monstrous thing”** that only the British can have a proper appreciation for. And if you’re wondering whether it makes *any* sense, the answer is: absolutely not. That’s the point—humour in nonsense.
-
-### 🤿 A Serious Hovercraft‑Safety Guide?
-
-If you happen to *actually* have a hovercraft full of eels (or if your kitchen’s a hovercraft and the fish tank is leaking), here’s how you might approach it, purely for fun:
-
-| Step | Action | Why it matters |
-|------|--------|----------------|
-| 1 | **Secure the eels** | Use a net or temporary lock‑down. Eels like to swim straight into your controls. |
-| 2 | **Check the hull** | 12‑inch thick rubber? Those eels might drill through. |
-| 3 | **Float‑on test** | Drop a piece of paper in the hover‑craft's “bay.” It should stay afloat. |
-| 4 | **Evacuate** | Either call a marine biologist or a Python fan club. |
-| 5 | **Celebrate** | Nothing beats the joy of a hover‑craft‑e‑eel adventure! |
-
-### 😂 Want the “follow‑up” line?
-
-*“There was a time when the world was an *un*organized “no‑place‑too‑big‑to‑be‑foolish” place, but we’re the ones who’re in charge of eels now. And you are my... (Wait, let me double‑check that line—Monty’s script is a bit... complicated.)”*
-
-### 📚 Bonus: Why it’s so funny
-
-The humor lies in the sheer absurdity: a hovercraft—a modern marvel of engineering—confronting a medieval‑style threat from the prehistoric sea. The British sense of comedy can handle that mismatch. It’s an absurd, nonsensical, high‑jazz situation that makes you *laugh* because you're aware it *makes no logical sense in any universe*.
-
----
-
-So if you’re ever in a conversation where someone says, *“My hovercraft is full of eels”*, just remember: you’re dealing with a classic case of Monty‑Python *world‑building* and that the appropriate response is just… maybe a *"Yes, well… that’s ... [some dramatic pause] … a very serious matter."* In other words, you might say, **“Right… well… that’s… *hilarious* to say that.”**
+Ah, the classic *Hovercraft‑and‑Eels* meme! 🚤🦑 If your real hovercraft is actually a fish‑laden contraption, you might want to double‑check the hatch, the wiring (eels are surprisingly good at generating static), and of course a good supply of sea‑salt snacks. Otherwise, if you just spotted the meme in a conversation and want to riff on it—how about adding “and a sudden rain of rubber ducks” for extra hilarity?
 
 ## Explain the theory of relativity in very simple terms.
 
-**In plain English**
+**The theory of relativity** (two parts, *special* and *general*) tells us how space, time, motion, and gravity really work. Here’s a very simple, everyday‑language version:
 
-1. **Speed of light is the universe’s speed limit.**  
-   No matter how fast you’re moving, light always travels at the same speed (about 299 million m/s). Because of that, the farther you travel toward that limit, the more strange things get: time slows down for you, and lengths in the direction you’re moving shorten. That’s the core of *Special Relativity*.
+---
 
-2. **Time is not absolute.**  
-   Imagine two twins. One stays on Earth while the other zooms near light speed in a spaceship. When the traveler returns, they’ve aged less than the Earth‑bound twin. That’s *time dilation*—time literally stretches or contracts depending on your motion.
+## 1. Special Relativity (about motion)
 
-3. **Space is not rigid.**  
-   Rather than thinking of gravity as a “push” from the Sun on Earth, *General Relativity* says mass warps the fabric of space‑time. Think of placing a heavy ball on a stretched rubber sheet; the sheet bends, and smaller balls roll toward it. That bending tells objects how to move—what we feel as gravity.
+| Idea | What it means in plain words |
+|------|------------------------------|
+| **Light moves at the same speed for everyone** | No matter how fast you’re moving, if you shine a light, it travels at the same speed (≈ 300 000 km per second). Think of it like a speed limit that can’t be broken. |
+| **Time and Space are woven together** | When you’re moving fast, your clock ticks a little slower and you’re a little “shorter” along the direction you’re moving. It’s not that something’s physically changing you; our viewpoint—our “frame”—makes those things look different. |
+| **Mass and energy are two sides of the same coin** | \(E = mc^2\) shows that a little mass can be turned into lots of energy (and vice‑versa). It’s why nuclear energy is so powerful.
 
-4. **The big picture: events are linked in a 4‑D space‑time.**  
-   Instead of separate “space” and “time,” the universe is a single fabric where distances and intervals depend on how fast you’re moving and how strong the gravitational field is. In everyday life, we rarely notice relativistic effects because our speeds are far below light’s speed and Earth's gravity is weak. But for high‑speed particles, GPS satellites, or black holes, relativity is essential and has been experimentally confirmed time and again.
+### Take‑away: the faster you move, the more you see time slow down and lengths shrink—but you’ll never notice anything “odd” while you’re moving. The equations of physics stay the same for everyone, no matter who’s standing still and whomever’s racing forward.
+
+---
+
+## 2. General Relativity (about gravity)
+
+| Idea | What it means in plain words |
+|------|------------------------------|
+| **Gravity isn’t a force pulling objects** | Big things (planets, stars, black holes) bend the fabric of space and time around them, like a heavy ball on a rubber sheet. |
+| **Objects follow the curved paths** | A satellite orbiting Earth is just rolling along a curved path because Earth has bent the space around it—there’s no invisible pull, just geometry telling it where to go. |
+| **Space‑time warps by mass and energy** | The more massive something is, the more it warps space‑time, and the stronger its “gravity” feels to us.
+
+### Take‑away: Think of space‑time as a stretchy, dynamic playground. Massive objects make dents in it, and those dents guide how all other objects move. That’s why the Moon stays orbiting Earth without any visible hand pulling it.
+
+---
+
+### Quick Metaphor
+
+- **Special Relativity**: Imagine you and your friend are each riding a scooter in a straight line, and you both throw a ball forward. Each of you sees your ball travel the same amount of distance and at the same speed, but your clocks run a touch slower and you appear a bit shorter—because each of you follows the same “rules” for how speed, time, and space relate.
+
+- **General Relativity**: Picture a stretched trampoline. When a bowling ball rolls onto it, the trampoline dips. A marble then naturally rolls around the ball, not because a hand is tugging it, but because the trampoline’s surface has curved. That’s how gravity works for Earth and other massive bodies.
+
+---
+
+#### Bottom line
+
+Relativity reshapes our intuition:  
+- **Speed of light is a hard limit**.  
+- **Time and space adjust depending on motion**.  
+- **Mass curves the fabric of reality, guiding motion**.
+
+Everything else—physics, astronomy, GPS satellites—works because we’ve learned to use these new “rules” to describe how the universe behaves.
 
 ## Invent a new holiday and describe how people celebrate it.
 
-### The Echo Festival – **Home Echo Day**
+## The Festival of Shared Light – **Lumina**  
 
 **When?**  
-The first full moon after the Autumnal Equinox (usually in mid‑September).  
-The name comes from the idea that a “home” is an echo you carry in your heart, and that on this night its resonance can be shared with others.
+The **first Saturday in March** (the day of the first spring equinox) – a moment when night and day hand off to one another in perfect balance.  
 
-**Why it exists**  
-The holiday was born in the early 2040s when many people, having migrated to mega‑cities or outer‑space habitats, began feeling a faint ache for the place that once nurtured them. A group of urban planners, folk‑artists, and ex‑migration advocates created **Home Echo Day** to remind people that “home isn’t just a location; it’s a story, a taste, a feeling, and an act of connection.”  
-
----
-
-## How people celebrate
-
-| **Aspect** | **Tradition** | **What it means** |
-|------------|---------------|-------------------|
-| **Echo Box** | Every family builds a small “Echo Box” (any type of container) containing 3–5 items that remind them of their childhood home: a pressed leaf, a snack, a music‑note‑printed card, a small toy, or a written note. | A tactile echo that you can carry and gift. |
-| **Echo Parade** | In neighborhoods, citizens line a street in “time‑capsule” fashion. Children wear their childhood clothing; adults display mini‑model houses, or wear t-shirts printed with a local map. Music from the participants’ regions plays together. | A living, moving mural of diverse home stories. |
-| **Lantern Release** | In the dusk, people gather in open parks to light biodegradable lanterns (LED or paper with a small solar‑cell heart). Each person writes a short “Echo Poem” on their lantern and releases it into the sky. The lantern’s glow becomes a collective constellation of homes. | Symbolizes sending the echo of one’s home to the wider universe. |
-| **Taste of Home** | Every household and local food stall creates “Home Plates” – dishes that speak to a particular culture or region. They share the plate with neighbors and strangers. Food is eaten together, sometimes with a “home‑story” recitation. | A delicious bridge that lets others taste a piece of someone’s past. |
-| **Story Circles** | At the nearest community hall or a virtual VR lounge, people sit in a circle and share a short “Echo Story” – a 3‑minute narrative about the one moment that reminds them of where they come from. The stories are recorded and added to the **Echo Archive** (a public blockchain so that the stories cannot be altered). | Gives voice to personal echoes, and protects cultural memory. |
-| **Plant a Home Tree** | After each celebration, a sapling is planted in a community garden or rooftop garden; the tree’s name is written on a plaque that includes the address and a keyword representing the child’s home (e.g., “River,” “Bamboo”). | A living echo that grows for future generations. |
-| **Digital Mosaic** | Through an AR app, everyone can tap on the “Echo Map” and see a floating mosaic of photographs representing homes. Users can add their own images; the mosaic is updated in real time. | A shared digital memory that anyone can explore from anywhere. |
-| **Silent Reflection (Optional)** | A 15‑minute moment of quiet. Participants choose a candle, sit outside or in the quiet room, and reflect on the echoes they carry. | Encourages mindfulness and appreciation of personal heritage. |
+**Why?**  
+In most cultures the winter darkening that closes at the end of the year is a reminder to keep the light inside ourselves. Lumina takes that idea one step further: *the light we keep is not meant to burn alone*. It is meant to be passed on, extended, multiplied. A community that shares its light – both physical and metaphorical – grows stronger, kinder, and more resilient.
 
 ---
 
-## Special regional differences
+### Origin Story
 
-| **Region** | **Unique Add‑ons** |
-|------------|--------------------|
-| **Coastal Zones** | Build sand-echo sculptures that rise from waves; participants deposit sea‑air scented oils in their Echo Box as a tribute to their oceanic heritage. |
-| **Mountain Communities** | Echo tents are set up at peak summits where guests can gaze at the stars while hearing recorded old‑school songs echoing across the wind. |
-| **Digital Hubs** | Virtual avatars from different timelines share 3‑second “holo‑snapshots” of their “home” (like a city block visible from their bedroom window). |
-| **Space Corridors** | On moon habitats, participants host “Solar Echo Concerts,” where songs are played using surface‑mounted acoustic panels that echo off the regolith. |
+Long before any maps were drawn, a small mountain village sat beneath a sky that never turned orange at sunrise. An old woman, the village’s “Light‑keeper,” claimed her grandmother had seen a star fall to a forest.  
+The star, she said, was a gift: if the villagers kept it warm, it would illuminate their homes for a full season. The village grew, but the warmth ran out – not because of lack of work but because of a growing selfishness.  
+Each night, as the star grew dimmer, the Light‑keeper whispered, *“A star can only shine when many hands keep it alive.”*  
+Thus, on the first day after the longest night of the year, the villagers lit tiny candles, passed them along, and set up firelight corners in every household. By daylight, the village was a network of glowing threads, and every winter night the star shone brighter than ever.
 
----
-
-## Why it matters
-
-- **Social cohesion**: By hearing each other’s home stories, people find connections in shared longing or pride.
-- **Cultural preservation**: Memories embedded in Echo Boxes and the Echo Archive provide a living repository for future generations.
-- **Environmental stewardship**: Planting Home Trees and using biodegradable lanterns encourage sustainable practices.
-- **Mental health boost**: The act of sharing and reflecting reduces feelings of isolation after migration or relocation.
+In modern times, that story was reinterpreted as “the gift of shared knowledge and community care.” That re‑imagining became the seed of Lumina.
 
 ---
 
-### Quick “How to” for a personal Home Echo Day
+## How People Celebrate
 
-1. Gather 3–5 items that remind you of your childhood home.  
-2. Write a 30‑word “Echo Poem.”  
-3. Light a lantern, whisper the poem, and release it.  
-4. Invite neighbors to share their Echo Boxes.  
-5. Plant a tree or seed in a local garden, marking it with “Home Tree” and your key word.  
-6. Record your story, tag it with #HomeEchoDay, and submit to the public archive.  
+| **Morning (Sunrise)** | **Midday (Noon)** | **Afternoon** | **Evening (Sunset)** | **Night** |
+|------------------------|-------------------|---------------|----------------------|-----------|
+| **“Light‑Starter” Ritual** – Participants gather at a local community center or a park to light a communal candle. The sound of the flame is recorded and shared via a city app. | **Workshops & Learning Circles** – Kids and adults create lanterns from recycled materials, learn basic candle‑making, or host storytelling sessions about “lights” in their lives (a guiding teacher, a hope, a hobby). |
+| **Lantern Parade** – Color‑coated paper lanterns, hand‑blown glass or metal, float down a local trail as sunrise paints the sky. | **Shared Meals** – In most towns, markets set up "open‑table" stalls. Everyone brings a dish and places it on a big communal table. A local DJ plays traditional “warmth” songs. |
+| **Tree‑Planting & Greenlight Stalls** – Fresh seedlings for “Life‑Lights” (small pots that households can keep). Kids get a “Light‑certificate” after planting. | **“Light of Life” Art Installations** – A wall of LED‑lit paper, a tapestry, or a sculptural tree that illuminates as the evening light changes. Light‑artists from schools/communities showcase their work. |
+| **Shadow‑Play & Story Circles** – An evening session where elders and youths read stories about lights from myths, history, and personal narratives. The shadows of their faces are projected on a white wall, creating a living tapestry. | **Community Dance & Song** – Traditional dances that revolve around “passing” a flame (or a light‑stick). All ages take part; the dance ends with everyone holding a common lantern. |
+|  |  | **Volunteer “Light Stations”** – Set up at intersections and corners; each station offers a free‑of‑charge candle, a small battery‑powered lantern, and a book on sustainability. Passersby can drop a candle for someone to borrow. |  | **“Glow‑Garden”** – Gardens that have solar powered LED flowers, slow‑burning paper lanterns, and a bonfire where people write their wishes on slips of paper, fold them, and light them together (the “Wish‑Lights”). The fire is symbolic of collective hope. |
+|  |  |  |  | **“Afterthoughts”** – On social platforms, residents upload the story that was shared that day, tagging the village. “Light‑keeper” (often a local elder) posts an inspirational message: “We only have 24 hours to keep the light burning.” |
 
-Enjoy the holiday that reminds us everyone carries a home inside them, and the best way to honor it is by sharing its echo with others. Happy Home Echo Day!
+---
+
+### Symbols & Colors
+
+| Symbol | Meaning | How to Use |
+|--------|---------|------------|
+| **White Candle** | Hope & shared light | Light at a ceremony; pass from one person to another. |
+| **Orange Lantern** | Energy & warmth | Lantern parades, children’s art pieces. |
+| **Light‑green Leaf** | Growth & sustainability | Planting seeds, hanging “seed‑light” tags. |
+| **Blue Battery** | Knowledge & future | LED installations, smart‑phone apps that track “Light‑sharing” points. |
+
+---
+
+### Food & Drink
+
+> *“Light‑Pot” soup* – A communal bowl of soup made with vegetables harvested from local farms, boiled over a shared fire.  
+> *“Glow‑Tea” tea* – Herbal teas served in glass cups that reflect the dancing lanterns.  
+> *“Solar‑Popcorn”* – Popcorn popped on solar‑powered hot plates; a subtle nod to renewable energy.  
+> *“Solar‑Bakes”* – Sweet treats that glisten with edible glitter, catching the light of the lantern parades.
+
+All dishes are served warm, communal, and sometimes edible (or at least symbolic of “warmth”). The food becomes a physical manifestation of the communal light.
+
+---
+
+## Why It Matters Today
+
+* **Community resilience.** In an age of digital isolation, a community coming together around a light reminds us that we’re part of a network, literally and figuratively.
+* **Environmental stewardship.** The tradition of using renewable, biodegradable materials and solar power underscores the importance of sustainability.
+* **Mental well‑being.** Sharing a tangible light provides a calming ritual; the act of passing a candle or sharing words can reduce feelings of loneliness.
+* **Creative expression.** By letting people design their own lanterns, the festival encourages local artisanship and personal identity.
+
+---
+
+### How to Start Celebrating Locally
+
+1. **Form a “Light‑Keeper” council** (volunteer group).  
+2. **Reserve a central location** for a communal candle: a park, school courtyard, or town square.  
+3. **Arrange for a local artist** or school to build a light installation.  
+4. **Invite the community** and advertise via local radio, social media, and flyers with the phrase: *“Join us on Lumina – Light up the moment together.”*  
+5. **Document and share** the event on a community app; create a “Light‑Tracker” feed where people can upload pictures of their lanterns or hand‑written lights.  
+6. **Make it a recurring tradition** – ask participants to bring a candle to pass on at the next city gathering (e.g., the next fair, the school play).
+
+---
+
+**In short:**  
+Lumina is not just a day of festivities; it’s a reminder that every person carries a bit of light that can brighten the world if shared. From a sunrise lantern parade to a sunset “Wish‑Light” bonfire, every part of the day invites families, friends, and neighbors to keep the glow alive – together.
 
 ## If a train travels at 60 miles per hour for 3 hours, how far does it go?
 
-The train travels  
+A train traveling at **60 miles per hour** for **3 hours** covers:
+
 \[
-\text{Distance} = \text{Speed} \times \text{Time} = 60\ \text{mph} \times 3\ \text{h} = 180\text{ miles}.
+\text{Distance} = \text{Speed} \times \text{Time}= 60 \text{ mph} \times 3 \text{ h}= 180 \text{ miles}
 \]
+
+So the train goes **180 miles**.
 
 ## Translate to French: 'The weather is nice today.'
 
-Le temps est agréable aujourd’hui.
+Il fait beau aujourd'hui.
 
 ## Is the following review positive or negative? 'I loved the movie, it was fantastic!'
 
@@ -150,164 +170,179 @@ Positive
 ## If all cats are animals and some animals are playful, can we say some cats are playful?
 
 **Short answer:**  
-No – the statements do *not* logically entail that some cats are playful.  
-We need an extra premise that links the playful animals to cats specifically.
+No – you can’t say that *some* cats are playful just from those two premises.
 
 ---
 
-## Why the inference fails
+## Why the conclusion does not follow
 
-| Premise 1 | Premise 2 | Desired conclusion |
-|-----------|-----------|--------------------|
-| All cats are animals. | Some animals are playful. | Some cats are playful. |
+Let’s write the two premises in logical form.
 
-In symbolic logic this is:
+1. **All cats are animals**  
+   \[
+   \forall x \bigl(\text{Cat}(x) \rightarrow \text{Animal}(x)\bigr)
+   \]
 
-1. ∀x (Cat(x) → Animal(x))  
-2. ∃x (Animal(x) ∧ Playful(x))  
-∴ ∃x (Cat(x) ∧ Playful(x))
+2. **Some animals are playful**  
+   \[
+   \exists x \bigl(\text{Animal}(x) \land \text{Playful}(x)\bigr)
+   \]
 
-This inference is **invalid**. From a universal statement about cats belonging to the animal class and an existential statement about the animal class, we cannot determine whether the animal that happens to be playful is a cat.
+What we would need to conclude is
 
-### Counterexample
+\[
+\exists x \bigl(\text{Cat}(x) \land \text{Playful}(x)\bigr)
+\]
 
-Let the universe contain:
+but this is **not logically implied** by the two premises above.  
 
-- **Cats**: Cat(A), Cat(B)
-- **Dogs**: Dog(C)
-
-Define:
-
-- `Animal(x)` holds for all cats and the dog.
-- `Playful(x)` holds **only** for the dog, not for any cat.
-
-Then:
-
-1. All cats are animals – true.
-2. Some animals are playful – the dog satisfies this, so true.
-3. Some cats are playful – false (since no cat is playful).
-
-Thus the conclusion can be false while both premises are true, so you cannot deduce it.
+Intuitively, the first statement tells us that cats are a subset of animals.  
+The second statement tells us that *at least one* animal in the whole animal kingdom is playful.  
+That single playful animal could belong to any kind of animal—dogs, birds, fish, etc.—and it might happen that none of the playful animals happen to be cats.
 
 ---
 
-## What would be sufficient instead?
+## A concrete counter‑example
 
-- **Strong version:**  
-  All cats are playful.  
-  Then *all* cats would be playful, and thereby *some* cats would be playful.
+Suppose the universe contains:
 
-- **Weak version (just enough):**  
-  Some cats are animals.  
-  *and*  
-  Some animals are playful **and** those playful animals are cats.  
-  Or simply:  
-  Some cats are playful.  
+| Animal | Playful? |
+|--------|----------|
+| **Cat 1** | No |
+| **Cat 2** | No |
+| **Dog 1** | Yes |
+| **Dog 2** | No |
+| *All other animals* | No |
 
-In everyday language, we might naturally think "yes" because many cats are playful, but that is an empirical observation, not a logical deduction.
+1. **All cats are animals** – true, because both Cat 1 and Cat 2 satisfy the predicate *Animal*.
+2. **Some animals are playful** – true, because Dog 1 satisfies *Animal* and *Playful*.
+
+But **no cat is playful**. So the inference “some cats are playful” is false in this model.
 
 ---
 
-## Key takeaway
+## What would be needed to make the inference valid
 
-| From | To |
-|------|----|
-| All A are B & Some B are C | **Not** ⇒ Some A are C |
+- **All playful animals are cats**  
+  \[
+  \forall x\bigl(\text{Animal}(x)\land \text{Playful}(x) \rightarrow \text{Cat}(x)\bigr)
+  \]
+  would allow us to combine the two premises: the single playful animal in premise 2 would have to be a cat, giving us a playful cat.
 
-This pattern is often called an **existential fallacy**: you can’t “pull” a particular element from an existential premise into a specific subclass without an explicit link.
+- **All animals are playful**  
+  \[
+  \forall x\bigl(\text{Animal}(x) \rightarrow \text{Playful}(x)\bigr)
+  \]
+  would also give the conclusion, because then any cat (being an animal) would automatically be playful.
 
-So, based purely on the two given premises, we **cannot** say that some cats are playful. You would need additional evidence that a playful animal is, in fact, a cat.
+With only the two given premises, you *cannot* conclude that some cats are playful.
+
+---
+
+### Bottom line
+
+From “All cats are animals” *and* “Some animals are playful,” the safest inference is **“There exists a playful animal.”**  
+We **cannot** add *cat* to that statement without additional information.
 
 ## Write a Bash function that returns the sum of a list of numbers.
 
-Below is a **portable Bash function** that adds any number of arguments you pass to it and prints the result (or assigns it to a variable, if you prefer).  
-It works for integers, and with a tiny tweak you can also handle floating‑point numbers.
+Here’s a compact, POSIX‑compatible Bash helper that takes any number of numeric arguments and prints the total.  
 
 ```bash
-# ----------------------------------------------------------------------
-# sum <num1> <num2> ... <numN>
+# ------------------------------------------------------------------
+# sum() – Return the arithmetic sum of all its arguments.
 #
-#   Prints the sum of all positional arguments.
-#   Example:  sum 1 2 3 4   → 10
-# ----------------------------------------------------------------------
+# Usage:
+#   result=$(sum 1 2 3)          # result = 6
+#   sum 5 10 -3                 # prints 12 to stdout
+#
+# The function works with integer values (positive, negative, zero).
+# For floating‑point arithmetic you could pipe the arguments to `awk`
+# instead of using the built‑in $((…)) expansion.
+# ------------------------------------------------------------------
 sum() {
     local total=0
     for n in "$@"; do
-        # Use integer arithmetic.
-        # If you want floats, replace:    (( total += n ))
-        # By:                               total=$(echo "$total + $n" | bc)
-        (( total += n ))
+        # The expression $((total + n)) expands to a shell arithmetic
+        # expression, which automatically validates that `$n` is
+        # numeric. Bash will silently ignore non‑numeric words, but
+        # you can add a guard if you want stricter checking.
+        total=$((total + n))
     done
     echo "$total"
 }
 ```
 
-### How to use
+### How it works
+
+| Step | Explanation |
+|------|-------------|
+| `local total=0` | Initial accumulator. |
+| `for n in "$@"; do` | Iterate over every argument passed to the function. |
+| `total=$((total + n))` | Bash’s `$((…))` does integer arithmetic. The result is re‑assigned to `total`. |
+| `echo "$total"` | The final sum is printed to standard output so callers can capture it with command substitution. |
+
+### Usage examples
 
 ```bash
-# Simple integer sum
-sum 2 4 6
-# → 12
+# Simple sum
+echo "1 + 2 + 3 = $(sum 1 2 3)"     # → 1 + 2 + 3 = 6
 
-# Using the result in a variable
-result=$(sum 4 5 6)
-echo "Sum is $result"   # Sum is 15
+# Including negative numbers
+sum 10 -4 6   # → 12
+
+# Using the function in a loop
+for i in 1 2 3 4 5; do
+    current_sum=$(sum "$i")
+    echo "After adding $i, sum = $current_sum"
+done
 ```
 
----
+### Floating‑point variant (optional)
 
-### Supporting floating‑point numbers
-
-If you need to add decimals, switch to `bc`.  Replace the `for` loop body with:
+If you need to sum decimal numbers, use `awk` instead:
 
 ```bash
-    for n in "$@"; do
-        # Add via bc to preserve decimal precision
-        total=$(echo "$total + $n" | bc)
-    done
+sum_float() {
+    awk -v sum=0 'BEGIN { OFS=FS=" " }
+    { for (i=1; i<=NF; i++) sum += $i }
+    END { printf "%.*f\n", 6, sum }' <<<"$*"
+}
 ```
 
-Then the function will handle both integers and floats:
-
-```bash
-sum 1.5 2.25 3.75
-# → 7.5
-```
-
-Feel free to drop the `local total` line if you want the function to affect a global variable instead. The function simply echoes the final value, so you can capture it or redirect it as needed.
+Feel free to drop the function into any of your `.bashrc`, `.bash_profile`, or script files. Happy summing!
 
 ## If you drop a glass on the floor, what is most likely to happen?
 
-If you just drop a regular drinking glass on a typical hard floor, the odds are overwhelmingly in favor of it cracking, shattering, or at least breaking into a handful of pieces.  
+When a glass is dropped and lands on a hard floor, the impact is almost always enough to break it.  
+Glass is a brittle material – it can withstand great compressive forces, but even a small amount of sharp impact creates a high local stress that cracks the surface. The crack then propagates rapidly, fragmenting the glass into many pieces that scatter over the floor.
 
-Glass is a *brittle* material— it can withstand high compressive forces but loses strength once you hit or exceed its tensile limits. When the glass strikes the floor, the impact energy is released in a very short time, and because the material can’t flex to absorb it, the stress exceeds the glass’ strength and the crystal lattice fails, producing cracks that quickly propagate into a fracture pattern.  
+Typical sequence  
+1. **Contact** – the bottom of the glass strikes the floor.  
+2. **Stress concentration** – the point of contact experiences a sudden spike in pressure.  
+3. **Fracture initiation** – a micro‑crack starts at the point of maximum stress.  
+4. **Rapid crack propagation** – the crack travels through the glass, splitting it into fragments.  
+5. **Scatter** – the fragments are flung outward by the residual momentum and the force of the impact.
 
-In real life:
+Factors that could alter the outcome (but still usually result in a break) include:  
 
-- **Thin, ordinary glass** (e.g., a water‑glass or wine‑glass) will fragment almost immediately, creating sharp shards.  
-- **Thick, structurally “safe” glass** (like tempered window glass) can survive a drop, but it may still develop small crazes or a minor crack.  
-- **Hard‑edge or irregular surfaces** can magnify the force, increasing the chance of shattering.  
+- **Drop height**: Higher drops increase impact energy, making breaking more likely.  
+- **Floor material**: A very soft surface (e.g., carpet) might cushion the impact and reduce the force, but a hard surface (stone, tile, concrete) produces a higher impact pressure.  
+- **Glass thickness and quality**: Thin or already weakened glass (scratches, stress cracks) breaks more easily.  
+- **Orientation of the drop**: A glass dropped sideways or face-down can break on one edge before the rest.
 
-So for the most typical scenario—a clear, thin, standard glass dropped from a typical height onto a concrete or tile floor—the most likely outcome is breakage, most often in many small, sharp pieces.
+In almost all ordinary circumstances, a dropped glass will shatter into smaller shards and pieces, dispersing on the floor. The result is usually a mess of broken glass that must be cleaned up carefully.
 
 ## A rectangle has a length of 10 meters and a width of 4 meters. What is its area?
 
-The area \(A\) of a rectangle is found by multiplying its length by its width:
+The area of a rectangle is found by multiplying its length by its width.
 
 \[
-A = \text{length} \times \text{width}
+\text{Area} = \text{Length} \times \text{Width} = 10 \,\text{m} \times 4 \,\text{m} = 40 \,\text{m}^2.
 \]
 
-Given:
-- Length = \(10\) m  
-- Width  = \(4\) m
-
-\[
-A = 10 \text{ m} \times 4 \text{ m} = 40 \text{ m}^2
-\]
-
-**Answer:** The rectangle’s area is **40 square meters**.
+So the rectangle’s area is **40 square meters**.
 
 ## What is the largest ocean on Earth?
 
-The largest ocean on Earth is the **Pacific Ocean**. It covers more than 63 million square miles (about 165 million square kilometers), spanning from the Arctic in the north to the Antarctic in the south, and from Asia and Australia in the west to the Americas in the east.
+The largest ocean on Earth is the **Pacific Ocean**.

@@ -1,6 +1,6 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.2
 
 ## Setup
 
@@ -16,13 +16,13 @@ ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```json
 {
   "model": "gpt-oss:120b",
-  "created_at": "2025-08-10T19:40:31.859067143Z",
-  "response": "Fluffy, timid, hopping.",
-  "thinking": "The user asks: \"Describe a rabbit in 3 words\". This is straightforward. Provide three adjectives like \"fluffy, timid, hopping\". No policy issues. Just respond.",
+  "created_at": "2025-08-10T20:16:06.184680433Z",
+  "response": "Fluffy, swift, gentle.",
+  "thinking": "The user asks: \"Describe a rabbit in 3 words\". This is simple. No policy issues. Provide three words describing a rabbit. Provide maybe \"fluffy, swift, gentle\". That's three words. OK.",
   "done": true,
-  "total_duration": 450608527,
+  "total_duration": 397465886,
   "prompt_eval_count": 81,
-  "eval_count": 53
+  "eval_count": 61
 }
 
 ```
@@ -33,24 +33,24 @@ ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
 OLLAMA_LIB_DEBUG=1 ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```json
-[DEBUG] 21:40:32:536486600: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 21:40:32:557426200: ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] 21:40:32:589528600: ollama_api_post: [/api/generate] [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
-[DEBUG] 21:40:32:611477300: _call_curl: [POST] [/api/generate] [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
-[DEBUG] 21:40:32:632352900: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 21:40:32:653851400: _call_curl: Turbo Mode
-[DEBUG] 21:40:32:676139500: _call_curl: json_body: [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
-[DEBUG] 21:40:33:801572500: ollama_api_post: success: return 0
-[DEBUG] 21:40:33:823220500: ollama_generate_json: success: return: 0
+[DEBUG] 22:16:06:918522200: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
+[DEBUG] 22:16:06:940034500: ollama_generate_json: OLLAMA_LIB_STREAM: 0
+[DEBUG] 22:16:06:973908100: ollama_api_post: [/api/generate] [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
+[DEBUG] 22:16:06:996090700: _call_curl: [POST] [/api/generate] [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
+[DEBUG] 22:16:07:020306900: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 22:16:07:043114500: _call_curl: Turbo Mode
+[DEBUG] 22:16:07:064590400: _call_curl: json_body: [{"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false}]
+[DEBUG] 22:16:08:046855800: ollama_api_post: success: return 0
+[DEBUG] 22:16:08:068328500: ollama_generate_json: success: return: 0
 {
   "model": "gpt-oss:120b",
-  "created_at": "2025-08-10T19:40:33.173018597Z",
-  "response": "Fluffy, timid, swift.",
-  "thinking": "The user asks: \"Describe a rabbit in 3 words\". This is a straightforward request, not disallowed. Provide three adjectives or words like \"fluffy, timid, swift\". Should comply.",
+  "created_at": "2025-08-10T20:16:07.267872031Z",
+  "response": "Fluffy, swift, curious.",
+  "thinking": "User asks: \"Describe a rabbit in 3 words\". That's fine. Provide three words. No policy issue. Answer succinctly.",
   "done": true,
-  "total_duration": 641774235,
+  "total_duration": 323415919,
   "prompt_eval_count": 81,
-  "eval_count": 57
+  "eval_count": 44
 }
 
 ```

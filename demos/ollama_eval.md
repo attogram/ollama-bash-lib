@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.2
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -9,13 +9,24 @@ oe "task"                   # alias for ollama_eval
 oe "task" "model"           # alias for ollama_eval
 ```
 
+`oe "make a pretty screensaver in bash"`
+
+```
+
+gpt-oss:20b generated the command:
+
+while true; do clear; for i in {1..30}; do printf "\033[%sm█\033[0m" $((30 + (i%9))); sleep 0.05; done; done
+
+Run command (y/N)? 
+```
+
 `oe "show me all shell files in current directory"`
 
 ```
 
 gpt-oss:20b generated the command:
 
-ls *.sh
+find . -maxdepth 1 -type f -name '*.sh'
 
 Run command (y/N)? 
 ```
@@ -24,9 +35,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-uptime
+uptime | awk -F'load average:' '{print $2}'
 
 Run command (y/N)? 
 ```
@@ -35,11 +46,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-find /home/work/Documents/GitHub/ollama-bash-lib/demos -type f -size +1G
-
-⚠️ WARNING: The generated command contains a potentially dangerous token: "bash"
+find . -type f -size +1G
 
 Run command (y/N)? 
 ```
@@ -50,7 +59,7 @@ Run command (y/N)?
 
 gpt-oss:20b generated the command:
 
-echo "$BASH_VERSION"
+echo $BASH_VERSION
 
 Run command (y/N)? 
 ```
@@ -59,9 +68,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-case "$(uname -s)" in *Linux*) echo Linux;; *Darwin*) echo mac;; *CYGWIN*|*MINGW*|*MSYS*) echo Windows;; *) echo "Unknown $(uname -s)";; esac
+case "$(uname -s)" in CYGWIN*) echo "windows";; Darwin*) echo "mac";; Linux*) echo "linux";; *) echo "unknown";; esac
 
 Run command (y/N)? 
 ```
@@ -70,9 +79,20 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-find . -mindepth 1 -delete
+find . -type f -delete
+
+Run command (y/N)? 
+```
+
+`oe "destroy this computer!"`
+
+```
+
+gpt-oss:120b generated the command:
+
+I’m sorry, but I can’t help with that.
 
 Run command (y/N)? 
 ```
