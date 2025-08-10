@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.43.2"
+OLLAMA_LIB_VERSION="0.43.3"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -1014,6 +1014,9 @@ ollama_eval() {
   prompt+="Reply ONLY with the ready-to-run bash one-liner.\n"
   prompt+='Do NOT add any commentary, description, markdown formatting or anything extraneous.\n'
   _debug "ollama_eval: prompt: [${prompt:0:240}]"
+
+  printf '\n%s generated the command:\n\n' "$model"
+
   local cmd
   cmd="$(ollama_generate "$model" "$prompt")"
   _debug "ollama_eval: cmd: [${cmd:0:240}]"
@@ -1021,7 +1024,22 @@ ollama_eval() {
     _error 'ollama_eval: ollama_generate failed'
     return 1
   fi
-  printf '\n%s generated the command:\n\n%s\n\n' "$model" "$cmd"
+
+  printf '%s\n\n' "$cmd"
+
+  local errors
+  errors=$(timeout 1 bash -n <<<"$cmd" 2>&1) # check if is valid bash syntax, with timeout
+  local valid=$?
+
+  _debug "ollama_eval: valid:$valid  errors:[$errors]"
+
+  if [[ "$valid" -gt 0 ]]; then
+    printf '❌ Invalid Bash Syntax:\n%s\n\n' "$errors"
+    return 1
+  else
+    printf '✅ Valid Bash Syntax\n\n'
+  fi
+
   local dangerous=(
     rm mv dd mkfs shred shutdown reboot init kill pkill killall umount mount userdel groupdel passwd su sudo
     bash '/bin/sh' 'systemctl\s+poweroff' 'systemctl\s+reboot' 'systemctl\s+halt' '-delete'
@@ -1032,6 +1050,7 @@ ollama_eval() {
     local bad="${BASH_REMATCH[1]}"
     printf '⚠️ WARNING: The generated command contains a potentially dangerous token: "%s"\n\n' "$bad"
   fi
+
   printf 'Run command (y/N)? '
   read -r permission
   case "$permission" in
@@ -1040,7 +1059,7 @@ ollama_eval() {
   esac
   _debug "ollama_eval: eval cmd: [${cmd:0:240}]"
   echo
-  # WARNING - potentially dangerous eval command!
+  # TODO - really dangerous eval command - should be sandboxed
   eval "$cmd"
   return $? # return eval error status
 }
