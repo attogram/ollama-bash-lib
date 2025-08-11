@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.6
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -15,12 +15,12 @@ oe "task" "model"           # alias for ollama_eval
 
 gpt-oss:20b generated the command:
 
-while true; do clear; for i in {1..20}; do printf "\033[${i};$((RANDOM%80+1))H*"; done; sleep .1; done
+{ while true; do clear; for i in {1..30}; do tput cup 10 $((i-1)); tput setaf 6; echo -n "█"; tput sgr0; sleep 0.05; done; done; }
 
-✅ Valid command: while
-❌ Invalid Bash Syntax (code 0)
-./../ollama_bash_lib.sh: line 1045: timeout: command not found
+✅ Valid command: {
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```
 
 `oe "show me all shell files in current directory"`
@@ -29,12 +29,12 @@ while true; do clear; for i in {1..20}; do printf "\033[${i};$((RANDOM%80+1))H*"
 
 gpt-oss:120b generated the command:
 
-find . -maxdepth 1 -type f -name "*.sh" -print
+find . -maxdepth 1 -type f \( -name '*.sh' -o -name '*.bash' -o -name '*.zsh' \)
 
 ✅ Valid command: find
-❌ Invalid Bash Syntax (code 0)
-./../ollama_bash_lib.sh: line 1045: timeout: command not found
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```
 
 `oe "find files larger than 1GB"`
@@ -43,40 +43,40 @@ find . -maxdepth 1 -type f -name "*.sh" -print
 
 gpt-oss:120b generated the command:
 
-find / -type f -size +1G 2>/dev/null
+find . -type f -size +1G
 
 ✅ Valid command: find
-❌ Invalid Bash Syntax (code 0)
-./../ollama_bash_lib.sh: line 1045: timeout: command not found
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```
 
 `oe "what version of bash am I using?"`
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
 echo $BASH_VERSION
 
 ✅ Valid command: echo
-❌ Invalid Bash Syntax (code 0)
-./../ollama_bash_lib.sh: line 1045: timeout: command not found
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```
 
 `oe "am I on windows, mac, linux, or what?"`
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-case "$(uname -s)" in Darwin*) echo "macOS" ;; Linux*) echo "Linux" ;; CYGWIN*|MINGW*|MSYS*) echo "Windows" ;; *) echo "Unknown OS" ;; esac
+case "$(uname -s)" in Darwin) echo "Mac" ;; Linux) echo "Linux" ;; CYGWIN*|MINGW*|MSYS*) echo "Windows" ;; *) echo "Unknown" ;; esac
 
 ✅ Valid command: case
-❌ Invalid Bash Syntax (code 0)
-./../ollama_bash_lib.sh: line 1045: timeout: command not found
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```
 
 `oe "get system load"`
@@ -85,12 +85,12 @@ case "$(uname -s)" in Darwin*) echo "macOS" ;; Linux*) echo "Linux" ;; CYGWIN*|M
 
 gpt-oss:120b generated the command:
 
-sysctl -n vm.loadavg
+sysctl -n vm.loadavg | awk '{print $2,$3,$4}'
 
 ✅ Valid command: sysctl
-❌ Invalid Bash Syntax (code 0)
-./../ollama_bash_lib.sh: line 1045: timeout: command not found
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```
 
 `oe ""`
@@ -106,11 +106,9 @@ sysctl -n vm.loadavg
 
 gpt-oss:20b generated the command:
 
-find . -mindepth 1 -delete
+I’m sorry, but I can’t help with that.
 
-✅ Valid command: find
-❌ Invalid Bash Syntax (code 0)
-./../ollama_bash_lib.sh: line 1045: timeout: command not found
+❌ Invalid command: I’m.
 
 ```
 
@@ -120,8 +118,10 @@ find . -mindepth 1 -delete
 
 gpt-oss:20b generated the command:
 
-I’m sorry, but I can’t help with that.
+echo "I’m sorry, but I can’t help with that."
 
-❌ Invalid command: I’m.
+✅ Valid command: echo
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```

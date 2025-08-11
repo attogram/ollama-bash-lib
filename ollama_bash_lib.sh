@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.43.5"
+OLLAMA_LIB_VERSION="0.43.6"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -1075,36 +1075,47 @@ ollama_eval() {
 }
 
 # Aliases
+
 oag()  { ollama_api_get "$@"; }
-oap()  { ollama_api_post "$@"; }
 oapi() { ollama_api_ping "$@"; }
-og()   { ollama_generate "$@"; }
-ogj()  { ollama_generate_json "$@"; }
-ogs()  { ollama_generate_stream "$@"; }
-ogsj() { ollama_generate_stream_json "$@"; }
-oc()   { ollama_chat "$@"; }
-ocj()  { ollama_chat_json "$@"; }
-ocs()  { ollama_chat_stream "$@"; }
-ocsj() { ollama_chat_stream_json "$@"; }
-oe()   { ollama_eval "$@"; }
-om()   { ollama_messages "$@"; }
-oma()  { ollama_messages_add "$@"; }
-omc()  { ollama_messages_clear "$@"; }
-omco() { ollama_messages_count "$@"; }
-ol()   { ollama_list "$@"; }
-olj()  { ollama_list_json "$@"; }
-ola()  { ollama_list_array "$@"; }
-omr()  { ollama_model_random "$@"; }
-omu()  { ollama_model_unload "$@"; }
-os()   { ollama_show "$@"; }
-osj()  { ollama_show_json "$@"; }
-op()   { ollama_ps "$@"; }
-opj()  { ollama_ps_json "$@"; }
+oap()  { ollama_api_post "$@"; }
+
 oai()  { ollama_app_installed "$@"; }
 oat()  { ollama_app_turbo "$@"; }
 oav()  { ollama_app_vars "$@"; }
 oave() { ollama_app_version "$@"; }
 oavj() { ollama_app_version_json "$@"; }
 oavc() { ollama_app_version_cli "$@"; }
-ola()  { ollama_lib_about "$@"; }
+
+oc()   { ollama_chat "$@"; }
+ocj()  { ollama_chat_json "$@"; }
+ocs()  { ollama_chat_stream "$@"; }
+ocsj() { ollama_chat_stream_json "$@"; }
+
+oe()   { ollama_eval "$@"; }
+
+og()   { ollama_generate "$@"; }
+ogj()  { ollama_generate_json "$@"; }
+ogs()  { ollama_generate_stream "$@"; }
+ogsj() { ollama_generate_stream_json "$@"; }
+
+olab() { ollama_lib_about "$@"; }
 olv()  { ollama_lib_version "$@"; }
+
+ol()   { ollama_list "$@"; }
+ola()  { ollama_list_array "$@"; }
+olj()  { ollama_list_json "$@"; }
+
+om()   { ollama_messages "$@"; }
+oma()  { ollama_messages_add "$@"; }
+omc()  { ollama_messages_clear "$@"; }
+omco() { ollama_messages_count "$@"; }
+
+omr()  { ollama_model_random "$@"; }
+omu()  { ollama_model_unload "$@"; }
+
+os()   { ollama_show "$@"; }
+osj()  { ollama_show_json "$@"; }
+
+op()   { ollama_ps "$@"; }
+opj()  { ollama_ps_json "$@"; }

@@ -1,6 +1,6 @@
 # ollama_model_random
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.6
 
 ## Demo
 
@@ -9,7 +9,7 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-gpt-oss:120b
+gpt-oss:20b
 gpt-oss:20b
 ```
 
@@ -21,8 +21,8 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-[DEBUG] 22:38:32:630351000: ollama_model_random
-gpt-oss:20b
-[DEBUG] 22:38:33:475253000: ollama_model_random
+[DEBUG] 22:55:23:883681000: ollama_model_random
+gpt-oss:120b
+[DEBUG] 22:55:24:590431000: ollama_model_random
 gpt-oss:20b
 ```
