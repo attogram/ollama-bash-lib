@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.43.4"
+OLLAMA_LIB_VERSION="0.43.5"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -28,7 +28,9 @@ set -o pipefail
 # return 0 on success, 1 on error
 _redact() {
   local msg="$1"
-  msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'} # never show the private api key
+  if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
+    msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'} # never show the private api key
+  fi
   printf '%s' "$msg"
 }
 
@@ -655,14 +657,18 @@ _is_valid_model() {
 # Returns: 0 on success, 1 on error
 ollama_model_random() {
   _debug "ollama_model_random"
-  IFS=" " read -r -a models <<< "$(ollama_list_array)"
-  _debug "ollama_model_random: ${#models[@]} models found"
-  if [[ ${#models[@]} -eq 0 ]]; then
-    _error "ollama_model_random: No Models Found"
+  local models
+  models=$(ollama list | awk 'NR>1 {print $1}' | grep -v '^$') # Grab the raw list, skip header, keep the first column.
+  if [[ -z "$models" ]]; then
+    _error "ollama_model_random: get ollama list failed"
     return 1
   fi
-  echo "${models[RANDOM%${#models[@]}]}"
-  return 0
+  if _exists 'shuf'; then # `shuf -n1` prints a random line.
+    printf '%s\n' "$models" | shuf -n1
+  else # If shuf is unavailable, fall back to awk's srand().
+    # awk's built‑in random generator (more portable, but less uniform)
+    printf '%s\n' "$models" | awk 'BEGIN{srand()} {a[NR]=$0} END{if(NR) print a[int(rand()*NR)+1]}'
+  fi
 }
 
 # Unload a model from memory
@@ -1069,40 +1075,36 @@ ollama_eval() {
 }
 
 # Aliases
-oag() { ollama_api_get "$@"; }
-oap() { ollama_api_post "$@"; }
+oag()  { ollama_api_get "$@"; }
+oap()  { ollama_api_post "$@"; }
 oapi() { ollama_api_ping "$@"; }
-og() { ollama_generate "$@"; }
-ogj() { ollama_generate_json "$@"; }
-ogs() { ollama_generate_stream "$@"; }
+og()   { ollama_generate "$@"; }
+ogj()  { ollama_generate_json "$@"; }
+ogs()  { ollama_generate_stream "$@"; }
 ogsj() { ollama_generate_stream_json "$@"; }
-oc() { ollama_chat "$@"; }
-ocj() { ollama_chat_json "$@"; }
-ocs() { ollama_chat_stream "$@"; }
+oc()   { ollama_chat "$@"; }
+ocj()  { ollama_chat_json "$@"; }
+ocs()  { ollama_chat_stream "$@"; }
 ocsj() { ollama_chat_stream_json "$@"; }
-om() { ollama_messages "$@"; }
-oma() { ollama_messages_add "$@"; }
-omc() { ollama_messages_clear "$@"; }
+oe()   { ollama_eval "$@"; }
+om()   { ollama_messages "$@"; }
+oma()  { ollama_messages_add "$@"; }
+omc()  { ollama_messages_clear "$@"; }
 omco() { ollama_messages_count "$@"; }
-ol() { ollama_list "$@"; }
-olj() { ollama_list_json "$@"; }
-ola() { ollama_list_array "$@"; }
-omr() { ollama_model_random "$@"; }
-omu() { ollama_model_unload "$@"; }
-os() { ollama_show "$@"; }
-osj() { ollama_show_json "$@"; }
-op() { ollama_ps "$@"; }
-opj() { ollama_ps_json "$@"; }
-oai() { ollama_app_installed "$@"; }
-oat() { ollama_app_turbo "$@"; }
-oav() { ollama_app_vars "$@"; }
+ol()   { ollama_list "$@"; }
+olj()  { ollama_list_json "$@"; }
+ola()  { ollama_list_array "$@"; }
+omr()  { ollama_model_random "$@"; }
+omu()  { ollama_model_unload "$@"; }
+os()   { ollama_show "$@"; }
+osj()  { ollama_show_json "$@"; }
+op()   { ollama_ps "$@"; }
+opj()  { ollama_ps_json "$@"; }
+oai()  { ollama_app_installed "$@"; }
+oat()  { ollama_app_turbo "$@"; }
+oav()  { ollama_app_vars "$@"; }
 oave() { ollama_app_version "$@"; }
 oavj() { ollama_app_version_json "$@"; }
 oavc() { ollama_app_version_cli "$@"; }
-olab() { ollama_lib_about "$@"; }
-olv() { ollama_lib_version "$@"; }
-
-# Alias for ollama_eval
-oe() {
-  ollama_eval "$1" "$2"
-}
+ola()  { ollama_lib_about "$@"; }
+olv()  { ollama_lib_version "$@"; }
