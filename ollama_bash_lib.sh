@@ -79,6 +79,10 @@ _exists() {
 # Requires: jq
 # Returns: 0 if valid, 1 or higher if not valid
 _is_valid_json() {
+  if ! _exists 'jq'; then
+    _error '_is_valid_json: jq Not Found'
+    return 1
+  fi
   printf '%s' "$1" | jq -e '.' >/dev/null 2>&1 # use -e for jq exit-status mode
   local return_code=$?
   case $return_code in
@@ -240,6 +244,10 @@ ollama_api_ping() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
+  if ! _exists 'jq'; then
+    _error 'ollama_generate_json: jq Not Found'
+    return 1
+  fi
   _debug "ollama_generate_json: [${1:0:42}] [${2:0:42}]"
   _debug "ollama_generate_json: OLLAMA_LIB_STREAM: $OLLAMA_LIB_STREAM"
   local stream_bool=true
@@ -288,7 +296,7 @@ ollama_generate() {
   fi
 
   local result_response
-  result_response="$(echo "$result" | jq -r '.response')"
+  result_response="$(printf '%s' "$result" | jq -r '.response')"
   if [[ -z "$result_response" ]]; then
     _error 'ollama_generate: jq failed to get .response'
     return 1
@@ -340,10 +348,10 @@ ollama_generate_stream() {
 #    return 1
 #  fi
 
-  local error_ollama_generate_json=$?
+  local error_code=${PIPESTATUS[0]}
   OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
-  if (( error_ollama_generate_json )); then
-    _error "ollama_generate_stream: error_ollama_generate_json: $error_ollama_generate_json"
+  if [[ $error_code -ne 0 ]]; then
+    _error "ollama_generate_stream: ollama_generate_json failed with code $error_code"
     return 1
   fi
   _debug "ollama_generate_stream: return: 0"
@@ -377,6 +385,10 @@ ollama_messages() {
 # Requires: jq
 # Returns: 0
 ollama_messages_add() {
+  if ! _exists 'jq'; then
+    _error 'ollama_messages_add: jq Not Found'
+    return 1
+  fi
   _debug "ollama_messages_add: [${1:0:42}] [${2:0:42}]"
   local json_payload
   json_payload="$(jq -c -n \
@@ -418,6 +430,10 @@ ollama_messages_count() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
+  if ! _exists 'jq'; then
+    _error 'ollama_chat_json: jq Not Found'
+    return 1
+  fi
   _debug "ollama_chat_json: [${1:0:42}]"
   local model
   model="$(_is_valid_model "$1")"
@@ -443,6 +459,15 @@ ollama_chat_json() {
 
   _debug "ollama_chat_json: json_payload: [${json_payload:0:120}]"
 
+  if [[ "$OLLAMA_LIB_STREAM" -eq 1 ]]; then
+    if ! ollama_api_post '/api/chat' "$json_payload"; then
+      _error "ollama_chat_json: ollama_api_post failed"
+      return 1
+    fi
+    _debug "ollama_chat_json: stream finished"
+    return 0
+  fi
+
   local result
   if ! result="$(ollama_api_post '/api/chat' "$json_payload")"; then
     _error "ollama_chat_json: ollama_api_post failed"
@@ -456,7 +481,7 @@ ollama_chat_json() {
   fi
 
   local content
-  content="$(echo "$result" | jq -r ".message.content")"
+  content="$(printf '%s' "$result" | jq -r ".message.content")"
   local error_jq_message_content=$?
   _debug "ollama_chat_json: content: [${content:0:42}]"
   if (( error_jq_message_content )); then
@@ -497,7 +522,7 @@ ollama_chat() {
   fi
 
   local message_content
-  if ! message_content="$(echo "$response" | jq -r ".message.content")"; then
+  if ! message_content="$(printf '%s' "$response" | jq -r ".message.content")"; then
     _error 'ollama_chat: failed to get .message.content'
     return 1
   fi
@@ -523,12 +548,13 @@ ollama_chat_stream() {
     return 1
   fi
   OLLAMA_LIB_STREAM=1
-  if ! ollama_chat "$model"; then
-    _error "ollama_chat_stream: ollama_chat failed"
-    OLLAMA_LIB_STREAM=0
-    return 1
-  fi
+  ollama_chat_json "$model" | jq -j '.message.content'
+  local error_code=${PIPESTATUS[0]}
   OLLAMA_LIB_STREAM=0
+  if [[ $error_code -ne 0 ]]; then
+      _error "ollama_chat_stream: ollama_chat_json failed with code $error_code"
+      return 1
+  fi
   return 0
 }
 
@@ -679,6 +705,10 @@ ollama_model_random() {
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_model_unload() {
+  if ! _exists 'jq'; then
+    _error 'ollama_model_unload: jq Not Found'
+    return 1
+  fi
   _debug 'ollama_model_unload'
   if [[ -z "$1" ]]; then
     _error 'ollama_model_unload: no model. Usage: ollama_model_unload "model"'
@@ -762,6 +792,10 @@ ollama_show() {
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
+  if ! _exists 'jq'; then
+    _error 'ollama_show_json: jq Not Found'
+    return 1
+  fi
   _debug "ollama_show_json: [${1:0:42}]"
   local json_payload
   json_payload="$(jq -c -n \
@@ -888,6 +922,10 @@ ollama_app_vars() {
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_app_version() {
+  if ! _exists 'jq'; then
+    _error 'ollama_app_version: jq Not Found'
+    return 1
+  fi
   _debug "ollama_app_version"
   if ! ollama_api_get '/api/version' | jq -r ".version"; then
     _error "ollama_app_version: error_ollama_api_get|jq failed"
