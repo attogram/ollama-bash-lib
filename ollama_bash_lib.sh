@@ -14,7 +14,6 @@ OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No sla
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}"
 OLLAMA_LIB_MESSAGES=()  # Array of messages
 OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
-OLLAMA_LIB_EVAL_WHITELIST=() # Array of whitelisted commands for ollama_eval
 
 set -o pipefail
 
@@ -44,7 +43,7 @@ _debug() {
   (( OLLAMA_LIB_DEBUG )) || return
   local date_string # some date implementations do not support %N nanoseconds
   date_string="$(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi)"
-  printf "[DEBUG] ${date_string}: %s\n" "$(_redact "$1")" >&2
+  printf "[DEBUG] %s: %s\n" "${date_string}" "$(_redact "$1")" >&2
 }
 
 # Error message
@@ -78,38 +77,23 @@ _exists() {
 # Requires: jq
 # Returns: 0 if valid, 1 or higher if not valid
 _is_valid_json() {
+  if ! _exists 'jq'; then
+    _error '_is_valid_json: jq Not Found'
+    return 1
+  fi
+  _debug "_is_valid_json: [${1:0:120}]"
   printf '%s' "$1" | jq -e '.' >/dev/null 2>&1 # use -e for jq exit-status mode
   local return_code=$?
   case $return_code in
-    0) # Exit code 0: The JSON is valid and "truthy"
-      _debug '_is_valid_json: VALID: return 0'
-      return 0
-      ;;
-    1) # (Failure) The last value output was either false or null.
-      _debug '_is_valid_json: FAILURE jq: output false or null: return 1'
-      return 1
-      ;;
-    2) # (Usage Error): There was a problem with how the jq command was used, such as incorrect command-line options.
-      _debug '_is_valid_json: USAGE ERROR jq: incorrect command-line options: return 2'
-      return 2
-      ;;
-    3) # (Compile Error): The jq filter program itself had a syntax error.
-      _debug '_is_valid_json: COMPILE ERROR jq: filter syntax error: return 3'
-      return 3
-      ;;
-    4) # (No Output): No valid result was ever produced. This can happen if the filter's output is empty.
-      _debug '_is_valid_json: NO OUTPUT jq: result empty: return 4'
-      return 4
-      ;;
-    5) # (Halt Error)
-      _debug '_is_valid_json: HALT_ERROR jq: return 5'
-      return 5
-      ;;
-    *) # (Unknown)
-      _debug "_is_valid_json: UNKNOWN jq error: return $return_code"
-      return "$return_code"
-      ;;
+    0) _debug '_is_valid_json: VALID: return 0' ;;
+    1) _debug '_is_valid_json: FAILURE jq: output false or null: return 1' ;;
+    2) _debug '_is_valid_json: USAGE ERROR jq: incorrect command-line options: return 2' ;;
+    3) _debug '_is_valid_json: COMPILE ERROR jq: filter syntax error: return 3' ;;
+    4) _debug '_is_valid_json: NO OUTPUT jq: result empty: return 4' ;;
+    5) _debug '_is_valid_json: HALT_ERROR jq: return 5' ;;
+    *) _debug "_is_valid_json: UNKNOWN jq error: return $return_code" ;;
   esac
+  return "$return_code"
 }
 
 # API Functions
@@ -153,15 +137,9 @@ _call_curl() {
     _debug "_call_curl: json_body: [${json_body:0:120}]"
     curl_args+=( "-d" "@-" )
     printf '%s' "$json_body" | curl "${curl_args[@]}" # call curl, with args and with input (json_body) piped in
-    local error_curl=$?
-    if (( error_curl )); then
-      _error "_call_curl: curl error: $error_curl"
-      return "$error_curl"
-    fi
-    return 0
+    return $?
   fi
   curl "${curl_args[@]}" # call curl, only with args
-  return $?
 }
 
 # GET request to the Ollama API
@@ -176,7 +154,7 @@ ollama_api_get() {
   _call_curl "GET" "$1"
   local error_curl=$?
   if (( error_curl )); then
-    _error "ollama_api_get: curl error: $error_curl"
+    _error "ollama_api_get: API call failed with curl error: $error_curl"
     return "$error_curl"
   fi
   _debug 'ollama_api_get: success: return 0'
@@ -196,7 +174,7 @@ ollama_api_post() {
   _call_curl "POST" "$1" "$2"
   local error_curl=$?
   if (( error_curl )); then
-    _error "ollama_api_post: curl error: $error_curl"
+    _error "ollama_api_post: API call failed with curl error: $error_curl"
     return "$error_curl"
   fi
   _debug 'ollama_api_post: success: return 0'
@@ -330,20 +308,12 @@ ollama_generate_stream_json() {
 ollama_generate_stream() {
   _debug "ollama_generate_stream: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming for the API request
-
-  ollama_generate_json "$1" "$2" | jq -j '.response'
-
-#  if ! _is_valid_json "$result"; then
-#    _error "ollama_generate: model response is not valid JSON"
-#    # TODO - fix json, escape control characters, fix linebreaks, etc
-#    return 1
-#  fi
-
-  local error_ollama_generate_json=$?
+  ollama_generate_json "$1" "$2" | jq -j --unbuffered '.response'
+  local rc=$?
   OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
-  if (( error_ollama_generate_json )); then
-    _error "ollama_generate_stream: error_ollama_generate_json: $error_ollama_generate_json"
-    return 1
+  if (( rc != 0 && rc != 4 )); then # jq exits with 4 on no input, which is not an error here
+    _error "ollama_generate_stream: failed with exit code $rc"
+    return $rc
   fi
   _debug "ollama_generate_stream: return: 0"
   return 0
@@ -407,6 +377,38 @@ ollama_messages_count() {
   echo "${#OLLAMA_LIB_MESSAGES[@]}"
 }
 
+# Internal chat API caller
+#
+# This is an internal function.
+# It uses OLLAMA_LIB_MESSAGES and OLLAMA_LIB_STREAM globals.
+#
+# Input: 1 - model
+# Output: API response to stdout
+# Requires: curl, jq
+# Returns: 0 on success, 1 on error
+_ollama_chat_api() {
+  local model="$1"
+  local stream_bool=true
+  if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
+    stream_bool=false
+  fi
+  # Join array elements with comma and wrap in []
+  local messages_array_json
+  messages_array_json="$(printf ",%s" "${OLLAMA_LIB_MESSAGES[@]}")"
+  messages_array_json="[${messages_array_json:1}]" # Remove leading comma
+  local json_payload
+  json_payload="$(jq -c -n \
+      --arg model "$model" \
+      --argjson messages "$messages_array_json" \
+      --argjson stream "$stream_bool" \
+      '{model: $model, messages: $messages, stream: $stream}')"
+
+  _debug "_ollama_chat_api: json_payload: [${json_payload:0:120}]"
+
+  ollama_api_post '/api/chat' "$json_payload"
+  return $?
+}
+
 # Chat Functions
 
 # Chat completion request as json
@@ -425,45 +427,19 @@ ollama_chat_json() {
     _error 'ollama_chat_json: No Models Found'
     return 1
   fi
-  local stream_bool=true
-  if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
-    stream_bool=false
-  fi
-  # Join array elements with comma and wrap in []
-  local messages_array_json
-  messages_array_json="$(printf ",%s" "${OLLAMA_LIB_MESSAGES[@]}")"
-  messages_array_json="[${messages_array_json:1}]" # Remove leading comma
-  local json_payload
-  json_payload="$(jq -c -n \
-      --arg model "$model" \
-      --argjson messages "$messages_array_json" \
-      --argjson stream "$stream_bool" \
-      '{model: $model, messages: $messages, stream: $stream}')"
-
-  _debug "ollama_chat_json: json_payload: [${json_payload:0:120}]"
-
+  OLLAMA_LIB_STREAM=0
   local result
-  if ! result="$(ollama_api_post '/api/chat' "$json_payload")"; then
-    _error "ollama_chat_json: ollama_api_post failed"
+  if ! result="$(_ollama_chat_api "$model")"; then
+    _error "ollama_chat_json: _ollama_chat_api failed"
     return 1
   fi
-
   if ! _is_valid_json "$result"; then
     _error "ollama_chat_json: response is not valid JSON"
-    # TODO - fix json, escape control characters, fix linebreaks, etc
-    return 1
-  fi
-
-  local content
-  content="$(echo "$result" | jq -r ".message.content")"
-  local error_jq_message_content=$?
-  _debug "ollama_chat_json: content: [${content:0:42}]"
-  if (( error_jq_message_content )); then
-    _error "ollama_chat_json: error_jq_message_content: $error_jq_message_content"
     return 1
   fi
   echo "$result"
   _debug "ollama_chat_json: return 0"
+  return 0
 }
 
 # Chat completion request as text
@@ -475,26 +451,15 @@ ollama_chat_json() {
 # Returns: 0 on success, 1 on error
 ollama_chat() {
   _debug "ollama_chat: [${1:0:42}]"
-  local model
-  model="$(_is_valid_model "$1")"
-  _debug "ollama_chat: model: [${model:0:120}]"
-  if [[ -z "$model" ]]; then
-    _error 'ollama_chat: No Models Found'
+  local response
+  if ! response="$(ollama_chat_json "$1")"; then
+    _error 'ollama_chat: ollama_chat_json failed'
     return 1
   fi
-  OLLAMA_LIB_STREAM=0
-  local response
-  response="$(ollama_chat_json "$model")"
   if [[ -z "$response" ]]; then
     _error 'ollama_chat: ollama_chat_json response empty'
     return 1
   fi
-  if ! _is_valid_json "$response"; then
-    _error "ollama_chat: response is not valid JSON"
-    # TODO - fix json, escape control characters, fix linebreaks, etc
-    return 1
-  fi
-
   local message_content
   if ! message_content="$(echo "$response" | jq -r ".message.content")"; then
     _error 'ollama_chat: failed to get .message.content'
@@ -502,32 +467,6 @@ ollama_chat() {
   fi
   printf '%s\n' "$message_content"
   _debug 'ollama_chat: return: 0'
-  return 0
-}
-
-# Chat completion request as streaming text
-#
-# Usage: ollama_chat_stream "model"
-# Input: 1 - model
-# Output: streaming text, to stdout
-# Requires: curl, jq
-# Returns: 0 on success, 1 on error
-ollama_chat_stream() {
-  _debug "ollama_chat_stream: [${1:0:42}]"
-  local model
-  model="$(_is_valid_model "$1")"
-  _debug "ollama_chat_stream: model: [${model:0:120}]"
-  if [[ -z "$model" ]]; then
-    _error 'ollama_chat_stream: No Models Found'
-    return 1
-  fi
-  OLLAMA_LIB_STREAM=1
-  if ! ollama_chat "$model"; then
-    _error "ollama_chat_stream: ollama_chat failed"
-    OLLAMA_LIB_STREAM=0
-    return 1
-  fi
-  OLLAMA_LIB_STREAM=0
   return 0
 }
 
@@ -548,13 +487,22 @@ ollama_chat_stream_json() {
     return 1
   fi
   OLLAMA_LIB_STREAM=1
-  if ! ollama_chat_json "$model"; then
-    _error "ollama_chat_stream_json: ollama_chat_json failed"
-    OLLAMA_LIB_STREAM=0
-    return 1
-  fi
+  _ollama_chat_api "$model"
+  local rc=$?
   OLLAMA_LIB_STREAM=0
-  return 0
+  return $rc
+}
+
+# Chat completion request as streaming text
+#
+# Usage: ollama_chat_stream "model"
+# Input: 1 - model
+# Output: streaming text, to stdout
+# Requires: curl, jq
+# Returns: 0 on success, 1 on error
+ollama_chat_stream() {
+  _debug "ollama_chat_stream: [${1:0:42}]"
+  ollama_chat_stream_json "$1" | jq -r --unbuffered '.message.content'
 }
 
 # List Functions
@@ -592,7 +540,6 @@ ollama_list() {
 ollama_list_json() {
   _debug "ollama_list_json"
   if ! ollama_api_get '/api/tags'; then
-    _error "ollama_list_json: ollama_api_get failed"
     return 1
   fi
   return 0
@@ -607,11 +554,16 @@ ollama_list_json() {
 # Returns: 0 on success, 1 on error
 ollama_list_array() {
   _debug "ollama_list_array"
-  local models=()
-  while IFS= read -r line; do
-    models+=("$line")
-  done < <(ollama list | awk 'NR > 1 {print $1}' | sort)
-  echo "${models[@]}" # space separated list of model names
+  local model_list
+  if ! model_list="$(ollama list | awk 'NR > 1 {print $1}' | sort)"; then
+      _error "ollama_list_array: failed to get model list."
+      return 1
+  fi
+  if [[ -z "$model_list" ]]; then
+      return 0 # No models found, not an error
+  fi
+  local models=($model_list)
+  echo "${models[@]}"
   _debug "ollama_list_array: ${#models[@]} models found: return 0"
   return 0
 }
@@ -726,7 +678,6 @@ ollama_ps() {
 ollama_ps_json() {
   _debug "ollama_ps_json"
   if ! ollama_api_get '/api/ps'; then
-    _error "ollama_ps_json: ollama_api_get failed"
     return 1
   fi
   return 0
@@ -763,7 +714,6 @@ ollama_show_json() {
       --arg model "$1" \
       '{model: $model}')"
   if ! ollama_api_post '/api/show' "$json_payload"; then
-    _error "ollama_show_json: ollama_api_post failed"
     return 1
   fi
   return 0
@@ -901,7 +851,6 @@ ollama_app_version() {
 ollama_app_version_json() {
   _debug "ollama_app_version_json"
   if ! ollama_api_get '/api/version'; then
-    _error "ollama_app_version_json: error_ollama_api_get failed"
     return 1
   fi
   return 0
@@ -948,7 +897,6 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_STREAM   : $OLLAMA_LIB_STREAM"
   echo "OLLAMA_LIB_MESSAGES : (${#OLLAMA_LIB_MESSAGES[@]} messages)"
   echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
-  echo "OLLAMA_LIB_EVAL_WHITELIST: (${OLLAMA_LIB_EVAL_WHITELIST[*]})"
   if ! _exists "compgen"; then
     _debug 'ollama_lib_about: compgen Not Found'
     return 1
@@ -1030,45 +978,31 @@ ollama_eval() {
   printf '%s\n\n' "$cmd"
 
   local first=${cmd%%[[:space:]]*}
-  local default_whitelist=(
-    ls find grep awk sed cat head tail wc sort uniq cut paste echo printf
-    git docker npm node python ruby go
-  )
-  local whitelist
-  if [[ -z "${OLLAMA_LIB_EVAL_WHITELIST[*]}" ]]; then
-      whitelist=("${default_whitelist[@]}")
-  else
-      whitelist=("${OLLAMA_LIB_EVAL_WHITELIST[@]}")
-  fi
-
-  local is_whitelisted=0
-  for item in "${whitelist[@]}"; do
-    if [[ "$item" == "$first" ]]; then
-      is_whitelisted=1
-      break
-    fi
-  done
-
-  if (( ! is_whitelisted )); then
-      printf '❌ Command not in whitelist: %s.\n' "$first"
-      printf 'To allow this command, add it to the OLLAMA_LIB_EVAL_WHITELIST array in your environment.\n'
-      return 1
-  fi
-
   if ! _exists "$first"; then
     printf '❌ Invalid command: %s.\n' "$first"
     return 1
   else
-    printf '✅ Command in whitelist: %s\n' "$first"
+    printf '✅ Valid command: %s\n' "$first"
   fi
 
   local errors
-  if ! errors=$(timeout 1 bash -n <<<"$cmd" 2>&1); then
+  if ! errors="$(timeout 1 bash -n <<<"$cmd" 2>&1)"; then
     local rc=$?
     printf "❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
     return 1
   else
     printf '✅ Valid Bash Syntax\n'
+  fi
+
+  local dangerous=(
+    rm mv dd mkfs shred shutdown reboot init kill pkill killall umount mount userdel groupdel passwd su sudo
+    bash '/bin/sh' 'systemctl\s+poweroff' 'systemctl\s+reboot' 'systemctl\s+halt' '-delete'
+  )
+  local IFS='|'
+  local danger_regex="\b(${dangerous[*]})\b" # Turn the dangerous array into a regex that matches any whole‑word occurrence
+  if [[ "$cmd" =~ $danger_regex ]]; then # Scan the command. If a dangerous token is found, capture it for the warning.
+    local bad="${BASH_REMATCH[1]}"
+    printf '⚠️ WARNING: The generated command contains a potentially dangerous token: "%s"\n' "$bad"
   fi
 
   printf '\nRun command (y/N)? '
