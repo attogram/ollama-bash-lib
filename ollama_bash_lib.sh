@@ -954,7 +954,7 @@ ollama_lib_about() {
   echo
   echo "Functions:"
   echo
-  local other_functions=$'oe\n_debug\n_error\n_exists\n_call_curl\n_is_valid_json\n_is_valid_model\n'
+  local other_functions=$'oag\noap\noapi\nog\nogj\nogs\nogsj\noc\nocj\nocs\nocsj\nom\noma\nomc\nomco\nol\nolj\nola\nomr\nomu\nos\nosj\nop\nopj\noai\noat\noav\noave\noavj\noavc\nolab\nolv\noe\n_debug\n_error\n_exists\n_call_curl\n_is_valid_json\n_is_valid_model\n'
   if ! _exists "column"; then
     _debug 'ollama_lib_about: column Not Found'
     {
@@ -1067,6 +1067,40 @@ ollama_eval() {
   eval "$cmd"
   return $? # return eval error status
 }
+
+# Aliases
+oag() { ollama_api_get "$@"; }
+oap() { ollama_api_post "$@"; }
+oapi() { ollama_api_ping "$@"; }
+og() { ollama_generate "$@"; }
+ogj() { ollama_generate_json "$@"; }
+ogs() { ollama_generate_stream "$@"; }
+ogsj() { ollama_generate_stream_json "$@"; }
+oc() { ollama_chat "$@"; }
+ocj() { ollama_chat_json "$@"; }
+ocs() { ollama_chat_stream "$@"; }
+ocsj() { ollama_chat_stream_json "$@"; }
+om() { ollama_messages "$@"; }
+oma() { ollama_messages_add "$@"; }
+omc() { ollama_messages_clear "$@"; }
+omco() { ollama_messages_count "$@"; }
+ol() { ollama_list "$@"; }
+olj() { ollama_list_json "$@"; }
+ola() { ollama_list_array "$@"; }
+omr() { ollama_model_random "$@"; }
+omu() { ollama_model_unload "$@"; }
+os() { ollama_show "$@"; }
+osj() { ollama_show_json "$@"; }
+op() { ollama_ps "$@"; }
+opj() { ollama_ps_json "$@"; }
+oai() { ollama_app_installed "$@"; }
+oat() { ollama_app_turbo "$@"; }
+oav() { ollama_app_vars "$@"; }
+oave() { ollama_app_version "$@"; }
+oavj() { ollama_app_version_json "$@"; }
+oavc() { ollama_app_version_cli "$@"; }
+olab() { ollama_lib_about "$@"; }
+olv() { ollama_lib_version "$@"; }
 
 # Alias for ollama_eval
 oe() {

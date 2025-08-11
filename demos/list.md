@@ -1,4 +1,7 @@
 # ollama_list, ollama_list_json
+ERROR: Ollama Not Installed
+[ERROR] ollama_api_get: curl error: 7
+ERROR: Ollama API not reachable
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.4
 
@@ -6,54 +9,22 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 ollama_list
 ```
 ```
-NAME            ID              SIZE     MODIFIED   
-gpt-oss:120b    d98fe6ba01e6    65 GB    5 days ago    
-gpt-oss:20b     05afbac4bad6    13 GB    5 days ago    
+./../ollama_bash_lib.sh: line 570: ollama: command not found
+[ERROR] ollama_list: list=|ollama list failed
 ```
 
 ```
 ollama_list_array
 ```
 ```
-gpt-oss:120b gpt-oss:20b
+./../ollama_bash_lib.sh: line 607: ollama: command not found
+
 ```
 
 ```
 ollama_list_json | jq '.'
 ```
 ```json
-{
-  "models": [
-    {
-      "name": "gpt-oss:120b",
-      "model": "gpt-oss:120b",
-      "modified_at": "2025-08-05T00:00:00Z",
-      "size": 65290180781,
-      "digest": "d98fe6ba01e6",
-      "details": {
-        "parent_model": "",
-        "format": "",
-        "family": "",
-        "families": null,
-        "parameter_size": "",
-        "quantization_level": ""
-      }
-    },
-    {
-      "name": "gpt-oss:20b",
-      "model": "gpt-oss:20b",
-      "modified_at": "2025-08-05T00:00:00Z",
-      "size": 13780162412,
-      "digest": "05afbac4bad6",
-      "details": {
-        "parent_model": "",
-        "format": "",
-        "family": "",
-        "families": null,
-        "parameter_size": "",
-        "quantization_level": ""
-      }
-    }
-  ]
-}
+[ERROR] ollama_api_get: curl error: 7
+[ERROR] ollama_list_json: ollama_api_get failed
 ```

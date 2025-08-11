@@ -1,4 +1,7 @@
 # ollama_model_random
+ERROR: Ollama Not Installed
+[ERROR] ollama_api_get: curl error: 7
+ERROR: Ollama API not reachable
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.4
 
@@ -9,8 +12,11 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-gpt-oss:120b
-gpt-oss:120b
+./../ollama_bash_lib.sh: line 607: ollama: command not found
+[ERROR] ollama_model_random: No Models Found
+./../ollama_bash_lib.sh: line 607: ollama: command not found
+[ERROR] ollama_model_random: No Models Found
+
 ```
 
 ## Demo Debug
@@ -21,14 +27,17 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-[DEBUG] 00:37:57:050331600: ollama_model_random
-[DEBUG] 00:37:57:083378600: ollama_list_array
-[DEBUG] 00:37:57:481889500: ollama_list_array: 2 models found: return 0
-[DEBUG] 00:37:57:505316500: ollama_model_random: 2 models found
-gpt-oss:20b
-[DEBUG] 00:37:57:533311200: ollama_model_random
-[DEBUG] 00:37:57:562382900: ollama_list_array
-[DEBUG] 00:37:57:933320900: ollama_list_array: 2 models found: return 0
-[DEBUG] 00:37:57:957476000: ollama_model_random: 2 models found
-gpt-oss:120b
+[DEBUG] 20:11:33:844968050: ollama_model_random
+[DEBUG] 20:11:33:850506009: ollama_list_array
+./../ollama_bash_lib.sh: line 607: ollama: command not found
+[DEBUG] 20:11:33:861273680: ollama_list_array: 0 models found: return 0
+[DEBUG] 20:11:33:867146314: ollama_model_random: 0 models found
+[ERROR] ollama_model_random: No Models Found
+[DEBUG] 20:11:33:873828838: ollama_model_random
+[DEBUG] 20:11:33:879574643: ollama_list_array
+./../ollama_bash_lib.sh: line 607: ollama: command not found
+[DEBUG] 20:11:33:890356395: ollama_list_array: 0 models found: return 0
+[DEBUG] 20:11:33:902377358: ollama_model_random: 0 models found
+[ERROR] ollama_model_random: No Models Found
+
 ```
