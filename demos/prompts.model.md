@@ -1,6 +1,6 @@
 # Send a list of prompts to a model
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.6
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.7
 
 model: gpt-oss:20b
 
@@ -19,350 +19,262 @@ prompts:
 
 ## My hovercraft is full of eels
 
-Ah, the classic “My **hovercraft is full of eels**” moment—a meme so slick that it’s almost un‑eel‑ievable!  
-It’s a nod to that 2014 meme song snippet (think of it as the “hello” of the internet that pops up wherever you’re not sure how to explain a bizarre load‑out).  Some even joke that the hovercraft’s “power” is literally from the eels’ **electro‑cytes**, so you’ve got a green‑energy vehicle that’s both amphibious *and* bio‑electric!
-
-**If you’re actually stuck with a hover‑e‑eel‑craft** (or just want to test your navigation skills):  
-
-| Step | What to do | Why it matters |
-|------|-------------|----------------|
-| 1️⃣ | **Secure the eels** – they’re slippery! Use a net or a specialized “e‑el‑cap." | Prevent your craft from turning into a fishy whirlpool. |
-| 2️⃣ | **Check the electrical load** – eels generate pulses; too many can overload the hover‑system. | Too much “eel‑ergy” = a short‑circuit. |
-| 3️⃣ | **Chart a course** – eels prefer currents, so aim for a steady sea current or a calm hoverfield. | Keeps you up and off the plank. |
-| 4️⃣ | **Emergency drill** – in case of a “eel‑quake” (yikes, that’s a thing), use the ballast tanks to stabilize. | Safety first—especially when the hull is literally "eel‑full." |
-
-And if you just want to get a laugh:  
-*“I can't believe my hover‑creature is so eel‑ectric! I guess it's a truly, slippery situation—more slippery than a banana peel on ice.”*
-
-So next time you catch that meme, remember: there's a lot of “eel‑telligence” behind those 2‑second clip, and you can probably turn it into a hovercraft‑powered submarine if you’re feeling adventurous. Keep those tail fins ready! 🐍🛸
+*my* *hovercraft* *is* *full* *of* *eels*
 
 ## Explain the theory of relativity in very simple terms.
 
-**The Theory of Relativity in “Plain‑English” – two parts**
+**The Theory of Relativity – in plain language**
 
-| Part | Main idea | Simple picture |
-|------|-----------|----------------|
-| **Special Relativity** (1905) | – The speed of light (≈ 300 000 km/s) is the same for every observer, no matter how fast you or the light source are moving. <br>– Because that speed can’t change, space and time must bend a little on the fly. <br>– “Fast” = “slow” for some things: clocks tick slower, rulers get shorter, and the “mass” of something grows. (Think “slow down” as “slight shrinking”.) | Imagine two people running on a track with a laser beam. Whether they run together or opposite each other, the beam’s speed is *always* the same. To keep that truth, the track’s rulers and their watches have to adjust subtly. |
-| **General Relativity** (1915) | Gravity is not a force that pulls; it is a *bending* of the fabric of space‑time. Massive objects (planets, stars) indent that fabric, and other objects move along those dents (like a marble rolling on a curved surface). | Picture a stretched rubber sheet with a heavy ball in the center. The sheet curves; a smaller ball rolls toward it, not because a mysterious force pulls it, but because the sheet is a curved space. |
+It’s really two ideas, but they’re connected. I’ll break them down into bite‑sized parts.
 
 ---
 
-### Special Relativity – key effects in everyday language
+## 1. Special Relativity – “Everything moves, everything changes”
 
-| Effect | What happens | Everyday analogy |
-|--------|--------------|------------------|
-| **Time dilation** | Moving clocks tick *slower* than stationary ones. | If you zoom down a road at near‑light speed, a stopwatch you wear would run behind a friend’s stopwatch left at home. |
-| **Length contraction** | Moving objects appear *shorter* in the direction of motion. | A rocket ship racing at 0.99 c would look squashed from front to back to a stationary observer. |
-| **Relativity of simultaneity** | Events that happen “at the same time” for one observer may not be simultaneous for another moving observer. | Two flashes of lightning seen simultaneously by someone standing still might look separated in time to a train passenger racing past. |
-| **Mass–energy equivalence** | Energy = *mass* × *c²*. So mass can be converted to energy and vice‑versa. | That’s why the Sun shines: it turns a *tiny* amount of its mass into enormous energy. |
+| What it says | Simple picture | Everyday‑world example |
+|--------------|----------------|------------------------|
+| **Time and space aren’t fixed.** The way we measure how long something takes and how far it goes depends on our speed. | Imagine a road that stretches or shrinks depending on how fast you’re travelling. | A fast‑moving train’s clock looks *slower* to a person standing on the platform. |
+| **Nothing can go faster than light.** Light (and information that travels with it) sets the ultimate speed limit of the universe. | Think of a speed limit sign that is the same for everyone, no matter how fast you're driving. | GPS satellites can’t use any signal that would cheat the speed limit; the signals still travel at light speed. |
+| **Mass grows with speed.** The faster something moves, the harder it is to push it because its “effective mass” increases. | Picture a heavy crate that’s easier to get started with, but once it’s moving, it feels like it’s heavier. | Rockets that travel near light speed need exponentially more fuel, because they’re “heavier” due to speed. |
+| **Lengths shrink when you move fast.** If you’re traveling very fast, objects in the direction of motion look shorter to you than they do to someone who is still. | Like a road that appears shorter the faster you zoom down it. | A sub‑light‑speed space probe would see an entire star‑system look “compressed” in the direction it’s going. |
 
----
-
-### General Relativity – simple picture
-
-1. **Spacetime is a fabric** that can bend.  
-2. **Massive objects (planets, stars) indent that fabric.**  
-3. **Other objects follow the bent paths** (geodesics) – what we feel as gravity.  
-
-Think about dropping a marble on a stretched rubber sheet with a bowling ball in the middle: the marble spirals inward, not because a force pulls it but because it is following the curved surface. That spiral is like a planet orbiting a star.
+**Why it matters:**  
+- Explains why atomic clocks on fast satellites run at slightly different rates than those on Earth.  
+- Allows us to understand how particles can interact at nearly the speed of light in colliders.
 
 ---
 
-### Bottom line
+## 2. General Relativity – “Gravity is warping of space‑time”
 
-- **Special Relativity** says: *“Speed of light is a hard constant; to keep it so, time stretches, lengths squeeze, and mass changes.”*  
-- **General Relativity** says: *“Space itself isn’t flat; mass makes space curve, and that curve tells objects how to move.”*  
+| What it says | Simple picture | Everyday‑world example |
+|--------------|----------------|------------------------|
+| **Mass curves space‑time.** Massive things make a dent in the fabric of space‑time, and other objects move along that curved path. | Think of a heavy bowling ball placed on a trampoline. Rubber flattens around the ball, making a dip. | The Earth and Moon orbit each other because Earth’s gravity warps space‑time, creating a path the Moon follows. |
+| **Gravity is not a “force” pulling at a distance – it is the shape of space‑time.** | Instead of a “magnetic pull,” objects simply roll along the dent until they hit something. | The Moon doesn’t feel a pulling force; it *rolls* around the Earth in space‑time’s curved geometry. |
+| **The faster you move, the more the curvature shows up.** | If you sprint across a bend in a roadway, you’ll feel the bend more strongly than if you were standing still. | Near a black hole, the curvature is extreme – even light bends dramatically and can get trapped. |
 
-These ideas together explain everything from GPS satellite timing to why the Sun shines and how black holes warp their surroundings.
+**Why it matters:**  
+- Predicts gravitational waves: ripples in space‑time that LIGO detected.  
+- Provides the framework for modern astrophysics: orbiting planets, GPS corrections, predicting light bending around the Sun (Eddington’s 1919 experiment).
+
+---
+
+## Quick “real‑world” recap
+
+1. **Time and space stretch or squeeze** depending on how fast you’re moving relative to something else.  
+2. **Nothing can catch up to light** because it defines the ultimate speed limit.  
+3. **Mass behaves like a roadblock that’s harder to accelerate** when you’re already moving fast.  
+4. **Big objects create dips in the sky‑like mattress of space‑time**, guiding the motion of everything that passes by.  
+
+That’s the nutshell of relativity. It reshapes our view of the universe: events are relative, speeds are limited, and gravity is geometry.
 
 ## Invent a new holiday and describe how people celebrate it.
 
-### **The Day of Echoes**  
-*(Celebrated on the last Thursday of November – “Echo Thursday”)*  
+## The Festival of Echoes  
+### “Echoes of All Voices”
+
+**When?**  
+The first Saturday of May (the day after the vernal equinox) – a day that coincides with the time when the earth “breathes” a bit warmer and the wind is often strongest, a natural cue that something “new” is about to happen.
+
+**Why is it celebrated?**  
+The Festival of Echoes is a modern celebration born out of a simple observation: in every city, town, and village, countless voices go unheard—whether spoken by an elderly storyteller, a migrant child learning a new language, or a teenager who writes in a diary. The holiday invites people to **listen, share, and amplify** those quiet or overlooked narratives. It is a reminder that every echo, when gathered together, creates a symphony of humanity.
 
 ---
 
-#### 1.  The Mythical Seed
+## Core Principles  
 
-The holiday begins with a story passed down through generations:
-
-> **“The First Echo.”**  
-> In a forgotten valley, a young shepherd named Liora heard the wind sing through the reeds. She pressed her ear to the earth and listened. When the village later built a stone “Echo‑Ring” to honor her, the stone caught the wind’s song and held it forever. They said the stone was a memory‑keeper; every echo that passed through it carried a story from the past.  
-> When the valley’s people grew old, they began to understand that each echo was a bridge between time, a reminder that the present is always an echo of the past, and the future will be an echo of today.
-
-This origin story gives the holiday its name: **The Day of Echoes**. It is a day that invites everyone to honor the past, cherish the present, and create an echo for future generations.
-
----
-
-#### 2.  The Holiday Schedule (at a glance)
-
-| Time | Activity | Description |
-|------|----------|-------------|
-| **Morning** | **Echo‑WALK** | Groups walk to a quiet spot (river, forest, rooftop, or city park) and shout or whisper a short story. The sound is recorded (audio or video). |
-| **Mid‑morning** | **Echo‑Circles** | Community members sit in a circle, one person speaks an anecdote about their life; others listen, pause, then repeat the story in their own words—creating a living “echo” of the narrative. |
-| **Lunch** | **Echo‑Bowl** | A communal potluck where each dish carries a name that is the echo of a memory (e.g., “Grandma’s Warmth – chicken stew” or “First Snow – cinnamon raisin bread”). |
-| **Afternoon** | **Starlight Echoes** | A late‑afternoon gathering under a sky‑watching gazebo. Musicians play from instruments made of natural objects; people clap to create echoing waves – the sound reverberates until it fades into the wind. |
-| **Evening** | **Echo Letters & Lanterns** | Each participant writes a letter (or poem) to a future “self” or a dear loved‑one and then places it on a lantern made of paper or bamboo. Lanterns are released in a quiet field or on the water. |
-| **Night** | **Silent Echo Meditation** | People gather in silence, meditate for 11 minutes while gently tapping their chests, echoing the rhythm of their own hearts. |
+| Principle | What it Means | How it Shapes the Hallmark Rituals |
+|-----------|--------------|------------------------------------|
+| **Listening** | We consciously make time to hear other people’s stories. | Communities build “Echo Chambers” (simple, natural or man‑made structures) where the wind carries voices from far and near, recorded by audio‑sensing phones or old‑school tin cans to be played back. |
+| **Story‑Weaving** | Individual memories become part of a larger tapestry. | Each participant writes or draws their story on a leaf, parchment, or small wooden plank, which is then hung on a community “Echo Tree.” |
+| **Amplification** | Every voice, no matter how small, is given a platform. | Local radio spots, community theatres, and online livestreams feature voices of all ages and backgrounds, turning the holiday into a living archive of diversity. |
+| **Shared Joy** | The act of listening and sharing itself is celebratory. | Music composed on the spot, dance circles, and communal feasts that fuse a mix of local flavors. |
 
 ---
 
-#### 3.  Rituals & Traditions
+## How People Celebrate
 
-| Ritual | Explanation |
-|--------|-------------|
-| **Echo‑Ring Building** | Every town has a communal stone or log “Echo‑Ring” (a hollowed stone or carved wood). On Echo Thursday, people chant into the Ring; the sound vibrates, and the sound is kept for the year. At the next holiday, the Ring’s echo is shared with the new generation. |
-| **Echo‑Jar** | A small jar of clay or ceramic is filled with soil and sprouted seeds, plus a handful of sand from a personal sacred place. It is carried out into the light and placed in a garden. The garden becomes a living memory. |
-| **Mirror‑Echo** | Children hold small mirrors in front of their faces while adults recite a family story. The reflection “echoes” the words back at them, symbolizing how we all mirror the voice of the past. |
-| **Echo‑Dance** | A dance performed in pairs. One dancer moves slowly, the other mirrors the movement after a slight delay—an echo in motion. Music is performed on traditional instruments. |
-| **“Echo of the Year”** | At the community hall, a short film is shown. It is a montage of all recorded echoes from the entire community, including spoken words, music, and even nature’s sounds recorded that day. The film ends with a call‑to‑action: “What will you echo tomorrow?” |
-
----
-
-#### 4.  Foods & Drinks
-
-| Dish | Why it’s on the menu |
-|------|----------------------|
-| **Waves of Wheatbread** | The shape of waves pays homage to “Echoing Waves” from the Echo‑Ring. |
-| **Story‑Stir Fry** | Each ingredient is nicknamed after a story (e.g., “The Forgotten Onion” for onions used in old family recipes). |
-| **Echo‑Tea** | A blend of herbs grown on the town’s community garden, steeped while a story is whispered over the pot. |
-| **Sunrise Scones** | Soft golden scones that are eaten outside as the first light “echoes” across the field. |
-| **Cloudy‑Blue Popsicles** | Made from local berries, their coolness “echoes” the coolness of the breeze in the valley. |
+| Time of Day | Activity | Typical Materials | Community Significance |
+|--------------|-----------|--------------------|------------------------|
+| **Morning** | *Silent Echo Meditation* | Blank journals, pencils, flowers, a handful of seeds | People sit individually in a quiet place, write or sketch what they felt when they first heard another’s story. The seeds are later planted in “Echo Orchards.” |
+| **Mid‑Morning** | *Echo Chamber Construction* | PVC or bamboo, strings, reflective panels, simple wind‑tuned instruments | Volunteers build temporary chambers—sometimes as high as a small building wall. The design is open to all so that everyone can contribute. |
+| **Noon** | *Story Circles* | Chairs, a large drum or bowl of water (to “collect” voices), open mic | People share their written piece or a spoken memory around the chamber, and the sound is captured and played back to the audience. |
+| **Afternoon** | *Collaborative Art Jam* | Canvas, paint, sticks of chalk, scraps of paper | A large mural or mosaic surfaces on a community wall, each piece representing a different voice. |
+| **Sunset** | *Lantern Procession & Echo Fire* | Paper lanterns, sparklers, fire pits | Lanterns are lit from stories written earlier. The procession moves from the Echo Chamber to the fire pit, where they are released onto a wind‑driven “echo stream” that scatters them across the park. |
+| **Evening** | *Night‑Sky Storytelling* | Projectors, blankets, acoustic guitars | The stories recorded are projected onto the sky or a screen, while local musicians improvise. “Echo Bites”—tiny dishes representing local flavors—are shared in a communal feast. |
 
 ---
 
-#### 5.  Craft & Art
-
-| Craft | Goal |
-|-------|------|
-| **Echo‑Stone** | Carve a stone into a cylindrical shape; carve three faces with a message. The stone can be worn, displayed, or put in a family tree. |
-| **Echo‑Wreath** | Build a wreath from seasonal leaves, each leaf representing a memory (a picture, a note). Hang it in the family’s living room or community hall. |
-| **Recycled Echo Masks** | Use recycled cardboard or wood to craft masks. The designs echo someone’s memory or folklore story that the community reveres. |
+## Ritual Traditions  
+1. **The Seed of Listening** – The seeds planted at dawn become part of the “Echo Orchard.” Over the years, they grow into a living testament of communal stories, and when fruit bears, they are used in a communal bake sale that funds libraries in underserved neighborhoods.  
+2. **Echo Journals** – Families keep a shared journal in which everyone writes their favorite moment from the day; at the end of the month, the journal is given to a local school’s art room to be displayed.  
+3. **Wind‑Weaving** – Participants fold small paper “wind swirls,” each containing a wish or thank you note, and place them in a glass bottle that is set on the Echo Tree. Over time, the bottle “drips” notes onto the ground; they are collected the next year and turned into a community artwork.  
+4. **Local Echo Ballads** – Musicians in each neighborhood compose a short “echo ballad” that captures the day’s spirit; these melodies are recorded and released as an open‑source folk album shared free for all.  
 
 ---
 
-#### 6.  Social Impact
+## Celebrating at Home
 
-- **Bridges & Bonds** – By repeating stories and sharing echoes, families rediscover bonds. A senior can narrate a childhood memory; the next generation hears “the echo of that day” and feels connected.  
-- **Mindful Listening** – The Echo‑Walk encourages active listening and mindfulness because people must actually hear the words and the sounds around them.  
-- **Environmental Awareness** – When the Echo‑Ring is built from a natural stone, communities are reminded that the earth’s own “echo” (the resonance, the weathering of stone) is part of the holiday.  
-- **Creative Expression** – The art and music activities let people translate intangible memories into tangible experiences.
-
----
-
-#### 7.  Variations & Global Twists
-
-| Country | Possible Twist |
-|---------|----------------|
-| **Japan** |  Incorporate *Kōhaku* (red & white) lanterns; echo the sound of the *Taiko* drums. |
-| **Brazil** | Use *samba* rhythms with echo drums; incorporate *capoeira* as an echo dance. |
-| **Iceland** | Build a giant stone and use echoing *whistles* of the *sveig*. |
-| **Australia** | Use indigenous drum circles; echo the song of the *didgeridoo*. |
-| **USA** | Pair each Echo‑Walk with a local *historic marker* tour; create a photo‑journal capturing the day. |
+- **Build a Mini Echo Chamber** – Use a cardboard box with holes, tie a string, and let the wind “talk” through it.  
+- **Echo Story Box** – Fill a shoebox with paper, pens, and a blanket for quiet reflection.  
+- **Recipe Swap** – Share secret family recipes orally or on video chat, and tag them “Echoed.”  
+- **Digital Echo Booth** – Record a short story or poem and play it on your phone or laptop, letting friends “hear” your voice.  
 
 ---
 
-#### 8.  Quick Summary for Your Calendar
+## From Local to Global  
 
-The **Day of Echoes** teaches that every sound, memory, and tradition has the power to ripple through time. By walking, whispering, dancing, and sharing food and art, people acknowledge the past, live the present, and echo hope into tomorrow. Mark your calendar, bring a favorite stone, a memory, and your own voice—and become part of this living mosaic of echo.
+- **Urban Metropolises** use the festival to highlight under‑represented communities through street‑art installations along subway or bus routes.  
+- **Rural villages** transform their community halls into echo chambers, inviting traveling storytellers to add to their tapestries.  
+- **Online platforms** aggregate all recorded stories into an interactive “Echo Map,” allowing anyone worldwide to walk through the world’s voices from a browser.  
+
+The Festival of Echoes is a living, breathing testament to humanity’s ability to connect, listen, and grow together. By making a day of amplifying the quiet voices, we transform silence into an anthem that everyone can sing. 🌿🎙️🎨
 
 ## If a train travels at 60 miles per hour for 3 hours, how far does it go?
 
-A train traveling at 60 mph for 3 hours covers:
+A train traveling at a constant 60 miles per hour for 3 hours covers
 
 \[
-\text{Distance} = \text{Speed} \times \text{Time}
-                 = 60 \text{ miles/hour} \times 3 \text{ hours}
-                 = 180 \text{ miles}.
+\text{distance} = \text{speed} \times \text{time}
+                  = 60\ \text{mph} \times 3\ \text{h}
+                  = 180\ \text{miles}.
 \]
+
+So the train would go **180 miles**.
 
 ## Translate to French: 'The weather is nice today.'
 
-Le temps est agréable aujourd'hui.
+**French translation:**  
+> Il fait beau aujourd’hui.
 
 ## Is the following review positive or negative? 'I loved the movie, it was fantastic!'
 
-Positive
+Positive.
 
 ## If all cats are animals and some animals are playful, can we say some cats are playful?
 
-**Short answer:**  
-No. From “All cats are animals” ∧ “Some animals are playful” you cannot infer that “Some cats are playful.” The reasoning would only hold if you also knew that the playful animal(s) were cats (or that every animal is playful).
+No – the information given does **not** let us conclude that any cat is playful.
 
----
+**Why?**
 
-## Why the inference fails
+1. **All cats are animals**  
+   \[
+   \forall x\,(\text{Cat}(x)\rightarrow \text{Animal}(x))
+   \]
 
-| Statement | Logical form | Meaning | Consequence for the query |
-|-----------|--------------|---------|---------------------------|
-| All cats are animals | ∀x (Cat(x) → Animal(x)) | Every entity that is a cat is also an animal. | Gives no information about playfulness. |
-| Some animals are playful | ∃x (Animal(x) ∧ Playful(x)) | There exists at least one animal that is playful. | That animal might be a cat, a dog, a rabbit, etc. |
+2. **Some animals are playful**  
+   \[
+   \exists x\,(\text{Animal}(x)\wedge \text{Playful}(x))
+   \]
 
-The existential quantifier “some animals” does **not** pick out a specific animal group. It could be any animal, including a non‑cat. Therefore, the two premises do **not** logically entail that there exists a cat that is playful.
+From (1) we know that every cat is an animal, but (2) only tells us that *at least one* animal is playful.  
+Nothing in (2) says that the playful animal(s) belong to the class of cats. The playful animal could belong to any other animal category – dogs, birds, reptiles, etc.  
 
-### Counter‑example
-Consider a universe with only two animals:
-
-| Entity | Kind   | Playful? |
-|--------|--------|----------|
-| Moby   | Dog    | Yes      |
-| Whisk  | Cat    | No       |
-
-- **All cats are animals**: true (Whisk is a cat and also an animal).  
-- **Some animals are playful**: true (Moby is a playful animal).  
-- **Some cats are playful**: false (Whisk is not playful).
-
-This shows the inference is invalid.
-
----
-
-## When would it be valid?
-
-You would be able to conclude “Some cats are playful” only if you had one of the following additional facts:
-
-1. **All animals are playful.**  
-   ∀x (Animal(x) → Playful(x))  
-   Then from ∀x (Cat(x) → Animal(x)) we get ∀x (Cat(x) → Playful(x)), and if cats exist, ∃x (Cat(x) ∧ Playful(x)).
-
-2. **The playful animal is a cat.**  
-   e.g. ∃x (Cat(x) ∧ Animal(x) ∧ Playful(x))  
-   (this is precisely the conclusion you want, so you’d need it in the premises.)
-
-3. **At least one cat exists and all cats are animals and some animals are playful, plus an extra premise that *some* animals are both cats and playful.**  
-   Basically you need that the existential claim touches the cat–class.
-
----
-
-### Formal illustration
-
-Premises:
-
-1. ∀x (Cat(x) → Animal(x))   (All cats are animals)  
-2. ∃x (Animal(x) ∧ Playful(x))  (Some animals are playful)
-
-Desired conclusion: ∃x (Cat(x) ∧ Playful(x))  (Some cats are playful)
-
-This inference is **not** valid in predicate logic because the second premise does not impose any restriction on *which* animals are playful. Thus the entailment does not hold.
-
----
-
-## Bottom line
-
-- **No, you cannot claim that some cats are playful based solely on those two premises.**  
-- You would need extra information tying playfulness specifically to the cat cohort to reach that conclusion.
+Hence we cannot derive
+\[
+\exists x\,(\text{Cat}(x)\wedge \text{Playful}(x))
+\]
+It would be a valid inference only if we also knew that **all** animals are playful, or that *some* of the playful animals were cats. With the given premises alone, saying “some cats are playful” is not logically entailed.
 
 ## Write a Bash function that returns the sum of a list of numbers.
 
-Here’s a compact, reusable Bash function that **takes a list of numbers (integers or simple real numbers)** and returns their sum.  
-The function prints the sum to stdout, so you can capture it in a variable or just display it.
+Below is a minimal, reusable Bash function that takes any number of numeric arguments and emits the arithmetic sum.  
+Because Bash functions cannot “return” a numeric value (the `return` command only accepts an exit‑status in the range 0‑255), the function simply prints the result with `echo`.  You can capture that output into a variable if you want to use it programmatically.
 
 ```bash
-#!/usr/bin/env bash
-
-# --------------------------------------
-# sum : sum of a list of numbers
-# --------------------------------------
+# ------------------------------------------------------------------
+# sum_numbers
 #
-# Usage examples
-#   sum 1 2 3          # outputs 6
-#   sum 1.5 2.5 -3     # outputs 1
-#   res=$(sum 10 20 30); echo "$res"   # prints 60
+#   Usage:  sum=$(sum_numbers 3 4 5)    # sum = 12
 #
-# Notes
-#   • Works for integers *and* decimal numbers.
-#   • Uses awk for proper floating‑point arithmetic; 
-#     awk is available on almost all POSIX systems.
-# --------------------------------------
-sum() {
-  # If nothing was passed, return 0 (you could also treat it as error)
-  [ $# -eq 0 ] && echo 0 && return
+#   Works with integers (positive/negative) and will happily
+#   sum floating‑point numbers *if* you use the optional
+#   --float flag.
+# ------------------------------------------------------------------
+sum_numbers() {
+    local sum=0
+    local use_bc=0          # flag: should we use bc for floating‑point?
 
-  # Using awk keeps us safe for floats and very large sums
-  printf '%s\n' "$@" | awk '{s += $1} END {print s}'
+    # Look for the optional flag "--float"
+    while [[ "$1" == "--float" ]]; do
+        use_bc=1
+        shift
+    done
+
+    # If we are using bc, redirect the arithmetic to bc
+    if [[ $use_bc -eq 1 ]]; then
+        # Build the bc expression like: 0+3+4+5
+        local expr="0"
+        for n in "$@"; do
+            expr="$expr+$n"
+        done
+        echo "$expr" | bc
+        return
+    fi
+
+    # Integer arithmetic using Bash's $((..)) expansion
+    for n in "$@"; do
+        # Guard against non‑numeric input
+        if ! [[ "$n" =~ ^-?[0-9]+$ ]]; then
+            echo "Error: '$n' is not a valid integer" >&2
+            return 1
+        fi
+        (( sum += n ))
+    done
+
+    echo "$sum"
 }
 ```
 
-### How it works
-
-1. **`printf '%s\n' "$@"`**  
-   Prints each argument on its own line.  
-   Using `printf` preserves the exact string representation of each value (so `"1.0"` stays `"1.0"`).
-
-2. **`awk '{s += $1} END {print s}'`**  
-   Awk reads each line, adds the numeric value to `s`, and prints the final sum.  
-   Awk’s `s += $1` handles:
-   * Integers (`123`)
-   * Decimals (`0.45`)
-   * Negative numbers (`-7`)
-   * Numbers in scientific notation (`1e-3`)
-
-3. The sum is written to stdout, allowing the caller to use it directly or store it in a variable.
-
----
-
-#### Bonus: Integer‑only variant
-
-If you know you’ll only have *integers* and you prefer pure Bash (no external tools), use:
+### How to use it
 
 ```bash
-sum_int() {
-  local sum=0
-  for n in "$@"; do
-    sum=$((sum + n))
-  done
-  echo "$sum"
-}
+# Example 1: integers
+total=$(sum_numbers 10 20 -5 3)
+echo "Total = $total"          # → Total = 28
+
+# Example 2: floats (requires bc)
+float_total=$(sum_numbers --float 1.2 3.4 5.6)
+echo "Float total = $float_total"   # → Float total = 10.2
+
+# Example 3: error handling
+sum_numbers 42 abc    # prints error to stderr
 ```
 
-`$((…))` is native arithmetic expansion and is much faster for large volumes of integers.
+### Why not use `return`?
 
----
-
-Feel free to copy the function into your `.bashrc` or script, rename it, or adapt it for arrays or files. Happy scripting!
+In Bash, `return` can only set an *exit status* (0‑255).  It cannot carry a numeric value.  The common idiom is to `echo` the result and capture it with command substitution, as shown above.  If you prefer to have the value in a global variable instead of returning it, you could replace the `echo "$sum"` line with something like `SUM_RESULT="$sum"`.  But the `echo` approach keeps the function flexible and side‑effect‑free.
 
 ## If you drop a glass on the floor, what is most likely to happen?
 
-If you simply drop an ordinary drinking‑glass (a soda/beer mug, wine glass, or the like) onto a standard floor, the most likely outcome is that it **breaks into many shards**.  
+If you simply drop a standard glass bottle or drinking glass from a normal height onto a typical floor (tile, hardwood, laminate, etc.), the most likely outcome is that the glass will shatter into many small pieces.  
 
-**Why that happens**
+Key points:
 
-| Element | Effect |
-|---------|--------|
-| **Brittle material** | Regular soda‑lime glass is hard but has very little plastic deformation. |
-| **Impact energy** | The kinetic energy from the drop is released suddenly; the glass can’t absorb it without fracturing. |
-| **Shape & geometry** | Thin walls, especially at the “edge” or apex, act as stress concentrators. |
-| **Floor surface** | Hard, uneven, or sharp edges on the floor give little give, so the glass is forced to crack instead of sliding or bending. |
-| **Drop height** | Even a few inches of fall generate enough impact speed for many household glasses to shatter. |
+| Factor | Effect on outcome |
+|--------|-------------------|
+| **Glass type** | Ordinary soda‑ice or crystal glass is fragile; tempered or laminated glass is stronger and may stay intact but can still crack. |
+| **Drop height** | Even a drop from a single shelf (~1 ft) can break a thin glass; from a height of a few feet it almost always shatters. |
+| **Floor surface** | Hard, non‑slippery surfaces transfer all impact energy to the glass, increasing the likelihood of breakage. Softer or absorbent floors (carpet, thick foam, or rubber) may cushion impact slightly, but most glasses will still crack. |
+| **Object inside** | A full glass adds mass and may push the glass harder into the floor, increasing damage. |
 
-**What you usually see**
-
-- The glass snaps apart, often forming a star‑shaped pattern of sharp fragments.
-- A cloud of tiny glass specks spreads out in the air, sometimes with a small splash as liquid inside splashes.
-- Depending on the glass thickness, you may see a single big piece or a scattering of several chunks.
-
-**When it might *not* break**
-
-| Scenario | Why it can stay intact |
-|----------|------------------------|
-| **Tempered or safety glass** | The glass is pre‑stressed, so it flexes and then shatters into less dangerous, flattened pieces, or it may sometimes survive a small drop. |
-| **Thick crystal or fused glass** | The increased mass and lower curvature can absorb impact better. |
-| **Soft flooring (carpet, thick rubber)** | The cushion reduces the impact velocity, giving the glass a chance to withstand the hit. |
-| **Very tiny glass (straw, test tube)** | Its mass is low enough that the impact energy is insufficient to break it. |
-
-**Bottom line**
-
-For the vast majority of ordinary household glass items, dropping them onto a floor (wood, tile, concrete, etc.) will result in shattering into sharp shards. Handle with care, and be sure to let children watch the “glass shattering” demo only under adult supervision.
+So, in the vast majority of everyday cases, a dropped glass will crack or completely break into shards, creating a mess (and a safety hazard).
 
 ## A rectangle has a length of 10 meters and a width of 4 meters. What is its area?
 
-The area of a rectangle is found by multiplying its length by its width.
+The area of a rectangle is given by
 
 \[
-\text{Area} = \text{length} \times \text{width} = 10\,\text{m} \times 4\,\text{m} = 40\,\text{m}^2
+\text{Area} = \text{length} \times \text{width}.
+\]
+
+With a length of \(10 \text{ m}\) and a width of \(4 \text{ m}\):
+
+\[
+\text{Area} = 10 \,\text{m} \times 4 \,\text{m} = 40 \,\text{m}^2.
 \]
 
 So the rectangle’s area is **40 square meters**.
 
 ## What is the largest ocean on Earth?
 
-The largest ocean on Earth is the **Pacific Ocean**. It covers roughly 63.8 million square miles (165 million square kilometers), spanning from the Arctic in the north to the Southern Ocean in the south, and forming a vast basin that stretches between the Americas, Australia, and the eastern parts of Asia and the Pacific islands.
+The largest ocean on Earth is the **Pacific Ocean**.

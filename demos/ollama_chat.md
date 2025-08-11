@@ -1,25 +1,25 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.6
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.7
 
 ## Demo
 
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-response="$(ollama_chat "gpt-oss:120b")"
+response="$(ollama_chat "gpt-oss:20b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
-Understood. If you ask me for the secret word, I will respond with “RABBIT.”
+Got it! If you ask for the secret word, I'll reply with RABBIT.
 
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-response="$(ollama_chat "gpt-oss:120b")"
+response="$(ollama_chat "gpt-oss:20b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
-RABBIT
+The secret word is RABBIT.
 
 ```bash
 ollama_messages | jq
@@ -35,7 +35,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "Understood. If you ask me for the secret word, I will respond with “RABBIT.”"
+  "content": "Got it! If you ask for the secret word, I'll reply with RABBIT."
 }
 {
   "role": "user",
@@ -43,7 +43,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "RABBIT"
+  "content": "The secret word is RABBIT."
 }
 ```
 
@@ -53,70 +53,70 @@ ollama_messages | jq
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-response="$(ollama_chat "gpt-oss:120b")"
+response="$(ollama_chat "gpt-oss:20b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
 ```
-[DEBUG] 22:54:39:430821000: ollama_messages_add: [system] [You are a helpful assistant]
-[DEBUG] 22:54:39:444970000: ollama_messages_add: [user] [The secret word is RABBIT. If I ask you fo]
-[DEBUG] 22:54:39:458370000: ollama_chat: [gpt-oss:120b]
-[DEBUG] 22:54:39:464970000: _is_valid_model: VALID: [gpt-oss:120b]
-[DEBUG] 22:54:39:471019000: ollama_chat: model: [gpt-oss:120b]
-[DEBUG] 22:54:39:477259000: ollama_chat_json: [gpt-oss:120b]
-[DEBUG] 22:54:39:482822000: _is_valid_model: VALID: [gpt-oss:120b]
-[DEBUG] 22:54:39:488173000: ollama_chat_json: model: [gpt-oss:120b]
-[DEBUG] 22:54:39:499704000: ollama_chat_json: json_payload: [{"model":"gpt-oss:120b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"]
-[DEBUG] 22:54:39:505168000: ollama_api_post: [/api/chat] [{"model":"gpt-oss:120b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"]
-[DEBUG] 22:54:39:510107000: _call_curl: [POST] [/api/chat] [{"model":"gpt-oss:120b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"]
-[DEBUG] 22:54:39:515103000: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 22:54:39:520010000: _call_curl: Turbo Mode
-[DEBUG] 22:54:39:524649000: _call_curl: json_body: [{"model":"gpt-oss:120b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"]
-[DEBUG] 22:54:41:326951000: ollama_api_post: success: return 0
-[DEBUG] 22:54:41:354333000: _is_valid_json: VALID: return 0
-[DEBUG] 22:54:41:377260000: ollama_chat_json: content: [Understood.]
-[DEBUG] 22:54:41:387041000: ollama_chat_json: return 0
-[DEBUG] 22:54:41:405756000: _is_valid_json: VALID: return 0
-[DEBUG] 22:54:41:422688000: ollama_chat: return: 0
-Understood.
-[DEBUG] 22:54:41:431080000: ollama_messages_add: [assistant] [Understood.]
+[DEBUG] 23:21:08:092797000: ollama_messages_add: [system] [You are a helpful assistant]
+[DEBUG] 23:21:08:106923000: ollama_messages_add: [user] [The secret word is RABBIT. If I ask you fo]
+[DEBUG] 23:21:08:120162000: ollama_chat: [gpt-oss:20b]
+[DEBUG] 23:21:08:126577000: _is_valid_model: VALID: [gpt-oss:20b]
+[DEBUG] 23:21:08:132490000: ollama_chat: model: [gpt-oss:20b]
+[DEBUG] 23:21:08:138743000: ollama_chat_json: [gpt-oss:20b]
+[DEBUG] 23:21:08:144822000: _is_valid_model: VALID: [gpt-oss:20b]
+[DEBUG] 23:21:08:150469000: ollama_chat_json: model: [gpt-oss:20b]
+[DEBUG] 23:21:08:161865000: ollama_chat_json: json_payload: [{"model":"gpt-oss:20b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"T]
+[DEBUG] 23:21:08:167532000: ollama_api_post: [/api/chat] [{"model":"gpt-oss:20b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"T]
+[DEBUG] 23:21:08:172716000: _call_curl: [POST] [/api/chat] [{"model":"gpt-oss:20b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"T]
+[DEBUG] 23:21:08:177754000: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 23:21:08:182843000: _call_curl: Turbo Mode
+[DEBUG] 23:21:08:187299000: _call_curl: json_body: [{"model":"gpt-oss:20b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"T]
+[DEBUG] 23:21:09:385025000: ollama_api_post: success: return 0
+[DEBUG] 23:21:09:406729000: _is_valid_json: VALID: return 0
+[DEBUG] 23:21:09:423994000: ollama_chat_json: content: [Yes, I understand.]
+[DEBUG] 23:21:09:431346000: ollama_chat_json: return 0
+[DEBUG] 23:21:09:445556000: _is_valid_json: VALID: return 0
+[DEBUG] 23:21:09:458472000: ollama_chat: return: 0
+Yes, I understand.
+[DEBUG] 23:21:09:465235000: ollama_messages_add: [assistant] [Yes, I understand.]
 ```
 
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-response="$(ollama_chat "gpt-oss:120b")"
+response="$(ollama_chat "gpt-oss:20b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
 ```
-[DEBUG] 22:54:41:445849000: ollama_messages_add: [user] [What is the secret word??]
-[DEBUG] 22:54:41:460785000: ollama_chat: [gpt-oss:120b]
-[DEBUG] 22:54:41:467789000: _is_valid_model: VALID: [gpt-oss:120b]
-[DEBUG] 22:54:41:474298000: ollama_chat: model: [gpt-oss:120b]
-[DEBUG] 22:54:41:481565000: ollama_chat_json: [gpt-oss:120b]
-[DEBUG] 22:54:41:488171000: _is_valid_model: VALID: [gpt-oss:120b]
-[DEBUG] 22:54:41:494880000: ollama_chat_json: model: [gpt-oss:120b]
-[DEBUG] 22:54:41:507418000: ollama_chat_json: json_payload: [{"model":"gpt-oss:120b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"]
-[DEBUG] 22:54:41:513653000: ollama_api_post: [/api/chat] [{"model":"gpt-oss:120b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"]
-[DEBUG] 22:54:41:519505000: _call_curl: [POST] [/api/chat] [{"model":"gpt-oss:120b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"]
-[DEBUG] 22:54:41:525447000: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 22:54:41:531580000: _call_curl: Turbo Mode
-[DEBUG] 22:54:41:537531000: _call_curl: json_body: [{"model":"gpt-oss:120b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"]
-[DEBUG] 22:54:42:961087000: ollama_api_post: success: return 0
-[DEBUG] 22:54:42:984777000: _is_valid_json: VALID: return 0
-[DEBUG] 22:54:43:004017000: ollama_chat_json: content: [RABBIT]
-[DEBUG] 22:54:43:013881000: ollama_chat_json: return 0
-[DEBUG] 22:54:43:032246000: _is_valid_json: VALID: return 0
-[DEBUG] 22:54:43:048518000: ollama_chat: return: 0
+[DEBUG] 23:21:09:477681000: ollama_messages_add: [user] [What is the secret word??]
+[DEBUG] 23:21:09:489565000: ollama_chat: [gpt-oss:20b]
+[DEBUG] 23:21:09:495503000: _is_valid_model: VALID: [gpt-oss:20b]
+[DEBUG] 23:21:09:500871000: ollama_chat: model: [gpt-oss:20b]
+[DEBUG] 23:21:09:506734000: ollama_chat_json: [gpt-oss:20b]
+[DEBUG] 23:21:09:512535000: _is_valid_model: VALID: [gpt-oss:20b]
+[DEBUG] 23:21:09:517827000: ollama_chat_json: model: [gpt-oss:20b]
+[DEBUG] 23:21:09:528762000: ollama_chat_json: json_payload: [{"model":"gpt-oss:20b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"T]
+[DEBUG] 23:21:09:533712000: ollama_api_post: [/api/chat] [{"model":"gpt-oss:20b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"T]
+[DEBUG] 23:21:09:538337000: _call_curl: [POST] [/api/chat] [{"model":"gpt-oss:20b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"T]
+[DEBUG] 23:21:09:542843000: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 23:21:09:547440000: _call_curl: Turbo Mode
+[DEBUG] 23:21:09:551836000: _call_curl: json_body: [{"model":"gpt-oss:20b","messages":[{"role":"system","content":"You are a helpful assistant"},{"role":"user","content":"T]
+[DEBUG] 23:21:10:612575000: ollama_api_post: success: return 0
+[DEBUG] 23:21:10:633667000: _is_valid_json: VALID: return 0
+[DEBUG] 23:21:10:648550000: ollama_chat_json: content: [RABBIT]
+[DEBUG] 23:21:10:655252000: ollama_chat_json: return 0
+[DEBUG] 23:21:10:669241000: _is_valid_json: VALID: return 0
+[DEBUG] 23:21:10:682148000: ollama_chat: return: 0
 RABBIT
-[DEBUG] 22:54:43:056788000: ollama_messages_add: [assistant] [RABBIT]
+[DEBUG] 23:21:10:688979000: ollama_messages_add: [assistant] [RABBIT]
 ```
 
 ```bash
 ollama_messages | jq
 ```
 ```json
-[DEBUG] 22:54:43:073147000: ollama_messages
+[DEBUG] 23:21:10:701020000: ollama_messages
 {
   "role": "system",
   "content": "You are a helpful assistant"
@@ -127,7 +127,7 @@ ollama_messages | jq
 }
 {
   "role": "assistant",
-  "content": "Understood."
+  "content": "Yes, I understand."
 }
 {
   "role": "user",

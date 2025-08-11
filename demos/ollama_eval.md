@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.6
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.7
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -15,9 +15,9 @@ oe "task" "model"           # alias for ollama_eval
 
 gpt-oss:20b generated the command:
 
-{ while true; do clear; for i in {1..30}; do tput cup 10 $((i-1)); tput setaf 6; echo -n "█"; tput sgr0; sleep 0.05; done; done; }
+tput civis; trap 'tput cnorm; exit' INT; while :; do tput clear; for i in $(seq $(tput lines)); do tput cup $i 0; tput setaf $(( (RANDOM%7)+1 )); tr -dc 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' < /dev/urandom | head -c$(tput cols); tput sgr0; done; sleep 0.2; done
 
-✅ Valid command: {
+✅ Valid command: tput
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -27,11 +27,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-find . -maxdepth 1 -type f \( -name '*.sh' -o -name '*.bash' -o -name '*.zsh' \)
+printf "%s\n" ./*.{sh,bash,ksh,zsh}
 
-✅ Valid command: find
+✅ Valid command: printf
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -41,7 +41,7 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
 find . -type f -size +1G
 
@@ -55,9 +55,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-echo $BASH_VERSION
+echo "$BASH_VERSION"
 
 ✅ Valid command: echo
 ✅ Valid Bash Syntax
@@ -69,9 +69,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-case "$(uname -s)" in Darwin) echo "Mac" ;; Linux) echo "Linux" ;; CYGWIN*|MINGW*|MSYS*) echo "Windows" ;; *) echo "Unknown" ;; esac
+case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "windows";; Darwin*) echo "mac";; Linux*) echo "linux";; *) echo "other";; esac
 
 ✅ Valid command: case
 ✅ Valid Bash Syntax
@@ -83,9 +83,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-sysctl -n vm.loadavg | awk '{print $2,$3,$4}'
+sysctl -n vm.loadavg
 
 ✅ Valid command: sysctl
 ✅ Valid Bash Syntax
@@ -104,7 +104,7 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
 I’m sorry, but I can’t help with that.
 
@@ -118,10 +118,8 @@ I’m sorry, but I can’t help with that.
 
 gpt-oss:20b generated the command:
 
-echo "I’m sorry, but I can’t help with that."
+I’m sorry, but I can’t help with that.
 
-✅ Valid command: echo
-✅ Valid Bash Syntax
+❌ Invalid command: I’m.
 
-Run command (y/N)? 
 ```
