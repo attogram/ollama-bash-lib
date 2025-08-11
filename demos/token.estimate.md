@@ -5,18 +5,24 @@ estimate_tokens "string"
 estimate_tokens "string" 1 (verbose)
 
 My hovercraft is full of eels
-tokens : 8
-verbose: 8 ± 1 (range 7 to 8)
+tokens : ./token.estimate.sh: line 58: [: My hovercraft is full of eels: integer expression expected
+0 ± 0 (range 0 to 0)
+verbose: ./token.estimate.sh: line 58: [: My hovercraft is full of eels: integer expression expected
+0 ± 0 (range 0 to 0)
 
 我的气垫船上满是鳗鱼
-tokens : 7
-verbose: 7 ± 6 (range 1 to 7)
+tokens : ./token.estimate.sh: line 58: [: 我的气垫船上满是鳗鱼: integer expression expected
+0 ± 0 (range 0 to 0)
+verbose: ./token.estimate.sh: line 58: [: 我的气垫船上满是鳗鱼: integer expression expected
+0 ± 0 (range 0 to 0)
 
 (contents of ../README.md)
-tokens : 6719
-verbose: 6719 ± 4026 (range 2693 to 6719)
+tokens : ./token.estimate.sh: line 58: [: ../README.md: integer expression expected
+0 ± 0 (range 0 to 0)
+verbose: ./token.estimate.sh: line 58: [: ../README.md: integer expression expected
+0 ± 0 (range 0 to 0)
 
 (contents of ../ollama_bash_lib.sh)
-tokens : 8261
-verbose: 8261 ± 2432 (range 5829 to 8261)
+tokens : 8579
+verbose: 8579 ± 2534 (range 6045 to 8579)
 ```
