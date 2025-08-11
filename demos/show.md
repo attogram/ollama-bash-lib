@@ -1,24 +1,38 @@
 # ollama_show, ollama_show_json
-ERROR: Ollama Not Installed
-[ERROR] ollama_api_get: curl error: 7
-ERROR: Ollama API not reachable
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.4
-./../ollama_bash_lib.sh: line 607: ollama: command not found
-[ERROR] ollama_model_random: No Models Found
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.5
 
-ollama_show ""
+ollama_show "gpt-oss:20b"
 
 ```
-./../ollama_bash_lib.sh: line 744: ollama: command not found
-[ERROR] ollama_show: ollama show failed
+  Model
+    architecture        gptoss    
+    parameters          20.9B     
+    context length      131072    
+    embedding length    2880      
+    quantization        MXFP4     
+
 ```
 
 
-ollama_show_json ""
+ollama_show_json "gpt-oss:20b"
 
 ```
-[ERROR] _call_curl: curl error: 7
-[ERROR] ollama_api_post: curl error: 7
-[ERROR] ollama_show_json: ollama_api_post failed
+{
+  "details": {
+    "parent_model": "gpt-oss:20b",
+    "format": "",
+    "family": "gptoss",
+    "families": null,
+    "parameter_size": "20914757184",
+    "quantization_level": "MXFP4"
+  },
+  "model_info": {
+    "general.architecture": "gptoss",
+    "general.parameter_count": 20914757184,
+    "gptoss.context_length": 131072,
+    "gptoss.embedding_length": 2880
+  },
+  "modified_at": "0001-01-01T00:00:00Z"
+}
 ```

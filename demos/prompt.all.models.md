@@ -1,9 +1,6 @@
 # Prompt all models
-ERROR: Ollama Not Installed
-[ERROR] ollama_api_get: curl error: 7
-ERROR: Ollama API not reachable
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.4
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.5
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -14,7 +11,16 @@ for model in "${models[@]}"; do
   ollama_generate "$model" "$prompt"
 done
 ```
-./../ollama_bash_lib.sh: line 607: ollama: command not found
-0 models:
+2 models: gpt-oss:120b gpt-oss:20b
 
 prompt: What is your knowledge cutoff date? Respond with only the date.
+
+## gpt-oss:120b
+```
+2024-06
+```
+
+## gpt-oss:20b
+```
+2024-06
+```
