@@ -60,6 +60,23 @@ _error() {
   printf "[ERROR] %s\n" "$(_redact "$1")" >&2
 }
 
+# Wraps a stream of text with <thinking> tags
+#
+# Usage: <stream> | _ollama_thinking_stream
+# Input: stream of text from stdin
+# Output: wrapped text to stderr
+# Requires: none
+# Returns: 0
+_ollama_thinking_stream() {
+  local chunk
+  if read -r -n 1 chunk && [[ -n "$chunk" ]]; then
+    printf "<thinking>\n" >&2
+    printf "%s" "$chunk" >&2
+    cat >&2
+    printf "\n</thinking>\n\n" >&2
+  fi
+}
+
 # Does a command exist?
 #
 # Usage: _exists "command"
@@ -309,7 +326,7 @@ ollama_generate() {
     local thinking
     thinking="$(printf '%s' "$result" | jq -r '.thinking // empty')"
     if [[ -n "$thinking" ]]; then
-      printf '\n# %s\n' "$thinking" >&2
+      printf '<thinking>\n%s\n</thinking>\n\n' "$thinking" >&2
     fi
   fi
 
@@ -356,20 +373,22 @@ ollama_generate_stream_json() {
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
   _debug "ollama_generate_stream: [${1:0:42}] [${2:0:42}]"
-  OLLAMA_LIB_STREAM=1 # Turn on streaming for the API request
-  local line
-  ollama_generate_json "$1" "$2" | while IFS= read -r line; do
-    if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
-      local thinking
-      thinking="$(printf '%s' "$line" | jq -r '.thinking // empty')"
-      if [[ -n "$thinking" ]]; then
-        printf '\n# %s\n' "$thinking" >&2
+  OLLAMA_LIB_STREAM=1
+  (
+    ollama_generate_json "$1" "$2" | while IFS= read -r line; do
+      if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+        local thinking
+        thinking="$(printf '%s' "$line" | jq -r '.thinking // empty')"
+        if [[ -n "$thinking" ]]; then
+          printf '%s' "$thinking" >&2
+        fi
       fi
-    fi
-    printf '%s' "$(printf '%s' "$line" | jq -r '.response // empty')"
-  done
-  local error_code=${PIPESTATUS[0]}
-  OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
+      printf '%s' "$(printf '%s' "$line" | jq -r '.response // empty')"
+    done
+    exit ${PIPESTATUS[0]}
+  ) 2> >(_ollama_thinking_stream)
+  local error_code=$?
+  OLLAMA_LIB_STREAM=0
   if [[ $error_code -ne 0 ]]; then
     _error "ollama_generate_stream: ollama_generate_json failed with code $error_code"
     return 1
@@ -550,6 +569,14 @@ ollama_chat() {
     return 1
   fi
 
+  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+    local thinking
+    thinking="$(printf '%s' "$response" | jq -r '.thinking // empty')"
+    if [[ -n "$thinking" ]]; then
+      printf '<thinking>\n%s\n</thinking>\n\n' "$thinking" >&2
+    fi
+  fi
+
   local message_content
   if ! message_content="$(printf '%s' "$response" | jq -r ".message.content")"; then
     _error 'ollama_chat: failed to get .message.content'
@@ -577,22 +604,24 @@ ollama_chat_stream() {
     return 1
   fi
   OLLAMA_LIB_STREAM=1
-  local line
-  ollama_chat_json "$model" | while IFS= read -r line; do
-    if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
-      local thinking
-      thinking="$(printf '%s' "$line" | jq -r '.message.thinking // empty')"
-      if [[ -n "$thinking" ]]; then
-        printf '\n# %s\n' "$thinking" >&2
+  (
+    ollama_chat_json "$model" | while IFS= read -r line; do
+      if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+        local thinking
+        thinking="$(printf '%s' "$line" | jq -r '.message.thinking // empty')"
+        if [[ -n "$thinking" ]]; then
+          printf '%s' "$thinking" >&2
+        fi
       fi
-    fi
-    printf '%s' "$(printf '%s' "$line" | jq -r '.message.content // empty')"
-  done
-  local error_code=${PIPESTATUS[0]}
+      printf '%s' "$(printf '%s' "$line" | jq -r '.message.content // empty')"
+    done
+    exit ${PIPESTATUS[0]}
+  ) 2> >(_ollama_thinking_stream)
+  local error_code=$?
   OLLAMA_LIB_STREAM=0
   if [[ $error_code -ne 0 ]]; then
-      _error "ollama_chat_stream: ollama_chat_json failed with code $error_code"
-      return 1
+    _error "ollama_chat_stream: ollama_chat_json failed with code $error_code"
+    return 1
   fi
   printf '\n'
   return 0
@@ -1144,8 +1173,9 @@ ollama_eval() {
     local thinking
     thinking="$(printf '%s' "$json_result" | jq -r '.thinking // empty')"
     if [[ -n "$thinking" ]]; then
+      printf '# <thinking>\n'
       printf '%s\n' "$thinking" | sed 's/^/# /'
-      printf '\n'
+      printf '# </thinking>\n\n'
     fi
   fi
   local cmd
