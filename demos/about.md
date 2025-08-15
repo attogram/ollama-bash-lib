@@ -32,12 +32,13 @@ OLLAMA_LIB_TURBO_KEY: (57 characters)
 
 Functions:
 
-_call_curl			ollama_chat
-_debug				ollama_chat_json
-_error				ollama_chat_stream
-_exists				ollama_chat_stream_json
-_is_valid_json			ollama_eval
-_is_valid_model			ollama_generate
+_call_curl			ollama_app_version_json
+_debug				ollama_chat
+_error				ollama_chat_json
+_exists				ollama_chat_stream
+_is_valid_json			ollama_chat_stream_json
+_is_valid_model			ollama_eval
+_ollama_thinking_stream		ollama_generate
 oag				ollama_generate_json
 oai				ollama_generate_stream
 oap				ollama_generate_stream_json
@@ -68,5 +69,4 @@ ollama_app_turbo		op
 ollama_app_vars			opj
 ollama_app_version		os
 ollama_app_version_cli		osj
-ollama_app_version_json
 ```

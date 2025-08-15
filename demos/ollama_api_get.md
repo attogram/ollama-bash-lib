@@ -42,11 +42,11 @@ result: output: {"version":"0.0.0"}
 ```
 ollama_api_get
 
-[DEBUG] 23:37:47:028345000: ollama_api_get: []
-[DEBUG] 23:37:47:037608000: _call_curl: [GET] [] []
-[DEBUG] 23:37:47:045675000: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 23:37:47:052631000: _call_curl: Turbo Mode
-[DEBUG] 23:37:47:296067000: ollama_api_get: success: return 0
+[DEBUG] 00:54:21:567626000: ollama_api_get: []
+[DEBUG] 00:54:21:575618000: _call_curl: [GET] [] []
+[DEBUG] 00:54:21:582925000: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 00:54:21:589965000: _call_curl: Turbo Mode
+[DEBUG] 00:54:21:855138000: ollama_api_get: success: return 0
 result: lines:      394
 result: output: 
 
@@ -62,11 +62,11 @@ result: output:
 ```
 ollama_api_get "/api/version"
 
-[DEBUG] 23:37:47:317273000: ollama_api_get: [/api/version]
-[DEBUG] 23:37:47:324669000: _call_curl: [GET] [/api/version] []
-[DEBUG] 23:37:47:331587000: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 23:37:47:338003000: _call_curl: Turbo Mode
-[DEBUG] 23:37:47:562726000: ollama_api_get: success: return 0
+[DEBUG] 00:54:21:875563000: ollama_api_get: [/api/version]
+[DEBUG] 00:54:21:883327000: _call_curl: [GET] [/api/version] []
+[DEBUG] 00:54:21:890421000: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 00:54:21:897354000: _call_curl: Turbo Mode
+[DEBUG] 00:54:22:115358000: ollama_api_get: success: return 0
 result: lines:        1
 result: output: {"version":"0.0.0"}
 ```

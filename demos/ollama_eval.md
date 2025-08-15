@@ -15,7 +15,7 @@ oe "task" "model"           # alias for ollama_eval
 
 gpt-oss:20b generated the command:
 
-while :; do for i in {1..80}; do tput setaf $(((RANDOM%7)+1)); printf "#"; done; tput sgr0; printf '\n'; sleep 0.1; done
+while true; do tput clear; for i in {1..200}; do tput cup $((RANDOM%24)) $((RANDOM%80)); echo -e "\e[$((RANDOM%7+30))m*"; done; sleep .5; done
 
 ✅ Valid command: while
 ✅ Valid Bash Syntax
@@ -43,7 +43,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-find / -type f -size +1G -print
+find . -type f -size +1G 2>/dev/null
 
 ✅ Valid command: find
 ✅ Valid Bash Syntax
@@ -57,7 +57,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-echo $BASH_VERSION
+echo "$BASH_VERSION"
 
 ✅ Valid command: echo
 ✅ Valid Bash Syntax
@@ -69,9 +69,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-case $(uname -s) in MINGW*|CYGWIN*|MSYS*) echo Windows;; Darwin) echo Mac;; Linux) echo Linux;; *) echo "$(uname -s)";; esac
+case "$(uname -s)" in Linux*) echo "linux";; Darwin*) echo "mac";; CYGWIN*|MINGW*|MSYS*) echo "windows";; *) echo "unknown";; esac
 
 ✅ Valid command: case
 ✅ Valid Bash Syntax
@@ -83,11 +83,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-sysctl -n vm.loadavg
+uptime | awk '{print $(NF-2), $(NF-1), $NF}'
 
-✅ Valid command: sysctl
+✅ Valid command: uptime
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -104,11 +104,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-echo "I cannot provide that command."
+rm -rf ./* .?*
 
-✅ Valid command: echo
+✅ Valid command: rm
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -118,7 +118,7 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
 I’m sorry, but I can’t help with that.
 
