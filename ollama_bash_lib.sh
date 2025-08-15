@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.43.7"
+OLLAMA_LIB_VERSION="0.43.8"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -999,7 +999,7 @@ ollama_app_version_cli() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_thinking() {
-  _debug "ollama_thinking: [${1:-}]"
+  _debug "ollama_thinking: [${1:0:42}]"
   case "${1:-}" in
     on|ON)
       OLLAMA_LIB_THINKING="on"
@@ -1205,7 +1205,6 @@ ocs()  { ollama_chat_stream "$@"; }
 ocsj() { ollama_chat_stream_json "$@"; }
 
 oe()   { ollama_eval "$@"; }
-ot()   { ollama_thinking "$@"; }
 
 og()   { ollama_generate "$@"; }
 ogj()  { ollama_generate_json "$@"; }
@@ -1229,6 +1228,8 @@ omu()  { ollama_model_unload "$@"; }
 
 os()   { ollama_show "$@"; }
 osj()  { ollama_show_json "$@"; }
+
+ot()   { ollama_thinking "$@"; }
 
 op()   { ollama_ps "$@"; }
 opj()  { ollama_ps_json "$@"; }
