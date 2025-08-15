@@ -377,11 +377,7 @@ ollama_generate_stream() {
   (
     ollama_generate_json "$1" "$2" | while IFS= read -r line; do
       if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
-        local thinking
-        thinking="$(printf '%s' "$line" | jq -r '.thinking // empty')"
-        if [[ -n "$thinking" ]]; then
-          printf '%s' "$thinking" >&2
-        fi
+        printf '%s' "$(printf '%s' "$line" | jq -r '.thinking // empty')" >&2
       fi
       printf '%s' "$(printf '%s' "$line" | jq -r '.response // empty')"
     done
@@ -607,11 +603,7 @@ ollama_chat_stream() {
   (
     ollama_chat_json "$model" | while IFS= read -r line; do
       if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
-        local thinking
-        thinking="$(printf '%s' "$line" | jq -r '.message.thinking // empty')"
-        if [[ -n "$thinking" ]]; then
-          printf '%s' "$thinking" >&2
-        fi
+        printf '%s' "$(printf '%s' "$line" | jq -r '.message.thinking // empty')" >&2
       fi
       printf '%s' "$(printf '%s' "$line" | jq -r '.message.content // empty')"
     done
