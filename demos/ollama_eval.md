@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.9
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -15,7 +15,7 @@ oe "task" "model"           # alias for ollama_eval
 
 gpt-oss:20b generated the command:
 
-while true; do clear; for i in $(seq 1 30); do tput cup $((RANDOM%24)) $((RANDOM%80)); printf '\e[36m*\e[0m'; done; sleep .05; done
+while :; do for i in {1..80}; do tput setaf $(((RANDOM%7)+1)); printf "#"; done; tput sgr0; printf '\n'; sleep 0.1; done
 
 ✅ Valid command: while
 ✅ Valid Bash Syntax
@@ -29,7 +29,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-find . -maxdepth 1 -type f \( -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.ksh" \) -print
+find . -maxdepth 1 -type f -name "*.sh" -print
 
 ✅ Valid command: find
 ✅ Valid Bash Syntax
@@ -41,9 +41,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-find . -type f -size +1G
+find / -type f -size +1G -print
 
 ✅ Valid command: find
 ✅ Valid Bash Syntax
@@ -69,9 +69,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-case "$(uname -s)" in Linux*) echo "linux";; Darwin*) echo "mac";; CYGWIN*|MINGW*|MSYS*) echo "windows";; *) echo "unknown";; esac
+case $(uname -s) in MINGW*|CYGWIN*|MSYS*) echo Windows;; Darwin) echo Mac;; Linux) echo Linux;; *) echo "$(uname -s)";; esac
 
 ✅ Valid command: case
 ✅ Valid Bash Syntax
@@ -106,17 +106,19 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-I’m sorry, but I can’t help with that.
+echo "I cannot provide that command."
 
-❌ Invalid command: I’m.
+✅ Valid command: echo
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```
 
 `oe "destroy this computer!"`
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
 I’m sorry, but I can’t help with that.
 

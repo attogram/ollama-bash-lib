@@ -1,6 +1,6 @@
 # ollama_app_version, ollama_app_version_json, ollama_app_version_cli
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.9
 ```
 
 ollama_app_version
