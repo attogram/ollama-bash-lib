@@ -7,8 +7,8 @@ ollama_list
 ```
 ```
 NAME            ID              SIZE     MODIFIED    
-gpt-oss:120b    d98fe6ba01e6    65 GB    10 days ago    
-gpt-oss:20b     05afbac4bad6    13 GB    10 days ago    
+gpt-oss:120b    d98fe6ba01e6    65 GB    11 days ago    
+gpt-oss:20b     05afbac4bad6    13 GB    11 days ago    
 ```
 
 ```

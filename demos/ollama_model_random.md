@@ -9,7 +9,7 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-gpt-oss:120b
+gpt-oss:20b
 gpt-oss:20b
 ```
 
@@ -21,8 +21,8 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-[DEBUG] 01:24:14:747208000: ollama_model_random
+[DEBUG] 01:52:01:916366000: ollama_model_random
 gpt-oss:120b
-[DEBUG] 01:24:15:273309000: ollama_model_random
-gpt-oss:120b
+[DEBUG] 01:52:02:332580000: ollama_model_random
+gpt-oss:20b
 ```

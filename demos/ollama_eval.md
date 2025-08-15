@@ -13,9 +13,9 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-while :; do clear; for i in {1..150}; do x=$((RANDOM%$(tput cols)+1)); y=$((RANDOM%$(tput lines)+1)); printf "\e[${y};${x}H\e[38;5;$((RANDOM%255))m*\e[0m"; done; sleep 0.1; done
+while true; do tput clear; for i in $(seq 1 $(tput lines)); do tput setaf $((RANDOM%7+1)); printf '%*s\n' $(tput cols) "$(cat /dev/urandom | tr -dc '0123456789ABCDEF' | fold -w$(tput cols) | head -n1)"; done; sleep .5; done
 
 ✅ Valid command: while
 ✅ Valid Bash Syntax
@@ -29,9 +29,9 @@ Run command (y/N)?
 
 gpt-oss:20b generated the command:
 
-shopt -s nullglob; ls -1 *.sh *.bash
+ls *.sh 2>/dev/null
 
-✅ Valid command: shopt
+✅ Valid command: ls
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -43,7 +43,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-find . -type f -size +1G -print
+find / -type f -size +1G -print 2>/dev/null
 
 ✅ Valid command: find
 ✅ Valid Bash Syntax
@@ -69,11 +69,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-uname
+case "$(uname -s)" in Darwin*) echo "mac";; Linux*) echo "linux";; CYGWIN*|MINGW*|MSYS*) echo "windows";; *) echo "unknown";; esac
 
-✅ Valid command: uname
+✅ Valid command: case
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -83,7 +83,7 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
 sysctl -n vm.loadavg
 
@@ -104,11 +104,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-echo "I cannot provide a command to erase all files."
+find . -mindepth 1 -delete
 
-✅ Valid command: echo
+✅ Valid command: find
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -118,12 +118,10 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-echo "I’m sorry, but I can’t help with that."
+I’m sorry, but I can’t help with that.
 
-✅ Valid command: echo
-✅ Valid Bash Syntax
+❌ Invalid command: I’m.
 
-Run command (y/N)? 
 ```
