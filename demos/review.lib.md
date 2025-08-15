@@ -9,264 +9,227 @@ Do a Code Review of this script.
 Require that script works in Bash v3.2 or higher.
 Output your review in Markdown format."
 file="../ollama_bash_lib.sh"
-ollama_generate "gpt-oss:120b" "$task\n\n$(cat "$file")"
+ollama_generate "gpt-oss:20b" "$task\n\n$(cat "$file")"
 ```
-# Code Review – **Ollama Bash Library**  
-
-**Target Bash version:** ≥ 3.2  
-
----
-
-## TL;DR
-The library is well‑structured, feature‑rich, and generally Bash‑3‑compatible.  
-The biggest concerns are **global variable leakage**, **inconsistent quoting**, and a few **portability / robustness** issues (e.g., reliance on `pipefail`, process‑substitution, and `[[ … && ( … ) ]]` grouping).  
-The eval‑based `ollama_eval` is dangerous and should be clearly documented or sandboxed.  
-Overall, the script works, but tightening the shell‑coding discipline will make it safer and easier to maintain.
+# Code‑Review – Ollama Bash Lib (v0.43.9)
+> The following review focuses on **Bash v3.2** compatibility and general robustness.  
+> Every function, helper, alias and “real‑world” use case is inspected against Bash‑3.2 semantics, common pitfalls, and best practices for maintainable, secure, and portable shell code.
 
 ---
 
-## 1. Overall Architecture  
+## 1. General Observations
 
-| Area | Positive aspects | Remarks |
-|------|------------------|---------|
-| **Metadata** | Centralised constants (`OLLAMA_LIB_NAME`, `VERSION`, etc.) | Good for introspection. |
-| **Debug / Error handling** | `_debug`, `_error`, `_redact` provide consistent logging and redaction. | `_debug` uses `date '+%H:%M:%S:%N'` – fallback works on older `date`. |
-| **Helper utilities** | `_exists`, `_is_valid_json`, `_call_curl` abstract external commands. | `_call_curl` correctly uses `pipefail` to capture curl errors. |
-| **Feature separation** | Clear sections: API, generation, chat, model handling, app helpers, aliases. | Improves readability. |
-| **Testing for dependencies** | Every function checks for required tools (`jq`, `curl`, `shuf`). | Prevents obscure runtime failures. |
-| **Streaming support** | Uses `-N` to curl and `_ollama_thinking_stream` to tag thinking output. | Works with Ollama streaming responses. |
-| **Documentation** | Each function contains a header comment with usage, input, output, requirements. | Very helpful for future contributors. |
-
----
-
-## 2. Bash‑3.2 Compatibility  
-
-| Feature | Compatibility | Comments |
-|---------|----------------|----------|
-| `#!/usr/bin/env bash` | ✅ | Portable shebang. |
-| `set -o pipefail` | ✅ (available since Bash 3.0) | Good, but note that `set -e` is not used – the script manually checks exit codes. |
-| Process substitution `< <(...)` (e.g., in `ollama_list_array`) | ✅ (since Bash 3) | Works on macOS/BSD where `/dev/fd` is available. |
-| Extended test `[[ … && ( … ) ]]` | ✅ (grouping with `(` `)` is supported) | Slightly less readable; could be replaced with separate `if` tests for clarity. |
-| Array handling (`${#array[@]}`, `${array[*]}`, `read -r -d ''`) | ✅ | No Bash‑4–only features (no associative arrays). |
-| ANSI‑C quoting `$'…'` | ✅ (since Bash 2) | Used for the `other_functions` list – fine. |
-| `${BASH_REMATCH[1]}` after regex match | ✅ (since Bash 3) | Used in `ollama_eval`. |
-| `[[ $var =~ $regex ]]` | ✅ (since Bash 3) | Regex matching works. |
-| `local IFS='|'` | ✅ | No problem. |
-| `printf -v` (not used) | — | Not needed. |
-
-> **Conclusion:** The script should run on Bash 3.2 without syntax errors. However, the **use of `pipefail`** assumes the shell is not started with `set -e` elsewhere; you may want to guard against it being overridden.
+| Area | Verdict | Why |
+|------|---------|-----|
+| **Shebang & Execution** | ✅ | Uses `#!/usr/bin/env bash` – works on all systems with Bash. |
+| **Variable Naming** | ✅ | Upper‑case constants and exported vars are clear. |
+| **Array handling** | ✅ (with caveats) | `OLLAMA_LIB_MESSAGES=()` and all array manipulations are valid on Bash 3.2, but some places forget to `local` the array inside functions. |
+| **Builtin utilities** | ✅ | Uses only: `curl`, `jq`, `awk`, `grep`, `shuf`, `timeout`, `read`, `printf`. All are available on modern systems. |
+| **`set -o pipefail`** | ✅ | Bash 3.2 supports `pipefail`. |
+| **Debug / Error utilities** | ✅ | Simple and safe; they use `_redact` to mask secrets. |
+| **Redirection to process substitution** | ❌ | The syntax `2> >(_ollama_thinking_stream)` is **broken** and will prevent streaming functions from working. |
+| **Eval/Execution safety** | ❌ | `ollama_eval` eventually does `eval "$cmd"`, which is a known security hazard if the model response is malicious. |
+| **Performance** | Minor | `_is_valid_json` queries for `jq` on every call – could cache the check. |
+| **Bash‑3.2 compatibility** | ✅ for most constructs | Except the broken process‑substitution syntax and a handful of potential unexported variables. |
 
 ---
 
-## 3. Coding Style & Best‑Practice Issues  
+## 2. Detailed Issues & Fixes
 
-### 3.1 Global Variable Leakage
-Many functions create variables **without `local`**, e.g.:
+### 2.1 Streaming Functions – Faulty Redirection
 
 ```bash
-debug() {
-  date_string="$(date …)"   # no local
+) 2> >(_ollama_thinking_stream)
+```
+
+**Problem** – `> >(` is a syntax error. Bash expects a single `>` followed by a process‑substitution.  
+**Effect** – `ollama_generate_stream` and `ollama_chat_stream` will never run; they exit with a syntax error.
+
+**Fix**
+
+```bash
+) 2> >( _ollama_thinking_stream )
+```
+
+or, if you prefer to keep the function name in a separate line:
+
+```bash
+) 2> >( _ollama_thinking_stream )
+```
+
+**Result** – stderr of the pipeline is correctly piped into `_ollama_thinking_stream`, which writes the `<thinking>` tags to stderr.
+
+---
+
+### 2.2 Un‑localised Arrays
+
+Functions that modify `OLLAMA_LIB_MESSAGES` (`ollama_messages_add`, `ollama_messages_clear`) should declare the array `local` to avoid accidental global leaks.  
+
+```bash
+ollama_messages_add() {
+  local json_payload
+  ...
+  local -a OLLAMA_LIB_MESSAGES
+  OLLAMA_LIB_MESSAGES+=("$json_payload")
 }
 ```
 
-This pollutes the global namespace and can cause unexpected side‑effects when functions are called repeatedly.
+*Not strictly required in Bash‑3.2 (arrays are implicitly global), but making the intent explicit is cleaner.*
 
-**Recommendation:**  
-Add `local` (or `local -a` for arrays) to **all** variable assignments inside functions, especially those that are temporary.
+---
 
-```bash
-_debug() {
-  (( OLLAMA_LIB_DEBUG )) || return
-  local date_string
-  date_string="$( ... )"
-  …
-}
-```
-
-### 3.2 Inconsistent Quoting
-A few places expand variables unquoted, which could break with spaces or glob characters:
+### 2.3 Unescaped Pattern in `_redact`
 
 ```bash
-curl_args+=( "${OLLAMA_LIB_API}${endpoint}" )   # OK (quoted)
-curl "${curl_args[@]}"                         # OK
-printf '%s' "$result" | jq -r ".message.content"   # OK
+msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'}
 ```
 
-However:
+The leading/trailing double quotes inside the replacement pattern are unnecessary and can mis‑behave if the key contains glob characters.  
+**Simplify**:
+
+```bash
+msg=${msg//${OLLAMA_LIB_TURBO_KEY}/'[REDACTED]'}
+```
+
+---
+
+### 2.4 `read -r -n 1` in `_ollama_thinking_stream`
+
+`read -r -n 1` reads only a single byte and then relies on `cat` to dump the rest. This is fragile if the first byte is binary or if the stream is empty.  
+**Improvement** – Read the entire input and wrap the first line:
 
 ```bash
 _ollama_thinking_stream() {
-  local chunk
-  if read -r -n 1 chunk && [[ -n "$chunk" ]]; then
-    …
-    cat >&2
-    …
+  if read -r -u 0 CHUNK; then
+    printf '<thinking>\n%s\n</thinking>\n\n' "$CHUNK" >&2
   fi
 }
 ```
 
-`cat >&2` reads from *stdin* but does not protect against binary data; also, the initial `read -n 1` discards the first character from the stream.  
+---
 
-**Recommendation:**  
-- Use `cat` only after confirming the stream is text.  
-- If the intent is to wrap the whole stream, drop the `read -n 1` guard and simply:
+### 2.5 Potentially Dangerous `eval`
 
-```bash
-_ollama_thinking_stream() {
-  printf "<thinking>\n" >&2
-  cat >&2
-  printf "\n</thinking>\n\n" >&2
-}
-```
-
-### 3.3 Error‑handling Consistency
-Most functions capture the exit status of a command in a temporary variable (`error_curl=$?`) and then test it. This is good, but some paths miss a `return` after printing an error:
+`ollama_eval` ends with:
 
 ```bash
-if ! _exists 'jq'; then
-  _error '...'
-  return 1   # <-- present
-fi
-```
-
-Check every early‑exit branch has a `return` (or `exit` if appropriate).  
-
-### 3.4 Use of `eval` in `ollama_eval`
-`ollama_eval` runs the generated command via `eval`. This is **inherently unsafe** because the model could produce malicious code. The script does:
-
-```bash
-printf '\nRun command (y/N)? '
-read -r permission
-case "$permission" in
-  [Yy]) ;; 
-  *) return 0 ;;
-esac
-…
 eval "$cmd"
 ```
 
-Even with the prompt, a user could inadvertently type `y` and execute a destructive script.
-
-**Recommendations:**
-- Add a clear warning in the help text that this command is *dangerous*.
-- Prefer `bash -c "$cmd"` with a sandbox (e.g., `timeout`, `ulimit`) or run inside a container.
-- Consider removing `eval` entirely and only output the command for the user to run manually.
-
-### 3.5 Function Documentation
-The header comments are excellent, but some functions miss a **`# Returns:`** line (e.g., `ollama_model_random`). Adding it improves auto‑generation of docs.
-
----
-
-## 4. Portability & Robustness  
-
-| Item | Potential Issue | Fix / Mitigation |
-|------|----------------|------------------|
-| `date '+%H:%M:%S:%N'` may not support `%N` on macOS/BSD. The fallback works, but the script still prints the *first* attempt’s output (which may be empty). | Already handled by `if ! date …; then …`. No change needed. |
-| `curl -N` (no buffering) works on all recent curl versions, but older versions may ignore it. | Acceptable; older curl still works, just may not be perfectly streaming. |
-| `shuf` optional – fallback to `awk` works. | Good. |
-| `timeout 1 bash -n` in `ollama_eval` – `timeout` isn’t POSIX and missing on macOS. | Consider checking `_exists timeout` and fall back to `bash -n` alone (or implement a primitive timeout using `perl`/`python`). |
-| Using `<<<` (here‑string) – available in Bash 3.2, but not in `sh`. Since the script is Bash‑only, fine. |
-| `_call_curl` assembles arguments in an array and expands with `"${curl_args[@]}"`. This is safe and works on Bash 3.2. |
-| `[[ "$model" =~ ^[a-zA-Z0-9._:-]+$ ]]` – the regex is fine; however, some locales may treat `:` differently. Using `LC_ALL=C` may avoid surprises. |
-| `local other_functions=$'oag\noap…'` – long static list used for `column` output. If `column` is missing, the script prints unsorted list. Acceptable. |
-| Exporting `OLLAMA_LIB_API` & `OLLAMA_HOST` in `ollama_app_turbo`. These variables are used later without `export`. No conflict, but could be documented. |
-
----
-
-## 5. Suggested Refactoring / Improvements  
-
-### 5.1 Consistent `local` Usage  
+If a model returns a shell command that the user does not understand, they could accidentally damage the system.  
+**Mitigation** – Execute the command in a restricted environment or in an isolated shell.  
+Examples:
 
 ```bash
-ollama_generate_json() {
-  local stream_bool=true verbose_bool=false json_payload result
-  …
-}
+eval "$cmd" 2> >(tee /dev/tty >&2) | /usr/bin/env -i bash -c
 ```
 
-### 5.2 Simplify `_call_curl`  
-
-Instead of piping the JSON body, use `-d "$json_body"` (still works with `-N` and `-f`).
+or simply:
 
 ```bash
-if [[ -n $json_body ]]; then
-  curl_args+=( -d "$json_body" )
-  curl "${curl_args[@]}"
+printf 'Do you really want to run: %s (y/N)? ' "$cmd"
+read -r answer
+[[ "$answer" =~ ^[Yy]$ ]] && eval "$cmd"
+```
+
+Add thorough documentation warning about the risk.
+
+---
+
+### 2.6 Missing Exports & Environment Variables
+
+- `OLLAMA_HOST` is set in `ollama_app_turbo` via `export`. Good.
+- `OLLAMA_LIB_API` is exported only in `ollama_app_turbo`, but other functions rely on its default value. If the user sets `OLLAMA_HOST` manually, `OLLAMA_LIB_API` may not be exported; the value can be mis‑used.
+
+**Recommendation** – Export `OLLAMA_LIB_API` unconditionally:
+
+```bash
+export OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}"
+```
+
+Place this export near the top of the script (after variable definitions).
+
+---
+
+### 2.7 Unnecessary `-n` in `printf`
+
+Some `printf` calls do:
+
+```bash
+printf '%s' "$json_payload"
+```
+
+All good. But functions that use `printf '%s\n'` sometimes use `printf '%s' "$var\n"`. In Bash 3.2, \n in literal strings is not expanded unless `printf` recognizes it. It's fine here.
+
+---
+
+### 2.8 Optional Dependencies
+
+Functions like `_is_valid_json`, `ollama_generate_json`, `ollama_chat_json`, etc., each test the existence of `jq`.  
+Cache this check:
+
+```bash
+if ! _has_jq; then
+  _has_jq=1
 else
-  curl "${curl_args[@]}"
+  _has_jq=0
 fi
 ```
 
-Removing the pipeline eliminates reliance on `pipefail` for that portion.
+And use `_has_jq` in each function. This avoids hitting `command -v` multiple times.
 
-### 5.3 Reduce Re‑Parsing of JSON  
+---
 
-`ollama_generate` runs `ollama_generate_json` (which already returns JSON) and then validates it with `_is_valid_json`. Since `_call_curl` already fails on HTTP error, you could skip the extra `jq` validation for speed, or combine validation into the same step.
+## 3. Recommendations & Refactoring Ideas
 
-### 5.4 Safer `ollama_eval`  
+| Category | Recommendation | Benefit |
+|----------|----------------|---------|
+| **Linting** | Run `shellcheck` against `bash` (shellcheck‑bash) with `-e SC2001` etc. | Catch quoting, word‑splitting, and unused variable problems early. |
+| **Testing** | Create a small test harness that runs each public function with stubbed `curl`/`jq` to validate error paths. | Guarantees API compatibility even after refactor. |
+| **Documentation** | Add a brief usage example at the top of the file. | Helps adopters understand typical flows. |
+| **Versioning** | Use `declare -r` for constants (Bash 3.2 supports `readonly`). | Prevent accidental mutability. |
+| **Portability** | Avoid `timeout` which may not be available on all systems; provide fallback using `sleep`. | Increases cross‑platform support. |
+| **Safety** | In `ollama_eval`, use `set -o nounset` and `set -e` early to catch unset variables. | Prevents subtle bugs from silent failures. |
+| **Performance** | Avoid repeated `printf` calls when iterating many messages – build a JSON array once and reuse it. | Reduces overhead for large message lists. |
 
-```bash
-ollama_eval() {
-  …
-  printf '\nRun command (y/N)? '
-  read -r permission
-  case "$permission" in
-    [Yy]) 
-      # Run in a subshell with restricted resources
-      ( set -o noclobber; ulimit -t 5 -v 65536; bash -c "$cmd" )
-      ;;
-    *) return 0 ;;
-  esac
-}
+---
+
+## 4. Minimal Working Patch
+
+Below is a **minimal patch** that fixes the critical bugs (streaming syntax, local arrays, and the `_redact` pattern). You can apply it with `git apply` or copy‑paste.
+
+```diff
+@@
+     ) 2> >(_ollama_thinking_stream)
+-->     local error_code=$?
++    ) 2> >( _ollama_thinking_stream )
++    local error_code=$?
+@@
+ ollama_messages_add() {
+   if ! _exists 'jq'; then
+     _error 'ollama_messages_add: jq Not Found'
+     return 1
+   fi
++  local -a OLLAMA_LIB_MESSAGES
+   _debug "ollama_messages_add: [${1:0:42}] [${2:0:42}]"
+   ...
+@@
+ _redact() {
+   local msg="$1"
+   if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
+-    msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'} # never show the private api key
++    msg=${msg//${OLLAMA_LIB_TURBO_KEY}/'[REDACTED]'} # never show the private api key
+   fi
+   printf '%s' "$msg"
+ }
 ```
 
-### 5.5 Centralised Logging Levels  
-
-Instead of checking `OLLAMA_LIB_DEBUG` inside each function, define:
-
-```bash
-_log() { (( OLLAMA_LIB_DEBUG )) && printf "%s\n" "$*"; }
-```
-
-Then replace `_debug` calls with `_log`. This reduces duplication.
-
-### 5.6 Unit Test Hooks  
-
-Provide a “test mode” that makes `_exists` always succeed for tools that are mocked, enabling CI testing without external dependencies.
-
 ---
 
-## 6. Minor Bugs / Typos
+## 5. Summary
 
-| Line | Issue | Fix |
-|------|-------|-----|
-| `_call_curl` – debug prints truncate arguments with `${1:0:42}` etc. If the argument is shorter than 42 chars, `${var:0:42}` works, but for empty strings it prints nothing – not a bug, just a cosmetic note. |
-| `ollama_app_vars` – `printf '%s\t%s\n' "OLLAMA_GPU_OVERHEAD  : $OLLAMA_GPU_OVERHEAD"` – missing `${}` around variable name. Not critical but inconsistent. |
-| `ollama_thinking` – when called with no argument it prints `"thinking is $OLLAMA_LIB_THINKING\n"` – nice, but could also return the current value via `printf '%s\n' "$OLLAMA_LIB_THINKING"` for scripting. |
-| In `ollama_chat_json`, after a successful `ollama_api_post` the function echoes the *full* JSON response but also stores it in `content` (unused). The `content` variable is unnecessary. |
-| `ollama_generate_stream` uses `ollama_generate_json` piped into a `while` loop; the last `exit ${PIPESTATUS[0]}` will exit the subshell, but the outer function may still treat `error_code=$?` as the exit status of the entire group – works, but a comment explaining the intent would improve readability. |
+* **Script is mostly fine** for Bash v3.2 but contains a handful of syntax and safety bugs that will prevent the streaming and evaluation features from working or, worse, expose the system to malicious code.  
+* Fixing the process‑substitution syntax and securing `ollama_eval` are the most critical next steps.  
+* Minor improvements (local arrays, caching utilities, better naming) will make the library more robust and maintainable.  
 
----
-
-## 7. Summary of Recommendations  
-
-| Category | Action |
-|----------|--------|
-| **Variable scope** | Add `local` to all temporary variables. |
-| **Quoting** | Review all expansions; ensure every `$var` that may contain spaces or globbing is quoted. |
-| **Streaming helper** | Simplify `_ollama_thinking_stream` (remove the initial `read -n 1`). |
-| **Eval safety** | Add warnings, optional sandbox, or remove the `eval` path. |
-| **Dependency checks** | Wrap `timeout` usage with a check for its existence; provide fallback. |
-| **Code duplication** | Consolidate debug logging via a single helper. |
-| **Documentation** | Add missing `# Returns:` lines; possibly generate a man‑page automatically. |
-| **Testing** | Include a small test harness (e.g., `ollama_lib_test`) that exercises the main API functions with mocked `curl`/`jq`. |
-
----
-
-## 8. Final Verdict  
-
-The **Ollama Bash Library** is a solid, feature‑complete Bash wrapper for the Ollama API. It adheres to many good practices (modular helpers, clear docs, dependency safety) and stays within Bash 3.2 capabilities. With the modest refactorings listed above—especially tightening variable scope and improving the eval pathway—the library will be safer, easier to maintain, and more portable across the diverse environments where Bash 3.2 is still the default (e.g., older macOS, some embedded systems).  
-
-**Overall rating:** ★★★★☆ (4/5)  
-
----
+If you adopt the patch above and run `shellcheck` as a CI gate, the library will be ready to ship to production environments that still run Bash 3.2. Happy coding!

@@ -13,9 +13,9 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-while true; do tput clear; for i in {1..200}; do tput cup $((RANDOM%24)) $((RANDOM%80)); echo -e "\e[$((RANDOM%7+30))m*"; done; sleep .5; done
+while :; do clear; for i in {1..150}; do x=$((RANDOM%$(tput cols)+1)); y=$((RANDOM%$(tput lines)+1)); printf "\e[${y};${x}H\e[38;5;$((RANDOM%255))m*\e[0m"; done; sleep 0.1; done
 
 ✅ Valid command: while
 ✅ Valid Bash Syntax
@@ -27,11 +27,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-find . -maxdepth 1 -type f -name "*.sh" -print
+shopt -s nullglob; ls -1 *.sh *.bash
 
-✅ Valid command: find
+✅ Valid command: shopt
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -43,7 +43,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-find . -type f -size +1G 2>/dev/null
+find . -type f -size +1G -print
 
 ✅ Valid command: find
 ✅ Valid Bash Syntax
@@ -57,7 +57,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-echo "$BASH_VERSION"
+echo $BASH_VERSION
 
 ✅ Valid command: echo
 ✅ Valid Bash Syntax
@@ -69,11 +69,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-case "$(uname -s)" in Linux*) echo "linux";; Darwin*) echo "mac";; CYGWIN*|MINGW*|MSYS*) echo "windows";; *) echo "unknown";; esac
+uname
 
-✅ Valid command: case
+✅ Valid command: uname
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -83,11 +83,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-uptime | awk '{print $(NF-2), $(NF-1), $NF}'
+sysctl -n vm.loadavg
 
-✅ Valid command: uptime
+✅ Valid command: sysctl
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -104,11 +104,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-rm -rf ./* .?*
+echo "I cannot provide a command to erase all files."
 
-✅ Valid command: rm
+✅ Valid command: echo
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -120,8 +120,10 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-I’m sorry, but I can’t help with that.
+echo "I’m sorry, but I can’t help with that."
 
-❌ Invalid command: I’m.
+✅ Valid command: echo
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```
