@@ -14,6 +14,7 @@ OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No sla
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}"
 OLLAMA_LIB_MESSAGES=()  # Array of messages
 OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
+OLLAMA_LIB_THINKING="off" # Thinking mode: off, on, hide
 
 set -o pipefail
 
@@ -140,6 +141,10 @@ _call_curl() {
   fi
   local method="$1" # GET or POST
   local endpoint="$2" # /api/path
+  if [[ -n "$endpoint" && ( "$endpoint" != /* || "$endpoint" == *" "* || "$endpoint" == *"\\"* ) ]]; then
+    _error "_call_curl: Invalid API Path: [$endpoint]"
+    return 1
+  fi
   local json_body="$3"
   local curl_args
   curl_args=(
@@ -254,12 +259,17 @@ ollama_generate_json() {
   if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
     stream_bool=false
   fi
+  local verbose_bool=false
+  if [[ "$OLLAMA_LIB_THINKING" == "on" || "$OLLAMA_LIB_THINKING" == "hide" ]]; then
+    verbose_bool=true
+  fi
   local json_payload
   json_payload="$(jq -c -n \
     --arg model "$1" \
     --arg prompt "$2" \
     --argjson stream "$stream_bool" \
-    '{model: $model, prompt: $prompt, stream: $stream}')"
+    --argjson verbose "$verbose_bool" \
+    '{model: $model, prompt: $prompt, stream: $stream, verbose: $verbose}')"
   if ! ollama_api_post '/api/generate' "$json_payload"; then
     _error 'ollama_generate_json: ollama_api_post failed'
     return 1
@@ -339,15 +349,13 @@ ollama_generate_stream_json() {
 ollama_generate_stream() {
   _debug "ollama_generate_stream: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming for the API request
-
-  ollama_generate_json "$1" "$2" | jq -j '.response'
-
-#  if ! _is_valid_json "$result"; then
-#    _error "ollama_generate: model response is not valid JSON"
-#    # TODO - fix json, escape control characters, fix linebreaks, etc
-#    return 1
-#  fi
-
+  local jq_filter
+  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+    jq_filter='select(.[0] == ["thinking"] or .[0] == ["response"])[1]'
+  else
+    jq_filter='select(.[0] == ["response"])[1]'
+  fi
+  ollama_generate_json "$1" "$2" | jq --unbuffered --stream -r "$jq_filter"
   local error_code=${PIPESTATUS[0]}
   OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
   if [[ $error_code -ne 0 ]]; then
@@ -363,16 +371,17 @@ ollama_generate_stream() {
 # Get all messages
 #
 # Usage: messages="$(ollama_messages)"
-# Output: json, 1 messages per line, to stdout
+# Output: a valid json array of message objects, to stdout
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_messages() {
   _debug "ollama_messages"
   if [[ ${#OLLAMA_LIB_MESSAGES[@]} -eq 0 ]]; then
     _debug "ollama_messages: no messages"
+    printf '[]'
     return 1
   fi
-  printf '%s\n' "${OLLAMA_LIB_MESSAGES[@]}"
+  printf "[%s]" "$(printf "%s," "${OLLAMA_LIB_MESSAGES[@]}" | sed 's/,$//')"
   return 0
 }
 
@@ -446,16 +455,23 @@ ollama_chat_json() {
   if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
     stream_bool=false
   fi
-  # Join array elements with comma and wrap in []
-  local messages_array_json
-  messages_array_json="$(printf ",%s" "${OLLAMA_LIB_MESSAGES[@]}")"
-  messages_array_json="[${messages_array_json:1}]" # Remove leading comma
+  if ((${#OLLAMA_LIB_MESSAGES[@]} == 0)); then
+    _error "ollama_chat_json: No messages to send"
+    return 1
+  fi
+  local messages_json
+  messages_json='['$(IFS=,; echo "${OLLAMA_LIB_MESSAGES[*]}")']'
+  local verbose_bool=false
+  if [[ "$OLLAMA_LIB_THINKING" == "on" || "$OLLAMA_LIB_THINKING" == "hide" ]]; then
+    verbose_bool=true
+  fi
   local json_payload
   json_payload="$(jq -c -n \
       --arg model "$model" \
-      --argjson messages "$messages_array_json" \
+      --argjson messages "$messages_json" \
       --argjson stream "$stream_bool" \
-      '{model: $model, messages: $messages, stream: $stream}')"
+      --argjson verbose "$verbose_bool" \
+      '{model: $model, messages: $messages, stream: $stream, verbose: $verbose}')"
 
   _debug "ollama_chat_json: json_payload: [${json_payload:0:120}]"
 
@@ -548,7 +564,13 @@ ollama_chat_stream() {
     return 1
   fi
   OLLAMA_LIB_STREAM=1
-  ollama_chat_json "$model" | jq -j '.message.content'
+  local jq_filter
+  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+    jq_filter='select(.[0] == ["message","thinking"] or .[0] == ["message","content"])[1]'
+  else
+    jq_filter='select(.[0] == ["message","content"])[1]'
+  fi
+  ollama_chat_json "$model" | jq --unbuffered --stream -r "$jq_filter"
   local error_code=${PIPESTATUS[0]}
   OLLAMA_LIB_STREAM=0
   if [[ $error_code -ne 0 ]]; then
@@ -968,6 +990,37 @@ ollama_app_version_cli() {
 
 # Lib Functions
 
+# Ollama Thinking Mode
+#
+# Alias: ot
+# Usage: ollama_thinking on|off|hide
+# Input: 1 - The mode: "on", "off", or "hide", default to show current setting
+# Output: if no input, then the current setting is printed
+# Requires: none
+# Returns: 0 on success, 1 on error
+ollama_thinking() {
+  _debug "ollama_thinking: [${1:-}]"
+  case "${1:-}" in
+    on|ON)
+      OLLAMA_LIB_THINKING="on"
+      ;;
+    off|OFF)
+      OLLAMA_LIB_THINKING="off"
+      ;;
+    hide|HIDE)
+      OLLAMA_LIB_THINKING="hide"
+      ;;
+    '')
+      printf "thinking is %s\n" "$OLLAMA_LIB_THINKING"
+      ;;
+    *)
+      _error "ollama_thinking: Unknown mode. Usage: ollama_thinking on|off|hide"
+      return 1
+      ;;
+  esac
+  return 0
+}
+
 # About Ollama Bash Lib
 #
 # Usage: ollama_lib_about
@@ -989,6 +1042,7 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_API      : $OLLAMA_LIB_API"
   echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
   echo "OLLAMA_LIB_STREAM   : $OLLAMA_LIB_STREAM"
+  echo "OLLAMA_LIB_THINKING : $OLLAMA_LIB_THINKING"
   echo "OLLAMA_LIB_MESSAGES : (${#OLLAMA_LIB_MESSAGES[@]} messages)"
   echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
   if ! _exists "compgen"; then
@@ -1061,22 +1115,42 @@ ollama_eval() {
 
   printf '\n%s generated the command:\n\n' "$model"
 
+  OLLAMA_LIB_STREAM=0
+  local json_result
+  json_result="$(ollama_generate_json "$model" "$prompt")"
+  if [[ -z "$json_result" ]]; then
+    _error 'ollama_eval: ollama_generate_json failed'
+    return 1
+  fi
+  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+    local thinking
+    thinking="$(printf '%s' "$json_result" | jq -r '.thinking // empty')"
+    if [[ -n "$thinking" ]]; then
+      printf '%s\n' "$thinking" | sed 's/^/# /'
+      printf '\n'
+    fi
+  fi
   local cmd
-  cmd="$(ollama_generate "$model" "$prompt")"
+  cmd="$(printf '%s' "$json_result" | jq -r '.response // empty')"
   _debug "ollama_eval: cmd: [${cmd:0:240}]"
   if [[ -z "$cmd" ]]; then
-    _error 'ollama_eval: ollama_generate failed'
+    _error 'ollama_eval: could not get response from model'
     return 1
   fi
 
   printf '%s\n\n' "$cmd"
 
-  local first=${cmd%%[[:space:]]*}
-  if ! _exists "$first"; then
-    printf '❌ Invalid command: %s.\n' "$first"
-    return 1
+  local first_word
+  read -r first_word _ <<<"$cmd"
+  if [[ "$cmd" =~ ^[a-zA-Z_][a-zA-Z0-9_]*\s*\(\)\s*\{ ]]; then
+    printf '✅ Valid command: function definition\n'
+  elif [[ "$first_word" =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
+    printf '✅ Valid command: variable assignment\n'
+  elif _exists "$first_word"; then
+    printf '✅ Valid command: %s\n' "$first_word"
   else
-    printf '✅ Valid command: %s\n' "$first"
+    printf '❌ Invalid command: %s.\n' "$first_word"
+    return 1
   fi
 
   local errors
@@ -1131,6 +1205,7 @@ ocs()  { ollama_chat_stream "$@"; }
 ocsj() { ollama_chat_stream_json "$@"; }
 
 oe()   { ollama_eval "$@"; }
+ot()   { ollama_thinking "$@"; }
 
 og()   { ollama_generate "$@"; }
 ogj()  { ollama_generate_json "$@"; }
