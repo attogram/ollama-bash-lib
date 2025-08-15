@@ -1,6 +1,6 @@
 # Taglines for Ollama Bash Lib
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.8
 
 
 ```bash
@@ -18,86 +18,71 @@ Output in Markdown format.
 file="../README.md"
 ollama_generate "gpt-oss:20b" "$task\n\n$(cat "$file")"
 ```
-# Ollama Bash Lib Descriptions
+# Ollama Bash Lib – Quick Snapshot
+
+**Ollama Bash Lib** is a lightweight Bash library that brings the power of Ollama‑hosted LLMs to your shell.  
+Load it into any script (`source ollama_bash_lib.sh`) and call high‑level commands like `ollama_generate`, `ollama_chat`, or `ollama_eval`.  
+It hides the raw HTTP API, handles JSON via `jq`, and even supports “Turbo Mode” for paid subscriptions.  
+Ideal for scripting, automation, or creating command‑line assistants, this library turns your terminal into a smart chatbot that can generate code, queries, or shell commands on the fly.
 
 ---
 
-## Serious Descriptions
+## 2 Serious Descriptions (≤250 words each)
 
-- **Serious #1**  
-  Ollama Bash Lib is a lightweight shell utility that bridges the power of local LLMs with the convenience of Unix command‑line workflows. It wraps the Ollama HTTP API into well‑structured bash functions, enabling prompt generation, chat histories, and model introspection directly from your terminal. The library supports streaming responses, JSON outputs, and optional Turbo mode for paid inference—all without leaving the shell. Ideal for developers, sysadmins, or researchers who want rapid LLM prototyping.
+### 1. “Terminal‑Powered AI Helper”
+Ollama Bash Lib transforms your Unix shell into a full‑featured AI assistant. By sourcing the library you expose concise functions (`ollama_generate`, `ollama_chat`, `ollama_eval`) that internally perform authenticated REST calls to a local or remote Ollama instance. It supports text, JSON, and streaming outputs, enabling real‑time conversations and code generation directly from the command line. The library also provides introspection utilities (`ollama_pir`, `ollama_list`, `ollama_show`) and environment helpers (`ollama_app_turbo`, `ollama_lib_about`). With optional debug support (`OLLAMA_LIB_DEBUG`) developers can trace API traffic, making it a trustworthy tool for scripting, automation, and educational demos.
 
-- **Serious #2**  
-  Designed for bash‑savvy users, Ollama Bash Lib abstracts away HTTP plumbing and JSON parsing to let you focus on the prompts. With a single `source` you gain commands like `ollama_generate`, `ollama_chat`, and tooling for listing, unloading, or inspecting models. The API‑first design keeps it composable with shell pipelines, while optional debug logging and graceful error handling make it production‑ready for CI/CD and automation scripts.
-
----
-
-## Generally Funny
-
-1. **Shell‑speak wizardry** – Drop this script into your `~/.bashrc` and watch your terminal morph into a chatbot playground. It’s like a bartender that tells jokes *and* gives you the recipe for the best wine – only the wine is a JSON‑encoded prompt response.
-
-2. **Tavern‑style tavern** – The library is the innkeeper of your bash environment, serving “pint‑sized” conversations, “bartender‑style” model info, and “kneading dough” of random prompts whenever your terminal gets thirsty.
-
-3. **Terminal party‑goer** – Bring this lib, and let your prompt generate the music for your bash session. Even your `grep` will start dancing to “The Open AI Shuffle” if it’s a valid model.
-
-4. **Ghost‑in‑the‑shell** – This library lets you channel an LLM from the depths of your terminal, as if your shell were a séance table. Just wave your cursor like a Ouija board and ask a question—no priest required.
-
-5. **Command‑line karaoke** – With `ollama_generate`, you can sing your thoughts back to your shell. Hit play, stream the response, and let the terminal applause for you... well, only if you write an ASCII clap.
+### 2. “Bash Meets Large Language Models”
+Designed for Bash enthusiasts, this library offers a clean API to interact with Ollama's LLMs without leaving the shell. Each exported function mirrors a typical LLM workflow: request a prompt, receive streaming responses, or manage model metadata. The built‑in helper `ollama_eval` even turns natural‑language tasks into executable Bash one‑liners, asking for confirmation before execution. The library respects standard Bash constraints (≥v3.2) and leverages common tools (`curl`, `jq`) while remaining optional‑dependency friendly. With easy toggling of Turbo authentication and a simple import pattern, it seamlessly integrates into CI pipelines, system monitoring scripts, or interactive shells.
 
 ---
 
-## Funny for Programmers
+## 5 Generally Funny Descriptions (≤250 words each)
 
-1. **Refactor‑free helper** – Want to test a new AI feature without rewriting your CI? Source this lib, run `ollama_generate`, and your script will output your patch notes like a seasoned code reviewer—no commit hell.
-
-2. **Automated code review chat** – Use `ollama_messages_add` to push your code snippet into the LLM’s ears, and let it critique your indentation with a witty comment: “Your tabs are as out of sync as my coffee consumption.”
-
-3. **Debugging buddy** – `OLLAMA_LIB_DEBUG=1` prints every curl request like a stack trace. It’s the debugger you never knew you needed—except it’s only a shell prompt.
-
-4. **Version control whisperer** – `ollama_lib_version` reads the library’s version like `git log --oneline`. It’s the least effort way to know which *branch* of AI you’re on.
-
-5. **Fast prototype playground** – The lib turns `bash` into a sandbox where you can spin up a language model, test a prompt, and immediately assert that the output contains the expected variable names. Great for unit tests that actually need to talk to humans.
+1. **“The Ghost in Your Shell”** – Ollama Bash Lib lets your terminal consult a phantom. Don’t worry, it doesn’t eat your files or your coffee—unless you feed it a bad prompt.  
+2. **“Speak, And Your Bash Will Do It”** – Need a `find` command for a 10 GB file? Just ask the LLM; it’ll text it back with the exact one-liner and ask for a graceful “yes, hit enter”.  
+3. **“Why Whisper to Your Code When You Can Chat to a Bot?”** – Shell scripts just got a therapist. It listens, replies, and may actually debug `404`s if you’re feeling lonely.  
+4. **“Turn Your Terminal Into a Magician’s Assistant”** – Summon models with `ollama_generate_stream` and watch as your console transforms from static text to dynamic storytelling.  
+5. **“Command Prompt? More Like Command P*sh*.”** – Plug in the library, let the LLM generate a shell cheat sheet, and finally feel proud when your `ls -lah` output looks like poetry.
 
 ---
 
-## Funny for Sysadmins
+## 5 Funny for Programmers (≤250 words each)
 
-1. **Server‑side whisperer** – With `ollama_app_installed` and `ollama_ps`, you can confirm whether your LLM daemon is alive without logging into the machine—just like checking `systemctl status`.
-
-2. **Config‑check companion** – `ollama_app_vars` shows every environment variable that affects your `ollama` instance. It’s the most painless way to audit system secrets before deployment.
-
-3. **Automated patch notes** – Let the AI summarize log files with `ollama_generate` and you’ll get a 200‑word digest of errors, making your nightly cron easier to read than your own diary.
-
-4. **Resource watcher** – Use `ollama_ps_json` to parse running processes into a format that can be fed into Prometheus. The AI might even recommend a new metric name: “# of LLM prompts per 10 seconds.”
-
-5. **Policy enforcement** – `ollama_app_turbo` toggles your paid API access with a single command, preventing accidental over‑charge. Think of it as the “sudo” button for your API keys.
+1. **“Refactor Your Prompt, Not Your Code”** – If the library’s `ollama_generate` is slower than your compiler, blame the CPU, not the prompt.  
+2. **“Code Review? No, Just Whisper to an LLM”** – Tell the bot your code, it replies with a critique in `stderr`; you keep your CI quiet.  
+3. **“Shell Scripting with an AI Coach”** – `ollama_eval` will turn your `grep` into a one‑liner after a quick check—finally, no more `#!/bin/bash` errors.  
+4. **“Why Unit Test Your Functions When You Have a Conversational LLM?”** – One prompt, instant mock. Save those test cases for the PR that never comes.  
+5. **“Version Control? Tell the Bot It’s On.”** – Commit a script, push to repo, and let the LLM generate changelog entries in a single shot.  
 
 ---
 
-## Funny for DevOps
+## 5 Funny for Sysadmins (≤250 words each)
 
-1. **CI‑CD auto‑chatbot** – Imagine a pipeline that, after every merge, runs `ollama_generate` to produce a witty release note. Your Slack bot will never again sound like a generic robot.
-
-2. **Rolling‑update reassurance** – Let an LLM ask “Is the new version ready for rollout?” to your deployment script. You’ll get a confidence score and a reason—sometimes just a meme.
-
-3. **Deployment dry‑run** – Use `ollama_app_turbo on` or `off` to toggle between local and paid inference seamlessly, so your staging environment never accidentally hits the production API.
-
-4. **Kubernetes pod‑name generator** – Combine `ollama_generate` with `kubectl create` to auto‑generate pod names that pass the geek‑test: “gpt-oss‑saucebox‑42”.
-
-5. **Health‑check hallucination** – Let the AI craft a health‑check for every microservice, ensuring the response matches a regex. If the LLM says “yes, I am healthy”, you’ll know your team’s confidence level is high.
+1. **“Automate ‘df –h’ and Let the Bot Announce Disk Space”** – No more `df` man pages; just `ollama_generate` a status update for your chatops channel.  
+2. **“Zero‑Touch Patches”** – Ask the bot to `apt update && apt upgrade`, it will return the commands and you’ll only see the “Press y to continue” prompt.  
+3. **“Uptime is 100%, Downtime is 0% of my Life”** – Use `ollama_ps` to watch processes, and when a rogue process appears, the bot tells you what to do—like a polite nag.  
+4. **“Log Rotation Made Fun”** – Feed the bot your `syslog` and have it suggest retention policies—because even syslogs deserve a narrative.  
+5. **“You Have One Ticket, Get It Done”** – Turn support tickets into shell scripts via the LLM; the bot will parse “restart webserver” and automatically run `service nginx restart`.  
 
 ---
 
-## Just Crazy
+## 5 Funny for DevOps (≤250 words each)
 
-1. **Time‑travel chat** – With `ollama_generate`, ask the model to send a message back to your terminal from 2099. The future will be weird, maybe better, but definitely *terrifying*.
+1. **“CI Pipelines That Talk Back”** – Let `ollama_generate` generate your `.gitlab-ci.yml`; the bot knows the best stages and will tell you which images to use—like a friendly DevOps mentor.  
+2. **“Container Orchestration Decoded”** – Dump your `kubectl get pods` output to the bot, and it will generate human‑readable dashboards.  
+3. **“Secrets Management? Ask the Bot, Not Your Secret Store”** – The LLM can explain how to inject secrets into Kubernetes deployments with the same confidence you use `helm`.  
+4. **“Deploy with a Convo”** – `ollama_chat` can guide you through a blue‑green deployment—“Do you want to proceed, or try again?” (The bot won't auto‑approve, sorry).  
+5. **“Automate Rollbacks”** – Feed logs into the bot and let it generate a rollback script automatically. It’s like a safety net, only this one has no physical weight.  
 
-2. **Nuclear launch code generator** – No, we’re kidding. But your `ollama_generate` can output a random hex string that *could* be used for secret keys—use responsibly.
+---
 
-3. **Bash‑based portal** – Spin up a *real* portal to another dimension: `ollama_generate "Open the portal"` runs the wizard behind your terminal screen. 404 not found? Might be a bug in the multiverse.
+## 5 Just Crazy (≤250 words each)
 
-4. **CLI‑powered mind‑reading** – If you feed an LLM the logs of your last failed build, it may generate a list of potential conspiracies: “Your build system is secretly controlled by the Illuminati of Continuous Delivery”.
-
-5. **Infinite loop of jokes** – Run `ollama_generate` repeatedly with the prompt “Tell me a joke,” and watch yourself break into a giggle‑induced coding session that could last forever. Your terminal will never be quiet again.
+1. **“Terminal Meets Alien Lifeform”** – Once the LLM answered back about interplanetary trade, we just upgraded the whole environment—everything went green (lights).  
+2. **“The Library That Learned to Code in Turtle Graphics”** – We asked it to write a Bash script that draws a dragon, and it filled the console with ANSI art that looked like a real dragon—fire included.  
+3. **“Time Travel Debugger”** – `ollama_debug` can take you back to `0000-01-01` and replay your first commit—because why not?  
+4. **“When Your Bash Script Starts Scripting Back”** – The bot occasionally writes its own prompts back to your terminal. It's been called “self‑referential script” in some circles.  
+5. **“A CLI That Gives High‑Fives”** – Every successful generation triggers an ASCII high‑five animation of a dancing robot—because your terminal deserves applause.  
 
 ---

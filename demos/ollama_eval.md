@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.8
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -15,9 +15,9 @@ oe "task" "model"           # alias for ollama_eval
 
 gpt-oss:20b generated the command:
 
-tput civis; trap 'tput cnorm; exit' INT; while :; do tput clear; for i in $(seq $(tput lines)); do tput cup $i 0; tput setaf $(( (RANDOM%7)+1 )); tr -dc 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' < /dev/urandom | head -c$(tput cols); tput sgr0; done; sleep 0.2; done
+while true; do clear; for i in $(seq 1 30); do tput cup $((RANDOM%24)) $((RANDOM%80)); printf '\e[36m*\e[0m'; done; sleep .05; done
 
-✅ Valid command: tput
+✅ Valid command: while
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -27,11 +27,11 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-printf "%s\n" ./*.{sh,bash,ksh,zsh}
+find . -maxdepth 1 -type f \( -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.ksh" \) -print
 
-✅ Valid command: printf
+✅ Valid command: find
 ✅ Valid Bash Syntax
 
 Run command (y/N)? 
@@ -57,7 +57,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-echo "$BASH_VERSION"
+echo $BASH_VERSION
 
 ✅ Valid command: echo
 ✅ Valid Bash Syntax
@@ -71,7 +71,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "windows";; Darwin*) echo "mac";; Linux*) echo "linux";; *) echo "other";; esac
+case "$(uname -s)" in Linux*) echo "linux";; Darwin*) echo "mac";; CYGWIN*|MINGW*|MSYS*) echo "windows";; *) echo "unknown";; esac
 
 ✅ Valid command: case
 ✅ Valid Bash Syntax
@@ -83,7 +83,7 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
 sysctl -n vm.loadavg
 
@@ -116,7 +116,7 @@ I’m sorry, but I can’t help with that.
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
 I’m sorry, but I can’t help with that.
 
