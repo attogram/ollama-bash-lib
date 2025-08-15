@@ -305,6 +305,14 @@ ollama_generate() {
     return 1
   fi
 
+  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+    local thinking
+    thinking="$(printf '%s' "$result" | jq -r '.thinking // empty')"
+    if [[ -n "$thinking" ]]; then
+      printf '\n# %s\n' "$thinking" >&2
+    fi
+  fi
+
   local result_response
   result_response="$(printf '%s' "$result" | jq -r '.response')"
   if [[ -z "$result_response" ]]; then
@@ -349,19 +357,24 @@ ollama_generate_stream_json() {
 ollama_generate_stream() {
   _debug "ollama_generate_stream: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming for the API request
-  local jq_filter
-  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
-    jq_filter='select(.[0] == ["thinking"] or .[0] == ["response"])[1]'
-  else
-    jq_filter='select(.[0] == ["response"])[1]'
-  fi
-  ollama_generate_json "$1" "$2" | jq --unbuffered --stream -r "$jq_filter"
+  local line
+  ollama_generate_json "$1" "$2" | while IFS= read -r line; do
+    if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+      local thinking
+      thinking="$(printf '%s' "$line" | jq -r '.thinking // empty')"
+      if [[ -n "$thinking" ]]; then
+        printf '\n# %s\n' "$thinking" >&2
+      fi
+    fi
+    printf '%s' "$(printf '%s' "$line" | jq -r '.response // empty')"
+  done
   local error_code=${PIPESTATUS[0]}
   OLLAMA_LIB_STREAM=0 # Turn off streaming for subsequent calls
   if [[ $error_code -ne 0 ]]; then
     _error "ollama_generate_stream: ollama_generate_json failed with code $error_code"
     return 1
   fi
+  printf '\n'
   _debug "ollama_generate_stream: return: 0"
   return 0
 }
@@ -564,19 +577,24 @@ ollama_chat_stream() {
     return 1
   fi
   OLLAMA_LIB_STREAM=1
-  local jq_filter
-  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
-    jq_filter='select(.[0] == ["message","thinking"] or .[0] == ["message","content"])[1]'
-  else
-    jq_filter='select(.[0] == ["message","content"])[1]'
-  fi
-  ollama_chat_json "$model" | jq --unbuffered --stream -r "$jq_filter"
+  local line
+  ollama_chat_json "$model" | while IFS= read -r line; do
+    if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+      local thinking
+      thinking="$(printf '%s' "$line" | jq -r '.message.thinking // empty')"
+      if [[ -n "$thinking" ]]; then
+        printf '\n# %s\n' "$thinking" >&2
+      fi
+    fi
+    printf '%s' "$(printf '%s' "$line" | jq -r '.message.content // empty')"
+  done
   local error_code=${PIPESTATUS[0]}
   OLLAMA_LIB_STREAM=0
   if [[ $error_code -ne 0 ]]; then
       _error "ollama_chat_stream: ollama_chat_json failed with code $error_code"
       return 1
   fi
+  printf '\n'
   return 0
 }
 
