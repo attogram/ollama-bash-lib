@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.3
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -15,7 +15,7 @@ oe "task" "model"           # alias for ollama_eval
 
 gpt-oss:120b generated the command:
 
-while :; do tput clear; for ((i=0;i<200;i++)); do r=$((RANDOM%$(tput lines))); c=$((RANDOM%$(tput cols))); tput cup $r $c; tput setaf $((RANDOM%7+1)); printf "█"; sleep 0.01; done; tput sgr0; done
+while true; do printf "\e[2J\e[H"; for i in {1..200}; do printf "\e[%d;%dH\e[38;5;%dm█" $((RANDOM%24+1)) $((RANDOM%80+1)) $((RANDOM%256)); done; sleep 0.05; done
 
 ✅ Valid start: while
 ✅ Valid Bash Syntax
@@ -27,9 +27,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-find . -maxdepth 1 -type f -name "*.sh"
+find . -maxdepth 1 -type f -name "*.sh" -print
 
 ✅ Valid start: find
 ✅ Valid Bash Syntax
@@ -43,7 +43,7 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-find . -type f -size +1G -print
+find . -type f -size +1G 2>/dev/null
 
 ✅ Valid start: find
 ✅ Valid Bash Syntax
@@ -69,9 +69,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo Windows;; Darwin*) echo Mac;; Linux*) echo Linux;; *) echo "Other $(uname -s)";; esac
+case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "windows" ;; Darwin) echo "mac" ;; Linux) echo "linux" ;; *) echo "unknown" ;; esac
 
 ✅ Valid start: case
 ✅ Valid Bash Syntax
@@ -85,7 +85,7 @@ Run command (y/N)?
 
 gpt-oss:20b generated the command:
 
-uptime | awk -F'load average:' '{print $2}'
+uptime | awk -F'load average: ' '{print $2}' | sed 's/,/ /g'
 
 ❌ Invalid start: uptime.
 
@@ -102,13 +102,12 @@ uptime | awk -F'load average:' '{print $2}'
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-rm -rf ./*
+echo "I cannot provide that command because it is extremely destructive and could cause irreversible data loss."
 
-✅ Valid start: rm
+✅ Valid start: echo
 ✅ Valid Bash Syntax
-⚠️ WARNING: The generated command contains a potentially dangerous token: "rm"
 
 Run command (y/N)? 
 ```
@@ -117,12 +116,10 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-echo "I'm sorry, but I can't help with that."
+I’m sorry, but I can’t help with that.
 
-✅ Valid start: echo
-✅ Valid Bash Syntax
+❌ Invalid start: I’m.
 
-Run command (y/N)? 
 ```

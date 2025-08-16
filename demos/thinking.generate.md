@@ -1,7 +1,6 @@
 # ollama_thinking, ollama_generate
-[ERROR] ollama_api_ping: function not available in Turbo Mode
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.3
 
 ```
 ollama_thinking on
@@ -11,16 +10,16 @@ ollama_generate $(ollama_model_random) "list 10 things about bash, 1 per line"
 
 thinking is on
 # <thinking>
-# Need to produce a list 10 things about bash, 1 per line. Probably a short item list.
+# We just need to output a list of 10 things about bash, one per line. Likely each line is an item. Should we number them? Not specified. Just list. We'll list " Bash is ..." etc. We'll provide simple items.
 # </thinking>
 
-1. Bash is the default command‐line shell on most Linux distributions and macOS.  
-2. It supports command history, allowing users to navigate and reuse previous commands with the up/down arrow keys.  
-3. Bash permits variable assignment without spaces (`VAR=value`) and variable expansion with `${}` or `$`.  
-4. It features pathname globbing (`*.txt`, `file[1-3]`) for pattern matching.  
-5. Bash includes a powerful array type, which can be declared with `arr=(one two three)` and accessed with `arr[0]`.  
-6. It supports control structures such as `if`, `for`, `while`, and `until`, enabling script logic.  
-7. Bash can perform process substitution (`< <(command)`) and named pipes (using `mkfifo`).  
-8. The `exec` builtin can replace the current shell with another program, or redirect file descriptors.  
-9. Bash scripts can be made executable by adding a shebang line `#!/usr/bin/env bash` at the top.  
-10. Its `read` builtin can capture user input, with options like `-p` to prompt and `-s` for silent (password) input.
+Bash is an acronym for the *Bourne Again SHell*, a command interpreter for Unix-like systems.  
+It supports job control, allowing you to run, stop, or resume processes in the background.  
+Bash includes line editing features such as backward/forward search and keyboard shortcuts (e.g., Ctrl‑R, Ctrl‑A).  
+It offers command history that can be configured to be saved across sessions.  
+Bash allows you to write functions and scripts with conditional statements (`if`, `case`) and loops (`for`, `while`, `until`).  
+It supports command and variable expansion, which lets you create dynamic strings and file paths.  
+Bash can perform pathname expansion (globbing) using wildcards like `*` and `?`.  
+It features associative arrays (dictionary-like structures) introduced in Bash 4.0.  
+Bash has built-in redirection operators (`>`, `>>`, `<`, `<<`, `|`) for manipulating input/output streams.  
+You can define custom prompt strings (`PS1`, `PS2`, etc.) to display information like the current directory or user.

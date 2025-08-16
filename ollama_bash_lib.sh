@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.44.2"
+OLLAMA_LIB_VERSION="0.44.3"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -252,8 +252,8 @@ ollama_api_ping() {
   _debug 'ollama_api_ping'
   if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
     # TODO - support for turbo mode pings
-    _error 'ollama_api_ping: function not available in Turbo Mode'
-    return 0
+    _debug 'ollama_api_ping: function not available in Turbo Mode'
+    return 0 # we return success for now, to keep outputs clean of other errors
   fi
   local result
   if ! result="$(ollama_api_get "")"; then
