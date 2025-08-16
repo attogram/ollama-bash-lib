@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.43.9"
+OLLAMA_LIB_VERSION="0.44.0"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -12,8 +12,8 @@ OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <http
 
 OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}"
-OLLAMA_LIB_MESSAGES=()  # Array of messages
-OLLAMA_LIB_STREAM=0     # 0 = No streaming, 1 = Yes streaming
+OLLAMA_LIB_MESSAGES=()    # Array of messages
+OLLAMA_LIB_STREAM=0       # Streaming mode: 0 = No streaming, 1 = Yes streaming
 OLLAMA_LIB_THINKING="off" # Thinking mode: off, on, hide
 
 set -o pipefail
@@ -146,23 +146,30 @@ _is_valid_json() {
 # Requires: curl
 # Returns: 0 on success, 1 or higher on error (curl return status)
 _call_curl() {
-  _debug "_call_curl: [${1:0:42}] [${2:0:42}] [${3:0:120}]"
-  _debug "_call_curl: OLLAMA_LIB_API: $OLLAMA_LIB_API"
-  if ! _exists 'curl'; then
-    _error '_call_curl: curl Not Found'
-    return 1
-  fi
-  if [[ -z "$1" || ( "$1" != "GET" && "$1" != "POST" ) ]]; then
+  _debug "_call_curl: [${1:0:42}] [${2:0:42}] ${3:0:120}"
+
+  if ! _exists 'curl'; then _error '_call_curl: curl Not Found'; return 1; fi
+
+  local method="$1" # GET or POST
+  if [[ -z "$method" || ( "$method" != "GET" && "$method" != "POST" ) ]]; then
     _error '_call_curl: Method Not Found. Usage: _call_curl "GET|POST" "/api/path" "{ optional json content }"'
     return 1
   fi
-  local method="$1" # GET or POST
+
   local endpoint="$2" # /api/path
   if [[ -n "$endpoint" && ( "$endpoint" != /* || "$endpoint" == *" "* || "$endpoint" == *"\\"* ) ]]; then
-    _error "_call_curl: Invalid API Path: [$endpoint]"
+    _error "_call_curl: Invalid API Path: [${endpoint:0:120}]"
     return 1
   fi
+
   local json_body="$3"
+  if ! _is_valid_json "$json_body"; then
+    _error "_call_curl: JSON body is invalid: [${json_body:0:120}]"
+    return 1
+  fi
+
+  _debug "_call_curl: OLLAMA_LIB_API: $OLLAMA_LIB_API"
+
   local curl_args
   curl_args=(
     -s # Silent (no progress meter)
@@ -176,9 +183,11 @@ _call_curl() {
   fi
   curl_args+=( "-X" "${method}" ) # GET or POST
   curl_args+=( "${OLLAMA_LIB_API}${endpoint}" ) # URL
-  if [[ -n "${json_body}" ]]; then
-    _debug "_call_curl: json_body: [${json_body:0:120}]"
+
+  if [[ -n "$json_body" ]]; then
+    _debug "_call_curl: json_body: ${json_body:0:120}"
     curl_args+=( "-d" "@-" )
+    _debug "_call_curl: piping json_body | curl ${curl_args[*]}"
     printf '%s' "$json_body" | curl "${curl_args[@]}" # call curl, with args and with input (json_body) piped in
     local error_curl=$?
     if (( error_curl )); then
@@ -187,6 +196,8 @@ _call_curl() {
     fi
     return 0
   fi
+
+  _debug "_call_curl: args: ${curl_args[*]}"
   curl "${curl_args[@]}" # call curl, only with args
   return $?
 }
@@ -206,7 +217,7 @@ ollama_api_get() {
     _error "ollama_api_get: curl error: $error_curl"
     return "$error_curl"
   fi
-  _debug 'ollama_api_get: success: return 0'
+  _debug 'ollama_api_get: success'
   return 0
 }
 
@@ -219,14 +230,14 @@ ollama_api_get() {
 # Requires: curl
 # Returns: 0 on success, curl return status on error
 ollama_api_post() {
-  _debug "ollama_api_post: [${1:0:42}] [${2:0:120}]"
+  _debug "ollama_api_post: [${1:0:42}] ${2:0:120}"
   _call_curl "POST" "$1" "$2"
   local error_curl=$?
   if (( error_curl )); then
     _error "ollama_api_post: curl error: $error_curl"
     return "$error_curl"
   fi
-  _debug 'ollama_api_post: success: return 0'
+  _debug 'ollama_api_post: success'
   return 0
 }
 
@@ -262,38 +273,45 @@ ollama_api_ping() {
 # Usage: ollama_generate_json "model" "prompt"
 # Input: 1 - The model to use to generate a response
 # Input: 2 - The prompt
-# Output: json, to stdout
+# Output: json (or a stream of json objects) on stdout
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
-  if ! _exists 'jq'; then
-    _error 'ollama_generate_json: jq Not Found'
-    return 1
-  fi
   _debug "ollama_generate_json: [${1:0:42}] [${2:0:42}]"
-  _debug "ollama_generate_json: OLLAMA_LIB_STREAM: $OLLAMA_LIB_STREAM"
-  local stream_bool=true
-  if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
-    stream_bool=false
-  fi
-  local verbose_bool=false
-  if [[ "$OLLAMA_LIB_THINKING" == "on" || "$OLLAMA_LIB_THINKING" == "hide" ]]; then
-    verbose_bool=true
-  fi
+  local model="$1"
+  local prompt="$2"
+  if ! _exists 'jq'; then             _error 'ollama_generate_json: Not Found: jq';       return 1; fi
+  if [[ -z "$model" ]]; then          _error 'ollama_generate_json: Not Found: model. Usage: ollama_generate_json "model" "prompt"';    return 1; fi
+  if ! _is_valid_model "$model"; then _error 'ollama_generate_json: Invalid model name'; return 1; fi
+  if [[ -z "$prompt" ]]; then         _error 'ollama_generate_json: Not Found: prompt. Usage: ollama_generate_json "model" "prompt"';   return 1; fi
+
+  local stream=true
+  (( OLLAMA_LIB_STREAM == 0 )) && stream=false
+  _debug "ollama_generate_json: stream: $stream"
+
+  local thinking=false
+  [[ "$OLLAMA_LIB_THINKING" == 'on' || "$OLLAMA_LIB_THINKING" == 'hide' ]] && thinking=true
+  _debug "ollama_generate_json: thinking: $thinking"
+
   local json_payload
   json_payload="$(jq -c -n \
-    --arg model "$1" \
-    --arg prompt "$2" \
-    --argjson stream "$stream_bool" \
-    --argjson verbose "$verbose_bool" \
-    '{model: $model, prompt: $prompt, stream: $stream, verbose: $verbose}')"
+    --arg model "$model" \
+    --arg prompt "$prompt" \
+    --argjson stream "$stream" \
+    --argjson thinking "$thinking" \
+    '{model: $model, prompt: $prompt, stream: $stream, thinking: $thinking}')"
+
+  _debug "ollama_generate_json: json_payload: ${json_payload:0:120}"
+
+  # In streaming mode we *must* pass the raw curl stream straight through so the caller can read it line‑by‑line
   if ! ollama_api_post '/api/generate' "$json_payload"; then
-    _error 'ollama_generate_json: ollama_api_post failed'
+    _error 'ollama_generate_json: ollama_api_post (stream) failed'
     return 1
   fi
-  _debug 'ollama_generate_json: success: return: 0'
+  _debug 'ollama_generate_json: success'
   return 0
 }
+
 
 # Generate a completion as text
 #
@@ -306,11 +324,10 @@ ollama_generate_json() {
 ollama_generate() {
   _debug "ollama_generate: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=0 # Turn off streaming
-
   local result
   result="$(ollama_generate_json "$1" "$2")"
   local error_ollama_generate_json=$?
-  _debug "ollama_generate: result: $(echo "$result" | wc -c | sed 's/ //g') bytes"
+  _debug "ollama_generate: result: $(echo "$result" | wc -c | sed 's/ //g') bytes: ${result:0:120}"
   if (( error_ollama_generate_json )); then
     _error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
     return 1
@@ -338,7 +355,7 @@ ollama_generate() {
   fi
 
   printf '%s\n' "$result_response"
-  _debug 'ollama_generate: success: return: 0'
+  _debug 'ollama_generate: success'
   return 0
 }
 
@@ -479,9 +496,9 @@ ollama_chat_json() {
     _error 'ollama_chat_json: No Models Found'
     return 1
   fi
-  local stream_bool=true
+  local stream=true
   if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
-    stream_bool=false
+    stream=false
   fi
   if ((${#OLLAMA_LIB_MESSAGES[@]} == 0)); then
     _error "ollama_chat_json: No messages to send"
@@ -489,17 +506,18 @@ ollama_chat_json() {
   fi
   local messages_json
   messages_json='['$(IFS=,; echo "${OLLAMA_LIB_MESSAGES[*]}")']'
-  local verbose_bool=false
+
+  local thinking=false
   if [[ "$OLLAMA_LIB_THINKING" == "on" || "$OLLAMA_LIB_THINKING" == "hide" ]]; then
-    verbose_bool=true
+    thinking=true
   fi
   local json_payload
   json_payload="$(jq -c -n \
       --arg model "$model" \
       --argjson messages "$messages_json" \
-      --argjson stream "$stream_bool" \
-      --argjson verbose "$verbose_bool" \
-      '{model: $model, messages: $messages, stream: $stream, verbose: $verbose}')"
+      --argjson stream "$stream" \
+      --argjson thinking "$thinking" \
+      '{model: $model, messages: $messages, stream: $stream, thinking: $thinking}')"
 
   _debug "ollama_chat_json: json_payload: [${json_payload:0:120}]"
 
@@ -725,7 +743,7 @@ _is_valid_model() {
       return 1
     fi
   fi
-  if [[ ! "$model" =~ ^[a-zA-Z0-9._:-]+$ ]]; then
+  if [[ ! "$model" =~ ^[a-zA-Z0-9._://-]+$ ]]; then
     _debug "_is_valid_model: INVALID: [${model:0:120}]"
     printf ''
     return 1
@@ -920,7 +938,7 @@ ollama_app_turbo() {
       ;;
   esac
 
-  _debug "ollama_app_turbo: OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
+  _debug "ollama_app_turbo: OLLAMA_LIB_TURBO_KEY: ($([[ -n ${OLLAMA_LIB_TURBO_KEY+x} && -n "$OLLAMA_LIB_TURBO_KEY" ]] && echo YES || echo NO))"
   export OLLAMA_HOST="$host_api" # Set host and export it
   _debug "ollama_app_turbo: OLLAMA_HOST: $OLLAMA_HOST"
   export OLLAMA_LIB_API="$host_api" # Set api and export it
@@ -1083,7 +1101,7 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_STREAM   : $OLLAMA_LIB_STREAM"
   echo "OLLAMA_LIB_THINKING : $OLLAMA_LIB_THINKING"
   echo "OLLAMA_LIB_MESSAGES : (${#OLLAMA_LIB_MESSAGES[@]} messages)"
-  echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
+  echo "OLLAMA_LIB_TURBO_KEY: ($([[ -n ${OLLAMA_LIB_TURBO_KEY+x} && -n "$OLLAMA_LIB_TURBO_KEY" ]] && echo YES || echo NO))"
   if ! _exists "compgen"; then
     _debug 'ollama_lib_about: compgen Not Found'
     return 1
@@ -1130,11 +1148,13 @@ ollama_lib_version() {
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
   _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
+
   local task="$1"
   if [[ -z "$task" ]]; then
     _error 'ollama_eval: Task Not Found. Usage: oe "task" "model"'
     return 1
   fi
+
   local model
   model="$(_is_valid_model "$2")"
   _debug "ollama_eval: model: [${model:0:120}]"
@@ -1142,6 +1162,7 @@ ollama_eval() {
     _error 'ollama_eval: No Models Found'
     return 1
   fi
+
   local prompt='Write a bash one-liner to do the following task:\n\n'
   prompt+="$task\n\n"
   prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}.\n"
@@ -1155,13 +1176,20 @@ ollama_eval() {
   printf '\n%s generated the command:\n\n' "$model"
 
   OLLAMA_LIB_STREAM=0
+
   local json_result
   json_result="$(ollama_generate_json "$model" "$prompt")"
+  _debug "ollama_eval: json_result: [${json_result:0:120}}]"
   if [[ -z "$json_result" ]]; then
     _error 'ollama_eval: ollama_generate_json failed'
     return 1
   fi
-  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+  if ! _is_valid_json "$json_result"; then
+    _error 'ollama_eval: received invalid json result'
+    return 1
+  fi
+
+  if [[ "$OLLAMA_LIB_THINKING" == 'on' ]]; then
     local thinking
     thinking="$(printf '%s' "$json_result" | jq -r '.thinking // empty')"
     if [[ -n "$thinking" ]]; then
@@ -1170,11 +1198,12 @@ ollama_eval() {
       printf '# </thinking>\n\n'
     fi
   fi
+
   local cmd
   cmd="$(printf '%s' "$json_result" | jq -r '.response // empty')"
   _debug "ollama_eval: cmd: [${cmd:0:240}]"
   if [[ -z "$cmd" ]]; then
-    _error 'ollama_eval: could not get response from model'
+    _error 'ollama_eval: error extracting response from model'
     return 1
   fi
 
@@ -1182,14 +1211,16 @@ ollama_eval() {
 
   local first_word
   read -r first_word _ <<<"$cmd"
-  if [[ "$cmd" =~ ^[a-zA-Z_][a-zA-Z0-9_]*\s*\(\)\s*\{ ]]; then
-    printf '✅ Valid command: function definition\n'
+
+  if [[ "$first_word" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)[[:space:]]*\{ ]]; then
+#  if [[ "$cmd" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)[[:space:]]*\{ ]]; then
+    printf '✅ Valid start: function definition\n'
   elif [[ "$first_word" =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
-    printf '✅ Valid command: variable assignment\n'
+    printf '✅ Valid start: variable assignment\n'
   elif _exists "$first_word"; then
-    printf '✅ Valid command: %s\n' "$first_word"
+    printf '✅ Valid start: %s\n' "$first_word"
   else
-    printf '❌ Invalid command: %s.\n' "$first_word"
+    printf '❌ Invalid start: %s.\n' "$first_word"
     return 1
   fi
 

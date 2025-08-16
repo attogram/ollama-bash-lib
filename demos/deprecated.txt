@@ -1,5 +1,71 @@
 deprecated, buggy or stuff for future:
 
+_redact() {
+  local msg="${1:-}"
+  local out="$msg"
+
+  local explicit_vars=( OLLAMA_LIB_TURBO_KEY )
+  local var val
+  for var in "${explicit_vars[@]}"; do
+    val=${!var}
+    [ -n "$val" ] && out=${out//"$val"/'[REDACTED]'}
+  done
+
+  local env_keywords=(
+    TOKEN KEY SECRET PASS AUTH PWD CRED SIGNATURE
+    PRIVATE PUBLIC CERT COOKIE SESSION API CLIENT ACCESS
+    REFRESH ENCRYPT SALT
+  )
+  local env_regex='^('
+  for kw in "${env_keywords[@]}"; do
+    env_regex+="${kw}|"
+  done
+
+#  env_regex=${env_regex%|}'$)'
+#  while IFS='=' read -r name value; do
+#    if [[ $name =~ $env_regex ]]; then # env‑var names are usually UPPER‑CASE
+#      [ -n "$value" ] && out=${out//"$value"/'[REDACTED]'}
+#    fi
+#  done < <(env)
+
+  # Replace long base‑64, URL‑safe base‑64, or hex strings (≥32 characters).
+  local re
+
+  # 3a – standard base64 (may contain = padding)
+  re='[A-Za-z0-9+/=]{32,}'
+  while [[ $out =~ $re ]]; do
+    out=${out//${BASH_REMATCH[0]}/'[REDACTED]'}
+  done
+
+  # 3b – URL‑safe base64 (‑ and _ instead of + /)
+  re='[A-Za-z0-9_-]{32,}'
+  while [[ $out =~ $re ]]; do
+    out=${out//${BASH_REMATCH[0]}/'[REDACTED]'}
+  done
+
+  # 3c – raw hex strings (e.g. SHA‑256 hashes, AWS secret keys)
+  re='[a-fA-F0-9]{32,}'
+  while [[ $out =~ $re ]]; do
+    out=${out//${BASH_REMATCH[0]}/'[REDACTED]'}
+  done
+
+  # --flag=value
+  re='(--[^[:space:]=]+)=[^[:space:]]+'
+  while [[ $out =~ $re ]]; do
+    out=${out//${BASH_REMATCH[0]}/${BASH_REMATCH[1]}=[REDACTED]}
+  done
+
+  # --flag value (space‑separated)
+  re='(--[^[:space:]=]+)[[:space:]]+[^[:space:]]+'
+  while [[ $out =~ $re ]]; do
+    out=${out//${BASH_REMATCH[0]}/${BASH_REMATCH[1]} [REDACTED]}
+  done
+
+  printf '%s' "$out"
+}
+
+
+
 #--------------------------------------------------------------------
 # raw_nano
 #   Print the *nanosecond part of the current second* (0‑999999999)

@@ -14,10 +14,10 @@ startup() {
 
 startup
 
-
 tests=(
   'mistral:7b'                 # VALID
   ''                           # EMPTY → RANDOM
+  'hf.co/user/Model-name:QUANT' # huggy face urls
   'abcdefghijklmnopqrstuvwxyz' # VALID
   '1234567890'                 # VALID
   'mistral:7b'                 # VALID
