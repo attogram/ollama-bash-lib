@@ -1,6 +1,6 @@
 # ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.3
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.4
 
 ## Setup
 
@@ -15,10 +15,10 @@ ollama_generate "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```
 # <thinking>
-# The user wants a description of a rabbit in 3 words. This is a straightforward request, no policy issues. Provide three adjectives or phrases: "soft, fluffy, agile". Provide.
+# The user asks: "Describe a rabbit in 3 words". That's a harmless request. We just need to give three words describing a rabbit. No policy violation. So answer: "fluffy, timid, hopping" or similar.
 # </thinking>
 
-Soft, fluffy, agile.
+Fluffy, timid, hopping.
 ```
 
 ## Demo Debug
@@ -27,29 +27,31 @@ Soft, fluffy, agile.
 OLLAMA_LIB_DEBUG=1 ollama_generate "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```
-[DEBUG] 23:50:35:365865400: ollama_generate: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 23:50:35:392763700: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 23:50:35:420501300: _is_valid_model: VALID: [gpt-oss:120b]
-[DEBUG] 23:50:35:443158900: ollama_generate_json: stream: false
-[DEBUG] 23:50:35:467027900: ollama_generate_json: thinking: false
-[DEBUG] 23:50:35:499426100: ollama_generate_json: json_payload: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 23:50:35:522914900: ollama_api_post: [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 23:50:35:545737400: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 23:50:35:597134000: _is_valid_json: success
-[DEBUG] 23:50:35:617792800: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 23:50:35:644363600: _call_curl: Turbo Mode
-[DEBUG] 23:50:35:667527200: _call_curl: json_body: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 23:50:35:692081100: _call_curl: piping json_body | curl -s -N -H Content-Type: application/json -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
-[DEBUG] 23:50:36:904976000: ollama_api_post: success
-[DEBUG] 23:50:36:926920500: ollama_generate_json: success
-[DEBUG] 23:50:36:983687600: ollama_generate: result: 405 bytes: {"model":"gpt-oss:120b","created_at":"2025-08-16T21:50:36.098427752Z","response":"Fluffy, swift, gentle.","thinking":"Th
-[DEBUG] 23:50:37:027689400: _is_valid_json: success
-[DEBUG] 23:50:37:090912600: ollama_generate: thinking: off
-[DEBUG] 23:50:37:138916600: ollama_generate: thinking FOUND
+[DEBUG] 00:17:56:127237000: ollama_generate: [gpt-oss:120b] [Describe a rabbit in 3 words]
+[DEBUG] 00:17:56:153682400: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
+[DEBUG] 00:17:56:195549600: _is_valid_model: VALID: [gpt-oss:120b]
+[DEBUG] 00:17:56:219586800: ollama_generate_json: stream: false
+[DEBUG] 00:17:56:249248600: ollama_generate_json: thinking: false
+[DEBUG] 00:17:56:294388700: ollama_generate_json: json_payload: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 00:17:56:317771200: ollama_api_post: [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 00:17:56:342886100: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 00:17:56:382001100: _is_valid_json: success
+[DEBUG] 00:17:56:404126700: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 00:17:56:437440600: _call_curl: Turbo Mode
+[DEBUG] 00:17:56:469481000: _call_curl: json_body: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 00:17:56:491785100: _call_curl: piping json_body | curl -s -N -H Content-Type: application/json -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
+[DEBUG] 00:17:57:462588100: ollama_api_post: success
+[DEBUG] 00:17:57:482970700: ollama_generate_json: success
+[DEBUG] 00:17:57:539412400: ollama_generate: result: 449 bytes: {"model":"gpt-oss:120b","created_at":"2025-08-16T22:17:56.789459586Z","response":"Fluffy, swift, timid.","thinking":"The
+[DEBUG] 00:17:57:585079800: _is_valid_json: success
+[DEBUG] 00:17:57:649047800: ollama_generate: thinking: off
+[DEBUG] 00:17:57:710824300: ollama_generate: thinking FOUND
 # <thinking>
-# The user asks "Describe a rabbit in 3 words". That's straightforward, not disallowed. We need to provide three words describing a rabbit, e.g., "Fluffy, swift, gentle". No policy issues. Provide answer.
+# The user asks: "Describe a rabbit in 3 words". This is a straightforward request. There's no policy violation. Provide three words that describe a rabbit, like "fluffy, swift, timid". Or other adjectives. It's fine.
+
+We just need a short answer.
 # </thinking>
 
-Fluffy, swift, gentle.
-[DEBUG] 23:50:37:198952700: ollama_generate: success
+Fluffy, swift, timid.
+[DEBUG] 00:17:57:757186600: ollama_generate: success
 ```

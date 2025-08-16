@@ -3,18 +3,18 @@
 # Ollama Bash Lib - A Bash Library to interact with Ollama
 #
 
-OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.44.3"
-OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
-OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
-OLLAMA_LIB_LICENSE="MIT"
-OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>"
+OLLAMA_LIB_NAME='Ollama Bash Lib'
+OLLAMA_LIB_VERSION='0.44.4'
+OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
+OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
+OLLAMA_LIB_LICENSE='MIT'
+OLLAMA_LIB_COPYRIGHT='Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>'
 
 OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
 OLLAMA_LIB_MESSAGES=()    # Array of messages
 OLLAMA_LIB_STREAM=0       # Streaming mode: 0 = No streaming, 1 = Yes streaming
-OLLAMA_LIB_THINKING="off" # Thinking mode: off, on, hide
+OLLAMA_LIB_THINKING='off' # Thinking mode: off, on, hide
 
 set -o pipefail # Exit the pipeline if any command fails (instead of only the last one)
 

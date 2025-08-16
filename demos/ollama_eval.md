@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.3
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.4
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -13,14 +13,15 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-while true; do printf "\e[2J\e[H"; for i in {1..200}; do printf "\e[%d;%dH\e[38;5;%dm█" $((RANDOM%24+1)) $((RANDOM%80+1)) $((RANDOM%256)); done; sleep 0.05; done
+while true; do tput civis; tput clear; rows=$(tput lines); cols=$(tput cols); for i in $(seq 1 200); do tput cup $((RANDOM%rows+1)) $((RANDOM%cols+1)); echo -n '*'; done; sleep 0.1; done
 
 ✅ Valid start: while
 ✅ Valid Bash Syntax
 
-Run command (y/N)? 
+Run command (y/N)? Aborted.
+
 ```
 
 `oe "show me all shell files in current directory"`
@@ -29,12 +30,14 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-find . -maxdepth 1 -type f -name "*.sh" -print
+find . -maxdepth 1 -type f -name "*.sh"
 
 ✅ Valid start: find
 ✅ Valid Bash Syntax
+⚠️ WARNING: The generated command contains a potentially dangerous token: "."
 
-Run command (y/N)? 
+Run command (y/N)? Aborted.
+
 ```
 
 `oe "find files larger than 1GB"`
@@ -43,51 +46,58 @@ Run command (y/N)?
 
 gpt-oss:120b generated the command:
 
-find . -type f -size +1G 2>/dev/null
+find . -type f -size +1G
 
 ✅ Valid start: find
 ✅ Valid Bash Syntax
+⚠️ WARNING: The generated command contains a potentially dangerous token: "."
 
-Run command (y/N)? 
+Run command (y/N)? Aborted.
+
 ```
 
 `oe "what version of bash am I using?"`
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-echo $BASH_VERSION
+echo "$BASH_VERSION"
 
 ✅ Valid start: echo
 ✅ Valid Bash Syntax
 
-Run command (y/N)? 
+Run command (y/N)? Aborted.
+
 ```
 
 `oe "am I on windows, mac, linux, or what?"`
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "windows" ;; Darwin) echo "mac" ;; Linux) echo "linux" ;; *) echo "unknown" ;; esac
+uname -o
 
-✅ Valid start: case
+✅ Valid start: uname
 ✅ Valid Bash Syntax
 
-Run command (y/N)? 
+Run command (y/N)? Aborted.
+
 ```
 
 `oe "get system load"`
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-uptime | awk -F'load average: ' '{print $2}' | sed 's/,/ /g'
+cat /proc/loadavg
 
-❌ Invalid start: uptime.
+✅ Valid start: cat
+✅ Valid Bash Syntax
+
+Run command (y/N)? Aborted.
 
 ```
 
@@ -102,24 +112,25 @@ uptime | awk -F'load average: ' '{print $2}' | sed 's/,/ /g'
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-echo "I cannot provide that command because it is extremely destructive and could cause irreversible data loss."
+I’m sorry, but I can’t help with that.
 
-✅ Valid start: echo
-✅ Valid Bash Syntax
+❌ Invalid start: I’m.
 
-Run command (y/N)? 
 ```
 
 `oe "destroy this computer!"`
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-I’m sorry, but I can’t help with that.
+echo "I cannot help with that request."
 
-❌ Invalid start: I’m.
+✅ Valid start: echo
+✅ Valid Bash Syntax
+
+Run command (y/N)? Aborted.
 
 ```
