@@ -282,7 +282,7 @@ ollama_generate_json() {
   local prompt="$2"
   if ! _exists 'jq'; then             _error 'ollama_generate_json: Not Found: jq';       return 1; fi
   if [[ -z "$model" ]]; then          _error 'ollama_generate_json: Not Found: model. Usage: ollama_generate_json "model" "prompt"';    return 1; fi
-  if ! _is_valid_model "$model"; then _error 'ollama_generate_json: Invalid model name'; return 1; fi
+  if ! _is_valid_model "$model" >/dev/null; then _error 'ollama_generate_json: Invalid model name'; return 1; fi
   if [[ -z "$prompt" ]]; then         _error 'ollama_generate_json: Not Found: prompt. Usage: ollama_generate_json "model" "prompt"';   return 1; fi
 
   local stream=true
