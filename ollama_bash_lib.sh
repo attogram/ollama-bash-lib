@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.44.1"
+OLLAMA_LIB_VERSION="0.44.2"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
@@ -37,7 +37,7 @@ _redact() {
 
 # Debug message
 #
-# Usage: _debug 'message'
+# Usage: _debug "message"
 # Input: 1 - the debug message
 # Output: message to stderr
 # Requires: none
@@ -51,7 +51,7 @@ _debug() {
 
 # Error message
 #
-# Usage: _error 'message'
+# Usage: _error "message"
 # Input: 1 - the error message
 # Output: message to stderr
 # Requires: none
@@ -517,7 +517,7 @@ ollama_chat_json() {
     stream=false
   fi
   if ((${#OLLAMA_LIB_MESSAGES[@]} == 0)); then
-    _error "ollama_chat_json: No messages to send"
+    _error 'ollama_chat_json: No messages to send'
     return 1
   fi
   local messages_json
@@ -539,7 +539,7 @@ ollama_chat_json() {
 
   if [[ "$OLLAMA_LIB_STREAM" -eq 1 ]]; then
     if ! ollama_api_post '/api/chat' "$json_payload"; then
-      _error "ollama_chat_json: ollama_api_post failed"
+      _error 'ollama_chat_json: ollama_api_post failed'
       return 1
     fi
     _debug 'ollama_chat_json: stream finished'
@@ -548,13 +548,12 @@ ollama_chat_json() {
 
   local result
   if ! result="$(ollama_api_post '/api/chat' "$json_payload")"; then
-    _error "ollama_chat_json: ollama_api_post failed"
+    _error 'ollama_chat_json: ollama_api_post failed'
     return 1
   fi
 
   if ! _is_valid_json "$result"; then
-    _error "ollama_chat_json: response is not valid JSON"
-    # TODO - fix json, escape control characters, fix linebreaks, etc
+    _error 'ollama_chat_json: response is not valid JSON'
     return 1
   fi
 
@@ -595,8 +594,7 @@ ollama_chat() {
     return 1
   fi
   if ! _is_valid_json "$response"; then
-    _error "ollama_chat: response is not valid JSON"
-    # TODO - fix json, escape control characters, fix linebreaks, etc
+    _error 'ollama_chat: response is not valid JSON'
     return 1
   fi
 
@@ -643,7 +641,7 @@ ollama_chat_stream() {
       fi
       printf '%s' "$(jq -r '.message.content // empty' <<<"$line")"
     done
-    exit ${PIPESTATUS[0]}
+    exit "${PIPESTATUS[0]}"
   ) 2> >(_ollama_thinking_stream)
   local error_code=$?
   OLLAMA_LIB_STREAM=0
@@ -673,7 +671,7 @@ ollama_chat_stream_json() {
   fi
   OLLAMA_LIB_STREAM=1
   if ! ollama_chat_json "$model"; then
-    _error "ollama_chat_stream_json: ollama_chat_json failed"
+    _error 'ollama_chat_stream_json: ollama_chat_json failed'
     OLLAMA_LIB_STREAM=0
     return 1
   fi
@@ -693,15 +691,15 @@ ollama_list() {
   _debug 'ollama_list'
   local list
   if ! list="$(ollama list)"; then # get ollama list
-    _error "ollama_list: list=|ollama list failed"
+    _error 'ollama_list: list=|ollama list failed'
     return 1
   fi
   if ! echo "$list" | head -n+1; then # print header
-    _error "ollama_list: echo|head failed"
+    _error 'ollama_list: echo|head failed'
     return 1
   fi
   if ! echo "$list" | tail -n+2 | sort; then # sorted list of models
-    _error "ollama_list: ollama echo|tail|sort failed"
+    _error 'ollama_list: ollama echo|tail|sort failed'
     return 1
   fi
   return 0
@@ -716,7 +714,7 @@ ollama_list() {
 ollama_list_json() {
   _debug 'ollama_list_json'
   if ! ollama_api_get '/api/tags'; then
-    _error "ollama_list_json: ollama_api_get failed"
+    _error 'ollama_list_json: ollama_api_get failed'
     return 1
   fi
   return 0
@@ -783,7 +781,7 @@ ollama_model_random() {
   local models
   models=$(ollama list | awk 'NR>1 {print $1}' | grep -v '^$') # Grab the raw list, skip header, keep the first column.
   if [[ -z "$models" ]]; then
-    _error "ollama_model_random: get ollama list failed"
+    _error 'ollama_model_random: get ollama list failed'
     return 1
   fi
   if _exists 'shuf'; then # `shuf -n1` prints a random line.
@@ -843,7 +841,7 @@ ollama_model_unload() {
 ollama_ps() {
   _debug 'ollama_ps'
   if ! ollama ps; then
-    _error "ollama_ps: ollama ps failed"
+    _error 'ollama_ps: ollama ps failed'
     return 1
   fi
   return 0
@@ -858,7 +856,7 @@ ollama_ps() {
 ollama_ps_json() {
   _debug 'ollama_ps_json'
   if ! ollama_api_get '/api/ps'; then
-    _error "ollama_ps_json: ollama_api_get failed"
+    _error 'ollama_ps_json: ollama_api_get failed'
     return 1
   fi
   return 0
@@ -875,7 +873,7 @@ ollama_ps_json() {
 ollama_show() {
   _debug 'ollama_show'
   if ! ollama show "$1"; then
-    _error "ollama_show: ollama show failed"
+    _error 'ollama_show: ollama show failed'
     return 1
   fi
   return 0
@@ -899,7 +897,7 @@ ollama_show_json() {
       --arg model "$1" \
       '{model: $model}')"
   if ! ollama_api_post '/api/show' "$json_payload"; then
-    _error "ollama_show_json: ollama_api_post failed"
+    _error 'ollama_show_json: ollama_api_post failed'
     return 1
   fi
   return 0
@@ -1082,7 +1080,7 @@ ollama_app_version() {
   fi
   _debug 'ollama_app_version'
   if ! ollama_api_get '/api/version' | jq -r ".version"; then
-    _error "ollama_app_version: error_ollama_api_get|jq failed"
+    _error 'ollama_app_version: error_ollama_api_get|jq failed'
     return 1
   fi
   return 0
@@ -1098,7 +1096,7 @@ ollama_app_version() {
 ollama_app_version_json() {
   _debug 'ollama_app_version_json'
   if ! ollama_api_get '/api/version'; then
-    _error "ollama_app_version_json: error_ollama_api_get failed"
+    _error 'ollama_app_version_json: error_ollama_api_get failed'
     return 1
   fi
   return 0
@@ -1114,7 +1112,7 @@ ollama_app_version_json() {
 ollama_app_version_cli() {
   _debug 'ollama_app_version_cli'
   if ! ollama --version; then
-    _error "ollama_app_version_cli: ollama --version failed"
+    _error 'ollama_app_version_cli: ollama --version failed'
     return 1
   fi
   return 0
@@ -1146,7 +1144,7 @@ ollama_thinking() {
       printf "thinking is %s\n" "$OLLAMA_LIB_THINKING"
       ;;
     *)
-      _error "ollama_thinking: Unknown mode. Usage: ollama_thinking on|off|hide"
+      _error 'ollama_thinking: Unknown mode. Usage: ollama_thinking on|off|hide'
       return 1
       ;;
   esac
@@ -1385,3 +1383,11 @@ ot()   { ollama_thinking "$@"; }
 
 op()   { ollama_ps "$@"; }
 opj()  { ollama_ps_json "$@"; }
+
+#
+# Enjoying Ollama Bash Lib?
+#
+# Give the project a star on GitHub! ✨
+#
+# https://github.com/attogram/ollama-bash-lib
+#
