@@ -163,7 +163,7 @@ _call_curl() {
   fi
 
   local json_body="$3"
-  if ! _is_valid_json "$json_body"; then
+  if [[ -n "$json_body" ]] && ! _is_valid_json "$json_body"; then
     _error "_call_curl: JSON body is invalid: [${json_body:0:120}]"
     return 1
   fi
@@ -415,7 +415,7 @@ ollama_generate_stream() {
       printf '%s' "$(jq -r '.response // empty' <<<"$line")"
     done
     exit "${PIPESTATUS[0]}"
-  ) 2> >(_ollama_thinking_stream)
+  ) 2> >( _ollama_thinking_stream )
   local error_code=$?
   OLLAMA_LIB_STREAM=0
   if [[ $error_code -ne 0 ]]; then
@@ -642,7 +642,7 @@ ollama_chat_stream() {
       printf '%s' "$(jq -r '.message.content // empty' <<<"$line")"
     done
     exit "${PIPESTATUS[0]}"
-  ) 2> >(_ollama_thinking_stream)
+  ) 2> >( _ollama_thinking_stream )
   local error_code=$?
   OLLAMA_LIB_STREAM=0
   if [[ $error_code -ne 0 ]]; then
@@ -1313,22 +1313,36 @@ ollama_eval() {
   fi
 
   local dangerous=(
-    rm mv dd mkfs shred shutdown reboot init kill pkill killall umount mount userdel groupdel passwd su sudo
-    bash '/bin/sh' 'systemctl\s+poweroff' 'systemctl\s+reboot' 'systemctl\s+halt' '-delete'
+    rm mv dd mkfs shred shutdown reboot init kill pkill killall umount mount userdel groupdel passwd su sudo systemctl
+    bash '/bin/sh' '-delete' exec eval source '\.'
   )
   local IFS='|'
-  local danger_regex="\b(${dangerous[*]})\b" # Turn the dangerous array into a regex that matches any whole‑word occurrence
-  if [[ "$cmd" =~ $danger_regex ]]; then # Scan the command. If a dangerous token is found, capture it for the warning.
-    local bad="${BASH_REMATCH[1]}"
+  local danger_regex="(^|[^[:alnum:]_])(${dangerous[*]})($|[^[:alnum:]_])"
+  if [[ "$cmd" =~ $danger_regex ]]; then
+    local bad="${BASH_REMATCH[2]}"
     printf '⚠️ WARNING: The generated command contains a potentially dangerous token: "%s"\n' "$bad"
   fi
 
   printf '\nRun command (y/N)? '
   read -r permission
   case "$permission" in
-    [Yy]) ;;       # proceed with eval
-    *) return 0 ;; # do NOT proceed
+    [Yy]) ;;
+    *)
+      echo "Aborted."
+      return 0
+      ;;
   esac
+
+  printf 'Are you sure? [y/N] '
+  read -r permission2
+  case "$permission2" in
+    [Yy]) ;;
+    *)
+      echo "Aborted."
+      return 0
+      ;;
+  esac
+
   _debug "ollama_eval: sandboxed eval cmd: [${cmd:0:240}]"
   echo
   printf 'Running command in a sandboxed environment...\n'
