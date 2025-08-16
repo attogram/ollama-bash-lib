@@ -4,19 +4,19 @@
 #
 
 OLLAMA_LIB_NAME="Ollama Bash Lib"
-OLLAMA_LIB_VERSION="0.44.0"
+OLLAMA_LIB_VERSION="0.44.1"
 OLLAMA_LIB_URL="https://github.com/attogram/ollama-bash-lib"
 OLLAMA_LIB_DISCORD="https://discord.gg/BGQJCbYVBa"
 OLLAMA_LIB_LICENSE="MIT"
 OLLAMA_LIB_COPYRIGHT="Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>"
 
 OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
-OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}"
+OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
 OLLAMA_LIB_MESSAGES=()    # Array of messages
 OLLAMA_LIB_STREAM=0       # Streaming mode: 0 = No streaming, 1 = Yes streaming
 OLLAMA_LIB_THINKING="off" # Thinking mode: off, on, hide
 
-set -o pipefail
+set -o pipefail # Exit the pipeline if any command fails (instead of only the last one)
 
 # Internal Functions
 
@@ -43,7 +43,7 @@ _redact() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 _debug() {
-  (( OLLAMA_LIB_DEBUG )) || return
+  (( OLLAMA_LIB_DEBUG )) || return # must be 1 or higher to show debug messages
   local date_string # some date implementations do not support %N nanoseconds
   date_string="$(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi)"
   printf "[DEBUG] ${date_string}: %s\n" "$(_redact "$1")" >&2
@@ -70,10 +70,10 @@ _error() {
 _ollama_thinking_stream() {
   local chunk
   if read -r -n 1 chunk && [[ -n "$chunk" ]]; then
-    printf "<thinking>\n" >&2
-    printf "%s" "$chunk" >&2
+    printf "# <thinking>\n" >&2
+    printf "# %s" "$chunk" >&2
     cat >&2
-    printf "\n</thinking>\n\n" >&2
+    printf "\n# </thinking>\n\n" >&2
   fi
 }
 
@@ -174,12 +174,12 @@ _call_curl() {
   curl_args=(
     -s # Silent (no progress meter)
     -N # No buffering (for streamed responses)
-    -f # Return a non‑zero status on HTTP errors (4xx/5xx)
+    # -f # Return a non‑zero status on HTTP errors (4xx/5xx) - hides {error} json returns
     -H 'Content-Type: application/json' # JSON Content Type
   )
   if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
     _debug "_call_curl: Turbo Mode"
-    curl_args+=( -H "Authorization: Bearer ${OLLAMA_LIB_TURBO_KEY}" ) # API Key
+    curl_args+=( -H "Authorization: Bearer ${OLLAMA_LIB_TURBO_KEY}" ) # Turbo Mode API Key
   fi
   curl_args+=( "-X" "${method}" ) # GET or POST
   curl_args+=( "${OLLAMA_LIB_API}${endpoint}" ) # URL
@@ -251,15 +251,16 @@ ollama_api_post() {
 ollama_api_ping() {
   _debug 'ollama_api_ping'
   if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
-    _debug "ollama_api_ping: function not available in Turbo Mode"
+    # TODO - support for turbo mode pings
+    _error 'ollama_api_ping: function not available in Turbo Mode'
     return 0
   fi
   local result
   if ! result="$(ollama_api_get "")"; then
-    _debug "ollama_api_ping: result=ollama_api_get failed"
+    _debug 'ollama_api_ping: ollama_api_get failed'
     return 1
   fi
-  if [[ "$result" == "Ollama is running" ]]; then # Valid as of Ollama 0.11
+  if [[ "$result" == 'Ollama is running' ]]; then # Valid as of Ollama 0.11
     return 0
   fi
   _debug "ollama_api_ping: unknown result: [${result:0:42}]"
@@ -278,12 +279,14 @@ ollama_api_ping() {
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
   _debug "ollama_generate_json: [${1:0:42}] [${2:0:42}]"
-  local model="$1"
+  if ! _exists 'jq'; then _error 'ollama_generate_json: Not Found: jq'; return 1; fi
+
+  local model
+  model="$(_is_valid_model "$1")" # if no model specific, will use random model
+  if [[ -z "$model" ]]; then _error 'ollama_generate_json: Not Found: model. Usage: ollama_generate_json "model" "prompt"'; return 1; fi
+
   local prompt="$2"
-  if ! _exists 'jq'; then             _error 'ollama_generate_json: Not Found: jq';       return 1; fi
-  if [[ -z "$model" ]]; then          _error 'ollama_generate_json: Not Found: model. Usage: ollama_generate_json "model" "prompt"';    return 1; fi
-  if ! _is_valid_model "$model" >/dev/null; then _error 'ollama_generate_json: Invalid model name'; return 1; fi
-  if [[ -z "$prompt" ]]; then         _error 'ollama_generate_json: Not Found: prompt. Usage: ollama_generate_json "model" "prompt"';   return 1; fi
+  if [[ -z "$prompt" ]]; then _error 'ollama_generate_json: Not Found: prompt. Usage: ollama_generate_json "model" "prompt"'; return 1; fi
 
   local stream=true
   (( OLLAMA_LIB_STREAM == 0 )) && stream=false
@@ -312,7 +315,6 @@ ollama_generate_json() {
   return 0
 }
 
-
 # Generate a completion as text
 #
 # Usage: ollama_generate "model" "prompt"
@@ -323,27 +325,39 @@ ollama_generate_json() {
 # Returns: 0 on success, 1 on error
 ollama_generate() {
   _debug "ollama_generate: [${1:0:42}] [${2:0:42}]"
+
   OLLAMA_LIB_STREAM=0 # Turn off streaming
+
   local result
   result="$(ollama_generate_json "$1" "$2")"
   local error_ollama_generate_json=$?
   _debug "ollama_generate: result: $(echo "$result" | wc -c | sed 's/ //g') bytes: ${result:0:120}"
+  # _debug "ollama_generate: result: $(echo "$result" | jq)"  # TODO verbose debug mode = 2
   if (( error_ollama_generate_json )); then
     _error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
     return 1
   fi
 
   if ! _is_valid_json "$result"; then
-    _error "ollama_generate: model response is not valid JSON"
-    # TODO - fix json, escape control characters, fix linebreaks, etc
+    _error 'ollama_generate: model response is not valid JSON'
     return 1
   fi
 
-  if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+  if error_msg=$(printf '%s' "$result" | jq -r '.error // empty'); then
+    if [[ -n $error_msg ]]; then
+      _error "ollama_generate: $error_msg"
+      return 1
+    fi
+  fi
+
+  _debug "ollama_generate: thinking: $OLLAMA_LIB_THINKING"
+  if [[ "$OLLAMA_LIB_THINKING" != 'hide' ]]; then
     local thinking
     thinking="$(printf '%s' "$result" | jq -r '.thinking // empty')"
+    #thinking="$(printf '%s' "$result" | jq -r '.think // empty')"
     if [[ -n "$thinking" ]]; then
-      printf '<thinking>\n%s\n</thinking>\n\n' "$thinking" >&2
+      _debug 'ollama_generate: thinking FOUND'
+      printf '# <thinking>\n# %s\n# </thinking>\n\n' "$thinking" >&2 # send thinking to stderr
     fi
   fi
 
@@ -398,7 +412,7 @@ ollama_generate_stream() {
       fi
       printf '%s' "$(jq -r '.response // empty' <<<"$line")"
     done
-    exit ${PIPESTATUS[0]}
+    exit "${PIPESTATUS[0]}"
   ) 2> >(_ollama_thinking_stream)
   local error_code=$?
   OLLAMA_LIB_STREAM=0
@@ -903,46 +917,103 @@ ollama_app_installed() {
 
 # Turbo Mode on/off
 #
-# Usage: ollama_app_turbo "on" OR ollama_app_turbo "off"
+# Usage: ollama_app_turbo on    # Turn on Turbo Mode, set api host to ollama.com, export api host and set api key
+# Usage: ollama_app_turbo -e on # Turn on Turbo Mode, and export api key into environment
+# Usage: ollama_app_turbo off   # Turn off Turbo Mode, set api host to local, unset api key
 # Input: 1 - The mode: empty, "on" or "off", default to "on"
 # Output: if OLLAMA_LIB_TURBO_KEY is not set, then prompts user to enter key
 # Requires: a valid API key from ollama.com
 # Returns: 0 on success, 1 on error
 ollama_app_turbo() {
-  _debug "ollama_app_turbo: [${1:0:42}]"
+  _debug "ollama_app_turbo: [${1:0:42}] [${2:0:42}]"
+
+  local usage="Usage: ollama_app_turbo [-e] {on|off}"
+  local export_key=false
+  local mode=''
+
+  while (( $# )); do
+    case "$1" in
+      -e|--export) # optional
+        export_key=true
+        shift
+        ;;
+      on|off) # required mode
+        if [[ -n $mode ]]; then
+          _error "More than one mode supplied: '${mode:0:42}' and '${1:0:42}'"
+          _error "$usage"
+          return 1
+        fi
+        mode="$1"
+        shift
+        ;;
+      -h|--help)
+        echo "$usage"
+        return 0
+        ;;
+      *)
+        _error "Invalid argument: ${1:0:42}"
+        _error "$usage"
+        return 1
+        ;;
+    esac
+  done
+
+  _debug "ollama_app_turbo: export_key: $export_key"
+  _debug "ollama_app_turbo: mode: $mode"
+
   local host_api
-  case "$1" in
-    on|ON|true|TRUE|1|'')
-      _debug "ollama_app_turbo: Turning Turbo Mode ON"
-      local api_key
-      if [[ -z "$OLLAMA_LIB_TURBO_KEY" ]]; then # If api key is not set
+
+  case "$mode" in
+    on)
+      _debug 'ollama_app_turbo: Turning Turbo Mode ON'
+
+      local api_key="$OLLAMA_LIB_TURBO_KEY"
+
+      if [[ -z "$api_key" ]]; then # If api key is not set in current environment
         echo -n 'Enter Ollama API Key (input hidden): '
         read -r -s api_key # Read api_key silently
         echo
-        if [[ -z "$api_key" ]]; then
-          _error 'ollama_app_turbo: Ollama API Key empty'
-          return 1
-        fi
-        OLLAMA_LIB_TURBO_KEY="$api_key" # Set the api key - do NOT export it
       fi
+
+      if [[ -z "$api_key" ]]; then
+        _error 'ollama_app_turbo: Ollama API Key empty'
+        return 1
+      fi
+
+      OLLAMA_LIB_TURBO_KEY="$api_key" # Set the api key in local environment only
+
+      if $export_key; then
+        _debug 'ollama_app_turbo: export OLLAMA_LIB_TURBO_KEY'
+        export OLLAMA_LIB_TURBO_KEY="$OLLAMA_LIB_TURBO_KEY"
+      else
+        _debug 'ollama_app_turbo: NO EXPORT of OLLAMA_LIB_TURBO_KEY'
+      fi
+
       host_api='https://ollama.com' # Ollama Cloud Service
       ;;
-    off|OFF|false|FALSE|0)
-      _debug "ollama_app_turbo: Turning Turbo Mode OFF"
+
+    off)
+      _debug 'ollama_app_turbo: unset OLLAMA_LIB_TURBO_KEY'
       unset OLLAMA_LIB_TURBO_KEY # Erase the api key
       host_api='http://localhost:11434' # Local Ollama
       ;;
+
     *)
-      _error "ollama_app_turbo: Unknown mode: Usage: ollama_app_turbo on|off"
+      _error 'ollama_app_turbo: Unknown mode'
+      _error "$usage"
       return 1
       ;;
+
   esac
 
-  _debug "ollama_app_turbo: OLLAMA_LIB_TURBO_KEY: ($([[ -n ${OLLAMA_LIB_TURBO_KEY+x} && -n "$OLLAMA_LIB_TURBO_KEY" ]] && echo YES || echo NO))"
+  _debug "ollama_app_turbo: OLLAMA_LIB_TURBO_KEY: $([[ -n ${OLLAMA_LIB_TURBO_KEY+x} && -n "$OLLAMA_LIB_TURBO_KEY" ]] && echo YES || echo NO)"
+
+  _debug "ollama_app_turbo: export OLLAMA_HOST=$host_api"
   export OLLAMA_HOST="$host_api" # Set host and export it
-  _debug "ollama_app_turbo: OLLAMA_HOST: $OLLAMA_HOST"
+
+  _debug "ollama_app_turbo: export OLLAMA_LIB_API=$host_api"
   export OLLAMA_LIB_API="$host_api" # Set api and export it
-  _debug "ollama_app_turbo: OLLAMA_LIB_API: $OLLAMA_LIB_API"
+
   return 0
 }
 
@@ -956,29 +1027,29 @@ ollama_app_turbo() {
 ollama_app_vars() {
   # https://github.com/ollama/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values
   # https://github.com/ollama/ollama/blob/main/envconfig/config.go
-  printf '%s\t%s\n' "OLLAMA_AUTH             : ${OLLAMA_AUTH}" "# Enables authentication between the Ollama client and server"
-  printf '%s\t%s\n' "OLLAMA_CONTEXT_LENGTH   : ${OLLAMA_CONTEXT_LENGTH}" "# Context length to use unless otherwise specified (default: 4096)"
-  printf '%s\t%s\n' "OLLAMA_DEBUG            : ${OLLAMA_DEBUG}" "# Show additional debug information (e.g. OLLAMA_DEBUG=1)"
-  printf '%s\t%s\n' "OLLAMA_FLASH_ATTENTION  : ${OLLAMA_FLASH_ATTENTION}" "# Enabled flash attention"
+  printf '%s\t%s\n' "OLLAMA_AUTH             : $OLLAMA_AUTH" "# Enables authentication between the Ollama client and server"
+  printf '%s\t%s\n' "OLLAMA_CONTEXT_LENGTH   : $OLLAMA_CONTEXT_LENGTH" "# Context length to use unless otherwise specified (default: 4096)"
+  printf '%s\t%s\n' "OLLAMA_DEBUG            : $OLLAMA_DEBUG" "# Show additional debug information (e.g. OLLAMA_DEBUG=1)"
+  printf '%s\t%s\n' "OLLAMA_FLASH_ATTENTION  : $OLLAMA_FLASH_ATTENTION" "# Enabled flash attention"
   printf '%s\t%s\n' "OLLAMA_GPU_OVERHEAD     : $OLLAMA_GPU_OVERHEAD" "# Reserve a portion of VRAM per GPU (bytes)"
   printf '%s\t%s\n' "OLLAMA_HOST             : $OLLAMA_HOST" "# IP Address for the ollama server (default 127.0.0.1:11434)"
-  printf '%s\t%s\n' "OLLAMA_INTEL_GPU        : ${OLLAMA_INTEL_GPU}" "# Enable experimental Intel GPU detection"
+  printf '%s\t%s\n' "OLLAMA_INTEL_GPU        : $OLLAMA_INTEL_GPU" "# Enable experimental Intel GPU detection"
   printf '%s\t%s\n' "OLLAMA_KEEP_ALIVE       : $OLLAMA_KEEP_ALIVE" "# The duration that models stay loaded in memory (default \"5m\")"
-  printf '%s\t%s\n' "OLLAMA_KV_CACHE_TYPE    : ${OLLAMA_KV_CACHE_TYPE}" "# Quantization type for the K/V cache (default: f16)"
+  printf '%s\t%s\n' "OLLAMA_KV_CACHE_TYPE    : $OLLAMA_KV_CACHE_TYPE" "# Quantization type for the K/V cache (default: f16)"
   printf '%s\t%s\n' "OLLAMA_LLM_LIBRARY      : $OLLAMA_LLM_LIBRARY" "# Set LLM library to bypass autodetection"
   printf '%s\t%s\n' "OLLAMA_LOAD_TIMEOUT     : $OLLAMA_LOAD_TIMEOUT" "# How long to allow model loads to stall before giving up (default \"5m\")"
   printf '%s\t%s\n' "OLLAMA_MAX_LOADED_MODELS: $OLLAMA_MAX_LOADED_MODELS" "# Maximum number of loaded models per GPU"
   printf '%s\t%s\n' "OLLAMA_MAX_QUEUE        : $OLLAMA_MAX_QUEUE" "# Maximum number of queued requests"
   printf '%s\t%s\n' "OLLAMA_MAX_VRAM         : $OLLAMA_MAX_VRAM" ""
   printf '%s\t%s\n' "OLLAMA_MODELS           : $OLLAMA_MODELS" "# The path to the models directory"
-  printf '%s\t%s\n' "OLLAMA_MULTIUSER_CACHE  : ${OLLAMA_MULTIUSER_CACHE}" "# Optimize prompt caching for multi-user scenarios"
-  printf '%s\t%s\n' "OLLAMA_NEW_ENGINE       : ${OLLAMA_NEW_ENGINE}" "# Enable the new Ollama engine"
-  printf '%s\t%s\n' "OLLAMA_NOHISTORY        : ${OLLAMA_NOHISTORY}" "# Do not preserve readline history"
-  printf '%s\t%s\n' "OLLAMA_NOPRUNE          : ${OLLAMA_NOPRUNE}" "# Do not prune model blobs on startup"
+  printf '%s\t%s\n' "OLLAMA_MULTIUSER_CACHE  : $OLLAMA_MULTIUSER_CACHE" "# Optimize prompt caching for multi-user scenarios"
+  printf '%s\t%s\n' "OLLAMA_NEW_ENGINE       : $OLLAMA_NEW_ENGINE" "# Enable the new Ollama engine"
+  printf '%s\t%s\n' "OLLAMA_NOHISTORY        : $OLLAMA_NOHISTORY" "# Do not preserve readline history"
+  printf '%s\t%s\n' "OLLAMA_NOPRUNE          : $OLLAMA_NOPRUNE" "# Do not prune model blobs on startup"
   printf '%s\t%s\n' "OLLAMA_NUM_PARALLEL     : $OLLAMA_NUM_PARALLEL" "# Maximum number of parallel request"
   printf '%s\t%s\n' "OLLAMA_ORIGINS          : $OLLAMA_ORIGINS" "# A comma separated list of allowed origins"
   printf '%s\t%s\n' "OLLAMA_RUNNERS_DIR      : $OLLAMA_RUNNERS_DIR" "# Sets the location for runners"
-  printf '%s\t%s\n' "OLLAMA_SCHED_SPREAD     : ${OLLAMA_SCHED_SPREAD}" "# Always schedule model across all GPUs"
+  printf '%s\t%s\n' "OLLAMA_SCHED_SPREAD     : $OLLAMA_SCHED_SPREAD" "# Always schedule model across all GPUs"
   printf '%s\t%s\n' "OLLAMA_TEST_EXISTING    : $OLLAMA_TEST_EXISTING" ""
   printf '%s\t%s\n' "OLLAMA_TMPDIR           : $OLLAMA_TMPDIR" ""
   printf '%s\t%s\n' "CUDA_VISIBLE_DEVICES    : $CUDA_VISIBLE_DEVICES" "# Set which NVIDIA devices are visible"
@@ -1059,13 +1130,13 @@ ollama_thinking() {
   _debug "ollama_thinking: [${1:0:42}]"
   case "${1:-}" in
     on|ON)
-      OLLAMA_LIB_THINKING="on"
+      export OLLAMA_LIB_THINKING="on"
       ;;
     off|OFF)
-      OLLAMA_LIB_THINKING="off"
+      export OLLAMA_LIB_THINKING="off"
       ;;
     hide|HIDE)
-      OLLAMA_LIB_THINKING="hide"
+      export OLLAMA_LIB_THINKING="hide"
       ;;
     '')
       printf "thinking is %s\n" "$OLLAMA_LIB_THINKING"
@@ -1100,8 +1171,8 @@ ollama_lib_about() {
   echo "OLLAMA_LIB_DEBUG    : $OLLAMA_LIB_DEBUG"
   echo "OLLAMA_LIB_STREAM   : $OLLAMA_LIB_STREAM"
   echo "OLLAMA_LIB_THINKING : $OLLAMA_LIB_THINKING"
-  echo "OLLAMA_LIB_MESSAGES : (${#OLLAMA_LIB_MESSAGES[@]} messages)"
-  echo "OLLAMA_LIB_TURBO_KEY: ($([[ -n ${OLLAMA_LIB_TURBO_KEY+x} && -n "$OLLAMA_LIB_TURBO_KEY" ]] && echo YES || echo NO))"
+  echo "OLLAMA_LIB_MESSAGES : ${#OLLAMA_LIB_MESSAGES[@]} messages"
+  echo "OLLAMA_LIB_TURBO_KEY: $([[ -n ${OLLAMA_LIB_TURBO_KEY+x} && -n "$OLLAMA_LIB_TURBO_KEY" ]] && echo YES || echo NO)"
   if ! _exists "compgen"; then
     _debug 'ollama_lib_about: compgen Not Found'
     return 1
@@ -1109,17 +1180,20 @@ ollama_lib_about() {
   echo
   echo "Functions:"
   echo
-  local other_functions=$'oag\noap\noapi\nog\nogj\nogs\nogsj\noc\nocj\nocs\nocsj\nom\noma\nomc\nomco\nol\nolj\nola\nomr\nomu\nos\nosj\nop\nopj\noai\noat\noav\noave\noavj\noavc\nolab\nolv\noe\n_debug\n_error\n_exists\n_call_curl\n_is_valid_json\n_is_valid_model\n'
+
+  # TODO: better other_functions
+  #local other_functions=$'oag\noap\noapi\nog\nogj\nogs\nogsj\noc\nocj\nocs\nocsj\nom\noma\nomc\nomco\nol\nolj\nola\nomr\nomu\nos\nosj\nop\nopj\noai\noat\noav\noave\noavj\noavc\nolab\nolv\noe\n_debug\n_error\n_exists\n_call_curl\n_is_valid_json\n_is_valid_model\n'
+
   if ! _exists "column"; then
     _debug 'ollama_lib_about: column Not Found'
     {
-      printf '%s' "$other_functions"
+      #printf '%s' "$other_functions"
       compgen -A function -X '!*ollama_*'
     } | sort
     return 0
   fi
   {
-    printf '%s' "$other_functions"
+    #printf '%s' "$other_functions"
     compgen -A function -X '!*ollama_*'
   } | sort | column
 }

@@ -1,11 +1,12 @@
 # _is_valid_model
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.9
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.1
 
 | test | output | return | result |
 |------|--------|--------|--------|
 | `mistral:7b` | mistral:7b | 0 | ✅ PASS |
 | `` | gpt-oss:20b | 0 | ✅ PASS |
+| `hf.co/user/Model-name:QUANT` | hf.co/user/Model-name:QUANT | 0 | ✅ PASS |
 | `abcdefghijklmnopqrstuvwxyz` | abcdefghijklmnopqrstuvwxyz | 0 | ✅ PASS |
 | `1234567890` | 1234567890 | 0 | ✅ PASS |
 | `mistral:7b` | mistral:7b | 0 | ✅ PASS |
@@ -23,7 +24,7 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 | `0` | 0 | 0 | ✅ PASS |
 | `_.-:%-.0s` |  | 1 | ❌ FAIL |
 | `mistral 7b` |  | 1 | ❌ FAIL |
-| `mistral/7b` |  | 1 | ❌ FAIL |
+| `mistral/7b` | mistral/7b | 0 | ✅ PASS |
 | `mistral\7b` |  | 1 | ❌ FAIL |
 | `mistral@7b` |  | 1 | ❌ FAIL |
 | `mistral#7b` |  | 1 | ❌ FAIL |

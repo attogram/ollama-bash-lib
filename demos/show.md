@@ -1,13 +1,14 @@
 # ollama_show, ollama_show_json
+[ERROR] ollama_api_ping: function not available in Turbo Mode
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.9
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.1
 
-ollama_show "gpt-oss:120b"
+ollama_show "gpt-oss:20b"
 
 ```
   Model
     architecture        gptoss    
-    parameters          116.8B    
+    parameters          20.9B     
     context length      131072    
     embedding length    2880      
     quantization        MXFP4     
@@ -15,21 +16,21 @@ ollama_show "gpt-oss:120b"
 ```
 
 
-ollama_show_json "gpt-oss:120b"
+ollama_show_json "gpt-oss:20b"
 
 ```
 {
   "details": {
-    "parent_model": "gpt-oss:120b",
+    "parent_model": "gpt-oss:20b",
     "format": "",
     "family": "gptoss",
     "families": null,
-    "parameter_size": "116829156672",
+    "parameter_size": "20914757184",
     "quantization_level": "MXFP4"
   },
   "model_info": {
     "general.architecture": "gptoss",
-    "general.parameter_count": 116829156672,
+    "general.parameter_count": 20914757184,
     "gptoss.context_length": 131072,
     "gptoss.embedding_length": 2880
   },

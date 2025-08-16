@@ -1,6 +1,7 @@
 # ollama_generate_json
+[ERROR] ollama_api_ping: function not available in Turbo Mode
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.9
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.1
 
 ## Setup
 
@@ -11,18 +12,18 @@ OLLAMA_LIB_API: https://ollama.com
 ## Demo
 
 ```bash
-ollama_generate_json "gpt-oss:20b" "Describe a rabbit in 3 words"
+ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```json
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-15T23:51:53.268599331Z",
-  "response": "fluffy, gentle, playful",
-  "thinking": "The question: \"Describe a rabbit in 3 words\". They want a brief description, presumably 3 words. Likely something like \"fluffy, curious, hopping\". The user says \"Describe a rabbit in 3 words\". Should we just answer those 3 words, no extra? Could be \"soft, playful, quick\". Let's choose something appealing. Maybe \"fluffy, gentle, swift\". The user didn't specify length beyond 3 words. So just 3 words. We'll answer: \"fluffy, gentle, playful\". That is three words. Just give that. Ok.",
+  "model": "gpt-oss:120b",
+  "created_at": "2025-08-16T20:33:58.55924625Z",
+  "response": "Fluffy, timid, hopping",
+  "thinking": "The user asks: \"Describe a rabbit in 3 words\". That's a simple request. Must comply. We can respond with three adjectives like \"fluffy, timid, hopping\". That is fine. Provide three words. Could also be \"soft, twitchy, ears\". Any three words. No issues. Provide answer.",
   "done": true,
-  "total_duration": 579215175,
+  "total_duration": 838860726,
   "prompt_eval_count": 81,
-  "eval_count": 136
+  "eval_count": 81
 }
 
 ```
@@ -30,27 +31,32 @@ ollama_generate_json "gpt-oss:20b" "Describe a rabbit in 3 words"
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate_json "gpt-oss:20b" "Describe a rabbit in 3 words"
+OLLAMA_LIB_DEBUG=1 ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```json
-[DEBUG] 01:51:53:588622000: ollama_generate_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
-[DEBUG] 01:51:53:599280000: ollama_generate_json: OLLAMA_LIB_STREAM: 0
-[DEBUG] 01:51:53:614700000: ollama_api_post: [/api/generate] [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":false,"verbose":false}]
-[DEBUG] 01:51:53:621494000: _call_curl: [POST] [/api/generate] [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":false,"verbose":false}]
-[DEBUG] 01:51:53:627791000: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 01:51:53:634086000: _call_curl: Turbo Mode
-[DEBUG] 01:51:53:639631000: _call_curl: json_body: [{"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":false,"verbose":false}]
-[DEBUG] 01:51:54:921040000: ollama_api_post: success: return 0
-[DEBUG] 01:51:54:930702000: ollama_generate_json: success: return: 0
+[DEBUG] 22:33:59:375275100: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
+[DEBUG] 22:33:59:402216500: _is_valid_model: VALID: [gpt-oss:120b]
+[DEBUG] 22:33:59:430029700: ollama_generate_json: stream: false
+[DEBUG] 22:33:59:451883400: ollama_generate_json: thinking: false
+[DEBUG] 22:33:59:485718000: ollama_generate_json: json_payload: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 22:33:59:506840200: ollama_api_post: [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 22:33:59:527472300: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 22:33:59:586232700: _is_valid_json: VALID: return 0
+[DEBUG] 22:33:59:607787200: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 22:33:59:628464900: _call_curl: Turbo Mode
+[DEBUG] 22:33:59:648448400: _call_curl: json_body: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 22:33:59:684712900: _call_curl: piping json_body | curl -s -N -H Content-Type: application/json -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
+[DEBUG] 22:34:00:910061400: ollama_api_post: success
+[DEBUG] 22:34:00:930646900: ollama_generate_json: success
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-15T23:51:54.574497837Z",
-  "response": "Playful, fluffy, swift",
-  "thinking": "The user says \"Describe a rabbit in 3 words\". We have to provide a response. They ask for a description in 3 words. We should obey and give exactly three words. It's ambiguous: we can give three adjectives or maybe any description that in total has three words. Let's choose \"Playful, fluffy, swift\". That is three words separated by commas or maybe just three words separated by spaces. The instruction: \"Describe a rabbit in 3 words\". So we can respond \"Playful, fluffy, swift\". That’s three words. Or \"Soft, swift, curious\". Use exactly three words. Let's just answer with \"Playful, fluffy, swift\". Ensure no other words. Probably good to keep the formatting simple.",
+  "model": "gpt-oss:120b",
+  "created_at": "2025-08-16T20:34:00.071500774Z",
+  "response": "Fluffy, swift, timid.",
+  "thinking": "User asks: \"Describe a rabbit in 3 words\". That's a normal request, no policy issues. We can simply give three adjectives like \"fluffy, swift, timid\". That fulfills.",
   "done": true,
-  "total_duration": 686105124,
+  "total_duration": 512850023,
   "prompt_eval_count": 81,
-  "eval_count": 166
+  "eval_count": 56
 }
 
 ```

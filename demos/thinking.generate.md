@@ -1,6 +1,7 @@
 # ollama_thinking, ollama_generate
+[ERROR] ollama_api_ping: function not available in Turbo Mode
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.43.9
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.1
 
 ```
 ollama_thinking on
@@ -9,24 +10,17 @@ ollama_generate $(ollama_model_random) "list 10 things about bash, 1 per line"
 ```
 
 thinking is on
-<thinking>
-User wants "list 10 things about bash, 1 per line". That is straightforward. We should list 10 things about bash. Provide a line per item. Maybe bullet list or numbers separate lines. Probably each line with a number or just plain items. They didn't specify format: just 10 things. Could be facts or features. I need to respond with exactly 10 lines. Let's do:
+# <thinking>
+# The user asks: "list 10 things about bash, 1 per line". Provide 10 items about Bash. Should be simple list. No disallowed content. Provide a list each on its own line.
+# </thinking>
 
-1. Bash is the GNU Bourne-Again SHell, a popular Unix shell.
-2. ...
-
-Make sure each line unique. Provide concise descriptions. Let's do numbering. Ensure every line counts. Ensure no extra explanation.
-
-Ok.
-</thinking>
-
-1. Bash is the GNU Bourne-Again SHell, a ubiquitous command language for Unix-like systems.  
-2. It provides command-line editing, autocomplete, and job control built into the terminal.  
-3. Bash supports scripting constructs such as loops, conditionals, functions, and arrays.  
-4. It uses globbing (wildcards) for pattern matching file names like `*.txt` or `file[0-9].c`.  
-5. The `history` command allows users to recall, edit, and re-execute previously typed commands.  
-6. Bash variable assignments can be exported to subprocesses with `export VAR=value`.  
-7. It offers brace expansion, e.g., `{a,b,c}.txt` expands to `a.txt b.txt c.txt`.  
-8. Bash reads initialization files (`.bashrc`, `.profile`) on startup to configure environment.  
-9. It includes arithmetic expansion `$(( expression ))` for evaluating mathematical expressions.  
-10. Bash scripts can be made executable with a shebang (`#!/usr/bin/env bash`) and run directly.
+- Bash is a Unix shell and command‑language interpreter.  
+- It stands for “Bourne Again SHell,” a successor to the original Bourne shell (sh).  
+- Bash supports command completion and history navigation using the Tab key and arrow keys.  
+- It provides programmable completion, allowing custom scripts to suggest arguments for commands.  
+- Bash scripts can use variables, loops, conditionals, and functions for automation.  
+- It includes built‑in arithmetic expansion for integer calculations (e.g., $((5+3))).  
+- Bash supports job control, enabling background execution and process management with `&`, `fg`, and `bg`.  
+- It offers command substitution using backticks `` `cmd` `` or `$(cmd)` to embed output.  
+- Bash can source other files with the `.` or `source` command to import functions and variables.  
+- It provides extensive redirection operators for input/output, including `>`, `>>`, `<`, `|`, and `tee`.

@@ -15,7 +15,7 @@ if [[ -z "$OLLAMA_LIB_TURBO_KEY" ]]; then
   echo
 fi
 
-ollama_app_turbo 'on'
+ollama_app_turbo -e on # Turn on turbo, and export api key to env
 
 echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
 echo "OLLAMA_HOST: $OLLAMA_HOST"

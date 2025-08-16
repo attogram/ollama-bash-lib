@@ -1,9 +1,9 @@
 --- Testing ollama_generate_stream with thinking ON ---
-<thinking>
-We need to answer concisely: Why is sky blue? Provide a short explanation: Rayleigh scattering, shorter blue wavelengths scatter more. So answer concise.Follow guidelines: no irrelevant content.Ok.Because Rayleigh scattering by air molecules preferentially scatters shorter, blue light from the Sun in all directions. The blue wavelengths are diverted toward our eyes, making the sky appear blue.
+# <thinking>
+# The user wants a concise answer: why is sky blue? So explain Rayleigh scattering, shorter wavelengths scattered more, etc. Provide concise.The sky appears blue because molecules and tiny particles in Earth’s atmosphere scatter sunlight. Short‑wavelength light (blue and violet) is scattered about 10 × more efficiently than longer wavelengths (red) due to Rayleigh scattering (intensity ∝ 1/λ⁴). Our eyes are more sensitive to blue than violet and some violet is absorbed by the upper atmosphere, so the scattered light we see is dominantly blue.
+
+# </thinking>
+
 
 --- Testing ollama_chat_stream with thinking ON ---
-
-</thinking>
-
-The ocean looks blue because water absorbs longer wavelengths (reds, oranges) more strongly and scatters shorter wavelengths (blues) more efficiently. Sunlight that enters the water is filtered; the predominantly blue component is scattered back to our eyes, giving the sea its blue appearance.
+Because water absorbs longer‑wavelength (red, orange, yellow) light more strongly than shorter‑wavelength light, the blue part of sunlight scatters and reaches our eyes in large amounts. The scattering of the remaining blue light makes the ocean look blue.

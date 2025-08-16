@@ -1,5 +1,48 @@
 deprecated, buggy or stuff for future:
 
+
+# Truncate a string
+#
+# Usage: _truncate "string"
+# Input: 1 - the string to truncate
+# Input: 2 - max string length
+# Output: truncated string to stdout
+# Requires: none
+# Returns: 0 on success, 1 on error, 2 if length is zero
+
+_truncate() {
+    if [ "$#" -ne 2 ]; then
+        printf "Usage: _truncate \"string\" maxlen\\n" >&2
+        return 1
+    fi
+
+    local input=$1
+    local maxlen=$2
+
+    # maxlen must be a non‑negative integer
+    case $maxlen in
+        ''|*[!0-9]*)
+            printf "Error: maxlen must be a non‑negative integer (got '%s')\\n" "$maxlen" >&2
+            return 1 ;;
+    esac
+
+    # Zero length is a legal request – just output nothing.
+    if [ "$maxlen" -eq 0 ]; then
+        return 0
+    fi
+
+    if ( : "${input:0:1}" ) 2>/dev/null; then
+
+        printf '%s' "${input:0:maxlen}"
+        return 0
+    else
+        # POSIX‑sh fallback – uses `cut` (byte based)
+        printf '%s' "$input" | cut -c1-"$maxlen"
+        return 0
+    fi
+}
+
+
 _redact() {
   local msg="${1:-}"
   local out="$msg"
