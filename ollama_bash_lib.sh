@@ -1391,3 +1391,11 @@ opj()  { ollama_ps_json "$@"; }
 #
 # https://github.com/attogram/ollama-bash-lib
 #
+
+#
+# Need some technical support, or just want to chat?
+#
+# Join our Discord channel #ollama-bash-lib
+#
+# https://discord.gg/BGQJCbYVBa
+#

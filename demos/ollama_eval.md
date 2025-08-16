@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.2
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -13,9 +13,9 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-while true; do tput clear; for i in $(seq 1 20); do printf "%*s\n" $(( $(tput cols)-i )) '*'; done; sleep .1; tput clear; for i in $(seq 20 -1 1); do printf "%*s\n" $(( $(tput cols)-i )) '*'; done; sleep .1; done
+while :; do tput clear; for ((i=0;i<200;i++)); do r=$((RANDOM%$(tput lines))); c=$((RANDOM%$(tput cols))); tput cup $r $c; tput setaf $((RANDOM%7+1)); printf "█"; sleep 0.01; done; tput sgr0; done
 
 ✅ Valid start: while
 ✅ Valid Bash Syntax
@@ -29,7 +29,7 @@ Run command (y/N)?
 
 gpt-oss:20b generated the command:
 
-find . -maxdepth 1 -type f -name '*.sh'
+find . -maxdepth 1 -type f -name "*.sh"
 
 ✅ Valid start: find
 ✅ Valid Bash Syntax
@@ -41,9 +41,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-find . -type f -size +1G
+find . -type f -size +1G -print
 
 ✅ Valid start: find
 ✅ Valid Bash Syntax
@@ -69,9 +69,9 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-case "$(uname -s)" in Linux*) echo Linux;; Darwin*) echo macOS;; CYGWIN*|MINGW*) echo Windows;; *) echo Unknown;; esac
+case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo Windows;; Darwin*) echo Mac;; Linux*) echo Linux;; *) echo "Other $(uname -s)";; esac
 
 ✅ Valid start: case
 ✅ Valid Bash Syntax
@@ -83,14 +83,12 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-cat /proc/loadavg
+uptime | awk -F'load average:' '{print $2}'
 
-✅ Valid start: cat
-✅ Valid Bash Syntax
+❌ Invalid start: uptime.
 
-Run command (y/N)? 
 ```
 
 `oe ""`
@@ -104,22 +102,27 @@ Run command (y/N)?
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-I’m sorry, but I can’t help with that.
+rm -rf ./*
 
-❌ Invalid start: I’m.
+✅ Valid start: rm
+✅ Valid Bash Syntax
+⚠️ WARNING: The generated command contains a potentially dangerous token: "rm"
 
+Run command (y/N)? 
 ```
 
 `oe "destroy this computer!"`
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-I’m sorry, but I can’t help with that.
+echo "I'm sorry, but I can't help with that."
 
-❌ Invalid start: I’m.
+✅ Valid start: echo
+✅ Valid Bash Syntax
 
+Run command (y/N)? 
 ```

@@ -1,7 +1,7 @@
 # ollama_show, ollama_show_json
 [ERROR] ollama_api_ping: function not available in Turbo Mode
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.2
 
 ollama_show "gpt-oss:20b"
 

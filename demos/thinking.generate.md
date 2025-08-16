@@ -1,7 +1,7 @@
 # ollama_thinking, ollama_generate
 [ERROR] ollama_api_ping: function not available in Turbo Mode
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.2
 
 ```
 ollama_thinking on
@@ -11,16 +11,16 @@ ollama_generate $(ollama_model_random) "list 10 things about bash, 1 per line"
 
 thinking is on
 # <thinking>
-# The user asks: "list 10 things about bash, 1 per line". Provide 10 items about Bash. Should be simple list. No disallowed content. Provide a list each on its own line.
+# Need to produce a list 10 things about bash, 1 per line. Probably a short item list.
 # </thinking>
 
-- Bash is a Unix shell and command‑language interpreter.  
-- It stands for “Bourne Again SHell,” a successor to the original Bourne shell (sh).  
-- Bash supports command completion and history navigation using the Tab key and arrow keys.  
-- It provides programmable completion, allowing custom scripts to suggest arguments for commands.  
-- Bash scripts can use variables, loops, conditionals, and functions for automation.  
-- It includes built‑in arithmetic expansion for integer calculations (e.g., $((5+3))).  
-- Bash supports job control, enabling background execution and process management with `&`, `fg`, and `bg`.  
-- It offers command substitution using backticks `` `cmd` `` or `$(cmd)` to embed output.  
-- Bash can source other files with the `.` or `source` command to import functions and variables.  
-- It provides extensive redirection operators for input/output, including `>`, `>>`, `<`, `|`, and `tee`.
+1. Bash is the default command‐line shell on most Linux distributions and macOS.  
+2. It supports command history, allowing users to navigate and reuse previous commands with the up/down arrow keys.  
+3. Bash permits variable assignment without spaces (`VAR=value`) and variable expansion with `${}` or `$`.  
+4. It features pathname globbing (`*.txt`, `file[1-3]`) for pattern matching.  
+5. Bash includes a powerful array type, which can be declared with `arr=(one two three)` and accessed with `arr[0]`.  
+6. It supports control structures such as `if`, `for`, `while`, and `until`, enabling script logic.  
+7. Bash can perform process substitution (`< <(command)`) and named pipes (using `mkfifo`).  
+8. The `exec` builtin can replace the current shell with another program, or redirect file descriptors.  
+9. Bash scripts can be made executable by adding a shebang line `#!/usr/bin/env bash` at the top.  
+10. Its `read` builtin can capture user input, with options like `-p` to prompt and `-s` for silent (password) input.
