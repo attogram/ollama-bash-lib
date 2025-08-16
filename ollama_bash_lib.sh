@@ -37,7 +37,7 @@ _redact() {
 
 # Debug message
 #
-# Usage: _debug "message"
+# Usage: _debug 'message'
 # Input: 1 - the debug message
 # Output: message to stderr
 # Requires: none
@@ -51,7 +51,7 @@ _debug() {
 
 # Error message
 #
-# Usage: _error "message"
+# Usage: _error 'message'
 # Input: 1 - the error message
 # Output: message to stderr
 # Requires: none
@@ -105,7 +105,7 @@ _is_valid_json() {
   local return_code=$?
   case $return_code in
     0) # Exit code 0: The JSON is valid and "truthy"
-      _debug '_is_valid_json: VALID: return 0'
+      _debug '_is_valid_json: success'
       return 0
       ;;
     1) # (Failure) The last value output was either false or null.
@@ -178,7 +178,7 @@ _call_curl() {
     -H 'Content-Type: application/json' # JSON Content Type
   )
   if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
-    _debug "_call_curl: Turbo Mode"
+    _debug '_call_curl: Turbo Mode'
     curl_args+=( -H "Authorization: Bearer ${OLLAMA_LIB_TURBO_KEY}" ) # Turbo Mode API Key
   fi
   curl_args+=( "-X" "${method}" ) # GET or POST
@@ -324,6 +324,7 @@ ollama_generate_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate() {
+  if ! _exists 'jq'; then _error 'ollama_generate: jq Not Found'; return 1; fi
   _debug "ollama_generate: [${1:0:42}] [${2:0:42}]"
 
   OLLAMA_LIB_STREAM=0 # Turn off streaming
@@ -403,6 +404,7 @@ ollama_generate_stream_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
+  if ! _exists 'jq'; then _error 'ollama_generate_stream: jq Not Found'; return 1; fi
   _debug "ollama_generate_stream: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1
   (
@@ -421,7 +423,7 @@ ollama_generate_stream() {
     return 1
   fi
   printf '\n'
-  _debug "ollama_generate_stream: return: 0"
+  _debug 'ollama_generate_stream: return: 0'
   return 0
 }
 
@@ -434,9 +436,9 @@ ollama_generate_stream() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_messages() {
-  _debug "ollama_messages"
+  _debug 'ollama_messages'
   if [[ ${#OLLAMA_LIB_MESSAGES[@]} -eq 0 ]]; then
-    _debug "ollama_messages: no messages"
+    _debug 'ollama_messages: no messages'
     printf '[]'
     return 1
   fi
@@ -473,7 +475,7 @@ ollama_messages_add() {
 # Requires: none
 # Returns: 0
 ollama_messages_clear() {
-  _debug "ollama_messages_clear"
+  _debug 'ollama_messages_clear'
   OLLAMA_LIB_MESSAGES=()
 }
 
@@ -484,7 +486,7 @@ ollama_messages_clear() {
 # Requires: none
 # Returns: 0
 ollama_messages_count() {
-  _debug "ollama_messages_count"
+  _debug 'ollama_messages_count'
   echo "${#OLLAMA_LIB_MESSAGES[@]}"
 }
 
@@ -540,7 +542,7 @@ ollama_chat_json() {
       _error "ollama_chat_json: ollama_api_post failed"
       return 1
     fi
-    _debug "ollama_chat_json: stream finished"
+    _debug 'ollama_chat_json: stream finished'
     return 0
   fi
 
@@ -565,7 +567,7 @@ ollama_chat_json() {
     return 1
   fi
   echo "$result"
-  _debug "ollama_chat_json: return 0"
+  _debug 'ollama_chat_json: success'
 }
 
 # Chat completion request as text
@@ -576,6 +578,7 @@ ollama_chat_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat() {
+  if ! _exists 'jq'; then _error 'ollama_chat: jq Not Found'; return 1; fi
   _debug "ollama_chat: [${1:0:42}]"
   local model
   model="$(_is_valid_model "$1")"
@@ -623,6 +626,7 @@ ollama_chat() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
+  if ! _exists 'jq'; then _error 'ollama_chat_stream: jq Not Found'; return 1; fi
   _debug "ollama_chat_stream: [${1:0:42}]"
   local model
   model="$(_is_valid_model "$1")"
@@ -686,7 +690,7 @@ ollama_chat_stream_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_list() {
-  _debug "ollama_list"
+  _debug 'ollama_list'
   local list
   if ! list="$(ollama list)"; then # get ollama list
     _error "ollama_list: list=|ollama list failed"
@@ -710,7 +714,7 @@ ollama_list() {
 # Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_list_json() {
-  _debug "ollama_list_json"
+  _debug 'ollama_list_json'
   if ! ollama_api_get '/api/tags'; then
     _error "ollama_list_json: ollama_api_get failed"
     return 1
@@ -726,7 +730,7 @@ ollama_list_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_list_array() {
-  _debug "ollama_list_array"
+  _debug 'ollama_list_array'
   local models=()
   while IFS= read -r line; do
     models+=("$line")
@@ -757,7 +761,7 @@ _is_valid_model() {
       return 1
     fi
   fi
-  if [[ ! "$model" =~ ^[a-zA-Z0-9._://-]+$ ]]; then
+  if [[ ! "$model" =~ ^[a-zA-Z0-9._:/-]+$ ]]; then
     _debug "_is_valid_model: INVALID: [${model:0:120}]"
     printf ''
     return 1
@@ -775,7 +779,7 @@ _is_valid_model() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_model_random() {
-  _debug "ollama_model_random"
+  _debug 'ollama_model_random'
   local models
   models=$(ollama list | awk 'NR>1 {print $1}' | grep -v '^$') # Grab the raw list, skip header, keep the first column.
   if [[ -z "$models" ]]; then
@@ -837,7 +841,7 @@ ollama_model_unload() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_ps() {
-  _debug "ollama_ps"
+  _debug 'ollama_ps'
   if ! ollama ps; then
     _error "ollama_ps: ollama ps failed"
     return 1
@@ -852,7 +856,7 @@ ollama_ps() {
 # Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_ps_json() {
-  _debug "ollama_ps_json"
+  _debug 'ollama_ps_json'
   if ! ollama_api_get '/api/ps'; then
     _error "ollama_ps_json: ollama_api_get failed"
     return 1
@@ -869,7 +873,7 @@ ollama_ps_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_show() {
-  _debug "ollama_show"
+  _debug 'ollama_show'
   if ! ollama show "$1"; then
     _error "ollama_show: ollama show failed"
     return 1
@@ -905,13 +909,13 @@ ollama_show_json() {
 
 # Is Ollama App installed on the local system?
 #
-# Usage: if ollama_app_installed; then echo "Ollama Installed"; else echo "Ollama Not Installed"; fi
+# Usage: if ollama_app_installed; then echo 'Ollama Installed'; else echo 'Ollama Not Installed'; fi
 # Input: none
 # Output: none
 # Requires: none
 # Returns: 0 if Ollama is installed, 1 if Ollama is not installed
 ollama_app_installed() {
-  _debug "ollama_app_installed"
+  _debug 'ollama_app_installed'
   _exists "ollama"
 }
 
@@ -1076,7 +1080,7 @@ ollama_app_version() {
     _error 'ollama_app_version: jq Not Found'
     return 1
   fi
-  _debug "ollama_app_version"
+  _debug 'ollama_app_version'
   if ! ollama_api_get '/api/version' | jq -r ".version"; then
     _error "ollama_app_version: error_ollama_api_get|jq failed"
     return 1
@@ -1092,7 +1096,7 @@ ollama_app_version() {
 # Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_app_version_json() {
-  _debug "ollama_app_version_json"
+  _debug 'ollama_app_version_json'
   if ! ollama_api_get '/api/version'; then
     _error "ollama_app_version_json: error_ollama_api_get failed"
     return 1
@@ -1108,7 +1112,7 @@ ollama_app_version_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_app_version_cli() {
-  _debug "ollama_app_version_cli"
+  _debug 'ollama_app_version_cli'
   if ! ollama --version; then
     _error "ollama_app_version_cli: ollama --version failed"
     return 1
@@ -1159,7 +1163,7 @@ ollama_thinking() {
 ollama_lib_about() {
   echo "$OLLAMA_LIB_NAME v$OLLAMA_LIB_VERSION"
   echo
-  echo "A Bash Library to interact with Ollama"
+  echo 'A Bash Library to interact with Ollama'
   echo
   echo "OLLAMA_LIB_NAME     : $OLLAMA_LIB_NAME"
   echo "OLLAMA_LIB_VERSION  : $OLLAMA_LIB_VERSION"
@@ -1178,24 +1182,15 @@ ollama_lib_about() {
     return 1
   fi
   echo
-  echo "Functions:"
+  echo 'Functions:'
   echo
-
-  # TODO: better other_functions
-  #local other_functions=$'oag\noap\noapi\nog\nogj\nogs\nogsj\noc\nocj\nocs\nocsj\nom\noma\nomc\nomco\nol\nolj\nola\nomr\nomu\nos\nosj\nop\nopj\noai\noat\noav\noave\noavj\noavc\nolab\nolv\noe\n_debug\n_error\n_exists\n_call_curl\n_is_valid_json\n_is_valid_model\n'
 
   if ! _exists "column"; then
     _debug 'ollama_lib_about: column Not Found'
-    {
-      #printf '%s' "$other_functions"
-      compgen -A function -X '!*ollama_*'
-    } | sort
+    compgen -A function -X '!*ollama_*' | sort
     return 0
   fi
-  {
-    #printf '%s' "$other_functions"
-    compgen -A function -X '!*ollama_*'
-  } | sort | column
+  compgen -A function -X '!*ollama_*' | sort | column
 }
 
 # Ollama Bash Lib version
@@ -1221,6 +1216,7 @@ ollama_lib_version() {
 # Requires: none
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
+  if ! _exists 'jq'; then _error 'ollama_eval: jq Not Found'; return 1; fi
   _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
 
   local task="$1"
@@ -1299,12 +1295,23 @@ ollama_eval() {
   fi
 
   local errors
-  if ! errors=$(timeout 1 bash -n <<<"$cmd" 2>&1); then
-    local rc=$?
-    printf "❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
-    return 1
+  if _exists 'timeout'; then
+    if ! errors=$(timeout 1 bash -n <<<"$cmd" 2>&1); then
+      local rc=$?
+      printf "❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
+      return 1
+    else
+      printf '✅ Valid Bash Syntax\n'
+    fi
   else
-    printf '✅ Valid Bash Syntax\n'
+    _debug "ollama_eval: 'timeout' command not found, skipping syntax check."
+    if ! errors=$(bash -n <<<"$cmd" 2>&1); then
+      local rc=$?
+      printf "❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
+      return 1
+    else
+      printf '✅ Valid Bash Syntax (checked without timeout)\n'
+    fi
   fi
 
   local dangerous=(
@@ -1324,11 +1331,11 @@ ollama_eval() {
     [Yy]) ;;       # proceed with eval
     *) return 0 ;; # do NOT proceed
   esac
-  _debug "ollama_eval: eval cmd: [${cmd:0:240}]"
+  _debug "ollama_eval: sandboxed eval cmd: [${cmd:0:240}]"
   echo
-  # TODO - really dangerous eval command - should be sandboxed
-  eval "$cmd"
-  return $? # return eval error status
+  printf 'Running command in a sandboxed environment...\n'
+  env -i PATH="/bin:/usr/bin" bash -r -c "$cmd"
+  return $? # return sandboxed eval error status
 }
 
 # Aliases
