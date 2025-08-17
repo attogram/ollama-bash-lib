@@ -250,6 +250,15 @@ _call_curl() {
 # Requires: curl
 # Returns: 0 on success, curl return status on error
 ollama_api_get() {
+  local usage
+  usage="ollama_api_get - GET request to the Ollama API
+Usage: ollama_api_get \"/api/path\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   _debug "ollama_api_get: [${1:0:42}]"
   _call_curl "GET" "$1"
   local error_curl=$?
@@ -270,6 +279,15 @@ ollama_api_get() {
 # Requires: curl
 # Returns: 0 on success, curl return status on error
 ollama_api_post() {
+  local usage
+  usage="ollama_api_post - POST request to the Ollama API
+Usage: ollama_api_post \"/api/path\" \"{json}\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   _debug "ollama_api_post: [${1:0:42}] ${2:0:120}"
   _call_curl "POST" "$1" "$2"
   local error_curl=$?
@@ -289,6 +307,19 @@ ollama_api_post() {
 # Requires: curl
 # Returns: 0 if API is reachable, 1 if API is not reachable
 ollama_api_ping() {
+  local usage
+  usage="ollama_api_ping - Ping the Ollama API
+Usage: ollama_api_ping"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_api_ping: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   _debug 'ollama_api_ping'
   if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
     # TODO - support for turbo mode pings
@@ -351,6 +382,15 @@ _ollama_payload_generate() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
+  local usage
+  usage="ollama_generate_json - Generate a completion as json
+Usage: ollama_generate_json \"model\" \"prompt\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   _debug "ollama_generate_json: [${1:0:42}] [${2:0:42}]"
   if ! _exists 'jq'; then _error 'ollama_generate_json: Not Found: jq'; return 1; fi
 
@@ -388,6 +428,15 @@ ollama_generate_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate() {
+  local usage
+  usage="ollama_generate - Generate a completion as text
+Usage: ollama_generate \"model\" \"prompt\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_generate: jq Not Found'; return 1; fi
   _debug "ollama_generate: [${1:0:42}] [${2:0:42}]"
 
@@ -447,6 +496,15 @@ ollama_generate() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream_json() {
+  local usage
+  usage="ollama_generate_stream_json - Generate a completion, as streaming json
+Usage: ollama_generate_stream_json \"model\" \"prompt\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   _debug "ollama_generate_stream_json: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1 # Turn on streaming
   if ! ollama_generate_json "$1" "$2"; then
@@ -468,6 +526,15 @@ ollama_generate_stream_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
+  local usage
+  usage="ollama_generate_stream - Generate a completion as streaming text
+Usage: ollama_generate_stream \"model\" \"prompt\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_generate_stream: jq Not Found'; return 1; fi
   _debug "ollama_generate_stream: [${1:0:42}] [${2:0:42}]"
   OLLAMA_LIB_STREAM=1
@@ -500,6 +567,19 @@ ollama_generate_stream() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_messages() {
+  local usage
+  usage="ollama_messages - Get all messages
+Usage: ollama_messages"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_messages: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   _debug 'ollama_messages'
   if [[ ${#OLLAMA_LIB_MESSAGES[@]} -eq 0 ]]; then
     _debug 'ollama_messages: no messages'
@@ -519,6 +599,15 @@ ollama_messages() {
 # Requires: jq
 # Returns: 0
 ollama_messages_add() {
+  local usage
+  usage="ollama_messages_add - Add a message
+Usage: ollama_messages_add \"role\" \"message\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_messages_add: jq Not Found'; return 1; fi
   _debug "ollama_messages_add: [${1:0:42}] [${2:0:42}]"
   local role="$1"
@@ -555,6 +644,19 @@ ollama_messages_add() {
 # Requires: none
 # Returns: 0
 ollama_messages_clear() {
+  local usage
+  usage="ollama_messages_clear - Clear all messages
+Usage: ollama_messages_clear"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_messages_clear: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   _debug 'ollama_messages_clear'
   OLLAMA_LIB_MESSAGES=()
 }
@@ -566,6 +668,19 @@ ollama_messages_clear() {
 # Requires: none
 # Returns: 0
 ollama_messages_count() {
+  local usage
+  usage="ollama_messages_count - Messages count
+Usage: ollama_messages_count"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_messages_count: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   _debug 'ollama_messages_count'
   echo "${#OLLAMA_LIB_MESSAGES[@]}"
 }
@@ -582,6 +697,15 @@ ollama_messages_count() {
 # Requires: jq
 # Returns: 0 on success, 1 on error
 ollama_tools_add() {
+  local usage
+  usage="ollama_tools_add - Add a tool
+Usage: ollama_tools_add \"tool_name\" \"command\" \"json_definition\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_tools_add: jq Not Found'; return 1; fi
   local tool_name="$1"
   local command="$2"
@@ -626,6 +750,19 @@ ollama_tools_add() {
 # Requires: none
 # Returns: 0
 ollama_tools() {
+  local usage
+  usage="ollama_tools - View all tools
+Usage: ollama_tools"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_tools: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   if (( ${#OLLAMA_LIB_TOOLS_NAME[@]} == 0 )); then
     _debug 'ollama_tools: No tools registered'
     return 0
@@ -645,6 +782,19 @@ ollama_tools() {
 # Requires: none
 # Returns: 0
 ollama_tools_count() {
+  local usage
+  usage="ollama_tools_count - Get count of tools
+Usage: ollama_tools_count"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_tools_count: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   printf '%s\n' "${#OLLAMA_LIB_TOOLS_NAME[@]}"
   return 0
 }
@@ -657,6 +807,19 @@ ollama_tools_count() {
 # Requires: none
 # Returns: 0
 ollama_tools_clear() {
+  local usage
+  usage="ollama_tools_clear - Remove all tools
+Usage: ollama_tools_clear"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_tools_clear: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   OLLAMA_LIB_TOOLS_NAME=()
   OLLAMA_LIB_TOOLS_COMMAND=()
   OLLAMA_LIB_TOOLS_DEFINITION=()
@@ -672,6 +835,15 @@ ollama_tools_clear() {
 # Requires: jq
 # Returns: 0 if it has a tool call, 1 otherwise
 ollama_tools_is_call() {
+  local usage
+  usage="ollama_tools_is_call - Does the response have a tool call?
+Usage: ollama_tools_is_call \"json_response\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_tools_is_call: jq Not Found'; return 1; fi
   if ! _is_valid_json "$1"; then
     _debug 'ollama_tools_is_call: Invalid JSON'
@@ -698,6 +870,15 @@ ollama_tools_is_call() {
 # Requires: jq
 # Returns: 0 on success, 1 on error
 ollama_tools_run() {
+  local usage
+  usage="ollama_tools_run - Run a tool
+Usage: ollama_tools_run \"tool_name\" \"arguments_json\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_tools_run: jq Not Found'; return 1; fi
   local tool_name="$1"
   local tool_args_str="$2"
@@ -744,6 +925,15 @@ ollama_tools_run() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
+  local usage
+  usage="ollama_chat_json - Chat completion request as json
+Usage: ollama_chat_json \"model\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_chat_json: jq Not Found'; return 1; fi
   _debug "ollama_chat_json: [${1:0:42}]"
   local model
@@ -824,6 +1014,15 @@ ollama_chat_json() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat() {
+  local usage
+  usage="ollama_chat - Chat completion request as text
+Usage: ollama_chat \"model\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_chat: jq Not Found'; return 1; fi
   _debug "ollama_chat: [${1:0:42}]"
   local model
@@ -871,6 +1070,15 @@ ollama_chat() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
+  local usage
+  usage="ollama_chat_stream - Chat completion request as streaming text
+Usage: ollama_chat_stream \"model\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_chat_stream: jq Not Found'; return 1; fi
   _debug "ollama_chat_stream: [${1:0:42}]"
   local model
@@ -908,6 +1116,15 @@ ollama_chat_stream() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream_json() {
+  local usage
+  usage="ollama_chat_stream_json - Chat completion request as streaming json
+Usage: ollama_chat_stream_json \"model\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   _debug "ollama_chat_stream_json: [${1:0:42}]"
   local model
   model="$(_is_valid_model "$1")"
@@ -935,6 +1152,19 @@ ollama_chat_stream_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_list() {
+  local usage
+  usage="ollama_list - All available models, CLI version
+Usage: ollama_list"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_list: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   if ! ollama_app_installed; then _error 'ollama_list: ollama is not installed'; return 1; fi
   local list
   if ! list="$(ollama list)"; then # get ollama list
@@ -959,6 +1189,19 @@ ollama_list() {
 # Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_list_json() {
+  local usage
+  usage="ollama_list_json - All available models, JSON version
+Usage: ollama_list_json"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_list_json: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   _debug 'ollama_list_json'
   if ! ollama_api_get '/api/tags'; then
     _error 'ollama_list_json: ollama_api_get failed'
@@ -975,6 +1218,19 @@ ollama_list_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_list_array() {
+  local usage
+  usage="ollama_list_array - All available models, Bash array version
+Usage: ollama_list_array"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_list_array: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   if ! ollama_app_installed; then _error 'ollama_list_array: ollama is not installed'; return 1; fi
   local models=()
   while IFS= read -r line; do
@@ -1024,6 +1280,19 @@ _is_valid_model() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_model_random() {
+  local usage
+  usage="ollama_model_random - Get a random model
+Usage: ollama_model_random"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_model_random: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   if ! ollama_app_installed; then _error 'ollama_model_random: ollama is not installed'; return 1; fi
   local models
   # TODO - get list via api, not cli
@@ -1048,6 +1317,15 @@ ollama_model_random() {
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_model_unload() {
+  local usage
+  usage="ollama_model_unload - Unload a model from memory
+Usage: ollama_model_unload \"model\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_model_unload: jq Not Found'; return 1; fi
   if [[ -z "$1" ]]; then
     _error 'ollama_model_unload: no model. Usage: ollama_model_unload "model"'
@@ -1083,6 +1361,19 @@ ollama_model_unload() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_ps() {
+  local usage
+  usage="ollama_ps - Running model processes, CLI version
+Usage: ollama_ps"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_ps: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   if ! ollama_app_installed; then _error 'ollama_ps: ollama is not installed'; return 1; fi
   if ! ollama ps; then
     _error 'ollama_ps: ollama ps failed'
@@ -1098,6 +1389,19 @@ ollama_ps() {
 # Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_ps_json() {
+  local usage
+  usage="ollama_ps_json - Running model processes, JSON version
+Usage: ollama_ps_json"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_ps_json: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   _debug 'ollama_ps_json'
   if ! ollama_api_get '/api/ps'; then
     _error 'ollama_ps_json: ollama_api_get failed'
@@ -1115,6 +1419,15 @@ ollama_ps_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_show() {
+  local usage
+  usage="ollama_show - Show model information, CLI version
+Usage: ollama_show \"model\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! ollama_app_installed; then _error 'ollama_show: ollama is not installed'; return 1; fi
   if ! ollama show "$1"; then
     _error 'ollama_show: ollama show failed'
@@ -1131,6 +1444,15 @@ ollama_show() {
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
+  local usage
+  usage="ollama_show_json - Show model information, JSON version
+Usage: ollama_show_json \"model\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    fi
+  done
   if ! _exists 'jq'; then _error 'ollama_show_json: jq Not Found'; return 1; fi
   _debug "ollama_show_json: [${1:0:42}]"
   local json_payload
@@ -1170,6 +1492,19 @@ _get_redacted_var() {
 # Requires: none
 # Returns: 0 if Ollama is installed, 1 if Ollama is not installed
 ollama_app_installed() {
+  local usage
+  usage="ollama_app_installed - Is Ollama App installed on the local system?
+Usage: ollama_app_installed"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_app_installed: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   _debug 'ollama_app_installed'
   _exists "ollama"
 }
@@ -1186,7 +1521,9 @@ ollama_app_installed() {
 ollama_app_turbo() {
   _debug "ollama_app_turbo: [${1:0:42}] [${2:0:42}]"
 
-  local usage="Usage: ollama_app_turbo [-e] {on|off}"
+  local usage
+  usage="ollama_app_turbo - Turbo Mode on/off
+Usage: ollama_app_turbo [-e] {on|off}"
   local export_key=false
   local mode=''
 
@@ -1199,19 +1536,19 @@ ollama_app_turbo() {
       on|off) # required mode
         if [[ -n $mode ]]; then
           _error "More than one mode supplied: '${mode:0:42}' and '${1:0:42}'"
-          _error "$usage"
+          printf "%s\n" "$usage" >&2
           return 1
         fi
         mode="$1"
         shift
         ;;
       -h|--help)
-        echo "$usage"
+        printf "%s\n" "$usage"
         return 0
         ;;
       *)
         _error "Invalid argument: ${1:0:42}"
-        _error "$usage"
+        printf "%s\n" "$usage" >&2
         return 1
         ;;
     esac
@@ -1291,6 +1628,19 @@ ollama_app_turbo() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_app_vars() {
+  local usage
+  usage="ollama_app_vars - Ollama App environment variables
+Usage: ollama_app_vars"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_app_vars: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   # https://github.com/ollama/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values
   # https://github.com/ollama/ollama/blob/main/envconfig/config.go
   printf '%s\t%s\n' "OLLAMA_AUTH             : $(_get_redacted_var "OLLAMA_AUTH")" "# Enables authentication between the Ollama client and server"
@@ -1338,6 +1688,19 @@ ollama_app_vars() {
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_app_version() {
+  local usage
+  usage="ollama_app_version - Ollama App version, TEXT version
+Usage: ollama_app_version"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_app_version: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   if ! _exists 'jq'; then _error 'ollama_app_version: jq Not Found'; return 1; fi
   if ! ollama_api_get '/api/version' | jq -r ".version"; then
     _error 'ollama_app_version: error_ollama_api_get|jq failed'
@@ -1354,6 +1717,19 @@ ollama_app_version() {
 # Requires: ollama, curl
 # Returns: 0 on success, 1 on error
 ollama_app_version_json() {
+  local usage
+  usage="ollama_app_version_json - Ollama App version, JSON version
+Usage: ollama_app_version_json"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      printf "%s\n" "$usage"
+      return 0
+    else
+      _error "ollama_app_version_json: Unknown argument(s): $*"
+      printf "%s\n" "$usage" >&2
+      return 1
+    fi
+  fi
   _debug 'ollama_app_version_json'
   if ! ollama_api_get '/api/version'; then
     _error 'ollama_app_version_json: error_ollama_api_get failed'
@@ -1370,6 +1746,17 @@ ollama_app_version_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_app_version_cli() {
+  local usage="Usage: ollama_app_version_cli"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      echo "$usage"
+      return 0
+    else
+      _error "ollama_app_version_cli: Unknown argument(s): $*"
+      _error "$usage"
+      return 1
+    fi
+  fi
   _debug 'ollama_app_version_cli'
   if ! ollama --version; then
     _error 'ollama_app_version_cli: ollama --version failed'
@@ -1389,6 +1776,13 @@ ollama_app_version_cli() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_thinking() {
+  local usage="Usage: ollama_thinking [on|off|hide]"
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      echo "$usage"
+      return 0
+    fi
+  done
   _debug "ollama_thinking: [${1:0:42}]"
   case "${1:-}" in
     on|ON)
@@ -1419,6 +1813,17 @@ ollama_thinking() {
 # Requires: compgen (for function list)
 # Returns: 0 on success, 1 on missing compgen or column
 ollama_lib_about() {
+  local usage="Usage: ollama_lib_about"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      echo "$usage"
+      return 0
+    else
+      _error "ollama_lib_about: Unknown argument(s): $*"
+      _error "$usage"
+      return 1
+    fi
+  fi
   printf "%s v%s\n" "$OLLAMA_LIB_NAME" "$OLLAMA_LIB_VERSION"
   printf 'A Bash Library to interact with Ollama\n\n'
 
@@ -1461,6 +1866,17 @@ ollama_lib_about() {
 # Requires: none
 # Returns: 0
 ollama_lib_version() {
+  local usage="Usage: ollama_lib_version"
+  if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
+      echo "$usage"
+      return 0
+    else
+      _error "ollama_lib_version: Unknown argument(s): $*"
+      _error "$usage"
+      return 1
+    fi
+  fi
   printf '%s\n' "$OLLAMA_LIB_VERSION"
 }
 
@@ -1476,6 +1892,13 @@ ollama_lib_version() {
 # Requires: none
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
+  local usage="Usage: ollama_eval \"task\" \"[model]\""
+  for arg in "$@"; do
+    if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
+      echo "$usage"
+      return 0
+    fi
+  done
   if (( OLLAMA_LIB_SAFE_MODE )); then _error "ollama_eval is disabled in safe mode."; return 1; fi
   if ! _exists 'jq'; then _error 'ollama_eval: jq Not Found'; return 1; fi
 
