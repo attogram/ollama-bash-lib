@@ -99,12 +99,12 @@ _exists() {
 # Requires: none
 # Returns: 0 if valid, 1 if not valid
 _is_valid_url() {
-    local url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
-    if [[ "$1" =~ $url_regex ]]; then
-        return 0
-    else
-        return 1
-    fi
+  local url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
+  if [[ "$1" =~ $url_regex ]]; then
+    return 0
+  else
+    return 1
+  fi
 }
 
 # Is a string valid JSON?
@@ -315,19 +315,19 @@ ollama_api_ping() {
 # Requires: jq
 # Returns: 0 on success, 1 on error
 _ollama_payload_generate() {
-    local model="$1"
-    local prompt="$2"
-    local stream=true
-    (( OLLAMA_LIB_STREAM == 0 )) && stream=false
-    local thinking=false
-    [[ "$OLLAMA_LIB_THINKING" == 'on' || "$OLLAMA_LIB_THINKING" == 'hide' ]] && thinking=true
+  local model="$1"
+  local prompt="$2"
+  local stream=true
+  (( OLLAMA_LIB_STREAM == 0 )) && stream=false
+  local thinking=false
+  [[ "$OLLAMA_LIB_THINKING" == 'on' || "$OLLAMA_LIB_THINKING" == 'hide' ]] && thinking=true
 
-    jq -c -n \
-        --arg model "$model" \
-        --arg prompt "$prompt" \
-        --argjson stream "$stream" \
-        --argjson thinking "$thinking" \
-        '{model: $model, prompt: $prompt, stream: $stream, thinking: $thinking}'
+  jq -c -n \
+    --arg model "$model" \
+    --arg prompt "$prompt" \
+    --argjson stream "$stream" \
+    --argjson thinking "$thinking" \
+    '{model: $model, prompt: $prompt, stream: $stream, thinking: $thinking}'
 }
 
 # Generate a completion as json
@@ -344,10 +344,16 @@ ollama_generate_json() {
 
   local model
   model="$(_is_valid_model "$1")" # if no model specific, will use random model
-  if [[ -z "$model" ]]; then _error 'ollama_generate_json: Not Found: model. Usage: ollama_generate_json "model" "prompt"'; return 1; fi
+  if [[ -z "$model" ]]; then
+    _error 'ollama_generate_json: Not Found: model. Usage: ollama_generate_json "model" "prompt"'
+    return 1
+  fi
 
   local prompt="$2"
-  if [[ -z "$prompt" ]]; then _error 'ollama_generate_json: Not Found: prompt. Usage: ollama_generate_json "model" "prompt"'; return 1; fi
+  if [[ -z "$prompt" ]]; then
+    _error 'ollama_generate_json: Not Found: prompt. Usage: ollama_generate_json "model" "prompt"'
+    return 1
+  fi
 
   local json_payload
   json_payload="$(_ollama_payload_generate "$model" "$prompt")"
@@ -378,7 +384,7 @@ ollama_generate() {
   local result
   result="$(ollama_generate_json "$1" "$2")"
   local error_ollama_generate_json=$?
-  _debug "ollama_generate: result: $(echo "$result" | wc -c | sed 's/ //g') bytes: ${result:0:120}"
+  _debug "ollama_generate: result: $(echo "$result" | wc -c | tr -d ' ') bytes: ${result:0:120}"
   # _debug "ollama_generate: result: $(echo "$result" | jq)"  # TODO verbose debug mode = 2
   if (( error_ollama_generate_json )); then
     _error "ollama_generate: error_ollama_generate_json: $error_ollama_generate_json"
@@ -556,7 +562,7 @@ ollama_chat_json() {
   if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
     stream=false
   fi
-  if ((${#OLLAMA_LIB_MESSAGES[@]} == 0)); then
+  if (( ${#OLLAMA_LIB_MESSAGES[@]} == 0 )); then
     _error 'ollama_chat_json: No messages to send'
     return 1
   fi
@@ -945,12 +951,12 @@ ollama_show_json() {
 # Requires: none
 # Returns: 0
 _get_redacted_var() {
-    local var_name="$1"
-    local var_value="${!var_name}"
-    if [[ "$var_name" == *"AUTH"* || "$var_name" == *"KEY"* || "$var_name" == *"TOKEN"* ]]; then
-        [[ -n "$var_value" ]] && var_value="[REDACTED]"
-    fi
-    printf '%s' "$var_value"
+  local var_name="$1"
+  local var_value="${!var_name}"
+  if [[ "$var_name" == *"AUTH"* || "$var_name" == *"KEY"* || "$var_name" == *"TOKEN"* ]]; then
+    [[ -n "$var_value" ]] && var_value="[REDACTED]"
+  fi
+  printf '%s' "$var_value"
 }
 
 # Ollama App Functions
@@ -1063,8 +1069,8 @@ ollama_app_turbo() {
   host_api="${host_api%%/}" # remove trailing slash
 
   if ! _is_valid_url "$host_api"; then
-      _error "ollama_app_turbo: Invalid host API URL: $host_api"
-      return 1
+    _error "ollama_app_turbo: Invalid host API URL: $host_api"
+    return 1
   fi
 
   _debug "ollama_app_turbo: export OLLAMA_HOST=$host_api"
@@ -1212,39 +1218,38 @@ ollama_thinking() {
 # Requires: compgen (for function list)
 # Returns: 0 on success, 1 on missing compgen or column
 ollama_lib_about() {
-    printf "%s v%s\n" "$OLLAMA_LIB_NAME" "$OLLAMA_LIB_VERSION"
-    printf 'A Bash Library to interact with Ollama\n\n'
+  printf "%s v%s\n" "$OLLAMA_LIB_NAME" "$OLLAMA_LIB_VERSION"
+  printf 'A Bash Library to interact with Ollama\n\n'
 
-    local turbo_key_status="NO"
-    if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
-        turbo_key_status="YES [REDACTED]"
-    fi
+  local turbo_key_status="NO"
+  if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
+    turbo_key_status="YES [REDACTED]"
+  fi
 
-    printf "%-25s : %s\n" "OLLAMA_LIB_NAME" "$OLLAMA_LIB_NAME"
-    printf "%-25s : %s\n" "OLLAMA_LIB_VERSION" "$OLLAMA_LIB_VERSION"
-    printf "%-25s : %s\n" "OLLAMA_LIB_URL" "$OLLAMA_LIB_URL"
-    printf "%-25s : %s\n" "OLLAMA_LIB_DISCORD" "$OLLAMA_LIB_DISCORD"
-    printf "%-25s : %s\n" "OLLAMA_LIB_LICENSE" "$OLLAMA_LIB_LICENSE"
-    printf "%-25s : %s\n" "OLLAMA_LIB_COPYRIGHT" "$OLLAMA_LIB_COPYRIGHT"
-    printf "%-25s : %s\n" "OLLAMA_LIB_API" "$OLLAMA_LIB_API"
-    printf "%-25s : %s\n" "OLLAMA_LIB_DEBUG" "$OLLAMA_LIB_DEBUG"
-    printf "%-25s : %s\n" "OLLAMA_LIB_STREAM" "$OLLAMA_LIB_STREAM"
-    printf "%-25s : %s\n" "OLLAMA_LIB_THINKING" "$OLLAMA_LIB_THINKING"
-    printf "%-25s : %s\n" "OLLAMA_LIB_MESSAGES" "${#OLLAMA_LIB_MESSAGES[@]} messages"
-    printf "%-25s : %s\n" "OLLAMA_LIB_TURBO_KEY" "$turbo_key_status"
-    printf "%-25s : %s\n" "OLLAMA_LIB_TIMEOUT" "$OLLAMA_LIB_TIMEOUT seconds"
+  printf "%-25s : %s\n" "OLLAMA_LIB_NAME" "$OLLAMA_LIB_NAME"
+  printf "%-25s : %s\n" "OLLAMA_LIB_VERSION" "$OLLAMA_LIB_VERSION"
+  printf "%-25s : %s\n" "OLLAMA_LIB_URL" "$OLLAMA_LIB_URL"
+  printf "%-25s : %s\n" "OLLAMA_LIB_DISCORD" "$OLLAMA_LIB_DISCORD"
+  printf "%-25s : %s\n" "OLLAMA_LIB_LICENSE" "$OLLAMA_LIB_LICENSE"
+  printf "%-25s : %s\n" "OLLAMA_LIB_COPYRIGHT" "$OLLAMA_LIB_COPYRIGHT"
+  printf "%-25s : %s\n" "OLLAMA_LIB_API" "$OLLAMA_LIB_API"
+  printf "%-25s : %s\n" "OLLAMA_LIB_DEBUG" "$OLLAMA_LIB_DEBUG"
+  printf "%-25s : %s\n" "OLLAMA_LIB_STREAM" "$OLLAMA_LIB_STREAM"
+  printf "%-25s : %s\n" "OLLAMA_LIB_THINKING" "$OLLAMA_LIB_THINKING"
+  printf "%-25s : %s\n" "OLLAMA_LIB_MESSAGES" "${#OLLAMA_LIB_MESSAGES[@]} messages"
+  printf "%-25s : %s\n" "OLLAMA_LIB_TURBO_KEY" "$turbo_key_status"
+  printf "%-25s : %s\n" "OLLAMA_LIB_TIMEOUT" "$OLLAMA_LIB_TIMEOUT seconds"
 
+  if ! _exists 'compgen'; then _debug 'ollama_lib_about: compgen Not Found'; return 1; fi
 
-    if ! _exists 'compgen'; then _debug 'ollama_lib_about: compgen Not Found'; return 1; fi
+  printf '\nFunctions:\n\n'
 
-    printf '\nFunctions:\n\n'
-
-    if ! _exists 'column'; then
-        _debug 'ollama_lib_about: column Not Found'
-        compgen -A function -X '!ollama_*' | sort
-        return 0
-    fi
-    compgen -A function -X '!ollama_*' | sort | column
+  if ! _exists 'column'; then
+    _debug 'ollama_lib_about: column Not Found'
+    compgen -A function -X '!ollama_*' | sort
+    return 0
+  fi
+  compgen -A function -X '!ollama_*' | sort | column
 }
 
 # Ollama Bash Lib version
@@ -1270,143 +1275,143 @@ ollama_lib_version() {
 # Requires: none
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
-    if (( OLLAMA_LIB_SAFE_MODE )); then
-      _error "ollama_eval is disabled in safe mode."
+  if (( OLLAMA_LIB_SAFE_MODE )); then
+    _error "ollama_eval is disabled in safe mode."
+    return 1
+  fi
+  if ! _exists 'jq'; then _error 'ollama_eval: jq Not Found'; return 1; fi
+  _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
+
+  local task="$1"
+  if [[ -z "$task" ]]; then
+    _error 'ollama_eval: Task Not Found. Usage: oe "task" "model"'
+    return 1
+  fi
+
+  local model
+  model="$(_is_valid_model "$2")"
+  _debug "ollama_eval: model: [${model:0:120}]"
+  if [[ -z "$model" ]]; then
+    _error 'ollama_eval: No Models Found'
+    return 1
+  fi
+
+  local prompt='Write a bash one-liner to do the following task:\n\n'
+  prompt+="$task\n\n"
+  prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}.\n"
+  prompt+="If you can not do the task but you can instruct the user how to do it, then reply with an 'echo' command with your instructions.\n"
+  prompt+="If you can not do the task for any other reason, then reply with an 'echo' command with your reason.\n"
+  prompt+="Reply ONLY with the ready-to-run bash one-liner.\n"
+  prompt+='Do NOT add any commentary, description, markdown formatting or anything extraneous.\n'
+  _debug "ollama_eval: prompt: [${prompt:0:240}]"
+
+  printf "\nOllama Eval - %s\n" "$task"
+  printf "Using model: %s\n" "$model"
+
+  OLLAMA_LIB_STREAM=0
+
+  local json_result
+  json_result="$(ollama_generate_json "$model" "$prompt")"
+  if [[ -z "$json_result" ]]; then
+    _error 'ollama_eval: ollama_generate_json failed'
+    return 1
+  fi
+  if ! _is_valid_json "$json_result"; then
+    _error 'ollama_eval: received invalid json result'
+    return 1
+  fi
+
+  local cmd
+  cmd="$(printf '%s' "$json_result" | jq -r '.response // empty')"
+  if [[ -z "$cmd" ]]; then
+    _error 'ollama_eval: error extracting response from model'
+    return 1
+  fi
+
+  printf "\nGenerated Command:\n"
+  printf "  %s\n\n" "$cmd"
+
+  printf "Safety & Syntax Check:\n"
+
+  local first_word
+  read -r first_word _ <<<"$cmd"
+
+  if [[ "$first_word" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*\(\)[[:space:]]*\{ ]]; then
+    printf "  ✅ Valid start: function definition\n"
+  elif [[ "$first_word" =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
+    printf "  ✅ Valid start: variable assignment\n"
+  elif _exists "$first_word"; then
+    printf "  ✅ Valid start: %s\n" "$first_word"
+  else
+    printf "  ❌ Invalid start: %s.\n" "$first_word"
+    return 1
+  fi
+
+  local errors
+  if _exists 'timeout'; then
+    if ! errors=$(timeout 1 bash -n <<<"$cmd" 2>&1); then
+      local rc=$?
+      printf "  ❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
       return 1
+    else
+      printf "  ✅ Valid Bash Syntax\n"
     fi
-    if ! _exists 'jq'; then _error 'ollama_eval: jq Not Found'; return 1; fi
-    _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
-
-    local task="$1"
-    if [[ -z "$task" ]]; then
-      _error 'ollama_eval: Task Not Found. Usage: oe "task" "model"'
+  else
+    _debug "ollama_eval: 'timeout' command not found, skipping syntax check."
+    if ! errors=$(bash -n <<<"$cmd" 2>&1); then
+      local rc=$?
+      printf "  ❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
       return 1
-    fi
-
-    local model
-    model="$(_is_valid_model "$2")"
-    _debug "ollama_eval: model: [${model:0:120}]"
-    if [[ -z "$model" ]]; then
-      _error 'ollama_eval: No Models Found'
-      return 1
-    fi
-
-    local prompt='Write a bash one-liner to do the following task:\n\n'
-    prompt+="$task\n\n"
-    prompt+="You are on a $(uname -s) system, with bash version ${BASH_VERSION:-$(bash --version | head -n1)}.\n"
-    prompt+="If you can not do the task but you can instruct the user how to do it, then reply with an 'echo' command with your instructions.\n"
-    prompt+="If you can not do the task for any other reason, then reply with an 'echo' command with your reason.\n"
-    prompt+="Reply ONLY with the ready-to-run bash one-liner.\n"
-    prompt+='Do NOT add any commentary, description, markdown formatting or anything extraneous.\n'
-    _debug "ollama_eval: prompt: [${prompt:0:240}]"
-
-    printf "\nOllama Eval - %s\n" "$task"
-    printf "Using model: %s\n" "$model"
-
-    OLLAMA_LIB_STREAM=0
-
-    local json_result
-    json_result="$(ollama_generate_json "$model" "$prompt")"
-    if [[ -z "$json_result" ]]; then
-        _error 'ollama_eval: ollama_generate_json failed'
-        return 1
-    fi
-    if ! _is_valid_json "$json_result"; then
-        _error 'ollama_eval: received invalid json result'
-        return 1
-    fi
-
-    local cmd
-    cmd="$(printf '%s' "$json_result" | jq -r '.response // empty')"
-    if [[ -z "$cmd" ]]; then
-        _error 'ollama_eval: error extracting response from model'
-        return 1
-    fi
-
-    printf "\nGenerated Command:\n"
-    printf "  %s\n\n" "$cmd"
-
-    printf "Safety & Syntax Check:\n"
-
-    local first_word
-    read -r first_word _ <<<"$cmd"
-
-    if [[ "$first_word" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)[[:space:]]*\{ ]]; then
-        printf "  ✅ Valid start: function definition\n"
-    elif [[ "$first_word" =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
-        printf "  ✅ Valid start: variable assignment\n"
-    elif _exists "$first_word"; then
-        printf "  ✅ Valid start: %s\n" "$first_word"
     else
-        printf "  ❌ Invalid start: %s.\n" "$first_word"
-        return 1
+      printf "  ✅ Valid Bash Syntax (checked without timeout)\n"
     fi
+  fi
 
-    local errors
-    if _exists 'timeout'; then
-        if ! errors=$(timeout 1 bash -n <<<"$cmd" 2>&1); then
-            local rc=$?
-            printf "  ❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
-            return 1
-        else
-            printf "  ✅ Valid Bash Syntax\n"
-        fi
-    else
-        _debug "ollama_eval: 'timeout' command not found, skipping syntax check."
-        if ! errors=$(bash -n <<<"$cmd" 2>&1); then
-            local rc=$?
-            printf "  ❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
-            return 1
-        else
-            printf "  ✅ Valid Bash Syntax (checked without timeout)\n"
-        fi
-    fi
+  local dangerous=(
+    rm mv dd mkfs shred shutdown reboot init kill pkill killall umount mount userdel groupdel passwd su sudo systemctl
+    bash '/bin/sh' '-delete' exec eval source '\.'
+  )
+  local IFS='|'
+  local danger_regex="(^|[^[:alnum:]_])(${dangerous[*]})($|[^[:alnum:]_])"
+  if [[ "$cmd" =~ $danger_regex ]]; then
+    local bad="${BASH_REMATCH[2]}"
+    printf "  ⚠️ WARNING: The generated command contains a potentially dangerous token: \"%s\"\n" "$bad"
+  else
+    printf "  ✅ No dangerous commands found\n"
+  fi
 
-    local dangerous=(
-        rm mv dd mkfs shred shutdown reboot init kill pkill killall umount mount userdel groupdel passwd su sudo systemctl
-        bash '/bin/sh' '-delete' exec eval source '\.'
-    )
-    local IFS='|'
-    local danger_regex="(^|[^[:alnum:]_])(${dangerous[*]})($|[^[:alnum:]_])"
-    if [[ "$cmd" =~ $danger_regex ]]; then
-        local bad="${BASH_REMATCH[2]}"
-        printf "  ⚠️ WARNING: The generated command contains a potentially dangerous token: \"%s\"\n" "$bad"
-    else
-        printf "  ✅ No dangerous commands found\n"
-    fi
-
-    printf '\nRun command in sandbox (y/N/eval)? '
-    read -r permission
-    case "$permission" in
+  printf '\nRun command in sandbox (y/N/eval)? '
+  read -r permission
+  case "$permission" in
+    [Yy])
+      _debug "ollama_eval: sandboxed eval cmd: [${cmd:0:240}]"
+      echo
+      printf 'Running command in a sandboxed environment...\n\n'
+      env -i PATH="/bin:/usr/bin" bash -r -c "$cmd"
+      return $? # return sandboxed eval error status
+      ;;
+    eval)
+      printf 'Are you sure? [y/N] '
+      read -r permission2
+      case "$permission2" in
         [Yy])
-            _debug "ollama_eval: sandboxed eval cmd: [${cmd:0:240}]"
-            echo
-            printf 'Running command in a sandboxed environment...\n\n'
-            env -i PATH="/bin:/usr/bin" bash -r -c "$cmd"
-            return $? # return sandboxed eval error status
-            ;;
-        eval)
-            printf 'Are you sure? [y/N] '
-            read -r permission2
-            case "$permission2" in
-                [Yy])
-                    _debug "ollama_eval: dangerous eval cmd: [${cmd:0:240}]"
-                    echo
-                    printf 'Running command in DANGEROUS mode (not sandboxed)...\n\n'
-                    eval "$cmd"
-                    return $?
-                    ;;
-                *)
-                    echo "Aborted."
-                    return 0
-                    ;;
-            esac
-            ;;
+          _debug "ollama_eval: dangerous eval cmd: [${cmd:0:240}]"
+          echo
+          printf 'Running command in DANGEROUS mode (not sandboxed)...\n\n'
+          eval "$cmd"
+          return $?
+          ;;
         *)
-            echo "Aborted."
-            return 0
-            ;;
-    esac
+          echo "Aborted."
+          return 0
+          ;;
+      esac
+      ;;
+    *)
+      echo "Aborted."
+      return 0
+      ;;
+  esac
 }
 
 # Aliases
