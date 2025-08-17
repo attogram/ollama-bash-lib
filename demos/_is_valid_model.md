@@ -1,12 +1,11 @@
 # _is_valid_model
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.4
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.5
 
 | test | output | return | result |
 |------|--------|--------|--------|
 | `mistral:7b` | mistral:7b | 0 | ✅ PASS |
-[ERROR] ollama_model_random: ollama is not installed
-| `` | ollama-not-installed | 0 | ✅ PASS |
+| `` | gpt-oss:120b | 0 | ✅ PASS |
 | `hf.co/user/Model-name:QUANT` | hf.co/user/Model-name:QUANT | 0 | ✅ PASS |
 | `abcdefghijklmnopqrstuvwxyz` | abcdefghijklmnopqrstuvwxyz | 0 | ✅ PASS |
 | `1234567890` | 1234567890 | 0 | ✅ PASS |

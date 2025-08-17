@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.44.4'
+OLLAMA_LIB_VERSION='0.44.5'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -125,10 +125,7 @@ _is_valid_json() {
     _debug '_is_valid_json: empty string'
     return 1
   fi
-  if ! _exists 'jq'; then
-    _error '_is_valid_json: jq Not Found'
-    return 1
-  fi
+  if ! _exists 'jq'; then _error '_is_valid_json: jq Not Found'; return 1; fi
   printf '%s' "$1" | jq -e '.' >/dev/null 2>&1 # use -e for jq exit-status mode
   local return_code=$?
   case $return_code in
@@ -510,10 +507,7 @@ ollama_messages() {
 # Requires: jq
 # Returns: 0
 ollama_messages_add() {
-  if ! _exists 'jq'; then
-    _error 'ollama_messages_add: jq Not Found'
-    return 1
-  fi
+  if ! _exists 'jq'; then _error 'ollama_messages_add: jq Not Found'; return 1; fi
   _debug "ollama_messages_add: [${1:0:42}] [${2:0:42}]"
   local json_payload
   json_payload="$(jq -c -n \
@@ -555,10 +549,7 @@ ollama_messages_count() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
-  if ! _exists 'jq'; then
-    _error 'ollama_chat_json: jq Not Found'
-    return 1
-  fi
+  if ! _exists 'jq'; then _error 'ollama_chat_json: jq Not Found'; return 1; fi
   _debug "ollama_chat_json: [${1:0:42}]"
   local model
   model="$(_is_valid_model "$1")"
@@ -743,11 +734,7 @@ ollama_chat_stream_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_list() {
-  _debug 'ollama_list'
-    if ! ollama_app_installed; then
-        _error 'ollama_list: ollama is not installed'
-        return 1
-    fi
+  if ! ollama_app_installed; then _error 'ollama_list: ollama is not installed'; return 1; fi
   local list
   if ! list="$(ollama list)"; then # get ollama list
     _error 'ollama_list: list=|ollama list failed'
@@ -787,11 +774,7 @@ ollama_list_json() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_list_array() {
-  _debug 'ollama_list_array'
-    if ! ollama_app_installed; then
-        _error 'ollama_list_array: ollama is not installed'
-        return 1
-    fi
+  if ! ollama_app_installed; then _error 'ollama_list_array: ollama is not installed'; return 1; fi
   local models=()
   while IFS= read -r line; do
     models+=("$line")
@@ -840,13 +823,9 @@ _is_valid_model() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_model_random() {
-  _debug 'ollama_model_random'
-  if ! ollama_app_installed; then
-    _error 'ollama_model_random: ollama is not installed'
-    printf 'ollama-not-installed'
-    return 0
-  fi
+  if ! ollama_app_installed; then _error 'ollama_model_random: ollama is not installed'; return 1; fi
   local models
+  # TODO - get list via api, not cli
   models=$(ollama list | awk 'NR>1 {print $1}' | grep -v '^$') # Grab the raw list, skip header, keep the first column.
   if [[ -z "$models" ]]; then
     _error 'ollama_model_random: get ollama list failed'
@@ -868,11 +847,7 @@ ollama_model_random() {
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_model_unload() {
-  if ! _exists 'jq'; then
-    _error 'ollama_model_unload: jq Not Found'
-    return 1
-  fi
-  _debug 'ollama_model_unload'
+  if ! _exists 'jq'; then _error 'ollama_model_unload: jq Not Found'; return 1; fi
   if [[ -z "$1" ]]; then
     _error 'ollama_model_unload: no model. Usage: ollama_model_unload "model"'
     return 1
@@ -907,11 +882,7 @@ ollama_model_unload() {
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_ps() {
-  _debug 'ollama_ps'
-    if ! ollama_app_installed; then
-        _error 'ollama_ps: ollama is not installed'
-        return 1
-    fi
+  if ! ollama_app_installed; then _error 'ollama_ps: ollama is not installed'; return 1; fi
   if ! ollama ps; then
     _error 'ollama_ps: ollama ps failed'
     return 1
@@ -936,18 +907,14 @@ ollama_ps_json() {
 
 # Show Functions
 
-# Show model information, TEXT version
+# Show model information, CLI version
 #
 # Usage: ollama_show "model"
 # Output: text, to stdout
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_show() {
-  _debug 'ollama_show'
-    if ! ollama_app_installed; then
-        _error 'ollama_show: ollama is not installed'
-        return 1
-    fi
+  if ! ollama_app_installed; then _error 'ollama_show: ollama is not installed'; return 1; fi
   if ! ollama show "$1"; then
     _error 'ollama_show: ollama show failed'
     return 1
@@ -963,10 +930,7 @@ ollama_show() {
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
-  if ! _exists 'jq'; then
-    _error 'ollama_show_json: jq Not Found'
-    return 1
-  fi
+  if ! _exists 'jq'; then _error 'ollama_show_json: jq Not Found'; return 1; fi
   _debug "ollama_show_json: [${1:0:42}]"
   local json_payload
   json_payload="$(jq -c -n \
@@ -1173,11 +1137,7 @@ ollama_app_vars() {
 # Output: text, to stdout
 # Returns: 0 on success, 1 on error
 ollama_app_version() {
-  if ! _exists 'jq'; then
-    _error 'ollama_app_version: jq Not Found'
-    return 1
-  fi
-  _debug 'ollama_app_version'
+  if ! _exists 'jq'; then _error 'ollama_app_version: jq Not Found'; return 1; fi
   if ! ollama_api_get '/api/version' | jq -r ".version"; then
     _error 'ollama_app_version: error_ollama_api_get|jq failed'
     return 1
@@ -1281,19 +1241,16 @@ ollama_lib_about() {
     printf "%-25s : %s\n" "OLLAMA_LIB_TIMEOUT" "$OLLAMA_LIB_TIMEOUT seconds"
 
 
-    if ! _exists "compgen"; then
-        _debug 'ollama_lib_about: compgen Not Found'
-        return 1
-    fi
+    if ! _exists 'compgen'; then _debug 'ollama_lib_about: compgen Not Found'; return 1; fi
 
     printf '\nFunctions:\n\n'
 
-    if ! _exists "column"; then
+    if ! _exists 'column'; then
         _debug 'ollama_lib_about: column Not Found'
-        compgen -A function -X '!*ollama_*' | sort
+        compgen -A function -X '!ollama_*' | sort
         return 0
     fi
-    compgen -A function -X '!*ollama_*' | sort | column
+    compgen -A function -X '!ollama_*' | sort | column
 }
 
 # Ollama Bash Lib version
@@ -1442,7 +1399,7 @@ ollama_eval() {
 
     _debug "ollama_eval: sandboxed eval cmd: [${cmd:0:240}]"
     echo
-    printf 'Running command in a sandboxed environment...\n'
+    printf 'Running command in a sandboxed environment...\n\n'
     env -i PATH="/bin:/usr/bin" bash -r -c "$cmd"
     return $? # return sandboxed eval error status
 }
