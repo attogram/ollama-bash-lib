@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.7
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -13,18 +13,18 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-[0;34mOllama Eval [0m - [0;33mmake a pretty screensaver in bash[0m
-Using model: gpt-oss:120b
+Ollama Eval - make a pretty screensaver in bash
+Using model: gpt-oss:20b
 
-[0;32mGenerated Command:[0m
-  while :; do clear; for i in {1..80}; do printf "\e[${RANDOM%$(tput cols)};${RANDOM%$(tput lines)}H*"; done; sleep 0.1; done
+Generated Command:
+  while true; do clear; tput cup $((RANDOM%23)) $((RANDOM%80)); echo -e "\e[34m◉\e[0m"; sleep .2; done
 
-[0;33mSafety & Syntax Check:[0m
-  [0;32m✅ Valid start: while[0m
-  [0;32m✅ Valid Bash Syntax[0m
-  [0;32m✅ No dangerous commands found[0m
+Safety & Syntax Check:
+  ✅ Valid start: while
+  ✅ Valid Bash Syntax
+  ✅ No dangerous commands found
 
-Run command (y/N)? Aborted.
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
@@ -32,18 +32,18 @@ Run command (y/N)? Aborted.
 
 ```
 
-[0;34mOllama Eval [0m - [0;33mshow me all shell files in current directory[0m
+Ollama Eval - show me all shell files in current directory
 Using model: gpt-oss:20b
 
-[0;32mGenerated Command:[0m
-  ls -1 *.sh 2>/dev/null
+Generated Command:
+  find . -maxdepth 1 -type f -name "*.sh"
 
-[0;33mSafety & Syntax Check:[0m
-  [0;32m✅ Valid start: ls[0m
-  [0;32m✅ Valid Bash Syntax[0m
-  [0;32m✅ No dangerous commands found[0m
+Safety & Syntax Check:
+  ✅ Valid start: find
+  ✅ Valid Bash Syntax
+  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
 
-Run command (y/N)? Aborted.
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
@@ -51,18 +51,18 @@ Run command (y/N)? Aborted.
 
 ```
 
-[0;34mOllama Eval [0m - [0;33mfind files larger than 1GB[0m
+Ollama Eval - find files larger than 1GB
 Using model: gpt-oss:20b
 
-[0;32mGenerated Command:[0m
+Generated Command:
   find . -type f -size +1G
 
-[0;33mSafety & Syntax Check:[0m
-  [0;32m✅ Valid start: find[0m
-  [0;32m✅ Valid Bash Syntax[0m
-  [0;31m⚠️ WARNING: The generated command contains a potentially dangerous token: "."[0m
+Safety & Syntax Check:
+  ✅ Valid start: find
+  ✅ Valid Bash Syntax
+  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
 
-Run command (y/N)? Aborted.
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
@@ -70,18 +70,18 @@ Run command (y/N)? Aborted.
 
 ```
 
-[0;34mOllama Eval [0m - [0;33mwhat version of bash am I using?[0m
-Using model: gpt-oss:20b
+Ollama Eval - what version of bash am I using?
+Using model: gpt-oss:120b
 
-[0;32mGenerated Command:[0m
-  echo "$BASH_VERSION"
+Generated Command:
+  bash --version
 
-[0;33mSafety & Syntax Check:[0m
-  [0;32m✅ Valid start: echo[0m
-  [0;32m✅ Valid Bash Syntax[0m
-  [0;32m✅ No dangerous commands found[0m
+Safety & Syntax Check:
+  ✅ Valid start: bash
+  ✅ Valid Bash Syntax
+  ⚠️ WARNING: The generated command contains a potentially dangerous token: "bash"
 
-Run command (y/N)? Aborted.
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
@@ -89,18 +89,18 @@ Run command (y/N)? Aborted.
 
 ```
 
-[0;34mOllama Eval [0m - [0;33mam I on windows, mac, linux, or what?[0m
-Using model: gpt-oss:20b
+Ollama Eval - am I on windows, mac, linux, or what?
+Using model: gpt-oss:120b
 
-[0;32mGenerated Command:[0m
-  s=$(uname -s); case ${s,,} in cygwin*) echo "Windows (Cygwin)";; darwin*) echo "macOS";; linux*) echo "Linux";; *) echo "Other: $s";; esac
+Generated Command:
+  case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "Windows";; Darwin) echo "macOS";; Linux) echo "Linux";; *) echo "Other";; esac
 
-[0;33mSafety & Syntax Check:[0m
-  [0;32m✅ Valid start: variable assignment[0m
-  [0;32m✅ Valid Bash Syntax[0m
-  [0;32m✅ No dangerous commands found[0m
+Safety & Syntax Check:
+  ✅ Valid start: case
+  ✅ Valid Bash Syntax
+  ✅ No dangerous commands found
 
-Run command (y/N)? Aborted.
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
@@ -108,14 +108,14 @@ Run command (y/N)? Aborted.
 
 ```
 
-[0;34mOllama Eval [0m - [0;33mget system load[0m
+Ollama Eval - get system load
 Using model: gpt-oss:20b
 
-[0;32mGenerated Command:[0m
+Generated Command:
   uptime
 
-[0;33mSafety & Syntax Check:[0m
-  [0;31m❌ Invalid start: uptime.[0m
+Safety & Syntax Check:
+  ❌ Invalid start: uptime.
 
 ```
 
@@ -130,18 +130,18 @@ Using model: gpt-oss:20b
 
 ```
 
-[0;34mOllama Eval [0m - [0;33merase all files[0m
-Using model: gpt-oss:120b
+Ollama Eval - erase all files
+Using model: gpt-oss:20b
 
-[0;32mGenerated Command:[0m
-  echo 'I cannot comply with that request.'
+Generated Command:
+  find . -type f -delete
 
-[0;33mSafety & Syntax Check:[0m
-  [0;32m✅ Valid start: echo[0m
-  [0;32m✅ Valid Bash Syntax[0m
-  [0;32m✅ No dangerous commands found[0m
+Safety & Syntax Check:
+  ✅ Valid start: find
+  ✅ Valid Bash Syntax
+  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
 
-Run command (y/N)? Aborted.
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
@@ -149,13 +149,17 @@ Run command (y/N)? Aborted.
 
 ```
 
-[0;34mOllama Eval [0m - [0;33mdestroy this computer![0m
+Ollama Eval - destroy this computer!
 Using model: gpt-oss:120b
 
-[0;32mGenerated Command:[0m
-  I’m sorry, but I can’t help with that.
+Generated Command:
+  echo "I cannot comply with that request."
 
-[0;33mSafety & Syntax Check:[0m
-  [0;31m❌ Invalid start: I’m.[0m
+Safety & Syntax Check:
+  ✅ Valid start: echo
+  ✅ Valid Bash Syntax
+  ✅ No dangerous commands found
+
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```

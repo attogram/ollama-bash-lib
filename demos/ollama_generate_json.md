@@ -1,6 +1,6 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.7
 
 ## Setup
 
@@ -11,18 +11,18 @@ OLLAMA_LIB_API: https://ollama.com
 ## Demo
 
 ```bash
-ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
+ollama_generate_json "gpt-oss:20b" "Describe a rabbit in 3 words"
 ```
 ```json
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-17T11:29:20.837379192Z",
-  "response": "Fluffy, gentle, quick.",
-  "thinking": "The user asks: \"Describe a rabbit in 3 words\". That's a straightforward request, not disallowed. I can respond with three adjectives, e.g., \"fluffy, gentle, quick\". Must be short. Probably just list three words. No policy violation.",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-17T12:59:31.794067183Z",
+  "response": "Fluffy, quick, curious.",
+  "thinking": "The user: \"Describe a rabbit in 3 words\". They want presumably a short phrase: 3 words describing a rabbit. So we need exactly 3 words. Could be \"fluffy, quick, curious\" but that is 3 words? Actually \"fluffy quick curious\" is 3 words but no punctuation. However we might want them separated by commas? The ask is \"Describe a rabbit in 3 words\". We can respond with a phrase like \"Soft, swift, inquisitive.\" That's 3 words. But maybe they want just 3 words? \"Soft, swift, inquisitive.\" That's 3 words. Or \"Cuddly, spry, quiet\". That's 3 words. Or \"Playful, gentle, fast\". That's 3 words. I'm going to give something witty: \"Soft, energetic, curious\". That's 3 words. I'd say \"Soft, energetic, curious\". They might also want \"Fluffy, quick, inquisitive\". This fits. We'll deliver. Should we separate by commas? Probably fine. I'll just give 3 words separated by commas.",
   "done": true,
-  "total_duration": 517300409,
+  "total_duration": 874712035,
   "prompt_eval_count": 81,
-  "eval_count": 71
+  "eval_count": 242
 }
 
 ```
@@ -30,30 +30,18 @@ ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
+OLLAMA_LIB_DEBUG=1 ollama_generate_json "gpt-oss:20b" "Describe a rabbit in 3 words"
 ```
 ```json
-[DEBUG] 13:29:21:427564200: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 13:29:21:456868800: _is_valid_model: VALID: [gpt-oss:120b]
-[DEBUG] 13:29:21:515384600: ollama_generate_json: json_payload: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 13:29:21:548819500: ollama_api_post: [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 13:29:21:571312900: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 13:29:21:610379000: _is_valid_json: success
-[DEBUG] 13:29:21:632094600: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 13:29:21:659205000: _call_curl: Turbo Mode
-[DEBUG] 13:29:21:689944200: _call_curl: json_body: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 13:29:21:721125300: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
-[DEBUG] 13:29:22:919945800: ollama_api_post: success
-[DEBUG] 13:29:22:942833500: ollama_generate_json: success
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-17T11:29:22.269439932Z",
-  "response": "Fluffy, timid, hopping.",
-  "thinking": "The user asks: \"Describe a rabbit in 3 words\". It's a simple request. There's no disallowed content. Should comply. Provide three words describing a rabbit. Could be \"fluffy, timid, hopping\". Or \"soft, swift, curious\". Just three words.\n\nNo policy issues. Output in final.",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-17T12:59:32.771608124Z",
+  "response": "Soft, agile, curious.",
+  "thinking": "The user asks: \"Describe a rabbit in 3 words\". We need to provide three words to describe a rabbit. Simple answer: \"fluffy, playful, gentle\". Should be concise. Possibly: \"Soft, quick, curious.\" I'll answer.",
   "done": true,
-  "total_duration": 502136257,
+  "total_duration": 378118578,
   "prompt_eval_count": 81,
-  "eval_count": 81
+  "eval_count": 67
 }
 
 ```

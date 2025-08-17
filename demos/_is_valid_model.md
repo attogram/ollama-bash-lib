@@ -1,6 +1,6 @@
 # _is_valid_model
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.7
 
 | test | output | return | result |
 |------|--------|--------|--------|

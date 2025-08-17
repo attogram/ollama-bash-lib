@@ -1,6 +1,6 @@
 # ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.7
 
 ## Setup
 
@@ -11,43 +11,27 @@ OLLAMA_LIB_API: https://ollama.com
 ## Demo
 
 ```bash
-ollama_generate "gpt-oss:120b" "Describe a rabbit in 3 words"
+ollama_generate "gpt-oss:20b" "Describe a rabbit in 3 words"
 ```
 ```
 # <thinking>
-# The user asks: "Describe a rabbit in 3 words". This is a straightforward request, no policy violation. Provide three words that describe a rabbit, e.g., "fluffy, timid, hoppy". That's it.
+# The user wants: "Describe a rabbit in 3 words". So we need to give three adjectives or nouns? Might be descriptive words. Just three words. Let's pick "Playful", "Fluffy", "Spry". The user might prefer concise answer. We'll output them separated by commas or just space. I'll output: "Playful, fluffy, spry". Or "Playful fluffy spry".
+
+Given the instruction: "Describe a rabbit in 3 words". So answer with exactly 3 words. Let's output something like "Playful, fluffy, swift" or "Playful fluffy swift". Let's choose "Playful", "Fluffy", "Swift". That fits. I'll output "Playful, Fluffy, Swift".
 # </thinking>
 
-Fluffy, timid, hoppy.
+Playful, Fluffy, Swift
 ```
 
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate "gpt-oss:120b" "Describe a rabbit in 3 words"
+OLLAMA_LIB_DEBUG=1 ollama_generate "gpt-oss:20b" "Describe a rabbit in 3 words"
 ```
 ```
-[DEBUG] 13:29:17:292093400: ollama_generate: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 13:29:17:319081200: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 13:29:17:358739800: _is_valid_model: VALID: [gpt-oss:120b]
-[DEBUG] 13:29:17:396060400: ollama_generate_json: json_payload: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 13:29:17:417207300: ollama_api_post: [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 13:29:17:438174500: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 13:29:17:479782400: _is_valid_json: success
-[DEBUG] 13:29:17:501154300: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 13:29:17:523090500: _call_curl: Turbo Mode
-[DEBUG] 13:29:17:554717200: _call_curl: json_body: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 13:29:17:576480100: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
-[DEBUG] 13:29:19:139401400: ollama_api_post: success
-[DEBUG] 13:29:19:160685100: ollama_generate_json: success
-[DEBUG] 13:29:19:234326400: ollama_generate: result: 442 bytes: {"model":"gpt-oss:120b","created_at":"2025-08-17T11:29:18.340150743Z","response":"Fluffy, timid, hopping.","thinking":"W
-[DEBUG] 13:29:19:296892200: _is_valid_json: success
-[DEBUG] 13:29:19:354374200: ollama_generate: thinking: off
-[DEBUG] 13:29:19:401994500: ollama_generate: thinking FOUND
 # <thinking>
-# We need to respond to user: "Describe a rabbit in 3 words". No disallowed content. Just produce three words that describe a rabbit. Possibly "fluffy, timid, hopping". That's three. Or "soft, twitchy, curious". Provide three words. Okay.
+# The user: "Describe a rabbit in 3 words". They want a description using exactly three words? Likely they want a short description. Provide exactly 3 words that describe a rabbit. E.g., "soft, hopping, curious" that's three words: "Soft" "Hopping" "Curious". Count wise: each word separate. That is three words. Or "fluffy, swift, gentle". Need to include punctuation or not? Probably simple. They might want "fluffy", "gentle", "playful". That's three words as well. We can provide one set. They didn't specify any constraints beyond "in 3 words". So produce a short answer: "soft, hopping, curious". The output from assistant: "soft hopping curious"? They might want a description. Let's respond with three words. Let's go with "Soft, hopping, curious". That's 3 words. Or "fluffy, gentle, curious". I'll do "fluffy, gentle, curious". That should satisfy. I'll ensure no extra words. Provide just the three words separated by commas or spaces. Let's do "fluffy gentle curious". Provide exactly 3 words. I guess better to separate with commas: "fluffy, gentle, curious" That's still three words plus commas. Should be okay. Let's respond.
 # </thinking>
 
-Fluffy, timid, hopping.
-[DEBUG] 13:29:19:447259800: ollama_generate: success
+fluffy, gentle, curious
 ```
