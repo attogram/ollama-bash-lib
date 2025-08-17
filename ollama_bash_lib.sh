@@ -1746,14 +1746,16 @@ Usage: ollama_app_version_json"
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_app_version_cli() {
-  local usage="Usage: ollama_app_version_cli"
+  local usage
+  usage="ollama_app_version_cli - Ollama App version, CLI version
+Usage: ollama_app_version_cli"
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      echo "$usage"
+      printf "%s\n" "$usage"
       return 0
     else
       _error "ollama_app_version_cli: Unknown argument(s): $*"
-      _error "$usage"
+      printf "%s\n" "$usage" >&2
       return 1
     fi
   fi
@@ -1776,10 +1778,12 @@ ollama_app_version_cli() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_thinking() {
-  local usage="Usage: ollama_thinking [on|off|hide]"
+  local usage
+  usage="ollama_thinking - Ollama Thinking Mode
+Usage: ollama_thinking [on|off|hide]"
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      echo "$usage"
+      printf "%s\n" "$usage"
       return 0
     fi
   done
@@ -1813,14 +1817,16 @@ ollama_thinking() {
 # Requires: compgen (for function list)
 # Returns: 0 on success, 1 on missing compgen or column
 ollama_lib_about() {
-  local usage="Usage: ollama_lib_about"
+  local usage
+  usage="ollama_lib_about - About Ollama Bash Lib
+Usage: ollama_lib_about"
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      echo "$usage"
+      printf "%s\n" "$usage"
       return 0
     else
       _error "ollama_lib_about: Unknown argument(s): $*"
-      _error "$usage"
+      printf "%s\n" "$usage" >&2
       return 1
     fi
   fi
@@ -1866,14 +1872,16 @@ ollama_lib_about() {
 # Requires: none
 # Returns: 0
 ollama_lib_version() {
-  local usage="Usage: ollama_lib_version"
+  local usage
+  usage="ollama_lib_version - Ollama Bash Lib version
+Usage: ollama_lib_version"
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      echo "$usage"
+      printf "%s\n" "$usage"
       return 0
     else
       _error "ollama_lib_version: Unknown argument(s): $*"
-      _error "$usage"
+      printf "%s\n" "$usage" >&2
       return 1
     fi
   fi
@@ -1892,10 +1900,12 @@ ollama_lib_version() {
 # Requires: none
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
-  local usage="Usage: ollama_eval \"task\" \"[model]\""
+  local usage
+  usage="ollama_eval - Command Line Eval
+Usage: ollama_eval \"task\" \"[model]\""
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      echo "$usage"
+      printf "%s\n" "$usage"
       return 0
     fi
   done
