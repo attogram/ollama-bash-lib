@@ -1,21 +1,21 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.2
 
 ## Demo
 
 ```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-response="$(ollama_chat "gpt-oss:20b")"
+response="$(ollama_chat "gpt-oss:120b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
-Got it.
+Understood. If you ask for the secret word, I’ll respond with “RABBIT.”
 
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-response="$(ollama_chat "gpt-oss:20b")"
+response="$(ollama_chat "gpt-oss:120b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
@@ -36,7 +36,7 @@ ollama_messages | jq
   },
   {
     "role": "assistant",
-    "content": "Got it."
+    "content": "Understood. If you ask for the secret word, I’ll respond with “RABBIT.”"
   },
   {
     "role": "user",
@@ -55,17 +55,17 @@ ollama_messages | jq
 OLLAMA_LIB_DEBUG=1
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "The secret word is RABBIT. If asked for the secret word, respond with RABBIT. Understand?"
-response="$(ollama_chat "gpt-oss:20b")"
+response="$(ollama_chat "gpt-oss:120b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
 ```
-I understand. If you ask for the secret word, I’ll respond with **RABBIT**.
+Understood.
 ```
 
 ```bash
 ollama_messages_add "user" "What is the secret word??"
-response="$(ollama_chat "gpt-oss:20b")"
+response="$(ollama_chat "gpt-oss:120b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
@@ -88,7 +88,7 @@ ollama_messages | jq
   },
   {
     "role": "assistant",
-    "content": "I understand. If you ask for the secret word, I’ll respond with **RABBIT**."
+    "content": "Understood."
   },
   {
     "role": "user",

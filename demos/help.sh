@@ -73,19 +73,3 @@ for func in "${functions[@]}"; do
   printf '`%s --help`\n```\n%s\n```\n' "$func" "$("$func" --help)"
   echo
 done
-
-#echo -"## Testing help flag in various positions for functions with arguments"
-#
-#printf "\n--- Testing ollama_generate \"model\" -h ---\n"
-#ollama_generate "model" -h
-#printf "\n--- Testing ollama_generate \"model\" \"prompt\" --help ---\n"
-#ollama_generate "model" "prompt" --help
-#printf "\n--- Testing ollama_eval \"task\" -h \"model\" ---\n"
-#ollama_eval "task" -h "model"
-#
-#echo -e "\n\n--- Testing error handling for no-argument functions ---"
-#printf "\n--- Testing ollama_api_ping foo ---\n"
-#ollama_api_ping foo
-#printf "\n--- Testing ollama_list bar baz ---\n"
-#ollama_list bar baz
-

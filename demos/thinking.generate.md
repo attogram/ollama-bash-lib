@@ -1,6 +1,6 @@
 # ollama_thinking, ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.2
 
 ```
 ollama_thinking on
@@ -10,16 +10,16 @@ ollama_generate $(ollama_model_random) "list 10 things about bash, 1 per line"
 
 thinking is on
 # <thinking>
-# We need to respond with 10 items about bash, each on its own line. Simple. Provide list.
+# Need to list 10 things about Bash, each on separate line. Keep simple, but can be varied. Not too short? Just list. No extra commentary. Provide 10 lines.
 # </thinking>
 
-- Bash is the GNU Project’s Bourne‑Again SHell, a Unix shell and command‑language interpreter.  
-- It is the default login shell on most Linux distributions and macOS (prior to Catalina).  
-- Bash supports both interactive use and scripting, allowing users to automate tasks.  
-- It includes features like command history, tab completion, and programmable completion.  
-- Bash implements arrays and associative arrays for handling collections of data.  
-- It provides extensive parameter expansion and substitution capabilities.  
-- Bash can execute pipelines and supports process substitution (`<(…)` and `>(…)`).  
-- It offers shell functions, aliases, and built‑in commands for extending functionality.  
-- Bash scripts can be made portable by using `#!/usr/bin/env bash` as the shebang line.  
-- Bash includes options for strict error handling, such as `set -e`, `set -u`, and `set -o pipefail`.
+1. Bash stands for "Bourne Again Shell," a Unix shell and command language.  
+2. It is the default login shell on many Linux distributions and macOS.  
+3. Bash supports scripting features like variables, loops, conditionals, and functions.  
+4. It includes command history and line‑editing capabilities via GNU Readline.  
+5. Bash can perform filename globbing (wildcards) and brace expansion.  
+6. It has an associative array type (hash table) introduced in Bash 4.0.  
+7. Bash allows process substitution, enabling the output of one command to be used as a file input for another.  
+8. It supports arithmetic evaluation using `$(( ... ))` syntax.  
+9. Bash can execute external programs and pipe their output between commands.  
+10. You can customize Bash with environment files like `.bashrc`, `.profile`, and `.bash_profile`.

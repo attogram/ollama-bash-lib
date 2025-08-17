@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.45.1'
+OLLAMA_LIB_VERSION='0.45.2'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -259,7 +259,7 @@ ollama_api_get() {
   usage+="It relies on the '_call_curl' function to perform the actual HTTP request."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -292,7 +292,7 @@ ollama_api_post() {
   usage+="It relies on the '_call_curl' function to perform the actual HTTP request."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -324,11 +324,11 @@ ollama_api_ping() {
   usage+="This function relies on 'ollama_api_get' to make the request."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_api_ping: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -402,7 +402,7 @@ ollama_generate_json() {
   usage+="This is a foundational function for 'ollama_generate' and 'ollama_generate_stream', which process this JSON output into plain text."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -451,7 +451,7 @@ ollama_generate() {
   usage+="This is useful for when you only need the generated text and don't want to parse the JSON yourself."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -522,7 +522,7 @@ ollama_generate_stream_json() {
   usage+="It is the basis for 'ollama_generate_stream', which further processes the output into a continuous stream of text."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -555,7 +555,7 @@ ollama_generate_stream() {
   usage+="It is ideal for displaying real-time generation in interactive scripts."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -599,11 +599,11 @@ ollama_messages() {
   usage+="The output of this function is suitable for use in the 'messages' field of a chat completion request."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_messages: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -634,7 +634,7 @@ ollama_messages_add() {
   usage+="This history is then used by 'ollama_chat' and related functions to maintain a conversation with the model."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -682,11 +682,11 @@ ollama_messages_clear() {
   usage+="This is useful for starting a new conversation without restarting the script."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_messages_clear: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -709,11 +709,11 @@ ollama_messages_count() {
   usage+="It can be used to check if a conversation has started or to monitor the length of the conversation history."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_messages_count: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -741,7 +741,7 @@ ollama_tools_add() {
   usage+="The model can then request to call this tool during a chat. The JSON definition should follow the Ollama tool definition format."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -797,11 +797,11 @@ ollama_tools() {
   usage+="It displays a tab-separated list of tool names and their corresponding commands."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_tools: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -832,11 +832,11 @@ ollama_tools_count() {
   usage+="It provides a simple way to check if any tools are available for the model to use."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_tools_count: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -860,11 +860,11 @@ ollama_tools_clear() {
   usage+="This is useful for ensuring that a new chat session starts with a clean slate of tools."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_tools_clear: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -891,7 +891,7 @@ ollama_tools_is_call() {
   usage+="It is essential for building agentic systems that can decide whether to execute a tool or respond with text."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -929,7 +929,7 @@ ollama_tools_run() {
   usage+="It is the core component for making the model's tool calls functional, bridging the gap between the model's request and the actual execution of the tool."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -987,7 +987,7 @@ ollama_chat_json() {
   usage+="It serves as the foundation for 'ollama_chat' and 'ollama_chat_stream', which provide more user-friendly text-based outputs."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -1079,7 +1079,7 @@ ollama_chat() {
   usage+="It is ideal for simple, non-streaming chat interactions."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -1138,7 +1138,7 @@ ollama_chat_stream() {
   usage+="It is perfect for interactive chat applications where you want to display the response as it is being generated."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -1187,7 +1187,7 @@ ollama_chat_stream_json() {
   usage+="It is the basis for the 'ollama_chat_stream' function, which turns the JSON stream into a more human-readable text stream."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -1226,11 +1226,11 @@ ollama_list() {
   usage+="It is a convenient way to quickly see the models you have installed."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_list: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1266,11 +1266,11 @@ ollama_list_json() {
   usage+="This is useful for programmatic access to model information, allowing for easy parsing and manipulation with tools like 'jq'."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_list_json: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1295,14 +1295,14 @@ ollama_list_array() {
   usage+="ollama_list_array\n\n"
   usage+="List all available models as a Bash array.\n\n"
   usage+="This function retrieves the list of models and formats them as a space-separated string, suitable for loading directly into a Bash array.\n\n"
-  usage+="Example:\nmodels=($(ollama_list_array))"
+  usage+="Example:\nmodels=(\$(ollama_list_array))"
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_list_array: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1363,11 +1363,11 @@ ollama_model_random() {
   usage+="It is useful when you want to use any available model without specifying one, for example, in testing or for creative applications."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_model_random: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1403,7 +1403,7 @@ ollama_model_unload() {
   usage+="This is useful for managing memory usage, especially on systems with limited resources."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -1450,11 +1450,11 @@ ollama_ps() {
   usage+="It is a quick way to check which models are active and consuming resources."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_ps: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1481,11 +1481,11 @@ ollama_ps_json() {
   usage+="This is useful for programmatic monitoring and management of running models."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_ps_json: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1514,7 +1514,7 @@ ollama_show() {
   usage+="It is useful for inspecting the configuration of a model."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -1542,7 +1542,7 @@ ollama_show_json() {
   usage+="This is ideal for programmatic access to model details, allowing for automated configuration checks or modifications."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -1593,11 +1593,11 @@ ollama_app_installed() {
   usage+="It is useful for pre-flight checks in scripts to ensure that required dependencies are available."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_app_installed: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1735,11 +1735,11 @@ ollama_app_vars() {
   usage+="It is a helpful reference for understanding the available settings and their current values."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_app_vars: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1798,11 +1798,11 @@ ollama_app_version() {
   usage+="It provides a simple way to check the installed Ollama version."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_app_version: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1830,11 +1830,11 @@ ollama_app_version_json() {
   usage+="This is useful for programmatic version checking and comparison."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_app_version_json: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1862,11 +1862,11 @@ ollama_app_version_cli() {
   usage+="This can be useful for verifying the CLI tool is installed and working correctly."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_app_version_cli: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1897,7 +1897,7 @@ ollama_thinking() {
   usage+="Modes:\n- on: Show thinking output.\n- off: Hide thinking output.\n- hide: Do not show thinking output, but it is still available in the JSON."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
@@ -1939,11 +1939,11 @@ ollama_lib_about() {
   usage+="It also lists all the available 'ollama_*' functions for easy reference."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_lib_about: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -1997,11 +1997,11 @@ ollama_lib_version() {
   usage+="It is useful for checking the library version for compatibility or debugging purposes."
   if [[ $# -gt 0 ]]; then
     if [[ $# -eq 1 && ("$1" == "-h" || "$1" == "--help") ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     else
       _error "ollama_lib_version: Unknown argument(s): $*"
-      printf "%b" "$usage" >&2
+      printf '%b\n' "$usage"
       return 1
     fi
   fi
@@ -2028,7 +2028,7 @@ ollama_eval() {
   usage+="It includes safety features like syntax checking and a sandbox mode for execution. This is a powerful tool for converting natural language into shell commands."
   for arg in "$@"; do
     if [[ "$arg" == "-h" || "$arg" == "--help" ]]; then
-      printf "%b" "$usage"
+      printf '%b\n' "$usage"
       return 0
     fi
   done
