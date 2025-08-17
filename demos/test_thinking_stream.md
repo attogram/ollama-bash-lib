@@ -1,9 +1,21 @@
 --- Testing ollama_generate_stream with thinking ON ---
+[ERROR] ollama_model_random: ollama is not installed
 # <thinking>
-# We need to answer concisely why the sky is blue. Provide brief explanation about Rayleigh scattering. Should be concise.The sky appears blue because molecules and tiny particles in Earth’s atmosphere scatter short‑wavelength (blue) sunlight more efficiently than longer wavelengths (red). This Rayleigh scattering sends blue light in all directions, filling the sky with a blue hue, while the longer‑wavelength colors pass through more directly.
+# [ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_post: curl error: 7
+[ERROR] ollama_generate_json: ollama_api_post failed
+
 # </thinking>
 
-
+[ERROR] ollama_generate_stream: ollama_generate_json failed with code 1
 
 --- Testing ollama_chat_stream with thinking ON ---
-The ocean appears blue because water absorbs light at the red/orange end of the spectrum and scatters the shorter blue wavelengths. The scattered blue light is what we see, giving the sea its blue hue.
+[ERROR] ollama_model_random: ollama is not installed
+# <thinking>
+# [ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_post: curl error: 7
+[ERROR] ollama_chat_json: ollama_api_post failed
+
+# </thinking>
+
+[ERROR] ollama_chat_stream: ollama_chat_json failed with code 1

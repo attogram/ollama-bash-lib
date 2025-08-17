@@ -1,12 +1,16 @@
 # ollama_api_get
+ERROR: Ollama Not Installed
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_get: curl error: 7
+ERROR: Ollama API not reachable
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.4
 
 ## Setup
 
-OLLAMA_HOST: https://ollama.com
+OLLAMA_HOST:
 
-OLLAMA_LIB_API: https://ollama.com
+OLLAMA_LIB_API: http://localhost:11434
 
 
 ## Demo
@@ -15,23 +19,19 @@ OLLAMA_LIB_API: https://ollama.com
 ```
 ollama_api_get
 
-result: lines: 394
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_get: curl error: 7
+result: lines: 1
 result: output: 
-
-
-
-
-
-
-<!doctype html>
-<html class="h-full
 ```
 
 ```
 ollama_api_get "/api/version"
 
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_get: curl error: 7
 result: lines: 1
-result: output: {"version":"0.0.0"}
+result: output:
 ```
 
 ## Demo Debug
@@ -42,33 +42,25 @@ result: output: {"version":"0.0.0"}
 ```
 ollama_api_get
 
-[DEBUG] 00:17:28:626287500: ollama_api_get: []
-[DEBUG] 00:17:28:648023800: _call_curl: [GET] [] 
-[DEBUG] 00:17:28:676052200: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 00:17:28:697160800: _call_curl: Turbo Mode
-[DEBUG] 00:17:28:722448900: _call_curl: args: -s -N -H Content-Type: application/json -H Authorization: Bearer [REDACTED] -X GET https://ollama.com
-[DEBUG] 00:17:28:976663400: ollama_api_get: success
-result: lines: 394
+[DEBUG] 00:19:32:222279026: ollama_api_get: []
+[DEBUG] 00:19:32:227192697: _call_curl: [GET] []
+[DEBUG] 00:19:32:232290020: _call_curl: OLLAMA_LIB_API: http://localhost:11434
+[DEBUG] 00:19:32:238209177: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_get: curl error: 7
+result: lines: 1
 result: output: 
-
-
-
-
-
-
-<!doctype html>
-<html class="h-full
 ```
 
 ```
 ollama_api_get "/api/version"
 
-[DEBUG] 00:17:29:025037000: ollama_api_get: [/api/version]
-[DEBUG] 00:17:29:046701800: _call_curl: [GET] [/api/version] 
-[DEBUG] 00:17:29:068865300: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 00:17:29:095751600: _call_curl: Turbo Mode
-[DEBUG] 00:17:29:118822300: _call_curl: args: -s -N -H Content-Type: application/json -H Authorization: Bearer [REDACTED] -X GET https://ollama.com/api/version
-[DEBUG] 00:17:29:344500500: ollama_api_get: success
+[DEBUG] 00:19:32:267904675: ollama_api_get: [/api/version]
+[DEBUG] 00:19:32:272762798: _call_curl: [GET] [/api/version]
+[DEBUG] 00:19:32:277579185: _call_curl: OLLAMA_LIB_API: http://localhost:11434
+[DEBUG] 00:19:32:282325438: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434/api/version
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_get: curl error: 7
 result: lines: 1
-result: output: {"version":"0.0.0"}
+result: output:
 ```

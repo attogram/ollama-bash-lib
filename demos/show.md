@@ -1,38 +1,23 @@
 # ollama_show, ollama_show_json
+ERROR: Ollama Not Installed
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_get: curl error: 7
+ERROR: Ollama API not reachable
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.4
+[ERROR] ollama_model_random: ollama is not installed
 
-ollama_show "gpt-oss:120b"
+ollama_show "ollama-not-installed"
 
 ```
-  Model
-    architecture        gptoss    
-    parameters          116.8B    
-    context length      131072    
-    embedding length    2880      
-    quantization        MXFP4     
-
+[ERROR] ollama_show: ollama is not installed
 ```
 
 
-ollama_show_json "gpt-oss:120b"
+ollama_show_json "ollama-not-installed"
 
 ```
-{
-  "details": {
-    "parent_model": "gpt-oss:120b",
-    "format": "",
-    "family": "gptoss",
-    "families": null,
-    "parameter_size": "116829156672",
-    "quantization_level": "MXFP4"
-  },
-  "model_info": {
-    "general.architecture": "gptoss",
-    "general.parameter_count": 116829156672,
-    "gptoss.context_length": 131072,
-    "gptoss.embedding_length": 2880
-  },
-  "modified_at": "0001-01-01T00:00:00Z"
-}
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_post: curl error: 7
+[ERROR] ollama_show_json: ollama_api_post failed
 ```
