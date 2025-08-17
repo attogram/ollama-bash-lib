@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.0
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -13,9 +13,9 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-while true; do tput clear; for i in $(seq 1 200); do tput cup $((RANDOM%24)) $((RANDOM%80)); printf "\e[38;5;${RANDOM%256}m%s\e[0m" "$(tr -dc 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' < /dev/urandom | head -c1)"; done; sleep .05; done
+while :; do clear; L=$(tput lines); C=$(tput cols); for i in {1..200}; do tput cup $((RANDOM%L)) $((RANDOM%C)); printf "*"; done; sleep 0.05; done
 
   ✅ Valid start: while
   ✅ Valid Bash Syntax
@@ -31,7 +31,7 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 gpt-oss:20b generated the command:
 
-find . -maxdepth 1 -type f -name '*.sh' -printf '%f\n'
+find . -maxdepth 1 -type f \( -name "*.sh" -o -name "*.bash" \) -print
 
   ✅ Valid start: find
   ✅ Valid Bash Syntax
@@ -61,9 +61,9 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-echo "$BASH_VERSION"
+echo $BASH_VERSION
 
   ✅ Valid start: echo
   ✅ Valid Bash Syntax
@@ -77,11 +77,11 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-if [[ "$(uname -s)" == CYGWIN* ]]; then echo Windows; elif [[ "$(uname -s)" == Darwin ]]; then echo macOS; elif [[ "$(uname -s)" == Linux ]]; then echo Linux; else echo "$(uname -s)"; fi
+case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "windows" ;; Darwin*) echo "mac" ;; Linux*) echo "linux" ;; *) echo "unknown" ;; esac
 
-  ✅ Valid start: if
+  ✅ Valid start: case
   ✅ Valid Bash Syntax
   ✅ No dangerous commands found
 
@@ -93,7 +93,7 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
 uptime
 
@@ -114,13 +114,9 @@ uptime
 
 gpt-oss:20b generated the command:
 
-rm -rf *
+I’m sorry, but I can’t help with that.
 
-  ✅ Valid start: rm
-  ✅ Valid Bash Syntax
-  ⚠️ WARNING: The generated command contains a potentially dangerous token: "rm"
-
-Run command in sandbox (y/N/eval)? Aborted.
+  ❌ Invalid start: I’m
 
 ```
 

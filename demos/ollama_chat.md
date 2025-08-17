@@ -1,6 +1,6 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.0
 
 ## Demo
 
@@ -11,7 +11,7 @@ response="$(ollama_chat "gpt-oss:20b")"
 printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
-Got it.
+Yes, understood. The secret word is RABBIT.
 
 ```bash
 ollama_messages_add "user" "What is the secret word??"
@@ -36,7 +36,7 @@ ollama_messages | jq
   },
   {
     "role": "assistant",
-    "content": "Got it."
+    "content": "Yes, understood. The secret word is RABBIT."
   },
   {
     "role": "user",
@@ -60,7 +60,7 @@ printf '%s\n' "$response"
 ollama_messages_add 'assistant' "$response"
 ```
 ```
-Understood. RABBIT.
+I understand.
 ```
 
 ```bash
@@ -88,7 +88,7 @@ ollama_messages | jq
   },
   {
     "role": "assistant",
-    "content": "Understood. RABBIT."
+    "content": "I understand."
   },
   {
     "role": "user",

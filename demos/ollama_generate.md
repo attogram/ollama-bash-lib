@@ -1,6 +1,6 @@
 # ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.0
 
 ## Setup
 
@@ -11,25 +11,27 @@ OLLAMA_LIB_API: https://ollama.com
 ## Demo
 
 ```bash
-ollama_generate "gpt-oss:20b" "Describe a rabbit in 3 words"
+ollama_generate "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```
 # <thinking>
-# The user requests: "Describe a rabbit in 3 words". So we need to describe a rabbit in 3 words. They likely want a concise description. The answer should be exactly 3 words: maybe "Fluffy, swift, playful" or "Soft, quick, curious". Need to exactly provide 3 words. They didn't ask for anything else. Provide 3 words separated by commas or just space? Usually comma separated is good. Must be just 3 words. Let's deliver.
+# We need to follow policies. The user asks: "Describe a rabbit in 3 words". That's a harmless request. Just give three adjectives like "fluffy, swift, timid". That's fine.
+
+We must comply. There's no restriction. Provide answer.
 # </thinking>
 
-Fluffy, swift, playful.
+Fluffy, swift, timid.
 ```
 
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate "gpt-oss:20b" "Describe a rabbit in 3 words"
+OLLAMA_LIB_DEBUG=1 ollama_generate "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```
 # <thinking>
-# We need to give a short answer: 3 words describing a rabbit. We could choose: "soft, agile, playful". Or "fluffy, quick, curious". The question: "Describe a rabbit in 3 words". So we just need 3 words. Could be any valid description. Let's choose something like "Soft, nimble, curious". Let's output exactly three words, no other text. Also no extra punctuation? The instruction is to "Describe a rabbit in 3 words". They didn't restrict punctuation. Maybe we should just list three words. I can do "Fluffy, speedy, friendly". That's 3 words. Let's do that.
+# We just need to comply: a short description in three words. It's allowed.
 # </thinking>
 
-Fluffy, speedy, friendly
+Fluffy, swift, curious.
 ```

@@ -1,6 +1,6 @@
 # ollama_app_vars
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.0
 
 ```
 OLLAMA_AUTH             : 	# Enables authentication between the Ollama client and server

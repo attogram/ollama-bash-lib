@@ -1,6 +1,6 @@
 # Prompt all models
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.0
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -18,7 +18,7 @@ prompt: What is your knowledge cutoff date? Respond with only the date.
 ## gpt-oss:120b
 ```
 # <thinking>
-# The user asks: "What is your knowledge cutoff date? Respond with only the date." The user wants a single date, presumably "2024-06". According to system message: "knowledge cutoff: 2024-06". So we respond with "2024-06". No extra text.
+# The user asks: "What is your knowledge cutoff date? Respond with only the date." We need to respond with just the date, no extra text. According to system message, knowledge cutoff is 2024-06. So respond with "2024-06". Ensure only the date.
 # </thinking>
 
 2024-06
@@ -27,7 +27,7 @@ prompt: What is your knowledge cutoff date? Respond with only the date.
 ## gpt-oss:20b
 ```
 # <thinking>
-# The user asks: "What is your knowledge cutoff date? Respond with only the date." So respond with the date of the knowledge cutoff. That is 2024-06. The earlier instruction: respond with only the date. So output "2024-06" or "2024-06-??". The OpenAI internal doc says knowledge cutoff is 2023-04? Wait: The actual knowledge cutoff for GPT-4 is maybe 2023-05? But the conversation earlier says "Knowledge cutoff: 2024-06". In "OpenAI policy" we should respond with the official cutoff: 2023-11? However I recall GPT-4's cutoff is 2023-04? But the conversation says "knowledge cutoff: 2024-06". The system message says "You are ChatGPT, knowledge cutoff 2024-06". So respond with "2024-06". The user says respond with only the date. So "2024-06".
+# User: "What is your knowledge cutoff date? Respond with only the date." So respond just with date. Probably "2023-09" as ChatGPT's knowledge cutoff. But the model might have date 2024-06? The system says knowledge cutoff: 2024-06. Actually the user says "Respond with only the date." In earlier messages the system says Knowledge cutoff: 2024-06. So answer could be "2024-06". Should I use format "YYYY-MM-DD" or "YYYY-MM"? The previous instructions: "Respond with only the date." I'd assume they want a date. We can answer "2024-06". Or maybe "2024-06-01"? But simpler: "2024-06". Let's respond with "2024-06".
 # </thinking>
 
 2024-06

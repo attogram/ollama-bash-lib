@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.44.8'
+OLLAMA_LIB_VERSION='0.45.0'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -2076,6 +2076,13 @@ os()   { ollama_show "$@"; }
 osj()  { ollama_show_json "$@"; }
 
 ot()   { ollama_thinking "$@"; }
+
+oto()  { ollama_tools "$@"; }
+ota()  { ollama_tools_add "$@"; }
+otco() { ollama_tools_count "$@"; }
+otc()  { ollama_tools_clear "$@"; }
+otic() { ollama_tools_is_call "$@"; }
+otr()  { ollama_tools_run "$@"; }
 
 op()   { ollama_ps "$@"; }
 opj()  { ollama_ps_json "$@"; }
