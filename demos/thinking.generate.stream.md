@@ -1,6 +1,6 @@
 # ollama_thinking, ollama_generate_stream
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.8
 
 ```
 ollama_thinking on
@@ -10,6 +10,6 @@ ollama_generate_stream $(ollama_model_random) "list 10 things about bash, 1 per 
 
 thinking is on
 # <thinking>
-# The user wants 10 things about Bash, 1 per line. Likely a list format, each line a fact or feature. Provide simple list.1. Bash stands for “Bourne Again SHell,” a successor to the original Unix Bourne shell.  2. It is the default login shell on most Linux distributions and macOS.  3. Bash supports command-line editing with Emacs and Vi key bindings.  4. It includes powerful scripting features like functions, arrays, and associative arrays.  5. The shell can perform job control, allowing you to suspend, resume, and background processes.  6. Bash provides built‑in arithmetic expansion for integer calculations.  7. It supports wildcard (globbing) patterns such as `*`, `?`, and `[]` for filename matching.  8. The `[[ … ]]` conditional expression offers more flexible testing than `[ … ]`.  9. Bash can source other scripts with the `source` (or `.`) command to reuse functions and variables.  10. It includes advanced redirection operators (e.g., `>&`, `>>`, `<>`, `|&`) for manipulating input and output streams.
+# The user wants us to produce a list of 10 things about bash, 1 per line. That's simple. Probably bullet points or just numbered. Probably minimal formatting. Ok. We'll comply.1. Bash is the default shell on most Linux distributions and macOS.  2. It supports scripting with variables, loops, conditionals, and functions.  3. Bash allows command substitution using `$(...)` or backticks `` `...` ``.  4. It features globbing and wildcard pattern matching for file selection.  5. Bash can auto‑complete commands and filenames using the `Tab` key.  6. It maintains a command history that can be searched with `Ctrl+R`.  7. Bash can be configured with environment variables such as `$PATH`.  8. It supports job control, letting users suspend (`Ctrl+Z`) and resume jobs.  9. Bash can read and write configuration files like `.bashrc` and `.bash_profile`.  10. It provides an extensive set of built‑in utilities (e.g., `cd`, `echo`, `test`).
 
 # </thinking>

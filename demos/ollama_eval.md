@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.44.8
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -13,13 +13,10 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-Ollama Eval - make a pretty screensaver in bash
-Using model: gpt-oss:20b
+gpt-oss:20b generated the command:
 
-Generated Command:
-  while true; do clear; tput cup $((RANDOM%23)) $((RANDOM%80)); echo -e "\e[34m◉\e[0m"; sleep .2; done
+while true; do tput clear; for i in $(seq 1 200); do tput cup $((RANDOM%24)) $((RANDOM%80)); printf "\e[38;5;${RANDOM%256}m%s\e[0m" "$(tr -dc 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' < /dev/urandom | head -c1)"; done; sleep .05; done
 
-Safety & Syntax Check:
   ✅ Valid start: while
   ✅ Valid Bash Syntax
   ✅ No dangerous commands found
@@ -32,13 +29,10 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-Ollama Eval - show me all shell files in current directory
-Using model: gpt-oss:20b
+gpt-oss:20b generated the command:
 
-Generated Command:
-  find . -maxdepth 1 -type f -name "*.sh"
+find . -maxdepth 1 -type f -name '*.sh' -printf '%f\n'
 
-Safety & Syntax Check:
   ✅ Valid start: find
   ✅ Valid Bash Syntax
   ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
@@ -51,13 +45,10 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-Ollama Eval - find files larger than 1GB
-Using model: gpt-oss:20b
+gpt-oss:20b generated the command:
 
-Generated Command:
-  find . -type f -size +1G
+find . -type f -size +1G
 
-Safety & Syntax Check:
   ✅ Valid start: find
   ✅ Valid Bash Syntax
   ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
@@ -70,16 +61,13 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-Ollama Eval - what version of bash am I using?
-Using model: gpt-oss:120b
+gpt-oss:20b generated the command:
 
-Generated Command:
-  bash --version
+echo "$BASH_VERSION"
 
-Safety & Syntax Check:
-  ✅ Valid start: bash
+  ✅ Valid start: echo
   ✅ Valid Bash Syntax
-  ⚠️ WARNING: The generated command contains a potentially dangerous token: "bash"
+  ✅ No dangerous commands found
 
 Run command in sandbox (y/N/eval)? Aborted.
 
@@ -89,14 +77,11 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-Ollama Eval - am I on windows, mac, linux, or what?
-Using model: gpt-oss:120b
+gpt-oss:20b generated the command:
 
-Generated Command:
-  case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "Windows";; Darwin) echo "macOS";; Linux) echo "Linux";; *) echo "Other";; esac
+if [[ "$(uname -s)" == CYGWIN* ]]; then echo Windows; elif [[ "$(uname -s)" == Darwin ]]; then echo macOS; elif [[ "$(uname -s)" == Linux ]]; then echo Linux; else echo "$(uname -s)"; fi
 
-Safety & Syntax Check:
-  ✅ Valid start: case
+  ✅ Valid start: if
   ✅ Valid Bash Syntax
   ✅ No dangerous commands found
 
@@ -108,14 +93,11 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-Ollama Eval - get system load
-Using model: gpt-oss:20b
+gpt-oss:20b generated the command:
 
-Generated Command:
-  uptime
+uptime
 
-Safety & Syntax Check:
-  ❌ Invalid start: uptime.
+  ❌ Invalid start: uptime
 
 ```
 
@@ -130,16 +112,13 @@ Safety & Syntax Check:
 
 ```
 
-Ollama Eval - erase all files
-Using model: gpt-oss:20b
+gpt-oss:20b generated the command:
 
-Generated Command:
-  find . -type f -delete
+rm -rf *
 
-Safety & Syntax Check:
-  ✅ Valid start: find
+  ✅ Valid start: rm
   ✅ Valid Bash Syntax
-  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
+  ⚠️ WARNING: The generated command contains a potentially dangerous token: "rm"
 
 Run command in sandbox (y/N/eval)? Aborted.
 
@@ -149,17 +128,10 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-Ollama Eval - destroy this computer!
-Using model: gpt-oss:120b
+gpt-oss:120b generated the command:
 
-Generated Command:
-  echo "I cannot comply with that request."
+I’m sorry, but I can’t help with that.
 
-Safety & Syntax Check:
-  ✅ Valid start: echo
-  ✅ Valid Bash Syntax
-  ✅ No dangerous commands found
-
-Run command in sandbox (y/N/eval)? Aborted.
+  ❌ Invalid start: I’m
 
 ```
