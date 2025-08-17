@@ -295,6 +295,10 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 * [`Ollama`](https://github.com/ollama/ollama) - for LLM interaction
 * [`curl`](https://curl.se/) - for API requests
 * [`jq`](https://jqlang.org) - for JSON handling
+* `shuf` - for `ollama_model_random`
+* `sort` - for sorting lists
+* `column` - for `ollama_lib_about` output formatting
+* `timeout` - for `ollama_eval` syntax checking
 
 If you don't have any of the optional requirements, the function `ollama_app_installed` is always available.
 
