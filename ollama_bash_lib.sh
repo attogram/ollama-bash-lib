@@ -12,13 +12,11 @@ OLLAMA_LIB_COPYRIGHT='Copyright (c) 2025 Ollama Bash Lib, Attogram Project <http
 
 OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
-OLLAMA_LIB_MESSAGES=()    # Array of messages
-OLLAMA_LIB_STREAM=0       # Streaming mode: 0 = No streaming, 1 = Yes streaming
+OLLAMA_LIB_MESSAGES=() # Array of messages
+OLLAMA_LIB_STREAM=0 # Streaming mode: 0 = No streaming, 1 = Yes streaming
 OLLAMA_LIB_THINKING="${OLLAMA_LIB_THINKING:-off}" # Thinking mode: off, on, hide
 OLLAMA_LIB_TIMEOUT="${OLLAMA_LIB_TIMEOUT:-300}" # Curl timeout in seconds
-OLLAMA_LIB_SAFE_MODE="${OLLAMA_LIB_SAFE_MODE:-false}" # Safe mode: true or false
-
-
+OLLAMA_LIB_SAFE_MODE="${OLLAMA_LIB_SAFE_MODE:-0}" # Safe mode: 0 = off, 1 = disable ollama_eval and _debug
 set -o pipefail # Exit the pipeline if any command fails (instead of only the last one)
 
 # Internal Functions
@@ -46,8 +44,8 @@ _redact() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 _debug() {
-  if [[ "${OLLAMA_LIB_SAFE_MODE}" == "true" ]]; then return 0; fi
-  (( OLLAMA_LIB_DEBUG )) || return # must be 1 or higher to show debug messages
+  (( OLLAMA_LIB_SAFE_MODE )) || return 0 # _debug is disabled in safe mode
+  (( OLLAMA_LIB_DEBUG )) || return 0 # DEBUG must be 1 or higher to show debug messages
   local date_string # some date implementations do not support %N nanoseconds
   date_string="$(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi)"
   printf "[DEBUG] ${date_string}: %s\n" "$(_redact "$1")" >&2
@@ -1272,25 +1270,25 @@ ollama_lib_version() {
 # Requires: none
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
-    if [[ "${OLLAMA_LIB_SAFE_MODE}" == "true" ]]; then
-        _error "ollama_eval is disabled in safe mode."
-        return 1
+    if (( OLLAMA_LIB_SAFE_MODE )); then
+      _error "ollama_eval is disabled in safe mode."
+      return 1
     fi
     if ! _exists 'jq'; then _error 'ollama_eval: jq Not Found'; return 1; fi
     _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
 
     local task="$1"
     if [[ -z "$task" ]]; then
-        _error 'ollama_eval: Task Not Found. Usage: oe "task" "model"'
-        return 1
+      _error 'ollama_eval: Task Not Found. Usage: oe "task" "model"'
+      return 1
     fi
 
     local model
     model="$(_is_valid_model "$2")"
     _debug "ollama_eval: model: [${model:0:120}]"
     if [[ -z "$model" ]]; then
-        _error 'ollama_eval: No Models Found'
-        return 1
+      _error 'ollama_eval: No Models Found'
+      return 1
     fi
 
     local prompt='Write a bash one-liner to do the following task:\n\n'
