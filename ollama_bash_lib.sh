@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.44.5'
+OLLAMA_LIB_VERSION='0.44.7'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -14,15 +14,10 @@ OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No sla
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
 OLLAMA_LIB_MESSAGES=()    # Array of messages
 OLLAMA_LIB_STREAM=0       # Streaming mode: 0 = No streaming, 1 = Yes streaming
-OLLAMA_LIB_THINKING='off' # Thinking mode: off, on, hide
+OLLAMA_LIB_THINKING="${OLLAMA_LIB_THINKING:-off}" # Thinking mode: off, on, hide
 OLLAMA_LIB_TIMEOUT="${OLLAMA_LIB_TIMEOUT:-300}" # Curl timeout in seconds
+OLLAMA_LIB_SAFE_MODE="${OLLAMA_LIB_SAFE_MODE:-false}" # Safe mode: true or false
 
-# Colors for output
-OLLAMA_LIB_COLOR_RED='\033[0;31m'
-OLLAMA_LIB_COLOR_GREEN='\033[0;32m'
-OLLAMA_LIB_COLOR_YELLOW='\033[0;33m'
-OLLAMA_LIB_COLOR_BLUE='\033[0;34m'
-OLLAMA_LIB_COLOR_NC='\033[0m' # No Color
 
 set -o pipefail # Exit the pipeline if any command fails (instead of only the last one)
 
@@ -51,6 +46,7 @@ _redact() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 _debug() {
+  if [[ "${OLLAMA_LIB_SAFE_MODE}" == "true" ]]; then return 0; fi
   (( OLLAMA_LIB_DEBUG )) || return # must be 1 or higher to show debug messages
   local date_string # some date implementations do not support %N nanoseconds
   date_string="$(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi)"
@@ -1218,7 +1214,7 @@ ollama_thinking() {
 # Requires: compgen (for function list)
 # Returns: 0 on success, 1 on missing compgen or column
 ollama_lib_about() {
-    printf "${OLLAMA_LIB_COLOR_BLUE}%s v%s${OLLAMA_LIB_COLOR_NC}\n" "$OLLAMA_LIB_NAME" "$OLLAMA_LIB_VERSION"
+    printf "%s v%s\n" "$OLLAMA_LIB_NAME" "$OLLAMA_LIB_VERSION"
     printf 'A Bash Library to interact with Ollama\n\n'
 
     local turbo_key_status="NO"
@@ -1276,6 +1272,10 @@ ollama_lib_version() {
 # Requires: none
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
+    if [[ "${OLLAMA_LIB_SAFE_MODE}" == "true" ]]; then
+        _error "ollama_eval is disabled in safe mode."
+        return 1
+    fi
     if ! _exists 'jq'; then _error 'ollama_eval: jq Not Found'; return 1; fi
     _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
 
@@ -1302,7 +1302,7 @@ ollama_eval() {
     prompt+='Do NOT add any commentary, description, markdown formatting or anything extraneous.\n'
     _debug "ollama_eval: prompt: [${prompt:0:240}]"
 
-    printf "\n${OLLAMA_LIB_COLOR_BLUE}Ollama Eval ${OLLAMA_LIB_COLOR_NC} - ${OLLAMA_LIB_COLOR_YELLOW}%s${OLLAMA_LIB_COLOR_NC}\n" "$task"
+    printf "\nOllama Eval - %s\n" "$task"
     printf "Using model: %s\n" "$model"
 
     OLLAMA_LIB_STREAM=0
@@ -1325,22 +1325,22 @@ ollama_eval() {
         return 1
     fi
 
-    printf "\n${OLLAMA_LIB_COLOR_GREEN}Generated Command:${OLLAMA_LIB_COLOR_NC}\n"
+    printf "\nGenerated Command:\n"
     printf "  %s\n\n" "$cmd"
 
-    printf "${OLLAMA_LIB_COLOR_YELLOW}Safety & Syntax Check:${OLLAMA_LIB_COLOR_NC}\n"
+    printf "Safety & Syntax Check:\n"
 
     local first_word
     read -r first_word _ <<<"$cmd"
 
     if [[ "$first_word" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)[[:space:]]*\{ ]]; then
-        printf "  ${OLLAMA_LIB_COLOR_GREEN}✅ Valid start: function definition${OLLAMA_LIB_COLOR_NC}\n"
+        printf "  ✅ Valid start: function definition\n"
     elif [[ "$first_word" =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
-        printf "  ${OLLAMA_LIB_COLOR_GREEN}✅ Valid start: variable assignment${OLLAMA_LIB_COLOR_NC}\n"
+        printf "  ✅ Valid start: variable assignment\n"
     elif _exists "$first_word"; then
-        printf "  ${OLLAMA_LIB_COLOR_GREEN}✅ Valid start: %s${OLLAMA_LIB_COLOR_NC}\n" "$first_word"
+        printf "  ✅ Valid start: %s\n" "$first_word"
     else
-        printf "  ${OLLAMA_LIB_COLOR_RED}❌ Invalid start: %s.${OLLAMA_LIB_COLOR_NC}\n" "$first_word"
+        printf "  ❌ Invalid start: %s.\n" "$first_word"
         return 1
     fi
 
@@ -1348,19 +1348,19 @@ ollama_eval() {
     if _exists 'timeout'; then
         if ! errors=$(timeout 1 bash -n <<<"$cmd" 2>&1); then
             local rc=$?
-            printf "  ${OLLAMA_LIB_COLOR_RED}❌ Invalid Bash Syntax (code $rc)${OLLAMA_LIB_COLOR_NC}\n%s\n" "$errors"
+            printf "  ❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
             return 1
         else
-            printf "  ${OLLAMA_LIB_COLOR_GREEN}✅ Valid Bash Syntax${OLLAMA_LIB_COLOR_NC}\n"
+            printf "  ✅ Valid Bash Syntax\n"
         fi
     else
         _debug "ollama_eval: 'timeout' command not found, skipping syntax check."
         if ! errors=$(bash -n <<<"$cmd" 2>&1); then
             local rc=$?
-            printf "  ${OLLAMA_LIB_COLOR_RED}❌ Invalid Bash Syntax (code $rc)${OLLAMA_LIB_COLOR_NC}\n%s\n" "$errors"
+            printf "  ❌ Invalid Bash Syntax (code $rc)\n%s\n" "$errors"
             return 1
         else
-            printf "  ${OLLAMA_LIB_COLOR_GREEN}✅ Valid Bash Syntax (checked without timeout)${OLLAMA_LIB_COLOR_NC}\n"
+            printf "  ✅ Valid Bash Syntax (checked without timeout)\n"
         fi
     fi
 
@@ -1372,36 +1372,43 @@ ollama_eval() {
     local danger_regex="(^|[^[:alnum:]_])(${dangerous[*]})($|[^[:alnum:]_])"
     if [[ "$cmd" =~ $danger_regex ]]; then
         local bad="${BASH_REMATCH[2]}"
-        printf "  ${OLLAMA_LIB_COLOR_RED}⚠️ WARNING: The generated command contains a potentially dangerous token: \"%s\"${OLLAMA_LIB_COLOR_NC}\n" "$bad"
+        printf "  ⚠️ WARNING: The generated command contains a potentially dangerous token: \"%s\"\n" "$bad"
     else
-        printf "  ${OLLAMA_LIB_COLOR_GREEN}✅ No dangerous commands found${OLLAMA_LIB_COLOR_NC}\n"
+        printf "  ✅ No dangerous commands found\n"
     fi
 
-    printf '\nRun command (y/N)? '
+    printf '\nRun command in sandbox (y/N/eval)? '
     read -r permission
     case "$permission" in
-        [Yy]) ;;
+        [Yy])
+            _debug "ollama_eval: sandboxed eval cmd: [${cmd:0:240}]"
+            echo
+            printf 'Running command in a sandboxed environment...\n\n'
+            env -i PATH="/bin:/usr/bin" bash -r -c "$cmd"
+            return $? # return sandboxed eval error status
+            ;;
+        eval)
+            printf 'Are you sure? [y/N] '
+            read -r permission2
+            case "$permission2" in
+                [Yy])
+                    _debug "ollama_eval: dangerous eval cmd: [${cmd:0:240}]"
+                    echo
+                    printf 'Running command in DANGEROUS mode (not sandboxed)...\n\n'
+                    eval "$cmd"
+                    return $?
+                    ;;
+                *)
+                    echo "Aborted."
+                    return 0
+                    ;;
+            esac
+            ;;
         *)
             echo "Aborted."
             return 0
             ;;
     esac
-
-    printf 'Are you sure? [y/N] '
-    read -r permission2
-    case "$permission2" in
-        [Yy]) ;;
-        *)
-            echo "Aborted."
-            return 0
-            ;;
-    esac
-
-    _debug "ollama_eval: sandboxed eval cmd: [${cmd:0:240}]"
-    echo
-    printf 'Running command in a sandboxed environment...\n\n'
-    env -i PATH="/bin:/usr/bin" bash -r -c "$cmd"
-    return $? # return sandboxed eval error status
 }
 
 # Aliases
