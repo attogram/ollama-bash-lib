@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.44.7'
+OLLAMA_LIB_VERSION='0.44.8'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -1275,11 +1275,9 @@ ollama_lib_version() {
 # Requires: none
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
-  if (( OLLAMA_LIB_SAFE_MODE )); then
-    _error "ollama_eval is disabled in safe mode."
-    return 1
-  fi
+  if (( OLLAMA_LIB_SAFE_MODE )); then _error "ollama_eval is disabled in safe mode."; return 1; fi
   if ! _exists 'jq'; then _error 'ollama_eval: jq Not Found'; return 1; fi
+
   _debug "ollama_eval: [${1:0:42}] [${2:0:42}]"
 
   local task="$1"
@@ -1305,8 +1303,7 @@ ollama_eval() {
   prompt+='Do NOT add any commentary, description, markdown formatting or anything extraneous.\n'
   _debug "ollama_eval: prompt: [${prompt:0:240}]"
 
-  printf "\nOllama Eval - %s\n" "$task"
-  printf "Using model: %s\n" "$model"
+  printf "\n%s generated the command:\n\n" "$model"
 
   OLLAMA_LIB_STREAM=0
 
@@ -1328,22 +1325,19 @@ ollama_eval() {
     return 1
   fi
 
-  printf "\nGenerated Command:\n"
-  printf "  %s\n\n" "$cmd"
-
-  printf "Safety & Syntax Check:\n"
+  printf "%s\n\n" "$cmd"
 
   local first_word
   read -r first_word _ <<<"$cmd"
 
-  if [[ "$first_word" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*\(\)[[:space:]]*\{ ]]; then
-    printf "  ✅ Valid start: function definition\n"
+  if [[ "$first_word" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*\(\) ]]; then
+    printf "  ✅ Valid start: function definition OK: %s\n" "$first_word"
   elif [[ "$first_word" =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
-    printf "  ✅ Valid start: variable assignment\n"
+    printf "  ✅ Valid start: variable assignment OK: %s\n" "$first_word"
   elif _exists "$first_word"; then
     printf "  ✅ Valid start: %s\n" "$first_word"
   else
-    printf "  ❌ Invalid start: %s.\n" "$first_word"
+    printf "  ❌ Invalid start: %s\n" "$first_word"
     return 1
   fi
 
@@ -1357,6 +1351,7 @@ ollama_eval() {
       printf "  ✅ Valid Bash Syntax\n"
     fi
   else
+    # TODO - if no timeout available, use bash subshell + timer subshell
     _debug "ollama_eval: 'timeout' command not found, skipping syntax check."
     if ! errors=$(bash -n <<<"$cmd" 2>&1); then
       local rc=$?
@@ -1391,13 +1386,12 @@ ollama_eval() {
       return $? # return sandboxed eval error status
       ;;
     eval)
-      printf 'Are you sure? [y/N] '
+      printf '\nAre you sure you want to use the DANGEROUS eval mode? [y/N] '
       read -r permission2
       case "$permission2" in
         [Yy])
           _debug "ollama_eval: dangerous eval cmd: [${cmd:0:240}]"
-          echo
-          printf 'Running command in DANGEROUS mode (not sandboxed)...\n\n'
+          printf '\nRunning command in DANGEROUS eval mode...\n\n'
           eval "$cmd"
           return $?
           ;;
