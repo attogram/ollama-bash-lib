@@ -13,6 +13,9 @@ OLLAMA_LIB_COPYRIGHT='Copyright (c) 2025 Ollama Bash Lib, Attogram Project <http
 OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
 OLLAMA_LIB_MESSAGES=() # Array of messages
+OLLAMA_LIB_TOOLS_NAME=() # Array of tool names
+OLLAMA_LIB_TOOLS_COMMAND=() # Array of tool commands
+OLLAMA_LIB_TOOLS_DEFINITION=() # Array of tool definitions
 OLLAMA_LIB_STREAM=0 # Streaming mode: 0 = No streaming, 1 = Yes streaming
 OLLAMA_LIB_THINKING="${OLLAMA_LIB_THINKING:-off}" # Thinking mode: off, on, hide
 OLLAMA_LIB_TIMEOUT="${OLLAMA_LIB_TIMEOUT:-300}" # Curl timeout in seconds
@@ -322,12 +325,21 @@ _ollama_payload_generate() {
   local thinking=false
   [[ "$OLLAMA_LIB_THINKING" == 'on' || "$OLLAMA_LIB_THINKING" == 'hide' ]] && thinking=true
 
-  jq -c -n \
+  local payload
+  payload="$(jq -c -n \
     --arg model "$model" \
     --arg prompt "$prompt" \
     --argjson stream "$stream" \
     --argjson thinking "$thinking" \
-    '{model: $model, prompt: $prompt, stream: $stream, thinking: $thinking}'
+    '{model: $model, prompt: $prompt, stream: $stream, thinking: $thinking}')"
+
+  if (( ${#OLLAMA_LIB_TOOLS_DEFINITION[@]} > 0 )); then
+    local tools_json
+    tools_json='['$(IFS=,; echo "${OLLAMA_LIB_TOOLS_DEFINITION[*]}")']'
+    payload="$(printf '%s' "$payload" | jq -c --argjson tools "$tools_json" '. + {tools: $tools}')"
+  fi
+
+  printf '%s' "$payload"
 }
 
 # Generate a completion as json
@@ -501,19 +513,38 @@ ollama_messages() {
 # Add a message
 #
 # Usage: ollama_messages_add "role" "message"
-# Input: 1 - role (user/assistant/tool/system)
-# Input: 2 - the messages
+# Input: 1 - role (user/assistant/system/tool)
+# Input: 2 - the message content. For tool role, this should be the JSON output from ollama_tools_run.
 # Output: none
 # Requires: jq
 # Returns: 0
 ollama_messages_add() {
   if ! _exists 'jq'; then _error 'ollama_messages_add: jq Not Found'; return 1; fi
   _debug "ollama_messages_add: [${1:0:42}] [${2:0:42}]"
+  local role="$1"
+  local content="$2"
+
   local json_payload
-  json_payload="$(jq -c -n \
-      --arg role "$1" \
-      --arg content "$2" \
-      '{role: $role, content: $content}')"
+  if [[ "$role" == "tool" ]]; then
+    if ! _is_valid_json "$content"; then
+        _error 'ollama_messages_add: for "tool" role, content must be a valid JSON'
+        return 1
+    fi
+    local tool_call_id
+    tool_call_id="$(printf '%s' "$content" | jq -r '.tool_call_id')"
+    local result
+    result="$(printf '%s' "$content" | jq -r '.result')"
+    json_payload="$(jq -c -n \
+        --arg role "$role" \
+        --arg content "$result" \
+        --arg tool_call_id "$tool_call_id" \
+        '{role: $role, content: $content, tool_call_id: $tool_call_id}')"
+  else
+    json_payload="$(jq -c -n \
+        --arg role "$role" \
+        --arg content "$content" \
+        '{role: $role, content: $content}')"
+  fi
   OLLAMA_LIB_MESSAGES+=("$json_payload")
 }
 
@@ -537,6 +568,170 @@ ollama_messages_clear() {
 ollama_messages_count() {
   _debug 'ollama_messages_count'
   echo "${#OLLAMA_LIB_MESSAGES[@]}"
+}
+
+# Tools Functions
+
+# Add a tool
+#
+# Usage: ollama_tools_add "tool_name" "command" "json_definition"
+# Input: 1 - The name of the tool
+# Input: 2 - The command to run for the tool
+# Input: 3 - The JSON definition of the tool
+# Output: none
+# Requires: jq
+# Returns: 0 on success, 1 on error
+ollama_tools_add() {
+  if ! _exists 'jq'; then _error 'ollama_tools_add: jq Not Found'; return 1; fi
+  local tool_name="$1"
+  local command="$2"
+  local json_definition="$3"
+
+  if [[ -z "$tool_name" ]]; then
+    _error 'ollama_tools_add: Tool name cannot be empty'
+    return 1
+  fi
+
+  # Check if tool with the same name already exists
+  local i
+  for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
+    if [[ "${OLLAMA_LIB_TOOLS_NAME[$i]}" == "$tool_name" ]]; then
+      _error "ollama_tools_add: Tool '$tool_name' already exists."
+      return 1
+    fi
+  done
+
+  if [[ -z "$command" ]]; then
+    _error 'ollama_tools_add: Command cannot be empty'
+    return 1
+  fi
+
+  if ! _is_valid_json "$json_definition"; then
+    _error 'ollama_tools_add: JSON definition is not valid'
+    return 1
+  fi
+
+  OLLAMA_LIB_TOOLS_NAME+=("$tool_name")
+  OLLAMA_LIB_TOOLS_COMMAND+=("$command")
+  OLLAMA_LIB_TOOLS_DEFINITION+=("$json_definition")
+  _debug "ollama_tools_add: Added tool '$tool_name'"
+  return 0
+}
+
+# View all tools
+#
+# Usage: ollama_tools
+# Input: none
+# Output: A list of all registered tools and their commands
+# Requires: none
+# Returns: 0
+ollama_tools() {
+  if (( ${#OLLAMA_LIB_TOOLS_NAME[@]} == 0 )); then
+    _debug 'ollama_tools: No tools registered'
+    return 0
+  fi
+  local i
+  for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
+    printf '%s\t%s\n' "${OLLAMA_LIB_TOOLS_NAME[$i]}" "${OLLAMA_LIB_TOOLS_COMMAND[$i]}"
+  done
+  return 0
+}
+
+# Get count of tools
+#
+# Usage: ollama_tools_count
+# Input: none
+# Output: The number of registered tools
+# Requires: none
+# Returns: 0
+ollama_tools_count() {
+  printf '%s\n' "${#OLLAMA_LIB_TOOLS_NAME[@]}"
+  return 0
+}
+
+# Remove all tools
+#
+# Usage: ollama_tools_clear
+# Input: none
+# Output: none
+# Requires: none
+# Returns: 0
+ollama_tools_clear() {
+  OLLAMA_LIB_TOOLS_NAME=()
+  OLLAMA_LIB_TOOLS_COMMAND=()
+  OLLAMA_LIB_TOOLS_DEFINITION=()
+  _debug 'ollama_tools_clear: All tools have been removed'
+  return 0
+}
+
+# Does the response have a tool call?
+#
+# Usage: ollama_tools_is_call "json_response"
+# Input: 1 - The JSON response from the model
+# Output: none
+# Requires: jq
+# Returns: 0 if it has a tool call, 1 otherwise
+ollama_tools_is_call() {
+  if ! _exists 'jq'; then _error 'ollama_tools_is_call: jq Not Found'; return 1; fi
+  if ! _is_valid_json "$1"; then
+    _debug 'ollama_tools_is_call: Invalid JSON'
+    return 1
+  fi
+  local tool_calls
+  tool_calls="$(printf '%s' "$1" | jq -r '.tool_calls // empty')"
+  if [[ -n "$tool_calls" ]]; then
+    return 0
+  fi
+  tool_calls="$(printf '%s' "$1" | jq -r '.message.tool_calls // empty')"
+    if [[ -n "$tool_calls" ]]; then
+    return 0
+  fi
+  return 1
+}
+
+# Run a tool
+#
+# Usage: ollama_tools_run "tool_name" "arguments_json"
+# Input: 1 - The name of the tool to run
+# Input: 2 - The JSON string of arguments for the tool
+# Output: The result of the tool execution
+# Requires: jq
+# Returns: 0 on success, 1 on error
+ollama_tools_run() {
+  if ! _exists 'jq'; then _error 'ollama_tools_run: jq Not Found'; return 1; fi
+  local tool_name="$1"
+  local tool_args_str="$2"
+
+  local tool_index=-1
+  local i
+  for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
+    if [[ "${OLLAMA_LIB_TOOLS_NAME[$i]}" == "$tool_name" ]]; then
+      tool_index=$i
+      break
+    fi
+  done
+
+  if [[ $tool_index -eq -1 ]]; then
+    _error "ollama_tools_run: Tool '$tool_name' not found"
+    return 1
+  fi
+
+  local command
+  command="${OLLAMA_LIB_TOOLS_COMMAND[$tool_index]}"
+
+  if [[ -z "$tool_args_str" ]] || [[ "$tool_args_str" == "null" ]]; then
+      tool_args_str="{}"
+  fi
+
+  if ! _is_valid_json "$tool_args_str"; then
+      _error "ollama_tools_run: Arguments are not valid JSON"
+      return 1
+  fi
+
+  _debug "ollama_tools_run: Running command: $command '$tool_args_str'"
+  "$command" "$tool_args_str"
+
+  return 0
 }
 
 # Chat Functions
@@ -580,6 +775,12 @@ ollama_chat_json() {
       --argjson stream "$stream" \
       --argjson thinking "$thinking" \
       '{model: $model, messages: $messages, stream: $stream, thinking: $thinking}')"
+
+  if (( ${#OLLAMA_LIB_TOOLS_DEFINITION[@]} > 0 )); then
+    local tools_json
+    tools_json='['$(IFS=,; echo "${OLLAMA_LIB_TOOLS_DEFINITION[*]}")']'
+    json_payload="$(printf '%s' "$json_payload" | jq -c --argjson tools "$tools_json" '. + {tools: $tools}')"
+  fi
 
   _debug "ollama_chat_json: json_payload: [${json_payload:0:120}]"
 
