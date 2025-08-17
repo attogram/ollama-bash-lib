@@ -1,6 +1,6 @@
 # help via -h and --help
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.1
 ## Testing -h for all functions (first argument)
 
 `ollama_api_get -h`
@@ -425,51 +425,61 @@ Usage: ollama_app_version_json
 
 `ollama_app_version_cli -h`
 ```
+ollama_app_version_cli - Ollama App version, CLI version
 Usage: ollama_app_version_cli
 ```
 
 `oavc -h`
 ```
+ollama_app_version_cli - Ollama App version, CLI version
 Usage: ollama_app_version_cli
 ```
 
 `ollama_thinking -h`
 ```
+ollama_thinking - Ollama Thinking Mode
 Usage: ollama_thinking [on|off|hide]
 ```
 
 `ot -h`
 ```
+ollama_thinking - Ollama Thinking Mode
 Usage: ollama_thinking [on|off|hide]
 ```
 
 `ollama_lib_about -h`
 ```
+ollama_lib_about - About Ollama Bash Lib
 Usage: ollama_lib_about
 ```
 
 `olab -h`
 ```
+ollama_lib_about - About Ollama Bash Lib
 Usage: ollama_lib_about
 ```
 
 `ollama_lib_version -h`
 ```
+ollama_lib_version - Ollama Bash Lib version
 Usage: ollama_lib_version
 ```
 
 `olv -h`
 ```
+ollama_lib_version - Ollama Bash Lib version
 Usage: ollama_lib_version
 ```
 
 `ollama_eval -h`
 ```
+ollama_eval - Command Line Eval
 Usage: ollama_eval "task" "[model]"
 ```
 
 `oe -h`
 ```
+ollama_eval - Command Line Eval
 Usage: ollama_eval "task" "[model]"
 ```
 
@@ -897,51 +907,60 @@ Usage: ollama_app_version_json
 
 `ollama_app_version_cli --help`
 ```
+ollama_app_version_cli - Ollama App version, CLI version
 Usage: ollama_app_version_cli
 ```
 
 `oavc --help`
 ```
+ollama_app_version_cli - Ollama App version, CLI version
 Usage: ollama_app_version_cli
 ```
 
 `ollama_thinking --help`
 ```
+ollama_thinking - Ollama Thinking Mode
 Usage: ollama_thinking [on|off|hide]
 ```
 
 `ot --help`
 ```
+ollama_thinking - Ollama Thinking Mode
 Usage: ollama_thinking [on|off|hide]
 ```
 
 `ollama_lib_about --help`
 ```
+ollama_lib_about - About Ollama Bash Lib
 Usage: ollama_lib_about
 ```
 
 `olab --help`
 ```
+ollama_lib_about - About Ollama Bash Lib
 Usage: ollama_lib_about
 ```
 
 `ollama_lib_version --help`
 ```
+ollama_lib_version - Ollama Bash Lib version
 Usage: ollama_lib_version
 ```
 
 `olv --help`
 ```
+ollama_lib_version - Ollama Bash Lib version
 Usage: ollama_lib_version
 ```
 
 `ollama_eval --help`
 ```
+ollama_eval - Command Line Eval
 Usage: ollama_eval "task" "[model]"
 ```
 
 `oe --help`
 ```
+ollama_eval - Command Line Eval
 Usage: ollama_eval "task" "[model]"
 ```
-

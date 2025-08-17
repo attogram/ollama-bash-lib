@@ -1,6 +1,6 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.1
 
 ## Setup
 
@@ -11,18 +11,18 @@ OLLAMA_LIB_API: https://ollama.com
 ## Demo
 
 ```bash
-ollama_generate_json "gpt-oss:20b" "Describe a rabbit in 3 words"
+ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```json
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-17T17:44:01.302567041Z",
-  "response": "Soft, curious, hopping.",
-  "thinking": "User: \"Describe a rabbit in 3 words\". They probably want something like \"soft, hop, cute\" maybe. Provide exactly 3 words. Let's comply.",
+  "model": "gpt-oss:120b",
+  "created_at": "2025-08-17T18:32:12.775969946Z",
+  "response": "Fluffy, swift, timid.",
+  "thinking": "The user asks: \"Describe a rabbit in 3 words\". Simple request, no policy violations. Provide three words describing a rabbit. Eg: \"fluffy, swift, timid\". Should be fine.",
   "done": true,
-  "total_duration": 351401085,
+  "total_duration": 718589582,
   "prompt_eval_count": 81,
-  "eval_count": 50
+  "eval_count": 58
 }
 
 ```
@@ -30,18 +30,18 @@ ollama_generate_json "gpt-oss:20b" "Describe a rabbit in 3 words"
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate_json "gpt-oss:20b" "Describe a rabbit in 3 words"
+OLLAMA_LIB_DEBUG=1 ollama_generate_json "gpt-oss:120b" "Describe a rabbit in 3 words"
 ```
 ```json
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-17T17:44:02.512177127Z",
-  "response": "Soft, fluffy, playful.",
-  "thinking": "The user: \"Describe a rabbit in 3 words\". They want a description in 3 words. Likely something like \"Fluffy, swift, curious\". Maybe \"Soft, quick, playful\". We should provide exactly 3 words. Let's choose \"Soft, swift, curious\". Possibly want them separated by commas. Ensure exactly 3 words. We can do \"Soft fluffy curious\". Wait need 3 words. Could be \"Soft\", \"Fluffy\", \"Playful\". That's 3. Let's provide: \"Soft, fluffy, playful\". That is 3 words separated by commas. Good.",
+  "model": "gpt-oss:120b",
+  "created_at": "2025-08-17T18:32:14.157115793Z",
+  "response": "Fluffy, timid, hoppy.",
+  "thinking": "The user asks: \"Describe a rabbit in 3 words\". This is a straightforward request, not disallowed. Provide three words describing a rabbit. Could be \"fluffy, timid, hoppy\". Let's respond.",
   "done": true,
-  "total_duration": 619896591,
+  "total_duration": 786777385,
   "prompt_eval_count": 81,
-  "eval_count": 139
+  "eval_count": 62
 }
 
 ```

@@ -23,6 +23,7 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 [Howto](#howto) : 
 [Get Tech Support](#howto-get-technical-support) -
 [Chat](#howto-chat) -
+[Use Tools](#howto-use-tools) -
 [Use Turbo Mode](#howto-use-ollama-turbo-mode) -
 [Debug](#howto-debug)
 
@@ -31,7 +32,7 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 [Helper](#helper-functions) -
 [Generate](#generate-functions) -
 [Chat](#chat-functions) -
-[Tools](#tools-functions) -
+[Tools](#tool-functions) -
 [Model](#model-functions) -
 [Ollama](#ollama-functions) -
 [Lib](#lib-functions) -
@@ -260,8 +261,7 @@ The response will look something like this:
         }
       }
     ]
-  },
-  ...
+  }
 }
 ```
 
@@ -365,7 +365,7 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 | `ollama_messages_count`<br />`omco`   | Count of messages in chat context  | `ollama_messages_count`                | number of messages to `stdout`              | `0`/`1` |
 | `ollama_messages_clear`<br />`omc`    | Clear all messages in chat context | `ollama_messages_clear`                | none                                        | `0`/`1` |
 
-### Tools Functions
+### Tool Functions
 
 | Function<br />Alias              | About                               | Usage                                                              | Output                     | Return                                      |
 |----------------------------------|-------------------------------------|--------------------------------------------------------------------|----------------------------|---------------------------------------------|

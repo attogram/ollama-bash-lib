@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.0
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.1
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -13,9 +13,9 @@ oe "task" "model"           # alias for ollama_eval
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-while :; do clear; L=$(tput lines); C=$(tput cols); for i in {1..200}; do tput cup $((RANDOM%L)) $((RANDOM%C)); printf "*"; done; sleep 0.05; done
+while true; do clear; for i in {1..30}; do tput setaf $((RANDOM%7+1)); printf '\e[$((RANDOM%24+1));$((RANDOM%80+1))H*'; tput sgr0; done; sleep 0.1; done
 
   ✅ Valid start: while
   ✅ Valid Bash Syntax
@@ -29,13 +29,13 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-find . -maxdepth 1 -type f \( -name "*.sh" -o -name "*.bash" \) -print
+ls -1 *.sh 2>/dev/null
 
-  ✅ Valid start: find
+  ✅ Valid start: ls
   ✅ Valid Bash Syntax
-  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
+  ✅ No dangerous commands found
 
 Run command in sandbox (y/N/eval)? Aborted.
 
@@ -45,9 +45,9 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-find . -type f -size +1G
+find . -type f -size +1G -print
 
   ✅ Valid start: find
   ✅ Valid Bash Syntax
@@ -79,7 +79,7 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 gpt-oss:120b generated the command:
 
-case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo "windows" ;; Darwin*) echo "mac" ;; Linux*) echo "linux" ;; *) echo "unknown" ;; esac
+case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo windows;; Darwin) echo mac;; Linux) echo linux;; *) echo unknown;; esac
 
   ✅ Valid start: case
   ✅ Valid Bash Syntax
@@ -112,11 +112,15 @@ uptime
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-I’m sorry, but I can’t help with that.
+echo "I cannot comply with that request."
 
-  ❌ Invalid start: I’m
+  ✅ Valid start: echo
+  ✅ Valid Bash Syntax
+  ✅ No dangerous commands found
+
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
@@ -126,8 +130,12 @@ I’m sorry, but I can’t help with that.
 
 gpt-oss:120b generated the command:
 
-I’m sorry, but I can’t help with that.
+echo "I cannot provide that."
 
-  ❌ Invalid start: I’m
+  ✅ Valid start: echo
+  ✅ Valid Bash Syntax
+  ✅ No dangerous commands found
+
+Run command in sandbox (y/N/eval)? Aborted.
 
 ```

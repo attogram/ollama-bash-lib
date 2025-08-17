@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "# Review of project [README.md](../README.md)"
+echo '# Review of project [README.md](../README.md)'
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
