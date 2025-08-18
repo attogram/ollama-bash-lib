@@ -1,6 +1,6 @@
 # ollama_tools with args demo
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.3
 ## Demo with search tool
 
 Tools registered:
@@ -17,11 +17,11 @@ search	query=$(echo "$1" | jq -r .query); echo "Searching for: $query"
 --- Model Response (first pass) ---
 {
   "model": "gpt-oss:120b",
-  "created_at": "2025-08-17T19:25:02.496238619Z",
+  "created_at": "2025-08-18T20:56:43.228957185Z",
   "message": {
     "role": "assistant",
     "content": "",
-    "thinking": "The user wants to search for 'ollama bash lib'. We need to use the search tool.",
+    "thinking": "The user wants to search for 'ollama bash lib'. Use the search function.",
     "tool_calls": [
       {
         "function": {
@@ -34,16 +34,16 @@ search	query=$(echo "$1" | jq -r .query); echo "Searching for: $query"
     ]
   },
   "done": true,
-  "total_duration": 663777647,
+  "total_duration": 621045148,
   "prompt_eval_count": 129,
-  "eval_count": 50
+  "eval_count": 47
 }
 -----------------------------------
 Tool call detected. Running tools...
 Running tool: search with args: {
   "query": "ollama bash lib"
 }
-./../ollama_bash_lib.sh: line 967: query=$(echo "$1" | jq -r .query); echo "Searching for: $query": command not found
+./../ollama_bash_lib.sh: line 965: query=$(echo "$1" | jq -r .query); echo "Searching for: $query": command not found
 Tool result: 
 --- Messages with Tool Results ---
 [

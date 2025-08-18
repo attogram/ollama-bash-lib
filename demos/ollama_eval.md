@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.3
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -15,14 +15,13 @@ oe "task" "model"           # alias for ollama_eval
 
 gpt-oss:20b generated the command:
 
-while true; do clear; for i in $(seq 1 25); do printf "\e[$((RANDOM%25+1));$((RANDOM%80+1))H$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c1)"; done; sleep .1; done
+while true; do tput civis; clear; for i in $(seq $(tput lines)); do for j in $(seq $(tput cols)); do printf "\e[48;5;%dm " $((RANDOM%256)); done; printf "\n"; done; sleep .05; tput cnorm; done
 
   ✅ Valid start: while
   ✅ Valid Bash Syntax
   ✅ No dangerous commands found
 
-Run command in sandbox (y/N/eval)? Aborted.
-
+Run command in sandbox (y/N/eval)? 
 ```
 
 `oe "show me all shell files in current directory"`
@@ -31,14 +30,13 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 gpt-oss:120b generated the command:
 
-find . -maxdepth 1 -type f -name "*.sh" -print
+ls -1 *.sh 2>/dev/null
 
-  ✅ Valid start: find
+  ✅ Valid start: ls
   ✅ Valid Bash Syntax
-  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
+  ✅ No dangerous commands found
 
-Run command in sandbox (y/N/eval)? Aborted.
-
+Run command in sandbox (y/N/eval)? 
 ```
 
 `oe "find files larger than 1GB"`
@@ -47,29 +45,27 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 gpt-oss:120b generated the command:
 
-find . -type f -size +1G
+find / -type f -size +1G -print 2>/dev/null
 
   ✅ Valid start: find
   ✅ Valid Bash Syntax
-  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
+  ✅ No dangerous commands found
 
-Run command in sandbox (y/N/eval)? Aborted.
-
+Run command in sandbox (y/N/eval)? 
 ```
 
 `oe "what version of bash am I using?"`
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-echo "$BASH_VERSION"
+bash --version | head -n1
 
-  ✅ Valid start: echo
+  ✅ Valid start: bash
   ✅ Valid Bash Syntax
-  ✅ No dangerous commands found
-
-Run command in sandbox (y/N/eval)? Aborted.
+  ⚠️ WARNING: The generated command contains a potentially dangerous token: "bash"
+[ERROR] ollama_eval: cmd failed danger check
 
 ```
 
@@ -79,14 +75,13 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 gpt-oss:120b generated the command:
 
-case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo windows;; Darwin*) echo mac;; Linux*) echo linux;; *) echo unknown;; esac
+case "$(uname -s)" in CYGWIN*|MINGW*) echo "Windows";; Darwin) echo "Mac";; Linux) echo "Linux";; *) echo "Other";; esac
 
   ✅ Valid start: case
   ✅ Valid Bash Syntax
   ✅ No dangerous commands found
 
-Run command in sandbox (y/N/eval)? Aborted.
-
+Run command in sandbox (y/N/eval)? 
 ```
 
 `oe "get system load"`
@@ -101,14 +96,14 @@ cat /proc/loadavg
   ✅ Valid Bash Syntax
   ✅ No dangerous commands found
 
-Run command in sandbox (y/N/eval)? Aborted.
-
+Run command in sandbox (y/N/eval)? 
 ```
 
 `oe ""`
 
 ```
 [ERROR] ollama_eval: Task Not Found. Usage: oe "task" "model"
+[ERROR] ollama_eval: _ollama_eval_prompt failed
 
 ```
 
@@ -116,11 +111,14 @@ Run command in sandbox (y/N/eval)? Aborted.
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
-I’m sorry, but I can’t help with that.
+find . -mindepth 1 -delete
 
-  ❌ Invalid start: I’m
+  ✅ Valid start: find
+  ✅ Valid Bash Syntax
+  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
+[ERROR] ollama_eval: cmd failed danger check
 
 ```
 
@@ -128,7 +126,7 @@ I’m sorry, but I can’t help with that.
 
 ```
 
-gpt-oss:120b generated the command:
+gpt-oss:20b generated the command:
 
 echo "I’m sorry, but I can’t help with that."
 
@@ -136,6 +134,5 @@ echo "I’m sorry, but I can’t help with that."
   ✅ Valid Bash Syntax
   ✅ No dangerous commands found
 
-Run command in sandbox (y/N/eval)? Aborted.
-
+Run command in sandbox (y/N/eval)? 
 ```

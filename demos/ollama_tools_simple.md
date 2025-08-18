@@ -1,6 +1,6 @@
 # ollama_tools demo
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.3
 ## Demo with tools
 
 Tools registered:
@@ -16,34 +16,30 @@ datetime	date
 -------------------
 --- Model Response (first pass) ---
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-17T19:24:59.527888869Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-18T20:56:39.99012199Z",
   "message": {
     "role": "assistant",
     "content": "",
-    "thinking": "The user asks for current date and time. We have a function to get datetime. We'll call it.",
+    "thinking": "The user asks current date and time. We have to use the datetime function.",
     "tool_calls": [
       {
         "function": {
           "name": "datetime",
-          "arguments": {
-            "": {}
-          }
+          "arguments": {}
         }
       }
     ]
   },
   "done": true,
-  "total_duration": 611858816,
+  "total_duration": 518799606,
   "prompt_eval_count": 126,
-  "eval_count": 45
+  "eval_count": 35
 }
 -----------------------------------
 Tool call detected. Running tools...
-Running tool: datetime with args: {
-  "": {}
-}
-date: invalid date ‘{\n  "": {}\n}’
+Running tool: datetime with args: {}
+date: invalid date ‘{}’
 Tool result: 
 --- Messages with Tool Results ---
 [

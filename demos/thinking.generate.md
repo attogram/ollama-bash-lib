@@ -1,6 +1,6 @@
 # ollama_thinking, ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.3
 
 ```
 ollama_thinking on
@@ -10,16 +10,18 @@ ollama_generate $(ollama_model_random) "list 10 things about bash, 1 per line"
 
 thinking is on
 # <thinking>
-# Need to list 10 things about Bash, each on separate line. Keep simple, but can be varied. Not too short? Just list. No extra commentary. Provide 10 lines.
+# User expects: "list 10 things about bash, 1 per line". Likely they want 10 distinct facts about Bash. Provide each on its line.
+
+We need to respond with 10 lines. No numbering? Could be bullet but keep one per line. We'll just list them. Use brief sentences. Ensure no duplicates. Let's produce.
 # </thinking>
 
-1. Bash stands for "Bourne Again Shell," a Unix shell and command language.  
-2. It is the default login shell on many Linux distributions and macOS.  
-3. Bash supports scripting features like variables, loops, conditionals, and functions.  
-4. It includes command history and line‑editing capabilities via GNU Readline.  
-5. Bash can perform filename globbing (wildcards) and brace expansion.  
-6. It has an associative array type (hash table) introduced in Bash 4.0.  
-7. Bash allows process substitution, enabling the output of one command to be used as a file input for another.  
-8. It supports arithmetic evaluation using `$(( ... ))` syntax.  
-9. Bash can execute external programs and pipe their output between commands.  
-10. You can customize Bash with environment files like `.bashrc`, `.profile`, and `.bash_profile`.
+Bash is the default shell on most Linux distributions.  
+It interprets both interactive and script-based commands.  
+Bash supports brace expansion, e.g., `echo a{b,c}` outputs `ab ac`.  
+Process substitution with `<(command)` lets you use command output as a file.  
+Command substitution with `$(command)` captures output into a variable.  
+It provides associative arrays (hash tables) in Bash 4.0+.  
+`set -e` causes a script to exit on any command returning a non‑zero status.  
+Bash includes built‑in support for job control (`&`, `fg`, `bg`, `Ctrl‑Z`).  
+The `source` (or `.`) command runs another script in the current shell context.  
+Bash’s `readarray` (or `mapfile`) efficiently loads lines from a file into an array.
