@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.45.3'
+OLLAMA_LIB_VERSION='0.45.5'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -1381,7 +1381,8 @@ ollama_model_random() {
     printf '%s\n' "$models" | shuf -n1
   else # If shuf is unavailable, fall back to awk's srand().
     # awk's built‑in random generator (more portable, but less uniform)
-    printf '%s\n' "$models" | awk 'BEGIN{srand()} {a[NR]=$0} END{if(NR) print a[int(rand()*NR)+1]}'
+    #printf '%s\n' "$models" | awk 'BEGIN{srand()} {a[NR]=$0} END{if(NR) print a[int(rand()*NR)+1]}'
+    printf '%s\n' "$models" | awk 'NR>0 {a[NR]=$0} END{if(NR) print a[int(1+rand()*NR)]}'
   fi
 }
 
@@ -1967,7 +1968,7 @@ ollama_lib_about() {
   printf "%-25s : %s\n" "OLLAMA_LIB_TURBO_KEY" "$turbo_key_status"
   printf "%-25s : %s\n" "OLLAMA_LIB_TIMEOUT" "$OLLAMA_LIB_TIMEOUT seconds"
 
-  if ! _exists 'compgen'; then _debug 'ollama_lib_about: compgen Not Found'; return 1; fi
+  if ! _exists 'compgen'; then _debug 'ollama_lib_about: compgen Not Found'; return 0; fi
 
   printf '\nFunctions:\n\n'
 
@@ -2036,7 +2037,8 @@ _ollama_eval_sanity_check() {
   local cmd="$1"
   local first_word
   read -r first_word _ <<<"$cmd"
-  if [[ "$first_word" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*\(\) ]]; then
+  #if [[ "$first_word" =~ ^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*\(\) ]]; then
+  if [[ "$first_word" =~ ^[a-zA-Z_][a-zA-Z0-9_]*\(\) ]]; then
     printf '  ✅ Valid start: function definition OK: %s\n' "$first_word"
     return 0
   fi
@@ -2096,7 +2098,7 @@ _ollama_eval_danger_check() {
 
 # Returns: 0 on Sandbox run, 1 on Abort, 2 on Request for dangerous mode
 _ollama_eval_permission_sandbox() {
-  local cmd="$cmd"
+  local cmd="$1"
   printf '\nRun command in sandbox (y/N/eval)? '
   read -r permission
   case "$permission" in
@@ -2105,7 +2107,6 @@ _ollama_eval_permission_sandbox() {
       echo
       printf 'Running command in a sandboxed environment...\n\n'
       env -i PATH="/bin:/usr/bin" bash -r -c "$cmd"
-      #return $? # return sandboxed eval error status
       return 0 # ran in sandbox
       ;;
     eval|EVAL)
@@ -2117,7 +2118,7 @@ _ollama_eval_permission_sandbox() {
 }
 
 _ollama_eval_permission_dangerous_eval() {
-  local cmd="$cmd"
+  local cmd="$1"
   printf '\nAre you sure you want to use the DANGEROUS eval mode? [y/N] '
   read -r permission
   case "$permission" in
