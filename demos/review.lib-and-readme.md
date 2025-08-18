@@ -1,6 +1,6 @@
 # Sync review of [ollama_bash_lib.sh](../ollama_bash_lib.sh) AND [README.md](../README.md)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.3
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.5
 
 ```bash
 task='Check that the README is in sync with the LIBRARY.
@@ -10,40 +10,37 @@ library='../ollama_bash_lib.sh'
 ollama_thinking hide
 ollama_generate "gpt-oss:20b" "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
 ```
-## 📄 Review: README vs. Library
+# Review of `README.md` vs. `ollama_bash_lib.sh`
 
-Below is a line‑by‑line comparison of the **README.md** and the contents of *ollama_bash_lib.sh*.  
-The goal is to make sure every function, alias, and option mentioned in the README is actually implemented, and that the documentation accurately reflects the current state of the library.
+Below is a quick audit comparing the public‑facing documentation against the current source.  
+The table and the prose in the README largely match the implemented library, but a few functions that exist in the codebase are omitted from the “Functions” table, which can mislead users trying to find them by reference.  No other major inconsistencies were found.
 
-| Section | Issue / Comment | Suggested Fix |
-|---------|-----------------|---------------|
-| **Functions section** (the big tables) | The **`ollama_thinking`** function is *defined* in the library and exposed via the alias `ot`, but it is **missing** from the Lib Functions table. | Add a row for `ollama_thinking` / `ot` in the “Lib Functions” table and update any accompanying text (e.g. “Configure the thinking mode for model responses”). |
-| **Turbo Mode** | The README’s turbo section documents the `ollama_app_turbo` command but does **not mention** the optional `-e/--export` flag which allows the API key to be exported into the environment. | Add a small note in the Turbo Mode section, e.g. "`-e` will also export `OLLAMA_LIB_TURBO_KEY`." Show an example. |
-| **Alias table for `ollama_app_turbo`** | In the “Ollama Functions” table the alias for `ollama_app_turbo` is listed as `oat`, which matches the code. However, the top “Quickstart” block only references `ollama_app_turbo on`/`off` without the `-e` flag; the `-e` flag should be highlighted as an **optional** addition. | Keep the alias table as is but add a brief bullet in the quickstart or turbo paragraph. |
-| **Documentation of `ollama_lib_about`** | The library’s `ollama_lib_about` outputs a formatted table of all functions and library configuration. The README correctly references the function but does not say that the list is *dynamic* (i.e., `compgen`‑driven). | Add a short sentence explaining that the function automatically lists all `ollama_*` functions via `compgen`. |
-| **`_is_valid_json`** | The README already documents the function, but the library’s implementation is stricter (exposes return codes 2–5 for jq errors). The README can be updated to mention “more detailed jq error codes.” | Minor update: e.g. “Returns `0` for valid JSON, or codes `1‑5` for specific jq errors.” |
-| **`ollama_lib_version`** | The table lists `ollama_lib_version` (`olv`) correctly, but the README header says “Ollama Bash Lib version” while the alias is called `olv`. All good – no change needed. | None |
-| **`ollama_ps_json` alias** | The alias `opj` is defined, and the table shows it, but the README text referring to “Running model processes, JSON version” uses `ollama_ps_json` correctly. | No changes. |
-| **Tool‑calling** | The “Howto Use Tools” section uses the correct function names and aliases and matches the library. | None |
-| **Chat message handling** | All chat‑related functions (`ollama_chat`, `ollama_messages_add`, etc.) are documented and match the code. | None|
-| **`ollama_model_random`** | The README correctly refers to `ollama_model_random` as `omr`. The library exports this alias in the bottom. | None |
-| **Misc / Minor** | The “Requirements” list in the README mentions `shuf`, `column`, but the library doesn't enforce them. It's fine. | Optional: In the README note that these tools improve UX but are not strictly required. |
+| Section | Issue | Description | Suggested Fix |
+|---------|-------|-------------|---------------|
+| **Functions table** | _Missing entries_ | The following library functions are *not* listed in the “Functions” table even though they are present, exported, and documented elsewhere in the README (e.g. “Howto” section). | Add rows for:  <br>**`ollama_app_vars`** (`oav`) – shows Ollama‑related environment variables.  <br>**`ollama_app_version_cli`** (`oavc`) – returns the Ollama CLI version string.  <br>Review if any others (like `ollama_lib_about`/`olv`, etc.) are omitted. |
+| **Alias column** | Minor mismatch for `ollama_list_json` | The alias shown in the table is `olj`.  In the source it’s actually exported as `olj`.  No issue, just a visual check that the alias matches the function name. | None. |
+| **Documentation snippets** | The `ollama_turbo` alias is shown as `ollama_app_turbo`.  | The README uses `ollama_app_turbo` in the demos; it’s consistent with the alias `oat`.  No problem. | None. |
+| **Quickstart demo output** | The demo shows a command that starts with `ollama_generate ...` but the demo code actually calls `ollama_generate` (`og`).  | The abbreviation alias `og` is not shown in the Quickstart output, but it works. | Optional: add a note that `ollama_generate` can be invoked via the alias `og`. |
+| **Consistent helper wording** | The “Helper Functions” table lists `ollama_eval` (`oe`) but the README “Howto” section already references `ollama_eval`.  | They are in sync. | None. |
+| **No alias for `ollama_app_version_cli` in “Functions” table** |  | Already covered under “Missing entries.” | |
 
-### Quick Summary
+---
 
-| ✅ Item | ❌ Missing / Inaccurate |
-|--------|------------------------|
-| README matches library in most parts (functions, aliases, usage) | `ollama_thinking` not listed in the Functions table |
-| Turbo mode `-e` flag docs missing | |
-| README could better describe jq error codes in `_is_valid_json` | |
-| Minor alignment of tool‑calling documentation (already accurate) | |
-| Small note on dynamic function list in `ollama_lib_about` | |
+## Summary
 
-### Recommendation
+- **All public functions are implemented** and their aliases match the documentation, **except for a small omission** in the functions table.
+- The **table of functions** should be expanded to include:
 
-1. **Add** a row for `ollama_thinking` in the Lib Functions table.  
-2. **Mention** the optional `-e/--export` flag in the Turbo Mode section.  
-3. **Optional**: brief note on jq return codes in `_is_valid_json`.  
-4. Double‑check that the alias column in each table matches the bottom alias definition list (`ot*`, `opj`, etc.).  
+```markdown
+| Function<br />Alias | About | Usage | Output | Return |
+|---------------------|-------|-------|--------|--------|
+| `ollama_app_vars`<br />`oav` | Display Ollama environment variables | `ollama_app_vars` | ... | 0 |
+| `ollama_app_version_cli`<br />`oavc` | Ollama version, CLI version | `ollama_app_version_cli` | ... | 0 |
+```
 
-After these updates the README will be fully in sync with the current library. Happy coding! 🚀
+  (Add the *About*, *Usage*, *Output*, and *Return* columns as per the style used for the other rows.)
+
+- Once these rows are added, the README will perfectly reflect the library’s interface.
+
+**Recommendation:**  
+Update the “Functions” section to include all existing functions. No code changes are necessary.

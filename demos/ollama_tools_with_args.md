@@ -1,6 +1,6 @@
 # ollama_tools with args demo
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.3
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.5
 ## Demo with search tool
 
 Tools registered:
@@ -16,12 +16,12 @@ search	query=$(echo "$1" | jq -r .query); echo "Searching for: $query"
 -------------------
 --- Model Response (first pass) ---
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-18T20:56:43.228957185Z",
+  "model": "gpt-oss:20b",
+  "created_at": "2025-08-18T21:09:48.175428868Z",
   "message": {
     "role": "assistant",
     "content": "",
-    "thinking": "The user wants to search for 'ollama bash lib'. Use the search function.",
+    "thinking": "We need to use the search tool.",
     "tool_calls": [
       {
         "function": {
@@ -34,9 +34,9 @@ search	query=$(echo "$1" | jq -r .query); echo "Searching for: $query"
     ]
   },
   "done": true,
-  "total_duration": 621045148,
+  "total_duration": 522765185,
   "prompt_eval_count": 129,
-  "eval_count": 47
+  "eval_count": 34
 }
 -----------------------------------
 Tool call detected. Running tools...

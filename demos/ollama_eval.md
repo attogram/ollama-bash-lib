@@ -1,6 +1,6 @@
 # ollama_eval, oe
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.3
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.5
 ## Usage
 ```bash
 ollama_eval "task"          # generate command with random model
@@ -15,9 +15,9 @@ oe "task" "model"           # alias for ollama_eval
 
 gpt-oss:20b generated the command:
 
-while true; do tput civis; clear; for i in $(seq $(tput lines)); do for j in $(seq $(tput cols)); do printf "\e[48;5;%dm " $((RANDOM%256)); done; printf "\n"; done; sleep .05; tput cnorm; done
+tput clear; tput civis; trap 'tput cnorm' EXIT; while :; do tput cup $((RANDOM%$(tput lines))) $((RANDOM%$(tput cols))); echo -ne "\e[32m#\e[0m"; sleep 0.05; done
 
-  ✅ Valid start: while
+  ✅ Valid start: tput
   ✅ Valid Bash Syntax
   ✅ No dangerous commands found
 
@@ -45,13 +45,13 @@ Run command in sandbox (y/N/eval)?
 
 gpt-oss:120b generated the command:
 
-find / -type f -size +1G -print 2>/dev/null
+find . -type f -size +1G
 
   ✅ Valid start: find
   ✅ Valid Bash Syntax
-  ✅ No dangerous commands found
+  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
+[ERROR] ollama_eval: cmd failed danger check
 
-Run command in sandbox (y/N/eval)? 
 ```
 
 `oe "what version of bash am I using?"`
@@ -60,13 +60,13 @@ Run command in sandbox (y/N/eval)?
 
 gpt-oss:120b generated the command:
 
-bash --version | head -n1
+echo $BASH_VERSION
 
-  ✅ Valid start: bash
+  ✅ Valid start: echo
   ✅ Valid Bash Syntax
-  ⚠️ WARNING: The generated command contains a potentially dangerous token: "bash"
-[ERROR] ollama_eval: cmd failed danger check
+  ✅ No dangerous commands found
 
+Run command in sandbox (y/N/eval)? 
 ```
 
 `oe "am I on windows, mac, linux, or what?"`
@@ -75,7 +75,7 @@ bash --version | head -n1
 
 gpt-oss:120b generated the command:
 
-case "$(uname -s)" in CYGWIN*|MINGW*) echo "Windows";; Darwin) echo "Mac";; Linux) echo "Linux";; *) echo "Other";; esac
+case "$(uname -s)" in CYGWIN*|MINGW*|MSYS*) echo windows;; Darwin*) echo mac;; Linux*) echo linux;; *) echo other;; esac
 
   ✅ Valid start: case
   ✅ Valid Bash Syntax
@@ -90,13 +90,11 @@ Run command in sandbox (y/N/eval)?
 
 gpt-oss:20b generated the command:
 
-cat /proc/loadavg
+uptime | awk -F'load average: ' '{print $2}'
 
-  ✅ Valid start: cat
-  ✅ Valid Bash Syntax
-  ✅ No dangerous commands found
+  ❌ Invalid start: uptime
+[ERROR] ollama_eval: cmd failed sanity check
 
-Run command in sandbox (y/N/eval)? 
 ```
 
 `oe ""`
@@ -111,14 +109,12 @@ Run command in sandbox (y/N/eval)?
 
 ```
 
-gpt-oss:20b generated the command:
+gpt-oss:120b generated the command:
 
-find . -mindepth 1 -delete
+I’m sorry, but I can’t help with that.
 
-  ✅ Valid start: find
-  ✅ Valid Bash Syntax
-  ⚠️ WARNING: The generated command contains a potentially dangerous token: "."
-[ERROR] ollama_eval: cmd failed danger check
+  ❌ Invalid start: I’m
+[ERROR] ollama_eval: cmd failed sanity check
 
 ```
 
@@ -128,7 +124,7 @@ find . -mindepth 1 -delete
 
 gpt-oss:20b generated the command:
 
-echo "I’m sorry, but I can’t help with that."
+echo "I’m sorry, I can’t comply with that request."
 
   ✅ Valid start: echo
   ✅ Valid Bash Syntax

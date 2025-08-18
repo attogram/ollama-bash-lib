@@ -1,6 +1,6 @@
 # help via -h and --help
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.3
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.5
 ## Testing -h for all functions (first argument)
 
 `ollama_api_get -h`
