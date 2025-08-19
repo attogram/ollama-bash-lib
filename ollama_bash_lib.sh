@@ -565,7 +565,12 @@ ollama_generate_stream() {
       if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
         printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
       fi
-      printf '%s' "$(jq -r '.response // empty' <<<"$line")"
+      # The use of command substitution `$(...)` was stripping trailing newlines from the model's output.
+      # To fix this, we read the output of jq into a variable, preserving all newlines.
+      # The `read` command is used here to avoid the newline stripping behavior of command substitution.
+      # See: https://github.com/attogram/ollama-bash-lib/issues/112
+      read -r -d '' response < <(jq -r '.response // empty' <<<"$line")
+      printf '%s' "$response"
     done
     exit "${PIPESTATUS[0]}"
   ) 2> >( _ollama_thinking_stream )
@@ -1155,7 +1160,12 @@ ollama_chat_stream() {
       if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
         printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
       fi
-      printf '%s' "$(jq -r '.message.content // empty' <<<"$line")"
+      # The use of command substitution `$(...)` was stripping trailing newlines from the model's output.
+      # To fix this, we read the output of jq into a variable, preserving all newlines.
+      # The `read` command is used here to avoid the newline stripping behavior of command substitution.
+      # See: https://github.com/attogram/ollama-bash-lib/issues/112
+      read -r -d '' content < <(jq -r '.message.content // empty' <<<"$line")
+      printf '%s' "$content"
     done
     exit "${PIPESTATUS[0]}"
   ) 2> >( _ollama_thinking_stream )
