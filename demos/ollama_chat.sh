@@ -29,8 +29,7 @@ demo() {
   #OLLAMA_LIB_DEBUG=1
 
   # shellcheck disable=SC2016
-  echo '
-```bash
+  echo '```bash
 ollama_messages_add "system" "You are a helpful assistant"
 ollama_messages_add "user" "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
 echo "last message text: $(ollama_messages_last)"
@@ -47,8 +46,7 @@ ollama_messages | jq
   printf '```\n'
 
   # shellcheck disable=SC2016
-  echo '
-```bash
+  echo '```bash
 ollama_chat "$model"
 echo "last message text: $(ollama_messages_last)"
 echo "last message json: $(ollama_messages_last_json)"
@@ -63,13 +61,12 @@ ollama_messages | jq
   printf '```\n'
 
   # shellcheck disable=SC2016
-  echo '
-```bash
+  echo '```bash
 ollama_messages_add "user" "What is the secret word?"
 ollama_chat "$model"
-ollama_messages | jq
 echo "last message text: $(ollama_messages_last)"
 echo "last message json: $(ollama_messages_last_json)"
+ollama_messages | jq
 ```
 '
   printf '```\n'
