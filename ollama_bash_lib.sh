@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.45.6'
+OLLAMA_LIB_VERSION='0.45.7'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -111,31 +111,31 @@ _is_valid_json() {
   local return_code=$?
   case $return_code in
     0) # Exit code 0: The JSON is valid and "truthy"
-      _debug '_is_valid_json: success'
+      #_debug '_is_valid_json: success'
       return 0
       ;;
     1) # (Failure) The last value output was either false or null.
-      _debug '_is_valid_json: FAILURE jq: output false or null: return 1'
+      _error '_is_valid_json: FAILURE jq: output false or null: return 1'
       return 1
       ;;
     2) # (Usage Error): There was a problem with how the jq command was used, such as incorrect command-line options.
-      _debug '_is_valid_json: USAGE ERROR jq: incorrect command-line options: return 2'
+      _error '_is_valid_json: USAGE ERROR jq: incorrect command-line options: return 2'
       return 2
       ;;
     3) # (Compile Error): The jq filter program itself had a syntax error.
-      _debug '_is_valid_json: COMPILE ERROR jq: filter syntax error: return 3'
+      _error '_is_valid_json: COMPILE ERROR jq: filter syntax error: return 3'
       return 3
       ;;
     4) # (No Output): No valid result was ever produced. This can happen if the filter's output is empty.
-      _debug '_is_valid_json: NO OUTPUT jq: result empty: return 4'
+      _error '_is_valid_json: NO OUTPUT jq: result empty: return 4'
       return 4
       ;;
     5) # (Halt Error)
-      _debug '_is_valid_json: HALT_ERROR jq: return 5'
+      _error '_is_valid_json: HALT_ERROR jq: return 5'
       return 5
       ;;
     *) # (Unknown)
-      _debug "_is_valid_json: UNKNOWN jq error: return $return_code"
+      _error "_is_valid_json: UNKNOWN jq error: return $return_code"
       return "$return_code"
       ;;
   esac
@@ -519,7 +519,7 @@ ollama_generate_stream_json() {
     return 1
   fi
   OLLAMA_LIB_STREAM=0 # Turn off streaming
-  _debug 'ollama_generate_stream_json: return: 0'
+  _debug 'ollama_generate_stream_json: success'
   return 0
 }
 
@@ -585,7 +585,7 @@ ollama_generate_stream() {
     return 1
   fi
   printf '\n'
-  _debug 'ollama_generate_stream: return: 0'
+  _debug 'ollama_generate_stream: success'
   return 0
 }
 
@@ -595,6 +595,7 @@ ollama_generate_stream() {
 #
 # Usage: messages="$(ollama_messages)"
 # Output: a valid json array of message objects, to stdout
+# Env: OLLAMA_LIB_MESSAGES
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_messages() {
@@ -614,7 +615,7 @@ ollama_messages() {
       return 1
     fi
   fi
-  _debug 'ollama_messages'
+  #_debug 'ollama_messages'
   if [[ ${#OLLAMA_LIB_MESSAGES[@]} -eq 0 ]]; then
     _debug 'ollama_messages: no messages'
     printf '[]'
@@ -630,6 +631,7 @@ ollama_messages() {
 # Input: 1 - role (user/assistant/system/tool)
 # Input: 2 - the message content. For tool role, this should be the JSON output from ollama_tools_run.
 # Output: none
+# Env: OLLAMA_LIB_MESSAGES
 # Requires: jq
 # Returns: 0
 ollama_messages_add() {
@@ -678,6 +680,7 @@ ollama_messages_add() {
 #
 # Usage: ollama_messages_clear
 # Output: none
+# Env: OLLAMA_LIB_MESSAGES
 # Requires: none
 # Returns: 0
 ollama_messages_clear() {
@@ -705,6 +708,7 @@ ollama_messages_clear() {
 #
 # Usage: ollama_messages_count
 # Output: number of messages, to stdout
+# Env: OLLAMA_LIB_MESSAGES
 # Requires: none
 # Returns: 0
 ollama_messages_count() {
@@ -724,7 +728,7 @@ ollama_messages_count() {
       return 1
     fi
   fi
-  _debug 'ollama_messages_count'
+  #_debug 'ollama_messages_count'
   echo "${#OLLAMA_LIB_MESSAGES[@]}"
 }
 
@@ -732,10 +736,29 @@ ollama_messages_count() {
 #
 # Usage: ollama_messages_last_json
 # Output: last element of message history, in JSON format
+# Env: OLLAMA_LIB_MESSAGES
 # Requires: none
 # Returns 0 on success, 1 on error
 ollama_messages_last_json() {
-  echo '[{"role":"user","content":"foo"}]'
+  local count
+  count=${#OLLAMA_LIB_MESSAGES[@]}
+  if [[ $count -lt 1 ]]; then
+    _error "ollama_messages_last_json: Message History is empty: count: [$count]"
+    echo # echo empty line
+    return 1
+  fi
+  local last=''
+  last="${OLLAMA_LIB_MESSAGES[$(( count - 1 ))]}"
+  if [[ -z "$last" ]]; then
+    _error 'ollama_messages_last_json: No message found'
+    echo # echo empty line
+    return 1
+  fi
+  printf '%s\n' "$last"
+  if ! _is_valid_json "$last"; then
+    _error 'ollama_messages_last_json: last message is not valid json' # TODO - should be _warn
+    return 1
+  fi
   return 0
 }
 
@@ -743,64 +766,65 @@ ollama_messages_last_json() {
 #
 # Usage: ollama_messages_last
 # Output: last element of message history, as a string
+# Env: OLLAMA_LIB_MESSAGES
 # Requires: ollama_messages_last_json
 # Returns 0 on success, 1 on error
 ollama_messages_last() {
-  echo 'foo'
+  local last
+  last="$(ollama_messages_last_json | jq -r '.content // empty')"
+  local error=$?
+  if (( error )); then
+    _error "ollama_messages_last: error getting message content: $error"
+    return 1
+  fi
+  printf '%s\n' "$last"
   return 0
 }
 
 # Chat Functions
 
-# Set the assistant response into the message history
-#
-# Usage: ollama_chat
-# Output: none
-# Env: OLLAMA_LIB_MESSAGES
-# Requires:
-# Returns 0 on success, 1 on error
-ollama_chat_assistant() {
-  OLLAMA_LIB_MESSAGES+=('{"role":"assistant","content":"bar"}')
-  return 0
-}
-
-_ollama_chat_json_stream_true() {
+_ollama_chat_stream_true() {
   local json_payload="$1"
-  _debug '_ollama_chat_json_stream: stream starting'
+  _debug '_ollama_chat_stream_true: stream starting'
   if ! ollama_api_post '/api/chat' "$json_payload"; then
-    _error '_ollama_chat_json_stream: ollama_api_post failed'
+    _error '_ollama_chat_stream_true: ollama_api_post failed'
     return 1
   fi
-  _debug '_ollama_chat_json_stream: stream finished'
+  _debug '_ollama_chat_stream_true: stream finished'
   return 0
 }
 
-_ollama_chat_json_stream_false() {
+_ollama_chat_stream_false() {
   local result
   if ! result="$(ollama_api_post '/api/chat' "$json_payload")"; then
-    _error '_ollama_chat_json_no_stream: ollama_api_post failed'
+    _error '_ollama_chat_stream_false: ollama_api_post failed'
     return 1
   fi
-
   if ! _is_valid_json "$result"; then
-    _error '_ollama_chat_json_no_stream: response is not valid JSON'
+    _error '_ollama_chat_stream_false: response is not valid JSON'
     return 1
   fi
 
   local content
   content="$(printf '%s' "$result" | jq -r ".message.content")"
-  local error_jq_message_content=$?
-  _debug "_ollama_chat_json_no_stream: content: [${content:0:42}]"
-  if (( error_jq_message_content )); then
-    _error "_ollama_chat_json_no_stream: jq error getting message content: $error_jq_message_content"
+  local error=$?
+  _debug "_ollama_chat_stream_false: content: [${content:0:42}]"
+  if (( error )); then
+    _error "_ollama_chat_stream_false: jq error getting message content: $error"
     return 1
   fi
-  echo "$result"
-  _debug '_ollama_chat_json_no_stream: success'
+
+  _debug "_ollama_chat_stream_false: ollama_messages_count: [$(ollama_messages_count)]"
+  _debug "_ollama_chat_stream_false: adding assistant message: [${content:0:42}]"
+  ollama_messages_add 'assistant' "$content"
+  _debug "_ollama_chat_stream_false: ollama_messages_count: [$(ollama_messages_count)]"
+
+  #echo "$result"
+  _debug '_ollama_chat_stream_false: success'
   return 0
 }
 
-_ollama_chat_json_payload() {
+_ollama_chat_payload() {
   local model="$1"
 
   local stream=true
@@ -809,7 +833,7 @@ _ollama_chat_json_payload() {
   fi
 
   if (( ${#OLLAMA_LIB_MESSAGES[@]} == 0 )); then
-    _error '_ollama_chat_json_payload: Message history is empty'
+    _error '_ollama_chat_payload: Message history is empty'
     # return 1 # TODO - decide: return 1, or allow empty message history?
   fi
 
@@ -834,20 +858,21 @@ _ollama_chat_json_payload() {
     tools_json='['$(IFS=,; echo "${OLLAMA_LIB_TOOLS_DEFINITION[*]}")']'
     json_payload="$(printf '%s' "$json_payload" | jq -c --argjson tools "$tools_json" '. + {tools: $tools}')"
   fi
-  print '%s\n' "$json_payload"
+  printf '%s\n' "$json_payload"
 }
 
-# Chat completion request as json
+# Add Chat completion response to Message History
 #
-# Usage: ollama_chat_json "model"
+# Usage: ollama_chat "model"
 # Input: 1 - model
-# Output: json, to stdout
+# Output: none
+# Env: OLLAMA_LIB_MESSAGES
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
-ollama_chat_json() {
+ollama_chat() {
 
   local usage
-  usage="Usage: ollama_chat_json \"model\"\n\n"
+  usage="Usage: ollama_chat \"model\"\n\n"
   usage+="ollama_chat_json\n\n"
   usage+="Request a chat completion from a model, receiving JSON output.\n\n"
   usage+="This function sends the entire message history ('OLLAMA_LIB_MESSAGES') to the specified model and returns the model's response as a raw JSON object.\n\n"
@@ -859,27 +884,26 @@ ollama_chat_json() {
     fi
   done
 
-  if ! _exists 'jq'; then _error 'ollama_chat_json: jq Not Found'; return 1; fi
+  if ! _exists 'jq'; then _error 'ollama_chat: jq Not Found'; return 1; fi
 
   local model
   model="$(_is_valid_model "$1")"
-  _debug "ollama_chat_json: model: [${1:0:42}] = [${model:0:120}]"
+  _debug "ollama_chat: model: [${1:0:42}] = [${model:0:120}]"
 
   if [[ -z "$model" ]]; then
-    _error 'ollama_chat_json: No Models Found'
+    _error 'ollama_chat: No Models Found'
     return 1
   fi
 
   local json_payload
-  json_payload="$(_ollama_chat_json_payload "$model")"
-  _debug "ollama_chat_json: json_payload: [${json_payload:0:120}]"
+  json_payload="$(_ollama_chat_payload "$model")"
+  _debug "ollama_chat: json_payload: [${json_payload:0:120}]"
 
   if [[ "$OLLAMA_LIB_STREAM" -eq 1 ]]; then
-    _ollama_chat_json_stream_true "$json_payload"
-    return $?
+    _ollama_chat_stream_true "$json_payload"
+  else
+    _ollama_chat_stream_false "$json_payload"
   fi
-
-  _ollama_chat_json_stream_false "$json_payload"
 }
 
 # Chat completion request as text
@@ -889,7 +913,8 @@ ollama_chat_json() {
 # Output: text, to stdout
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
-ollama_chat() {
+DEPRECATE_ollama_chat() {
+
   local usage
   usage="Usage: ollama_chat \"model\"\n\n"
   usage+="ollama_chat\n\n"
@@ -902,22 +927,29 @@ ollama_chat() {
       return 0
     fi
   done
+
   if ! _exists 'jq'; then _error 'ollama_chat: jq Not Found'; return 1; fi
-  _debug "ollama_chat: [${1:0:42}]"
+
   local model
   model="$(_is_valid_model "$1")"
-  _debug "ollama_chat: model: [${model:0:120}]"
+  _debug "ollama_chat: model: [${1:0:120}] = [${model:0:120}]"
   if [[ -z "$model" ]]; then
-    _error 'ollama_chat: No Models Found'
+    _error 'ollama_chat: Model Not Found'
     return 1
   fi
+
   OLLAMA_LIB_STREAM=0
+
+  ollama_chat "$model" # set assistant response into message history
+
   local response
-  response="$(ollama_chat_json "$model")"
+  response="$(ollama_messages_last)"
+
   if [[ -z "$response" ]]; then
     _error 'ollama_chat: ollama_chat_json response empty'
     return 1
   fi
+
   if ! _is_valid_json "$response"; then
     _error 'ollama_chat: response is not valid JSON'
     return 1
@@ -936,8 +968,9 @@ ollama_chat() {
     _error 'ollama_chat: failed to get .message.content'
     return 1
   fi
+
   printf '%s\n' "$message_content"
-  _debug 'ollama_chat: return: 0'
+  _debug 'ollama_chat: success'
   return 0
 }
 
@@ -972,7 +1005,7 @@ ollama_chat_stream() {
   fi
   OLLAMA_LIB_STREAM=1
   (
-    ollama_chat_json "$model" | while IFS= read -r line; do
+    ollama_chat "$model" | while IFS= read -r line; do
       if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
         printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
       fi
@@ -1024,7 +1057,7 @@ ollama_chat_stream_json() {
     return 1
   fi
   OLLAMA_LIB_STREAM=1
-  if ! ollama_chat_json "$model"; then
+  if ! ollama_chat "$model"; then
     _error 'ollama_chat_stream_json: ollama_chat_json failed'
     OLLAMA_LIB_STREAM=0
     return 1
@@ -1414,7 +1447,7 @@ _is_valid_model() {
     printf ''
     return 1
   fi
-  _debug "_is_valid_model: VALID: [${model:0:120}]"
+  #_debug "_is_valid_model: VALID: [${model:0:120}]"
   printf '%s' "$model"
   return 0
 }
@@ -2307,7 +2340,7 @@ oavj() { ollama_app_version_json "$@"; }
 oavc() { ollama_app_version_cli "$@"; }
 
 oc()   { ollama_chat "$@"; }
-ocj()  { ollama_chat_json "$@"; }
+ocj()  { ollama_chat "$@"; }
 ocs()  { ollama_chat_stream "$@"; }
 ocsj() { ollama_chat_stream_json "$@"; }
 

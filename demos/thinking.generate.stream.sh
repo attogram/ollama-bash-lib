@@ -14,6 +14,7 @@ startup() {
 
 startup
 
+# shellcheck disable=SC2016
 echo '
 ```
 ollama_thinking on
@@ -24,5 +25,5 @@ ollama_generate_stream $(ollama_model_random) "list 10 things about bash, 1 per 
 
 ollama_thinking on
 ollama_thinking
-ollama_generate_stream $(ollama_model_random) "list 10 things about bash, 1 per line"
+ollama_generate_stream "$(ollama_model_random)" "list 10 things about bash, 1 per line"
 
