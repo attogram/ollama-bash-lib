@@ -91,7 +91,7 @@ This function relies on 'ollama_api_get' to make the request.
 
 `ollama_generate_json -h`
 ```
-Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]
+Usage: ollama_generate_json [-m <model>] [-p <prompt>] [<model>] [<prompt>]
 
 Generate a completion from a model as JSON.
 
@@ -107,7 +107,7 @@ This is a foundational function for 'ollama_generate' and 'ollama_generate_strea
 
 `ogj -h`
 ```
-Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]
+Usage: ollama_generate_json [-m <model>] [-p <prompt>] [<model>] [<prompt>]
 
 Generate a completion from a model as JSON.
 
@@ -123,7 +123,7 @@ This is a foundational function for 'ollama_generate' and 'ollama_generate_strea
 
 `ollama_generate -h`
 ```
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
+Usage: ollama_generate [-m <model>] [-p <prompt>] [<model>] [<prompt>]
 
 Generate a completion from a model as plain text.
 
@@ -138,7 +138,7 @@ This is useful for when you only need the generated text and don't want to parse
 
 `og -h`
 ```
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
+Usage: ollama_generate [-m <model>] [-p <prompt>] [<model>] [<prompt>]
 
 Generate a completion from a model as plain text.
 
@@ -153,7 +153,7 @@ This is useful for when you only need the generated text and don't want to parse
 
 `ollama_generate_stream_json -h`
 ```
-Usage: ollama_generate_stream_json -m <model> [-p <prompt>] [-h] [-v]
+Usage: ollama_generate_stream_json [-m <model>] [-p <prompt>] [<model>] [<prompt>]
 
 Generate a completion from a model as a stream of JSON objects.
 
@@ -168,7 +168,7 @@ It is the basis for 'ollama_generate_stream', which further processes the output
 
 `ogsj -h`
 ```
-Usage: ollama_generate_stream_json -m <model> [-p <prompt>] [-h] [-v]
+Usage: ollama_generate_stream_json [-m <model>] [-p <prompt>] [<model>] [<prompt>]
 
 Generate a completion from a model as a stream of JSON objects.
 
@@ -183,7 +183,7 @@ It is the basis for 'ollama_generate_stream', which further processes the output
 
 `ollama_generate_stream -h`
 ```
-Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
+Usage: ollama_generate_stream [-m <model>] [-p <prompt>] [<model>] [<prompt>]
 
 Generate a completion from a model as a stream of text.
 
@@ -198,7 +198,7 @@ It is ideal for displaying real-time generation in interactive scripts.
 
 `ogs -h`
 ```
-Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
+Usage: ollama_generate_stream [-m <model>] [-p <prompt>] [<model>] [<prompt>]
 
 Generate a completion from a model as a stream of text.
 
@@ -487,7 +487,7 @@ It is the core component for making the model's tool calls functional, bridging 
 
 `ollama_chat -h`
 ```
-Usage: ollama_chat -m <model> [-h] [-v]
+Usage: ollama_chat [-m <model>] [<model>]
 
 Request a chat completion from a model, receiving a plain text response.
 
@@ -501,7 +501,7 @@ It is ideal for simple, non-streaming chat interactions.
 
 `oc -h`
 ```
-Usage: ollama_chat -m <model> [-h] [-v]
+Usage: ollama_chat [-m <model>] [<model>]
 
 Request a chat completion from a model, receiving a plain text response.
 
@@ -515,7 +515,7 @@ It is ideal for simple, non-streaming chat interactions.
 
 `ollama_chat_stream -h`
 ```
-Usage: ollama_chat_stream -m <model> [-h] [-v]
+Usage: ollama_chat_stream [-m <model>] [<model>]
 
 Request a chat completion from a model, receiving a stream of text.
 
@@ -530,7 +530,7 @@ The assistant's response is NOT added to the message history.
 
 `ocs -h`
 ```
-Usage: ollama_chat_stream -m <model> [-h] [-v]
+Usage: ollama_chat_stream [-m <model>] [<model>]
 
 Request a chat completion from a model, receiving a stream of text.
 
@@ -545,7 +545,7 @@ The assistant's response is NOT added to the message history.
 
 `ollama_chat_stream_json -h`
 ```
-Usage: ollama_chat_stream_json -m <model> [-h] [-v]
+Usage: ollama_chat_stream_json [-m <model>] [<model>]
 
 Request a chat completion from a model, receiving a stream of JSON objects.
 
@@ -560,7 +560,7 @@ The assistant's response is NOT added to the message history.
 
 `ocsj -h`
 ```
-Usage: ollama_chat_stream_json -m <model> [-h] [-v]
+Usage: ollama_chat_stream_json [-m <model>] [<model>]
 
 Request a chat completion from a model, receiving a stream of JSON objects.
 
@@ -681,7 +681,7 @@ It is useful when you want to use any available model without specifying one, fo
 
 `ollama_model_unload -h`
 ```
-Usage: ollama_model_unload -m <model> [-h] [-v]
+Usage: ollama_model_unload [-m <model>] [<model>]
 
 Unload a model from memory.
 
@@ -695,7 +695,7 @@ This is useful for managing memory usage, especially on systems with limited res
 
 `omu -h`
 ```
-Usage: ollama_model_unload -m <model> [-h] [-v]
+Usage: ollama_model_unload [-m <model>] [<model>]
 
 Unload a model from memory.
 
@@ -761,7 +761,7 @@ This is useful for programmatic monitoring and management of running models.
 
 `ollama_show -h`
 ```
-Usage: ollama_show -m <model> [-h] [-v]
+Usage: ollama_show [-m <model>] [<model>]
 
 Show detailed information about a model in a human-readable format.
 
@@ -775,7 +775,7 @@ It is useful for inspecting the configuration of a model.
 
 `os -h`
 ```
-Usage: ollama_show -m <model> [-h] [-v]
+Usage: ollama_show [-m <model>] [<model>]
 
 Show detailed information about a model in a human-readable format.
 
@@ -789,7 +789,7 @@ It is useful for inspecting the configuration of a model.
 
 `ollama_show_json -h`
 ```
-Usage: ollama_show_json -m <model> [-h] [-v]
+Usage: ollama_show_json [-m <model>] [<model>]
 
 Show detailed information about a model in JSON format.
 
@@ -803,7 +803,7 @@ This is ideal for programmatic access to model details, allowing for automated c
 
 `osj -h`
 ```
-Usage: ollama_show_json -m <model> [-h] [-v]
+Usage: ollama_show_json [-m <model>] [<model>]
 
 Show detailed information about a model in JSON format.
 
@@ -1065,7 +1065,7 @@ It is useful for checking the library version for compatibility or debugging pur
 
 `ollama_eval -h`
 ```
-Usage: ollama_eval -t <task> [-m <model> [-h] [-v]
+Usage: ollama_eval [-t <task>] [-m <model>] [<task>] [<model>]
 
 Generate and evaluate a command-line task.
 
@@ -1080,7 +1080,7 @@ It includes safety features like syntax checking and a sandbox mode for executio
 
 `oe -h`
 ```
-Usage: ollama_eval -t <task> [-m <model> [-h] [-v]
+Usage: ollama_eval [-t <task>] [-m <model>] [<task>] [<model>]
 
 Generate and evaluate a command-line task.
 

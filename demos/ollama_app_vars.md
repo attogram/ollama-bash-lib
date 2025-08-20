@@ -37,5 +37,5 @@ HTTP_PROXY              :
 JETSON_JETPACK          : 	
 LD_LIBRARY_PATHS        : 	
 ROCR_VISIBLE_DEVICES    : 	# Set which AMD devices are visible by UUID or numeric ID
-TERM                    : xterm	
+TERM                    : tmux-256color
 ```

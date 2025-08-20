@@ -4,8 +4,8 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 
 `ollama_ps`
 ```
-NAME           ID              SIZE      PROCESSOR    CONTEXT    UNTIL              
-gemma3n:e2b    719372f8c7de    4.5 GB    100% GPU     4096       4 minutes from now    
+NAME                ID              SIZE      PROCESSOR    CONTEXT    UNTIL
+tinyllama:latest    2644915ede35    827 MB    100% CPU     4096       4 minutes from now
 ```
 
 `ollama_ps_json | jq`
@@ -13,22 +13,22 @@ gemma3n:e2b    719372f8c7de    4.5 GB    100% GPU     4096       4 minutes from 
 {
   "models": [
     {
-      "name": "gemma3n:e2b",
-      "model": "gemma3n:e2b",
-      "size": 4501490016,
-      "digest": "719372f8c7deee188821a4dcbaf75efa13a342d7e88a79d4fc2412b24947f6fd",
+      "name": "tinyllama:latest",
+      "model": "tinyllama:latest",
+      "size": 827340800,
+      "digest": "2644915ede352ea7bdfaff0bfac0be74c719d5d5202acb63a6fb095b52f394a4",
       "details": {
         "parent_model": "",
         "format": "gguf",
-        "family": "gemma3n",
+        "family": "llama",
         "families": [
-          "gemma3n"
+          "llama"
         ],
-        "parameter_size": "4.5B",
-        "quantization_level": "Q4_K_M"
+        "parameter_size": "1B",
+        "quantization_level": "Q4_0"
       },
-      "expires_at": "2025-08-20T22:26:53.5163632+02:00",
-      "size_vram": 4501490016,
+      "expires_at": "2025-08-20T22:09:46.162460313Z",
+      "size_vram": 0,
       "context_length": 4096
     }
   ]

@@ -34,11 +34,11 @@ result: output: Ollama is running
 ```
 ollama_api_get
 
-[DEBUG] 22:21:27:278104300: ollama_api_get: []
-[DEBUG] 22:21:27:306103200: _call_curl: [GET] [] 
-[DEBUG] 22:21:27:328663800: _call_curl: OLLAMA_LIB_API: http://localhost:11434
-[DEBUG] 22:21:27:350677100: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434
-[DEBUG] 22:21:27:710818300: ollama_api_get: success
+[DEBUG] 22:06:55:914940309: ollama_api_get: []
+[DEBUG] 22:06:55:919134205: _call_curl: [GET] []
+[DEBUG] 22:06:55:923511634: _call_curl: OLLAMA_LIB_API: http://localhost:11434
+[DEBUG] 22:06:55:927764906: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434
+[DEBUG] 22:06:55:949280426: ollama_api_get: success
 result: lines: 1
 result: output: Ollama is running
 ```
@@ -46,11 +46,11 @@ result: output: Ollama is running
 ```
 ollama_api_get "/api/version"
 
-[DEBUG] 22:21:27:781003700: ollama_api_get: []
-[DEBUG] 22:21:27:803875500: _call_curl: [GET] [] 
-[DEBUG] 22:21:27:825930500: _call_curl: OLLAMA_LIB_API: http://localhost:11434
-[DEBUG] 22:21:27:867215900: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434
-[DEBUG] 22:21:28:190240400: ollama_api_get: success
+[DEBUG] 22:06:55:961476187: ollama_api_get: []
+[DEBUG] 22:06:55:965553613: _call_curl: [GET] []
+[DEBUG] 22:06:55:969778855: _call_curl: OLLAMA_LIB_API: http://localhost:11434
+[DEBUG] 22:06:55:973875014: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434
+[DEBUG] 22:06:55:996307542: ollama_api_get: success
 result: lines: 1
 result: output: Ollama is running
 ```

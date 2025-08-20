@@ -107,38 +107,19 @@ _is_valid_json() {
     return 1
   fi
   if ! _exists 'jq'; then _error '_is_valid_json: jq Not Found'; return 1; fi
-  printf '%s' "$1" | jq -e '.' >/dev/null 2>&1 # use -e for jq exit-status mode
+  printf '%s' "$1" | jq -e '.' >/dev/null 2>&1
   local return_code=$?
-  case $return_code in
-    0) # Exit code 0: The JSON is valid and "truthy"
-      #_debug '_is_valid_json: success'
-      return 0
-      ;;
-    1) # (Failure) The last value output was either false or null.
-      _error '_is_valid_json: FAILURE jq: output false or null: return 1'
-      return 1
-      ;;
-    2) # (Usage Error): There was a problem with how the jq command was used, such as incorrect command-line options.
-      _error '_is_valid_json: USAGE ERROR jq: incorrect command-line options: return 2'
-      return 2
-      ;;
-    3) # (Compile Error): The jq filter program itself had a syntax error.
-      _error '_is_valid_json: COMPILE ERROR jq: filter syntax error: return 3'
-      return 3
-      ;;
-    4) # (No Output): No valid result was ever produced. This can happen if the filter's output is empty.
-      _error '_is_valid_json: NO OUTPUT jq: result empty: return 4'
-      return 4
-      ;;
-    5) # (Halt Error)
-      _error '_is_valid_json: HALT_ERROR jq: return 5'
-      return 5
-      ;;
-    *) # (Unknown)
-      _error "_is_valid_json: UNKNOWN jq error: return $return_code"
-      return "$return_code"
-      ;;
-  esac
+  if [[ $return_code -eq 0 ]]; then
+    return 0 # Valid JSON
+  fi
+  if [[ $return_code -eq 2 ]]; then
+    # jq usage error, this is a problem with the library, so report it.
+    _error '_is_valid_json: USAGE ERROR jq: incorrect command-line options: return 2'
+  fi
+  # For other non-zero exit codes (1, 3, 4, 5), they just mean the JSON is invalid,
+  # which is the expected behavior of a validator. So we don't need to print an error.
+  # We just return the non-zero code.
+  return "$return_code"
 }
 
 # API Functions
@@ -248,6 +229,7 @@ It relies on the '_call_curl' function to perform the actual HTTP request.
 EOF
 )
     local api_path=
+    OPTIND=1
     while getopts ":P:hv" opt; do
         case $opt in
             P) api_path=$OPTARG ;;
@@ -296,6 +278,7 @@ It relies on the '_call_curl' function to perform the actual HTTP request.
 EOF
 )
     local api_path= json_content=
+    OPTIND=1
     while getopts ":P:d:hv" opt; do
         case $opt in
             P) api_path=$OPTARG ;;
@@ -348,6 +331,7 @@ It is useful for health checks and ensuring connectivity before attempting to us
 This function relies on 'ollama_api_get' to make the request.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -429,7 +413,7 @@ _ollama_generate_json_payload() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_json() {
-    local usage='Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]'
+    local usage='Usage: ollama_generate_json [-m <model>] [-p <prompt>] [<model>] [<prompt>]'
     local description
     description=$(cat <<'EOF'
 Generate a completion from a model as JSON.
@@ -445,6 +429,7 @@ This is a foundational function for 'ollama_generate' and 'ollama_generate_strea
 EOF
 )
     local model= prompt=
+    OPTIND=1
     while getopts ":m:p:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -458,6 +443,16 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
+    if [[ -z "$prompt" ]] && [[ -n "$1" ]]; then
+      prompt="$1"
+      shift
+    fi
 
     if ! _exists 'jq'; then _error 'ollama_generate_json: Not Found: jq'; return 1; fi
 
@@ -503,7 +498,7 @@ EOF
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate() {
-    local usage='Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]'
+    local usage='Usage: ollama_generate [-m <model>] [-p <prompt>] [<model>] [<prompt>]'
     local description
     description=$(cat <<'EOF'
 Generate a completion from a model as plain text.
@@ -518,6 +513,7 @@ This is useful for when you only need the generated text and don't want to parse
 EOF
 )
     local model= prompt=
+    OPTIND=1
     while getopts ":m:p:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -531,6 +527,16 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
+    if [[ -z "$prompt" ]] && [[ -n "$1" ]]; then
+      prompt="$1"
+      shift
+    fi
 
     if ! _exists 'jq'; then _error 'ollama_generate: jq Not Found'; return 1; fi
 
@@ -609,7 +615,7 @@ EOF
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream_json() {
-    local usage='Usage: ollama_generate_stream_json -m <model> [-p <prompt>] [-h] [-v]'
+    local usage='Usage: ollama_generate_stream_json [-m <model>] [-p <prompt>] [<model>] [<prompt>]'
     local description
     description=$(cat <<'EOF'
 Generate a completion from a model as a stream of JSON objects.
@@ -624,6 +630,7 @@ It is the basis for 'ollama_generate_stream', which further processes the output
 EOF
 )
     local model= prompt=
+    OPTIND=1
     while getopts ":m:p:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -637,6 +644,16 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
+    if [[ -z "$prompt" ]] && [[ -n "$1" ]]; then
+      prompt="$1"
+      shift
+    fi
 
     if [ -z "$model" ]; then
         model="$(_is_valid_model "")"
@@ -695,7 +712,7 @@ _ollama_thinking_stream() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate_stream() {
-    local usage='Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]'
+    local usage='Usage: ollama_generate_stream [-m <model>] [-p <prompt>] [<model>] [<prompt>]'
     local description
     description=$(cat <<'EOF'
 Generate a completion from a model as a stream of text.
@@ -710,6 +727,7 @@ It is ideal for displaying real-time generation in interactive scripts.
 EOF
 )
     local model= prompt=
+    OPTIND=1
     while getopts ":m:p:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -723,6 +741,16 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
+    if [[ -z "$prompt" ]] && [[ -n "$1" ]]; then
+      prompt="$1"
+      shift
+    fi
 
     if ! _exists 'jq'; then _error 'ollama_generate_stream: jq Not Found'; return 1; fi
 
@@ -790,6 +818,7 @@ This function returns a JSON array of all messages that have been added to the c
 The output of this function is suitable for use in the 'messages' field of a chat completion request.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -840,6 +869,7 @@ This history is then used by 'ollama_chat' and related functions to maintain a c
 EOF
 )
     local role= content=
+    OPTIND=1
     while getopts ":r:c:hv" opt; do
         case $opt in
             r) role=$OPTARG ;;
@@ -908,6 +938,7 @@ This function resets the 'OLLAMA_LIB_MESSAGES' array, effectively deleting the e
 This is useful for starting a new conversation without restarting the script.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -948,6 +979,7 @@ This function returns the current number of messages stored in the 'OLLAMA_LIB_M
 It can be used to check if a conversation has started or to monitor the length of the conversation history.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -986,6 +1018,7 @@ Get the last message from the session history in JSON format.
 This function retrieves the most recent message from the 'OLLAMA_LIB_MESSAGES' array and outputs it as a JSON string.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1043,6 +1076,7 @@ Get the content of the last message from the session history as a string.
 This function retrieves the last message using 'ollama_messages_last_json' and extracts the 'content' field, returning it as a plain string.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1160,7 +1194,7 @@ _ollama_chat_payload() {
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
-    local usage='Usage: ollama_chat_json -m <model> [-h] [-v]'
+    local usage='Usage: ollama_chat_json [-m <model>] [<model>]'
     local description
     description=$(cat <<'EOF'
 Request a chat completion from a model, receiving JSON output.
@@ -1175,6 +1209,7 @@ If 'OLLAMA_LIB_STREAM' is 0, it adds the assistant's response to the message his
 EOF
 )
     local model=
+    OPTIND=1
     while getopts ":m:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -1187,6 +1222,12 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
 
     if ! _exists 'jq'; then _error 'ollama_chat_json: jq Not Found'; return 1; fi
 
@@ -1219,7 +1260,7 @@ EOF
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat() {
-    local usage='Usage: ollama_chat -m <model> [-h] [-v]'
+    local usage='Usage: ollama_chat [-m <model>] [<model>]'
     local description
     description=$(cat <<'EOF'
 Request a chat completion from a model, receiving a plain text response.
@@ -1233,6 +1274,7 @@ It is ideal for simple, non-streaming chat interactions.
 EOF
 )
     local model=
+    OPTIND=1
     while getopts ":m:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -1245,6 +1287,12 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
 
     if ! _exists 'jq'; then _error 'ollama_chat: jq Not Found'; return 1; fi
 
@@ -1283,7 +1331,7 @@ EOF
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream() {
-    local usage='Usage: ollama_chat_stream -m <model> [-h] [-v]'
+    local usage='Usage: ollama_chat_stream [-m <model>] [<model>]'
     local description
     description=$(cat <<'EOF'
 Request a chat completion from a model, receiving a stream of text.
@@ -1298,6 +1346,7 @@ The assistant's response is NOT added to the message history.
 EOF
 )
     local model=
+    OPTIND=1
     while getopts ":m:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -1310,6 +1359,12 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
 
     if ! _exists 'jq'; then _error 'ollama_chat_stream: jq Not Found'; return 1; fi
 
@@ -1352,7 +1407,7 @@ EOF
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_stream_json() {
-    local usage='Usage: ollama_chat_stream_json -m <model> [-h] [-v]'
+    local usage='Usage: ollama_chat_stream_json [-m <model>] [<model>]'
     local description
     description=$(cat <<'EOF'
 Request a chat completion from a model, receiving a stream of JSON objects.
@@ -1367,6 +1422,7 @@ The assistant's response is NOT added to the message history.
 EOF
 )
     local model=
+    OPTIND=1
     while getopts ":m:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -1379,6 +1435,12 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
 
     if [ -z "$model" ]; then
         model="$(_is_valid_model "")"
@@ -1427,6 +1489,7 @@ The model can then request to call this tool during a chat. The JSON definition 
 EOF
 )
     local tool_name= command= json_definition=
+    OPTIND=1
     while getopts ":n:c:j:hv" opt; do
         case $opt in
             n) tool_name=$OPTARG ;;
@@ -1490,6 +1553,7 @@ This function lists all the tools that have been added to the current session us
 It displays a tab-separated list of tool names and their corresponding commands.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1537,6 +1601,7 @@ This function returns the current number of tools that have been registered in t
 It provides a simple way to check if any tools are available for the model to use.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1577,6 +1642,7 @@ This function clears the tool registry, removing all tool names, commands, and d
 This is useful for ensuring that a new chat session starts with a clean slate of tools.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1622,6 +1688,7 @@ It is essential for building agentic systems that can decide whether to execute 
 EOF
 )
     local json_response=
+    OPTIND=1
     while getopts ":j:hv" opt; do
         case $opt in
             j) json_response=$OPTARG ;;
@@ -1683,6 +1750,7 @@ It is the core component for making the model's tool calls functional, bridging 
 EOF
 )
     local tool_name= tool_args_str=
+    OPTIND=1
     while getopts ":n:a:hv" opt; do
         case $opt in
             n) tool_name=$OPTARG ;;
@@ -1758,6 +1826,7 @@ This function uses the 'ollama list' command-line tool to display a formatted ta
 It is a convenient way to quickly see the models you have installed.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1810,6 +1879,7 @@ This function queries the Ollama API for the list of available models and return
 This is useful for programmatic access to model information, allowing for easy parsing and manipulation with tools like 'jq'.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1855,6 +1925,7 @@ Example:
   models=($(ollama_list_array))
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1932,6 +2003,7 @@ This function selects a model at random from the list of locally available model
 It is useful when you want to use any available model without specifying one, for example, in testing or for creative applications.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -1973,7 +2045,7 @@ EOF
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_model_unload() {
-    local usage='Usage: ollama_model_unload -m <model> [-h] [-v]'
+    local usage='Usage: ollama_model_unload [-m <model>] [<model>]'
     local description
     description=$(cat <<'EOF'
 Unload a model from memory.
@@ -1987,6 +2059,7 @@ This is useful for managing memory usage, especially on systems with limited res
 EOF
 )
     local model=
+    OPTIND=1
     while getopts ":m:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -1999,6 +2072,12 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
 
     if ! _exists 'jq'; then _error 'ollama_model_unload: jq Not Found'; return 1; fi
 
@@ -2049,6 +2128,7 @@ This function uses the 'ollama ps' command-line tool to display a table of all m
 It is a quick way to check which models are active and consuming resources.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2091,6 +2171,7 @@ This function queries the Ollama API to get a list of running models and returns
 This is useful for programmatic monitoring and management of running models.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2123,7 +2204,7 @@ EOF
 # Requires: ollama
 # Returns: 0 on success, 1 on error
 ollama_show() {
-    local usage='Usage: ollama_show -m <model> [-h] [-v]'
+    local usage='Usage: ollama_show [-m <model>] [<model>]'
     local description
     description=$(cat <<'EOF'
 Show detailed information about a model in a human-readable format.
@@ -2137,6 +2218,7 @@ It is useful for inspecting the configuration of a model.
 EOF
 )
     local model=
+    OPTIND=1
     while getopts ":m:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -2149,6 +2231,12 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
 
     if ! ollama_app_installed; then _error 'ollama_show: ollama is not installed'; return 1; fi
 
@@ -2173,7 +2261,7 @@ EOF
 # Requires: ollama, curl, jq
 # Returns: 0 on success, 1 on error
 ollama_show_json() {
-    local usage='Usage: ollama_show_json -m <model> [-h] [-v]'
+    local usage='Usage: ollama_show_json [-m <model>] [<model>]'
     local description
     description=$(cat <<'EOF'
 Show detailed information about a model in JSON format.
@@ -2187,6 +2275,7 @@ This is ideal for programmatic access to model details, allowing for automated c
 EOF
 )
     local model=
+    OPTIND=1
     while getopts ":m:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -2199,6 +2288,12 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
 
     if ! _exists 'jq'; then _error 'ollama_show_json: jq Not Found'; return 1; fi
 
@@ -2258,6 +2353,7 @@ This function uses the 'command -v' utility to determine if the 'ollama' executa
 It is useful for pre-flight checks in scripts to ensure that required dependencies are available.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2302,6 +2398,7 @@ Use 'off' to revert to using the local Ollama instance.
 EOF
 )
     local export_key=false mode=
+    OPTIND=1
     while getopts ":m:ehv" opt; do
         case $opt in
             m) mode=$OPTARG ;;
@@ -2388,6 +2485,7 @@ This function prints a list of environment variables that can be used to configu
 It is a helpful reference for understanding the available settings and their current values.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2463,6 +2561,7 @@ This function queries the Ollama API for its version and returns just the versio
 It provides a simple way to check the installed Ollama version.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2507,6 +2606,7 @@ This function queries the Ollama API and returns the raw JSON response containin
 This is useful for programmatic version checking and comparison.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2551,6 +2651,7 @@ This function calls 'ollama --version' to get the version information directly f
 This can be useful for verifying the CLI tool is installed and working correctly.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2602,6 +2703,7 @@ Modes:
 - hide: Do not show thinking output, but it is still available in the JSON.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2656,6 +2758,7 @@ This function shows details about the library, including its name, version, URL,
 It also lists all the available 'ollama_*' functions for easy reference.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2720,6 +2823,7 @@ This function returns the current version number of the library as defined in th
 It is useful for checking the library version for compatibility or debugging purposes.
 EOF
 )
+    OPTIND=1
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2874,7 +2978,7 @@ _ollama_eval_permission_eval() {
 # Requires: none
 # Returns: 0 on success, 1 or higher on error
 ollama_eval() {
-    local usage='Usage: ollama_eval -t <task> [-m <model> [-h] [-v]'
+    local usage='Usage: ollama_eval [-t <task>] [-m <model>] [<task>] [<model>]'
     local description
     description=$(cat <<'EOF'
 Generate and evaluate a command-line task.
@@ -2889,6 +2993,7 @@ It includes safety features like syntax checking and a sandbox mode for executio
 EOF
 )
     local task= model=
+    OPTIND=1
     while getopts ":t:m:hv" opt; do
         case $opt in
             t) task=$OPTARG ;;
@@ -2902,6 +3007,16 @@ EOF
         esac
     done
     shift $((OPTIND-1))
+
+    # Positional arguments
+    if [[ -z "$task" ]] && [[ -n "$1" ]]; then
+      task="$1"
+      shift
+    fi
+    if [[ -z "$model" ]] && [[ -n "$1" ]]; then
+      model="$1"
+      shift
+    fi
 
     if [ -z "$task" ]; then
         printf 'Error: -t <task> is required\n\n' >&2
