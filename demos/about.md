@@ -31,57 +31,31 @@ OLLAMA_LIB_TIMEOUT   : 300 seconds
 
 Functions:
 
-_ollama_chat_payload
-_ollama_chat_stream_false
-_ollama_chat_stream_true
-_ollama_eval_check_danger
-_ollama_eval_check_sanity
-_ollama_eval_check_syntax
-_ollama_eval_permission_eval
-_ollama_eval_permission_sandbox
-_ollama_eval_prompt
-_ollama_generate_json_payload
-_ollama_thinking_stream
-ollama_api_get
-ollama_api_ping
-ollama_api_post
-ollama_app_installed
-ollama_app_turbo
-ollama_app_vars
-ollama_app_version
-ollama_app_version_cli
-ollama_app_version_json
-ollama_chat
-ollama_chat_json
-ollama_chat_stream
-ollama_chat_stream_json
-ollama_eval
-ollama_generate
+_ollama_chat_payload		ollama_generate_stream
+_ollama_chat_stream_false	ollama_generate_stream_json
+_ollama_chat_stream_true	ollama_lib_about
+_ollama_eval_check_danger	ollama_lib_version
+_ollama_eval_check_sanity	ollama_list
+_ollama_eval_check_syntax	ollama_list_array
+_ollama_eval_permission_eval	ollama_list_json
+_ollama_eval_permission_sandbox	ollama_messages
+_ollama_eval_prompt		ollama_messages_add
+_ollama_generate_json_payload	ollama_messages_clear
+_ollama_thinking_stream		ollama_messages_count
+ollama_api_get			ollama_messages_last
+ollama_api_ping			ollama_messages_last_json
+ollama_api_post			ollama_model_random
+ollama_app_installed		ollama_model_unload
+ollama_app_turbo		ollama_ps
+ollama_app_vars			ollama_ps_json
+ollama_app_version		ollama_show
+ollama_app_version_cli		ollama_show_json
+ollama_app_version_json		ollama_thinking
+ollama_chat			ollama_tools
+ollama_chat_json		ollama_tools_add
+ollama_chat_stream		ollama_tools_clear
+ollama_chat_stream_json		ollama_tools_count
+ollama_eval			ollama_tools_is_call
+ollama_generate			ollama_tools_run
 ollama_generate_json
-ollama_generate_stream
-ollama_generate_stream_json
-ollama_lib_about
-ollama_lib_version
-ollama_list
-ollama_list_array
-ollama_list_json
-ollama_messages
-ollama_messages_add
-ollama_messages_clear
-ollama_messages_count
-ollama_messages_last
-ollama_messages_last_json
-ollama_model_random
-ollama_model_unload
-ollama_ps
-ollama_ps_json
-ollama_show
-ollama_show_json
-ollama_thinking
-ollama_tools
-ollama_tools_add
-ollama_tools_clear
-ollama_tools_count
-ollama_tools_is_call
-ollama_tools_run
 ```

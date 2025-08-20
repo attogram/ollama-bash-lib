@@ -1,8 +1,4 @@
 # ollama_generate_json
-ERROR: Ollama Not Installed
-[ERROR] _call_curl: curl command failed with exit code 7
-[ERROR] ollama_api_get: curl error: 7
-ERROR: Ollama API not reachable
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.7
 
@@ -11,17 +7,14 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 OLLAMA_HOST: http://localhost:11434
 OLLAMA_LIB_API: http://localhost:11434
 
-[ERROR] ollama_model_random: ollama is not installed
 
 ## Demo
 
 ```bash
-ollama_generate_json "" "Describe a rabbit in 3 words"
+ollama_generate_json "mistral:7b" "Describe a rabbit in 3 words"
 ```
 ```json
-[ERROR] ollama_model_random: ollama is not installed
-Error: -m <model> is required
-
+[ERROR] ollama_generate_json: Not Found: prompt.
 Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]
 
 ```
@@ -29,15 +22,12 @@ Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1 ollama_generate_json "" "Describe a rabbit in 3 words"
+OLLAMA_LIB_DEBUG=1 ollama_generate_json "mistral:7b" "Describe a rabbit in 3 words"
 ```
 ```json
-[DEBUG] 19:49:35:735934844: _is_valid_model: Model name empty: getting random model
-[DEBUG] 19:49:35:748106535: ollama_app_installed
-[ERROR] ollama_model_random: ollama is not installed
-[DEBUG] 19:49:35:754233531: _is_valid_model: Model Not Found: ollama_model_random failed
-Error: -m <model> is required
-
+[DEBUG] 22:21:32:747175500: _is_valid_model: Model name empty: getting random model
+[DEBUG] 22:21:32:808056300: ollama_app_installed
+[ERROR] ollama_generate_json: Not Found: prompt.
 Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]
 
 ```

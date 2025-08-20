@@ -5,8 +5,7 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 | test | output | return | result |
 |------|--------|--------|--------|
 | `mistral:7b` | mistral:7b | 0 | ✅ PASS |
-[ERROR] ollama_model_random: ollama is not installed
-| `` |  | 1 | ❌ FAIL |
+| `` | dolphin3:8b | 0 | ✅ PASS |
 | `hf.co/user/Model-name:QUANT` | hf.co/user/Model-name:QUANT | 0 | ✅ PASS |
 | `abcdefghijklmnopqrstuvwxyz` | abcdefghijklmnopqrstuvwxyz | 0 | ✅ PASS |
 | `1234567890` | 1234567890 | 0 | ✅ PASS |
