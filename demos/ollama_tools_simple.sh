@@ -7,8 +7,8 @@ startup() {
   if [ ! -f "$ollama_bash_lib" ]; then echo "ERROR: Ollama Bash Lib Not Found: $ollama_bash_lib"; exit 1; fi
   # shellcheck source=../ollama_bash_lib.sh
   source "$ollama_bash_lib"
-  if ! ollama_app_installed; then echo "ERROR: Ollama Not Installed"; fi;
-  if ! ollama_api_ping; then echo "ERROR: Ollama API not reachable"; fi
+  if ! ollama_app_installed; then echo 'ERROR: Ollama Not Installed'; fi;
+  if ! ollama_api_ping; then echo 'ERROR: Ollama API not reachable'; fi
   echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
 }
 
@@ -44,18 +44,18 @@ demo() {
 
   ollama_messages_add "user" "What is the current date and time?"
 
-  echo "--- User Prompt ---"
+  echo '--- User Prompt ---'
   ollama_messages | jq .
-  echo "-------------------"
+  echo '-------------------'
 
   response="$(ollama_chat_json "$model")"
 
-  echo "--- Model Response (first pass) ---"
+  echo '--- Model Response (first pass) ---'
   echo "$response" | jq .
-  echo "-----------------------------------"
+  echo '-----------------------------------'
 
   if ollama_tools_is_call "$response"; then
-    echo "Tool call detected. Running tools..."
+    echo 'Tool call detected. Running tools...'
 
     tool_calls_json="$(printf '%s' "$response" | jq -c '.message.tool_calls | .[]')"
 
@@ -75,18 +75,18 @@ demo() {
     done <<< "$tool_calls_json"
 
 
-    echo "--- Messages with Tool Results ---"
+    echo '--- Messages with Tool Results ---'
     ollama_messages | jq .
-    echo "----------------------------------"
+    echo '----------------------------------'
 
     # Call chat again with tool results
     final_response="$(ollama_chat_json "$model")"
 
-    echo "--- Final Model Response ---"
+    echo '--- Final Model Response ---'
     echo "$final_response" | jq .
-    echo "----------------------------"
+    echo '----------------------------'
   else
-    echo "No tool call detected."
+    echo 'No tool call detected.'
   fi
 
   ollama_messages_clear

@@ -18,30 +18,30 @@ echo '```'
 
 echo
 echo -n "ollama_messages_count: "; ollama_messages_count
-echo "ollama_messages:"; ollama_messages | jq
+echo 'ollama_messages:'; ollama_messages | jq
 
 echo
-echo "ollama_messages_add \"system\" \"You are a helpful assistant\""
+echo 'ollama_messages_add "system" "You are a helpful assistant"'
 ollama_messages_add "system" "You are a helpful assistant"
 echo -n "ollama_messages_count: "; ollama_messages_count
-echo "ollama_messages:"; ollama_messages | jq
+echo 'ollama_messages:'; ollama_messages | jq
 
 echo
-echo "ollama_messages_add \"user\" \"Hi\""
+echo 'ollama_messages_add "user" "Hi"'
 ollama_messages_add "user" "Hi"
 echo -n "ollama_messages_count: "; ollama_messages_count
-echo "ollama_messages:"; ollama_messages | jq
+echo 'ollama_messages:'; ollama_messages | jq
 
 echo
-echo "ollama_messages_add \"assistant\" \"Hello!\""
+echo 'ollama_messages_add "assistant" "Hello!"'
 ollama_messages_add "assistant" "Hello!"
 echo -n "ollama_messages_count: "; ollama_messages_count
-echo "ollama_messages:"; ollama_messages | jq
+echo 'ollama_messages:'; ollama_messages | jq
 
 echo
-echo "ollama_messages_clear"
+echo 'ollama_messages_clear'
 ollama_messages_clear
 echo -n "ollama_messages_count: "; ollama_messages_count
-echo "ollama_messages:"; ollama_messages | jq
+echo 'ollama_messages:'; ollama_messages | jq
 
 echo '```'

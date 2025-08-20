@@ -88,8 +88,8 @@ estimate_tokens() {
 
 echo
 echo '```'
-echo "estimate_tokens \"string\""
-echo "estimate_tokens \"string\" 1 (verbose)"
+echo 'estimate_tokens "string"'
+echo 'estimate_tokens "string" 1 (verbose)'
 
 echo
 string="My hovercraft is full of eels"
