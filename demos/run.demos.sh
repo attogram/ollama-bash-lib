@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Run all Ollama Bash Lib Demos, save output to .md files"
+echo 'Run all Ollama Bash Lib Demos, save output to .md files'
 echo
 
 cd "$(dirname "$0")" || exit 1 # cd to directory this script is in
@@ -15,7 +15,7 @@ if [[ -z "$OLLAMA_LIB_TURBO_KEY" ]]; then
   echo
 fi
 
-ollama_app_turbo -e on # Turn on turbo, and export api key to env
+ollama_app_turbo -m off # Turn off turbo, to run in local mode
 
 echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
 echo "OLLAMA_HOST: $OLLAMA_HOST"

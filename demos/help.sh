@@ -25,7 +25,7 @@ functions=(
   ollama_generate_stream ogs
   ollama_messages om
   ollama_messages_add oma
-  ollama_messages_clear omc
+  ollama_messages_clear omclear
   ollama_messages_count omco
   ollama_tools_add ota
   ollama_tools oto
@@ -33,7 +33,6 @@ functions=(
   ollama_tools_clear otc
   ollama_tools_is_call otic
   ollama_tools_run otr
-  ollama_chat_json ocj
   ollama_chat oc
   ollama_chat_stream ocs
   ollama_chat_stream_json ocsj

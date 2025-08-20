@@ -1,41 +1,37 @@
 # ollama_generate_stream
+ERROR: Ollama Not Installed
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_get: curl error: 7
+ERROR: Ollama API not reachable
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.7
+[ERROR] ollama_model_random: ollama is not installed
 
 ## Demo
 
 ```bash
-ollama_generate_stream "gpt-oss:20b" "Describe a rabbit in 3 words"
+ollama_generate_stream "" "Describe a rabbit in 3 words"
 ```
 ```
-Soft, agile, curious
+[ERROR] ollama_model_random: ollama is not installed
+Error: -m <model> is required
+
+Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
 
 ```
 
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_stream "gpt-oss:20b" "Describe a rabbit in 3 words"`
+`OLLAMA_LIB_DEBUG=1 ollama_generate_stream "" "Describe a rabbit in 3 words"`
 ```
 ```json
-[DEBUG] 23:09:35:968639700: ollama_generate_stream: [gpt-oss:20b] [Describe a rabbit in 3 words]
-# <thinking>
-# [DEBUG] 23:09:36:015127900: ollama_generate_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
-[DEBUG] 23:09:36:045082400: _is_valid_model: VALID: [gpt-oss:20b]
-[DEBUG] 23:09:36:104637200: ollama_generate_json: json_payload: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 23:09:36:131866200: ollama_api_post: [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 23:09:36:168519800: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 23:09:36:230304100: _is_valid_json: success
-[DEBUG] 23:09:36:253650900: _call_curl: OLLAMA_LIB_API: https://ollama.com
-[DEBUG] 23:09:36:277171100: _call_curl: Turbo Mode
-[DEBUG] 23:09:36:304633500: _call_curl: json_body: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 23:09:36:330105900: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
-[DEBUG] 23:09:37:621426500: ollama_api_post: success
-[DEBUG] 23:09:37:655272800: ollama_generate_json: success
-fluffy, quick, curious
+[DEBUG] 19:49:35:835386791: _is_valid_model: Model name empty: getting random model
+[DEBUG] 19:49:35:848054802: ollama_app_installed
+[ERROR] ollama_model_random: ollama is not installed
+[DEBUG] 19:49:35:854420530: _is_valid_model: Model Not Found: ollama_model_random failed
+Error: -m <model> is required
 
-# </thinking>
-
-[DEBUG] 23:09:39:700291600: ollama_generate_stream: return: 0
+Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
 
 ```

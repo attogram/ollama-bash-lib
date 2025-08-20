@@ -1,6 +1,10 @@
 # ollama_model_random
+ERROR: Ollama Not Installed
+[ERROR] _call_curl: curl command failed with exit code 7
+[ERROR] ollama_api_get: curl error: 7
+ERROR: Ollama API not reachable
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.5
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.7
 
 ## Demo
 
@@ -9,8 +13,9 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-gpt-oss:120b
-gpt-oss:120b
+[ERROR] ollama_model_random: ollama is not installed
+[ERROR] ollama_model_random: ollama is not installed
+
 ```
 
 ## Demo Debug
@@ -21,8 +26,9 @@ ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-[DEBUG] 23:09:44:723614500: ollama_app_installed
-gpt-oss:120b
-[DEBUG] 23:09:45:128360300: ollama_app_installed
-gpt-oss:120b
+[DEBUG] 19:49:36:031651517: ollama_app_installed
+[ERROR] ollama_model_random: ollama is not installed
+[DEBUG] 19:49:36:045296939: ollama_app_installed
+[ERROR] ollama_model_random: ollama is not installed
+
 ```
