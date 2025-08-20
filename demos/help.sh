@@ -66,10 +66,10 @@ for func in "${functions[@]}"; do
   echo
 done
 
-echo '## Testing --help for all functions (first argument)'
-echo
-for func in "${functions[@]}"; do
-  # shellcheck disable=SC2016
-  printf '`%s --help`\n```\n%s\n```\n' "$func" "$("$func" --help)"
-  echo
-done
+#echo '## Testing --help for all functions (first argument)'
+#echo
+#for func in "${functions[@]}"; do
+#  # shellcheck disable=SC2016
+#  printf '`%s --help`\n```\n%s\n```\n' "$func" "$("$func" --help)"
+#  echo
+#done
