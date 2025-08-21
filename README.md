@@ -50,21 +50,21 @@ ollama_generate "mistral:7b" "Describe Bash in 3 words"
 # Powerful, Flexible, Scripting.
 
 # Tab completion to view available library functions
-ollama_<TAB><TAB>
-# ollama_api_get               ollama_generate              ollama_messages_last_json
-# ollama_api_ping              ollama_generate_json         ollama_model_random
-# ollama_api_post              ollama_generate_stream       ollama_model_unload
-# ollama_app_installed         ollama_generate_stream_json  ollama_ps
-# ollama_app_turbo             ollama_lib_about             ollama_ps_json
-# ollama_app_vars              ollama_lib_version           ollama_show
-# ollama_app_version           ollama_list                  ollama_show_json
-# ollama_app_version_cli       ollama_list_array            ollama_thinking
-# ollama_app_version_json      ollama_list_json             ollama_tools
-# ollama_chat                  ollama_messages              ollama_tools_add
-# ollama_chat_json             ollama_messages_add          ollama_tools_clear
-# ollama_chat_stream           ollama_messages_clear        ollama_tools_count
-# ollama_chat_stream_json      ollama_messages_count        ollama_tools_is_call
-# ollama_eval                  ollama_messages_last         ollama_tools_run
+ollama_<TAB>
+# ollama_api_get               ollama_generate_json         ollama_model_random
+# ollama_api_ping              ollama_generate_stream       ollama_model_unload
+# ollama_api_post              ollama_generate_stream_json  ollama_ps
+# ollama_app_installed         ollama_lib_about             ollama_ps_json
+# ollama_app_turbo             ollama_lib_version           ollama_show
+# ollama_app_vars              ollama_list                  ollama_show_json
+# ollama_app_version           ollama_list_array            ollama_thinking
+# ollama_app_version_cli       ollama_list_json             ollama_tools
+# ollama_app_version_json      ollama_messages              ollama_tools_add
+# ollama_chat                  ollama_messages_add          ollama_tools_clear
+# ollama_chat_json             ollama_messages_clear        ollama_tools_count
+# ollama_chat_stream           ollama_messages_count        ollama_tools_is_call
+# ollama_chat_stream_json      ollama_messages_last         ollama_tools_run
+# ollama_generate              ollama_messages_last_json
 ```
 
 ## Usage

@@ -31,12 +31,12 @@ task='$task'
 readme='$readme'
 library='$library'
 ollama_thinking hide
-ollama_generate "$model" "\$task\n\nREADME:\n\n\$(cat "\$readme")\n\nLIBRARY:\n\n\$(cat "\$library")"
+ollama_generate -m "$model" -p "\$task\n\nREADME:\n\n\$(cat "\$readme")\n\nLIBRARY:\n\n\$(cat "\$library")"
 \`\`\`
 EOF
 
   ollama_thinking hide
-  ollama_generate "$model" "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
+  ollama_generate -m "$model" -p "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
 }
 
 echo

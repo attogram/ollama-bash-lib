@@ -1,6 +1,6 @@
 # ollama_tools with args demo
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
 Error: Missing required arguments
 
 Usage: ollama_tools_add -n <name> -c <command> -j <json> [-h] [-v]
@@ -15,9 +15,9 @@ Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
 []
 -------------------
 [ERROR] _ollama_chat_payload: Message history is empty
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
+[ERROR] _call_curl: HTTP error 502: {"error": "upstream error"}
+[ERROR] ollama_api_post: curl error: 1
+[ERROR] _ollama_chat_stream_false: ollama_api_post failed
 --- Model Response (first pass) ---
 -----------------------------------
 Error: Missing required arguments

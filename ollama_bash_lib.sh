@@ -247,7 +247,8 @@ This is a fundamental function used by many other functions in this library to c
 It relies on the '_call_curl' function to perform the actual HTTP request.
 EOF
 )
-    local api_path=
+    OPTIND=1 # start parsing at $1 again
+    local opt OPTARG api_path
     while getopts ":P:hv" opt; do
         case $opt in
             P) api_path=$OPTARG ;;
@@ -295,7 +296,9 @@ This is a core function for sending data to the Ollama API, used by functions li
 It relies on the '_call_curl' function to perform the actual HTTP request.
 EOF
 )
-    local api_path= json_content=
+
+    OPTIND=1 # start parsing at $1 again
+    local opt OPTARG api_path json_content
     while getopts ":P:d:hv" opt; do
         case $opt in
             P) api_path=$OPTARG ;;
@@ -348,6 +351,7 @@ It is useful for health checks and ensuring connectivity before attempting to us
 This function relies on 'ollama_api_get' to make the request.
 EOF
 )
+    OPTIND=1 # start parsing at $1 again
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -444,7 +448,9 @@ If streaming is enabled via the global 'OLLAMA_LIB_STREAM' variable, it will ret
 This is a foundational function for 'ollama_generate' and 'ollama_generate_stream', which process this JSON output into plain text.
 EOF
 )
-    local model= prompt=
+
+    OPTIND=1 # start parsing at $1 again
+    local opt OPTARG model prompt
     while getopts ":m:p:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -503,7 +509,11 @@ EOF
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_generate() {
+    _debug "ollama_generate: [${1:0:42}] [${2:0:42}] [${3:0:42}] [${4:0:42}]"
+
     local usage='Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]'
+    #_debug "ollama_generate: usage: $usage"
+
     local description
     description=$(cat <<'EOF'
 Generate a completion from a model as plain text.
@@ -517,8 +527,14 @@ This function is a wrapper around 'ollama_generate_json'. It takes the raw JSON 
 This is useful for when you only need the generated text and don't want to parse the JSON yourself.
 EOF
 )
-    local model= prompt=
+
+    OPTIND=1 # start parsing at $1 again
+    local opt OPTARG model prompt
+
+    _debug "ollama_generate: init: model: [${model:0:120}] prompt: [${prompt:0:120}]"
+
     while getopts ":m:p:hv" opt; do
+        _debug "ollama_generate: while getopts: OPTARG: [$OPTARG] opt: [$opt]"
         case $opt in
             m) model=$OPTARG ;;
             p) prompt=$OPTARG ;;
@@ -530,30 +546,35 @@ EOF
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
     done
+
     shift $((OPTIND-1))
+
+    if [ -z "$prompt" ] && [ ! -t 0 ]; then
+        prompt=$(cat -)
+    fi
+
+    _debug "ollama_generate: final: model: [${model:0:120}] prompt: [${prompt:0:120}]"
+
 
     if ! _exists 'jq'; then _error 'ollama_generate: jq Not Found'; return 1; fi
 
+   _debug "ollama_generate: checking: model: [${model:0:120}]"
+
     if [ -z "$model" ]; then
-        model="$(_is_valid_model "")"
+        model="$(ollama_model_random)"
         if [ -z "$model" ]; then
             printf 'Error: -m <model> is required\n\n' >&2
             printf '%s\n' "$usage" >&2
             return 2
         fi
     fi
-
-    if [ -z "$prompt" ] && [ ! -t 0 ]; then
-        prompt=$(cat -)
-    fi
+   _debug "ollama_generate: checked: model: [${model:0:120}]"
 
     if [ -z "$prompt" ]; then
         _error 'ollama_generate: Not Found: prompt.'
         printf '%s\n' "$usage" >&2
         return 1
     fi
-
-    _debug "ollama_generate: [${model:0:42}] [${prompt:0:42}]"
 
     OLLAMA_LIB_STREAM=0 # Turn off streaming
 
@@ -623,7 +644,8 @@ This function sets the global 'OLLAMA_LIB_STREAM' variable to 1 and then calls '
 It is the basis for 'ollama_generate_stream', which further processes the output into a continuous stream of text.
 EOF
 )
-    local model= prompt=
+    OPTIND=1 # start parsing at $1 again
+    local opt OPTARG model prompt
     while getopts ":m:p:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -709,7 +731,8 @@ This function calls 'ollama_generate_stream_json' and pipes the output to 'jq' t
 It is ideal for displaying real-time generation in interactive scripts.
 EOF
 )
-    local model= prompt=
+    OPTIND=1 # start parsing at $1 again
+    local opt OPTARG model prompt
     while getopts ":m:p:hv" opt; do
         case $opt in
             m) model=$OPTARG ;;
@@ -790,6 +813,8 @@ This function returns a JSON array of all messages that have been added to the c
 The output of this function is suitable for use in the 'messages' field of a chat completion request.
 EOF
 )
+    OPTIND=1 # start parsing at $1 again
+    local opt OPTARG
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
@@ -2274,7 +2299,7 @@ EOF
         return 1
     fi
 
-    _debug 'ollama_app_installed'
+    #_debug 'ollama_app_installed'
     _exists "ollama"
 }
 

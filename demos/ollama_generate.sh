@@ -22,22 +22,22 @@ echo
 model="$(ollama_model_random)"
 prompt="Describe a rabbit in 3 words"
 
-echo
-echo '## Demo'
-echo
-echo '```bash'
-echo "ollama_generate \"$model\" \"$prompt\""
+
+echo; echo '## Demo'; echo
+echo '
+```
+ollama_generate -m "$model" -p "$prompt"
+```'
 echo '```'
-echo '```'
-ollama_generate "$model" "$prompt"
+ollama_generate -m "$model" -p "$prompt"
 echo '```'
 
-echo
-echo '## Demo Debug'
-echo
-echo '```bash'
-echo "OLLAMA_LIB_DEBUG=1 ollama_generate \"$model\" \"$prompt\""
+
+echo; echo '## Demo Debug'; echo
+echo '
+```
+OLLAMA_LIB_DEBUG=1 ollama_generate -m "$model" -p "$prompt"
+```'
 echo '```'
-echo '```'
-OLLAMA_LIB_DEBUG=1 ollama_generate "$model" "$prompt"
+OLLAMA_LIB_DEBUG=1 ollama_generate -m "$model" -p "$prompt"
 echo '```'

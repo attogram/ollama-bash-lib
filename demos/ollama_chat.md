@@ -1,8 +1,8 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
 
-`model="smollm2:1.7b"`
+`model="gpt-oss:20b"`
 ## Demo
 
 ```bash
@@ -36,9 +36,8 @@ ollama_messages | jq
 
 ```
 [ERROR] _ollama_chat_payload: Message history is empty
-Error: Missing required arguments
-
-Usage: ollama_api_post -P <path> -d <data> [-h] [-v]
+[ERROR] _call_curl: HTTP error 502: {"error": "upstream error"}
+[ERROR] ollama_api_post: curl error: 1
 [ERROR] _ollama_chat_stream_false: ollama_api_post failed
 [ERROR] ollama_messages_last_json: Message History is empty: count: [0]
 [ERROR] ollama_messages_last: error getting message content: 1
@@ -63,9 +62,8 @@ Error: Missing required arguments
 
 Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
 [ERROR] _ollama_chat_payload: Message history is empty
-Error: Missing required arguments
-
-Usage: ollama_api_post -P <path> -d <data> [-h] [-v]
+[ERROR] _call_curl: HTTP error 502: {"error": "upstream error"}
+[ERROR] ollama_api_post: curl error: 1
 [ERROR] _ollama_chat_stream_false: ollama_api_post failed
 [ERROR] ollama_messages_last_json: Message History is empty: count: [0]
 [ERROR] ollama_messages_last: error getting message content: 1

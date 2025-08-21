@@ -54,7 +54,6 @@ functions=(
   ollama_thinking ot
   ollama_lib_about olab
   ollama_lib_version olv
-  ollama_eval oe
 )
 
 echo '## Testing -h for all functions (first argument)'
@@ -64,11 +63,3 @@ for func in "${functions[@]}"; do
   printf '`%s -h`\n```\n%s\n```\n' "$func" "$("$func" -h)"
   echo
 done
-
-#echo '## Testing --help for all functions (first argument)'
-#echo
-#for func in "${functions[@]}"; do
-#  # shellcheck disable=SC2016
-#  printf '`%s --help`\n```\n%s\n```\n' "$func" "$("$func" --help)"
-#  echo
-#done

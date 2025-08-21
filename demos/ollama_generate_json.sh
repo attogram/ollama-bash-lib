@@ -26,10 +26,10 @@ echo
 echo '## Demo'
 echo
 echo '```bash'
-echo "ollama_generate_json \"$model\" \"$prompt\""
+echo "ollama_generate_json -m \"$model\" -p \"$prompt\""
 echo '```'
 echo '```json'
-ollama_generate_json "$model" "$prompt" | jq
+ollama_generate_json -m "$model" -p "$prompt" | jq
 echo # needed?
 echo '```'
 
@@ -37,9 +37,9 @@ echo
 echo '## Demo Debug'
 echo
 echo '```bash'
-echo "OLLAMA_LIB_DEBUG=1 ollama_generate_json \"$model\" \"$prompt\""
+echo "OLLAMA_LIB_DEBUG=1 ollama_generate_json -m \"$model\" -p \"$prompt\""
 echo '```'
 echo '```json'
-OLLAMA_LIB_DEBUG=1 ollama_generate_json "$model" "$prompt" | jq
+OLLAMA_LIB_DEBUG=1 ollama_generate_json -m "$model" -p "$prompt" | jq
 echo # needed?
 echo '```'

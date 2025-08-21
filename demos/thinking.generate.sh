@@ -19,11 +19,10 @@ echo '
 ```
 ollama_thinking on
 ollama_thinking
-ollama_generate $(ollama_model_random) "list 10 things about bash, 1 per line" 
+ollama_generate -m "$(ollama_model_random)" -p "list 10 things about bash, 1 per line"
 ```
 '
 
 ollama_thinking on
 ollama_thinking
-ollama_generate "$(ollama_model_random)" "list 10 things about bash, 1 per line"
-
+ollama_generate -m "$(ollama_model_random)" -p "list 10 things about bash, 1 per line"

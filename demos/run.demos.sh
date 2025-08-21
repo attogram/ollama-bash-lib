@@ -15,7 +15,7 @@ if [[ -z "$OLLAMA_LIB_TURBO_KEY" ]]; then
   echo
 fi
 
-ollama_app_turbo -m off # Turn off turbo, to run in local mode
+ollama_app_turbo -m on # Turn off turbo, to run in local mode
 
 echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
 echo "OLLAMA_HOST: $OLLAMA_HOST"

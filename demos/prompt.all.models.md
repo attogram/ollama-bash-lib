@@ -1,6 +1,6 @@
 # Prompt all models
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -11,48 +11,24 @@ for model in "${models[@]}"; do
   ollama_generate "$model" "$prompt"
 done
 ```
-7 models: dolphin3:8b gemma3n:e2b granite3.3:2b hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS mistral:7b qwen3:8b smollm2:1.7b
+2 models: gpt-oss:120b gpt-oss:20b
 
 prompt: What is your knowledge cutoff date? Respond with only the date.
 
-## dolphin3:8b
+## gpt-oss:120b
 ```
-[ERROR] ollama_generate: Not Found: prompt.
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
+# <thinking>
+# User asks: "What is your knowledge cutoff date? Respond with only the date." Should answer only date, no extra text. Knowledge cutoff is 2024-06. So output "2024-06".
+# </thinking>
+
+2024-06
 ```
 
-## gemma3n:e2b
+## gpt-oss:20b
 ```
-[ERROR] ollama_generate: Not Found: prompt.
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
-```
+# <thinking>
+# We need to respond with only the date of knowledge cutoff. According to system message earlier, knowledge cutoff date is 2023-10. The user wants only the date. So respond "2023-10".
+# </thinking>
 
-## granite3.3:2b
-```
-[ERROR] ollama_generate: Not Found: prompt.
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
-```
-
-## hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
-```
-[ERROR] ollama_generate: Not Found: prompt.
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
-```
-
-## mistral:7b
-```
-[ERROR] ollama_generate: Not Found: prompt.
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
-```
-
-## qwen3:8b
-```
-[ERROR] ollama_generate: Not Found: prompt.
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
-```
-
-## smollm2:1.7b
-```
-[ERROR] ollama_generate: Not Found: prompt.
-Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
+2023-10
 ```

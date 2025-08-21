@@ -40,7 +40,7 @@ for model in "${models[@]}"; do
   echo
   echo "## $model"
   echo '```'
-  ollama_generate "$model" "$prompt"
-  #ollama_generate_stream "$model" "$prompt"
+  ollama_generate -m "$model" -p "$prompt"
+  #ollama_generate_stream -m "$model" -p "$prompt"
   echo '```'
 done

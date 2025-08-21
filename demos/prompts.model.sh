@@ -44,7 +44,7 @@ for prompt in "${prompts[@]}"; do
   echo "## $prompt"
   echo
   #echo '```'
-  ollama_generate "$model" "$prompt"
-  #ollama_generate_stream "$model" "$prompt"
+  ollama_generate -m "$model" -p "$prompt"
+  #ollama_generate_stream -m "$model" -p "$prompt"
   #echo '```'
 done

@@ -1,6 +1,6 @@
 # help via -h and --help
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
 ## Testing -h for all functions (first argument)
 
 `ollama_api_get -h`
@@ -1061,34 +1061,4 @@ Get the version of the Ollama Bash Lib.
 
 This function returns the current version number of the library as defined in the 'OLLAMA_LIB_VERSION' variable.
 It is useful for checking the library version for compatibility or debugging purposes.
-```
-
-`ollama_eval -h`
-```
-Usage: ollama_eval -t <task> [-m <model> [-h] [-v]
-
-Generate and evaluate a command-line task.
-
-  -t <task>   The task to be run on the command line.
-  -m <model>  Model to use to generate command (Optional) If empty, uses random model.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function takes a description of a task, sends it to a model to generate a shell command, and then prompts the user for permission to execute it.
-It includes safety features like syntax checking and a sandbox mode for execution. This is a powerful tool for converting natural language into shell commands.
-```
-
-`oe -h`
-```
-Usage: ollama_eval -t <task> [-m <model> [-h] [-v]
-
-Generate and evaluate a command-line task.
-
-  -t <task>   The task to be run on the command line.
-  -m <model>  Model to use to generate command (Optional) If empty, uses random model.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function takes a description of a task, sends it to a model to generate a shell command, and then prompts the user for permission to execute it.
-It includes safety features like syntax checking and a sandbox mode for execution. This is a powerful tool for converting natural language into shell commands.
 ```

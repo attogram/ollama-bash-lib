@@ -38,11 +38,11 @@ Output in Markdown format.
   echo "file=\"$file\""
   echo 'ollama_thinking hide'
   # shellcheck disable=SC2028
-  echo "ollama_generate \"$model\" \"\$task\\n\\n\$(cat \"\$file\")\""
+  echo "ollama_generate -m \"$model\" -p \"\$task\\n\\n\$(cat \"\$file\")\""
   echo '```'
 
   ollama_thinking hide
-  ollama_generate "$model" "$task\n\n$(cat "$file")"
+  ollama_generate -m "$model" -p "$task\n\n$(cat "$file")"
 }
 
 echo

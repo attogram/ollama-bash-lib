@@ -26,9 +26,9 @@ demo() {
 
   echo
   echo '```'
-  echo 'ollama_api_get "/api/version"'
+  echo 'ollama_api_get -P "/api/version"'
   echo
-  result=$(  ollama_api_get "/api/version")
+  result=$(  ollama_api_get -P "/api/version")
   echo "result: lines: $(echo "$result" | wc -l)"
   echo "result: output: ${result:0:42}"
   echo '```';

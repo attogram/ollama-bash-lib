@@ -1,12 +1,12 @@
 # ollama_api_get
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
 
 ## Setup
 
-OLLAMA_HOST: http://localhost:11434
+OLLAMA_HOST: https://ollama.com
 
-OLLAMA_LIB_API: http://localhost:11434
+OLLAMA_LIB_API: https://ollama.com
 
 
 ## Demo
@@ -15,15 +15,23 @@ OLLAMA_LIB_API: http://localhost:11434
 ```
 ollama_api_get
 
-result: lines: 1
-result: output: Ollama is running
+result: lines:      394
+result: output: 
+
+
+
+
+
+
+<!doctype html>
+<html class="h-full
 ```
 
 ```
-ollama_api_get "/api/version"
+ollama_api_get -P "/api/version"
 
-result: lines: 1
-result: output: Ollama is running
+result: lines:        1
+result: output: {"version":"0.0.0"}
 ```
 
 ## Demo Debug
@@ -34,23 +42,33 @@ result: output: Ollama is running
 ```
 ollama_api_get
 
-[DEBUG] 22:21:27:278104300: ollama_api_get: []
-[DEBUG] 22:21:27:306103200: _call_curl: [GET] [] 
-[DEBUG] 22:21:27:328663800: _call_curl: OLLAMA_LIB_API: http://localhost:11434
-[DEBUG] 22:21:27:350677100: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434
-[DEBUG] 22:21:27:710818300: ollama_api_get: success
-result: lines: 1
-result: output: Ollama is running
+[DEBUG] 11:36:21:146034000: ollama_api_get: []
+[DEBUG] 11:36:21:153820000: _call_curl: [GET] [] 
+[DEBUG] 11:36:21:161509000: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 11:36:21:168242000: _call_curl: Turbo Mode
+[DEBUG] 11:36:21:174913000: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X GET https://ollama.com
+[DEBUG] 11:36:21:385896000: ollama_api_get: success
+result: lines:      394
+result: output: 
+
+
+
+
+
+
+<!doctype html>
+<html class="h-full
 ```
 
 ```
-ollama_api_get "/api/version"
+ollama_api_get -P "/api/version"
 
-[DEBUG] 22:21:27:781003700: ollama_api_get: []
-[DEBUG] 22:21:27:803875500: _call_curl: [GET] [] 
-[DEBUG] 22:21:27:825930500: _call_curl: OLLAMA_LIB_API: http://localhost:11434
-[DEBUG] 22:21:27:867215900: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434
-[DEBUG] 22:21:28:190240400: ollama_api_get: success
-result: lines: 1
-result: output: Ollama is running
+[DEBUG] 11:36:21:407847000: ollama_api_get: [/api/version]
+[DEBUG] 11:36:21:414728000: _call_curl: [GET] [/api/version] 
+[DEBUG] 11:36:21:421749000: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 11:36:21:428110000: _call_curl: Turbo Mode
+[DEBUG] 11:36:21:434236000: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X GET https://ollama.com/api/version
+[DEBUG] 11:36:21:629869000: ollama_api_get: success
+result: lines:        1
+result: output: {"version":"0.0.0"}
 ```

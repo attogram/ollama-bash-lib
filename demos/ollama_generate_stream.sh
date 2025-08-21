@@ -21,10 +21,10 @@ echo
 echo '## Demo'
 echo
 echo '```bash'
-echo "ollama_generate_stream \"$model\" \"$prompt\""
+echo "ollama_generate_stream -m \"$model\" -p \"$prompt\""
 echo '```'
 echo '```'
-ollama_generate_stream "$model" "$prompt"
+ollama_generate_stream -m "$model" -p "$prompt"
 echo
 echo '```'
 
@@ -32,9 +32,9 @@ echo
 echo '## Demo Debug'
 echo
 echo '```bash'
-echo "\`OLLAMA_LIB_DEBUG=1 ollama_generate_stream \"$model\" \"$prompt\"\`"
+echo "\`OLLAMA_LIB_DEBUG=1 ollama_generate_stream -m \"$model\" -p \"$prompt\"\`"
 echo '```'
 echo '```json'
-OLLAMA_LIB_DEBUG=1 ollama_generate_stream "$model" "$prompt"
+OLLAMA_LIB_DEBUG=1 ollama_generate_stream -m "$model" -p "$prompt"
 echo
 echo '```'
