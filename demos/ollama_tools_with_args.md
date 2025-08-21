@@ -1,6 +1,6 @@
 # ollama_tools with args demo
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.9
 Error: Missing required arguments
 
 Usage: ollama_tools_add -n <name> -c <command> -j <json> [-h] [-v]

@@ -1,6 +1,6 @@
 # ollama_thinking, ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.9
 
 ```
 ollama_thinking on
@@ -9,17 +9,26 @@ ollama_generate -m "$(ollama_model_random)" -p "list 10 things about bash, 1 per
 ```
 
 thinking is on
-# <thinking>
-# Task: user wants a list of 10 things about bash, one per line. Just produce 10 items, each on separate line. Should be distinct facts / points. We'll output exactly 10 lines. Ensure each line is a single item. Probably something like "Bash is a Unix shell," etc. Let's do that. Provide list.
-# </thinking>
+#### <thinking>
+#### We are asked: "list 10 things about bash, 1 per line" The user wants a list. Likely plain text. We should respond with 10 points each on its own line. They didn't ask to number but "1 per line" so we can bullet or numbered. Let's just do bullet points. The content: Some facts: shebang, interactive use, scripting features, builtins, expansion, command substitution, job control, history, arrays, etc. Provide 10 distinct points.
 
-Bash is the default shell on most Linux distributions and macOS.  
-It follows the POSIX shell standard, meaning scripts will generally run on any POSIX‑compliant shell.  
-Bash supports command substitution with ``$(…)`` and older ``…`` syntax, allowing dynamic command execution.  
-The programmable completion feature in Bash can auto-complete commands, options, and file names.  
-Bash uses a special file (.bashrc or .bash_profile) for user-specific startup configuration.  
-The “$?” variable holds the exit status of the last executed command.  
-File globbing in Bash uses patterns like `*`, `?`, and `[ ]` to match filenames.  
-Bash incorporates associative arrays (hash tables) starting from version 4.0.  
-The `set -x` option enables debug tracing, printing each command before execution.  
-Bash can be invoked in “posix mode” with `bash --posix` to enforce stricter POSIX compliance.
+We'll output e.g.:
+
+- Bash stands for "Bourne Again SHell"…
+- It supports array variables starting with Bash 4.0
+- It has first-class command substitution using $( … )
+...
+
+Let's produce 10 lines. Ensure each line is separate.
+#### </thinking>
+
+- Bash is the “Bourne‑Again SHell,” a modern re‑implementation of Steve Bourne’s original shell (sh).  
+- The shebang line `#!/usr/bin/env bash` tells a script to run under Bash rather than another shell.  
+- Bash includes both interactive mode (REPL) and non‑interactive script execution with features like `set -e` and `set -o pipefail`.  
+- It supports associative arrays (key/value maps) as well as indexed arrays, introduced in Bash 4.0.  
+- Variable expansion uses `${var}` syntax, with support for default values `${var:-default}` and substring operations `${var:offset:length}`.  
+- Command substitution can be done with backticks or `$()`—the latter is preferred for readability and nesting.  
+- Bash offers brace expansion, e.g., `echo a{b,c}d` prints `abd acd`, useful for generating filenames.  
+- Job control (`Ctrl‑Z`, `fg`, `bg`, `jobs`) lets you suspend and resume processes directly from the shell prompt.  
+- Bash’s `read` built‑in supports `-p` prompts and `-s` silent input (e.g., for passwords).  
+- The history feature (`history`, `!<number>`) records commands, and can be configured with `HISTSIZE` and `HISTFILE` to persist across sessions.

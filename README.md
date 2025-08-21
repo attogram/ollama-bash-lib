@@ -45,12 +45,14 @@ git clone https://github.com/attogram/ollama-bash-lib.git
 cd ollama-bash-lib
 source ollama_bash_lib.sh
 
-# One line generation
-ollama_generate "mistral:7b" "Describe Bash in 3 words"
+# Generate a completion
+ollama_generate -m mistral:7b -p "Describe Bash in 3 words"
+
 # Powerful, Flexible, Scripting.
 
 # Tab completion to view available library functions
 ollama_<TAB>
+
 # ollama_api_get               ollama_generate_json         ollama_model_random
 # ollama_api_ping              ollama_generate_stream       ollama_model_unload
 # ollama_api_post              ollama_generate_stream_json  ollama_ps
@@ -294,6 +296,8 @@ See the **[demos](demos)** directory for all demo scripts
 
 | Demo                                                                   | About                                                                                                                          | Script                                                                 |
 |------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| [help.md](demos/help.md)                                               | Get help (-h) for all functions                                                                                                | [help.sh](demos/help.sh)                                               |
+| [ollama_generate.md](demos/ollama_generate.md)                         | Generate completion with [`ollama_generate`](#generate-functions)                                                              | [ollama_generate.sh](demos/ollama_generate.sh)                         |
 | [review.lib.md](demos/review.lib.md)                                   | Code Review of [`ollama_bash_lib.sh`](ollama_bash_lib.sh)                                                                      | [review.lib.sh](demos/review.lib.sh)                                   |
 | [review.lib-security.md](demos/review.lib-security.md)                 | Security Review of [`ollama_bash_lib.sh`](ollama_bash_lib.sh)                                                                  | [review.lib.sh](demos/review.lib-security.sh)                          |
 | [review.readme.md](demos/review.readme.md)                             | Marketing Review of this [`README.md`](README.md)                                                                              | [review.readme.sh](demos/review.readme.sh)                             |
@@ -301,7 +305,6 @@ See the **[demos](demos)** directory for all demo scripts
 | [prompt.all.models.md](demos/prompt.all.models.md)                     | Send a prompt to all models                                                                                                    | [prompt.all.models.sh](demos/prompt.all.models.sh)                     |
 | [prompts.model.md](demos/prompts.model.md)                             | Send many prompts to a model                                                                                                   | [prompts.model.sh](demos/prompts.model.sh)                             |
 | [ollama_chat.md](demos/ollama_chat.md)                                 | Chat completion with [`ollama_messages_add`](#chat-functions) and [`ollama_chat`](#chat-functions)                             | [ollama_chat.sh](demos/ollama_chat.sh)                                 |
-| [ollama_generate.md](demos/ollama_generate.md)                         | Generate completion with [`ollama_generate`](#generate-functions)                                                              | [ollama_generate.sh](demos/ollama_generate.sh)                         |
 | [ollama_generate_json.md](demos/ollama_generate_json.md)               | Generate completion, json output with [`ollama_generate_json`](#generate-functions)                                            | [ollama_generate_json.sh](demos/ollama_generate_json.sh)               |
 | [ollama_generate_stream.md](demos/ollama_generate_stream.md)           | Generate completion, streaming with [`ollama_generate_stream`](#generate-functions)                                            | [ollama_generate_stream.sh](demos/ollama_generate_stream.sh)           |
 | [ollama_generate_stream_json.md](demos/ollama_generate_stream_json.md) | Generate completion, streaming and json output with [`ollama_generate_stream_json`](#generate-functions)                       | [ollama_generate_stream_json.sh](demos/ollama_generate_stream_json.sh) |

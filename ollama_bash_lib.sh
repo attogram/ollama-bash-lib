@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.45.8'
+OLLAMA_LIB_VERSION='0.45.9'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -84,9 +84,7 @@ _exists() {
 # Requires: none
 # Returns: 0 if valid, 1 if not valid
 _is_valid_url() {
-  # TODO - protect against transverses ../
-  # TODO - allow no protocol, host hostname
-  local url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
+  local url_regex='^(https?)://[A-Za-z0-9.-]+(:[0-9]+)?$'
   if [[ "$1" =~ $url_regex ]]; then
     return 0
   else
@@ -605,7 +603,7 @@ EOF
         thinking="$(printf '%s' "$result" | jq -r '.thinking // empty')"
         if [[ -n "$thinking" ]]; then
             _debug 'ollama_generate: thinking FOUND'
-            printf '# <thinking>\n# %s\n# </thinking>\n\n' "$thinking" >&2 # send thinking to stderr
+            printf '#### <thinking>\n#### %s\n#### </thinking>\n\n' "$thinking" >&2 # send thinking to stderr
         fi
     fi
 
@@ -701,10 +699,10 @@ EOF
 _ollama_thinking_stream() {
   local chunk
   if read -r -n 1 chunk && [[ -n "$chunk" ]]; then
-    printf "# <thinking>\n" >&2
-    printf "# %s" "$chunk" >&2
+    printf "#### <thinking>\n" >&2
+    printf "#### %s" "$chunk" >&2
     cat >&2
-    printf "\n# </thinking>\n\n" >&2
+    printf "\n#### </thinking>\n\n" >&2
   fi
 }
 

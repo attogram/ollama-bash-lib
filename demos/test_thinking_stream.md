@@ -6,8 +6,8 @@ Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
 Error: Missing required arguments
 
 Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-# <thinking>
-# [ERROR] _ollama_chat_payload: Message history is empty
+#### <thinking>
+#### [ERROR] _ollama_chat_payload: Message history is empty
 [ERROR] _call_curl: HTTP error 502: {"error": "upstream error"}
 [ERROR] ollama_api_post: curl error: 1
 [ERROR] _ollama_chat_stream_false: ollama_api_post failed
@@ -15,6 +15,6 @@ Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
 [ERROR] ollama_messages_last: error getting message content: 1
 [ERROR] ollama_chat: ollama_chat_json response empty
 
-# </thinking>
+#### </thinking>
 
 [ERROR] ollama_chat_stream: ollama_chat failed with code 1

@@ -1,6 +1,6 @@
 # Prompt all models
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.9
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -17,18 +17,20 @@ prompt: What is your knowledge cutoff date? Respond with only the date.
 
 ## gpt-oss:120b
 ```
-# <thinking>
-# User asks: "What is your knowledge cutoff date? Respond with only the date." Should answer only date, no extra text. Knowledge cutoff is 2024-06. So output "2024-06".
-# </thinking>
+#### <thinking>
+#### The user asks: "What is your knowledge cutoff date? Respond with only the date."
+
+We must obey. Answer with date only, no extra text. The knowledge cutoff is 2024-06. So just "2024-06".
+#### </thinking>
 
 2024-06
 ```
 
 ## gpt-oss:20b
 ```
-# <thinking>
-# We need to respond with only the date of knowledge cutoff. According to system message earlier, knowledge cutoff date is 2023-10. The user wants only the date. So respond "2023-10".
-# </thinking>
+#### <thinking>
+#### The user asks: "What is your knowledge cutoff date? Respond with only the date." The answer should be just the date, presumably "2024-06". But maybe the model is updated? The instructions say respond only with the date. So I should output "2024-06-??". The policy says knowledge cutoff is 2024-06. The date format: "2024-06". Possibly also "2024-06-01"? The instruction says respond with only the date. I think "2024-06" is fine. No extra text.
+#### </thinking>
 
-2023-10
+2024-06
 ```

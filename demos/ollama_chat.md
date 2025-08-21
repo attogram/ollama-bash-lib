@@ -1,8 +1,8 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.9
 
-`model="gpt-oss:20b"`
+`model="gpt-oss:120b"`
 ## Demo
 
 ```bash
