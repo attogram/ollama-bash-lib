@@ -18,6 +18,33 @@ The main logic of this repository is contained in the `ollama_bash_lib.sh` file.
 
 When adding new public functions, I should also consider adding a corresponding alias for it at the end of the file.
 
+## Code Style and Linting
+
+To maintain code quality, I should run `shellcheck` on any shell scripts that I create or modify.
+
+### Installing shellcheck
+
+I can install `shellcheck` using the package manager for the system.
+
+For Debian/Ubuntu-based systems:
+```bash
+sudo apt-get update && sudo apt-get install -y shellcheck
+```
+
+For Fedora/CentOS/RHEL-based systems:
+```bash
+sudo dnf install -y shellcheck
+```
+
+### Running shellcheck
+
+To check a script, I can run the following command:
+```bash
+shellcheck <script_name>.sh
+```
+
+I should aim to resolve all warnings and errors reported by `shellcheck`.
+
 ## Working with Demos
 
 The `demos` directory contains a collection of scripts that demonstrate the functionality of the library.
@@ -49,7 +76,15 @@ When I need to install the Bats testing framework, I will create a file named `i
 
 After installation, I should verify that Bats is working by running `bats --version`.
 
-**Note on Bats Installation:** I have encountered a persistent internal error when trying to clone the `bats-core` repository or download it as a zip file. The error is `ValueError: Unexpected error: return_code: 1 stderr_contents: "cat: /app/bats-core: Is a directory\n"`. This seems to be a tooling issue. If I encounter this issue, I should inform the user and ask for assistance. Using the script below should be a more reliable method.
+## Cleanup After Installation
+
+After successfully installing dependencies, I should remove any temporary files or directories that were created during the installation process. This includes any downloaded scripts or archives.
+
+## Troubleshooting Known Issues
+
+### Bats Installation Error
+
+I have previously encountered a persistent internal error when trying to clone the `bats-core` repository or download it as a zip file. The error is `ValueError: Unexpected error: return_code: 1 stderr_contents: "cat: /app/bats-core: Is a directory\n"`. This seems to be a tooling issue. Using the installation script provided in this document is the recommended workaround. If this issue persists, I should inform the user.
 
 ---
 
