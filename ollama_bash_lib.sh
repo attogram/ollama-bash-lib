@@ -53,7 +53,7 @@ _debug() {
   (( OLLAMA_LIB_DEBUG )) || return 0 # DEBUG must be 1 or higher to show debug messages
   local date_string # some date implementations do not support %N nanoseconds
   date_string="$(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi)"
-  printf "[DEBUG] ${date_string}: %s\n" "$(_redact "$1")" >&2
+  printf '[DEBUG] %s: %s\n' "$date_string" "$(_redact "$1")" >&2
 }
 
 # Error message
@@ -64,7 +64,7 @@ _debug() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 _error() {
-  printf "[ERROR] %s\n" "$(_redact "$1")" >&2
+  printf '[ERROR] %s\n' "$(_redact "$1")" >&2
 }
 
 # Does a command exist?
@@ -702,10 +702,10 @@ EOF
 _ollama_thinking_stream() {
   local chunk
   if read -r -n 1 chunk && [[ -n "$chunk" ]]; then
-    printf "#### <thinking>\n" >&2
-    printf "#### %s" "$chunk" >&2
+    printf '#### <thinking>\n' >&2
+    printf '#### %s' "$chunk" >&2
     cat >&2
-    printf "\n#### </thinking>\n\n" >&2
+    printf '\n#### </thinking>\n\n' >&2
   fi
 }
 
@@ -914,7 +914,7 @@ EOF
     _debug "ollama_messages_add: [${role:0:42}] [${content:0:42}]"
 
     local json_payload
-    if [[ "$role" == "tool" ]]; then
+    if [[ "$role" == 'tool' ]]; then
         if ! _is_valid_json "$content"; then
             _error 'ollama_messages_add: for "tool" role, content must be a valid JSON'
             return 1
@@ -1166,7 +1166,6 @@ _ollama_chat_stream_false() {
   ollama_messages_add -r 'assistant' -c "$content"
   _debug "_ollama_chat_stream_false: ollama_messages_count: [$(ollama_messages_count)]"
 
-  #echo "$result"
   _debug '_ollama_chat_stream_false: success'
   return 0
 }
@@ -1175,7 +1174,7 @@ _ollama_chat_payload() {
   local model="$1"
 
   local stream=true
-  if [[ "$OLLAMA_LIB_STREAM" -eq "0" ]]; then
+  if [[ "$OLLAMA_LIB_STREAM" -eq '0' ]]; then
     stream=false
   fi
 
@@ -1188,7 +1187,7 @@ _ollama_chat_payload() {
   messages_json='['$(IFS=,; echo "${OLLAMA_LIB_MESSAGES[*]}")']'
 
   local thinking=true
-  if [[ "$OLLAMA_LIB_THINKING" == "off" ]]; then
+  if [[ "$OLLAMA_LIB_THINKING" == 'off' ]]; then
     thinking=false
   fi
 
@@ -1386,7 +1385,7 @@ EOF
     OLLAMA_LIB_STREAM=1
     (
         ollama_chat -m "$model" | while IFS= read -r line; do
-            if [[ "$OLLAMA_LIB_THINKING" == "on" ]]; then
+            if [[ "$OLLAMA_LIB_THINKING" == 'on' ]]; then
                 printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
             fi
             read -r -d '' content < <(jq -r '.message.content // empty' <<<"$line")
@@ -1792,7 +1791,7 @@ EOF
     local command
     command="${OLLAMA_LIB_TOOLS_COMMAND[$tool_index]}"
 
-    if [[ -z "$tool_args_str" ]] || [[ "$tool_args_str" == "null" ]]; then
+    if [[ -z "$tool_args_str" ]] || [[ "$tool_args_str" == 'null' ]]; then
         tool_args_str="{}"
     fi
 
