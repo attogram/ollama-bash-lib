@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.45.11'
+OLLAMA_LIB_VERSION='0.45.12'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -20,7 +20,10 @@ OLLAMA_LIB_STREAM=0 # Streaming mode: 0 = No streaming, 1 = Yes streaming
 OLLAMA_LIB_THINKING="${OLLAMA_LIB_THINKING:-off}" # Thinking mode: off, on, hide
 OLLAMA_LIB_TIMEOUT="${OLLAMA_LIB_TIMEOUT:-300}" # Curl timeout in seconds
 
-set -o pipefail # Exit the pipeline if any command fails (instead of only the last one)
+if (set -o pipefail 2>/dev/null); then # If pipefail is supported
+    set -o pipefail # Exit the pipeline if any command fails (instead of only the last one)
+fi
+
 
 # Internal Functions
 
