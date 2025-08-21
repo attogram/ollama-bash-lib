@@ -1,6 +1,6 @@
 # ollama_thinking, ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.11
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.1
 
 ```
 ollama_thinking on
@@ -10,16 +10,16 @@ ollama_generate -m "$(ollama_model_random)" -p "list 10 things about bash, 1 per
 
 thinking is on
 #### <thinking>
-#### User: "list 10 things about bash, 1 per line". Just list 10 facts/ tips or features. Probably short lines. Ensure 10 lines.
+#### The user wants a list of 10 things about bash, one per line. That's straightforward. Provide 10 items, each bullet or just a line. Probably short factual statements. Ensure each line separate.
 #### </thinking>
 
-1. Bash is the default shell on most Linux distributions, providing command-line execution and scripting.  
-2. It supports built-in globbing (`*`, `?`, `**`) for pattern matching file paths.  
-3. Bash can expand variables with `${VAR:-default}` syntax, supplying defaults if unset.  
-4. It includes an associative array feature (hash tables) available from Bash 4.x onward.  
-5. Bash’s job control (`jobs`, `bg`, `fg`, `Ctrl‑Z`) lets you pause, background, or bring jobs to the foreground.  
-6. The `read` built‑in can prompt the user and read input, supporting the `-p` and `-s` flags for visibility and silence.  
-7. Bash supports command substitution `$(command)` and legacy backticks `` `command` `` to insert command output.  
-8. It has the `trap` command to execute cleanup code on signals like `EXIT`, `SIGINT`, or `SIGTERM`.  
-9. Bash can run in “POSIX” mode, restricting extensions for greater portability across Unix-like systems.  
-10. With `printf` and `echo -e`, Bash lets you format output, including escape sequences for color and formatting.
+- Bash (Bourne Again SHell) is the default command‑line interpreter for most Linux distributions.  
+- It is an interactive shell that also serves as a powerful scripting language.  
+- Bash supports command history, tab completion, and programmable completion.  
+- It provides arithmetic expansion, allowing calculations directly in the shell.  
+- Bash includes control structures like if/else, for, while, until, and case for scripting logic.  
+- It offers job control features to run, suspend, and manage background processes.  
+- Bash can read and execute commands from startup files such as ~/.bashrc and ~/.bash_profile.  
+- It supports input/output redirection, pipelines, and process substitution.  
+- Bash includes built‑in commands (e.g., cd, echo, read, printf) that run without launching external programs.  
+- Bash is POSIX‑compatible, yet adds many extensions and enhancements beyond the POSIX shell standard.

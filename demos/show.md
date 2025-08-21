@@ -1,8 +1,8 @@
 # ollama_show, ollama_show_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.11
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.1
 
-ollama_show "gpt-oss:120b"
+ollama_show "gpt-oss:20b"
 
 ```
 Error: -m <model> is required
@@ -11,7 +11,7 @@ Usage: ollama_show -m <model> [-h] [-v]
 ```
 
 
-ollama_show_json "gpt-oss:120b"
+ollama_show_json "gpt-oss:20b"
 
 ```
 Error: -m <model> is required

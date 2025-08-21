@@ -1,6 +1,6 @@
 # help via -h and --help
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.11
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.1
 ## Testing -h for all functions (first argument)
 
 `ollama_api_get -h`
@@ -243,13 +243,13 @@ Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
 
 Add a message to the current session's message history.
 
-  -r <role>   The role of the message sender (user, assistant, system, tool).
+  -r <role>   The role of the message sender (user, assistant, system).
   -c <content> The content of the message.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function appends a new message object to the 'OLLAMA_LIB_MESSAGES' array.
-This history is then used by 'ollama_chat' and related functions to maintain a conversation with the model.
+This function appends a new message object to the \'OLLAMA_LIB_MESSAGES\' array.
+This history is then used by \'ollama_chat\' and related functions to maintain a conversation with the model.
 ```
 
 `oma -h`
@@ -258,13 +258,13 @@ Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
 
 Add a message to the current session's message history.
 
-  -r <role>   The role of the message sender (user, assistant, system, tool).
+  -r <role>   The role of the message sender (user, assistant, system).
   -c <content> The content of the message.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function appends a new message object to the 'OLLAMA_LIB_MESSAGES' array.
-This history is then used by 'ollama_chat' and related functions to maintain a conversation with the model.
+This function appends a new message object to the \'OLLAMA_LIB_MESSAGES\' array.
+This history is then used by \'ollama_chat\' and related functions to maintain a conversation with the model.
 ```
 
 `ollama_messages_clear -h`
@@ -276,7 +276,7 @@ Clear all messages from the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function resets the 'OLLAMA_LIB_MESSAGES' array, effectively deleting the entire conversation history for the current session.
+This function resets the \'OLLAMA_LIB_MESSAGES\' array, effectively deleting the entire conversation history for the current session.
 This is useful for starting a new conversation without restarting the script.
 ```
 
@@ -289,7 +289,7 @@ Clear all messages from the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function resets the 'OLLAMA_LIB_MESSAGES' array, effectively deleting the entire conversation history for the current session.
+This function resets the \'OLLAMA_LIB_MESSAGES\' array, effectively deleting the entire conversation history for the current session.
 This is useful for starting a new conversation without restarting the script.
 ```
 
@@ -319,170 +319,76 @@ This function returns the current number of messages stored in the 'OLLAMA_LIB_M
 It can be used to check if a conversation has started or to monitor the length of the conversation history.
 ```
 
+./help.sh: line 63: ollama_tools_add: command not found
 `ollama_tools_add -h`
 ```
-Usage: ollama_tools_add -n <name> -c <command> -j <json> [-h] [-v]
 
-Register a new tool for the model to use.
-
-  -n <name>    The name of the tool.
-  -c <command> The command to run for the tool.
-  -j <json>    The JSON definition of the tool.
-  -h           Show this help and exit.
-  -v           Show version information and exit.
-
-The model can then request to call this tool during a chat. The JSON definition should follow the Ollama tool definition format.
 ```
 
+./help.sh: line 63: ota: command not found
 `ota -h`
 ```
-Usage: ollama_tools_add -n <name> -c <command> -j <json> [-h] [-v]
 
-Register a new tool for the model to use.
-
-  -n <name>    The name of the tool.
-  -c <command> The command to run for the tool.
-  -j <json>    The JSON definition of the tool.
-  -h           Show this help and exit.
-  -v           Show version information and exit.
-
-The model can then request to call this tool during a chat. The JSON definition should follow the Ollama tool definition format.
 ```
 
+./help.sh: line 63: ollama_tools: command not found
 `ollama_tools -h`
 ```
-Usage: ollama_tools [-h] [-v]
 
-View all registered tools.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function lists all the tools that have been added to the current session using 'ollama_tools_add'.
-It displays a tab-separated list of tool names and their corresponding commands.
 ```
 
+./help.sh: line 63: oto: command not found
 `oto -h`
 ```
-Usage: ollama_tools [-h] [-v]
 
-View all registered tools.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function lists all the tools that have been added to the current session using 'ollama_tools_add'.
-It displays a tab-separated list of tool names and their corresponding commands.
 ```
 
+./help.sh: line 63: ollama_tools_count: command not found
 `ollama_tools_count -h`
 ```
-Usage: ollama_tools_count [-h] [-v]
 
-Get the number of registered tools.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function returns the current number of tools that have been registered in the session.
-It provides a simple way to check if any tools are available for the model to use.
 ```
 
+./help.sh: line 63: otco: command not found
 `otco -h`
 ```
-Usage: ollama_tools_count [-h] [-v]
 
-Get the number of registered tools.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function returns the current number of tools that have been registered in the session.
-It provides a simple way to check if any tools are available for the model to use.
 ```
 
+./help.sh: line 63: ollama_tools_clear: command not found
 `ollama_tools_clear -h`
 ```
-Usage: ollama_tools_clear [-h] [-v]
 
-Remove all registered tools from the session.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function clears the tool registry, removing all tool names, commands, and definitions.
-This is useful for ensuring that a new chat session starts with a clean slate of tools.
 ```
 
+./help.sh: line 63: otc: command not found
 `otc -h`
 ```
-Usage: ollama_tools_clear [-h] [-v]
 
-Remove all registered tools from the session.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function clears the tool registry, removing all tool names, commands, and definitions.
-This is useful for ensuring that a new chat session starts with a clean slate of tools.
 ```
 
+./help.sh: line 63: ollama_tools_is_call: command not found
 `ollama_tools_is_call -h`
 ```
-Usage: ollama_tools_is_call -j <json> [-h] [-v]
 
-Check if the model's response contains a tool call.
-
-  -j <json>   The JSON response from the model.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function inspects the JSON response from the model to see if it includes a 'tool_calls' field, which indicates the model wants to use a tool.
-It is essential for building agentic systems that can decide whether to execute a tool or respond with text.
 ```
 
+./help.sh: line 63: otic: command not found
 `otic -h`
 ```
-Usage: ollama_tools_is_call -j <json> [-h] [-v]
 
-Check if the model's response contains a tool call.
-
-  -j <json>   The JSON response from the model.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function inspects the JSON response from the model to see if it includes a 'tool_calls' field, which indicates the model wants to use a tool.
-It is essential for building agentic systems that can decide whether to execute a tool or respond with text.
 ```
 
+./help.sh: line 63: ollama_tools_run: command not found
 `ollama_tools_run -h`
 ```
-Usage: ollama_tools_run -n <name> -a <args> [-h] [-v]
 
-Execute a registered tool with the given arguments.
-
-  -n <name>   The name of the tool to run.
-  -a <args>   The JSON string of arguments for the tool.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function looks up the command for the specified tool name and executes it, passing the arguments as a JSON string.
-It is the core component for making the model's tool calls functional, bridging the gap between the model's request and the actual execution of the tool.
 ```
 
+./help.sh: line 63: otr: command not found
 `otr -h`
 ```
-Usage: ollama_tools_run -n <name> -a <args> [-h] [-v]
 
-Execute a registered tool with the given arguments.
-
-  -n <name>   The name of the tool to run.
-  -a <args>   The JSON string of arguments for the tool.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function looks up the command for the specified tool name and executes it, passing the arguments as a JSON string.
-It is the core component for making the model's tool calls functional, bridging the gap between the model's request and the actual execution of the tool.
 ```
 
 `ollama_chat -h`
@@ -495,7 +401,8 @@ Request a chat completion from a model, receiving a plain text response.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function is a user-friendly wrapper around 'ollama_chat_json'. It handles the JSON parsing and returns only the content of the model's message as a single string.
+This function is a user-friendly wrapper around \'ollama_chat_json\'.
+It handles the JSON parsing and returns only the content of the model\'s message as a single string.
 It is ideal for simple, non-streaming chat interactions.
 ```
 
@@ -509,7 +416,8 @@ Request a chat completion from a model, receiving a plain text response.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function is a user-friendly wrapper around 'ollama_chat_json'. It handles the JSON parsing and returns only the content of the model's message as a single string.
+This function is a user-friendly wrapper around \'ollama_chat_json\'.
+It handles the JSON parsing and returns only the content of the model\'s message as a single string.
 It is ideal for simple, non-streaming chat interactions.
 ```
 
@@ -523,9 +431,9 @@ Request a chat completion from a model, receiving a stream of text.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function calls 'ollama_chat' with streaming enabled and processes the output to provide a continuous stream of text from the model's response.
+This function calls \'ollama_chat\' with streaming enabled and processes the output to provide a continuous stream of text from the model\'s response.
 It is perfect for interactive chat applications where you want to display the response as it is being generated.
-The assistant's response is NOT added to the message history.
+The assistant\'s response is NOT added to the message history.
 ```
 
 `ocs -h`
@@ -538,9 +446,9 @@ Request a chat completion from a model, receiving a stream of text.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function calls 'ollama_chat' with streaming enabled and processes the output to provide a continuous stream of text from the model's response.
+This function calls \'ollama_chat\' with streaming enabled and processes the output to provide a continuous stream of text from the model\'s response.
 It is perfect for interactive chat applications where you want to display the response as it is being generated.
-The assistant's response is NOT added to the message history.
+The assistant\'s response is NOT added to the message history.
 ```
 
 `ollama_chat_stream_json -h`
@@ -553,9 +461,9 @@ Request a chat completion from a model, receiving a stream of JSON objects.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function enables streaming and calls 'ollama_chat' to get a raw stream of JSON objects from the model.
-It is the basis for the 'ollama_chat_stream' function, which turns the JSON stream into a more human-readable text stream.
-The assistant's response is NOT added to the message history.
+This function enables streaming and calls \'ollama_chat\' to get a raw stream of JSON objects from the model.
+It is the basis for the \'ollama_chat_stream\' function, which turns the JSON stream into a more human-readable text stream.
+The assistant\'s response is NOT added to the message history.
 ```
 
 `ocsj -h`
@@ -568,9 +476,9 @@ Request a chat completion from a model, receiving a stream of JSON objects.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function enables streaming and calls 'ollama_chat' to get a raw stream of JSON objects from the model.
-It is the basis for the 'ollama_chat_stream' function, which turns the JSON stream into a more human-readable text stream.
-The assistant's response is NOT added to the message history.
+This function enables streaming and calls \'ollama_chat\' to get a raw stream of JSON objects from the model.
+It is the basis for the \'ollama_chat_stream\' function, which turns the JSON stream into a more human-readable text stream.
+The assistant\'s response is NOT added to the message history.
 ```
 
 `ollama_list -h`
@@ -582,7 +490,7 @@ List all available models in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama list' command-line tool to display a formatted table of all locally available models.
+This function uses 'ollama list' to display a formatted table of all locally available models.
 It is a convenient way to quickly see the models you have installed.
 ```
 
@@ -595,7 +503,7 @@ List all available models in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama list' command-line tool to display a formatted table of all locally available models.
+This function uses 'ollama list' to display a formatted table of all locally available models.
 It is a convenient way to quickly see the models you have installed.
 ```
 
@@ -609,7 +517,7 @@ List all available models in JSON format.
   -v          Show version information and exit.
 
 This function queries the Ollama API for the list of available models and returns the raw JSON response.
-This is useful for programmatic access to model information, allowing for easy parsing and manipulation with tools like 'jq'.
+This is useful for programmatic access to model information, allowing for easy parsing and manipulation with 'jq'.
 ```
 
 `olj -h`
@@ -622,7 +530,7 @@ List all available models in JSON format.
   -v          Show version information and exit.
 
 This function queries the Ollama API for the list of available models and returns the raw JSON response.
-This is useful for programmatic access to model information, allowing for easy parsing and manipulation with tools like 'jq'.
+This is useful for programmatic access to model information, allowing for easy parsing and manipulation with 'jq'.
 ```
 
 `ollama_list_array -h`
@@ -716,7 +624,7 @@ List running model processes in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama ps' command-line tool to display a table of all models currently running in memory.
+This function uses 'ollama ps' to display a table of all models currently running in memory.
 It is a quick way to check which models are active and consuming resources.
 ```
 
@@ -729,7 +637,7 @@ List running model processes in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama ps' command-line tool to display a table of all models currently running in memory.
+This function uses 'ollama ps' to display a table of all models currently running in memory.
 It is a quick way to check which models are active and consuming resources.
 ```
 
@@ -769,7 +677,7 @@ Show detailed information about a model in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama show' command-line tool to display details about a specified model, including its parameters, template, and more.
+This function uses 'ollama show' to display details about a specified model, including its parameters, template, and more.
 It is useful for inspecting the configuration of a model.
 ```
 
@@ -783,7 +691,7 @@ Show detailed information about a model in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama show' command-line tool to display details about a specified model, including its parameters, template, and more.
+This function uses 'ollama show' to display details about a specified model, including its parameters, template, and more.
 It is useful for inspecting the configuration of a model.
 ```
 
@@ -824,7 +732,7 @@ Check if the Ollama application is installed on the local system.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'command -v' utility to determine if the 'ollama' executable is in the system's PATH.
+This function uses the \'command -v\' utility to determine if the \'ollama\' executable is in the system\'s PATH.
 It is useful for pre-flight checks in scripts to ensure that required dependencies are available.
 ```
 
@@ -837,7 +745,7 @@ Check if the Ollama application is installed on the local system.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'command -v' utility to determine if the 'ollama' executable is in the system's PATH.
+This function uses the \'command -v\' utility to determine if the \'ollama\' executable is in the system\'s PATH.
 It is useful for pre-flight checks in scripts to ensure that required dependencies are available.
 ```
 
@@ -955,26 +863,26 @@ This is useful for programmatic version checking and comparison.
 ```
 Usage: ollama_app_version_cli [-h] [-v]
 
-Get the version of the Ollama application using the command-line tool.
+Get the version of the installed Ollama application
 
   -h          Show this help and exit.
   -v          Show version information and exit.
 
 This function calls 'ollama --version' to get the version information directly from the command-line application.
-This can be useful for verifying the CLI tool is installed and working correctly.
+This can be useful for verifying the ollama core cli is installed and working correctly.
 ```
 
 `oavc -h`
 ```
 Usage: ollama_app_version_cli [-h] [-v]
 
-Get the version of the Ollama application using the command-line tool.
+Get the version of the installed Ollama application
 
   -h          Show this help and exit.
   -v          Show version information and exit.
 
 This function calls 'ollama --version' to get the version information directly from the command-line application.
-This can be useful for verifying the CLI tool is installed and working correctly.
+This can be useful for verifying the ollama core cli is installed and working correctly.
 ```
 
 `ollama_thinking -h`
@@ -987,7 +895,7 @@ Configure the 'thinking' mode for model responses.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the 'OLLAMA_LIB_THINKING' environment variable, which controls whether the model's 'thinking' process is displayed.
+This function sets the \'OLLAMA_LIB_THINKING\' environment variable, which controls whether the model\'s \'thinking\' process is displayed.
 Modes:
 - on: Show thinking output.
 - off: Hide thinking output.
@@ -1004,7 +912,7 @@ Configure the 'thinking' mode for model responses.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the 'OLLAMA_LIB_THINKING' environment variable, which controls whether the model's 'thinking' process is displayed.
+This function sets the \'OLLAMA_LIB_THINKING\' environment variable, which controls whether the model\'s \'thinking\' process is displayed.
 Modes:
 - on: Show thinking output.
 - off: Hide thinking output.
