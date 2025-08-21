@@ -62,6 +62,43 @@ This repository does not currently have a `tests` directory. If I need to add te
 3.  Write the tests using the Bats testing framework. I should source the `ollama_bash_lib.sh` file in my test scripts to access its functions.
 4.  To run the tests, I can use the `bats` command: `bats tests/`.
 
+## Testing with Different Bash Versions
+
+This library must be compatible with Bash v3.2. I should also test with newer versions like v4 and v5 to ensure continued compatibility.
+
+### Installing Different Bash Versions
+
+To install a specific version of Bash, I can compile it from source. Here are the general steps:
+
+1.  Create a temporary directory for the build (e.g., `~/bash_build`).
+2.  Download the source code for the desired Bash version from the GNU FTP server: `http://ftp.gnu.org/gnu/bash/`. For example, for Bash 3.2.57:
+    ```bash
+    wget http://ftp.gnu.org/gnu/bash/bash-3.2.57.tar.gz
+    ```
+3.  Extract the downloaded tarball:
+    ```bash
+    tar -xzf bash-3.2.57.tar.gz
+    ```
+4.  Navigate into the extracted directory:
+    ```bash
+    cd bash-3.2.57
+    ```
+5.  Configure and compile the source code:
+    ```bash
+    ./configure && make
+    ```
+6.  The compiled `bash` binary will be available in the current directory.
+
+### Running Tests with a Specific Bash Version
+
+To run a script with a specific version of Bash, I can use the full path to the compiled binary:
+
+```bash
+/path/to/bash-3.2.57/bash my_script_to_test.sh
+```
+
+When running tests with Bats, I should ensure that the shebang of the test files points to the correct Bash executable, or I can invoke the tests with the specific bash version.
+
 ## Installation
 
 ### Installing Ollama
