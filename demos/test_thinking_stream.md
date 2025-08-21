@@ -1,5 +1,5 @@
 --- Testing ollama_generate_stream with thinking ON ---
-[ERROR] ollama_generate_stream: Not Found: prompt.
+[ERROR] ollama_generate_stream: No prompt supplied
 Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
 
 --- Testing ollama_chat_stream with thinking ON ---

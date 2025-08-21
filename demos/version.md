@@ -1,6 +1,6 @@
 # ollama_app_version, ollama_app_version_json, ollama_app_version_cli
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.9
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.10
 ```
 
 ollama_app_version
@@ -16,5 +16,5 @@ ollama_app_version_json
 ollama_app_version_cli
 
 ollama version is 0.0.0
-Warning: client version is 0.11.5
+Warning: client version is 0.11.6
 ```

@@ -1,6 +1,6 @@
 # help via -h and --help
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.9
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.10
 ## Testing -h for all functions (first argument)
 
 `ollama_api_get -h`
@@ -191,9 +191,9 @@ Generate a completion from a model as a stream of text.
   -p <prompt> Prompt text. If omitted, the function reads from STDIN.
   -h          Show this help and exit.
   -v          Show version information and exit.
-
-This function calls 'ollama_generate_stream_json' and pipes the output to 'jq' to extract the 'response' field from each JSON object, providing a continuous stream of text.
-It is ideal for displaying real-time generation in interactive scripts.
+  
+    This function calls ollama_generate_stream_json and pipes the output to jq to extract the response field from each JSON object, providing a continuous stream of text.
+    It is ideal for displaying real-time generation in interactive scripts.
 ```
 
 `ogs -h`
@@ -206,9 +206,9 @@ Generate a completion from a model as a stream of text.
   -p <prompt> Prompt text. If omitted, the function reads from STDIN.
   -h          Show this help and exit.
   -v          Show version information and exit.
-
-This function calls 'ollama_generate_stream_json' and pipes the output to 'jq' to extract the 'response' field from each JSON object, providing a continuous stream of text.
-It is ideal for displaying real-time generation in interactive scripts.
+  
+    This function calls ollama_generate_stream_json and pipes the output to jq to extract the response field from each JSON object, providing a continuous stream of text.
+    It is ideal for displaying real-time generation in interactive scripts.
 ```
 
 `ollama_messages -h`

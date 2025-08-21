@@ -37,6 +37,6 @@ while true; do
   echo -n '>>> '
   read -r prompt
   echo
-  ollama_generate_stream "$model" "$prompt"
+  ollama_generate_stream -m "$model" -p "$prompt"
   echo
 done

@@ -18,7 +18,7 @@ shutdown() {
   echo "$(ollama_messages_count) Messages:"
   echo
   echo '```json'
-  ollama_messages
+  ollama_messages | jq
   echo '```'
   exit 0
 }
@@ -42,22 +42,20 @@ echo '- To view message history type: /messages'
 ollama_messages_clear
 
 # Add System Prompt
-ollama_messages_add 'system' 'You are a helpful assistant'
+ollama_messages_add -r 'system' -c 'You are a helpful assistant'
 
 while true; do
   echo
   echo "[$(ollama_messages_count) messages in history]"
   echo -n '>>> '
   read -r prompt
-  if [ "$prompt" == '/messages' ]; then
+  if [[ "$prompt" == '/messages' || "$prompt" == '/msgs' ]]; then
     echo "$(ollama_messages_count) messages:"; echo
     ollama_messages | jq
     continue
   fi;
   echo
-  ollama_messages_add 'user' "$prompt" # Add user prompt to history
-  response=$(ollama_chat "$model" "$prompt") # Get response from model
-  #response=$(OLLAMA_LIB_DEBUG=1 ollama_chat "$model" "$prompt") # Get response from model, in debug mode
-  printf '%s\n' "$response"
-  ollama_messages_add "assistant" "$response" # Add model response to history
+  ollama_messages_add -r 'user' -c "$prompt" # Add user prompt to history
+  ollama_chat -m "$model"
+
 done
