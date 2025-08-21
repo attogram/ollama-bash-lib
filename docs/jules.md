@@ -55,12 +55,11 @@ The `demos` directory contains a collection of scripts that demonstrate the func
 
 ## Working with Tests
 
-This repository does not currently have a `tests` directory. If I need to add tests, I should follow these steps:
+The `tests` directory contains the test suite for the library. If I need to add tests, I should follow these steps:
 
-1.  Create a `tests` directory in the root of the repository.
-2.  Inside the `tests` directory, create a new `.bats` file for the tests (e.g., `test_chat.bats`).
-3.  Write the tests using the Bats testing framework. I should source the `ollama_bash_lib.sh` file in my test scripts to access its functions.
-4.  To run the tests, I can use the `bats` command: `bats tests/`.
+1.  Inside the `tests` directory, create a new `.bats` file for the tests (e.g., `test_chat.bats`).
+2.  Write the tests using the Bats testing framework. I should source the `ollama_bash_lib.sh` file in my test scripts to access its functions.
+3.  To run the tests, I can use the `bats` command: `bats tests/`.
 
 ## Testing with Different Bash Versions
 
