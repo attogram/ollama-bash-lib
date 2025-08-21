@@ -2,7 +2,7 @@
 
 A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
-Run LLM prompts straight from your shell. Command line access to the ghost in the machine.
+Run LLM prompts straight from your shell, and more
 
 [▶️ Get Started in 30 seconds](#quickstart) • [💬 Join Discord][discord-invite]
 
@@ -23,7 +23,6 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 [Howto](#howto) : 
 [Get Tech Support](#howto-get-technical-support) -
 [Chat](#howto-chat) -
-[Use Tools](#howto-use-tools) -
 [Use Turbo Mode](#howto-use-ollama-turbo-mode) -
 [Debug](#howto-debug)
 
@@ -32,7 +31,6 @@ Run LLM prompts straight from your shell. Command line access to the ghost in th
 [Helper](#helper-functions) -
 [Generate](#generate-functions) -
 [Chat](#chat-functions) -
-[Tools](#tool-functions) -
 [Model](#model-functions) -
 [Ollama](#ollama-functions) -
 [Lib](#lib-functions) -
@@ -60,12 +58,12 @@ ollama_<TAB>
 # ollama_app_turbo             ollama_lib_version           ollama_show
 # ollama_app_vars              ollama_list                  ollama_show_json
 # ollama_app_version           ollama_list_array            ollama_thinking
-# ollama_app_version_cli       ollama_list_json             ollama_tools
-# ollama_app_version_json      ollama_messages              ollama_tools_add
-# ollama_chat                  ollama_messages_add          ollama_tools_clear
-# ollama_chat_json             ollama_messages_clear        ollama_tools_count
-# ollama_chat_stream           ollama_messages_count        ollama_tools_is_call
-# ollama_chat_stream_json      ollama_messages_last         ollama_tools_run
+# ollama_app_version_cli       ollama_list_json             
+# ollama_app_version_json      ollama_messages              
+# ollama_chat                  ollama_messages_add          
+# ollama_chat_json             ollama_messages_clear        
+# ollama_chat_stream           ollama_messages_count        
+# ollama_chat_stream_json      ollama_messages_last         
 # ollama_generate              ollama_messages_last_json
 ```
 
@@ -172,124 +170,6 @@ Examples:
 OLLAMA_LIB_DEBUG=1 ollama_generate gpt-oss:20b "Three words about debugging"
 ```
 
-### Howto Use Tools
-
-The Tool System allows you to define custom tools that a model can use to perform actions.
-
-**Step 1: Add a Tool**
-
-First, you need to define a tool. A tool consists of a name, a command to execute, and a JSON definition that describes the tool to the model.
-
-For example, let's create a tool that gets the current weather:
-
-```bash
-# The command for our tool will be a function that takes a JSON object as input
-weather_tool() {
-  local location
-  location="$(printf '%s' "$1" | jq -r '.location')"
-  # In a real scenario, you would call a weather API here
-  printf '{"temperature": "72F", "conditions": "Sunny"}'
-}
-
-# The JSON definition for the model
-weather_definition='{
-  "name": "get_weather",
-  "description": "Get the current weather in a given location",
-  "parameters": {
-    "type": "object",
-    "properties": {
-      "location": {
-        "type": "string",
-        "description": "The city and state, e.g. San Francisco, CA"
-      }
-    },
-    "required": ["location"]
-  }
-}'
-
-# Add the tool
-ollama_tools_add "get_weather" "weather_tool" "$weather_definition"
-```
-
-**Step 2: View Tools**
-
-You can see all registered tools with `ollama_tools`:
-
-```bash
-ollama_tools
-# get_weather   weather_tool
-```
-
-**Step 3: Send a Tool Request**
-
-You can send a request to a model that supports tool calling. You can use either `ollama_generate` or `ollama_chat`.
-
-Using `ollama_chat`:
-```bash
-ollama_messages_add "user" "What is the weather in San Francisco?"
-response="$(ollama_chat "gpt-4-turbo")"
-```
-
-**Step 4: Consume the Tool Response**
-
-If the model decides to use a tool, the response will contain a `tool_calls` section. You can check for this with `ollama_tools_is_call`.
-
-```bash
-if ollama_tools_is_call "$response"; then
-  echo "Tool call detected!"
-fi
-```
-
-The response will look something like this:
-```json
-{
-  "model": "gpt-4-turbo",
-  "created_at": "...",
-  "message": {
-    "role": "assistant",
-    "content": "",
-    "tool_calls": [
-      {
-        "id": "call_1234",
-        "type": "function",
-        "function": {
-          "name": "get_weather",
-          "arguments": "{\n  \"location\": \"San Francisco, CA\"\n}"
-        }
-      }
-    ]
-  }
-}
-```
-
-**Step 5: Run the Tool**
-
-Now you need to extract the tool call information and run the tool.
-
-```bash
-tool_name="$(printf '%s' "$response" | jq -r '.message.tool_calls[0].function.name')"
-tool_args="$(printf '%s' "$response" | jq -r '.message.tool_calls[0].function.arguments')"
-tool_call_id="$(printf '%s' "$response" | jq -r '.message.tool_calls[0].id')"
-
-tool_result="$(ollama_tools_run "$tool_name" "$tool_args")"
-```
-
-**Step 6: Add Tool Response to Message List (for chat)**
-
-Finally, if you are in a chat session, you need to add the tool's output back into the message list so the model can use it to generate a user-facing response.
-
-```bash
-# Create a JSON object with the tool_call_id and the result
-tool_response_json="$(jq -c -n --arg tool_call_id "$tool_call_id" --arg result "$tool_result" '{tool_call_id: $tool_call_id, result: $result}')"
-
-# Add the tool response to the messages
-ollama_messages_add "tool" "$tool_response_json"
-
-# Now, call the chat again to get the final response
-final_response="$(ollama_chat "gpt-4-turbo")"
-echo "$final_response"
-```
-
 ## Demos
 
 See the **[demos](demos)** directory for all demo scripts
@@ -356,16 +236,6 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 | `ollama_messages_count`<br />`omco`   | Count of messages in chat context  | `ollama_messages_count`                | number of messages to `stdout`              | `0`/`1` |
 | `ollama_messages_clear`<br />`omc`    | Clear all messages in chat context | `ollama_messages_clear`                | none                                        | `0`/`1` |
 
-### Tool Functions
-
-| Function<br />Alias              | About                               | Usage                                                              | Output                     | Return                                      |
-|----------------------------------|-------------------------------------|--------------------------------------------------------------------|----------------------------|---------------------------------------------|
-| `ollama_tools_add`<br />`ota`     | Add a tool                          | `ollama_tools_add "name" "command" "json_definition"`              | none                       | `0`/`1`                                     |
-| `ollama_tools`<br />`oto`         | View all tools                      | `ollama_tools`                                                     | list of tools to `stdout`  | `0`/`1`                                     |
-| `ollama_tools_count`<br />`otco`  | Get count of tools                  | `ollama_tools_count`                                               | number of tools to `stdout`| `0`/`1`                                     |
-| `ollama_tools_clear`<br />`otc`   | Remove all tools                    | `ollama_tools_clear`                                               | none                       | `0`/`1`                                     |
-| `ollama_tools_is_call`<br />`otic`| Does the response have a tool call? | `ollama_tools_is_call "json_response"`                             | none                       | `0` if it has a tool call, `1` otherwise    |
-| `ollama_tools_run`<br />`otr`     | Run a tool                          | `ollama_tools_run "tool_name" "arguments_json"`                    | result of tool to `stdout` | `0`/`1`                                     |
 
 ### Model Functions
 

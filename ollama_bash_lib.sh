@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.45.12'
+OLLAMA_LIB_VERSION='0.46.0'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -13,9 +13,6 @@ OLLAMA_LIB_COPYRIGHT='Copyright (c) 2025 Ollama Bash Lib, Attogram Project <http
 OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
 OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
 OLLAMA_LIB_MESSAGES=() # Array of messages, in JSON format
-OLLAMA_LIB_TOOLS_NAME=() # Array of tool names
-OLLAMA_LIB_TOOLS_COMMAND=() # Array of tool commands
-OLLAMA_LIB_TOOLS_DEFINITION=() # Array of tool definitions
 OLLAMA_LIB_STREAM=0 # Streaming mode: 0 = No streaming, 1 = Yes streaming
 OLLAMA_LIB_THINKING="${OLLAMA_LIB_THINKING:-off}" # Thinking mode: off, on, hide
 OLLAMA_LIB_TIMEOUT="${OLLAMA_LIB_TIMEOUT:-300}" # Curl timeout in seconds
@@ -23,7 +20,6 @@ OLLAMA_LIB_TIMEOUT="${OLLAMA_LIB_TIMEOUT:-300}" # Curl timeout in seconds
 if (set -o pipefail 2>/dev/null); then # If pipefail is supported
     set -o pipefail # Exit the pipeline if any command fails (instead of only the last one)
 fi
-
 
 # Internal Functions
 
@@ -415,12 +411,6 @@ _ollama_generate_json_payload() {
     --argjson stream "$stream" \
     --argjson thinking "$thinking" \
     '{model: $model, prompt: $prompt, stream: $stream, thinking: $thinking}')"
-
-  if (( ${#OLLAMA_LIB_TOOLS_DEFINITION[@]} > 0 )); then
-    local tools_json
-    tools_json='['$(IFS=,; echo "${OLLAMA_LIB_TOOLS_DEFINITION[*]}")']'
-    payload="$(printf '%s' "$payload" | jq -c --argjson tools "$tools_json" '. + {tools: $tools}')"
-  fi
 
   printf '%s' "$payload"
 }
@@ -866,8 +856,8 @@ EOF
 # Add a message
 #
 # Usage: ollama_messages_add -r <role> -c <content>
-# Input: 1 - role (user/assistant/system/tool)
-# Input: 2 - the message content. For tool role, this should be the JSON output from ollama_tools_run.
+# Input: 1 - role (user/assistant/system)
+# Input: 2 - the message content
 # Output: none
 # Env: OLLAMA_LIB_MESSAGES
 # Requires: jq
@@ -878,13 +868,13 @@ ollama_messages_add() {
     description=$(cat <<'EOF'
 Add a message to the current session's message history.
 
-  -r <role>   The role of the message sender (user, assistant, system, tool).
+  -r <role>   The role of the message sender (user, assistant, system).
   -c <content> The content of the message.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function appends a new message object to the 'OLLAMA_LIB_MESSAGES' array.
-This history is then used by 'ollama_chat' and related functions to maintain a conversation with the model.
+This function appends a new message object to the \'OLLAMA_LIB_MESSAGES\' array.
+This history is then used by \'ollama_chat\' and related functions to maintain a conversation with the model.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -914,26 +904,12 @@ EOF
     _debug "ollama_messages_add: [${role:0:42}] [${content:0:42}]"
 
     local json_payload
-    if [[ "$role" == 'tool' ]]; then
-        if ! _is_valid_json "$content"; then
-            _error 'ollama_messages_add: for "tool" role, content must be a valid JSON'
-            return 1
-        fi
-        local tool_call_id
-        tool_call_id="$(printf '%s' "$content" | jq -r '.tool_call_id')"
-        local result
-        result="$(printf '%s' "$content" | jq -r '.result')"
-        json_payload="$(jq -c -n \
-            --arg role "$role" \
-            --arg content "$result" \
-            --arg tool_call_id "$tool_call_id" \
-            '{role: $role, content: $content, tool_call_id: $tool_call_id}')"
-    else
-        json_payload="$(jq -c -n \
-            --arg role "$role" \
-            --arg content "$content" \
-            '{role: $role, content: $content}')"
-    fi
+
+    json_payload="$(jq -c -n \
+        --arg role "$role" \
+        --arg content "$content" \
+        '{role: $role, content: $content}')"
+
     OLLAMA_LIB_MESSAGES+=("$json_payload")
 }
 
@@ -953,7 +929,7 @@ Clear all messages from the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function resets the 'OLLAMA_LIB_MESSAGES' array, effectively deleting the entire conversation history for the current session.
+This function resets the \'OLLAMA_LIB_MESSAGES\' array, effectively deleting the entire conversation history for the current session.
 This is useful for starting a new conversation without restarting the script.
 EOF
 )
@@ -1199,11 +1175,6 @@ _ollama_chat_payload() {
       --argjson thinking "$thinking" \
       '{model: $model, messages: $messages, stream: $stream, thinking: $thinking}')"
 
-  if (( ${#OLLAMA_LIB_TOOLS_DEFINITION[@]} > 0 )); then
-    local tools_json
-    tools_json='['$(IFS=,; echo "${OLLAMA_LIB_TOOLS_DEFINITION[*]}")']'
-    json_payload="$(printf '%s' "$json_payload" | jq -c --argjson tools "$tools_json" '. + {tools: $tools}')"
-  fi
   printf '%s\n' "$json_payload"
 }
 
@@ -1285,7 +1256,8 @@ Request a chat completion from a model, receiving a plain text response.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function is a user-friendly wrapper around 'ollama_chat_json'. It handles the JSON parsing and returns only the content of the model's message as a single string.
+This function is a user-friendly wrapper around \'ollama_chat_json\'.
+It handles the JSON parsing and returns only the content of the model\'s message as a single string.
 It is ideal for simple, non-streaming chat interactions.
 EOF
 )
@@ -1350,9 +1322,9 @@ Request a chat completion from a model, receiving a stream of text.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function calls 'ollama_chat' with streaming enabled and processes the output to provide a continuous stream of text from the model's response.
+This function calls \'ollama_chat\' with streaming enabled and processes the output to provide a continuous stream of text from the model\'s response.
 It is perfect for interactive chat applications where you want to display the response as it is being generated.
-The assistant's response is NOT added to the message history.
+The assistant\'s response is NOT added to the message history.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -1420,9 +1392,9 @@ Request a chat completion from a model, receiving a stream of JSON objects.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function enables streaming and calls 'ollama_chat' to get a raw stream of JSON objects from the model.
-It is the basis for the 'ollama_chat_stream' function, which turns the JSON stream into a more human-readable text stream.
-The assistant's response is NOT added to the message history.
+This function enables streaming and calls \'ollama_chat\' to get a raw stream of JSON objects from the model.
+It is the basis for the \'ollama_chat_stream\' function, which turns the JSON stream into a more human-readable text stream.
+The assistant\'s response is NOT added to the message history.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -1460,352 +1432,6 @@ EOF
     return 0
 }
 
-# Tools Functions
-
-# Add a tool
-#
-# Usage: ollama_tools_add -n <name> -c <command> -j <json>
-# Input: 1 - The name of the tool
-# Input: 2 - The command to run for the tool
-# Input: 3 - The JSON definition of the tool
-# Output: none
-# Requires: jq
-# Returns: 0 on success, 1 on error
-ollama_tools_add() {
-    local usage='Usage: ollama_tools_add -n <name> -c <command> -j <json> [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Register a new tool for the model to use.
-
-  -n <name>    The name of the tool.
-  -c <command> The command to run for the tool.
-  -j <json>    The JSON definition of the tool.
-  -h           Show this help and exit.
-  -v           Show version information and exit.
-
-The model can then request to call this tool during a chat. The JSON definition should follow the Ollama tool definition format.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG tool_name command json_definition
-    while getopts ":n:c:j:hv" opt; do
-        case $opt in
-            n) tool_name=$OPTARG ;;
-            c) command=$OPTARG ;;
-            j) json_definition=$OPTARG ;;
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_add version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-            :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if ! _exists 'jq'; then _error 'ollama_tools_add: jq Not Found'; return 1; fi
-
-    if [[ -z "$tool_name" || -z "$command" || -z "$json_definition" ]]; then
-        printf 'Error: Missing required arguments\n\n' >&2
-        printf '%s\n' "$usage" >&2
-        return 2
-    fi
-
-    local i
-    for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
-        if [[ "${OLLAMA_LIB_TOOLS_NAME[$i]}" == "$tool_name" ]]; then
-            _error "ollama_tools_add: Tool '$tool_name' already exists."
-            return 1
-        fi
-    done
-
-    if ! _is_valid_json "$json_definition"; then
-        _error 'ollama_tools_add: JSON definition is not valid'
-        return 1
-    fi
-
-    OLLAMA_LIB_TOOLS_NAME+=("$tool_name")
-    OLLAMA_LIB_TOOLS_COMMAND+=("$command")
-    OLLAMA_LIB_TOOLS_DEFINITION+=("$json_definition")
-    _debug "ollama_tools_add: Added tool '$tool_name'"
-    return 0
-}
-
-# View all tools
-#
-# Usage: ollama_tools
-# Input: none
-# Output: A list of all registered tools and their commands
-# Requires: none
-# Returns: 0
-ollama_tools() {
-    local usage='Usage: ollama_tools [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-View all registered tools.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function lists all the tools that have been added to the current session using 'ollama_tools_add'.
-It displays a tab-separated list of tool names and their corresponding commands.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG
-    while getopts ":hv" opt; do
-        case $opt in
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if [[ $# -gt 0 ]]; then
-        _error "ollama_tools: Unknown argument(s): $*"
-        printf '%s\n' "$usage" >&2
-        return 1
-    fi
-
-    if (( ${#OLLAMA_LIB_TOOLS_NAME[@]} == 0 )); then
-        _debug 'ollama_tools: No tools registered'
-        return 0
-    fi
-    local i
-    for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
-        printf '%s\t%s\n' "${OLLAMA_LIB_TOOLS_NAME[$i]}" "${OLLAMA_LIB_TOOLS_COMMAND[$i]}"
-    done
-    return 0
-}
-
-# Get count of tools
-#
-# Usage: ollama_tools_count
-# Input: none
-# Output: The number of registered tools
-# Requires: none
-# Returns: 0
-ollama_tools_count() {
-    local usage='Usage: ollama_tools_count [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Get the number of registered tools.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function returns the current number of tools that have been registered in the session.
-It provides a simple way to check if any tools are available for the model to use.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG
-    while getopts ":hv" opt; do
-        case $opt in
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_count version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if [[ $# -gt 0 ]]; then
-        _error "ollama_tools_count: Unknown argument(s): $*"
-        printf '%s\n' "$usage" >&2
-        return 1
-    fi
-
-    printf '%s\n' "${#OLLAMA_LIB_TOOLS_NAME[@]}"
-    return 0
-}
-
-# Remove all tools
-#
-# Usage: ollama_tools_clear
-# Input: none
-# Output: none
-# Requires: none
-# Returns: 0
-ollama_tools_clear() {
-    local usage='Usage: ollama_tools_clear [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Remove all registered tools from the session.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function clears the tool registry, removing all tool names, commands, and definitions.
-This is useful for ensuring that a new chat session starts with a clean slate of tools.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG
-    while getopts ":hv" opt; do
-        case $opt in
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_clear version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if [[ $# -gt 0 ]]; then
-        _error "ollama_tools_clear: Unknown argument(s): $*"
-        printf '%s\n' "$usage" >&2
-        return 1
-    fi
-
-    OLLAMA_LIB_TOOLS_NAME=()
-    OLLAMA_LIB_TOOLS_COMMAND=()
-    OLLAMA_LIB_TOOLS_DEFINITION=()
-    _debug 'ollama_tools_clear: All tools have been removed'
-    return 0
-}
-
-# Does the response have a tool call?
-#
-# Usage: ollama_tools_is_call -j <json>
-# Input: 1 - The JSON response from the model
-# Output: none
-# Requires: jq
-# Returns: 0 if it has a tool call, 1 otherwise
-ollama_tools_is_call() {
-    local usage='Usage: ollama_tools_is_call -j <json> [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Check if the model's response contains a tool call.
-
-  -j <json>   The JSON response from the model.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function inspects the JSON response from the model to see if it includes a 'tool_calls' field, which indicates the model wants to use a tool.
-It is essential for building agentic systems that can decide whether to execute a tool or respond with text.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG json_response
-    while getopts ":j:hv" opt; do
-        case $opt in
-            j) json_response=$OPTARG ;;
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_is_call version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-            :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if ! _exists 'jq'; then _error 'ollama_tools_is_call: jq Not Found'; return 1; fi
-
-    if [ -z "$json_response" ]; then
-        printf 'Error: Missing required arguments\n\n' >&2
-        printf '%s\n' "$usage" >&2
-        return 2
-    fi
-
-    if ! _is_valid_json "$json_response"; then
-        _debug 'ollama_tools_is_call: Invalid JSON'
-        return 1
-    fi
-    local tool_calls
-    tool_calls="$(printf '%s' "$json_response" | jq -r '.tool_calls // empty')"
-    if [[ -n "$tool_calls" ]]; then
-        return 0
-    fi
-    tool_calls="$(printf '%s' "$json_response" | jq -r '.message.tool_calls // empty')"
-    if [[ -n "$tool_calls" ]]; then
-        return 0
-    fi
-    return 1
-}
-
-# Run a tool
-#
-# Usage: ollama_tools_run -n <name> -a <args>
-# Input: 1 - The name of the tool to run
-# Input: 2 - The JSON string of arguments for the tool
-# Output: The result of the tool execution
-# Requires: jq
-# Returns: 0 on success, 1 on error
-ollama_tools_run() {
-    local usage='Usage: ollama_tools_run -n <name> -a <args> [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Execute a registered tool with the given arguments.
-
-  -n <name>   The name of the tool to run.
-  -a <args>   The JSON string of arguments for the tool.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function looks up the command for the specified tool name and executes it, passing the arguments as a JSON string.
-It is the core component for making the model's tool calls functional, bridging the gap between the model's request and the actual execution of the tool.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG tool_name tool_args_str
-    while getopts ":n:a:hv" opt; do
-        case $opt in
-            n) tool_name=$OPTARG ;;
-            a) tool_args_str=$OPTARG ;;
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_run version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-            :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if ! _exists 'jq'; then _error 'ollama_tools_run: jq Not Found'; return 1; fi
-
-    if [[ -z "$tool_name" || -z "$tool_args_str" ]]; then
-        printf 'Error: Missing required arguments\n\n' >&2
-        printf '%s\n' "$usage" >&2
-        return 2
-    fi
-
-    local tool_index=-1
-    local i
-    for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
-        if [[ "${OLLAMA_LIB_TOOLS_NAME[$i]}" == "$tool_name" ]]; then
-            tool_index=$i
-            break
-        fi
-    done
-
-    if [[ $tool_index -eq -1 ]]; then
-        _error "ollama_tools_run: Tool '$tool_name' not found"
-        return 1
-    fi
-
-    local command
-    command="${OLLAMA_LIB_TOOLS_COMMAND[$tool_index]}"
-
-    if [[ -z "$tool_args_str" ]] || [[ "$tool_args_str" == 'null' ]]; then
-        tool_args_str="{}"
-    fi
-
-    if ! _is_valid_json "$tool_args_str"; then
-        _error "ollama_tools_run: Arguments are not valid JSON"
-        return 1
-    fi
-
-    _debug "ollama_tools_run: Running command: $command '$tool_args_str'"
-    "$command" "$tool_args_str"
-
-    return 0
-}
-
 # List Functions
 
 # All available models, CLI version
@@ -1823,7 +1449,7 @@ List all available models in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama list' command-line tool to display a formatted table of all locally available models.
+This function uses 'ollama list' to display a formatted table of all locally available models.
 It is a convenient way to quickly see the models you have installed.
 EOF
 )
@@ -1878,7 +1504,7 @@ List all available models in JSON format.
   -v          Show version information and exit.
 
 This function queries the Ollama API for the list of available models and returns the raw JSON response.
-This is useful for programmatic access to model information, allowing for easy parsing and manipulation with tools like 'jq'.
+This is useful for programmatic access to model information, allowing for easy parsing and manipulation with 'jq'.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -2123,7 +1749,7 @@ List running model processes in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama ps' command-line tool to display a table of all models currently running in memory.
+This function uses 'ollama ps' to display a table of all models currently running in memory.
 It is a quick way to check which models are active and consuming resources.
 EOF
 )
@@ -2214,7 +1840,7 @@ Show detailed information about a model in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama show' command-line tool to display details about a specified model, including its parameters, template, and more.
+This function uses 'ollama show' to display details about a specified model, including its parameters, template, and more.
 It is useful for inspecting the configuration of a model.
 EOF
 )
@@ -2338,7 +1964,7 @@ Check if the Ollama application is installed on the local system.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'command -v' utility to determine if the 'ollama' executable is in the system's PATH.
+This function uses the \'command -v\' utility to determine if the \'ollama\' executable is in the system\'s PATH.
 It is useful for pre-flight checks in scripts to ensure that required dependencies are available.
 EOF
 )
@@ -2636,13 +2262,13 @@ ollama_app_version_cli() {
     local usage='Usage: ollama_app_version_cli [-h] [-v]'
     local description
     description=$(cat <<'EOF'
-Get the version of the Ollama application using the command-line tool.
+Get the version of the installed Ollama application
 
   -h          Show this help and exit.
   -v          Show version information and exit.
 
 This function calls 'ollama --version' to get the version information directly from the command-line application.
-This can be useful for verifying the CLI tool is installed and working correctly.
+This can be useful for verifying the ollama core cli is installed and working correctly.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -2691,7 +2317,7 @@ Configure the 'thinking' mode for model responses.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the 'OLLAMA_LIB_THINKING' environment variable, which controls whether the model's 'thinking' process is displayed.
+This function sets the \'OLLAMA_LIB_THINKING\' environment variable, which controls whether the model\'s \'thinking\' process is displayed.
 Modes:
 - on: Show thinking output.
 - off: Hide thinking output.
@@ -2885,13 +2511,6 @@ os()   { ollama_show "$@"; }
 osj()  { ollama_show_json "$@"; }
 
 ot()   { ollama_thinking "$@"; }
-
-oto()  { ollama_tools "$@"; }
-ota()  { ollama_tools_add "$@"; }
-otco() { ollama_tools_count "$@"; }
-otc()  { ollama_tools_clear "$@"; }
-otic() { ollama_tools_is_call "$@"; }
-otr()  { ollama_tools_run "$@"; }
 
 #
 # Enjoying Ollama Bash Lib?
