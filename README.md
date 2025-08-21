@@ -49,27 +49,22 @@ source ollama_bash_lib.sh
 ollama_generate "mistral:7b" "Describe Bash in 3 words"
 # Powerful, Flexible, Scripting.
 
-# Command line assist
-oe "find all files larger then 10GB"
-# Command:
-#
-# find . -type f -size +10G
-#
-# Run command (y/n)?
-
 # Tab completion to view available library functions
-ollama_<TAB>
-# ollama_api_get               ollama_chat_stream           ollama_list_json
-# ollama_api_ping              ollama_chat_stream_json      ollama_messages
-# ollama_api_post              ollama_eval                  ollama_messages_add
-# ollama_app_installed         ollama_generate              ollama_messages_clear
-# ollama_app_turbo             ollama_generate_json         ollama_messages_count
-# ollama_app_vars              ollama_generate_stream       ollama_model_random
-# ollama_app_version           ollama_generate_stream_json  ollama_model_unload
-# ollama_app_version_cli       ollama_lib_about             ollama_ps
-# ollama_app_version_json      ollama_lib_version           ollama_ps_json
-# ollama_chat                  ollama_list                  ollama_show
-# ollama_chat_json             ollama_list_array            ollama_show_json
+ollama_<TAB><TAB>
+# ollama_api_get               ollama_generate              ollama_messages_last_json
+# ollama_api_ping              ollama_generate_json         ollama_model_random
+# ollama_api_post              ollama_generate_stream       ollama_model_unload
+# ollama_app_installed         ollama_generate_stream_json  ollama_ps
+# ollama_app_turbo             ollama_lib_about             ollama_ps_json
+# ollama_app_vars              ollama_lib_version           ollama_show
+# ollama_app_version           ollama_list                  ollama_show_json
+# ollama_app_version_cli       ollama_list_array            ollama_thinking
+# ollama_app_version_json      ollama_list_json             ollama_tools
+# ollama_chat                  ollama_messages              ollama_tools_add
+# ollama_chat_json             ollama_messages_add          ollama_tools_clear
+# ollama_chat_stream           ollama_messages_clear        ollama_tools_count
+# ollama_chat_stream_json      ollama_messages_count        ollama_tools_is_call
+# ollama_eval                  ollama_messages_last         ollama_tools_run
 ```
 
 ## Usage
@@ -303,7 +298,6 @@ See the **[demos](demos)** directory for all demo scripts
 | [review.lib-security.md](demos/review.lib-security.md)                 | Security Review of [`ollama_bash_lib.sh`](ollama_bash_lib.sh)                                                                  | [review.lib.sh](demos/review.lib-security.sh)                          |
 | [review.readme.md](demos/review.readme.md)                             | Marketing Review of this [`README.md`](README.md)                                                                              | [review.readme.sh](demos/review.readme.sh)                             |
 | [review.funny.md](demos/review.funny.md)                               | Humorous project descriptions based on [`README.md`](README.md)                                                                | [review.funny.sh](demos/review.funny.sh)                               |
-| [ollama_eval.md](demos/ollama_eval.md)                                 | Command line assistant with `oe` and `ollama_eval`                                                                             | [ollama_eval.sh](demos/ollama_eval.sh)                                 |
 | [prompt.all.models.md](demos/prompt.all.models.md)                     | Send a prompt to all models                                                                                                    | [prompt.all.models.sh](demos/prompt.all.models.sh)                     |
 | [prompts.model.md](demos/prompts.model.md)                             | Send many prompts to a model                                                                                                   | [prompts.model.sh](demos/prompts.model.sh)                             |
 | [ollama_chat.md](demos/ollama_chat.md)                                 | Chat completion with [`ollama_messages_add`](#chat-functions) and [`ollama_chat`](#chat-functions)                             | [ollama_chat.sh](demos/ollama_chat.sh)                                 |
@@ -336,12 +330,6 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 | `ollama_api_get`<br />`oag`    | GET request to the Ollama API  | `ollama_api_get "/api/path"`                     | API call result to `stdout` | `0` API call success<br />`1` API call error       |
 | `ollama_api_post`<br />`oap`   | POST request to the Ollama API | `ollama_api_post "/api/path" "{ json content }"` | API call result to `stdout` | `0` API call success<br />`1` API call error       |
 | `ollama_api_ping`<br />`oapi`  | Ping the Ollama API            | `ollama_api_ping`                                | none                        | `0` API is reachable<br />`1` API is not reachable |
-
-### Helper Functions
-
-| Function<br />Alias      | About                                                                                                            | Usage                                                  | Output | Return  |
-|--------------------------|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|--------|---------|
-| `ollama_eval`<br />`oe`   | Generates a bash one-liner and prompts user permission to run it<br />If no model specified, uses a random model | `ollama_eval "task" "model"`<br />`ollama_eval "task"` |        | `0`/`1` |
 
 ### Generate Functions
 
@@ -429,7 +417,6 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 * `shuf` - for `ollama_model_random`
 * `sort` - for sorting lists
 * `column` - for `ollama_lib_about` output formatting
-* `timeout` - for `ollama_eval` syntax checking
 
 If you don't have any of the optional requirements, the function `ollama_app_installed` is always available.
 
