@@ -1,6 +1,6 @@
 # Sync review of [ollama_bash_lib.sh](../ollama_bash_lib.sh) AND [README.md](../README.md)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.10
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.11
 
 ```bash
 task='Check that the README is in sync with the LIBRARY.
@@ -8,99 +8,126 @@ Output your review in Markdown format.'
 readme='../README.md'
 library='../ollama_bash_lib.sh'
 ollama_thinking hide
-ollama_generate -m "gpt-oss:20b" -p "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
+ollama_generate -m "gpt-oss:120b" -p "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
 ```
-## README vs. Library – In‑Sync Review
+# 📋 Review – README vs. **ollama_bash_lib.sh**
 
-Below is a systematic audit of the `README.md` document against the current **`ollama_bash_lib.sh`** library.  Whenever the README is out of sync we point out the discrepancy and suggest how to fix it.
+Below is a concise audit of the documentation (README) compared with the actual library implementation.  
+Everything that *doesn’t line‑up* is highlighted, together with suggested fixes.
 
-> **TL;DR** – Most of the table‑d documentation is correct, but a handful of example usages (and a couple of function names) are wrong.  The solution is to replace the positional‑argument examples with the correct **option‑flag** syntax, add the missing helper functions to the tables, and be consistent about aliases.
+---  
 
----
+## ✅ What is already consistent  
 
-### 1. Example Usage Mismatches
-| Section | Current Example | Library Expectation | Suggested Fix |
-|--------|-----------------|---------------------|---------------|
-| **Howto chat** | `ollama_messages_add user "Hello"` | `ollama_messages_add -r user -c "Hello"` | Update README to use the flag‑style call. |
-| **Howto chat** | `response="$(ollama_chat gpt-oss:20b)"` | `ollama_chat -m gpt-oss:20b` | Add `-m` flag. |
-| **Howto chat** | `last="$(ollama_messages_last)"` | Works, but function not mentioned in tables | Add `ollama_messages_last` (and `ollama_messages_last_json`) to Chat‑Functions table. |
-| **Howto use tools** | `ollama_tools_add "get_weather" "weather_tool" "$weather_definition"` | `ollama_tools_add -n get_weather -c weather_tool -j "$weather_definition"` | Replace positional args with `-n`, `-c`, `-j`. |
-| **Howto use tools** | `ollama_messages_add user "Hello"` (tool‑response) | Same rule as above | Update README. |
-| **Quick‑start** | `ollama_generate -m mistral:7b -p "Describe Bash in 3 words"` | Correct – this matches the `ollama_generate` signature. | **No change.** |
+| Category | Functions | README ✔︎ | Library ✔︎ |
+|----------|-----------|-----------|------------|
+| **API** | `ollama_api_get`, `ollama_api_post`, `ollama_api_ping` | ✅ (listed) | ✅ (implemented) |
+| **Generate** | `ollama_generate*` (json, stream, stream‑json) | ✅ | ✅ |
+| **Chat** | `ollama_chat*`, `ollama_chat_stream*`, `ollama_messages*` (add, clear, count) | ✅ | ✅ |
+| **Tool** | `ollama_tools*` (add, list, count, clear, is_call, run) | ✅ | ✅ |
+| **Model** | `ollama_model_random`, `ollama_model_unload`, `ollama_show*`, `ollama_list*`, `_is_valid_model` | ✅ | ✅ |
+| **Ollama app** | `ollama_app_installed`, `ollama_app_turbo`, `ollama_app_version*`, `ollama_ps*` | ✅ | ✅ |
+| **Library** | `ollama_lib_about`, `ollama_lib_version` | ✅ | ✅ |
+| **Utility** | `_is_valid_json`, `_debug`, `_error` | ✅ | ✅ |
+| **Aliases** | All alias definitions (`oag`, `og`, `oc`, …) | ✅ | ✅ |
 
----
+The code **does** expose every function that the README mentions, and the aliases work as documented.
 
-### 2. Missing Functions in Tables
-| Function | Table Section | Presence in README |
-|----------|----------------|--------------------|
-| `ollama_messages_last` | Chat‑Functions | **Missing** |
-| `ollama_messages_last_json` | Chat‑Functions | **Missing** |
-| `ollama_list_array` | Model Functions | Present |
-| `ollama_ps_json` | Ollama Functions | Present |
-| (All others) | – | **Present** |
+---  
 
-**Action**: Add the two missing “last message” functions to the Chat‑Functions table and update the section heading so that the table accurately reflects all exported functions.
+## ❗️ Inconsistencies & Missing Details  
 
----
+### 1. CLI option syntax for a few core functions  
 
-### 3. Alias Consistency
-The alias block at the end of the README correctly mirrors the library.  No mismatches found there.  
-> *Tip*: Keep the alias list at the bottom of the README in sync when new aliases are added to the library.
+| Function | README example | Actual usage (code) | Issue |
+|----------|----------------|--------------------|-------|
+| `ollama_api_get` | `ollama_api_get '/api/path'` | `ollama_api_get -P /api/path` (requires `-P` flag) | The positional argument shown in the README is ignored; the function will always call the API with an empty path. |
+| `ollama_api_post` | `ollama_api_post '/api/path' "{ json }"` | `ollama_api_post -P /api/path -d '{ json }'` (requires `-P` and `-d`) | Same as above – the README uses positional arguments that the script does **not** parse. |
+| `ollama_app_turbo` | `ollama_app_turbo on` | `ollama_app_turbo -m on` (option `-m` required) | The README omits the mandatory `-m` flag, causing the function to think *no* mode was supplied and to error out. |
+| `ollama_messages_add` | `ollama_messages_add user "Hello"` | `ollama_messages_add -r user -c "Hello"` (requires `-r` and `-c`) | The example works only with the older “positional‑argument” style that was removed. |
 
----
+#### Recommendation  
 
-### 4. Option → Positional Confusion
-Many functions in the library use `getopts` to require explicit flags (`-m`, `-r`, `-c`, etc.).  
-**README** mistakenly shows:
+- Update the README snippets to show the **mandatory options** (`-P`, `-d`, `-m`, `-r`, `-c`).  
+- Consider adding a short “old‑style” compatibility wrapper (e.g. detect when `$1` isn’t an option) **or** keep the current strict `getopts` approach but clearly document it.
 
-| Incorrect | Correct |
-|----------|--------|
-| `ollama_generate_json gpt-oss:20b "prompt"` | `ollama_generate_json -m gpt-oss:20b -p "prompt"` |
-| `ollama_chat gpt-oss:20b` | `ollama_chat -m gpt-oss:20b` |
-| `ollama_tools_add get_weather weather_tool "$def"` | `ollama_tools_add -n get_weather -c weather_tool -j "$def"` |
+### 2. Missing functions in the **Functions** tables  
 
-Update every example that uses positional arguments to match the flag syntax and add a brief note in the README that “all functions accept options; positional form is not supported”.
+| Missing function | Where it belongs | Why it matters |
+|------------------|-----------------|----------------|
+| `ollama_messages_last` | **Chat Functions** (or a sub‑section “Message Helpers”) | Used heavily in the examples (`ollama_chat` implementation). |
+| `ollama_messages_last_json` | **Chat Functions** | Same as above – the JSON version is referenced in the code (`ollama_chat_json`). |
+| `_get_redacted_var` | **Utility Functions** (private) | Not a public API, but the README’s “Utility” table could mention it as an internal helper (optional). |
 
----
+#### Recommendation  
 
-### 5. Header & Navigation
-The table of contents section references a link `[Howto-chat]` that is defined further down.  
-- **Issue**: The anchor is `#Howto-chat` but the heading is actually `### Howto chat`.  
-- **Fix**: Either change the TOC link to match the heading (`#Howto-chat` works, but double‑check that Markdown renders correctly) or rename the heading.
+- Add rows for the two `*_last*` helpers in the “Chat Functions” section, indicating usage and return values.  
+- If you want to keep them “internal”, mark them as *private* but list them for completeness.
 
----
+### 3. Slight discrepancies in description vs. behavior  
 
-### 6. Minor Typos / Clarity
-| Location | Issue | Fix |
-|----------|-------|-----|
-| `ollama_app_turbo` description mentions “Create an API key”, but the function actually prompts for it; it is fine | **None** |
-| In "Howto use Tools" step 1 it says “the command for our tool will be a function …”. The README does include a function definition but never shows how to export it. Consider adding a small code block showing the function definition before `ollama_tools_add` line. | Add the function definition snippet. |
-| “Use `ollama_tools_run`” in README is referenced in the example but library uses `ollama_tools_run -n name -a args`. Ensure the example shows the flags. | Update example accordingly. |
-| The quick‑start block contains a list of all function names as tab‑completion examples. The list includes some functions that changed alias names (e.g., `ollama_app_installed` listed as `oai`, but the alias block shows `oai { ollama_app_installed "$@" }`). Make sure they both agree. | No action needed – they match. |
+| Function | README description | Actual behavior | Comment |
+|----------|-------------------|----------------|---------|
+| `ollama_api_ping` | “Ping the Ollama API” – returns `0` if reachable. | When Turbo Mode is active it **always** returns success without actually pinging the remote API. | Not a bug, but the README should note that Turbo mode bypasses the ping. |
+| `ollama_thinking` | “If no input, then the current setting is printed.” | Prints `thinking is <value>` **only** when called with no argument **and** `OLLAMA_LIB_THINKING` is set. Works, but the output format isn’t documented. | Minor – add the exact output line to the description. |
+| `ollama_app_turbo` | “`ollama_app_turbo on`” – examples show just `on`/`off`. | Requires `-m on|off` and optional `-e` to export the key. | Already covered in point 1. |
 
----
+### 4. Version number not advertised in the README  
 
-### 7. Documentation of Internal Functions
-The README includes a “Utility Functions” table with `_is_valid_json`, `_debug`, `_error`.  
-- These are indeed public (no leading underscore usage in export) and documented.  
-- No updates required.
+The library defines `OLLAMA_LIB_VERSION='0.45.11'`.  
+The README never mentions the current version (except in the hidden demo script).  
 
----
+#### Recommendation  
 
-### 8. Suggested README Improvement Checklist
-1. **Update examples**:
-   * Replace all positional‑style calls with flag‑style (`-m`, `-r`, `-c`, `-n`, `-c`, `-j`).
-2. **Add missing functions**:
-   * Include `ollama_messages_last` and `ollama_messages_last_json` under Chat‑Functions.
-3. **Refine “Howto *” sections**:
-   * Add a quick snippet defining a tool function before invoking `ollama_tools_add`.
-   * Clarify that `ollama_messages_add` requires `-r` and `-c`.
-4. **Consistent navigation**:
-   * Ensure TOC links point to correct headings.
-5. **Add a short note** in the API docs that all functions require options – no positional form is supported unless explicitly documented (like some helper functions).
-6. **Cross‑check alias block** after any new alias changes.
+Add a badge or a line like:
 
----
+```markdown
+**Current version:** 0.45.11
+```
 
-## Summary
-The README is largely accurate but contains a handful of syntax errors in example snippets and a missing entry for two helper functions.  The changes outlined above will bring the documentation into full alignment with the current library code.  After applying these edits, run `demos/run.demos.sh` against a fresh clone to confirm that all examples still work.
+or reuse the existing *GitHub stars* badge style.
+
+### 5. Quick‑start section – missing note on required tools  
+
+The library needs **`jq`**, **`curl`**, **`ollama`**, **`shuf`** (optional).  
+The README has a “Requirements” table that mentions them, but the *quickstart* snippet glosses over the fact that you need those binaries installed first.
+
+#### Recommendation  
+
+Add a note in the Quickstart block:
+
+```bash
+# Install required tools (Debian/Ubuntu example)
+sudo apt-get install -y curl jq
+```
+
+### 6. Minor typographical issues  
+
+| Location | Issue |
+|----------|-------|
+| “A Bash Library to interact with [Ollama](…)” – the closing parenthesis of the link is escaped (`\]`). Not a functional problem but looks odd in rendered markdown. |
+| In the “Howto use Tools” section, the bullet “**Step 1: Add a Tool**” mentions “The command for our tool will be a function that takes a JSON object as input”. In the actual `ollama_tools_add` signature the command is a **function name or executable** that receives a single JSON string – the wording is fine but could stress that the function must accept **one argument**. |
+| In the table “Tool Functions” the column *Return* uses `0/1` but some functions actually return **higher non‑zero error codes** (e.g. `_is_valid_json` may return 2‑5). Consider wording “0 on success, non‑zero on error”. |
+
+---  
+
+## 📌 Summary of Required Updates  
+
+1. **Fix the usage examples** for:
+   - `ollama_api_get` & `ollama_api_post` (add `-P` and `-d` flags).
+   - `ollama_app_turbo` (add `-m` flag and optionally `-e`).
+   - `ollama_messages_add` (add `-r` and `-c` flags).
+
+2. **Add missing functions** (`ollama_messages_last`, `ollama_messages_last_json`) to the “Chat Functions” table.
+
+3. **Clarify Turbo‑mode behavior** in the description of `ollama_api_ping`.
+
+4. **Expose the current library version** somewhere in the README (badge or text).
+
+5. **Mention required external tools** (jq, curl, ollama, shuf) directly in the Quick‑start section.
+
+6. **Polish wording** in a few tables (return codes, “thinking” output, etc.) and fix minor markdown glitches.
+
+7. (Optional) **Add a compatibility shim** for the older positional‑argument style of `ollama_api_*` and `ollama_messages_add`, or explicitly mark them as removed.
+
+Implementing these changes will bring the documentation fully in sync with the source code, making onboarding smoother and preventing runtime errors caused by copy‑and‑paste from the README. 🚀

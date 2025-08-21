@@ -1,6 +1,6 @@
 # ollama_thinking, ollama_generate
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.10
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.11
 
 ```
 ollama_thinking on
@@ -10,16 +10,16 @@ ollama_generate -m "$(ollama_model_random)" -p "list 10 things about bash, 1 per
 
 thinking is on
 #### <thinking>
-#### We need to output list of 10 things about Bash, each on a single line. The user wants 10 items, each on one line. We should just comply: we can list 10 facts or features. No more, no less. Probably we should not add any introductory text. Just list lines. Provide 10 lines, each describing a thing about bash. Ok.
+#### User: "list 10 things about bash, 1 per line". Just list 10 facts/ tips or features. Probably short lines. Ensure 10 lines.
 #### </thinking>
 
-1. Bash is the default shell on many Linux distributions and macOS.  
-2. It supports command history navigation with the up/down arrow keys.  
-3. Bash uses globbing patterns (e.g., `*.txt`, `a?c`) for file matching.  
-4. It can perform arithmetic expansion with `$((expression))`.  
-5. Bash supports arrays (e.g., `arr=(a b c)` and `${arr[1]}`).  
-6. Functions in Bash are defined with `function name { ... }` or `name()`.  
-7. Bash includes process substitution like `<(command)` and `>(command)`.  
-8. It provides brace expansion for generating a sequence of strings (`file{1..3}.txt`).  
-9. Bash can execute commands inside scripts with the `#!/usr/bin/env bash` shebang.  
-10. It supports job control, allowing background (`&`) and foreground (`fg`) processes.
+1. Bash is the default shell on most Linux distributions, providing command-line execution and scripting.  
+2. It supports built-in globbing (`*`, `?`, `**`) for pattern matching file paths.  
+3. Bash can expand variables with `${VAR:-default}` syntax, supplying defaults if unset.  
+4. It includes an associative array feature (hash tables) available from Bash 4.x onward.  
+5. Bash’s job control (`jobs`, `bg`, `fg`, `Ctrl‑Z`) lets you pause, background, or bring jobs to the foreground.  
+6. The `read` built‑in can prompt the user and read input, supporting the `-p` and `-s` flags for visibility and silence.  
+7. Bash supports command substitution `$(command)` and legacy backticks `` `command` `` to insert command output.  
+8. It has the `trap` command to execute cleanup code on signals like `EXIT`, `SIGINT`, or `SIGTERM`.  
+9. Bash can run in “POSIX” mode, restricting extensions for greater portability across Unix-like systems.  
+10. With `printf` and `echo -e`, Bash lets you format output, including escape sequences for color and formatting.
