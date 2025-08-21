@@ -4,7 +4,7 @@
 #
 
 OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.45.10'
+OLLAMA_LIB_VERSION='0.45.11'
 OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
 OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
 OLLAMA_LIB_LICENSE='MIT'
@@ -776,7 +776,7 @@ ollama_generate_stream() {
         thinking=${thinking#\"} # strip first "
         thinking=${thinking%\"} # strip last "
         if [[ -n "$thinking" ]]; then
-            if [[ "$is_thinking" == 'false' ]] then
+            if [[ "$is_thinking" == 'false' ]]; then
                 # first thinking input received
                 is_thinking=true
                 printf '\n#### %b' "$thinking"
@@ -790,7 +790,7 @@ ollama_generate_stream() {
         response=${response#\"} # strip first "
         response=${response%\"} # strip last "
         if [[ -n "$response" ]]; then
-            if [[ "$is_responding" == 'false' ]] then
+            if [[ "$is_responding" == 'false' ]]; then
                 # first response input received
                 is_responding=true
                 printf '\n\n%b' "$response"
