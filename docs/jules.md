@@ -4,7 +4,7 @@ This document provides instructions for me, Jules, on how to work with the Ollam
 
 ## General Guidance
 
-I should always keep this file (`tools/jules.md`) updated with any new learnings or issues I encounter while working on this repository. This will help my future self to be more effective.
+I should always keep this file (`docs/jules.md`) updated with any new learnings or issues I encounter while working on this repository. This will help my future self to be more effective.
 
 ## Code Structure
 
