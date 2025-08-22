@@ -19,12 +19,20 @@ demo() {
   echo '```bash'
   if [[ "$debug" -gt 0 ]]; then echo 'OBL_DEBUG=1'; fi
   echo 'ollama_model_random'
+  echo 'ollama_model_random'
+  echo 'ollama_model_random'
   # shellcheck disable=SC2016
+  echo 'model="$(ollama_model_random)"; echo "$model"'
+  echo 'model="$(ollama_model_random)"; echo "$model"'
   echo 'model="$(ollama_model_random)"; echo "$model"'
   echo '```'
   echo '```'
   if [[ "$debug" -gt 0 ]]; then OBL_DEBUG=1; fi
   ollama_model_random
+  ollama_model_random
+  ollama_model_random
+  model="$(ollama_model_random)"; echo "$model"
+  model="$(ollama_model_random)"; echo "$model"
   model="$(ollama_model_random)"; echo "$model"
   echo '```'
 }
@@ -32,5 +40,5 @@ demo() {
 echo; echo '## Demo'; echo
 demo
 
-echo; echo '## Demo Debug'; echo
-demo 1
+# echo; echo '## Demo Debug'; echo
+# demo 1

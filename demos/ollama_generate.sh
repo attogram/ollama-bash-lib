@@ -14,10 +14,10 @@ startup() {
 
 startup
 
-echo; echo '## Setup'; echo
-echo "OLLAMA_HOST: $OLLAMA_HOST"
-echo "OBL_API: $OBL_API"
-echo
+# echo; echo '## Setup'; echo
+# echo "OLLAMA_HOST: $OLLAMA_HOST"
+# echo "OBL_API: $OBL_API"
+# echo
 
 model="$(ollama_model_random)"
 prompt="Describe a rabbit in 3 words"
