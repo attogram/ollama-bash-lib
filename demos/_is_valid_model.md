@@ -1,11 +1,11 @@
 # _is_valid_model
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.3
 
 | test | output | return | result |
 |------|--------|--------|--------|
 | `mistral:7b` | mistral:7b | 0 | ✅ PASS |
-| `` | gpt-oss:20b | 0 | ✅ PASS |
+| `` | gemma3n:e2b | 0 | ✅ PASS |
 | `hf.co/user/Model-name:QUANT` | hf.co/user/Model-name:QUANT | 0 | ✅ PASS |
 | `abcdefghijklmnopqrstuvwxyz` | abcdefghijklmnopqrstuvwxyz | 0 | ✅ PASS |
 | `1234567890` | 1234567890 | 0 | ✅ PASS |

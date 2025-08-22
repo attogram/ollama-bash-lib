@@ -1,2942 +1,5531 @@
 # ollama_generate_stream_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.3
 
 ## Demo
 
 ```bash
-ollama_generate_stream_json -m "gpt-oss:20b" -p "Describe a rabbit in 3 words"
+ollama_generate_stream_json -m "qwen3:8b" -p "Describe a rabbit in 3 words"
 
 ```
 ```json
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.631991784Z",
-  "response": "",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:16.9720372Z",
+  "response": "<think>",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.632009115Z",
-  "response": "",
-  "thinking": "The",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.00642Z",
+  "response": "\n",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.632015669Z",
-  "response": "",
-  "thinking": " user",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.0326714Z",
+  "response": "Okay",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.632021684Z",
-  "response": "",
-  "thinking": ":",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.0582855Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.63202698Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.0834535Z",
+  "response": " the",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.632032141Z",
-  "response": "",
-  "thinking": "Describe",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.1063585Z",
+  "response": " user",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.633341536Z",
-  "response": "",
-  "thinking": " a",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.1297601Z",
+  "response": " wants",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.633350099Z",
-  "response": "",
-  "thinking": " rabbit",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.1528124Z",
+  "response": " me",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.633356513Z",
-  "response": "",
-  "thinking": " in",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.1753678Z",
+  "response": " to",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.634268013Z",
-  "response": "",
-  "thinking": " ",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.1978322Z",
+  "response": " describe",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.638398395Z",
-  "response": "",
-  "thinking": "3",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.2207205Z",
+  "response": " a",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.64255427Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.2433386Z",
+  "response": " rabbit",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.648453784Z",
-  "response": "",
-  "thinking": "\".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.2658448Z",
+  "response": " in",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.658621227Z",
-  "response": "",
-  "thinking": " We",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.2886992Z",
+  "response": " three",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.658642227Z",
-  "response": "",
-  "thinking": " need",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.3112524Z",
+  "response": " words",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.664051383Z",
-  "response": "",
-  "thinking": " to",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.333881Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.664065417Z",
-  "response": "",
-  "thinking": " give",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.3564309Z",
+  "response": " Let",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.669627335Z",
-  "response": "",
-  "thinking": " a",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.3790588Z",
+  "response": " me",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.672184067Z",
-  "response": "",
-  "thinking": " description",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.4039826Z",
+  "response": " think",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.675945093Z",
-  "response": "",
-  "thinking": " of",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.4265405Z",
+  "response": " about",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.681111963Z",
-  "response": "",
-  "thinking": " a",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.4492776Z",
+  "response": " the",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.685268702Z",
-  "response": "",
-  "thinking": " rabbit",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.4722194Z",
+  "response": " key",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.689883447Z",
-  "response": "",
-  "thinking": " in",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.4948626Z",
+  "response": " characteristics",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.69444876Z",
-  "response": "",
-  "thinking": " three",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.5182193Z",
+  "response": " of",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.696051205Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.5408325Z",
+  "response": " a",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.700636647Z",
-  "response": "",
-  "thinking": ".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.5633848Z",
+  "response": " rabbit",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.703999486Z",
-  "response": "",
-  "thinking": " They",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.5864415Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.712322447Z",
-  "response": "",
-  "thinking": " likely",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.6090117Z",
+  "response": " First",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.712335622Z",
-  "response": "",
-  "thinking": " want",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.6316092Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.717893329Z",
-  "response": "",
-  "thinking": " a",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.6554796Z",
+  "response": " they",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.720737011Z",
-  "response": "",
-  "thinking": " concise",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.6785787Z",
+  "response": "'re",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.724817054Z",
-  "response": "",
-  "thinking": " descriptive",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.7019008Z",
+  "response": " known",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.73263914Z",
-  "response": "",
-  "thinking": " phrase",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.724919Z",
+  "response": " for",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.734610592Z",
-  "response": "",
-  "thinking": ".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.7480388Z",
+  "response": " their",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.744885043Z",
-  "response": "",
-  "thinking": " So",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.7717213Z",
+  "response": " long",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.744897404Z",
-  "response": "",
-  "thinking": " something",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.7947425Z",
+  "response": " ears",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.744904714Z",
-  "response": "",
-  "thinking": " like",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.8181331Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.74962398Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.840847Z",
+  "response": " That",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.752856167Z",
-  "response": "",
-  "thinking": "Fl",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.8635787Z",
+  "response": "'s",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.757370911Z",
-  "response": "",
-  "thinking": "uffy",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.8865879Z",
+  "response": " a",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.76124425Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.9100874Z",
+  "response": " distinctive",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.768319021Z",
-  "response": "",
-  "thinking": " playful",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.9337293Z",
+  "response": " feature",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.769366148Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.9588659Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.773651048Z",
-  "response": "",
-  "thinking": " timid",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:17.9820606Z",
+  "response": " Then",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.777808925Z",
-  "response": "",
-  "thinking": "\"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.006444Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.781779363Z",
-  "response": "",
-  "thinking": " or",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.0306214Z",
+  "response": " their",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.786190906Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.0540126Z",
+  "response": " movement",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.793845994Z",
-  "response": "",
-  "thinking": "Soft",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.0756728Z",
+  "response": "—",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.80035037Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.0994845Z",
+  "response": "when",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.800360913Z",
-  "response": "",
-  "thinking": " adorable",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.1227968Z",
+  "response": " they",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.802486098Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.1483324Z",
+  "response": " run",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.807734914Z",
-  "response": "",
-  "thinking": " curious",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.1715676Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.809868021Z",
-  "response": "",
-  "thinking": "\".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.1943739Z",
+  "response": " it",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.813823725Z",
-  "response": "",
-  "thinking": " The",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.2158572Z",
+  "response": "'s",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.817758558Z",
-  "response": "",
-  "thinking": " best",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.2417016Z",
+  "response": " called",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.823700445Z",
-  "response": "",
-  "thinking": " answer",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.26456Z",
+  "response": " hopping",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.825761925Z",
-  "response": "",
-  "thinking": " is",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.2876728Z",
+  "response": " or",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.829761558Z",
-  "response": "",
-  "thinking": " presumably",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.3105351Z",
+  "response": " bounding",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.835847934Z",
-  "response": "",
-  "thinking": " three",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.3334338Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.838463406Z",
-  "response": "",
-  "thinking": " short",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.3559039Z",
+  "response": " And",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.848870187Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.3796275Z",
+  "response": " their",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.848880753Z",
-  "response": "",
-  "thinking": ".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.4031195Z",
+  "response": " fur",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.85547023Z",
-  "response": "",
-  "thinking": " We",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.4259746Z",
+  "response": " is",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.855480584Z",
-  "response": "",
-  "thinking": " should",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.4488316Z",
+  "response": " usually",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.859605428Z",
-  "response": "",
-  "thinking": " respond",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.4720203Z",
+  "response": " soft",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.86247515Z",
-  "response": "",
-  "thinking": " with",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.4947121Z",
+  "response": " and",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.866348311Z",
-  "response": "",
-  "thinking": " only",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.5178805Z",
+  "response": " fluffy",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920682858Z",
-  "response": "",
-  "thinking": " the",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.5410785Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920696333Z",
-  "response": "",
-  "thinking": " three",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.5639401Z",
+  "response": " Wait",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920703713Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.5857413Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920712644Z",
-  "response": "",
-  "thinking": " or",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.6095481Z",
+  "response": " but",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.92071908Z",
-  "response": "",
-  "thinking": " maybe",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.6323388Z",
+  "response": " I",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920725271Z",
-  "response": "",
-  "thinking": " a",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.6554503Z",
+  "response": " need",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.9207306Z",
-  "response": "",
-  "thinking": " short",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.6783338Z",
+  "response": " to",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920735778Z",
-  "response": "",
-  "thinking": " description",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.7013448Z",
+  "response": " pick",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.92074086Z",
-  "response": "",
-  "thinking": " within",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.7241906Z",
+  "response": " three",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920748341Z",
-  "response": "",
-  "thinking": " the",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.7456797Z",
+  "response": " words",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.9207554Z",
-  "response": "",
-  "thinking": " ",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.7701381Z",
+  "response": " that",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920765885Z",
-  "response": "",
-  "thinking": "3",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.7929362Z",
+  "response": " capture",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.92077375Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.8158332Z",
+  "response": " the",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920781191Z",
-  "response": "",
-  "thinking": ".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.8389568Z",
+  "response": " essence",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920788713Z",
-  "response": "",
-  "thinking": " The",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.8621573Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.920795957Z",
-  "response": "",
-  "thinking": " prompt",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.8878525Z",
+  "response": " Maybe",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.92080444Z",
-  "response": "",
-  "thinking": ":",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.9111016Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.92081656Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.9347956Z",
+  "response": "soft",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.923292492Z",
-  "response": "",
-  "thinking": "Describe",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.9581689Z",
+  "response": ",\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.925026116Z",
-  "response": "",
-  "thinking": " a",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:18.9815599Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.928240888Z",
-  "response": "",
-  "thinking": " rabbit",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.0051921Z",
+  "response": "quick",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.931824109Z",
-  "response": "",
-  "thinking": " in",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.028542Z",
+  "response": ",\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.93670839Z",
-  "response": "",
-  "thinking": " ",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.0514983Z",
+  "response": " and",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.943809493Z",
-  "response": "",
-  "thinking": "3",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.0753585Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.943823553Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.0982713Z",
+  "response": "cur",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.943831252Z",
-  "response": "",
-  "thinking": "\".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.1215236Z",
+  "response": "ious",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.944936143Z",
-  "response": "",
-  "thinking": " So",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.1445582Z",
+  "response": "\"?",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.947909177Z",
-  "response": "",
-  "thinking": " we",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.1678134Z",
+  "response": " Or",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.952513871Z",
-  "response": "",
-  "thinking": " should",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.1907626Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.957381576Z",
-  "response": "",
-  "thinking": " answer",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.2137165Z",
+  "response": "del",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.958659101Z",
-  "response": "",
-  "thinking": " with",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.2364959Z",
+  "response": "icate",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.959558334Z",
-  "response": "",
-  "thinking": " exactly",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.2599428Z",
+  "response": ",\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.965881587Z",
-  "response": "",
-  "thinking": " ",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.2828497Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.965896749Z",
-  "response": "",
-  "thinking": "3",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.3061448Z",
+  "response": "nim",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.971248906Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.3291118Z",
+  "response": "ble",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.971264413Z",
-  "response": "",
-  "thinking": ".\n\n",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.3523285Z",
+  "response": ",\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.977662294Z",
-  "response": "",
-  "thinking": "Thus",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.3756367Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.977671383Z",
-  "response": "",
-  "thinking": " an",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.3980239Z",
+  "response": "play",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.982064089Z",
-  "response": "",
-  "thinking": " answer",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.4223003Z",
+  "response": "ful",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.984398003Z",
-  "response": "",
-  "thinking": ":",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.4453273Z",
+  "response": "\"?",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.985330789Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.4686207Z",
+  "response": " Let",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.996965521Z",
-  "response": "",
-  "thinking": "Fl",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.4915543Z",
+  "response": " me",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.996983737Z",
-  "response": "",
-  "thinking": "uffy",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.5145003Z",
+  "response": " check",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.996994989Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.5380366Z",
+  "response": " if",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:25.997004307Z",
-  "response": "",
-  "thinking": " curious",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.5613459Z",
+  "response": " those",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.003781472Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.5852197Z",
+  "response": " words",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.008907498Z",
-  "response": "",
-  "thinking": " gentle",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.6084899Z",
+  "response": " are",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.008919261Z",
-  "response": "",
-  "thinking": "\".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.6343539Z",
+  "response": " commonly",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.008925075Z",
-  "response": "",
-  "thinking": " Or",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.6581512Z",
+  "response": " associated",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.015113874Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.68131Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.015635052Z",
-  "response": "",
-  "thinking": "Soft",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.7046858Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.017208715Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.7278924Z",
+  "response": "Soft",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.024975657Z",
-  "response": "",
-  "thinking": " playful",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.7513176Z",
+  "response": "\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.02498916Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.7744824Z",
+  "response": " relates",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.026021973Z",
-  "response": "",
-  "thinking": " quick",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.7975212Z",
+  "response": " to",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.029613663Z",
-  "response": "",
-  "thinking": "\".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.8208443Z",
+  "response": " their",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.031752002Z",
-  "response": "",
-  "thinking": " Should",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.845011Z",
+  "response": " fur",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.034544952Z",
-  "response": "",
-  "thinking": " be",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.8698696Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.037667467Z",
-  "response": "",
-  "thinking": " exactly",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.8935567Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.045486498Z",
-  "response": "",
-  "thinking": " ",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.9195558Z",
+  "response": "quick",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.045498422Z",
-  "response": "",
-  "thinking": "3",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.9432471Z",
+  "response": "\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.046551159Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.9678253Z",
+  "response": " for",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.04920868Z",
-  "response": "",
-  "thinking": " separated",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:19.9911764Z",
+  "response": " their",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.064912924Z",
-  "response": "",
-  "thinking": " by",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.0145646Z",
+  "response": " speed",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.064924851Z",
-  "response": "",
-  "thinking": " commas",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.0387484Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.064933614Z",
-  "response": "",
-  "thinking": " or",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.0619391Z",
+  "response": " and",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.064939791Z",
-  "response": "",
-  "thinking": " just",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.0862565Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.067991722Z",
-  "response": "",
-  "thinking": " space",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.1100026Z",
+  "response": "cur",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.068003292Z",
-  "response": "",
-  "thinking": ".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.1332536Z",
+  "response": "ious",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.069762971Z",
-  "response": "",
-  "thinking": " They",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.1557856Z",
+  "response": "\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.083516936Z",
-  "response": "",
-  "thinking": " didn't",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.1801875Z",
+  "response": " for",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.083527984Z",
-  "response": "",
-  "thinking": " specify",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.2036663Z",
+  "response": " their",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.083535256Z",
-  "response": "",
-  "thinking": " format",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.2261868Z",
+  "response": " behavior",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.083541257Z",
-  "response": "",
-  "thinking": ".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.2500612Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.084860476Z",
-  "response": "",
-  "thinking": " We'll",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.2738585Z",
+  "response": " Alternatively",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.094078866Z",
-  "response": "",
-  "thinking": " produce",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.2964087Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.094089479Z",
-  "response": "",
-  "thinking": " three",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.320722Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.094095363Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.3438981Z",
+  "response": "long",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.098915693Z",
-  "response": "",
-  "thinking": ".\n\n",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.3675117Z",
+  "response": "-e",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.098927056Z",
-  "response": "",
-  "thinking": "Let's",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.3924416Z",
+  "response": "ared",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.101771868Z",
-  "response": "",
-  "thinking": " choose",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.4156198Z",
+  "response": ",\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.115857281Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.439098Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.115868334Z",
-  "response": "",
-  "thinking": "Fl",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.4623971Z",
+  "response": "h",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.115874592Z",
-  "response": "",
-  "thinking": "uffy",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.4858727Z",
+  "response": "opping",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.115881897Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.5090488Z",
+  "response": ",\"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.117218563Z",
-  "response": "",
-  "thinking": " curious",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.5321448Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.125842112Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.5556185Z",
+  "response": "fl",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.125851314Z",
-  "response": "",
-  "thinking": " gentle",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.125858518Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.129290589Z",
-  "response": "",
-  "thinking": " That",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.130924169Z",
-  "response": "",
-  "thinking": " is",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.133828032Z",
-  "response": "",
-  "thinking": " three",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.140848723Z",
-  "response": "",
-  "thinking": " words",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.140862878Z",
-  "response": "",
-  "thinking": ":",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.142570551Z",
-  "response": "",
-  "thinking": " Fl",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.148466133Z",
-  "response": "",
-  "thinking": "uffy",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.148478665Z",
-  "response": "",
-  "thinking": " (",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.153586375Z",
-  "response": "",
-  "thinking": "1",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.160425276Z",
-  "response": "",
-  "thinking": "),",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.160438557Z",
-  "response": "",
-  "thinking": " curious",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.160445308Z",
-  "response": "",
-  "thinking": " (",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.166673029Z",
-  "response": "",
-  "thinking": "2",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.166682999Z",
-  "response": "",
-  "thinking": "),",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.169429491Z",
-  "response": "",
-  "thinking": " gentle",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.172779995Z",
-  "response": "",
-  "thinking": " (",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.179030899Z",
-  "response": "",
-  "thinking": "3",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.179047097Z",
-  "response": "",
-  "thinking": ").",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.185515754Z",
-  "response": "",
-  "thinking": " So",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.185997529Z",
-  "response": "",
-  "thinking": " answer",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.186397033Z",
-  "response": "",
-  "thinking": " with",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.190683198Z",
-  "response": "",
-  "thinking": ":",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.192205969Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.195254334Z",
-  "response": "",
-  "thinking": "Fl",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.202320482Z",
-  "response": "",
-  "thinking": "uffy",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.202332969Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.204547284Z",
-  "response": "",
-  "thinking": " curious",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.206895797Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.209798143Z",
-  "response": "",
-  "thinking": " gentle",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.212539485Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.215394801Z",
-  "response": "",
-  "thinking": " Or",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.21853404Z",
-  "response": "",
-  "thinking": " maybe",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.222156644Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.226824575Z",
-  "response": "",
-  "thinking": "Soft",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.227265237Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.230629105Z",
-  "response": "",
-  "thinking": " playful",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.232913715Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.23736744Z",
-  "response": "",
-  "thinking": " quick",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.250855158Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.250868783Z",
-  "response": "",
-  "thinking": " That's",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.25087581Z",
-  "response": "",
-  "thinking": " also",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.250881927Z",
-  "response": "",
-  "thinking": " three",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.250888325Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.254793554Z",
-  "response": "",
-  "thinking": " Let's",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.256212865Z",
-  "response": "",
-  "thinking": " use",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.260580027Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.262105915Z",
-  "response": "",
-  "thinking": "Fl",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.265025509Z",
-  "response": "",
-  "thinking": "uffy",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.268317683Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.270782732Z",
-  "response": "",
-  "thinking": " curious",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.278343004Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.278356185Z",
-  "response": "",
-  "thinking": " gentle",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.281816786Z",
-  "response": "",
-  "thinking": "\".\n\n",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.284482268Z",
-  "response": "",
-  "thinking": "Will",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.28878633Z",
-  "response": "",
-  "thinking": " we",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.288795268Z",
-  "response": "",
-  "thinking": " provide",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.294074964Z",
-  "response": "",
-  "thinking": " explanation",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.29433933Z",
-  "response": "",
-  "thinking": "?",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.297140969Z",
-  "response": "",
-  "thinking": " The",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.304494859Z",
-  "response": "",
-  "thinking": " instructions",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.304504749Z",
-  "response": "",
-  "thinking": ":",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.311271271Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.312240876Z",
-  "response": "",
-  "thinking": "Describe",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.312251433Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.323323846Z",
-  "response": "",
-  "thinking": " rabbit",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.32333469Z",
-  "response": "",
-  "thinking": " in",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.323341709Z",
-  "response": "",
-  "thinking": " ",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.326612186Z",
-  "response": "",
-  "thinking": "3",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.326629053Z",
-  "response": "",
-  "thinking": " words",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.329392305Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.332049623Z",
-  "response": "",
-  "thinking": " They",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.346537916Z",
-  "response": "",
-  "thinking": " want",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.346550376Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.346558167Z",
-  "response": "",
-  "thinking": " short",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.346567044Z",
-  "response": "",
-  "thinking": " description",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.346587853Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.34943386Z",
-  "response": "",
-  "thinking": " Let's",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.359660195Z",
-  "response": "",
-  "thinking": " give",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.359678256Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.359686003Z",
-  "response": "",
-  "thinking": " three",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.364033864Z",
-  "response": "",
-  "thinking": "-word",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.364045994Z",
-  "response": "",
-  "thinking": " phrase",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.370210048Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.370220124Z",
-  "response": "",
-  "thinking": " Probably",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.372632642Z",
-  "response": "",
-  "thinking": " we",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.376278982Z",
-  "response": "",
-  "thinking": " should",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.379101576Z",
-  "response": "",
-  "thinking": " just",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.381531084Z",
-  "response": "",
-  "thinking": " give",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.395512652Z",
-  "response": "",
-  "thinking": " the",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.395527618Z",
-  "response": "",
-  "thinking": " phrase",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.395535105Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.39554367Z",
-  "response": "",
-  "thinking": " It's",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.395636055Z",
-  "response": "",
-  "thinking": " okay",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.399195607Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.407801863Z",
-  "response": "",
-  "thinking": " No",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.407812522Z",
-  "response": "",
-  "thinking": " additional",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.407819767Z",
-  "response": "",
-  "thinking": " text",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.420396149Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.420406628Z",
-  "response": "",
-  "thinking": " Probably",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.420413846Z",
-  "response": "",
-  "thinking": " they",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.420419392Z",
-  "response": "",
-  "thinking": " want",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.421571008Z",
-  "response": "",
-  "thinking": " just",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.424359917Z",
-  "response": "",
-  "thinking": " the",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.427367123Z",
-  "response": "",
-  "thinking": " description",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.430104591Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.433098888Z",
-  "response": "",
-  "thinking": " So",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.436227216Z",
-  "response": "",
-  "thinking": " I'll",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.44151892Z",
-  "response": "",
-  "thinking": " output",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.447463243Z",
-  "response": "",
-  "thinking": ":",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.4474786Z",
-  "response": "",
-  "thinking": " Fl",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.453439847Z",
-  "response": "",
-  "thinking": "uffy",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.454245859Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.454255197Z",
-  "response": "",
-  "thinking": " curious",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.469827269Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.469838756Z",
-  "response": "",
-  "thinking": " gentle",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.469845649Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.482720535Z",
-  "response": "Fl",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.490182996Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.5788823Z",
   "response": "uffy",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.490194785Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.6029331Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.6264939Z",
+  "response": " but",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.649998Z",
+  "response": " that",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.6742301Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.6979443Z",
+  "response": " be",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.7221984Z",
+  "response": " too",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.7454465Z",
+  "response": " descriptive",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.7689038Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.7922295Z",
+  "response": " The",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.8154443Z",
+  "response": " user",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.8390125Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.8623279Z",
+  "response": " want",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.8863546Z",
+  "response": " more",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.9095534Z",
+  "response": " concise",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.9327139Z",
+  "response": " terms",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.9562302Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:20.9794242Z",
+  "response": " Maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.0030028Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.0272826Z",
+  "response": "del",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.0506171Z",
+  "response": "icate",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.0739566Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.0966465Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.1210358Z",
+  "response": "nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.1462005Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.1697738Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.1931294Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.2166078Z",
+  "response": "play",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.2404117Z",
+  "response": "ful",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.2638929Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.287755Z",
+  "response": " as",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.3111298Z",
+  "response": " ad",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.3348388Z",
+  "response": "jectives",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.3583274Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.3821364Z",
+  "response": " Or",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.4058192Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.4291433Z",
+  "response": "gent",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.4528008Z",
+  "response": "le",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.4762117Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.4994921Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.5231259Z",
+  "response": "swift",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.5465702Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.5702009Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.5934894Z",
+  "response": "in",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.6156856Z",
+  "response": "quis",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.6403673Z",
+  "response": "itive",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.6636988Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.6873874Z",
+  "response": " I",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.71081Z",
+  "response": " should",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.7344525Z",
+  "response": " ensure",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.7577049Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.781032Z",
+  "response": " words",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.8046881Z",
+  "response": " are",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.8282784Z",
+  "response": " concise",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.8519319Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.8752525Z",
+  "response": " capture",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.9010566Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.9244898Z",
+  "response": " main",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.947881Z",
+  "response": " traits",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.9715942Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:21.9949559Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.019335Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.0431984Z",
+  "response": " go",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.0665516Z",
+  "response": " with",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.0902888Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.1136688Z",
+  "response": "soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.1378586Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.1612752Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.1849915Z",
+  "response": "quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.2084305Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.2318339Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.2555076Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.279678Z",
+  "response": "cur",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.3035049Z",
+  "response": "ious",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.3266269Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.3503752Z",
+  "response": " since",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.3737401Z",
+  "response": " they",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.3964067Z",
+  "response": " cover",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.4209104Z",
+  "response": " appearance",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.4443995Z",
   "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.490484604Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.4681689Z",
+  "response": " movement",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.4916809Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.5149834Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.5385836Z",
+  "response": " behavior",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.561897Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.5855083Z",
+  "response": " But",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.6088704Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.632252Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.65897Z",
+  "response": "nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.6824003Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.7062028Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.7296612Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.7536282Z",
+  "response": " better",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.7758257Z",
+  "response": " than",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.8010235Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.8245982Z",
+  "response": "quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.8481534Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.8720497Z",
+  "response": " for",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.8955717Z",
+  "response": " movement",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.9205412Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.9441015Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.9681741Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:22.9915264Z",
+  "response": " think",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.0163047Z",
+  "response": " again",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.0415977Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.0657061Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.0910636Z",
+  "response": "Soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.1154972Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.1403091Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.1643449Z",
+  "response": "nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.188961Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.2125923Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.2358131Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.2610848Z",
+  "response": "cur",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.2848921Z",
+  "response": "ious",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.3085389Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.3323598Z",
+  "response": " sounds",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.3555573Z",
+  "response": " good",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.3799983Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.4039597Z",
+  "response": " Alternatively",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.4299056Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.4549125Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.4789987Z",
+  "response": "fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.5029325Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.5266541Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.5510895Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.5748518Z",
+  "response": "h",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.5985176Z",
+  "response": "opping",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.6225129Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.6466314Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.6707362Z",
+  "response": "in",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.6944175Z",
+  "response": "quis",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.7184957Z",
+  "response": "itive",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.7423748Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.7661587Z",
+  "response": " But",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.7903582Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.8141693Z",
+  "response": " user",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.838533Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.8623073Z",
+  "response": " prefer",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.8866743Z",
+  "response": " more",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.910511Z",
+  "response": " general",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.9345664Z",
+  "response": " terms",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.9583028Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:23.9824191Z",
+  "response": " I",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.0068438Z",
+  "response": "'ll",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.0317752Z",
+  "response": " stick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.0551658Z",
+  "response": " with",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.079608Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.1035261Z",
+  "response": "soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.126226Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.1511061Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.1748215Z",
+  "response": "nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.2004797Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.224397Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.248316Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.2724223Z",
+  "response": "cur",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.2962284Z",
+  "response": "ious",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.3205396Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.3443812Z",
+  "response": " as",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.368548Z",
+  "response": " they",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.3924251Z",
+  "response": " are",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.4163357Z",
+  "response": " concise",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.4409722Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.4648076Z",
+  "response": " cover",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.4889874Z",
+  "response": " different",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.5128083Z",
+  "response": " aspects",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.5365054Z",
+  "response": ".\n",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.5611086Z",
+  "response": "</think>",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.5861055Z",
+  "response": "\n\n",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.6099815Z",
+  "response": "Soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.6338707Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.6577602Z",
+  "response": " nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.6815812Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.7060523Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.7298856Z",
   "response": " curious",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.495724687Z",
-  "response": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.754647Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.496303532Z",
-  "response": " gentle",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.499496934Z",
-  "response": "",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:26.499503727Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:24.7785108Z",
   "response": "",
   "done": true,
   "done_reason": "stop",
-  "total_duration": 1070348247,
-  "prompt_eval_count": 81,
-  "eval_count": 287
+  "context": [
+    151644,
+    872,
+    198,
+    74785,
+    264,
+    38724,
+    304,
+    220,
+    18,
+    4244,
+    151645,
+    198,
+    151644,
+    77091,
+    198,
+    151667,
+    198,
+    32313,
+    11,
+    279,
+    1196,
+    6801,
+    752,
+    311,
+    7512,
+    264,
+    38724,
+    304,
+    2326,
+    4244,
+    13,
+    6771,
+    752,
+    1744,
+    911,
+    279,
+    1376,
+    17452,
+    315,
+    264,
+    38724,
+    13,
+    5512,
+    11,
+    807,
+    2299,
+    3881,
+    369,
+    862,
+    1293,
+    24230,
+    13,
+    2938,
+    594,
+    264,
+    34847,
+    4565,
+    13,
+    5005,
+    11,
+    862,
+    7203,
+    2293,
+    9309,
+    807,
+    1598,
+    11,
+    432,
+    594,
+    2598,
+    92238,
+    476,
+    30618,
+    13,
+    1597,
+    862,
+    18241,
+    374,
+    5990,
+    8413,
+    323,
+    67561,
+    13,
+    13824,
+    11,
+    714,
+    358,
+    1184,
+    311,
+    3735,
+    2326,
+    4244,
+    429,
+    12322,
+    279,
+    27491,
+    13,
+    10696,
+    330,
+    3510,
+    1335,
+    330,
+    27763,
+    1335,
+    323,
+    330,
+    2352,
+    1223,
+    43869,
+    2521,
+    330,
+    9588,
+    8463,
+    1335,
+    330,
+    56751,
+    891,
+    1335,
+    330,
+    1363,
+    1262,
+    43869,
+    6771,
+    752,
+    1779,
+    421,
+    1846,
+    4244,
+    525,
+    16626,
+    5815,
+    13,
+    330,
+    30531,
+    1,
+    35616,
+    311,
+    862,
+    18241,
+    11,
+    330,
+    27763,
+    1,
+    369,
+    862,
+    4628,
+    11,
+    323,
+    330,
+    2352,
+    1223,
+    1,
+    369,
+    862,
+    7709,
+    13,
+    38478,
+    11,
+    330,
+    4825,
+    5655,
+    1605,
+    1335,
+    330,
+    71,
+    7008,
+    1335,
+    330,
+    1489,
+    29877,
+    1,
+    714,
+    429,
+    2578,
+    387,
+    2238,
+    52844,
+    13,
+    576,
+    1196,
+    2578,
+    1366,
+    803,
+    63594,
+    3793,
+    13,
+    10696,
+    330,
+    9588,
+    8463,
+    1335,
+    330,
+    56751,
+    891,
+    1335,
+    330,
+    1363,
+    1262,
+    1,
+    438,
+    993,
+    86578,
+    13,
+    2521,
+    330,
+    15772,
+    273,
+    1335,
+    330,
+    70642,
+    1335,
+    330,
+    258,
+    9202,
+    3404,
+    1189,
+    358,
+    1265,
+    5978,
+    279,
+    4244,
+    525,
+    63594,
+    323,
+    12322,
+    279,
+    1887,
+    24055,
+    13,
+    6771,
+    752,
+    728,
+    448,
+    330,
+    3510,
+    1335,
+    330,
+    27763,
+    1335,
+    323,
+    330,
+    2352,
+    1223,
+    1,
+    2474,
+    807,
+    3421,
+    11094,
+    11,
+    7203,
+    11,
+    323,
+    7709,
+    13,
+    1988,
+    7196,
+    330,
+    56751,
+    891,
+    1,
+    374,
+    2664,
+    1091,
+    330,
+    27763,
+    1,
+    369,
+    7203,
+    13,
+    6771,
+    752,
+    1744,
+    1549,
+    13,
+    330,
+    30531,
+    1335,
+    330,
+    56751,
+    891,
+    1335,
+    330,
+    2352,
+    1223,
+    1,
+    10362,
+    1661,
+    13,
+    38478,
+    11,
+    330,
+    1489,
+    29877,
+    1335,
+    330,
+    71,
+    7008,
+    1335,
+    330,
+    258,
+    9202,
+    3404,
+    1189,
+    1988,
+    279,
+    1196,
+    2578,
+    10702,
+    803,
+    4586,
+    3793,
+    13,
+    358,
+    3278,
+    9214,
+    448,
+    330,
+    3510,
+    1335,
+    330,
+    56751,
+    891,
+    1335,
+    330,
+    2352,
+    1223,
+    1,
+    438,
+    807,
+    525,
+    63594,
+    323,
+    3421,
+    2155,
+    13566,
+    624,
+    151668,
+    271,
+    30531,
+    11,
+    45692,
+    891,
+    11,
+    22208,
+    13
+  ],
+  "total_duration": 9573957600,
+  "load_duration": 1674055200,
+  "prompt_eval_count": 15,
+  "prompt_eval_duration": 89658700,
+  "eval_count": 331,
+  "eval_duration": 7808984600
 }
 ```
 
 ## Demo Debug
 
 ```bash
-OBL_DEBUG=1 ollama_generate_stream_json -m "gpt-oss:20b" -p "Describe a rabbit in 3 words"
+OBL_DEBUG=1 ollama_generate_stream_json -m "qwen3:8b" -p "Describe a rabbit in 3 words"
 
 ```
 ```json
-[DEBUG] 11:30:26:885417000: ollama_generate_stream_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
-[DEBUG] 11:30:26:900398000: ollama_generate_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
-[DEBUG] 11:30:26:925621000: ollama_generate_json: json_payload: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 11:30:26:940213000: ollama_api_post: [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 11:30:26:945761000: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 11:30:26:956248000: _call_curl: OBL_API: https://ollama.com
-[DEBUG] 11:30:26:961365000: _call_curl: Turbo Mode
-[DEBUG] 11:30:26:966010000: _call_curl: json_body: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 11:30:26:970834000: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
-[DEBUG] 11:30:28:138339000: ollama_api_post: success
-[DEBUG] 11:30:28:150930000: ollama_generate_json: success
-[DEBUG] 11:30:28:160508000: ollama_generate_stream_json: success
+[DEBUG] 22:05:24:914898300: ollama_generate_stream_json: [qwen3:8b] [Describe a rabbit in 3 words]
+[DEBUG] 22:05:24:967465400: ollama_generate_json: [qwen3:8b] [Describe a rabbit in 3 words]
+[DEBUG] 22:05:25:041368100: ollama_generate_json: json_payload: {"model":"qwen3:8b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
+[DEBUG] 22:05:25:090670700: ollama_api_post: [/api/generate] {"model":"qwen3:8b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
+[DEBUG] 22:05:25:116600400: _call_curl: [POST] [/api/generate] {"model":"qwen3:8b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
+[DEBUG] 22:05:25:164842200: _call_curl: OBL_API: http://localhost:11434
+[DEBUG] 22:05:25:191002100: _call_curl: json_body: {"model":"qwen3:8b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
+[DEBUG] 22:05:25:227255000: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X POST http://localhost:11434/api/generate -d @-
+[DEBUG] 22:05:36:268162500: ollama_api_post: success
+[DEBUG] 22:05:36:303863500: ollama_generate_json: success
+[DEBUG] 22:05:36:348041900: ollama_generate_stream_json: success
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.368493764Z",
-  "response": "",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.5383716Z",
+  "response": "<think>",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.369891281Z",
-  "response": "",
-  "thinking": "The",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.5613858Z",
+  "response": "\n",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.369901456Z",
-  "response": "",
-  "thinking": " user",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.583138Z",
+  "response": "Okay",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.369908497Z",
-  "response": "",
-  "thinking": " wants",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.6060478Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.369914887Z",
-  "response": "",
-  "thinking": ":",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.6288963Z",
+  "response": " the",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.369920974Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.6521845Z",
+  "response": " user",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.370619746Z",
-  "response": "",
-  "thinking": "Describe",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.6750846Z",
+  "response": " wants",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.370635661Z",
-  "response": "",
-  "thinking": " a",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.6975569Z",
+  "response": " me",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.371319671Z",
-  "response": "",
-  "thinking": " rabbit",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.7234155Z",
+  "response": " to",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.371329272Z",
-  "response": "",
-  "thinking": " in",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.7497055Z",
+  "response": " describe",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.371490009Z",
-  "response": "",
-  "thinking": " ",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.7765093Z",
+  "response": " a",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.371503118Z",
-  "response": "",
-  "thinking": "3",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.8025231Z",
+  "response": " rabbit",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.371727103Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.8280447Z",
+  "response": " in",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.371897591Z",
-  "response": "",
-  "thinking": ".\"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.8536976Z",
+  "response": " three",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.373505301Z",
-  "response": "",
-  "thinking": " Lik",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.8765322Z",
+  "response": " words",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.373514249Z",
-  "response": "",
-  "thinking": "ely",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.8993374Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.3768685Z",
-  "response": "",
-  "thinking": " short",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.9221324Z",
+  "response": " Let",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.3768841Z",
-  "response": "",
-  "thinking": " answer",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.9452683Z",
+  "response": " me",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376893181Z",
-  "response": "",
-  "thinking": ".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.970162Z",
+  "response": " think",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376903041Z",
-  "response": "",
-  "thinking": " Just",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:25.9928808Z",
+  "response": " about",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.37691197Z",
-  "response": "",
-  "thinking": " give",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.0154786Z",
+  "response": " the",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376918717Z",
-  "response": "",
-  "thinking": " ",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.0392851Z",
+  "response": " key",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376928536Z",
-  "response": "",
-  "thinking": "3",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.0618537Z",
+  "response": " characteristics",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376934382Z",
-  "response": "",
-  "thinking": " words",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.0848045Z",
+  "response": " of",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376939648Z",
-  "response": "",
-  "thinking": ".",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.1066587Z",
+  "response": " a",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376944472Z",
-  "response": "",
-  "thinking": " Could",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.1298568Z",
+  "response": " rabbit",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376952998Z",
-  "response": "",
-  "thinking": " be",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.1527746Z",
+  "response": ".",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376958148Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.1758556Z",
+  "response": " They",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.37696296Z",
-  "response": "",
-  "thinking": "soft",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.1984982Z",
+  "response": "'re",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.37696749Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.2214276Z",
+  "response": " known",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376976326Z",
-  "response": "",
-  "thinking": " timid",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.2440411Z",
+  "response": " for",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376984528Z",
-  "response": "",
-  "thinking": ",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.2665852Z",
+  "response": " being",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376992166Z",
-  "response": "",
-  "thinking": " curious",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.2895529Z",
+  "response": " fluffy",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.376999793Z",
-  "response": "",
-  "thinking": "\",",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.3122108Z",
+  "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.377008037Z",
-  "response": "",
-  "thinking": " \"",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.3352063Z",
+  "response": " so",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.377890546Z",
-  "response": "",
-  "thinking": "fl",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.3577344Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.37790201Z",
-  "response": "",
-  "thinking": "uffy",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.377909014Z",
-  "response": "",
-  "thinking": " ears",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.377915502Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.378969028Z",
-  "response": "",
-  "thinking": " quick",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.390040361Z",
-  "response": "",
-  "thinking": "\",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.390052476Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.390058581Z",
-  "response": "",
-  "thinking": "cute",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.390455471Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.393657215Z",
-  "response": "",
-  "thinking": " gentle",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.396495047Z",
-  "response": "",
-  "thinking": ",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.399376965Z",
-  "response": "",
-  "thinking": " swift",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.401883616Z",
-  "response": "",
-  "thinking": "\"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.404606274Z",
-  "response": "",
-  "thinking": " etc",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.407840301Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.414170483Z",
-  "response": "",
-  "thinking": " Answer",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.414184183Z",
-  "response": "",
-  "thinking": " can",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.418515649Z",
-  "response": "",
-  "thinking": " be",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447106621Z",
-  "response": "",
-  "thinking": " simple",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447123056Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447130472Z",
-  "response": "",
-  "thinking": " No",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447137249Z",
-  "response": "",
-  "thinking": " extra",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447143782Z",
-  "response": "",
-  "thinking": " explanation",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447148667Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447153257Z",
-  "response": "",
-  "thinking": " Use",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447157704Z",
-  "response": "",
-  "thinking": " exactly",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.447162021Z",
-  "response": "",
-  "thinking": " ",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.44716653Z",
-  "response": "",
-  "thinking": "3",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.454864919Z",
-  "response": "",
-  "thinking": " words",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.454882324Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.454892405Z",
-  "response": "",
-  "thinking": " Provide",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.469629994Z",
-  "response": "",
-  "thinking": " them",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.469641807Z",
-  "response": "",
-  "thinking": " in",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.46964775Z",
-  "response": "",
-  "thinking": " a",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.469654231Z",
-  "response": "",
-  "thinking": " list",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.469660678Z",
-  "response": "",
-  "thinking": "?",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.474269359Z",
-  "response": "",
-  "thinking": " The",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.474283601Z",
-  "response": "",
-  "thinking": " user",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.478006201Z",
-  "response": "",
-  "thinking": " didn't",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.481966959Z",
-  "response": "",
-  "thinking": " say",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.482380489Z",
-  "response": "",
-  "thinking": " how",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.487739633Z",
-  "response": "",
-  "thinking": " to",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.48985775Z",
-  "response": "",
-  "thinking": " format",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.491172963Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.501544914Z",
-  "response": "",
-  "thinking": " Just",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.501556649Z",
-  "response": "",
-  "thinking": " ",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.50156317Z",
-  "response": "",
-  "thinking": "3",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.50372279Z",
-  "response": "",
-  "thinking": " words",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.507581752Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.509185753Z",
-  "response": "",
-  "thinking": " I'll",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.514110467Z",
-  "response": "",
-  "thinking": " choose",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.514123726Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.51701635Z",
-  "response": "",
-  "thinking": "soft",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.520394491Z",
-  "response": "",
-  "thinking": "\",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.527781362Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.528456958Z",
-  "response": "",
-  "thinking": "quick",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.52874183Z",
-  "response": "",
-  "thinking": "\",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.537975429Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.537988561Z",
-  "response": "",
-  "thinking": "cur",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.537999126Z",
-  "response": "",
-  "thinking": "ious",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.541663748Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.542646363Z",
-  "response": "",
-  "thinking": " But",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.545489394Z",
-  "response": "",
-  "thinking": " maybe",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.550359925Z",
-  "response": "",
-  "thinking": " better",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.551361435Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.558458611Z",
-  "response": "",
-  "thinking": "fl",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.558468971Z",
-  "response": "",
-  "thinking": "uffy",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.560591892Z",
-  "response": "",
-  "thinking": "\",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.562917092Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.565800639Z",
-  "response": "",
-  "thinking": "gent",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.569353094Z",
-  "response": "",
-  "thinking": "le",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.572199435Z",
-  "response": "",
-  "thinking": "\",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.574286848Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.577637559Z",
-  "response": "",
-  "thinking": "play",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.580236626Z",
-  "response": "",
-  "thinking": "ful",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.708622859Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.708637631Z",
-  "response": "",
-  "thinking": " Should",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.710896174Z",
-  "response": "",
-  "thinking": " be",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.710906175Z",
-  "response": "",
-  "thinking": " description",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.710913131Z",
-  "response": "",
-  "thinking": ".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.710922176Z",
-  "response": "",
-  "thinking": " I'll",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.710929352Z",
-  "response": "",
-  "thinking": " answer",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.710935311Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.710941547Z",
-  "response": "",
-  "thinking": "fl",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.71103327Z",
-  "response": "",
-  "thinking": "uffy",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.71184732Z",
-  "response": "",
-  "thinking": "\",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.71185936Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.71186546Z",
-  "response": "",
-  "thinking": "play",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.71187238Z",
-  "response": "",
-  "thinking": "ful",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.712251428Z",
-  "response": "",
-  "thinking": "\",",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.712263389Z",
-  "response": "",
-  "thinking": " \"",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.714395825Z",
-  "response": "",
-  "thinking": "cur",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.714409459Z",
-  "response": "",
-  "thinking": "ious",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.716700908Z",
-  "response": "",
-  "thinking": "\".",
-  "done": false
-}
-{
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.745444623Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.3804938Z",
   "response": "fl",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.749276104Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.4033786Z",
   "response": "uffy",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.753392693Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.4260397Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.4488069Z",
+  "response": " comes",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.4717329Z",
+  "response": " to",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.4945345Z",
+  "response": " mind",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.5177804Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.5405658Z",
+  "response": " Then",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.5631917Z",
   "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.757626751Z",
-  "response": " playful",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.5863151Z",
+  "response": " they",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.762173144Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.6090324Z",
+  "response": "'re",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.6317088Z",
+  "response": " usually",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.6549134Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.6781217Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.7031418Z",
+  "response": " timid",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.7259617Z",
   "response": ",",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.765639Z",
-  "response": " curious",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.7487953Z",
+  "response": " so",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.769838689Z",
-  "response": "",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.7719517Z",
+  "response": " \"",
   "done": false
 }
 {
-  "model": "gpt-oss:20b",
-  "created_at": "2025-08-22T09:30:27.76984506Z",
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.7949464Z",
+  "response": "gent",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.8182752Z",
+  "response": "le",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.8414165Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.8644467Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.8877214Z",
+  "response": " work",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.9106563Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.933548Z",
+  "response": " But",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.9564739Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:26.9792909Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.0027782Z",
+  "response": "tim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.0267043Z",
+  "response": "id",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.049528Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.072637Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.0955324Z",
+  "response": " more",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.1185128Z",
+  "response": " accurate",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.1412736Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.1640048Z",
+  "response": " Wait",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.1865115Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.2099403Z",
+  "response": " but",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.2328443Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.2559455Z",
+  "response": "gent",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.2787006Z",
+  "response": "le",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.3017307Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.3245244Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.3466106Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.3705392Z",
+  "response": " bit",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.3934018Z",
+  "response": " more",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.4162305Z",
+  "response": " positive",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.4409772Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.4639565Z",
+  "response": " Alternatively",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.4875469Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.5106478Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.5335992Z",
+  "response": "soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.5567652Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.5797385Z",
+  "response": " could",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.6031432Z",
+  "response": " also",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.6261517Z",
+  "response": " be",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.6491637Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.6726009Z",
+  "response": " good",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.695592Z",
+  "response": " word",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.7189192Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.7420357Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.7649887Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.7882241Z",
+  "response": " consider",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.8112347Z",
+  "response": " synonyms",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.8344664Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.8574792Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.8804297Z",
+  "response": "Fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.9037716Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.9266562Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.949763Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.9729575Z",
+  "response": "soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:27.9963634Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.0204789Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.0434821Z",
+  "response": "gent",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.0663599Z",
+  "response": "le",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.0895441Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.1124435Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.1356168Z",
+  "response": "tim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.1585801Z",
+  "response": "id",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.1833142Z",
+  "response": ",\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.2066107Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.2296461Z",
+  "response": "quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.2531284Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.2761772Z",
+  "response": " Hmm",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.2993005Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.3226871Z",
+  "response": " The",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.3457391Z",
+  "response": " user",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.3690427Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.3920524Z",
+  "response": " want",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.4150941Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.4384758Z",
+  "response": " mix",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.4614742Z",
+  "response": " of",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.4848273Z",
+  "response": " physical",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.5083069Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.5313703Z",
+  "response": " behavioral",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.5547649Z",
+  "response": " traits",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.5778497Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.6016129Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.6247402Z",
+  "response": "Fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.6473026Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.6709347Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.6941936Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.7179625Z",
+  "response": " definitely",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.7410466Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.7641072Z",
+  "response": " good",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.7861463Z",
+  "response": " physical",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.8105555Z",
+  "response": " descriptor",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.8335814Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.8567056Z",
+  "response": " For",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.8797329Z",
+  "response": " behavior",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.9030794Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.9280295Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.951501Z",
+  "response": "tim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.9745841Z",
+  "response": "id",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:28.9977098Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.0214483Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.0454944Z",
+  "response": " common",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.0688699Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.091948Z",
+  "response": " But",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.1149637Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.138291Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.1614282Z",
+  "response": "doc",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.1848662Z",
+  "response": "ile",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.2082334Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.2313839Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.2551067Z",
+  "response": " another",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.2782157Z",
+  "response": " option",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.3026962Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.3263406Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.3503419Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.374371Z",
+  "response": " check",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.3977385Z",
+  "response": " if",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.421797Z",
+  "response": " three",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.445391Z",
+  "response": " words",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.4690128Z",
+  "response": " can",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.4922041Z",
+  "response": " capture",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.5158236Z",
+  "response": " both",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.5395886Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.5626642Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.586124Z",
+  "response": "Fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.6090688Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.632122Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.6554849Z",
+  "response": " timid",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.6805232Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.7040922Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.7277762Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.7514717Z",
+  "response": " –",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.7747463Z",
+  "response": " that",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.7980407Z",
+  "response": "'s",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.8217194Z",
+  "response": " three",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.8450209Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.8685554Z",
+  "response": " Alternatively",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.8918401Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.9150484Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.9386871Z",
+  "response": "soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.9620569Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:29.9856487Z",
+  "response": " quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.0091939Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.0331011Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.0565745Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.0798487Z",
+  "response": " Wait",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.1033711Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.1265616Z",
+  "response": " rabbits",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.1498042Z",
+  "response": " are",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.173107Z",
+  "response": " also",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.196259Z",
+  "response": " known",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.2197458Z",
+  "response": " for",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.2433935Z",
+  "response": " their",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.2666264Z",
+  "response": " speed",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.2900733Z",
+  "response": " when",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.3133435Z",
+  "response": " they",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.3366372Z",
+  "response": " run",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.3601573Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.383299Z",
+  "response": " so",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.4066978Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.4318828Z",
+  "response": "quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.4554505Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.478641Z",
+  "response": " could",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.5021641Z",
+  "response": " be",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.5254961Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.5488158Z",
+  "response": " good",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.5724422Z",
+  "response": " third",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.5958538Z",
+  "response": " word",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.6195154Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.6427872Z",
+  "response": " But",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.6662223Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.6898363Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.7132675Z",
+  "response": "nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.7363917Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.7604961Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.7839228Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.8060309Z",
+  "response": " better",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.8307599Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.8544589Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.8781025Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.9018418Z",
+  "response": " think",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.9251258Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.948454Z",
+  "response": " The",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.9720925Z",
+  "response": " user",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:30.9955558Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.0197661Z",
+  "response": " prefer",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.0434729Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.0667581Z",
+  "response": " more",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.0908124Z",
+  "response": " poetic",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.1141844Z",
+  "response": " or",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.137891Z",
+  "response": " vivid",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.1611659Z",
+  "response": " description",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.1860722Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.2104198Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.2339647Z",
+  "response": "Fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.2566458Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.281156Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.3050023Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.3286184Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.3525224Z",
+  "response": " swift",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.3760709Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.3996064Z",
+  "response": " –",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.4235015Z",
+  "response": " that",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.4461943Z",
+  "response": "'s",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.4707928Z",
+  "response": " three",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.494424Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.5182223Z",
+  "response": " Or",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.5417192Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.5654657Z",
+  "response": "soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.5892639Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.6127799Z",
+  "response": " timid",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.6367025Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.6602949Z",
+  "response": " agile",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.6840504Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.7091832Z",
+  "response": " I",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.7331371Z",
+  "response": " need",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.7562933Z",
+  "response": " to",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.780677Z",
+  "response": " make",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.8049057Z",
+  "response": " sure",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.8289096Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.853145Z",
+  "response": " words",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.8766896Z",
+  "response": " are",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.9017374Z",
+  "response": " concise",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.9261483Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.9540967Z",
+  "response": " capture",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:31.9776892Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.0027349Z",
+  "response": " essence",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.0267332Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.0517506Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.0753611Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.0989848Z",
+  "response": " go",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.1237303Z",
+  "response": " with",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.1464143Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.1711074Z",
+  "response": "fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.194642Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.2184716Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.2420923Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.2656763Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.2895515Z",
+  "response": " swift",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.3131855Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.336851Z",
+  "response": " That",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.3611446Z",
+  "response": " covers",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.3850045Z",
+  "response": " physical",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.4085764Z",
+  "response": " appearance",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.4321605Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.456027Z",
+  "response": " behavior",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.4795719Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.5033797Z",
+  "response": " Alternatively",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.5260682Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.5505512Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.5741465Z",
+  "response": "fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.5977946Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.6217006Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.64529Z",
+  "response": " timid",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.6692164Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.6927528Z",
+  "response": " quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.7187575Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.7424456Z",
+  "response": " But",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.7662082Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.79047Z",
+  "response": "quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.8144576Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.8389496Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.8627198Z",
+  "response": " not",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.886851Z",
+  "response": " be",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.9106143Z",
+  "response": " as",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.9348227Z",
+  "response": " descriptive",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.9585585Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:32.9823626Z",
+  "response": " Maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.0065438Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.0312267Z",
+  "response": "nim",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.055533Z",
+  "response": "ble",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.0793263Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.1033298Z",
+  "response": " is",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.1264698Z",
+  "response": " better",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.1508335Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.1746457Z",
+  "response": " Wait",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.1984139Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.222445Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.2461991Z",
+  "response": " user",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.2702504Z",
+  "response": " might",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.2942101Z",
+  "response": " not",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.3182043Z",
+  "response": " have",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.3419615Z",
+  "response": " specific",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.3657959Z",
+  "response": " preferences",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.3897453Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.4135004Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.4366668Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.461375Z",
+  "response": " check",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.4888889Z",
+  "response": " if",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.5133561Z",
+  "response": " there",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.538721Z",
+  "response": "'s",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.5633865Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.5891959Z",
+  "response": " standard",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.613693Z",
+  "response": " way",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.639256Z",
+  "response": " to",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.6644201Z",
+  "response": " describe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.689974Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.7145324Z",
+  "response": " rabbit",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.7387726Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.7624886Z",
+  "response": " Common",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.7866077Z",
+  "response": " ad",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.8105104Z",
+  "response": "jectives",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.8346484Z",
+  "response": " are",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.8585008Z",
+  "response": " fluffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.8824454Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.9067015Z",
+  "response": " soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.9306269Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.9548453Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:33.9787222Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.002853Z",
+  "response": " timid",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.0276122Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.0517324Z",
+  "response": " quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.0755512Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.0994437Z",
+  "response": " agile",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.1239459Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.1478462Z",
+  "response": " So",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.1720122Z",
+  "response": " combining",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.1958981Z",
+  "response": " three",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.219991Z",
+  "response": " of",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.2437845Z",
+  "response": " these",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.2703251Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.294318Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.318679Z",
+  "response": "Fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.3427919Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.3668054Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.3911013Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.4152283Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.4396641Z",
+  "response": " quick",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.4637595Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.4881173Z",
+  "response": " seems",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.5122874Z",
+  "response": " to",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.5366715Z",
+  "response": " work",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.5607205Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.5851032Z",
+  "response": " Alternatively",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.6094596Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.6336061Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.6578833Z",
+  "response": "fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.682072Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.7064177Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.7304703Z",
+  "response": " soft",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.754774Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.7788811Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.8033657Z",
+  "response": ".\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.827562Z",
+  "response": " But",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.8519718Z",
+  "response": " maybe",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.8759911Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.9000914Z",
+  "response": " user",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.9244288Z",
+  "response": " wants",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.9485242Z",
+  "response": " more",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.9728969Z",
+  "response": " distinct",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:34.9959679Z",
+  "response": " traits",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.0223436Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.0488446Z",
+  "response": " Let",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.073297Z",
+  "response": " me",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.0968817Z",
+  "response": " decide",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.1225079Z",
+  "response": " on",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.1465947Z",
+  "response": " the",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.171058Z",
+  "response": " best",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.195215Z",
+  "response": " combination",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.2197413Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.2439094Z",
+  "response": " \"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.2683636Z",
+  "response": "Fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.2924101Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.3165068Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.340952Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.3651429Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.3896212Z",
+  "response": " swift",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.4138012Z",
+  "response": "\"",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.438291Z",
+  "response": " –",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.4615555Z",
+  "response": " that",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.4869078Z",
+  "response": "'s",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.5115423Z",
+  "response": " three",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.5362247Z",
+  "response": " words",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.5604921Z",
+  "response": " that",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.5848032Z",
+  "response": " capture",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.6090975Z",
+  "response": " both",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.6337583Z",
+  "response": " appearance",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.6581228Z",
+  "response": " and",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.6823063Z",
+  "response": " behavior",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.7068078Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.7310005Z",
+  "response": " I",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.7554618Z",
+  "response": " think",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.7796274Z",
+  "response": " that",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.804136Z",
+  "response": "'s",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.8309588Z",
+  "response": " a",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.85555Z",
+  "response": " solid",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.8798001Z",
+  "response": " choice",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.9044959Z",
+  "response": ".\n",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.9289793Z",
+  "response": "</think>",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.9536656Z",
+  "response": "\n\n",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:35.978049Z",
+  "response": "Fl",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:36.0026612Z",
+  "response": "uffy",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:36.0263317Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:36.0523428Z",
+  "response": " gentle",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:36.0768189Z",
+  "response": ",",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:36.1013883Z",
+  "response": " swift",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:36.1256796Z",
+  "response": ".",
+  "done": false
+}
+{
+  "model": "qwen3:8b",
+  "created_at": "2025-08-22T20:05:36.1507634Z",
   "response": "",
   "done": true,
   "done_reason": "stop",
-  "total_duration": 622450298,
-  "prompt_eval_count": 81,
-  "eval_count": 144
+  "context": [
+    151644,
+    872,
+    198,
+    74785,
+    264,
+    38724,
+    304,
+    220,
+    18,
+    4244,
+    151645,
+    198,
+    151644,
+    77091,
+    198,
+    151667,
+    198,
+    32313,
+    11,
+    279,
+    1196,
+    6801,
+    752,
+    311,
+    7512,
+    264,
+    38724,
+    304,
+    2326,
+    4244,
+    13,
+    6771,
+    752,
+    1744,
+    911,
+    279,
+    1376,
+    17452,
+    315,
+    264,
+    38724,
+    13,
+    2379,
+    2299,
+    3881,
+    369,
+    1660,
+    67561,
+    11,
+    773,
+    330,
+    1489,
+    29877,
+    1,
+    4041,
+    311,
+    3971,
+    13,
+    5005,
+    11,
+    807,
+    2299,
+    5990,
+    21700,
+    323,
+    98049,
+    11,
+    773,
+    330,
+    15772,
+    273,
+    1,
+    2578,
+    975,
+    13,
+    1988,
+    7196,
+    330,
+    20091,
+    307,
+    1,
+    374,
+    803,
+    13382,
+    13,
+    13824,
+    11,
+    714,
+    330,
+    15772,
+    273,
+    1,
+    374,
+    264,
+    2699,
+    803,
+    6785,
+    13,
+    38478,
+    11,
+    330,
+    3510,
+    1,
+    1410,
+    1083,
+    387,
+    264,
+    1661,
+    3409,
+    13,
+    6771,
+    752,
+    2908,
+    85406,
+    13,
+    330,
+    3882,
+    29877,
+    1335,
+    330,
+    3510,
+    1335,
+    330,
+    15772,
+    273,
+    1335,
+    330,
+    20091,
+    307,
+    1335,
+    330,
+    27763,
+    1189,
+    88190,
+    13,
+    576,
+    1196,
+    2578,
+    1366,
+    264,
+    6514,
+    315,
+    6961,
+    323,
+    35595,
+    24055,
+    13,
+    330,
+    3882,
+    29877,
+    1,
+    374,
+    8491,
+    264,
+    1661,
+    6961,
+    16414,
+    13,
+    1752,
+    7709,
+    11,
+    330,
+    20091,
+    307,
+    1,
+    374,
+    4185,
+    13,
+    1988,
+    7196,
+    330,
+    5236,
+    457,
+    1,
+    374,
+    2441,
+    2999,
+    13,
+    6771,
+    752,
+    1779,
+    421,
+    2326,
+    4244,
+    646,
+    12322,
+    2176,
+    13,
+    330,
+    3882,
+    29877,
+    11,
+    98049,
+    11,
+    21700,
+    1,
+    1365,
+    429,
+    594,
+    2326,
+    13,
+    38478,
+    11,
+    330,
+    3510,
+    11,
+    3974,
+    11,
+    21700,
+    1189,
+    13824,
+    11,
+    69144,
+    525,
+    1083,
+    3881,
+    369,
+    862,
+    4628,
+    979,
+    807,
+    1598,
+    11,
+    773,
+    330,
+    27763,
+    1,
+    1410,
+    387,
+    264,
+    1661,
+    4843,
+    3409,
+    13,
+    1988,
+    7196,
+    330,
+    56751,
+    891,
+    1,
+    374,
+    2664,
+    13,
+    6771,
+    752,
+    1744,
+    13,
+    576,
+    1196,
+    2578,
+    10702,
+    264,
+    803,
+    75434,
+    476,
+    42020,
+    4008,
+    13,
+    330,
+    3882,
+    29877,
+    11,
+    21700,
+    11,
+    29362,
+    1,
+    1365,
+    429,
+    594,
+    2326,
+    13,
+    2521,
+    330,
+    3510,
+    11,
+    98049,
+    11,
+    61465,
+    1189,
+    358,
+    1184,
+    311,
+    1281,
+    2704,
+    279,
+    4244,
+    525,
+    63594,
+    323,
+    12322,
+    279,
+    27491,
+    13,
+    6771,
+    752,
+    728,
+    448,
+    330,
+    1489,
+    29877,
+    11,
+    21700,
+    11,
+    29362,
+    1189,
+    2938,
+    14521,
+    6961,
+    11094,
+    323,
+    7709,
+    13,
+    38478,
+    11,
+    330,
+    1489,
+    29877,
+    11,
+    98049,
+    11,
+    3974,
+    1189,
+    1988,
+    330,
+    27763,
+    1,
+    2578,
+    537,
+    387,
+    438,
+    52844,
+    13,
+    10696,
+    330,
+    56751,
+    891,
+    1,
+    374,
+    2664,
+    13,
+    13824,
+    11,
+    279,
+    1196,
+    2578,
+    537,
+    614,
+    3151,
+    19322,
+    13,
+    6771,
+    752,
+    1779,
+    421,
+    1052,
+    594,
+    264,
+    5297,
+    1616,
+    311,
+    7512,
+    264,
+    38724,
+    13,
+    7718,
+    993,
+    86578,
+    525,
+    67561,
+    11,
+    8413,
+    11,
+    21700,
+    11,
+    98049,
+    11,
+    3974,
+    11,
+    61465,
+    13,
+    2055,
+    34171,
+    2326,
+    315,
+    1493,
+    13,
+    330,
+    3882,
+    29877,
+    11,
+    21700,
+    11,
+    3974,
+    1,
+    4977,
+    311,
+    975,
+    13,
+    38478,
+    11,
+    330,
+    1489,
+    29877,
+    11,
+    8413,
+    11,
+    21700,
+    1189,
+    1988,
+    7196,
+    279,
+    1196,
+    6801,
+    803,
+    12460,
+    24055,
+    13,
+    6771,
+    752,
+    10279,
+    389,
+    279,
+    1850,
+    10601,
+    13,
+    330,
+    3882,
+    29877,
+    11,
+    21700,
+    11,
+    29362,
+    1,
+    1365,
+    429,
+    594,
+    2326,
+    4244,
+    429,
+    12322,
+    2176,
+    11094,
+    323,
+    7709,
+    13,
+    358,
+    1744,
+    429,
+    594,
+    264,
+    6437,
+    5754,
+    624,
+    151668,
+    271,
+    3882,
+    29877,
+    11,
+    21700,
+    11,
+    29362,
+    13
+  ],
+  "total_duration": 10677971400,
+  "load_duration": 40791000,
+  "prompt_eval_count": 15,
+  "prompt_eval_duration": 2572700,
+  "eval_count": 448,
+  "eval_duration": 10633752200
 }
 ```

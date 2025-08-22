@@ -1,6 +1,6 @@
 # Prompt all models
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.3
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -11,24 +11,45 @@ for model in "${models[@]}"; do
   ollama_generate "$model" "$prompt"
 done
 ```
-2 models: gpt-oss:120b gpt-oss:20b
+7 models: dolphin3:8b gemma3n:e2b granite3.3:2b hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS mistral:7b qwen3:8b smollm2:1.7b
 
 prompt: What is your knowledge cutoff date? Respond with only the date.
 
-## gpt-oss:120b
+## dolphin3:8b
 ```
-#### <thinking>
-#### The user asks: "What is your knowledge cutoff date? Respond with only the date." The developer instruction says respond only with the date. The user wants the date. According to system prompt: "knowledge cutoff: 2024-06". So answer should be "2024-06". It must be only the date, no extra text.
-#### </thinking>
-
-2024-06
+30th November 2022
 ```
 
-## gpt-oss:20b
+## gemma3n:e2b
 ```
-#### <thinking>
-#### User: "What is your knowledge cutoff date? Respond with only the date." The user explicitly requests me to respond only the date. So I should comply: The date is "2024-06". Should I format "2024-06" or "2024-06-XX"? According to policies, knowledge cutoff is 2024-06. The user wants only the date, so "2024-06" is appropriate. That seems correct.
-#### </thinking>
+2023-04-13
+```
 
-2024-06
+## granite3.3:2b
+```
+2023-05-15
+```
+
+## hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
+```
+2021-09-07
+```
+
+## mistral:7b
+```
+ My knowledge cutoff date is 2021.
+```
+
+## qwen3:8b
+```
+<think>
+Okay, the user is asking about my knowledge cutoff date. Let me recall. I remember that my training data goes up to 2024, but I need to confirm the exact date. Wait, the official information says the cutoff is October 2024. But I should double-check to make sure I'm not mixing up different sources. Yes, the correct date is October 2024. I need to respond with just the date, no extra text. Alright, that's straightforward.
+</think>
+
+October 2024
+```
+
+## smollm2:1.7b
+```
+2019-06-30
 ```

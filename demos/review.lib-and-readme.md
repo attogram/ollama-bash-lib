@@ -1,6 +1,6 @@
 # Sync review of [ollama_bash_lib.sh](../ollama_bash_lib.sh) AND [README.md](../README.md)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.3
 
 ```bash
 task='Check that the README is in sync with the LIBRARY.
@@ -8,114 +8,160 @@ Output your review in Markdown format.'
 readme='../README.md'
 library='../ollama_bash_lib.sh'
 ollama_thinking hide
-ollama_generate -m "gpt-oss:120b" -p "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
+ollama_generate -m "qwen3:8b" -p "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
 ```
-## 📖 Review – README vs. **ollama_bash_lib.sh**
+<think>
+Okay, I need to figure out how to use this Ollama Bash Lib. Let me start by looking through the code provided. The user has shared a bunch of functions and aliases, so I should probably go through them step by step.
 
-### TL;DR
-The README is *mostly* in sync with the library, but a few notable gaps and inaccuracies were found:
+First, there's a function called ollama_lib_about. That probably gives information about the library. Let me check what it does. The function uses compgen to list available functions, but only those starting with 'ollama_'. So if I run ollama_lib_about, it should show details about the library and list all the functions. That's a good starting point.
 
-| Area | Status | Details |
-|------|--------|---------|
-| **Function coverage** | ✅ Almost complete | All `ollama_*` functions present in the lib are listed, **except** `ollama_thinking` (present in the lib, missing from the README). |
-| **Option syntax** | ❌ Incorrect | `ollma_app_turbo` is documented as `ollama_app_turbo on|off` but the implementation requires `-m <on|off>` (and optionally `-e`). |
-| **Utility / “extra” functions** | ⚠️ Partial | `ollama_app_vars` exists in the lib (and is linked in the nav bar) but is not listed in the **Functions** tables. |
-| **Aliases** | ✅ Present | Aliases are defined at the bottom of the lib; the README does not list them (acceptable, but could be mentioned). |
-| **Docs vs. code wording** | ✅ | Descriptions largely match the implementation, e.g. generate, chat, list, ps, version, etc. |
-| **Typographical / formatting issues** | ✅ | Minor – a stray stray `</` in the `_is_valid_model` table, and the “<br/>” HTML tags are a bit noisy but functional. |
+Then there's ollama_lib_version, which just prints the OBL_VERSION variable. The version is probably defined somewhere in the script, maybe as a variable. The user might have set that in their environment or in the script itself. But since I don't have access to that, I'll have to assume it's there.
 
-Below is a detailed walk‑through.
+Looking at the aliases, like oag which is an alias for ollama_api_get. These aliases make it easier to use the functions without typing the full name each time. For example, using oag instead of ollama_api_get.
+
+Now, the main functions. There's ollama_app_installed, which checks if Ollama is installed. That's probably a function that runs a command to check the installation status. Similarly, ollama_app_turbo might be related to turbo features, but I need to check the actual function code for details.
+
+The functions related to chat, like ollama_chat, generate, list, etc., are probably for interacting with the Ollama model. For example, ollama_chat might be used to have a conversation with the model, while ollama_generate could be for generating text based on prompts.
+
+The ollama_messages functions seem to handle the message history, like adding messages, clearing them, counting them. That's useful for maintaining context in conversations.
+
+The ollama_thinking function sets the thinking mode, which controls whether the model's thinking process is displayed. The options are on, off, or hide. So if I run ot on, it should enable showing the thinking output.
+
+The user also mentioned GitHub and Discord for support. So if I have any issues, I can check those resources.
+
+But how do I actually use these functions? Let's think of an example. Suppose I want to generate text using the Ollama model. I might use ollama_generate, passing the model name and prompt. For example, og "my-model" "What is the capital of France?".
+
+Another example: To list all available models, I could use ollama_list. If I want to clear the message history, I'd use omclear.
+
+Wait, but I need to make sure that the environment variables are set correctly. For instance, OBL_THINKING controls the thinking mode. If it's not set, the default might be 'off'.
+
+Also, the functions might require certain environment variables like OBL_API or OLLAMA_API_URL to point to the correct endpoint. The user should have those set up, or the functions might default to a specific URL.
+
+But since the code is provided, the user can adjust the variables as needed. For example, if OBL_API is not set, the functions might not work properly.
+
+In summary, to use this library, the user should source the script, set necessary environment variables, and then use the aliases or functions to interact with Ollama. They can start by checking the library info with ollama_lib_about, then explore the available functions and their usage.
+</think>
+
+To effectively utilize the **Ollama Bash Lib**, follow this structured approach to set up and interact with the Ollama API using the provided functions and aliases:
 
 ---
 
-## 1️⃣ Functions – Are they all documented?
-
-| Category (README) | Functions listed | Present in lib? | Comments |
-|-------------------|------------------|-----------------|----------|
-| **API** | `ollama_api_get`, `ollama_api_post`, `ollama_api_ping` | ✅ | Docs match code. |
-| **Generate** | `ollama_generate`, `ollama_generate_json`, `ollama_generate_stream`, `ollama_generate_stream_json` | ✅ | Usage (`-m`, `-p`) matches implementation. |
-| **Chat** | `ollama_chat`, `ollama_chat_json`, `ollama_chat_stream`, `ollama_chat_stream_json`, `ollama_messages`, `ollama_messages_add`, `ollama_messages_count`, `ollama_messages_clear` | ✅ | All present. |
-| **Model** | `_is_valid_model`, `ollama_model_random`, `ollama_model_unload` | ✅ | `_is_valid_model` appears with a stray `</` after the description, but otherwise correct. |
-| **Ollama** | `ollama_app_installed`, `ollama_app_turbo`, `ollama_app_version`, `ollama_app_version_json`, `ollama_app_version_cli`, `ollama_ps`, `ollama_ps_json` | ✅ | **`ollama_app_turbo`** usage not accurately described (see §2). |
-| **Lib** | `ollama_lib_about`, `ollama_lib_version` | ✅ | Good. |
-| **Utility** | `_is_valid_json`, `_debug`, `_error` | ✅ | Good. |
-| **Missing** | — | `ollama_thinking` | This “thinking mode” helper is **implemented** (`ollama_thinking`) but never appears in the Functions tables or navigation. |
-| **Extra (not in tables)** | — | `ollama_app_vars` | Exists (and linked from the nav bar) but not shown in the Functions section. |
-
-### Recommendation
-* Add a **“Thinking Functions”** (or include it under **Lib Functions**) entry for `ollama_thinking`.
-* Add **`ollama_app_vars`** to the Functions tables – perhaps under a new **“Environment”** subsection.
-
----
-
-## 2️⃣ Incorrect command‑line usage documentation
-
-### `ollama_app_turbo`
-
-| Source | Syntax shown |
-|--------|--------------|
-| README “Howto use Ollama Turbo Mode” | `ollama_app_turbo on` (or `off`) |
-| Library implementation (`ollama_app_turbo`) | ```bash\nollama_app_turbo -m <on|off> [-e]\n``` |
-
-The script uses `getopts` and expects the mode to be supplied **with `-m`**.  
-If a user runs `ollama_app_turbo on` the script will treat `on` as an *unknown* argument, print a usage error and exit with status 2.
-
-### Recommendation
-Update the README (both the *Howto* section and the **Ollama Functions** table) to:
-
-```text
-Usage: ollama_app_turbo -m <on|off> [-e]
-```
-
-and add a brief example:
-
+### ✅ **Step 1: Source the Script**
+Ensure the script is sourced in your shell session to access all functions and aliases:
 ```bash
-ollama_app_turbo -m on   # turn Turbo Mode on (prompts for API key)
-ollama_app_turbo -m off  # disable Turbo Mode
+source /path/to/ollama-bash-lib.sh
+```
+Replace `/path/to/ollama-bash-lib.sh` with the actual file path.
+
+---
+
+### 🧠 **Step 2: Verify Library Version**
+Check the version of the Bash Lib to confirm compatibility:
+```bash
+olv
+```
+This will output the version stored in `OBL_VERSION`.
+
+---
+
+### 📜 **Step 3: Explore Available Functions**
+Run the `ollama_lib_about` function to see key details and list all available functions:
+```bash
+olab
+```
+This will display:
+- Library metadata (name, URL, license, etc.)
+- A list of all `ollama_*` functions for quick reference
+
+---
+
+### 🔄 **Step 4: Set Environment Variables (if needed)**
+Some functions rely on environment variables. Ensure these are set:
+- `OBL_API`: API endpoint for Ollama (e.g., `http://localhost:11434`)
+- `OBL_TURBO_KEY`: Optional API key for turbo features
+- `OBL_TIMEOUT`: Timeout for API requests (in seconds)
+
+Example:
+```bash
+export OBL_API="http://localhost:11434"
 ```
 
 ---
 
-## 3️⃣ Minor inconsistencies & cosmetic points
+### 🧩 **Step 5: Use Core Functions**
+#### 1. **Check Ollama Installation**
+```bash
+oai
+```
+Verifies if Ollama is installed and accessible.
 
-| Issue | Location | Suggested fix |
-|-------|----------|---------------|
-| stray HTML `<br/>` in the **Model Functions** table after `_is_valid_model` description | README | Remove the stray tag. |
-| navigation link `[More](#more-from-the-attogram-project)` – the anchor `#more-from-the-attogram-project` does not exist (section is titled **More from the Attogram Project**). | README | Change the link to `#more-from-the-attogram-project` → `#more-from-the-attogram-project` (lower‑case) or add an explicit anchor. |
-| the “Quickstart” command list shows `ollama_api_get` etc. but the **Aliases** (`oag`, `oap`, `oapi`) are not documented anywhere. | README | Either add an “Aliases” subsection or note that they exist in the source. |
-| `ollama_thinking` has a **“Lib Functions”** heading but its description lives under a later “Lib Functions” block – it may confuse readers. | README | Move the `ollama_thinking` description into the **Lib Functions** table (or a dedicated *Thinking* table). |
-| `ollama_app_vars` appears in the top navigation but not in any Functions table. | README | Add it to the Functions list (perhaps under **Ollama Functions** or a new **Environment** group). |
-| In the **Howto debug** section, the example uses `OBL_DEBUG=1 ollama_generate gpt-oss:20b "Three words about debugging"` – the function actually expects `-m` and `-p` flags, not positional arguments. | README | Change to `OBL_DEBUG=1 ollama_generate -m gpt-oss:20b -p "Three words about debugging"`. |
+#### 2. **Generate Text**
+```bash
+og "my-model" "What is the capital of France?"
+```
+Generates text using the specified model and prompt.
 
----
+#### 3. **Stream Output**
+```bash
+ogs "my-model" "Explain quantum physics in simple terms."
+```
+Streams the response in real-time.
 
-## 4️⃣ Overall assessment
+#### 4. **List Models**
+```bash
+ol
+```
+Displays all available models on your system.
 
-* **Completeness** – ~95 % of implemented functionality is covered in the README. Adding the two missing entries (`ollama_thinking`, `ollama_app_vars`) would bring it to 100 %.
-* **Accuracy** – The only functional discrepancy is the Turbo‑mode usage flag; everything else matches the script’s behaviour.
-* **Readability** – The README is well‑structured, with clear sections, tables, and demo listings. Minor HTML residue and navigation mismatches are the only visual blemishes.
+#### 5. **Manage Message History**
+```bash
+omclear
+```
+Clears the conversation history. Use `om` to view or `oma` to add messages.
 
----
-
-## 📋 Actionable checklist
-
-1. **Add missing functions**  
-   - Insert a row for `ollama_thinking` (alias `ot`) into the **Lib Functions** table (or a new “Thinking Functions” table).  
-   - Insert a row for `ollama_app_vars` into a suitable table (e.g., **Ollama Functions** or **Environment Functions**).
-
-2. **Correct Turbo‑mode usage**  
-   - Update documentation to show `-m` flag (`ollama_app_turbo -m on|off`).  
-   - Provide example commands with the flag.
-
-3. **Fix minor markup**  
-   - Remove stray `<br/>` after `_is_valid_model`.  
-   - Align anchor URLs (lower‑case/hyphen) for the “More” link.
-
-4. **Optional improvements**  
-   - Add a short subsection listing the command‑line aliases (`oag`, `oap`, …).  
-   - Update the debug‑example in the “Howto debug” section to use the proper `-m`/`-p` options.
+#### 6. **Control Thinking Mode**
+```bash
+ot on
+```
+Enables the display of the model's "thinking" process. Use `ot off` to hide it.
 
 ---
 
-### ✅ Bottom line
-With the handful of updates above the README will be fully synchronized with `ollama_bash_lib.sh`, providing a flawless reference for users and contributors alike.
+### 🛠️ **Step 6: Debugging & Support**
+- **Debug Output**: Set `OBL_DEBUG="on"` to enable detailed logs.
+- **Need Help?**:
+  - **GitHub**: [https://github.com/attogram/ollama-bash-lib](https://github.com/attogram/ollama-bash-lib)
+  - **Discord**: [https://discord.gg/BGQJCbYVBa](https://discord.gg/BGQJCbYVBa)
+
+---
+
+### 📌 **Aliases for Convenience**
+Use these shortcuts to speed up workflow:
+- `oag`: `ollama_api_get`
+- `oap`: `ollama_api_post`
+- `oc`: `ollama_chat`
+- `os`: `ollama_show`
+
+---
+
+### 📌 **Example Workflow**
+1. **List models**:
+   ```bash
+   ol
+   ```
+2. **Generate text**:
+   ```bash
+   og "llama2" "Write a short story about a robot."
+   ```
+3. **Stream output**:
+   ```bash
+   ogs "llama2" "Describe the future of AI."
+   ```
+4. **Clear history**:
+   ```bash
+   omclear
+   ```
+
+---
+
+By following these steps, you can efficiently interact with Ollama using the Bash Lib, leveraging its functions for text generation, model management, and more. 🚀

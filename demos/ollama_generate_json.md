@@ -1,28 +1,57 @@
 # ollama_generate_json
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.3
 
 ## Setup
 
-OLLAMA_HOST: https://ollama.com
-OBL_API: https://ollama.com
+OLLAMA_HOST: http://localhost:11434
+OBL_API: http://localhost:11434
 
 
 ## Demo
 
 ```bash
-ollama_generate_json -m "gpt-oss:120b" -p "Describe a rabbit in 3 words"
+ollama_generate_json -m "mistral:7b" -p "Describe a rabbit in 3 words"
 ```
 ```json
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-22T09:30:16.237650431Z",
-  "response": "Fluffy, timid, hopping.",
-  "thinking": "User asks: \"Describe a rabbit in 3 words\". That's straightforward. No policy issues. Respond with three words. Let's do \"fluffy, timid, hopping\". Or \"soft, curious, swift\". Provide three words.",
+  "model": "mistral:7b",
+  "created_at": "2025-08-22T20:05:04.2361864Z",
+  "response": " Agile, soft-furred, twitchy.",
   "done": true,
-  "total_duration": 963598251,
-  "prompt_eval_count": 81,
-  "eval_count": 63
+  "done_reason": "stop",
+  "context": [
+    3,
+    29473,
+    28752,
+    1032,
+    17247,
+    3349,
+    1065,
+    29473,
+    29538,
+    3853,
+    4,
+    29473,
+    4554,
+    1314,
+    29493,
+    3432,
+    29501,
+    27479,
+    1661,
+    29493,
+    3091,
+    2754,
+    29492,
+    29491
+  ],
+  "total_duration": 1534619900,
+  "load_duration": 1186046700,
+  "prompt_eval_count": 12,
+  "prompt_eval_duration": 88011700,
+  "eval_count": 13,
+  "eval_duration": 260561500
 }
 
 ```
@@ -30,28 +59,53 @@ ollama_generate_json -m "gpt-oss:120b" -p "Describe a rabbit in 3 words"
 ## Demo Debug
 
 ```bash
-OBL_DEBUG=1 ollama_generate_json -m "gpt-oss:120b" -p "Describe a rabbit in 3 words"
+OBL_DEBUG=1 ollama_generate_json -m "mistral:7b" -p "Describe a rabbit in 3 words"
 ```
 ```json
-[DEBUG] 11:30:16:577882000: ollama_generate_json: [gpt-oss:120b] [Describe a rabbit in 3 words]
-[DEBUG] 11:30:16:594265000: ollama_generate_json: json_payload: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 11:30:16:607010000: ollama_api_post: [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 11:30:16:613248000: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 11:30:16:626631000: _call_curl: OBL_API: https://ollama.com
-[DEBUG] 11:30:16:633008000: _call_curl: Turbo Mode
-[DEBUG] 11:30:16:639182000: _call_curl: json_body: {"model":"gpt-oss:120b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 11:30:16:645055000: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
-[DEBUG] 11:30:17:763621000: ollama_api_post: success
-[DEBUG] 11:30:17:772207000: ollama_generate_json: success
+[DEBUG] 22:05:04:330738200: ollama_generate_json: [mistral:7b] [Describe a rabbit in 3 words]
+[DEBUG] 22:05:04:371432700: ollama_generate_json: json_payload: {"model":"mistral:7b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 22:05:04:420313100: ollama_api_post: [/api/generate] {"model":"mistral:7b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 22:05:04:450410700: _call_curl: [POST] [/api/generate] {"model":"mistral:7b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 22:05:04:504111600: _call_curl: OBL_API: http://localhost:11434
+[DEBUG] 22:05:04:525734800: _call_curl: json_body: {"model":"mistral:7b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 22:05:04:559823700: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X POST http://localhost:11434/api/generate -d @-
+[DEBUG] 22:05:05:143317800: ollama_api_post: success
+[DEBUG] 22:05:05:173107900: ollama_generate_json: success
 {
-  "model": "gpt-oss:120b",
-  "created_at": "2025-08-22T09:30:17.456238342Z",
-  "response": "Soft, twitchy, hoppy.",
-  "thinking": "User asks: \"Describe a rabbit in 3 words\". No disallowed content. Just straightforward. Provide three words.",
+  "model": "mistral:7b",
+  "created_at": "2025-08-22T20:05:05.0407661Z",
+  "response": " Fluffy, Agile, Gentle.",
   "done": true,
-  "total_duration": 630620745,
-  "prompt_eval_count": 81,
-  "eval_count": 42
+  "done_reason": "stop",
+  "context": [
+    3,
+    29473,
+    28752,
+    1032,
+    17247,
+    3349,
+    1065,
+    29473,
+    29538,
+    3853,
+    4,
+    29473,
+    3262,
+    24660,
+    29493,
+    4554,
+    1314,
+    29493,
+    23748,
+    1059,
+    29491
+  ],
+  "total_duration": 234752900,
+  "load_duration": 8872500,
+  "prompt_eval_count": 12,
+  "prompt_eval_duration": 520100,
+  "eval_count": 10,
+  "eval_duration": 224551700
 }
 
 ```

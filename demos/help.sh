@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo '# help via -h and --help'
+echo '# function help: -h'
 
 startup() {
   ollama_bash_lib="$(dirname "$0")/../ollama_bash_lib.sh";
@@ -16,50 +16,49 @@ startup
 
 # List of all public functions in the library
 functions=(
-  ollama_api_get oag
-  ollama_api_post oap
-  ollama_api_ping oapi
-  ollama_generate_json ogj
-  ollama_generate og
-  ollama_generate_stream_json ogsj
-  ollama_generate_stream ogs
-  ollama_messages om
-  ollama_messages_add oma
-  ollama_messages_clear omclear
-  ollama_messages_count omco
-  ollama_tools_add ota
-  ollama_tools oto
-  ollama_tools_count otco
-  ollama_tools_clear otc
-  ollama_tools_is_call otic
-  ollama_tools_run otr
-  ollama_chat oc
-  ollama_chat_stream ocs
-  ollama_chat_stream_json ocsj
-  ollama_list ol
-  ollama_list_json olj
-  ollama_list_array ola
-  ollama_model_random omr
-  ollama_model_unload omu
-  ollama_ps op
-  ollama_ps_json opj
-  ollama_show os
-  ollama_show_json osj
-  ollama_app_installed oai
-  ollama_app_turbo oat
-  ollama_app_vars oav
-  ollama_app_version oave
-  ollama_app_version_json oavj
-  ollama_app_version_cli oavc
-  ollama_thinking ot
-  ollama_lib_about olab
-  ollama_lib_version olv
+  ollama_api_get
+  ollama_api_post
+  ollama_api_ping
+  ollama_generate_json
+  ollama_generate
+  ollama_generate_stream_json
+  ollama_generate_stream
+  ollama_messages
+  ollama_messages_add
+  ollama_messages_clear
+  ollama_messages_count
+  ollama_tools_add
+  ollama_tools
+  ollama_tools_count
+  ollama_tools_clear
+  ollama_tools_is_call
+  ollama_tools_run
+  ollama_chat
+  ollama_chat_stream
+  ollama_chat_stream_json
+  ollama_list
+  ollama_list_json
+  ollama_list_array
+  ollama_model_random
+  ollama_model_unload
+  ollama_ps
+  ollama_ps_json
+  ollama_show
+  ollama_show_json
+  ollama_app_installed
+  ollama_app_turbo
+  ollama_app_vars
+  ollama_app_version
+  ollama_app_version_json
+  ollama_app_version_cli
+  ollama_thinking
+  ollama_lib_about
+  ollama_lib_version
 )
 
-echo '## Testing -h for all functions (first argument)'
 echo
 for func in "${functions[@]}"; do
   # shellcheck disable=SC2016
-  printf '`%s -h`\n```\n%s\n```\n' "$func" "$("$func" -h)"
+  printf '## `%s -h`\n```\n%s\n```\n' "$func" "$("$func" -h)"
   echo
 done

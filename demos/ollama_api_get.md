@@ -1,12 +1,12 @@
 # ollama_api_get
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.3
 
 ## Setup
 
-OLLAMA_HOST: https://ollama.com
+OLLAMA_HOST: http://localhost:11434
 
-OBL_API: https://ollama.com
+OBL_API: http://localhost:11434
 
 
 ## Demo
@@ -15,23 +15,15 @@ OBL_API: https://ollama.com
 ```
 ollama_api_get
 
-result: lines:      394
-result: output: 
-
-
-
-
-
-
-<!doctype html>
-<html class="h-full
+result: lines: 1
+result: output: Ollama is running
 ```
 
 ```
 ollama_api_get -P "/api/version"
 
-result: lines:        1
-result: output: {"version":"0.0.0"}
+result: lines: 1
+result: output: {"version":"0.11.6"}
 ```
 
 ## Demo Debug
@@ -42,33 +34,23 @@ result: output: {"version":"0.0.0"}
 ```
 ollama_api_get
 
-[DEBUG] 11:30:08:990676000: ollama_api_get: []
-[DEBUG] 11:30:08:998837000: _call_curl: [GET] [] 
-[DEBUG] 11:30:09:007027000: _call_curl: OBL_API: https://ollama.com
-[DEBUG] 11:30:09:013816000: _call_curl: Turbo Mode
-[DEBUG] 11:30:09:020283000: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X GET https://ollama.com
-[DEBUG] 11:30:09:258026000: ollama_api_get: success
-result: lines:      394
-result: output: 
-
-
-
-
-
-
-<!doctype html>
-<html class="h-full
+[DEBUG] 22:04:21:653436100: ollama_api_get: []
+[DEBUG] 22:04:21:673975400: _call_curl: [GET] [] 
+[DEBUG] 22:04:21:694702000: _call_curl: OBL_API: http://localhost:11434
+[DEBUG] 22:04:21:724999500: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434
+[DEBUG] 22:04:22:065480800: ollama_api_get: success
+result: lines: 1
+result: output: Ollama is running
 ```
 
 ```
 ollama_api_get -P "/api/version"
 
-[DEBUG] 11:30:09:283755000: ollama_api_get: [/api/version]
-[DEBUG] 11:30:09:291710000: _call_curl: [GET] [/api/version] 
-[DEBUG] 11:30:09:298474000: _call_curl: OBL_API: https://ollama.com
-[DEBUG] 11:30:09:304760000: _call_curl: Turbo Mode
-[DEBUG] 11:30:09:310500000: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X GET https://ollama.com/api/version
-[DEBUG] 11:30:09:531598000: ollama_api_get: success
-result: lines:        1
-result: output: {"version":"0.0.0"}
+[DEBUG] 22:04:22:147835900: ollama_api_get: [/api/version]
+[DEBUG] 22:04:22:172888200: _call_curl: [GET] [/api/version] 
+[DEBUG] 22:04:22:193744100: _call_curl: OBL_API: http://localhost:11434
+[DEBUG] 22:04:22:215228200: _call_curl: args: -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -X GET http://localhost:11434/api/version
+[DEBUG] 22:04:22:577547600: ollama_api_get: success
+result: lines: 1
+result: output: {"version":"0.11.6"}
 ```
