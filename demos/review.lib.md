@@ -30,7 +30,7 @@ Where possible, concrete suggestions and rewrite snippets are provided.
 ### 1. String‑replacement in `_redact`
 
 ```bash
-msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'}
+msg=${msg//"${OBL_TURBO_KEY}"/'[REDACTED]'}
 ```
 
 * The double `//` operator performs **pattern substitution**.  
@@ -51,9 +51,9 @@ msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'}
   ```bash
   _redact() {
       local msg="$1"
-      if [[ -n ${OLLAMA_LIB_TURBO_KEY+x} ]]; then
+      if [[ -n ${OBL_TURBO_KEY+x} ]]; then
           # Use sed with a safe delimiter
-          msg=$(printf '%s' "$msg" | sed -e "s|${OLLAMA_LIB_TURBO_KEY}|[REDACTED]|g")
+          msg=$(printf '%s' "$msg" | sed -e "s|${OBL_TURBO_KEY}|[REDACTED]|g")
       fi
       printf '%s' "$msg"
   }
@@ -217,15 +217,15 @@ local description
 
 ---
 
-### 7. `OLLAMA_LIB_TURBO_KEY` is treated as a global variable
+### 7. `OBL_TURBO_KEY` is treated as a global variable
 
 * Several functions treat it as a *readonly* value, but the variable can be
   unset or re‑assigned arbitrarily.  
   Consider declaring it as `readonly` once set, e.g.:
 
   ```bash
-  if [[ -n ${OLLAMA_LIB_TURBO_KEY+x} ]]; then
-      readonly OLLAMA_LIB_TURBO_KEY
+  if [[ -n ${OBL_TURBO_KEY+x} ]]; then
+      readonly OBL_TURBO_KEY
   fi
   ```
 
@@ -238,8 +238,8 @@ local description
 | `printf '%s' "$output"` before `set -euo pipefail` | No effect | none |
 | Use of `${var:-}` where `$var` may be unset | Might leak unset variables | explicitly `: ${var:=}` or `local var` |
 | Mixing `(( … ))` with `[[ … ]]` for boolean checks | Readability | pick one style consistently |
-| Extensive debug prints in production | Performance | guard debug prints with `if (( OLLAMA_LIB_DEBUG )); then … fi` (already done) |
-| Exporting `OLLAMA_LIB_TURBO_KEY` after reading input | Potential side‑effects | export only when requested (`-e`) |
+| Extensive debug prints in production | Performance | guard debug prints with `if (( OBL_DEBUG )); then … fi` (already done) |
+| Exporting `OBL_TURBO_KEY` after reading input | Potential side‑effects | export only when requested (`-e`) |
 
 ---
 
@@ -253,7 +253,7 @@ local description
 | `getopts` usage | Unnecessary `OPTIND=1` and possible nested resets | Remove or set before loop | Cleaner |
 | `_is_valid_json` | Propagates jq exit codes -> hard to test | Return 0/1 only | Simplifies error handling |
 | `ollama_lib_version` | Empty description field | Remove unused variable | Minor cleanup |
-| Global `OLLAMA_LIB_TURBO_KEY` | Uncontrolled mutation | Make readonly when set | Safer state |
+| Global `OBL_TURBO_KEY` | Uncontrolled mutation | Make readonly when set | Safer state |
 
 All other code sections compile and run under Bash 3.2.  
 After applying the changes above, the library enjoys:

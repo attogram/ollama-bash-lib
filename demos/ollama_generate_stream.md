@@ -18,7 +18,7 @@ soft, swift, playful
 ## Demo Debug
 
 ```bash
-`OLLAMA_LIB_DEBUG=1 ollama_generate_stream -m "gpt-oss:20b" -p "Describe a rabbit in 3 words"`
+`OBL_DEBUG=1 ollama_generate_stream -m "gpt-oss:20b" -p "Describe a rabbit in 3 words"`
 ```
 ```json
 [DEBUG] 22:43:41:618435700: ollama_generate_stream: model='gpt-oss:20b'  prompt='Describe a rabbit in 3 words'
@@ -26,7 +26,7 @@ soft, swift, playful
 [DEBUG] 22:43:41:731419500: ollama_generate_json: json_payload: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
 [DEBUG] 22:43:41:782424100: ollama_api_post: [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
 [DEBUG] 22:43:41:808657100: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 22:43:41:855671600: _call_curl: OLLAMA_LIB_API: https://ollama.com
+[DEBUG] 22:43:41:855671600: _call_curl: OBL_API: https://ollama.com
 [DEBUG] 22:43:41:880729100: _call_curl: Turbo Mode
 [DEBUG] 22:43:41:908499600: _call_curl: json_body: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
 [DEBUG] 22:43:41:930590100: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-

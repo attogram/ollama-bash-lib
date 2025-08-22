@@ -9,7 +9,7 @@ startup() {
   source "$ollama_bash_lib"
   if ! ollama_app_installed; then echo 'ERROR: Ollama Not Installed'; fi;
   if ! ollama_api_ping; then echo 'ERROR: Ollama API not reachable'; fi
-  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+  echo; echo "A [demo](../README.md#demos) of [$OBL_NAME]($OBL_URL) v$OBL_VERSION"
 }
 
 startup
@@ -37,7 +37,7 @@ demo() {
 echo; echo '## Setup'; echo
 echo "OLLAMA_HOST: $OLLAMA_HOST"
 echo
-echo "OLLAMA_LIB_API: $OLLAMA_LIB_API"
+echo "OBL_API: $OBL_API"
 echo
 
 echo; echo '## Demo'; echo
@@ -45,7 +45,7 @@ demo
 
 echo; echo '## Demo Debug'
 echo
-echo "\`export OLLAMA_LIB_DEBUG=1\`"; echo;
-export OLLAMA_LIB_DEBUG=1
+echo "\`export OBL_DEBUG=1\`"; echo;
+export OBL_DEBUG=1
 demo
-export OLLAMA_LIB_DEBUG=0
+export OBL_DEBUG=0

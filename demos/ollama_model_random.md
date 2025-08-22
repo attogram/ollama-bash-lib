@@ -16,7 +16,7 @@ gpt-oss:20b
 ## Demo Debug
 
 ```bash
-OLLAMA_LIB_DEBUG=1
+OBL_DEBUG=1
 ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
 ```

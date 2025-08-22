@@ -44,7 +44,7 @@ ollama_generate -m "gpt-oss:120b" -p "$task\n\n$(cat "$file")"
 - `ollama_chat` is like `git commit` for your thoughts: stage a message, commit to the model, and watch the diff.  
 - With `ollama_model_random` you get the same randomness as `Math.random()` in JavaScript, but without the “NaN” surprise.  
 - `ollama_lib_about` shows you variables and functions, because every developer needs a *README* for their own shell.  
-- `OLLAMA_LIB_DEBUG=1` is the `set -x` of AI: you finally see what the model *really* whispered.  
+- `OBL_DEBUG=1` is the `set -x` of AI: you finally see what the model *really* whispered.  
 
 ---  
 

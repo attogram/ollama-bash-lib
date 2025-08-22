@@ -55,23 +55,23 @@ The following sections detail each finding and provide concrete remediation advi
 
 * Centralise validation of all user‑supplied strings (model, prompt, endpoint).  
 * Use `jq` for *all* JSON construction; never concatenate raw strings into JSON manually.  
-* Reduce debug verbosity for production (`OLLAMA_LIB_DEBUG=0`).  
+* Reduce debug verbosity for production (`OBL_DEBUG=0`).  
 * When debug is enabled, ensure payloads are redacted (e.g., replace any user‑provided values with `[REDACTED]`).  
 
 ### 2.2 Secret / Credential Handling  
 
 | Observation | Risk | Example |
 |-------------|------|---------|
-| `OLLAMA_LIB_TURBO_KEY` is stored in the environment and may be exported (`export OLLAMA_LIB_TURBO_KEY`). | If the script is sourced from a long‑running shell, the key is visible to any child process (`ps e` can reveal it). | `ollama_app_turbo` optionally exports the key. |
-| `_debug` prints the full JSON body **including** the `Authorization: Bearer …` header if Turbo mode is active (the header is added to `curl_args`). | Debug logs could leak the API key to disk or to other users on the system. | `_debug "_call_curl: OLLAMA_LIB_API: $OLLAMA_LIB_API"` prints the URL; later `_debug "_call_curl: json_body: ${json_body:0:120}"` may contain the key if the user includes it in the payload. |
-| `_redact` only replaces occurrences of `OLLAMA_LIB_TURBO_KEY` in a *single* string; other secret variable names (`OLLAMA_AUTH`, `CUDA_VISIBLE_DEVICES`, etc.) are not automatically redacted. | Secrets could appear in logs or error messages. | `_error` uses `_redact` but only for the turbo key. |
+| `OBL_TURBO_KEY` is stored in the environment and may be exported (`export OBL_TURBO_KEY`). | If the script is sourced from a long‑running shell, the key is visible to any child process (`ps e` can reveal it). | `ollama_app_turbo` optionally exports the key. |
+| `_debug` prints the full JSON body **including** the `Authorization: Bearer …` header if Turbo mode is active (the header is added to `curl_args`). | Debug logs could leak the API key to disk or to other users on the system. | `_debug "_call_curl: OBL_API: $OBL_API"` prints the URL; later `_debug "_call_curl: json_body: ${json_body:0:120}"` may contain the key if the user includes it in the payload. |
+| `_redact` only replaces occurrences of `OBL_TURBO_KEY` in a *single* string; other secret variable names (`OLLAMA_AUTH`, `CUDA_VISIBLE_DEVICES`, etc.) are not automatically redacted. | Secrets could appear in logs or error messages. | `_error` uses `_redact` but only for the turbo key. |
 
 **Recommendation**
 
 * Never export the Turbo key unless absolutely necessary. Prefer passing it via a temporary file descriptor or a `curl` `--header` built inline.  
 * Extend `_redact` to replace any environment variable matching `*KEY*`, `*TOKEN*`, `*SECRET*`, `*PASS*`, etc.  
 * Offer a “sanitize” mode that strips all environment variables from debug output.  
-* Document that `OLLAMA_LIB_DEBUG` must be set to `0` in production.  
+* Document that `OBL_DEBUG` must be set to `0` in production.  
 
 ### 2.3 External Dependency Trust  
 
@@ -92,13 +92,13 @@ The following sections detail each finding and provide concrete remediation advi
 **Recommendation**
 
 * Force TLS version and certificate verification: add `--ssl-reqd --tlsv1.2` (or newer) and optionally allow the user to supply `--cacert`.  
-* Provide a `OLLAMA_LIB_INSECURE` toggle that, when set, adds `-k` for users that knowingly want to skip verification, but default should be secure.  
+* Provide a `OBL_INSECURE` toggle that, when set, adds `-k` for users that knowingly want to skip verification, but default should be secure.  
 
 ### 2.5 Error Handling & Return‑Code Propagation  
 
 * Many functions capture `$?` in a local variable (e.g., `error_curl=$?`) but then ignore it or continue execution.  
 * `_call_curl` extracts `http_code` via `tail -n1` and `sed '$d'` – if the body contains newlines, the split may break.  
-* Some functions (`ollama_generate`, `ollama_chat`) set `OLLAMA_LIB_STREAM=0` *after* a pipeline is started; if the pipeline fails early, the variable may remain set.  
+* Some functions (`ollama_generate`, `ollama_chat`) set `OBL_STREAM=0` *after* a pipeline is started; if the pipeline fails early, the variable may remain set.  
 
 **Recommendation**
 
@@ -120,20 +120,20 @@ The following sections detail each finding and provide concrete remediation advi
 | `read -r -d '' var < <( … )` (process substitution) | Supported in Bash 3.2+. |
 | `declare -A` (associative arrays) – **not used**, which is good for compatibility. | — | — |
 | `(( var ))` arithmetic evaluation | Supported. |
-| `[[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]` used before the variable is exported – works. | — |
+| `[[ -n "${OBL_TURBO_KEY}" ]]` used before the variable is exported – works. | — |
 
 Overall the script **does not use Bash‑4‑only features**, so it should run on Bash 3.2+. The only possible snag is the optional `set -o pipefail` shim: `(set -o pipefail 2>/dev/null)` is fine, but the comment “If pipefail is supported” is accurate.
 
 ### 2.7 Debug / Logging Leakage  
 
-* `_debug` writes to `stderr` unconditionally when `OLLAMA_LIB_DEBUG` > 0.  
+* `_debug` writes to `stderr` unconditionally when `OBL_DEBUG` > 0.  
 * It prints the raw date string and any user‑supplied data (after optional redaction).  
 * In pipelines (`ollama_generate_stream` etc.) the debug statements can intermix with streamed output, making parsing difficult and potentially leaking sensitive data to logs.
 
 **Recommendation**
 
 * Add a **redaction filter** to `_debug` that replaces any token matching `*KEY*`, `*TOKEN*`, `*SECRET*` with `[REDACTED]`.  
-* Offer a separate `OLLAMA_LIB_LOGFILE` variable to redirect debug output to a secure, user‑only‑readable file, rather than leaking to the console.  
+* Offer a separate `OBL_LOGFILE` variable to redirect debug output to a secure, user‑only‑readable file, rather than leaking to the console.  
 
 ### 2.8 Temporary Files & Process Substitution  
 
@@ -152,14 +152,14 @@ Overall the script **does not use Bash‑4‑only features**, so it should run o
 | Category | Action |
 |----------|--------|
 | **Input sanitisation** | Centralise validation of model names, prompts, and API paths. Use `jq` for *all* JSON creation. |
-| **Secret handling** | Never export `OLLAMA_LIB_TURBO_KEY` unless required; extend `_redact` to mask any `*KEY*/*TOKEN*` patterns; disable debug in production. |
+| **Secret handling** | Never export `OBL_TURBO_KEY` unless required; extend `_redact` to mask any `*KEY*/*TOKEN*` patterns; disable debug in production. |
 | **Dependency integrity** | Resolve absolute paths for external tools (`CURL=$(command -v curl)`) and optionally verify ownership/permissions. |
-| **TLS/HTTPS** | Add `--tlsv1.2 --ssl-reqd` to `curl` invocations; allow custom CA bundle via `OLLAMA_LIB_CACERT`. |
+| **TLS/HTTPS** | Add `--tlsv1.2 --ssl-reqd` to `curl` invocations; allow custom CA bundle via `OBL_CACERT`. |
 | **Error handling** | Use `set -euo pipefail` (guarded for Bash 3.2) and propagate exit codes consistently. Separate body and HTTP code with `curl -w '%{http_code}' -o -`. |
-| **Debug leakage** | Redact all secret patterns, optionally log to a protected file (`OLLAMA_LIB_LOGFILE`). |
+| **Debug leakage** | Redact all secret patterns, optionally log to a protected file (`OBL_LOGFILE`). |
 | **Race/Temp files** | Avoid unnecessary process substitution; when used, keep it within the function’s scope. |
 | **Compatibility** | No Bash‑4‐only features detected; keep the existing compatibility shim for `pipefail`. |
-| **Documentation** | State clearly: “Do not enable `OLLAMA_LIB_DEBUG` on systems where other users can read stderr or logs.” Add a “hardening” checklist for deployment. |
+| **Documentation** | State clearly: “Do not enable `OBL_DEBUG` on systems where other users can read stderr or logs.” Add a “hardening” checklist for deployment. |
 
 Implementing the above mitigations will substantially reduce the attack surface without affecting the library’s primary functionality.
 
@@ -184,13 +184,13 @@ _call_curl() {
         -S          # show errors
         -L          # follow redirects
         --tlsv1.2   # enforce TLS 1.2+
-        --max-time "${OLLAMA_LIB_TIMEOUT}"
+        --max-time "${OBL_TIMEOUT}"
         -H "Content-Type: application/json"
         -w "\n%{http_code}"
     )
     # Add Authorization header only if key is set
-    [[ -n "$OLLAMA_LIB_TURBO_KEY" ]] && curl_args+=( -H "Authorization: Bearer ${OLLAMA_LIB_TURBO_KEY}" )
-    curl_args+=( -X "$method" "${OLLAMA_LIB_API}${endpoint}" )
+    [[ -n "$OBL_TURBO_KEY" ]] && curl_args+=( -H "Authorization: Bearer ${OBL_TURBO_KEY}" )
+    curl_args+=( -X "$method" "${OBL_API}${endpoint}" )
     # send JSON via stdin
     if [[ -n "$json_body" ]]; then
         response=$("$CURL" "${curl_args[@]}" <<<"$json_body")
@@ -223,10 +223,10 @@ _redact() {
 ### 4.3 Debug Logging to Secure File  
 
 ```bash
-# If OLLAMA_LIB_LOGFILE is set, write debug there; otherwise to stderr
+# If OBL_LOGFILE is set, write debug there; otherwise to stderr
 _debug() {
-    (( OLLAMA_LIB_DEBUG )) || return 0
-    local out=${OLLAMA_LIB_LOGFILE:-/dev/stderr}
+    (( OBL_DEBUG )) || return 0
+    local out=${OBL_LOGFILE:-/dev/stderr}
     local date_string
     date_string=$(date '+%H:%M:%S:%N' 2>/dev/null || date '+%H:%M:%S')
     printf '[DEBUG] %s: %s\n' "$date_string" "$(_redact "$1")" >>"$out"

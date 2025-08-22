@@ -47,7 +47,7 @@ _redact() {
   local msg="${1:-}"
   local out="$msg"
 
-  local explicit_vars=( OLLAMA_LIB_TURBO_KEY )
+  local explicit_vars=( OBL_TURBO_KEY )
   local var val
   for var in "${explicit_vars[@]}"; do
     val=${!var}
@@ -207,7 +207,7 @@ raw_nano() {
 # Requires: none
 # Returns: 0
 _DEPRECATED_escape_control_characters() {
-  if (( OLLAMA_LIB_SAFE_MODE != 1 )); then # If Safe Mode is OFF, do not escape control characters
+  if (( OBL_SAFE_MODE != 1 )); then # If Safe Mode is OFF, do not escape control characters
     printf '%s' "$1"
     return 0
   fi
@@ -248,7 +248,7 @@ _DEPRECATED_escape_control_characters() {
 #
 #   _escape_control_characters "some string"
 #
-# If OLLAMA_LIB_SAFE_MODE is 1, bytes 0‑31 and 127 are turned into JSON‑legal
+# If OBL_SAFE_MODE is 1, bytes 0‑31 and 127 are turned into JSON‑legal
 # escapes:
 #   * \b, \t, \n, \f, \r for the five most common controls
 #   * \u00XX for any other control character
@@ -258,7 +258,7 @@ _escape_control_characters() {
   # 1️⃣  Safe‑mode shortcut – when safe‑mode is OFF we simply echo the
   #      original argument unchanged.
   # --------------------------------------------------------------
-  if (( OLLAMA_LIB_SAFE_MODE != 1 )); then   # safe‑mode OFF → no escaping
+  if (( OBL_SAFE_MODE != 1 )); then   # safe‑mode OFF → no escaping
     printf '%s' "$1"
     return 0
   fi

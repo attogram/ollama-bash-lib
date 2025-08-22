@@ -143,33 +143,33 @@ $ ollama_app_turbo on
 Enter Ollama API Key (input hidden):
 ```
 
-This will set and export `OLLAMA_LIB_API` and `OLLAMA_HOST` to `https://ollama.com`,
-and set `OLLAMA_LIB_TURBO_KEY` to your key.
+This will set and export `OBL_API` and `OLLAMA_HOST` to `https://ollama.com`,
+and set `OBL_TURBO_KEY` to your key.
 
-Note: `OLLAMA_LIB_TURBO_KEY` is never exported.
+Note: `OBL_TURBO_KEY` is never exported.
 You must decide yourself if you want to export it into your environment.
 ```
-export OLLAMA_LIB_KEY=my.super.secret.key
+export OBL_KEY=my.super.secret.key
 ```
 
 If the key is set, then `ollama_app_turbo on` will not prompt you again for the key.
 
 To turn **off** Turbo Mode, simply use `ollama_app_turbo off`.
-This will unset `OLLAMA_LIB_TURBO_KEY`
-and reset `OLLAMA_LIB_API` and `OLLAMA_HOST` to `http://localhost:11434`
+This will unset `OBL_TURBO_KEY`
+and reset `OBL_API` and `OLLAMA_HOST` to `http://localhost:11434`
 
 Use `ollama_lib_about` to view your current settings.
 
 ### Howto debug
 
-The `OLLAMA_LIB_DEBUG` variable controls if debug messages are sent to `stderr`
+The `OBL_DEBUG` variable controls if debug messages are sent to `stderr`
 
-Set `OLLAMA_LIB_DEBUG=1` to turn on debugging. 
-Set `OLLAMA_LIB_DEBUG=0` to turn off debugging.
+Set `OBL_DEBUG=1` to turn on debugging. 
+Set `OBL_DEBUG=0` to turn off debugging.
 
 Examples:
 ```
-OLLAMA_LIB_DEBUG=1 ollama_generate gpt-oss:20b "Three words about debugging"
+OBL_DEBUG=1 ollama_generate gpt-oss:20b "Three words about debugging"
 ```
 
 ## Demos
@@ -276,7 +276,7 @@ To run all demos and save output to Markdown files: [demos/run.demos.sh](demos/r
 | Function                     | About                                   | Usage                                 | Output                     | Return                                          |
 |------------------------------|-----------------------------------------|---------------------------------------|----------------------------|-------------------------------------------------|
 | `_is_valid_json`             | Is a string valid JSON?                 | `_is_valid_json "string"`             | none                       | `0` if valid json<br />`1` or higher if invalid |
-| `_debug`                     | Debug message (if `OLLAMA_LIB_DEBUG=1`) | `_debug "message"`                    | message to `stderr`        | `0`/`1`                                         |
+| `_debug`                     | Debug message (if `OBL_DEBUG=1`) | `_debug "message"`                    | message to `stderr`        | `0`/`1`                                         |
 | `_error`                     | Error message                           | `_error "message"`                    | message to `stderr`        | `0`/`1`                                         |
 
 ## Requirements

@@ -101,7 +101,7 @@ Generate a completion from a model as JSON.
   -v          Show version information and exit.
 
 This function sends a prompt to a specified model and returns the model's response as a raw JSON object.
-If streaming is enabled via the global 'OLLAMA_LIB_STREAM' variable, it will return a stream of JSON objects.
+If streaming is enabled via the global 'OBL_STREAM' variable, it will return a stream of JSON objects.
 This is a foundational function for 'ollama_generate' and 'ollama_generate_stream', which process this JSON output into plain text.
 ```
 
@@ -117,7 +117,7 @@ Generate a completion from a model as JSON.
   -v          Show version information and exit.
 
 This function sends a prompt to a specified model and returns the model's response as a raw JSON object.
-If streaming is enabled via the global 'OLLAMA_LIB_STREAM' variable, it will return a stream of JSON objects.
+If streaming is enabled via the global 'OBL_STREAM' variable, it will return a stream of JSON objects.
 This is a foundational function for 'ollama_generate' and 'ollama_generate_stream', which process this JSON output into plain text.
 ```
 
@@ -162,7 +162,7 @@ Generate a completion from a model as a stream of JSON objects.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the global 'OLLAMA_LIB_STREAM' variable to 1 and then calls 'ollama_generate_json'.
+This function sets the global 'OBL_STREAM' variable to 1 and then calls 'ollama_generate_json'.
 It is the basis for 'ollama_generate_stream', which further processes the output into a continuous stream of text.
 ```
 
@@ -177,7 +177,7 @@ Generate a completion from a model as a stream of JSON objects.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the global 'OLLAMA_LIB_STREAM' variable to 1 and then calls 'ollama_generate_json'.
+This function sets the global 'OBL_STREAM' variable to 1 and then calls 'ollama_generate_json'.
 It is the basis for 'ollama_generate_stream', which further processes the output into a continuous stream of text.
 ```
 
@@ -248,7 +248,7 @@ Add a message to the current session's message history.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function appends a new message object to the \'OLLAMA_LIB_MESSAGES\' array.
+This function appends a new message object to the \'OBL_MESSAGES\' array.
 This history is then used by \'ollama_chat\' and related functions to maintain a conversation with the model.
 ```
 
@@ -263,7 +263,7 @@ Add a message to the current session's message history.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function appends a new message object to the \'OLLAMA_LIB_MESSAGES\' array.
+This function appends a new message object to the \'OBL_MESSAGES\' array.
 This history is then used by \'ollama_chat\' and related functions to maintain a conversation with the model.
 ```
 
@@ -276,7 +276,7 @@ Clear all messages from the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function resets the \'OLLAMA_LIB_MESSAGES\' array, effectively deleting the entire conversation history for the current session.
+This function resets the \'OBL_MESSAGES\' array, effectively deleting the entire conversation history for the current session.
 This is useful for starting a new conversation without restarting the script.
 ```
 
@@ -289,7 +289,7 @@ Clear all messages from the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function resets the \'OLLAMA_LIB_MESSAGES\' array, effectively deleting the entire conversation history for the current session.
+This function resets the \'OBL_MESSAGES\' array, effectively deleting the entire conversation history for the current session.
 This is useful for starting a new conversation without restarting the script.
 ```
 
@@ -302,7 +302,7 @@ Get the number of messages in the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function returns the current number of messages stored in the 'OLLAMA_LIB_MESSAGES' array.
+This function returns the current number of messages stored in the 'OBL_MESSAGES' array.
 It can be used to check if a conversation has started or to monitor the length of the conversation history.
 ```
 
@@ -315,7 +315,7 @@ Get the number of messages in the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function returns the current number of messages stored in the 'OLLAMA_LIB_MESSAGES' array.
+This function returns the current number of messages stored in the 'OBL_MESSAGES' array.
 It can be used to check if a conversation has started or to monitor the length of the conversation history.
 ```
 
@@ -895,7 +895,7 @@ Configure the 'thinking' mode for model responses.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the \'OLLAMA_LIB_THINKING\' environment variable, which controls whether the model\'s \'thinking\' process is displayed.
+This function sets the \'OBL_THINKING\' environment variable, which controls whether the model\'s \'thinking\' process is displayed.
 Modes:
 - on: Show thinking output.
 - off: Hide thinking output.
@@ -912,7 +912,7 @@ Configure the 'thinking' mode for model responses.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the \'OLLAMA_LIB_THINKING\' environment variable, which controls whether the model\'s \'thinking\' process is displayed.
+This function sets the \'OBL_THINKING\' environment variable, which controls whether the model\'s \'thinking\' process is displayed.
 Modes:
 - on: Show thinking output.
 - off: Hide thinking output.
@@ -954,7 +954,7 @@ Get the version of the Ollama Bash Lib.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function returns the current version number of the library as defined in the 'OLLAMA_LIB_VERSION' variable.
+This function returns the current version number of the library as defined in the 'OBL_VERSION' variable.
 It is useful for checking the library version for compatibility or debugging purposes.
 ```
 
@@ -967,6 +967,6 @@ Get the version of the Ollama Bash Lib.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function returns the current version number of the library as defined in the 'OLLAMA_LIB_VERSION' variable.
+This function returns the current version number of the library as defined in the 'OBL_VERSION' variable.
 It is useful for checking the library version for compatibility or debugging purposes.
 ```

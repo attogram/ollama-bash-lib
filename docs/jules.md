@@ -11,7 +11,7 @@ I should always keep this file (`docs/jules.md`) updated with any new learnings 
 The main logic of this repository is contained in the `ollama_bash_lib.sh` file. When modifying the code, I should be aware of the following structure:
 
 *   **Header**: Contains metadata about the library.
-*   **Global Variables**: `OLLAMA_LIB_*` variables that control the library's behavior.
+*   **Global Variables**: `OBL_*` variables that control the library's behavior.
 *   **Internal Functions**: Helper functions prefixed with `_`. These are not meant for external use.
 *   **Public API Functions**: These are the main functions of the library, grouped by category (API, Generate, Chat, etc.).
 *   **Aliases**: Short aliases for public functions.

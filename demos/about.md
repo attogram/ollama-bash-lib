@@ -15,19 +15,19 @@ ollama_lib_about
 ```
 A Bash Library to interact with Ollama
 
-OLLAMA_LIB_NAME      : Ollama Bash Lib
-OLLAMA_LIB_VERSION   : 0.46.1
-OLLAMA_LIB_URL       : https://github.com/attogram/ollama-bash-lib
-OLLAMA_LIB_DISCORD   : https://discord.gg/BGQJCbYVBa
-OLLAMA_LIB_LICENSE   : MIT
-OLLAMA_LIB_COPYRIGHT : Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>
-OLLAMA_LIB_API       : https://ollama.com
-OLLAMA_LIB_DEBUG     : 0
-OLLAMA_LIB_STREAM    : 0
-OLLAMA_LIB_THINKING  : off
-OLLAMA_LIB_MESSAGES  : 0 messages
-OLLAMA_LIB_TURBO_KEY : YES [REDACTED]
-OLLAMA_LIB_TIMEOUT   : 300 seconds
+OBL_NAME      : Ollama Bash Lib
+OBL_VERSION   : 0.46.1
+OBL_URL       : https://github.com/attogram/ollama-bash-lib
+OBL_DISCORD   : https://discord.gg/BGQJCbYVBa
+OBL_LICENSE   : MIT
+OBL_COPYRIGHT : Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>
+OBL_API       : https://ollama.com
+OBL_DEBUG     : 0
+OBL_STREAM    : 0
+OBL_THINKING  : off
+OBL_MESSAGES  : 0 messages
+OBL_TURBO_KEY : YES [REDACTED]
+OBL_TIMEOUT   : 300 seconds
 
 Functions:
 
