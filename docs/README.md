@@ -20,6 +20,8 @@ This directory contains the full documentation for the Ollama Bash Lib.
 
 ## Functions
 
+* [Function Reference](functions.md) (full list of all functions)
+
 ### API Functions
 * [ollama_api_get](ollama_api_get.md)
 * [ollama_api_post](ollama_api_post.md)

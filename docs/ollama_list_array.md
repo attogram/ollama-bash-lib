@@ -1,22 +1,32 @@
 # ollama_list_array
 
-Lists all available models in a space-separated format suitable for a bash array.
+List all available models as a Bash array.
 
 ## Alias
 
 `ola`
 
-## Usage
+## Usage from Help Text
+```
+Usage: ollama_list_array [-h] [-v]
+```
 
-```bash
-models=($(ollama_list_array))
+## Description from Help Text
+```
+List all available models as a Bash array.
+
+  -h          Show this help and exit.
+  -v          Show version information and exit.
+
+This function retrieves the list of models and formats them as a space-separated string, suitable for loading directly into a Bash array.
+Example:
+  models=($(ollama_list_array))
 ```
 
 ## Output
-
 A space-separated list of model names is sent to `stdout`.
 
 ## Return
-
 * `0`: Success.
 * `1`: Error.
+* `2`: Usage error.

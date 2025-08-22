@@ -16,6 +16,7 @@ Run LLM prompts straight from your shell, and more
 [Usage](#usage) -
 [Demos](#demos) -
 [Documentation](docs/README.md) -
+[Functions](#functions) -
 [License](#license) -
 [More from the Attogram Project](#more-from-the-attogram-project) -
 [Discord][discord-invite] -
@@ -76,7 +77,32 @@ For detailed information on how to use Ollama Bash Lib, including how-to guides,
 
 ## Demos
 
-See the **[demos](demos)** directory for all demo scripts.
+Here are a few of the most popular demos:
+
+| Demo                                                                   | About                                                                                                                          |
+|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| [ollama_generate.md](demos/ollama_generate.md)                         | Generate completion with `ollama_generate`                                                              |
+| [ollama_generate_json.md](demos/ollama_generate_json.md)               | Generate completion, json output with `ollama_generate_json`                                            |
+| [ollama_generate_stream.md](demos/ollama_generate_stream.md)           | Generate completion, streaming with `ollama_generate_stream`                                            |
+| [ollama_chat.md](demos/ollama_chat.md)                                 | Chat completion with `ollama_messages_add` and `ollama_chat`                             |
+| [interactive.chat.sh](demos/interactive.chat.sh)                       | Interactive Chat completion (with message history)                                                                             |
+| [list.md](demos/list.md)                                               | Ollama model list with `ollama_list`, `ollama_list_array` and `ollama_list_json`                           |
+| [show.md](demos/show.md)                                               | Model info with `ollama_show` and `ollama_show_json`                                   |
+| [prompt.all.models.md](demos/prompt.all.models.md)                     | Send a prompt to all models                                                                                                    |
+| [prompts.model.md](demos/prompts.model.md)                             | Send many prompts to a model                                                                                                   |
+| [about.md](demos/about.md)                                             | Ollama Bash Lib info with `ollama_lib_about` and `ollama_lib_version`                      |
+
+See the **[full list of demos](demos/README.md)**.
+
+## Functions
+
+The library provides a rich set of functions to interact with Ollama, including:
+
+*   **Generate Functions:** `ollama_generate`, `ollama_generate_stream`
+*   **Chat Functions:** `ollama_chat`, `ollama_messages_add`
+*   **Model Functions:** `ollama_list`, `ollama_show`
+
+For a full list of all functions and their detailed documentation, see the [Function Reference](docs/functions.md).
 
 ## License
 
