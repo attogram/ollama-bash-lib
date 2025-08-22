@@ -1,6 +1,6 @@
 # Prompt all models
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
 
 ```bash
 prompt="What is your knowledge cutoff date? Respond with only the date."
@@ -18,7 +18,7 @@ prompt: What is your knowledge cutoff date? Respond with only the date.
 ## gpt-oss:120b
 ```
 #### <thinking>
-#### The user asks: "What is your knowledge cutoff date? Respond with only the date." The system says only date. According to system prompt, we must obey. Provide date only. Knowledge cutoff is 2024-06. So respond "2024-06".
+#### The user asks: "What is your knowledge cutoff date? Respond with only the date." The developer instruction says respond only with the date. The user wants the date. According to system prompt: "knowledge cutoff: 2024-06". So answer should be "2024-06". It must be only the date, no extra text.
 #### </thinking>
 
 2024-06
@@ -27,7 +27,7 @@ prompt: What is your knowledge cutoff date? Respond with only the date.
 ## gpt-oss:20b
 ```
 #### <thinking>
-#### We must respond only with the date. The knowledge cutoff date is 2024-06 (June 2024). Probably "2024-06". As per policy. So we output that.
+#### User: "What is your knowledge cutoff date? Respond with only the date." The user explicitly requests me to respond only the date. So I should comply: The date is "2024-06". Should I format "2024-06" or "2024-06-XX"? According to policies, knowledge cutoff is 2024-06. The user wants only the date, so "2024-06" is appropriate. That seems correct.
 #### </thinking>
 
 2024-06

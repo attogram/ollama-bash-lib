@@ -1,6 +1,6 @@
 # ollama_app_vars
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
 
 ```
 OLLAMA_AUTH             : 	# Enables authentication between the Ollama client and server
@@ -37,5 +37,5 @@ HTTP_PROXY              :
 JETSON_JETPACK          : 	
 LD_LIBRARY_PATHS        : 	
 ROCR_VISIBLE_DEVICES    : 	# Set which AMD devices are visible by UUID or numeric ID
-TERM                    : xterm	
+TERM                    : xterm-256color	
 ```

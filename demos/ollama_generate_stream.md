@@ -1,6 +1,6 @@
 # ollama_generate_stream
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.1
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.2
 
 ## Demo
 
@@ -9,9 +9,9 @@ ollama_generate_stream -m "gpt-oss:20b" -p "Describe a rabbit in 3 words"
 ```
 ```
 
-#### The user wants a description of a rabbit in 3 words. Likely a short phrase. Must be exactly three words. They didn't specify more constraints. Provide something vivid? Could be \"fluffy, quick, curious\". That's three words with commas? Likely they want three separate words. Provide maybe \"soft, swift, playful\". That's three words. Provide maybe \"gentle, swift, fluffy\". That's three. I'll output just the three words. Possibly with commas? But they'd likely want simple words. I think \"soft, swift, playful\" is good. I'll just answer that.
+#### The user: \"Describe a rabbit in 3 words\". They probably want \"cute\", \"fluffy\", \"hare\". Or \"soft, swift, adorable\"? 3 words. Should be concise. So answer with something like \"Soft, quick, endearing\". That might be best. Or \"Playful, fluffy, swift\". 3 words. No additional commentary. Probably we answer with exactly 3 words. Choose: \"Cute, fluffy, fast\". Or \"Soft, quick, cute\". I think \"soft, quick, cute\" is fine. But could be \"playful, fluffy, agile\". That's also fine. We must ensure it's exactly 3 words. I will choose: \"Soft, quick, playful\". That covers. I'll output exactly those words. The output should be just the words, no quotes unless needed. I'll output: Soft, quick, playful. That's it.
 
-soft, swift, playful
+Soft, quick, playful
 
 ```
 
@@ -21,29 +21,21 @@ soft, swift, playful
 `OBL_DEBUG=1 ollama_generate_stream -m "gpt-oss:20b" -p "Describe a rabbit in 3 words"`
 ```
 ```json
-[DEBUG] 22:43:41:618435700: ollama_generate_stream: model='gpt-oss:20b'  prompt='Describe a rabbit in 3 words'
-[DEBUG] 22:43:41:685715000: ollama_generate_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
-[DEBUG] 22:43:41:731419500: ollama_generate_json: json_payload: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 22:43:41:782424100: ollama_api_post: [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 22:43:41:808657100: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 22:43:41:855671600: _call_curl: OBL_API: https://ollama.com
-[DEBUG] 22:43:41:880729100: _call_curl: Turbo Mode
-[DEBUG] 22:43:41:908499600: _call_curl: json_body: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
-[DEBUG] 22:43:41:930590100: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
-[DEBUG] 22:43:43:860666700: ollama_api_post: success
-[DEBUG] 22:43:43:891157900: ollama_generate_json: success
+[DEBUG] 11:30:21:566419000: ollama_generate_stream: model='gpt-oss:20b'  prompt='Describe a rabbit in 3 words'
+[DEBUG] 11:30:21:574177000: ollama_generate_json: [gpt-oss:20b] [Describe a rabbit in 3 words]
+[DEBUG] 11:30:21:582984000: ollama_generate_json: json_payload: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
+[DEBUG] 11:30:21:591179000: ollama_api_post: [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
+[DEBUG] 11:30:21:595396000: _call_curl: [POST] [/api/generate] {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
+[DEBUG] 11:30:21:603471000: _call_curl: OBL_API: https://ollama.com
+[DEBUG] 11:30:21:607370000: _call_curl: Turbo Mode
+[DEBUG] 11:30:21:611278000: _call_curl: json_body: {"model":"gpt-oss:20b","prompt":"Describe a rabbit in 3 words","stream":true,"thinking":false}
+[DEBUG] 11:30:21:615309000: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w \n%{http_code} -H Authorization: Bearer [REDACTED] -X POST https://ollama.com/api/generate -d @-
+[DEBUG] 11:30:23:106058000: ollama_api_post: success
+[DEBUG] 11:30:23:113767000: ollama_generate_json: success
 
-#### We need to respond to \"Describe a rabbit in 3 words\". The instruction: \"Describe a rabbit in 3 words\". So we need a 3 word description. So output three words describing a rabbit. Eg: \"Soft, cute, nimble\". Or \"Fluffy, swift, rabbit.\" We need exactly 3 words. Could be \"Soft, swift, hop\". We need to comply. Also we need to consider no extra commentary. Possibly no explanation. Just the 3 words. Let's produce \"Soft, swift, hop\". That is 3 words. Might want \"Cuddly, agile, hopper\". Ok.
+#### The user requests: \"Describe a rabbit in 3 words\". They want a description that uses exactly 3 words. Should describe a rabbit. Probably something like \"Fluffy, graceful, playful\". But we need to think about the request: It's singular. The user wants three words. So we should offer a concise description. The best is \"Fluffy, graceful, playful\". Or \"Soft, swift, curious\". Or \"Cute, furry, nimble\". Any three words. I guess we can pick \"Soft, quick, curious\". Which exactly three words, separated by a comma and space. The user didn't specify formatting. It's basically a request for a description. Let's give them any coherent description. I'll choose \"Soft, swift, curious\". That's exactly three words: Soft, swift, curious. That matches a rabbit. Let's respond.
 
-Need to ensure it's exactly 3 words separated by spaces or punctuation. Let's use comma separated.
-
-I'll give \"Soft, swift, hopping\". That is 3 words: Soft, swift, hopping.
-
-Better: \"Soft, swift, hopping\" or \"Fluffy, quick, ears\" But ears is not an adjective. I think \"Soft, swift, hopping\" is good.
-
-Ok.
-
-Soft, swift, hopping
-[DEBUG] 22:43:53:236336100: ollama_generate_stream: exit=0
+Soft, swift, curious.
+[DEBUG] 11:30:24:766718000: ollama_generate_stream: exit=0
 
 ```
