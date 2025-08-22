@@ -6,12 +6,12 @@ Get all messages in the current session.
 
 `om`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_messages [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Get all messages in the current session.
 

@@ -6,12 +6,12 @@ Display information about the Ollama Bash Lib.
 
 `olab`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_lib_about [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Display information about the Ollama Bash Lib.
 

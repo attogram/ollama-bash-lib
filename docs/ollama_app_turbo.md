@@ -6,12 +6,12 @@ Enable or disable Turbo Mode.
 
 `oat`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_app_turbo -m <on|off> [-e] [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Enable or disable Turbo Mode.
 

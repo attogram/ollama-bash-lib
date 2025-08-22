@@ -6,12 +6,12 @@ Generate a completion from a model as a stream of JSON objects.
 
 `ogsj`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_generate_stream_json -m <model> [-p <prompt>] [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Generate a completion from a model as a stream of JSON objects.
 

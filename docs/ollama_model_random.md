@@ -6,12 +6,12 @@ Get the name of a randomly selected model.
 
 `omr`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_model_random [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Get the name of a randomly selected model.
 

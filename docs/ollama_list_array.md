@@ -6,12 +6,12 @@ List all available models as a Bash array.
 
 `ola`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_list_array [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 List all available models as a Bash array.
 

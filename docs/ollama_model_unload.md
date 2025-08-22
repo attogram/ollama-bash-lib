@@ -6,12 +6,12 @@ Unload a model from memory.
 
 `omu`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_model_unload -m <model> [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Unload a model from memory.
 

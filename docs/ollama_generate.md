@@ -6,12 +6,12 @@ Generate a completion from a model as plain text.
 
 `og`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Generate a completion from a model as plain text.
 

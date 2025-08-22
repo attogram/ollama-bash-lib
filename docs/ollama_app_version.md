@@ -6,12 +6,12 @@ Get the version of the Ollama application as plain text.
 
 `oave`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_app_version [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Get the version of the Ollama application as plain text.
 

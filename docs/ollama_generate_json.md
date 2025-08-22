@@ -6,12 +6,12 @@ Generate a completion from a model as JSON.
 
 `ogj`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Generate a completion from a model as JSON.
 

@@ -6,12 +6,12 @@ Get the version of the installed Ollama application
 
 `oavc`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_app_version_cli [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Get the version of the installed Ollama application
 

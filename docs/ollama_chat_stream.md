@@ -6,12 +6,12 @@ Request a chat completion from a model, receiving a stream of text.
 
 `ocs`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_chat_stream -m <model> [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Request a chat completion from a model, receiving a stream of text.
 
