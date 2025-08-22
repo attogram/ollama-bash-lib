@@ -1,20 +1,36 @@
---- Testing ollama_generate_stream with thinking ON ---
-[ERROR] ollama_generate_stream: No prompt supplied
-Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
+# Test for streaming with thinking enabled
 
---- Testing ollama_chat_stream with thinking ON ---
-Error: Missing required arguments
+## Turn on thinking
 
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
+```
+ollama_thinking on
+ollama_thinking
+```
+
+thinking is on
+
+## ollama_generate_stream
+
+```
+ollama_generate_stream -m "$(ollama_model_random)" -p "Why is the sky blue? Be concise."
+```
+
+
+
+The sky appears blue because of a phenomenon called Rayleigh scattering, where sunlight interacts with molecules and particles in Earth's atmosphere. Shorter wavelengths like blue light are scattered more than longer wavelengths, making the sky appear blue.
+
+## ollama_chat_stream
+
+```
+ollama_messages_clear
+ollama_messages_add -r "user" -c "Why is the ocean blue? Be concise."
+ollama_chat_stream -m "$(ollama_model_random)"
+```
+
 #### <thinking>
-#### [ERROR] _ollama_chat_payload: Message history is empty
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-[ERROR] ollama_messages_last: error getting message content: 1
-[ERROR] ollama_chat: ollama_chat_json response empty
+#### jq: parse error: Invalid numeric literal at line 1, column 4
+jq: parse error: Invalid numeric literal at line 1, column 4
 
 #### </thinking>
 
-[ERROR] ollama_chat_stream: ollama_chat failed with code 1
+
