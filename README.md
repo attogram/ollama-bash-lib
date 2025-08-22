@@ -1,6 +1,6 @@
 # Ollama Bash Lib
 
-A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
+A Bash Library for [Ollama](https://github.com/ollama/ollama)
 
 Run LLM prompts straight from your shell, and more
 
