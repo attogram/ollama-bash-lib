@@ -8,9 +8,14 @@ Run LLM prompts straight from your shell, and more
 
 [▶️ Get Started in 30 seconds](#quickstart) • [💬 Join Discord][discord-invite]
 
+![Release](https://img.shields.io/github/v/release/attogram/ollama-bash-lib?style=flat)
 ![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)
-![Bash ≥3.2](https://img.shields.io/badge/bash-%3E=3.2-blue?logo=gnu-bash)
+![Bash ≥3.2](https://img.shields.io/badge/bash-%3E=3.2-blue?style=flat)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/attogram/ollama-bash-lib?style=flat)
 ![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat)
+![GitHub watchers](https://img.shields.io/github/watchers/attogram/ollama-bash-lib?style=flat)
+![Forks](https://img.shields.io/github/forks/attogram/ollama-bash-lib?style=flat)
+![Issues](https://img.shields.io/github/issues/attogram/ollama-bash-lib?style=flat)
 
 [Quickstart](#quickstart) -
 [Usage](#usage) -
@@ -30,9 +35,7 @@ git clone https://github.com/attogram/ollama-bash-lib.git
 cd ollama-bash-lib
 source ollama_bash_lib.sh
 
-# Generate a completion
 ollama_generate -m mistral:7b -p "Describe Bash in 3 words"
-
 # Powerful, Flexible, Scripting.
 
 # Tab completion to view available library functions
