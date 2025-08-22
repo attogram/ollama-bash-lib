@@ -8,7 +8,7 @@ OBL_VERSION='0.46.2'
 OBL_URL='https://github.com/attogram/ollama-bash-lib'
 OBL_DISCORD='https://discord.gg/BGQJCbYVBa'
 OBL_LICENSE='MIT'
-OBL_COPYRIGHT='Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>'
+OBL_COPYRIGHT='Copyright (c) 2025 Attogram Project <https://github.com/attogram>'
 
 OBL_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
 OBL_DEBUG="${OBL_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
