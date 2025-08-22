@@ -7,29 +7,47 @@ ollama_messages_count: 0
 ollama_messages:
 []
 
-ollama_messages_add "system" "You are a helpful assistant"
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-ollama_messages_count: 0
+ollama_messages_add -r "system" -c "You are a helpful assistant"
+ollama_messages_count: 1
 ollama_messages:
-[]
+[
+  {
+    "role": "system",
+    "content": "You are a helpful assistant"
+  }
+]
 
-ollama_messages_add "user" "Hi"
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-ollama_messages_count: 0
+ollama_messages_add -r "user" -c "Hi"
+ollama_messages_count: 2
 ollama_messages:
-[]
+[
+  {
+    "role": "system",
+    "content": "You are a helpful assistant"
+  },
+  {
+    "role": "user",
+    "content": "Hi"
+  }
+]
 
-ollama_messages_add "assistant" "Hello!"
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-ollama_messages_count: 0
+ollama_messages_add -r "assistant" -c "Hello!"
+ollama_messages_count: 3
 ollama_messages:
-[]
+[
+  {
+    "role": "system",
+    "content": "You are a helpful assistant"
+  },
+  {
+    "role": "user",
+    "content": "Hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello!"
+  }
+]
 
 ollama_messages_clear
 ollama_messages_count: 0
