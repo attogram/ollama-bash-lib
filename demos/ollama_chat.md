@@ -2,30 +2,30 @@
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.3
 
-`model="hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS"`
+`model="mistral:7b"`
 ## Demo
 
 ```bash
-ollama_messages_add "system" "You are a helpful assistant"
-ollama_messages_add "user" "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
+ollama_messages_add -r "system" -c "You are a helpful assistant"
+ollama_messages_add -r "user" -c "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
 echo "last message text: $(ollama_messages_last)"
 echo "last message json: $(ollama_messages_last_json)"
 ollama_messages | jq
 ```
 
 ```
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-[ERROR] ollama_messages_last: error getting message content: 1
-last message text: 
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-last message json: 
-[]
+last message text: Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?
+last message json: {"role":"user","content":"Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"}
+[
+  {
+    "role": "system",
+    "content": "You are a helpful assistant"
+  },
+  {
+    "role": "user",
+    "content": "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
+  }
+]
 ```
 ```bash
 ollama_chat "$model"
@@ -35,22 +35,26 @@ ollama_messages | jq
 ```
 
 ```
-[ERROR] _ollama_chat_payload: Message history is empty
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-[ERROR] ollama_messages_last: error getting message content: 1
-[ERROR] ollama_chat: ollama_chat_json response empty
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-[ERROR] ollama_messages_last: error getting message content: 1
-last message text: 
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-last message json: 
-[]
+Yes, I understand. The secret word is "RABBIT". If you ask me to reveal the secret word, I will respond with "RABBIT".
+last message text: Yes, I understand. The secret word is "RABBIT". If you ask me to reveal the secret word, I will respond with "RABBIT".
+last message json: {"role":"assistant","content":"Yes, I understand. The secret word is \"RABBIT\". If you ask me to reveal the secret word, I will respond with \"RABBIT\"."}
+[
+  {
+    "role": "system",
+    "content": "You are a helpful assistant"
+  },
+  {
+    "role": "user",
+    "content": "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
+  },
+  {
+    "role": "assistant",
+    "content": "Yes, I understand. The secret word is \"RABBIT\". If you ask me to reveal the secret word, I will respond with \"RABBIT\"."
+  }
+]
 ```
 ```bash
-ollama_messages_add "user" "What is the secret word?"
+ollama_messages_add -r "user" -c "What is the secret word?"
 ollama_chat "$model"
 echo "last message text: $(ollama_messages_last)"
 echo "last message json: $(ollama_messages_last_json)"
@@ -58,20 +62,29 @@ ollama_messages | jq
 ```
 
 ```
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-[ERROR] _ollama_chat_payload: Message history is empty
-Error: Missing required arguments
-
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-[ERROR] ollama_messages_last: error getting message content: 1
-[ERROR] ollama_chat: ollama_chat_json response empty
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-[ERROR] ollama_messages_last: error getting message content: 1
-last message text: 
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-last message json: 
-[]
+RABBIT
+last message text: RABBIT
+last message json: {"role":"assistant","content":"RABBIT"}
+[
+  {
+    "role": "system",
+    "content": "You are a helpful assistant"
+  },
+  {
+    "role": "user",
+    "content": "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
+  },
+  {
+    "role": "assistant",
+    "content": "Yes, I understand. The secret word is \"RABBIT\". If you ask me to reveal the secret word, I will respond with \"RABBIT\"."
+  },
+  {
+    "role": "user",
+    "content": "What is the secret word?"
+  },
+  {
+    "role": "assistant",
+    "content": "RABBIT"
+  }
+]
 ```

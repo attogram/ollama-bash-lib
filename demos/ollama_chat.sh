@@ -30,16 +30,16 @@ demo() {
 
   # shellcheck disable=SC2016
   echo '```bash
-ollama_messages_add "system" "You are a helpful assistant"
-ollama_messages_add "user" "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
+ollama_messages_add -r "system" -c "You are a helpful assistant"
+ollama_messages_add -r "user" -c "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
 echo "last message text: $(ollama_messages_last)"
 echo "last message json: $(ollama_messages_last_json)"
 ollama_messages | jq
 ```
 '
   printf '```\n'
-  ollama_messages_add "system" "You are a helpful assistant"
-  ollama_messages_add "user" "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
+  ollama_messages_add -r "system" -c "You are a helpful assistant"
+  ollama_messages_add -r "user" -c "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
   echo "last message text: $(ollama_messages_last)"
   echo "last message json: $(ollama_messages_last_json)"
   ollama_messages | jq
@@ -62,7 +62,7 @@ ollama_messages | jq
 
   # shellcheck disable=SC2016
   echo '```bash
-ollama_messages_add "user" "What is the secret word?"
+ollama_messages_add -r "user" -c "What is the secret word?"
 ollama_chat "$model"
 echo "last message text: $(ollama_messages_last)"
 echo "last message json: $(ollama_messages_last_json)"
@@ -70,7 +70,7 @@ ollama_messages | jq
 ```
 '
   printf '```\n'
-  ollama_messages_add "user" "What is the secret word?"
+  ollama_messages_add -r "user" -c "What is the secret word?"
   ollama_chat "$model"
   echo "last message text: $(ollama_messages_last)"
   echo "last message json: $(ollama_messages_last_json)"
