@@ -4,6 +4,8 @@ A Bash Library to interact with [Ollama](https://github.com/ollama/ollama)
 
 Run LLM prompts straight from your shell, and more
 
+![Logo](docs/logos/logo.320x160.png)
+
 [▶️ Get Started in 30 seconds](#quickstart) • [💬 Join Discord][discord-invite]
 
 ![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)
