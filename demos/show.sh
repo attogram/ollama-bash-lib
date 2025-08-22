@@ -17,16 +17,16 @@ startup
 model=$(ollama_model_random)
 
 echo
-echo "ollama_show \"$model\""
+echo "ollama_show -m \"$model\""
 echo
 echo '```'
-ollama_show "$model"
+ollama_show -m "$model"
 echo '```'
 echo
 
 echo
-echo "ollama_show_json \"$model\""
+echo "ollama_show_json -m \"$model\""
 echo
-echo '```'
-ollama_show_json "$model" | jq
+echo '```json'
+ollama_show_json -m "$model" | jq
 echo '```'
