@@ -6,12 +6,12 @@ Request a chat completion from a model, receiving a stream of JSON objects.
 
 `ocsj`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_chat_stream_json -m <model> [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Request a chat completion from a model, receiving a stream of JSON objects.
 

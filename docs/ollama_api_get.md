@@ -6,12 +6,12 @@ Performs a GET request to the Ollama API.
 
 `oag`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_api_get [-P <path>] [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 GET request to the Ollama API.
 

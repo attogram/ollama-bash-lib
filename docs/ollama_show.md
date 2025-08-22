@@ -6,12 +6,12 @@ Show detailed information about a model in a human-readable format.
 
 `os`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_show -m <model> [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Show detailed information about a model in a human-readable format.
 

@@ -6,12 +6,12 @@ Pings the Ollama API to check for availability.
 
 `oapi`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_api_ping [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Ping the Ollama API to check for availability.
 

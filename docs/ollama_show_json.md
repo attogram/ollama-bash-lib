@@ -6,12 +6,12 @@ Show detailed information about a model in JSON format.
 
 `osj`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_show_json -m <model> [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Show detailed information about a model in JSON format.
 

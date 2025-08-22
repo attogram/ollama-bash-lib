@@ -6,12 +6,12 @@ Get the version of the Ollama application in JSON format.
 
 `oavj`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_app_version_json [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Get the version of the Ollama application in JSON format.
 

@@ -6,12 +6,12 @@ List all available models in a human-readable format.
 
 `ol`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_list [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 List all available models in a human-readable format.
 

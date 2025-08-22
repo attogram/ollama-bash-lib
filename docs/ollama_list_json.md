@@ -6,12 +6,12 @@ List all available models in JSON format.
 
 `olj`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_list_json [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 List all available models in JSON format.
 

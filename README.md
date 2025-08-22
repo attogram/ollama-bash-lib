@@ -94,6 +94,15 @@ Here are a few of the most popular demos:
 
 See the **[full list of demos](demos/README.md)**.
 
+### Review Demos
+
+| Demo                                                                   | About                                                                                                                          |
+|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| [review.lib.md](demos/review.lib.md)                                   | Code Review of `ollama_bash_lib.sh`                                                                      |
+| [review.lib-security.md](demos/review.lib-security.md)                 | Security Review of `ollama_bash_lib.sh`                                                                  |
+| [review.readme.md](demos/review.readme.md)                             | Marketing Review of `README.md`                                                                              |
+| [review.funny.md](demos/review.funny.md)                               | Humorous project descriptions based on `README.md`                                                                |
+
 ## Functions
 
 The library provides a rich set of functions to interact with Ollama, including:

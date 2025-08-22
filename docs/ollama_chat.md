@@ -6,12 +6,12 @@ Request a chat completion from a model, receiving a plain text response.
 
 `oc`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_chat -m <model> [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Request a chat completion from a model, receiving a plain text response.
 

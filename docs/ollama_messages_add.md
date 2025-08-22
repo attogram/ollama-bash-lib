@@ -6,12 +6,12 @@ Add a message to the current session's message history.
 
 `oma`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Add a message to the current session's message history.
 

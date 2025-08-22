@@ -6,12 +6,12 @@ Clear all messages from the current session.
 
 `omc`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_messages_clear [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Clear all messages from the current session.
 

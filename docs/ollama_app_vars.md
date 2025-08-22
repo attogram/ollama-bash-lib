@@ -6,12 +6,12 @@ Display Ollama-related environment variables.
 
 `oav`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_app_vars [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Display Ollama-related environment variables.
 

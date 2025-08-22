@@ -6,12 +6,12 @@ Performs a POST request to the Ollama API.
 
 `oap`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_api_post -P <path> -d <data> [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 POST request to the Ollama API.
 

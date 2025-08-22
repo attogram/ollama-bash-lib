@@ -6,12 +6,12 @@ Get the number of messages in the current session.
 
 `omco`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_messages_count [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Get the number of messages in the current session.
 

@@ -6,12 +6,12 @@ List running model processes in a human-readable format.
 
 `op`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_ps [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 List running model processes in a human-readable format.
 

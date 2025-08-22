@@ -6,12 +6,12 @@ Get the version of the Ollama Bash Lib.
 
 `olv`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_lib_version [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Get the version of the Ollama Bash Lib.
 

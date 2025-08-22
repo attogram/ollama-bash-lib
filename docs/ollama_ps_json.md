@@ -6,12 +6,12 @@ List running model processes in JSON format.
 
 `opj`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_ps_json [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 List running model processes in JSON format.
 

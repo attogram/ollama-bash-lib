@@ -6,12 +6,12 @@ Generate a completion from a model as a stream of text.
 
 `ogs`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Generate a completion from a model as a stream of text.
 

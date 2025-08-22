@@ -6,12 +6,12 @@ Check if the Ollama application is installed on the local system.
 
 `oai`
 
-## Usage from Help Text
+## Usage
 ```
 Usage: ollama_app_installed [-h] [-v]
 ```
 
-## Description from Help Text
+## Description
 ```
 Check if the Ollama application is installed on the local system.
 
