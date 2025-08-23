@@ -48,12 +48,12 @@ ollama_<TAB>
 # ollama_app_turbo             ollama_lib_version           ollama_show
 # ollama_app_vars              ollama_list                  ollama_show_json
 # ollama_app_version           ollama_list_array            ollama_thinking
-# ollama_app_version_cli       ollama_list_json             
-# ollama_app_version_json      ollama_messages              
-# ollama_chat                  ollama_messages_add          
-# ollama_chat_json             ollama_messages_clear        
-# ollama_chat_stream           ollama_messages_count        
-# ollama_chat_stream_json      ollama_messages_last         
+# ollama_app_version_cli       ollama_list_json
+# ollama_app_version_json      ollama_messages
+# ollama_chat                  ollama_messages_add
+# ollama_chat_json             ollama_messages_clear
+# ollama_chat_stream           ollama_messages_count
+# ollama_chat_stream_json      ollama_messages_last
 # ollama_generate              ollama_messages_last_json
 ```
 
@@ -126,7 +126,7 @@ Ollama Bash Lib is licensed under the terms of the [MIT License](LICENSE).
 |-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [**Attogram Project<br />Discord Channel**][discord-invite] | Join the **Attogram Project Discord Channel** for:<br />- Announcements<br />- Technical Support<br />- General Chat about Attogram Projects                                                    |
 | [**Ollama Multirun**][ollama-multirun]                      | Run a prompt against all, or some, of your models running on Ollama.<br />- Creates web pages with the output, performance statistics and model info.<br />- All in a single Bash shell script. |
-| [**Ollama Bash Lib**][ollama-bash-lib]                      | A Bash Library for Ollama                                                                                                                                                                       | 
+| [**Ollama Bash Lib**][ollama-bash-lib]                      | A Bash Library for Ollama                                                                                                                                                                       |
 | [**Ollama Bash Toolshed**][ollama-bash-toolshed]            | Chat with tool calling models.<br />- Sample tools included.<br />- Add new tools to your shed with ease.<br />- Runs on Ollama.<br />- All via Bash shell scripts.                             |
 | [**LLM Council**][llm-council]                              | Start a chat room between all, or some, of your models running on Ollama.<br />- All in a single Bash shell script.                                                                             |
 | [**Small Models**][small-models]                            | Comparison of small open source LLMs<br />- 8b parameters or less                                                                                                                               |
