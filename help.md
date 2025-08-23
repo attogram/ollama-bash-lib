@@ -1,1 +1,1 @@
--bash: ./help.sh: No such file or directory
+-bash: ./function.help.sh: No such file or directory

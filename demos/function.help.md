@@ -160,37 +160,37 @@ This function returns the current number of messages stored in the 'OBL_MESSAGES
 It can be used to check if a conversation has started or to monitor the length of the conversation history.
 ```
 
-./help.sh: line 62: ollama_tools_add: command not found
+./function.help.sh: line 62: ollama_tools_add: command not found
 ## `ollama_tools_add -h`
 ```
 
 ```
 
-./help.sh: line 62: ollama_tools: command not found
+./function.help.sh: line 62: ollama_tools: command not found
 ## `ollama_tools -h`
 ```
 
 ```
 
-./help.sh: line 62: ollama_tools_count: command not found
+./function.help.sh: line 62: ollama_tools_count: command not found
 ## `ollama_tools_count -h`
 ```
 
 ```
 
-./help.sh: line 62: ollama_tools_clear: command not found
+./function.help.sh: line 62: ollama_tools_clear: command not found
 ## `ollama_tools_clear -h`
 ```
 
 ```
 
-./help.sh: line 62: ollama_tools_is_call: command not found
+./function.help.sh: line 62: ollama_tools_is_call: command not found
 ## `ollama_tools_is_call -h`
 ```
 
 ```
 
-./help.sh: line 62: ollama_tools_run: command not found
+./function.help.sh: line 62: ollama_tools_run: command not found
 ## `ollama_tools_run -h`
 ```
 
@@ -485,4 +485,3 @@ Get the version of the Ollama Bash Lib.
 This function returns the current version number of the library as defined in the 'OBL_VERSION' variable.
 It is useful for checking the library version for compatibility or debugging purposes.
 ```
-
