@@ -32,9 +32,9 @@ Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]
 OBL_DEBUG=1 ollama_generate_json -m "" -p "Describe a rabbit in 3 words"
 ```
 ```json
-[DEBUG] 08:53:21:563219929: _is_valid_model: Model name empty: getting random model
+[DEBUG] 08:56:32:571665461: _is_valid_model: Model name empty: getting random model
 [ERROR] ollama_model_random: ollama is not installed
-[DEBUG] 08:53:21:575217556: _is_valid_model: Model Not Found: ollama_model_random failed
+[DEBUG] 08:56:32:584244373: _is_valid_model: Model Not Found: ollama_model_random failed
 Error: -m <model> is required
 
 Usage: ollama_generate_json -m <model> [-p <prompt>] [-h] [-v]

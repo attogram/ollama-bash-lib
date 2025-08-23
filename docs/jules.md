@@ -8,6 +8,9 @@ This file is for me, Jules, to keep notes on how to work with this repository.
 * I must be very careful with `replace_with_git_merge_diff` and double-check my search strings to avoid getting stuck in loops.
 * I should always read the source code of a function before writing documentation for it to avoid hallucinations.
 * I need to pay close attention to the user's specific formatting requests for file names, heading titles, and content structure.
+* The `ls` command in this environment may not show all files. Use `ls -aF` to get a complete and accurate listing of directory contents.
+* New shell scripts must be made executable with `chmod +x` before they can be run by other scripts.
+* The `demos/run.demos.sh` script is the standard way to generate the markdown documentation for the demos.
 
 ## Documentation and Demo Structure
 
