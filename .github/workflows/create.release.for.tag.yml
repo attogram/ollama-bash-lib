@@ -41,22 +41,25 @@ jobs:
           PREVIOUS_TAG: ${{ env.previous_tag }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          RELEASE_BODY=$(cat <<EOF
-**Ollama Bash Lib $CURRENT_TAG**
+          RELEASE_BODY="**Ollama Bash Lib $CURRENT_TAG**
 
-A Bash Library for Ollama
+          A Bash Library for Ollama
 
-Run LLM prompts straight from your shell, and more
+          Run LLM prompts straight from your shell, and more
 
-Repo: https://github.com/$GITHUB_REPOSITORY
-EOF
-          )
+          Repo: https://github.com/$GITHUB_REPOSITORY"
 
           # Generate changelog
           CHANGELOG=$(git log --pretty=format:"* %s (%h)" $PREVIOUS_TAG..$CURRENT_TAG)
 
           if [ -n "$CHANGELOG" ]; then
-            RELEASE_BODY="${RELEASE_BODY}**Full Changelog**:\n\n${CHANGELOG}\n\n"
+            RELEASE_BODY="${RELEASE_BODY}
+
+          **Full Changelog**:
+
+          ${CHANGELOG}
+
+          "
           fi
 
           # Add link to compare with previous version
