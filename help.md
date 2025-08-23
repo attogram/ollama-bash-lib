@@ -1,1 +1,0 @@
--bash: ./help.sh: No such file or directory

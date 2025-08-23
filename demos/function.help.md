@@ -160,40 +160,28 @@ This function returns the current number of messages stored in the 'OBL_MESSAGES
 It can be used to check if a conversation has started or to monitor the length of the conversation history.
 ```
 
-./help.sh: line 62: ollama_tools_add: command not found
-## `ollama_tools_add -h`
+## `ollama_messages_last -h`
+```
+Usage: ollama_messages_last [-h] [-v]
+
+Get the content of the last message from the session history as a string.
+
+  -h          Show this help and exit.
+  -v          Show version information and exit.
+
+This function retrieves the last message using 'ollama_messages_last_json' and extracts the 'content' field, returning it as a plain string.
 ```
 
+## `ollama_messages_last_json -h`
 ```
+Usage: ollama_messages_last_json [-h] [-v]
 
-./help.sh: line 62: ollama_tools: command not found
-## `ollama_tools -h`
-```
+Get the last message from the session history in JSON format.
 
-```
+  -h          Show this help and exit.
+  -v          Show version information and exit.
 
-./help.sh: line 62: ollama_tools_count: command not found
-## `ollama_tools_count -h`
-```
-
-```
-
-./help.sh: line 62: ollama_tools_clear: command not found
-## `ollama_tools_clear -h`
-```
-
-```
-
-./help.sh: line 62: ollama_tools_is_call: command not found
-## `ollama_tools_is_call -h`
-```
-
-```
-
-./help.sh: line 62: ollama_tools_run: command not found
-## `ollama_tools_run -h`
-```
-
+This function retrieves the most recent message from the 'OBL_MESSAGES' array and outputs it as a JSON string.
 ```
 
 ## `ollama_chat -h`
@@ -209,6 +197,21 @@ Request a chat completion from a model, receiving a plain text response.
 This function is a user-friendly wrapper around \'ollama_chat_json\'.
 It handles the JSON parsing and returns only the content of the model\'s message as a single string.
 It is ideal for simple, non-streaming chat interactions.
+```
+
+## `ollama_chat_json -h`
+```
+Usage: ollama_chat_json -m <model> [-h] [-v]
+
+Request a chat completion from a model, receiving JSON output.
+
+  -m <model>  Name of the model to use (required).
+  -h          Show this help and exit.
+  -v          Show version information and exit.
+
+This function sends the entire message history ('OBL_MESSAGES') to the specified model and returns the model's response as a raw JSON object.
+It serves as the foundation for 'ollama_chat_stream', which provides more user-friendly text-based outputs.
+If 'OBL_STREAM' is 0, it adds the assistant's response to the message history.
 ```
 
 ## `ollama_chat_stream -h`
@@ -485,4 +488,3 @@ Get the version of the Ollama Bash Lib.
 This function returns the current version number of the library as defined in the 'OBL_VERSION' variable.
 It is useful for checking the library version for compatibility or debugging purposes.
 ```
-
