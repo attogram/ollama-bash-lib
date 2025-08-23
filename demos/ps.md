@@ -1,19 +1,16 @@
 # ollama_ps, ollama_ps_json
-ERROR: Ollama Not Installed
-[ERROR] _call_curl: curl command failed with exit code 7
-[ERROR] ollama_api_get: curl error: 7
-ERROR: Ollama API not reachable
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.3
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.7
 
 `ollama_ps`
 ```
-[ERROR] ollama_ps: ollama is not installed
+Error: unauthorized
+[ERROR] ollama_ps: ollama ps failed
 ```
 
 `ollama_ps_json | jq`
 ```
-[ERROR] _call_curl: curl command failed with exit code 7
-[ERROR] ollama_api_get: curl error: 7
+[ERROR] _call_curl: HTTP error 401: {"error": "unauthorized"}
+[ERROR] ollama_api_get: curl error: 1
 [ERROR] ollama_ps_json: ollama_api_get failed
 ```
