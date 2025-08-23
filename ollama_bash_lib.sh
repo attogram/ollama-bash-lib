@@ -178,7 +178,7 @@ _call_curl() {
     -N
     --max-time "$OBL_TIMEOUT"
     -H 'Content-Type: application/json'
-    -w '\n%{http_code}'
+    -w 'HTTP_CODE_DELIMITER%{http_code}'
   )
 
   if [[ -n "${OBL_TURBO_KEY}" ]]; then
@@ -210,9 +210,9 @@ _call_curl() {
   fi
 
   local http_code
-  http_code="$(printf '%s' "$response" | tail -n1)"
+  http_code="${response##*HTTP_CODE_DELIMITER}"
   local body
-  body="$(printf '%s' "$response" | sed '$d')"
+  body="${response%HTTP_CODE_DELIMITER*}"
 
   if (( http_code >= 400 )); then
     _error "_call_curl: HTTP error ${http_code}: ${body}"
@@ -1159,21 +1159,21 @@ _ollama_chat_payload() {
     # return 1 # TODO - decide: return 1, or allow empty message history?
   fi
 
-  local messages_json
-  messages_json='['$(IFS=,; echo "${OBL_MESSAGES[*]}")']'
-
   local thinking=true
   if [[ "$OBL_THINKING" == 'off' ]]; then
     thinking=false
   fi
 
+  # Safely construct the JSON payload using jq
+  # The OBL_MESSAGES array already contains valid JSON objects.
+  # We print each on a new line and use jq's slurp (-s) flag to create a JSON array.
+  # Then we add the other fields (model, stream, thinking).
   local json_payload
-  json_payload="$(jq -c -n \
+  json_payload="$(printf '%s\n' "${OBL_MESSAGES[@]}" | jq -s -c \
       --arg model "$model" \
-      --argjson messages "$messages_json" \
       --argjson stream "$stream" \
       --argjson thinking "$thinking" \
-      '{model: $model, messages: $messages, stream: $stream, thinking: $thinking}')"
+      '{model: $model, messages: ., stream: $stream, thinking: $thinking}')"
 
   printf '%s\n' "$json_payload"
 }
@@ -1356,7 +1356,8 @@ EOF
 
     OBL_STREAM=1
     (
-        ollama_chat -m "$model" | while IFS= read -r line; do
+        ollama_chat_json -m "$model" | while IFS= read -r line; do
+            if ! _is_valid_json "$line"; then continue; fi
             if [[ "$OBL_THINKING" == 'on' ]]; then
                 printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
             fi
@@ -1368,7 +1369,7 @@ EOF
     local error_code=$?
     OBL_STREAM=0
     if [[ $error_code -ne 0 ]]; then
-        _error "ollama_chat_stream: ollama_chat failed with code $error_code"
+        _error "ollama_chat_stream: ollama_chat_json failed with code $error_code"
         return 1
     fi
     printf '\n'
@@ -1423,8 +1424,8 @@ EOF
     _debug "ollama_chat_stream_json: model: [${model:0:120}]"
 
     OBL_STREAM=1
-    if ! ollama_chat -m "$model"; then
-        _error 'ollama_chat_stream_json: ollama_chat failed'
+    if ! ollama_chat_json -m "$model"; then
+        _error 'ollama_chat_stream_json: ollama_chat_json failed'
         OBL_STREAM=0
         return 1
     fi
@@ -1663,8 +1664,7 @@ EOF
         printf '%s\n' "$models" | shuf -n1
     else # If shuf is unavailable, fall back to awk's srand().
         # awk's built‑in random generator (more portable, but less uniform)
-        #printf '%s\n' "$models" | awk 'BEGIN{srand()} {a[NR]=$0} END{if(NR) print a[int(rand()*NR)+1]}'
-        printf '%s\n' "$models" | awk 'NR>0 {a[NR]=$0} END{if(NR) print a[int(1+rand()*NR)]}'
+        printf '%s\n' "$models" | awk 'BEGIN{srand()} {a[NR]=$0} END{if(NR>0) print a[int(rand()*NR)+1]}'
     fi
 }
 
