@@ -17,11 +17,7 @@ ollama_generate_stream -m "$(ollama_model_random)" -p "Why is the sky blue? Be c
 
 
 
-The sky is blue because of a phenomenon called **Rayleigh scattering**.  Sunlight is made of all colors. When sunlight enters the Earth's atmosphere, it bumps into air molecules. Blue light is scattered more than other colors, making the sky appear blue.
-
-
-
-
+ The sky appears blue due to a process called Rayleigh scattering, where shorter-wavelength light like blue light is scattered more by the molecules in Earth's atmosphere than longer wavelengths of light such as red. This scattered blue light is what we perceive as the blue color of the sky.
 
 ## ollama_chat_stream
 
@@ -31,4 +27,4 @@ ollama_messages_add -r "user" -c "Why is the ocean blue? Be concise."
 ollama_chat_stream -m "$(ollama_model_random)"
 ```
 
-TheoceanappearsblueduetoaprocesscalledRayleighscattering.Sunlight,especiallybluelight,scattersmoreinwatermolecules,gettingscatteredbacktowardsoureyes,makingtheoceanappearblue.
+TheoceanappearsblueduetoaprocesscalledRayleighscattering,whereshorterbluewavelengthsoflightarescatteredmorethanlongerredonesintheatmosphere.ThiscausesusonEarthtoseetheoceanasbluefromadistance.

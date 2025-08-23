@@ -13,10 +13,10 @@ model="$(ollama_model_random)"; echo "$model"
 model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-smollm2:1.7b
-qwen3:8b
-mistral:7b
+granite3.3:2b
+gemma3n:e2b
 hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
 granite3.3:2b
-hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
+qwen3:8b
+smollm2:1.7b
 ```

@@ -17,48 +17,43 @@ Output in Markdown format.
 "
 file="../README.md"
 ollama_thinking hide
-ollama_generate -m "granite3.3:2b" -p "$task\n\n$(cat "$file")"
+ollama_generate -m "hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS" -p "$task\n\n$(cat "$file")"
 ```
-# Ollama Bash Lib: A Fun and Useful Tool
+## Serious Descriptions
+- **Ollama Bash Lib:** A powerful library for running large language model (LLM) prompts directly from your shell. It leverages Ollama, allowing users to generate completions, manage chat sessions, and interact with different models seamlessly.
+- **Ollama Bash Lib:** This Bash library simplifies the process of utilizing LLM capabilities within the terminal environment. It supports various functions for generating content, maintaining chat sessions, and managing model interactions without needing to leave the shell.
 
-Ollama Bash Lib is a bash library designed to integrate seamlessly with the powerful Ollama platform, enabling you to run LLM prompts directly from your shell. With this tool, you can generate completions, engage in chat conversations, manage models, and much more – all within the comfort of your terminal.
+## Generally Funny Descriptions
+- **Ollama Bash Lib:** Because sometimes you just need to bash an AI into submission with your shell commands.
+- **Ollama Bash Lib:** If you've ever wanted to turn your terminal into a conversational playground, look no further. Ollama Bash Lib is here to make your chatbot more... interactive.
+- **Ollama Bash Lib:** The ultimate bashing tool for LLM enthusiasts. Why waste time with a mouse when you can type faster?
+- **Ollama Bash Lib:** Because who needs a GUI when you've got the power of terminal commands?
+- **Ollama Bash Lib:** When you need to get some serious "bash-bashing" done, Ollama has your back.
 
 ## Funny for Programmers
-
-"Ollama Bash Lib: Because 'cat' just wasn't enough!"
-
-This library takes command-line interaction to a whole new level. Instead of just listing files or navigating directories, you can now send prompts to Ollama models and receive insightful responses – all from the power of your familiar bash shell. It's like having a powerful AI assistant right at your fingertips!
+- **Ollama Bash Lib:** Finally, an excuse to write code that only works in the terminal. Because that's where the real action is.
+- **Ollama Bash Lib:** The perfect way to make your colleagues think you're a genius by running complex AI commands from the command line.
+- **Ollama Bash Lib:** For when your IDE feels too friendly and you need to remind yourself that programming can be hard... and rewarding.
+- **Ollama Bash Lib:** Because who needs a keyboard shortcut when you can type out an entire prompt and let the AI do all the work?
+- **Ollama Bash Lib:** The ultimate hacker tool for generating responses that only someone typing in the terminal could love.
 
 ## Funny for Sysadmins
-
-"Ollama Bash Lib: Say goodbye to cluttered desktops!"
-
-Tired of seeing multiple terminal windows open for different tools and applications? Ollama Bash Lib consolidates all those functionalities into a single, manageable bash script. You can now chat with your models, generate completions, and even check model statuses from one place – no more juggling multiple applications!
+- **Ollama Bash Lib:** Because running LLM prompts from a bash script is just what sysadmins live for.
+- **Ollama Bash Lib:** When you need to automate an AI chat and your server can't handle more scripts, this lib has got your back.
+- **Ollama Bash Lib:** The perfect tool for when you realize that you've spent too much time in the terminal and need a break... by using the terminal more!
+- **Ollama Bash Lib:** Because sometimes, the best way to interact with AI is from behind the command line.
+- **Ollama Bash Lib:** For sysadmins who think their scripts are poetry, but need a little help from an LLM friend.
 
 ## Funny for DevOps
+- **Ollama Bash Lib:** The perfect tool for when you want your CI/CD pipeline to have a conversation with itself.
+- **Ollama Bash Lib:** Because sometimes, the only way to debug a deployment is to ask an AI what's wrong... and then fix it.
+- **Ollama Bash Lib:** For devops who think their bash scripts are like symphonic compositions, and Ollama Bash Lib is just the orchestra they need.
+- **Ollama Bash Lib:** The ultimate automation tool for when you want your infrastructure to self-diagnose its problems... in real-time.
+- **Ollama Bash Lib:** Because why settle for human error when you can have AI-generated errors instead?
 
-"Ollama Bash Lib: DevOps, streamlined!"
-
-DevOps engineers know the importance of efficiency. Ollama Bash Lib empowers you to automate tasks and workflows without leaving your terminal. Now, you can seamlessly integrate Ollama models into your continuous integration/continuous deployment (CI/CD) pipelines or deploy automated tests directly from bash scripts. Say bye-bye to tedious manual processes!
-
-## Just Crazy
-
-"Ollama Bash Lib: Where terminal meets the future!"
-
-Imagine if your shell could not only process commands but also engage in thoughtful conversations with AI models. Ollama Bash Lib takes that absurd notion and turns it into a reality! It's like having a digital brain buddy, ready to help you tackle any complexity or bizarre requests thrown its way – all wrapped up in the charm of your familiar bash environment.
-
-## Serious Descriptions
-
-Ollama Bash Lib serves as an essential bridge between Ollama and the traditional command-line interface, offering a powerful set of functions for managing LLMs directly from your shell. This library allows users to:
-
-1. **Run Prompt Generation**: Use `ollama_generate` or `ollama_generate_stream` to create interactive prompts with models, generating both text and JSON outputs as per requirements.
-   
-2. **Chat Management**: Leverage `ollama_chat`, `ollama_messages_add`, and other chat-related functions to engage in conversations with AI models. Send messages and receive responses seamlessly, enhancing collaboration and automation potential.
-
-3. **Model Administration**: Manage Ollama model listings, details, and status updates using `ollama_list`, `ollama_show`, `ollama_lib_about`, and `ollama_lib_version`. These functions offer a convenient way to keep track of your models' health and performance.
-
-4. **Extensive Function Library**: Boasting an extensive range of functions, Ollama Bash Lib includes tools for prompt generation, chat functionalities, model management, information retrieval, and more – all designed for ease of use within the bash environment.
-
-For comprehensive guides on installation, usage, and detailed function references, refer to [Documentation](docs/README.md). Dive into demos like [interactive.chat.sh](demos/interactive.chat.sh) or [prompt.all.models.md](demos/prompt.all.models.md) to witness its capabilities first-hand.
-
-Ollama Bash Lib, with its blend of functionality and ease-of-use, is an invaluable asset for developers, system administrators, DevOps professionals, and anyone looking to leverage the power of Ollama within their terminal environment.
+## Just Crazy Descriptions
+- **Ollama Bash Lib:** A library so powerful, it will make your terminal believe in the power of AI.
+- **Ollama Bash Lib:** When your LLM needs a friend to talk to, Ollama Bash Lib is there for you (and your terminal).
+- **Ollama Bash Lib:** The ultimate way to turn your command line into a conversation starter... or maybe just an overthinking chatbot.
+- **Ollama Bash Lib:** For when you want your AI to feel like it's really part of the team, and not just a piece of code.
+- **Ollama Bash Lib:** Because sometimes, the best way to make your terminal do something is to give it AI powers.

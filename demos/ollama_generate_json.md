@@ -4,55 +4,90 @@ A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ol
 
 ## Setup
 
-OLLAMA_HOST: 
+OLLAMA_HOST: http://localhost:11434
 OBL_API: http://localhost:11434
 
 
 ## Demo
 
 ```bash
-ollama_generate_json -m "gemma3n:e2b" -p "Describe a rabbit in 3 words"
+ollama_generate_json -m "granite3.3:2b" -p "Describe a rabbit in 3 words"
 ```
 ```json
 {
-  "model": "gemma3n:e2b",
-  "created_at": "2025-08-23T13:32:42.2608687Z",
-  "response": "Cute, fluffy, quick. \n",
+  "model": "granite3.3:2b",
+  "created_at": "2025-08-23T17:56:18.8180891Z",
+  "response": "Fast, Fluffy, Burrowing.",
   "done": true,
   "done_reason": "stop",
   "context": [
-    105,
-    2364,
-    107,
-    82858,
+    49152,
+    2946,
+    49153,
+    39558,
+    390,
+    17071,
+    2821,
+    44,
+    30468,
+    225,
+    36,
+    34,
+    36,
+    38,
+    32,
+    203,
+    4282,
+    884,
+    8080,
+    278,
+    659,
+    30,
+    18909,
+    810,
+    25697,
+    32,
+    2448,
+    884,
+    312,
+    17247,
+    19551,
+    47330,
+    32,
+    0,
+    203,
+    49152,
     496,
-    27973,
-    528,
-    236743,
-    236800,
-    4171,
-    106,
+    49153,
+    8591,
+    312,
+    40810,
+    328,
+    225,
+    37,
+    8153,
+    0,
+    203,
+    49152,
+    17594,
+    49153,
+    12200,
+    30,
+    5449,
+    2966,
     107,
-    105,
-    4368,
-    107,
-    55973,
-    236764,
-    7745,
-    236760,
-    35411,
-    236764,
-    3823,
-    236761,
-    236743,
-    107
+    30,
+    34630,
+    643,
+    299,
+    32
   ],
-  "total_duration": 4646174500,
-  "load_duration": 4275268700,
-  "prompt_eval_count": 16,
-  "prompt_eval_duration": 221857900,
-  "eval_count": 9,
-  "eval_duration": 146994200
+  "total_duration": 1203194400,
+  "load_duration": 985779500,
+  "prompt_eval_count": 50,
+  "prompt_eval_duration": 117790400,
+  "eval_count": 11,
+  "eval_duration": 97787200
 }
 
 ```
@@ -60,57 +95,92 @@ ollama_generate_json -m "gemma3n:e2b" -p "Describe a rabbit in 3 words"
 ## Demo Debug
 
 ```bash
-OBL_DEBUG=1 ollama_generate_json -m "gemma3n:e2b" -p "Describe a rabbit in 3 words"
+OBL_DEBUG=1 ollama_generate_json -m "granite3.3:2b" -p "Describe a rabbit in 3 words"
 ```
 ```json
-[DEBUG] 15:32:42:326972100: ollama_generate_json: [gemma3n:e2b] [Describe a rabbit in 3 words]
-[DEBUG] 15:32:42:375982400: ollama_generate_json: json_payload: {"model":"gemma3n:e2b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 15:32:42:422972900: ollama_api_post: [/api/generate] {"model":"gemma3n:e2b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 15:32:42:446332400: _call_curl: [POST] [/api/generate] {"model":"gemma3n:e2b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 15:32:42:487397500: _call_curl: OBL_API: http://localhost:11434
-[DEBUG] 15:32:42:515520300: _call_curl: json_body: {"model":"gemma3n:e2b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
-[DEBUG] 15:32:42:542426000: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w HTTP_CODE_DELIMITER%{http_code} -X POST http://localhost:11434/api/generate -d @-
-[DEBUG] 15:32:43:073363100: ollama_api_post: success
-[DEBUG] 15:32:43:095487700: ollama_generate_json: success
+[DEBUG] 19:56:18:890341100: ollama_generate_json: [granite3.3:2b] [Describe a rabbit in 3 words]
+[DEBUG] 19:56:18:941769400: ollama_generate_json: json_payload: {"model":"granite3.3:2b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 19:56:18:980143500: ollama_api_post: [/api/generate] {"model":"granite3.3:2b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 19:56:19:000915400: _call_curl: [POST] [/api/generate] {"model":"granite3.3:2b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 19:56:19:045773400: _call_curl: OBL_API: http://localhost:11434
+[DEBUG] 19:56:19:068263600: _call_curl: json_body: {"model":"granite3.3:2b","prompt":"Describe a rabbit in 3 words","stream":false,"thinking":false}
+[DEBUG] 19:56:19:089336900: _call_curl: piping json_body | curl -s -N --max-time 300 -H Content-Type: application/json -w HTTP_CODE_DELIMITER%{http_code} -X POST http://localhost:11434/api/generate -d @-
+[DEBUG] 19:56:19:479428700: ollama_api_post: success
+[DEBUG] 19:56:19:506919200: ollama_generate_json: success
 {
-  "model": "gemma3n:e2b",
-  "created_at": "2025-08-23T13:32:43.0422504Z",
-  "response": "Cute, fluffy, hopping. \n",
+  "model": "granite3.3:2b",
+  "created_at": "2025-08-23T17:56:19.4470972Z",
+  "response": "Fast, Furious, Breeding.",
   "done": true,
   "done_reason": "stop",
   "context": [
-    105,
-    2364,
-    107,
-    82858,
+    49152,
+    2946,
+    49153,
+    39558,
+    390,
+    17071,
+    2821,
+    44,
+    30468,
+    225,
+    36,
+    34,
+    36,
+    38,
+    32,
+    203,
+    4282,
+    884,
+    8080,
+    278,
+    659,
+    30,
+    18909,
+    810,
+    25697,
+    32,
+    2448,
+    884,
+    312,
+    17247,
+    19551,
+    47330,
+    32,
+    0,
+    203,
+    49152,
     496,
-    27973,
-    528,
-    236743,
-    236800,
-    4171,
-    106,
-    107,
-    105,
-    4368,
-    107,
-    55973,
-    236764,
-    7745,
-    236760,
-    35411,
-    236764,
-    85834,
-    236761,
-    236743,
-    107
+    49153,
+    8591,
+    312,
+    40810,
+    328,
+    225,
+    37,
+    8153,
+    0,
+    203,
+    49152,
+    17594,
+    49153,
+    12200,
+    30,
+    506,
+    305,
+    2406,
+    30,
+    551,
+    18749,
+    299,
+    32
   ],
-  "total_duration": 233288600,
-  "load_duration": 104823100,
-  "prompt_eval_count": 16,
-  "prompt_eval_duration": 16844400,
-  "eval_count": 9,
-  "eval_duration": 111100900
+  "total_duration": 123293000,
+  "load_duration": 14684500,
+  "prompt_eval_count": 50,
+  "prompt_eval_duration": 1085800,
+  "eval_count": 11,
+  "eval_duration": 107522700
 }
 
 ```

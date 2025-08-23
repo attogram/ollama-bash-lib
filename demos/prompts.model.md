@@ -2,7 +2,7 @@
 
 A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.8
 
-model: granite3.3:2b
+model: mistral:7b
 
 prompts:
 * [My hovercraft is full of eels](#my-hovercraft-is-full-of-eels)
@@ -19,102 +19,110 @@ prompts:
 
 ## My hovercraft is full of eels
 
-This phrase is a famous line from the Monty Python comedy skit "The Meaning of Life". It's meant to be nonsensical and humorous, not a literal statement. So, your hovercraft doesn't actually have eels in it. Enjoy the absurdity!
+ That's a line from the novel "Hitchhiker's Guide to the Galaxy" by Douglas Adams. It's one of the book's many humorous and nonsensical phrases, indicating that the hovercraft in question is overcrowded. How can I assist you today?
+
+In case you didn't know, the novel "Hitchhiker's Guide to the Galaxy" is a science fiction comedy series created by British author Douglas Adams. It follows the misadventures of a human named Arthur Dent as he travels through space after Earth is destroyed to make way for an intergalactic bypass. The book is known for its humor, satire, and absurdity, making it a beloved classic in science fiction literature.
+
+If you're interested in learning more about the book or want recommendations on similar works, feel free to ask!
 
 ## Explain the theory of relativity in very simple terms.
 
-The Theory of Relativity is a scientific concept proposed by Albert Einstein. It's divided into two parts: Special Relativity and General Relativity.
+ The Theory of Relativity is a set of principles proposed by Albert Einstein that describe how gravity and time-space are connected. Here's a simplified explanation:
 
-1. Special Relativity (1905): This part states that the laws of physics are the same for all observers moving at constant speeds relative to each other. An important consequence is that time and space are not absolute but relative, depending on an observer's frame of reference. For example, a clock moving past you will appear to tick slower than your own clock.
+1. Special Relativity (1905): This part of the theory deals with objects moving at constant speeds, such as in a vacuum without any gravitational forces. It states that:
+   - The laws of physics are the same for all observers moving at constant speeds relative to each other (Principle of Relativity).
+   - The speed of light (approximately 299,792 kilometers per second) is always the same no matter how fast an observer is moving or from what direction the light comes. This means that as you approach the speed of light, time slows down for you compared to a stationary observer, and lengths contract in your direction of motion.
 
-2. General Relativity (1915): This is an extension of Special Relativity. It says that massive objects cause a distortion in space-time, which we perceive as gravity. So instead of thinking of gravity as a force pulling objects together, imagine it as them following the curves created by large masses in space-time.
+2. General Relativity (1915): This part of the theory deals with gravity. It proposes that:
+   - Gravity is not a force acting between two objects, but rather a curvature of space-time caused by mass and energy. Objects move along the curved paths because they follow the straightest possible path through this curved space-time (these paths are called geodesics).
+   - The more massive an object is, the more it warps space-time around itself, causing stronger gravitational effects. This is how planets orbit the sun without falling directly into it.
 
-In simpler terms, imagine you're on a bus moving at a constant speed (Special Relativity). If someone outside the bus throws a ball straight up, it would still come down in your hands due to gravity (General Relativity). But if the bus were accelerating or decelerating, the ball's path would appear different - this is because motion affects our perception of time and space.
+In simple terms, Einstein's Theory of Relativity tells us that time and space are connected in a way we never thought possible, and that our perception of these concepts can change depending on how fast we move or how much mass we have around us.
 
 ## Invent a new holiday and describe how people celebrate it.
 
-Holiday Name: Harvestia - The Festival of Abundance
+ Holiday Name: Stellar Harmony Day
 
-Harvestia is a newly invented holiday celebrated in the third quarter, specifically during the period when most harvests have been reaped worldwide. It falls on the first Sunday after the Autumnal Equinox, marking the peak of the harvest season across various regions. The primary objective of Harvestia is to celebrate the Earth's bounty, express gratitude for a fruitful harvest, and renew community bonds through communal meals and festivities.
+Stellar Harmony Day is a newly invented global holiday that aims to promote unity, peace, and cooperation among all nations and peoples on Earth. It is celebrated annually on the first Saturday of August.
 
-Celebration Details:
+Origins: The idea for Stellar Harmony Day was conceived by renowned astrophysicist Dr. Ada Lovelace in 2045 as part of her vision to unite humanity under a common goal - understanding and preserving our planetary home, Earth, amidst the vast cosmos.
 
-1. Gratitude Ceremonies: Communities organize gatherings in local parks or common areas where people come together to express their gratitude for the Earth's abundant harvest. These ceremonies involve personal reflections on what they have been provided and commitments to sustainable living moving forward.
+Celebration: Stellar Harmony Day is celebrated with various events and activities designed to bring people together, promote peace, and foster a sense of global community. Here are some ways people celebrate Stellar Harmony Day:
 
-2. Communal Feasts: A central aspect of Harvestia is the preparation and sharing of a grand feast, featuring local and seasonal ingredients representing the best of each region's harvest. This meal symbolizes unity, equality, and celebration of diverse cultural contributions to global food production.
+1. Global Collaborative Projects: On Stellar Harmony Day, individuals, organizations, and nations come together to work on collaborative projects aimed at addressing pressing global challenges such as climate change, poverty, and education inequality. These projects could involve research, innovation, or humanitarian efforts.
 
-3. Artistic Expressions: Handcrafted decorations, including nature-inspired art pieces using harvested materials, adorn public spaces. These creations serve as visual reminders of the Earth's nurturing power and human appreciation for its gifts.
+2. Cultural Exchange Programs: As part of the celebrations, people organize cultural exchange events showcasing their unique traditions, arts, music, food, and customs to foster understanding and appreciation for diversity among different cultures.
 
-4. Storytelling Sessions: Elder storytellers gather to share tales passed down through generations about agricultural practices, harvest-related legends, and historical significance tied to Harvestia celebrations. These narratives foster cultural continuity and appreciation for traditional wisdom.
+3. Astronomy-themed Events: Given its name, Stellar Harmony Day encourages people to look up at the stars and ponder our place in the universe. Observatories worldwide host public events such as star gazing nights, educational talks on space exploration, and interactive workshops for children.
 
-5. Charitable Acts: Many communities organize charity drives during Harvestia to support those experiencing food insecurity or facing challenges due to seasonal unemployment related to agriculture. Donations of locally grown produce, handmade crafts, and financial contributions are encouraged.
+4. Peaceful Gatherings: Communities around the world gather peacefully in parks, town squares, or online platforms to share messages of unity, peace, and cooperation. These gatherings often involve performances, speeches, and group activities that promote positive vibes and encourage participants to reflect on their role in creating a more harmonious world.
 
-6. Education Initiatives: Educational programs take place in schools and community centers to teach children about the importance of sustainable farming practices, local food systems, and global interconnectedness through agriculture.
+5. Social Media Campaigns: People use social media platforms to participate in Stellar Harmony Day campaigns, sharing images of the night sky, personal stories about overcoming differences, or messages advocating for peace and unity. Hashtags such as #StellarHarmonyDay are used to facilitate connections and discussions across borders.
 
-7. Music and Dance Performances: Cultural events showcasing traditional songs and dances tied to Harvestia celebrations foster a sense of shared identity and cultural pride. These performances often incorporate instruments made from natural materials, emphasizing harmony with nature.
+6. Space-themed Decorations: Homes, offices, and public spaces are decorated with space-inspired themes during Stellar Harmony Day to celebrate our cosmic connection. Balloons, banners, and lighting displays feature stars, planets, and other celestial bodies as a reminder of the shared universe we all inhabit.
 
-8. Eco-Friendly Practices: Harvestia serves as an opportunity for communities to implement eco-friendly initiatives, such as tree planting, composting workshops, and beekeeping demonstrations, promoting environmental stewardship and sustainable living.
+7. Stellar Harmony Awards: Governments, organizations, and individuals who have made significant contributions towards peace, unity, and global cooperation during the previous year are recognized with the Stellar Harmony Award. These awards serve as a source of inspiration for others to follow in their footsteps.
 
-In essence, Harvestia is a holiday that encourages gratitude, unity, and celebration of Earth's bounty while fostering personal growth, community bonding, and ecological responsibility – making it an ideal addition to the calendar for those seeking to honor nature's generosity.
+By celebrating Stellar Harmony Day, people come together to reaffirm our shared values of peace, understanding, and unity in the face of global challenges. The holiday encourages individuals and nations alike to work collaboratively towards creating a more harmonious world, both on Earth and beyond.
 
 ## If a train travels at 60 miles per hour for 3 hours, how far does it go?
 
-The distance traveled can be calculated using the formula: Distance = Speed × Time. Here, the speed of the train is 60 miles per hour, and it travels for 3 hours. So, Distance = 60 mph × 3 hours = 180 miles. The train goes 180 miles.
+ To find the distance traveled by the train, we can use the formula:
+
+Distance = Speed * Time
+
+In this case, the speed of the train is 60 miles per hour and the time travelled is 3 hours. So,
+
+Distance = 60 miles/hour * 3 hours = 180 miles
+
+Therefore, the train travels a distance of 180 miles in 3 hours.
 
 ## Translate to French: 'The weather is nice today.'
 
-'Le temps est beau aujourd'hui.'
+ Le temps est beau aujourd'hui.
 
 ## Is the following review positive or negative? 'I loved the movie, it was fantastic!'
 
-The review is positive. The user expresses admiration and enjoyment for the movie with exclamations such as "loved" and "fantastic," indicating a favorable opinion of the film.
+ The review is positive. The user expresses appreciation for the movie using the words "loved" and "fantastic," indicating a favorable opinion.
 
 ## If all cats are animals and some animals are playful, can we say some cats are playful?
 
-Yes, based on the given premises, we can indeed conclude that some cats are playful. This is because if all cats are animals (a fact) and some animals are playful (another fact), it logically follows that some cats, being a subset of animals, must also be playful.
+ Yes, you can say that some cats are playful. Since all cats are animals and some animals are playful, it logically follows that some of those animals (cats) are playful.
 
 ## Write a Bash function that returns the sum of a list of numbers.
 
-Here is a simple Bash function that takes a list of numbers separated by spaces as input and returns their sum:
+ You can create a Bash function named `sum_list` to calculate the sum of a list of numbers. Here's an example using IFS (Internal Field Separator) and read:
 
 ```bash
-sum_numbers() {
-  # Remove any trailing newline from stdin
-  local nums=("$@")
-
-  # Calculate the sum using a loop
-  local sum=0
-  for num in "${nums[@]}"; do
-    ((sum += num))
+sum_list() {
+  local total=0
+  IFS=' ' read -ra num_array <<< "$1"
+  for number in "${num_array[@]}"; do
+    total=$((total + number))
   done
-
-  echo $sum
+  echo $total
 }
 ```
 
-You can use this function like this:
+To use the function, simply pass a list of numbers as an argument:
 
 ```bash
-echo "1 2 3 4 5" | sum_numbers
-# Output: 15
+$ sum_list "1 2 3 4 5"
+15
 ```
 
-Note that Bash functions can accept multiple arguments using the `@` symbol, which creates an array from the arguments passed to the function. The `for` loop then iterates over this array and calculates the sum of its elements.
+In this example, the `sum_list` function takes a single argument (the list of numbers), splits it using space delimiters, stores each number in an array, and calculates the total sum.
 
 ## If you drop a glass on the floor, what is most likely to happen?
 
-When you drop a glass on the floor, it's most likely to shatter due to the sudden impact and potential for uneven surface. However, the outcome can depend on factors like the glass's condition, the dropping point, and whether it lands on a hard or soft surface.
+ When a glass is dropped onto a hard surface like a floor, it's most likely to shatter or break due to the sudden impact and force exerted on it. However, the exact outcome can depend on various factors such as the material of the glass (thicker or more durable glasses may not shatter easily), the height from which it was dropped, the surface it lands on (softer surfaces might reduce the chance of it breaking), and if any other objects are present to cushion the fall.
 
 ## A rectangle has a length of 10 meters and a width of 4 meters. What is its area?
 
-The area of a rectangle can be calculated by multiplying its length by its width. In this case, the length is 10 meters and the width is 4 meters. So, the area would be:
+ The area of a rectangle can be calculated using the formula Area = Length * Width. In this case, the length is 10 meters and the width is 4 meters. So, the area would be:
 
-Area = Length × Width
-        = 10 m × 4 m
-        = 40 square meters
-
-Therefore, the area of the rectangle is 40 square meters.
+Area = Length * Width = 10 * 4 = 40 square meters.
 
 ## What is the largest ocean on Earth?
 
-The largest ocean on Earth is the Pacific Ocean. It covers an area of about 63 million square miles (163 million square kilometers), making up approximately 41% of the Earth's surface.
+ The Pacific Ocean is the largest ocean on Earth. It covers an area of approximately 63,800,000 square miles (165,200,000 square kilometers). It's larger than all other oceanic bodies combined and contains more water than all of Earth's land areas put together. The Pacific Ocean also includes the smallest continent, Australia, as well as numerous islands, including New Guinea, Japan, and many parts of Southeast Asia.
