@@ -27,9 +27,9 @@ OBL_DEBUG=1 ollama_generate_stream_json -m "" -p "Describe a rabbit in 3 words"
 
 ```
 ```json
-[DEBUG] 08:56:32:727784230: _is_valid_model: Model name empty: getting random model
+[DEBUG] 09:20:00:378266058: _is_valid_model: Model name empty: getting random model
 [ERROR] ollama_model_random: ollama is not installed
-[DEBUG] 08:56:32:740385750: _is_valid_model: Model Not Found: ollama_model_random failed
+[DEBUG] 09:20:00:390400325: _is_valid_model: Model Not Found: ollama_model_random failed
 Error: -m <model> is required
 
 Usage: ollama_generate_stream_json -m <model> [-p <prompt>] [-h] [-v]

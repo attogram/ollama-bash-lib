@@ -57,45 +57,24 @@ ollama_messages_clear version 0.46.3
 ollama_messages_count version 0.46.3
 ```
 
-./function.versions.sh: line 62: ollama_tools_add: command not found
-## `ollama_tools_add -v`
+## `ollama_messages_last -v`
+```
+ollama_messages_last version 0.46.3
 ```
 
+## `ollama_messages_last_json -v`
 ```
-
-./function.versions.sh: line 62: ollama_tools: command not found
-## `ollama_tools -v`
-```
-
-```
-
-./function.versions.sh: line 62: ollama_tools_count: command not found
-## `ollama_tools_count -v`
-```
-
-```
-
-./function.versions.sh: line 62: ollama_tools_clear: command not found
-## `ollama_tools_clear -v`
-```
-
-```
-
-./function.versions.sh: line 62: ollama_tools_is_call: command not found
-## `ollama_tools_is_call -v`
-```
-
-```
-
-./function.versions.sh: line 62: ollama_tools_run: command not found
-## `ollama_tools_run -v`
-```
-
+ollama_messages_last_json version 0.46.3
 ```
 
 ## `ollama_chat -v`
 ```
 ollama_chat version 0.46.3
+```
+
+## `ollama_chat_json -v`
+```
+ollama_chat_json version 0.46.3
 ```
 
 ## `ollama_chat_stream -v`

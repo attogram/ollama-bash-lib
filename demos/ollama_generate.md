@@ -27,12 +27,12 @@ Usage: ollama_generate -m <model> [-p <prompt>] [-h] [-v]
 OBL_DEBUG=1 ollama_generate -m "$model" -p "$prompt"
 ```
 ```
-[DEBUG] 08:56:32:453675433: ollama_generate: [-m] [] [-p] [Describe a rabbit in 3 words]
-[DEBUG] 08:56:32:460585286: ollama_generate: init: model: [] prompt: []
-[DEBUG] 08:56:32:464624490: ollama_generate: while getopts: OPTARG: [] opt: [m]
-[DEBUG] 08:56:32:468640145: ollama_generate: while getopts: OPTARG: [Describe a rabbit in 3 words] opt: [p]
-[DEBUG] 08:56:32:472894514: ollama_generate: final: model: [] prompt: [Describe a rabbit in 3 words]
-[DEBUG] 08:56:32:477071622: ollama_generate: checking: model: []
+[DEBUG] 09:20:00:100747999: ollama_generate: [-m] [] [-p] [Describe a rabbit in 3 words]
+[DEBUG] 09:20:00:107865338: ollama_generate: init: model: [] prompt: []
+[DEBUG] 09:20:00:111836228: ollama_generate: while getopts: OPTARG: [] opt: [m]
+[DEBUG] 09:20:00:115975905: ollama_generate: while getopts: OPTARG: [Describe a rabbit in 3 words] opt: [p]
+[DEBUG] 09:20:00:120008900: ollama_generate: final: model: [] prompt: [Describe a rabbit in 3 words]
+[DEBUG] 09:20:00:124161118: ollama_generate: checking: model: []
 [ERROR] ollama_model_random: ollama is not installed
 Error: -m <model> is required
 

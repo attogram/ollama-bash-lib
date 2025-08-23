@@ -1,1 +1,0 @@
--bash: ./messages.sh: No such file or directory

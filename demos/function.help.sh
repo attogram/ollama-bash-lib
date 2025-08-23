@@ -27,13 +27,10 @@ functions=(
   ollama_messages_add
   ollama_messages_clear
   ollama_messages_count
-  ollama_tools_add
-  ollama_tools
-  ollama_tools_count
-  ollama_tools_clear
-  ollama_tools_is_call
-  ollama_tools_run
+  ollama_messages_last
+  ollama_messages_last_json
   ollama_chat
+  ollama_chat_json
   ollama_chat_stream
   ollama_chat_stream_json
   ollama_list

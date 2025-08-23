@@ -31,6 +31,8 @@ This file contains a full list of all functions available in the Ollama Bash Lib
 | [`ollama_messages_add`](ollama_messages_add.md)<br />`oma`      | Add a message to chat context      | `ollama_messages_add -r "role" -c "message"` | none                                        | `0`/`1` |
 | [`ollama_messages_count`](ollama_messages_count.md)<br />`omco`   | Count of messages in chat context  | `ollama_messages_count`                | number of messages to `stdout`              | `0`/`1` |
 | [`ollama_messages_clear`](ollama_messages_clear.md)<br />`omc`    | Clear all messages in chat context | `ollama_messages_clear`                | none                                        | `0`/`1` |
+| [`ollama_messages_last`](ollama_messages_last.md) | Get content of the last message as a string | `ollama_messages_last` | string to `stdout` | `0`/`1` |
+| [`ollama_messages_last_json`](ollama_messages_last_json.md) | Get the last message as JSON | `ollama_messages_last_json` | json to `stdout` | `0`/`1` |
 
 
 ## Model Functions

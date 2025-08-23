@@ -18,7 +18,7 @@ Many functions in Ollama Bash Lib have shorter aliases for convenience.
 | [`ollama_messages`](./ollama_messages.md) | `om` |
 | [`ollama_messages_add`](./ollama_messages_add.md) | `oma` |
 | [`ollama_messages_count`](./ollama_messages_count.md) | `omco` |
-| [`ollama_messages_clear`](./ollama_messages_clear.md) | `omc` |
+| [`ollama_messages_clear`](./ollama_messages_clear.md) | `omclear` |
 | [`ollama_model_random`](./ollama_model_random.md) | `omr` |
 | [`ollama_model_unload`](./ollama_model_unload.md) | `omu` |
 | [`ollama_show`](./ollama_show.md) | `os` |
