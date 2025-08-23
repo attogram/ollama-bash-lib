@@ -28,7 +28,5 @@ This directory contains demos of the Ollama Bash Lib.
 | [_is_valid_json.md](_is_valid_json.md)                           | Is a string valid json? with `_is_valid_json`                                                                                  | [_is_valid_json.sh](_is_valid_json.sh)                           |
 | [_is_valid_model.md](_is_valid_model.md)                         | Is a string a valid model name? with `_is_valid_model`                                                                         | [_is_valid_model.sh](_is_valid_model.sh)                         |
 | [ollama_app_vars.md](ollama_app_vars.md)                         | Ollama environmental variables with `ollama_app_vars`                                                     | [ollama_app_vars.sh](ollama_app_vars.sh)                         |
-| [interactive.chat.sh](interactive.chat.sh)                       | Interactive Chat completion (with message history)                                                                             | [interactive.chat.sh](interactive.chat.sh)                       |
-| [interactive.generate.sh](interactive.generate.sh)               | Interactive Generate completion (no message history)                                                                           | [interactive.generate.sh](interactive.generate.sh)               |
 
 To run all demos and save output to Markdown files: [run.demos.sh](run.demos.sh)
