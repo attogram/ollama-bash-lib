@@ -8,14 +8,14 @@ Run LLM prompts straight from your shell, and more
 
 [▶️ Get Started in 30 seconds](#quickstart) • [💬 Join Discord][discord-invite]
 
-![Release](https://img.shields.io/github/v/release/attogram/ollama-bash-lib?style=flat)
-![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)
+[![Release](https://img.shields.io/github/v/release/attogram/ollama-bash-lib?style=flat)](https://github.com/attogram/ollama-bash-lib/releases)
+[![License](https://img.shields.io/github/license/attogram/ollama-bash-lib?style=flat)](./LICENSE)
 ![Bash ≥3.2](https://img.shields.io/badge/bash-%3E=3.2-blue?style=flat)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/t/attogram/ollama-bash-lib?style=flat)
-![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat)
-![GitHub watchers](https://img.shields.io/github/watchers/attogram/ollama-bash-lib?style=flat)
-![Forks](https://img.shields.io/github/forks/attogram/ollama-bash-lib?style=flat)
-![Issues](https://img.shields.io/github/issues/attogram/ollama-bash-lib?style=flat)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/t/attogram/ollama-bash-lib?style=flat)](https://github.com/attogram/ollama-bash-lib/commits/main/)
+[![GitHub stars](https://img.shields.io/github/stars/attogram/ollama-bash-lib?style=flat)](https://github.com/attogram/ollama-bash-lib/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/attogram/ollama-bash-lib?style=flat)](https://github.com/attogram/ollama-bash-lib/watchers)
+[![Forks](https://img.shields.io/github/forks/attogram/ollama-bash-lib?style=flat)](https://github.com/attogram/ollama-bash-lib/forks)
+[![Issues](https://img.shields.io/github/issues/attogram/ollama-bash-lib?style=flat)](https://github.com/attogram/ollama-bash-lib/issues)
 
 [Quickstart](#quickstart) -
 [Usage](#usage) -
