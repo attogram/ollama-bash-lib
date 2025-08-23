@@ -1,20 +1,34 @@
---- Testing ollama_generate_stream with thinking ON ---
-[ERROR] ollama_generate_stream: No prompt supplied
-Usage: ollama_generate_stream -m <model> [-p <prompt>] [-h] [-v]
+# Test for streaming with thinking enabled
 
---- Testing ollama_chat_stream with thinking ON ---
-Error: Missing required arguments
+## Turn on thinking
 
-Usage: ollama_messages_add -r <role> -c <content> [-h] [-v]
-#### <thinking>
-#### [ERROR] _ollama_chat_payload: Message history is empty
-[ERROR] _call_curl: HTTP error 502: {"error": "upstream error"}
-[ERROR] ollama_api_post: curl error: 1
-[ERROR] _ollama_chat_stream_false: ollama_api_post failed
-[ERROR] ollama_messages_last_json: Message History is empty: count: [0]
-[ERROR] ollama_messages_last: error getting message content: 1
-[ERROR] ollama_chat: ollama_chat_json response empty
+```
+ollama_thinking on
+ollama_thinking
+```
 
-#### </thinking>
+thinking is on
 
-[ERROR] ollama_chat_stream: ollama_chat failed with code 1
+## ollama_generate_stream
+
+```
+ollama_generate_stream -m "$(ollama_model_random)" -p "Why is the sky blue? Be concise."
+```
+
+
+
+The sky is blue because of a phenomenon called **Rayleigh scattering**.  Sunlight is made of all colors. When sunlight enters the Earth's atmosphere, it bumps into air molecules. Blue light is scattered more than other colors, making the sky appear blue.
+
+
+
+
+
+## ollama_chat_stream
+
+```
+ollama_messages_clear
+ollama_messages_add -r "user" -c "Why is the ocean blue? Be concise."
+ollama_chat_stream -m "$(ollama_model_random)"
+```
+
+TheoceanappearsblueduetoaprocesscalledRayleighscattering.Sunlight,especiallybluelight,scattersmoreinwatermolecules,gettingscatteredbacktowardsoureyes,makingtheoceanappearblue.

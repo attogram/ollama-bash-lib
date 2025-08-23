@@ -9,7 +9,7 @@ startup() {
   source "$ollama_bash_lib"
   if ! ollama_app_installed; then echo 'ERROR: Ollama Not Installed'; fi;
   if ! ollama_api_ping; then echo 'ERROR: Ollama API not reachable'; fi
-  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+  echo; echo "A [demo](../README.md#demos) of [$OBL_NAME]($OBL_URL) v$OBL_VERSION"
 }
 
 startup
@@ -32,9 +32,9 @@ echo
 echo '## Demo Debug'
 echo
 echo '```bash'
-echo "OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json -m \"$model\" -p \"$prompt\""
+echo "OBL_DEBUG=1 ollama_generate_stream_json -m \"$model\" -p \"$prompt\""
 echo
 echo '```'
 echo '```json'
-OLLAMA_LIB_DEBUG=1 ollama_generate_stream_json -m "$model" -p "$prompt" | jq
+OBL_DEBUG=1 ollama_generate_stream_json -m "$model" -p "$prompt" | jq
 echo '```'

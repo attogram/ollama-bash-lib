@@ -9,7 +9,7 @@ startup() {
   source "$ollama_bash_lib"
   if ! ollama_app_installed; then echo 'ERROR: Ollama Not Installed'; fi;
   if ! ollama_api_ping; then echo 'ERROR: Ollama API not reachable'; fi
-  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+  echo; echo "A [demo](../README.md#demos) of [$OBL_NAME]($OBL_URL) v$OBL_VERSION"
 }
 
 startup
@@ -17,14 +17,22 @@ startup
 demo() {
   local debug="$1"
   echo '```bash'
-  if [[ "$debug" -gt 0 ]]; then echo 'OLLAMA_LIB_DEBUG=1'; fi
+  if [[ "$debug" -gt 0 ]]; then echo 'OBL_DEBUG=1'; fi
+  echo 'ollama_model_random'
+  echo 'ollama_model_random'
   echo 'ollama_model_random'
   # shellcheck disable=SC2016
   echo 'model="$(ollama_model_random)"; echo "$model"'
+  echo 'model="$(ollama_model_random)"; echo "$model"'
+  echo 'model="$(ollama_model_random)"; echo "$model"'
   echo '```'
   echo '```'
-  if [[ "$debug" -gt 0 ]]; then OLLAMA_LIB_DEBUG=1; fi
+  if [[ "$debug" -gt 0 ]]; then OBL_DEBUG=1; fi
   ollama_model_random
+  ollama_model_random
+  ollama_model_random
+  model="$(ollama_model_random)"; echo "$model"
+  model="$(ollama_model_random)"; echo "$model"
   model="$(ollama_model_random)"; echo "$model"
   echo '```'
 }
@@ -32,5 +40,5 @@ demo() {
 echo; echo '## Demo'; echo
 demo
 
-echo; echo '## Demo Debug'; echo
-demo 1
+# echo; echo '## Demo Debug'; echo
+# demo 1

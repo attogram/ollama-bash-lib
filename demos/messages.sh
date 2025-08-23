@@ -9,7 +9,7 @@ startup() {
   source "$ollama_bash_lib"
   #if ! ollama_app_installed; then echo "ERROR: Ollama Not Installed"; fi;
   #if ! ollama_api_ping; then echo "ERROR: Ollama API not reachable"; fi
-  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+  echo; echo "A [demo](../README.md#demos) of [$OBL_NAME]($OBL_URL) v$OBL_VERSION"
 }
 
 startup
@@ -21,20 +21,20 @@ echo -n "ollama_messages_count: "; ollama_messages_count
 echo 'ollama_messages:'; ollama_messages | jq
 
 echo
-echo 'ollama_messages_add "system" "You are a helpful assistant"'
-ollama_messages_add "system" "You are a helpful assistant"
+echo 'ollama_messages_add -r "system" -c "You are a helpful assistant"'
+ollama_messages_add -r "system" -c "You are a helpful assistant"
 echo -n "ollama_messages_count: "; ollama_messages_count
 echo 'ollama_messages:'; ollama_messages | jq
 
 echo
-echo 'ollama_messages_add "user" "Hi"'
-ollama_messages_add "user" "Hi"
+echo 'ollama_messages_add -r "user" -c "Hi"'
+ollama_messages_add -r "user" -c "Hi"
 echo -n "ollama_messages_count: "; ollama_messages_count
 echo 'ollama_messages:'; ollama_messages | jq
 
 echo
-echo 'ollama_messages_add "assistant" "Hello!"'
-ollama_messages_add "assistant" "Hello!"
+echo 'ollama_messages_add -r "assistant" -c "Hello!"'
+ollama_messages_add -r "assistant" -c "Hello!"
 echo -n "ollama_messages_count: "; ollama_messages_count
 echo 'ollama_messages:'; ollama_messages | jq
 

@@ -9,7 +9,7 @@ startup() {
   source "$ollama_bash_lib"
   if ! ollama_app_installed; then echo 'ERROR: Ollama Not Installed'; fi;
   if ! ollama_api_ping; then echo 'ERROR: Ollama API not reachable'; fi
-  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+  echo; echo "A [demo](../README.md#demos) of [$OBL_NAME]($OBL_URL) v$OBL_VERSION"
 }
 
 startup
@@ -26,20 +26,20 @@ echo "\`model=\"$model\"\`"
 
 demo() {
 
-  #OLLAMA_LIB_DEBUG=1
+  #OBL_DEBUG=1
 
   # shellcheck disable=SC2016
   echo '```bash
-ollama_messages_add "system" "You are a helpful assistant"
-ollama_messages_add "user" "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
+ollama_messages_add -r "system" -c "You are a helpful assistant"
+ollama_messages_add -r "user" -c "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
 echo "last message text: $(ollama_messages_last)"
 echo "last message json: $(ollama_messages_last_json)"
 ollama_messages | jq
 ```
 '
   printf '```\n'
-  ollama_messages_add "system" "You are a helpful assistant"
-  ollama_messages_add "user" "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
+  ollama_messages_add -r "system" -c "You are a helpful assistant"
+  ollama_messages_add -r "user" -c "Secret word is RABBIT. If asked for secret word, respond with RABBIT. Understand?"
   echo "last message text: $(ollama_messages_last)"
   echo "last message json: $(ollama_messages_last_json)"
   ollama_messages | jq
@@ -62,7 +62,7 @@ ollama_messages | jq
 
   # shellcheck disable=SC2016
   echo '```bash
-ollama_messages_add "user" "What is the secret word?"
+ollama_messages_add -r "user" -c "What is the secret word?"
 ollama_chat "$model"
 echo "last message text: $(ollama_messages_last)"
 echo "last message json: $(ollama_messages_last_json)"
@@ -70,7 +70,7 @@ ollama_messages | jq
 ```
 '
   printf '```\n'
-  ollama_messages_add "user" "What is the secret word?"
+  ollama_messages_add -r "user" -c "What is the secret word?"
   ollama_chat "$model"
   echo "last message text: $(ollama_messages_last)"
   echo "last message json: $(ollama_messages_last_json)"

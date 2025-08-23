@@ -3,27 +3,23 @@
 # Ollama Bash Lib - A Bash Library to interact with Ollama
 #
 
-OLLAMA_LIB_NAME='Ollama Bash Lib'
-OLLAMA_LIB_VERSION='0.45.12'
-OLLAMA_LIB_URL='https://github.com/attogram/ollama-bash-lib'
-OLLAMA_LIB_DISCORD='https://discord.gg/BGQJCbYVBa'
-OLLAMA_LIB_LICENSE='MIT'
-OLLAMA_LIB_COPYRIGHT='Copyright (c) 2025 Ollama Bash Lib, Attogram Project <https://github.com/attogram>'
+OBL_NAME='Ollama Bash Lib'
+OBL_VERSION='0.46.8'
+OBL_URL='https://github.com/attogram/ollama-bash-lib'
+OBL_DISCORD='https://discord.gg/BGQJCbYVBa'
+OBL_LICENSE='MIT'
+OBL_COPYRIGHT='Copyright (c) 2025 Attogram Project <https://github.com/attogram>'
 
-OLLAMA_LIB_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
-OLLAMA_LIB_DEBUG="${OLLAMA_LIB_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
-OLLAMA_LIB_MESSAGES=() # Array of messages, in JSON format
-OLLAMA_LIB_TOOLS_NAME=() # Array of tool names
-OLLAMA_LIB_TOOLS_COMMAND=() # Array of tool commands
-OLLAMA_LIB_TOOLS_DEFINITION=() # Array of tool definitions
-OLLAMA_LIB_STREAM=0 # Streaming mode: 0 = No streaming, 1 = Yes streaming
-OLLAMA_LIB_THINKING="${OLLAMA_LIB_THINKING:-off}" # Thinking mode: off, on, hide
-OLLAMA_LIB_TIMEOUT="${OLLAMA_LIB_TIMEOUT:-300}" # Curl timeout in seconds
+OBL_API="${OLLAMA_HOST:-http://localhost:11434}" # Ollama API URL, No slash at end
+OBL_DEBUG="${OBL_DEBUG:-0}" # 0 = debug off, 1 = debug, 2 = verbose debug
+OBL_MESSAGES=() # Array of messages, in JSON format
+OBL_STREAM=0 # Streaming mode: 0 = No streaming, 1 = Yes streaming
+OBL_THINKING="${OBL_THINKING:-off}" # Thinking mode: off, on, hide
+OBL_TIMEOUT="${OBL_TIMEOUT:-300}" # Curl timeout in seconds
 
 if (set -o pipefail 2>/dev/null); then # If pipefail is supported
     set -o pipefail # Exit the pipeline if any command fails (instead of only the last one)
 fi
-
 
 # Internal Functions
 
@@ -36,8 +32,8 @@ fi
 # return 0 on success, 1 on error
 _redact() {
   local msg="$1"
-  if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
-    msg=${msg//"${OLLAMA_LIB_TURBO_KEY}"/'[REDACTED]'} # never show the private api key
+  if [[ -n "${OBL_TURBO_KEY}" ]]; then
+    msg=${msg//"${OBL_TURBO_KEY}"/'[REDACTED]'} # never show the private api key
   fi
   printf '%s' "$msg"
 }
@@ -50,7 +46,7 @@ _redact() {
 # Requires: none
 # Returns: 0 on success, 1 on error
 _debug() {
-  (( OLLAMA_LIB_DEBUG )) || return 0 # DEBUG must be 1 or higher to show debug messages
+  (( OBL_DEBUG )) || return 0 # DEBUG must be 1 or higher to show debug messages
   local date_string # some date implementations do not support %N nanoseconds
   date_string="$(if ! date '+%H:%M:%S:%N' 2>/dev/null; then date '+%H:%M:%S'; fi)"
   printf '[DEBUG] %s: %s\n' "$date_string" "$(_redact "$1")" >&2
@@ -175,23 +171,23 @@ _call_curl() {
     return 1
   fi
 
-  _debug "_call_curl: OLLAMA_LIB_API: $OLLAMA_LIB_API"
+  _debug "_call_curl: OBL_API: $OBL_API"
 
   local curl_args=(
     -s
     -N
-    --max-time "$OLLAMA_LIB_TIMEOUT"
+    --max-time "$OBL_TIMEOUT"
     -H 'Content-Type: application/json'
-    -w '\n%{http_code}'
+    -w 'HTTP_CODE_DELIMITER%{http_code}'
   )
 
-  if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
+  if [[ -n "${OBL_TURBO_KEY}" ]]; then
     _debug '_call_curl: Turbo Mode'
-    curl_args+=( -H "Authorization: Bearer ${OLLAMA_LIB_TURBO_KEY}" )
+    curl_args+=( -H "Authorization: Bearer ${OBL_TURBO_KEY}" )
   fi
 
   curl_args+=( -X "$method" )
-  curl_args+=( "${OLLAMA_LIB_API}${endpoint}" )
+  curl_args+=( "${OBL_API}${endpoint}" )
 
   local response
   local curl_exit_code
@@ -214,9 +210,9 @@ _call_curl() {
   fi
 
   local http_code
-  http_code="$(printf '%s' "$response" | tail -n1)"
+  http_code="${response##*HTTP_CODE_DELIMITER}"
   local body
-  body="$(printf '%s' "$response" | sed '$d')"
+  body="${response%HTTP_CODE_DELIMITER*}"
 
   if (( http_code >= 400 )); then
     _error "_call_curl: HTTP error ${http_code}: ${body}"
@@ -254,7 +250,7 @@ EOF
         case $opt in
             P) api_path=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_api_get version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_api_get version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -305,7 +301,7 @@ EOF
             P) api_path=$OPTARG ;;
             d) json_content=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_api_post version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_api_post version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -356,7 +352,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_api_ping version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_api_ping version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -370,7 +366,7 @@ EOF
     fi
 
     _debug 'ollama_api_ping'
-    if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
+    if [[ -n "${OBL_TURBO_KEY}" ]]; then
         # TODO - support for turbo mode pings
         _debug 'ollama_api_ping: function not available in Turbo Mode'
         return 0 # we return success for now, to keep outputs clean of other errors
@@ -404,9 +400,9 @@ _ollama_generate_json_payload() {
   local model="$1"
   local prompt="$2"
   local stream=true
-  (( OLLAMA_LIB_STREAM == 0 )) && stream=false
+  (( OBL_STREAM == 0 )) && stream=false
   local thinking=false
-  [[ "$OLLAMA_LIB_THINKING" == 'on' || "$OLLAMA_LIB_THINKING" == 'hide' ]] && thinking=true
+  [[ "$OBL_THINKING" == 'on' || "$OBL_THINKING" == 'hide' ]] && thinking=true
 
   local payload
   payload="$(jq -c -n \
@@ -415,12 +411,6 @@ _ollama_generate_json_payload() {
     --argjson stream "$stream" \
     --argjson thinking "$thinking" \
     '{model: $model, prompt: $prompt, stream: $stream, thinking: $thinking}')"
-
-  if (( ${#OLLAMA_LIB_TOOLS_DEFINITION[@]} > 0 )); then
-    local tools_json
-    tools_json='['$(IFS=,; echo "${OLLAMA_LIB_TOOLS_DEFINITION[*]}")']'
-    payload="$(printf '%s' "$payload" | jq -c --argjson tools "$tools_json" '. + {tools: $tools}')"
-  fi
 
   printf '%s' "$payload"
 }
@@ -445,7 +435,7 @@ Generate a completion from a model as JSON.
   -v          Show version information and exit.
 
 This function sends a prompt to a specified model and returns the model's response as a raw JSON object.
-If streaming is enabled via the global 'OLLAMA_LIB_STREAM' variable, it will return a stream of JSON objects.
+If streaming is enabled via the global 'OBL_STREAM' variable, it will return a stream of JSON objects.
 This is a foundational function for 'ollama_generate' and 'ollama_generate_stream', which process this JSON output into plain text.
 EOF
 )
@@ -457,7 +447,7 @@ EOF
             m) model=$OPTARG ;;
             p) prompt=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_generate_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_generate_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -540,7 +530,7 @@ EOF
             m) model=$OPTARG ;;
             p) prompt=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_generate version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_generate version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -577,7 +567,7 @@ EOF
         return 1
     fi
 
-    OLLAMA_LIB_STREAM=0 # Turn off streaming
+    OBL_STREAM=0 # Turn off streaming
 
     local result
     result="$(ollama_generate_json -m "$model" -p "$prompt")"
@@ -600,8 +590,8 @@ EOF
         fi
     fi
 
-    _debug "ollama_generate: thinking: $OLLAMA_LIB_THINKING"
-    if [[ "$OLLAMA_LIB_THINKING" != 'hide' ]]; then
+    _debug "ollama_generate: thinking: $OBL_THINKING"
+    if [[ "$OBL_THINKING" != 'hide' ]]; then
         local thinking
         thinking="$(printf '%s' "$result" | jq -r '.thinking // empty')"
         if [[ -n "$thinking" ]]; then
@@ -641,7 +631,7 @@ Generate a completion from a model as a stream of JSON objects.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the global 'OLLAMA_LIB_STREAM' variable to 1 and then calls 'ollama_generate_json'.
+This function sets the global 'OBL_STREAM' variable to 1 and then calls 'ollama_generate_json'.
 It is the basis for 'ollama_generate_stream', which further processes the output into a continuous stream of text.
 EOF
 )
@@ -652,7 +642,7 @@ EOF
             m) model=$OPTARG ;;
             p) prompt=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_generate_stream_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_generate_stream_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -681,13 +671,13 @@ EOF
     fi
 
     _debug "ollama_generate_stream_json: [${model:0:42}] [${prompt:0:42}]"
-    OLLAMA_LIB_STREAM=1 # Turn on streaming
+    OBL_STREAM=1 # Turn on streaming
     if ! ollama_generate_json -m "$model" -p "$prompt"; then
         _error "ollama_generate_stream_json: ollama_generate_json failed"
-        OLLAMA_LIB_STREAM=0 # Turn off streaming
+        OBL_STREAM=0 # Turn off streaming
         return 1
     fi
-    OLLAMA_LIB_STREAM=0 # Turn off streaming
+    OBL_STREAM=0 # Turn off streaming
     _debug 'ollama_generate_stream_json: success'
     return 0
 }
@@ -736,7 +726,7 @@ ollama_generate_stream() {
             m) model=$OPTARG ;;
             p) prompt=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_generate_stream version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_generate_stream version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -765,7 +755,7 @@ ollama_generate_stream() {
 
     _debug "ollama_generate_stream: model='$model'  prompt='${prompt:0:40}'"
 
-    OLLAMA_LIB_STREAM=1
+    OBL_STREAM=1
 
     local is_thinking=false
     local is_responding=false
@@ -805,7 +795,7 @@ ollama_generate_stream() {
     done
     rc=$?    # exit status of the whole pipeline
 
-    OLLAMA_LIB_STREAM=0
+    OBL_STREAM=0
 
     # Final newline (only on success)
     (( rc == 0 )) && printf '\n'
@@ -820,7 +810,7 @@ ollama_generate_stream() {
 #
 # Usage: messages="$(ollama_messages)"
 # Output: a valid json array of message objects, to stdout
-# Env: OLLAMA_LIB_MESSAGES
+# Env: OBL_MESSAGES
 # Requires: none
 # Returns: 0 on success, 1 on error
 ollama_messages() {
@@ -841,7 +831,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_messages version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_messages version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -854,22 +844,22 @@ EOF
         return 1
     fi
 
-    if [[ ${#OLLAMA_LIB_MESSAGES[@]} -eq 0 ]]; then
+    if [[ ${#OBL_MESSAGES[@]} -eq 0 ]]; then
         _debug 'ollama_messages: no messages'
         printf '[]'
         return 1
     fi
-    printf '[%s]' "$(printf '%s,' "${OLLAMA_LIB_MESSAGES[@]}" | sed 's/,$//')"
+    printf '[%s]' "$(printf '%s,' "${OBL_MESSAGES[@]}" | sed 's/,$//')"
     return 0
 }
 
 # Add a message
 #
 # Usage: ollama_messages_add -r <role> -c <content>
-# Input: 1 - role (user/assistant/system/tool)
-# Input: 2 - the message content. For tool role, this should be the JSON output from ollama_tools_run.
+# Input: 1 - role (user/assistant/system)
+# Input: 2 - the message content
 # Output: none
-# Env: OLLAMA_LIB_MESSAGES
+# Env: OBL_MESSAGES
 # Requires: jq
 # Returns: 0
 ollama_messages_add() {
@@ -878,13 +868,13 @@ ollama_messages_add() {
     description=$(cat <<'EOF'
 Add a message to the current session's message history.
 
-  -r <role>   The role of the message sender (user, assistant, system, tool).
+  -r <role>   The role of the message sender (user, assistant, system).
   -c <content> The content of the message.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function appends a new message object to the 'OLLAMA_LIB_MESSAGES' array.
-This history is then used by 'ollama_chat' and related functions to maintain a conversation with the model.
+This function appends a new message object to the \'OBL_MESSAGES\' array.
+This history is then used by \'ollama_chat\' and related functions to maintain a conversation with the model.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -894,7 +884,7 @@ EOF
             r) role=$OPTARG ;;
             c) content=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_messages_add version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_messages_add version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -914,34 +904,20 @@ EOF
     _debug "ollama_messages_add: [${role:0:42}] [${content:0:42}]"
 
     local json_payload
-    if [[ "$role" == 'tool' ]]; then
-        if ! _is_valid_json "$content"; then
-            _error 'ollama_messages_add: for "tool" role, content must be a valid JSON'
-            return 1
-        fi
-        local tool_call_id
-        tool_call_id="$(printf '%s' "$content" | jq -r '.tool_call_id')"
-        local result
-        result="$(printf '%s' "$content" | jq -r '.result')"
-        json_payload="$(jq -c -n \
-            --arg role "$role" \
-            --arg content "$result" \
-            --arg tool_call_id "$tool_call_id" \
-            '{role: $role, content: $content, tool_call_id: $tool_call_id}')"
-    else
-        json_payload="$(jq -c -n \
-            --arg role "$role" \
-            --arg content "$content" \
-            '{role: $role, content: $content}')"
-    fi
-    OLLAMA_LIB_MESSAGES+=("$json_payload")
+
+    json_payload="$(jq -c -n \
+        --arg role "$role" \
+        --arg content "$content" \
+        '{role: $role, content: $content}')"
+
+    OBL_MESSAGES+=("$json_payload")
 }
 
 # Clear all messages
 #
 # Usage: ollama_messages_clear
 # Output: none
-# Env: OLLAMA_LIB_MESSAGES
+# Env: OBL_MESSAGES
 # Requires: none
 # Returns: 0
 ollama_messages_clear() {
@@ -953,7 +929,7 @@ Clear all messages from the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function resets the 'OLLAMA_LIB_MESSAGES' array, effectively deleting the entire conversation history for the current session.
+This function resets the \'OBL_MESSAGES\' array, effectively deleting the entire conversation history for the current session.
 This is useful for starting a new conversation without restarting the script.
 EOF
 )
@@ -962,7 +938,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_messages_clear version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_messages_clear version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -976,14 +952,14 @@ EOF
     fi
 
     _debug 'ollama_messages_clear'
-    OLLAMA_LIB_MESSAGES=()
+    OBL_MESSAGES=()
 }
 
 # Messages count
 #
 # Usage: ollama_messages_count
 # Output: number of messages, to stdout
-# Env: OLLAMA_LIB_MESSAGES
+# Env: OBL_MESSAGES
 # Requires: none
 # Returns: 0
 ollama_messages_count() {
@@ -995,7 +971,7 @@ Get the number of messages in the current session.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function returns the current number of messages stored in the 'OLLAMA_LIB_MESSAGES' array.
+This function returns the current number of messages stored in the 'OBL_MESSAGES' array.
 It can be used to check if a conversation has started or to monitor the length of the conversation history.
 EOF
 )
@@ -1004,7 +980,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_messages_count version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_messages_count version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -1017,14 +993,14 @@ EOF
         return 1
     fi
 
-    echo "${#OLLAMA_LIB_MESSAGES[@]}"
+    echo "${#OBL_MESSAGES[@]}"
 }
 
 # Get Last Message, JSON format
 #
 # Usage: ollama_messages_last_json [-h] [-v]
 # Output: last element of message history, in JSON format
-# Env: OLLAMA_LIB_MESSAGES
+# Env: OBL_MESSAGES
 # Requires: none
 # Returns 0 on success, 1 on error
 ollama_messages_last_json() {
@@ -1036,7 +1012,7 @@ Get the last message from the session history in JSON format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function retrieves the most recent message from the 'OLLAMA_LIB_MESSAGES' array and outputs it as a JSON string.
+This function retrieves the most recent message from the 'OBL_MESSAGES' array and outputs it as a JSON string.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -1044,7 +1020,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_messages_last_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_messages_last_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -1058,14 +1034,14 @@ EOF
     fi
 
     local count
-    count=${#OLLAMA_LIB_MESSAGES[@]}
+    count=${#OBL_MESSAGES[@]}
     if [[ $count -lt 1 ]]; then
         _error "ollama_messages_last_json: Message History is empty: count: [$count]"
         echo
         return 1
     fi
     local last=''
-    last="${OLLAMA_LIB_MESSAGES[$(( count - 1 ))]}"
+    last="${OBL_MESSAGES[$(( count - 1 ))]}"
     if [[ -z "$last" ]]; then
         _error 'ollama_messages_last_json: No message found'
         echo
@@ -1083,7 +1059,7 @@ EOF
 #
 # Usage: ollama_messages_last [-h] [-v]
 # Output: last element of message history, as a string
-# Env: OLLAMA_LIB_MESSAGES
+# Env: OBL_MESSAGES
 # Requires: ollama_messages_last_json
 # Returns 0 on success, 1 on error
 ollama_messages_last() {
@@ -1103,7 +1079,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_messages_last version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_messages_last version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -1174,36 +1150,31 @@ _ollama_chat_payload() {
   local model="$1"
 
   local stream=true
-  if [[ "$OLLAMA_LIB_STREAM" -eq '0' ]]; then
+  if [[ "$OBL_STREAM" -eq '0' ]]; then
     stream=false
   fi
 
-  if (( ${#OLLAMA_LIB_MESSAGES[@]} == 0 )); then
+  if (( ${#OBL_MESSAGES[@]} == 0 )); then
     _error '_ollama_chat_payload: Message history is empty'
     # return 1 # TODO - decide: return 1, or allow empty message history?
   fi
 
-  local messages_json
-  messages_json='['$(IFS=,; echo "${OLLAMA_LIB_MESSAGES[*]}")']'
-
   local thinking=true
-  if [[ "$OLLAMA_LIB_THINKING" == 'off' ]]; then
+  if [[ "$OBL_THINKING" == 'off' ]]; then
     thinking=false
   fi
 
+  # Safely construct the JSON payload using jq
+  # The OBL_MESSAGES array already contains valid JSON objects.
+  # We print each on a new line and use jq's slurp (-s) flag to create a JSON array.
+  # Then we add the other fields (model, stream, thinking).
   local json_payload
-  json_payload="$(jq -c -n \
+  json_payload="$(printf '%s\n' "${OBL_MESSAGES[@]}" | jq -s -c \
       --arg model "$model" \
-      --argjson messages "$messages_json" \
       --argjson stream "$stream" \
       --argjson thinking "$thinking" \
-      '{model: $model, messages: $messages, stream: $stream, thinking: $thinking}')"
+      '{model: $model, messages: ., stream: $stream, thinking: $thinking}')"
 
-  if (( ${#OLLAMA_LIB_TOOLS_DEFINITION[@]} > 0 )); then
-    local tools_json
-    tools_json='['$(IFS=,; echo "${OLLAMA_LIB_TOOLS_DEFINITION[*]}")']'
-    json_payload="$(printf '%s' "$json_payload" | jq -c --argjson tools "$tools_json" '. + {tools: $tools}')"
-  fi
   printf '%s\n' "$json_payload"
 }
 
@@ -1212,7 +1183,7 @@ _ollama_chat_payload() {
 # Usage: ollama_chat -m <model>
 # Input: 1 - model
 # Output: none
-# Env: OLLAMA_LIB_MESSAGES
+# Env: OBL_MESSAGES
 # Requires: curl, jq
 # Returns: 0 on success, 1 on error
 ollama_chat_json() {
@@ -1225,9 +1196,9 @@ Request a chat completion from a model, receiving JSON output.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sends the entire message history ('OLLAMA_LIB_MESSAGES') to the specified model and returns the model's response as a raw JSON object.
+This function sends the entire message history ('OBL_MESSAGES') to the specified model and returns the model's response as a raw JSON object.
 It serves as the foundation for 'ollama_chat_stream', which provides more user-friendly text-based outputs.
-If 'OLLAMA_LIB_STREAM' is 0, it adds the assistant's response to the message history.
+If 'OBL_STREAM' is 0, it adds the assistant's response to the message history.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -1236,7 +1207,7 @@ EOF
         case $opt in
             m) model=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_chat_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_chat_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -1261,7 +1232,7 @@ EOF
     json_payload="$(_ollama_chat_payload "$model")"
     _debug "ollama_chat_json: json_payload: [${json_payload:0:120}]"
 
-    if [[ "$OLLAMA_LIB_STREAM" -eq 1 ]]; then
+    if [[ "$OBL_STREAM" -eq 1 ]]; then
         _ollama_chat_stream_true "$json_payload"
     else
         _ollama_chat_stream_false "$json_payload"
@@ -1285,7 +1256,8 @@ Request a chat completion from a model, receiving a plain text response.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function is a user-friendly wrapper around 'ollama_chat_json'. It handles the JSON parsing and returns only the content of the model's message as a single string.
+This function is a user-friendly wrapper around \'ollama_chat_json\'.
+It handles the JSON parsing and returns only the content of the model\'s message as a single string.
 It is ideal for simple, non-streaming chat interactions.
 EOF
 )
@@ -1295,7 +1267,7 @@ EOF
         case $opt in
             m) model=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_chat version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_chat version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -1316,7 +1288,7 @@ EOF
     fi
     _debug "ollama_chat: model: [${model:0:120}]"
 
-    OLLAMA_LIB_STREAM=0
+    OBL_STREAM=0
 
     ollama_chat_json -m "$model" # set assistant response into message history
 
@@ -1350,9 +1322,9 @@ Request a chat completion from a model, receiving a stream of text.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function calls 'ollama_chat' with streaming enabled and processes the output to provide a continuous stream of text from the model's response.
+This function calls \'ollama_chat\' with streaming enabled and processes the output to provide a continuous stream of text from the model\'s response.
 It is perfect for interactive chat applications where you want to display the response as it is being generated.
-The assistant's response is NOT added to the message history.
+The assistant\'s response is NOT added to the message history.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -1361,7 +1333,7 @@ EOF
         case $opt in
             m) model=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_chat_stream version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_chat_stream version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -1382,10 +1354,11 @@ EOF
     fi
     _debug "ollama_chat_stream: model: [${model:0:120}]"
 
-    OLLAMA_LIB_STREAM=1
+    OBL_STREAM=1
     (
-        ollama_chat -m "$model" | while IFS= read -r line; do
-            if [[ "$OLLAMA_LIB_THINKING" == 'on' ]]; then
+        ollama_chat_json -m "$model" | while IFS= read -r line; do
+            if ! _is_valid_json "$line"; then continue; fi
+            if [[ "$OBL_THINKING" == 'on' ]]; then
                 printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
             fi
             read -r -d '' content < <(jq -r '.message.content // empty' <<<"$line")
@@ -1394,9 +1367,9 @@ EOF
         exit "${PIPESTATUS[0]}"
     ) 2> >( _ollama_thinking_stream )
     local error_code=$?
-    OLLAMA_LIB_STREAM=0
+    OBL_STREAM=0
     if [[ $error_code -ne 0 ]]; then
-        _error "ollama_chat_stream: ollama_chat failed with code $error_code"
+        _error "ollama_chat_stream: ollama_chat_json failed with code $error_code"
         return 1
     fi
     printf '\n'
@@ -1420,9 +1393,9 @@ Request a chat completion from a model, receiving a stream of JSON objects.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function enables streaming and calls 'ollama_chat' to get a raw stream of JSON objects from the model.
-It is the basis for the 'ollama_chat_stream' function, which turns the JSON stream into a more human-readable text stream.
-The assistant's response is NOT added to the message history.
+This function enables streaming and calls \'ollama_chat\' to get a raw stream of JSON objects from the model.
+It is the basis for the \'ollama_chat_stream\' function, which turns the JSON stream into a more human-readable text stream.
+The assistant\'s response is NOT added to the message history.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -1431,7 +1404,7 @@ EOF
         case $opt in
             m) model=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_chat_stream_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_chat_stream_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -1450,359 +1423,13 @@ EOF
     fi
     _debug "ollama_chat_stream_json: model: [${model:0:120}]"
 
-    OLLAMA_LIB_STREAM=1
-    if ! ollama_chat -m "$model"; then
-        _error 'ollama_chat_stream_json: ollama_chat failed'
-        OLLAMA_LIB_STREAM=0
+    OBL_STREAM=1
+    if ! ollama_chat_json -m "$model"; then
+        _error 'ollama_chat_stream_json: ollama_chat_json failed'
+        OBL_STREAM=0
         return 1
     fi
-    OLLAMA_LIB_STREAM=0
-    return 0
-}
-
-# Tools Functions
-
-# Add a tool
-#
-# Usage: ollama_tools_add -n <name> -c <command> -j <json>
-# Input: 1 - The name of the tool
-# Input: 2 - The command to run for the tool
-# Input: 3 - The JSON definition of the tool
-# Output: none
-# Requires: jq
-# Returns: 0 on success, 1 on error
-ollama_tools_add() {
-    local usage='Usage: ollama_tools_add -n <name> -c <command> -j <json> [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Register a new tool for the model to use.
-
-  -n <name>    The name of the tool.
-  -c <command> The command to run for the tool.
-  -j <json>    The JSON definition of the tool.
-  -h           Show this help and exit.
-  -v           Show version information and exit.
-
-The model can then request to call this tool during a chat. The JSON definition should follow the Ollama tool definition format.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG tool_name command json_definition
-    while getopts ":n:c:j:hv" opt; do
-        case $opt in
-            n) tool_name=$OPTARG ;;
-            c) command=$OPTARG ;;
-            j) json_definition=$OPTARG ;;
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_add version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-            :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if ! _exists 'jq'; then _error 'ollama_tools_add: jq Not Found'; return 1; fi
-
-    if [[ -z "$tool_name" || -z "$command" || -z "$json_definition" ]]; then
-        printf 'Error: Missing required arguments\n\n' >&2
-        printf '%s\n' "$usage" >&2
-        return 2
-    fi
-
-    local i
-    for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
-        if [[ "${OLLAMA_LIB_TOOLS_NAME[$i]}" == "$tool_name" ]]; then
-            _error "ollama_tools_add: Tool '$tool_name' already exists."
-            return 1
-        fi
-    done
-
-    if ! _is_valid_json "$json_definition"; then
-        _error 'ollama_tools_add: JSON definition is not valid'
-        return 1
-    fi
-
-    OLLAMA_LIB_TOOLS_NAME+=("$tool_name")
-    OLLAMA_LIB_TOOLS_COMMAND+=("$command")
-    OLLAMA_LIB_TOOLS_DEFINITION+=("$json_definition")
-    _debug "ollama_tools_add: Added tool '$tool_name'"
-    return 0
-}
-
-# View all tools
-#
-# Usage: ollama_tools
-# Input: none
-# Output: A list of all registered tools and their commands
-# Requires: none
-# Returns: 0
-ollama_tools() {
-    local usage='Usage: ollama_tools [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-View all registered tools.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function lists all the tools that have been added to the current session using 'ollama_tools_add'.
-It displays a tab-separated list of tool names and their corresponding commands.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG
-    while getopts ":hv" opt; do
-        case $opt in
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if [[ $# -gt 0 ]]; then
-        _error "ollama_tools: Unknown argument(s): $*"
-        printf '%s\n' "$usage" >&2
-        return 1
-    fi
-
-    if (( ${#OLLAMA_LIB_TOOLS_NAME[@]} == 0 )); then
-        _debug 'ollama_tools: No tools registered'
-        return 0
-    fi
-    local i
-    for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
-        printf '%s\t%s\n' "${OLLAMA_LIB_TOOLS_NAME[$i]}" "${OLLAMA_LIB_TOOLS_COMMAND[$i]}"
-    done
-    return 0
-}
-
-# Get count of tools
-#
-# Usage: ollama_tools_count
-# Input: none
-# Output: The number of registered tools
-# Requires: none
-# Returns: 0
-ollama_tools_count() {
-    local usage='Usage: ollama_tools_count [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Get the number of registered tools.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function returns the current number of tools that have been registered in the session.
-It provides a simple way to check if any tools are available for the model to use.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG
-    while getopts ":hv" opt; do
-        case $opt in
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_count version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if [[ $# -gt 0 ]]; then
-        _error "ollama_tools_count: Unknown argument(s): $*"
-        printf '%s\n' "$usage" >&2
-        return 1
-    fi
-
-    printf '%s\n' "${#OLLAMA_LIB_TOOLS_NAME[@]}"
-    return 0
-}
-
-# Remove all tools
-#
-# Usage: ollama_tools_clear
-# Input: none
-# Output: none
-# Requires: none
-# Returns: 0
-ollama_tools_clear() {
-    local usage='Usage: ollama_tools_clear [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Remove all registered tools from the session.
-
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function clears the tool registry, removing all tool names, commands, and definitions.
-This is useful for ensuring that a new chat session starts with a clean slate of tools.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG
-    while getopts ":hv" opt; do
-        case $opt in
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_clear version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if [[ $# -gt 0 ]]; then
-        _error "ollama_tools_clear: Unknown argument(s): $*"
-        printf '%s\n' "$usage" >&2
-        return 1
-    fi
-
-    OLLAMA_LIB_TOOLS_NAME=()
-    OLLAMA_LIB_TOOLS_COMMAND=()
-    OLLAMA_LIB_TOOLS_DEFINITION=()
-    _debug 'ollama_tools_clear: All tools have been removed'
-    return 0
-}
-
-# Does the response have a tool call?
-#
-# Usage: ollama_tools_is_call -j <json>
-# Input: 1 - The JSON response from the model
-# Output: none
-# Requires: jq
-# Returns: 0 if it has a tool call, 1 otherwise
-ollama_tools_is_call() {
-    local usage='Usage: ollama_tools_is_call -j <json> [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Check if the model's response contains a tool call.
-
-  -j <json>   The JSON response from the model.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function inspects the JSON response from the model to see if it includes a 'tool_calls' field, which indicates the model wants to use a tool.
-It is essential for building agentic systems that can decide whether to execute a tool or respond with text.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG json_response
-    while getopts ":j:hv" opt; do
-        case $opt in
-            j) json_response=$OPTARG ;;
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_is_call version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-            :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if ! _exists 'jq'; then _error 'ollama_tools_is_call: jq Not Found'; return 1; fi
-
-    if [ -z "$json_response" ]; then
-        printf 'Error: Missing required arguments\n\n' >&2
-        printf '%s\n' "$usage" >&2
-        return 2
-    fi
-
-    if ! _is_valid_json "$json_response"; then
-        _debug 'ollama_tools_is_call: Invalid JSON'
-        return 1
-    fi
-    local tool_calls
-    tool_calls="$(printf '%s' "$json_response" | jq -r '.tool_calls // empty')"
-    if [[ -n "$tool_calls" ]]; then
-        return 0
-    fi
-    tool_calls="$(printf '%s' "$json_response" | jq -r '.message.tool_calls // empty')"
-    if [[ -n "$tool_calls" ]]; then
-        return 0
-    fi
-    return 1
-}
-
-# Run a tool
-#
-# Usage: ollama_tools_run -n <name> -a <args>
-# Input: 1 - The name of the tool to run
-# Input: 2 - The JSON string of arguments for the tool
-# Output: The result of the tool execution
-# Requires: jq
-# Returns: 0 on success, 1 on error
-ollama_tools_run() {
-    local usage='Usage: ollama_tools_run -n <name> -a <args> [-h] [-v]'
-    local description
-    description=$(cat <<'EOF'
-Execute a registered tool with the given arguments.
-
-  -n <name>   The name of the tool to run.
-  -a <args>   The JSON string of arguments for the tool.
-  -h          Show this help and exit.
-  -v          Show version information and exit.
-
-This function looks up the command for the specified tool name and executes it, passing the arguments as a JSON string.
-It is the core component for making the model's tool calls functional, bridging the gap between the model's request and the actual execution of the tool.
-EOF
-)
-    OPTIND=1 # start parsing at $1 again
-    local opt OPTARG tool_name tool_args_str
-    while getopts ":n:a:hv" opt; do
-        case $opt in
-            n) tool_name=$OPTARG ;;
-            a) tool_args_str=$OPTARG ;;
-            h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_tools_run version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
-            \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-            :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
-                printf '%s\n' "$usage" >&2; return 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    if ! _exists 'jq'; then _error 'ollama_tools_run: jq Not Found'; return 1; fi
-
-    if [[ -z "$tool_name" || -z "$tool_args_str" ]]; then
-        printf 'Error: Missing required arguments\n\n' >&2
-        printf '%s\n' "$usage" >&2
-        return 2
-    fi
-
-    local tool_index=-1
-    local i
-    for i in "${!OLLAMA_LIB_TOOLS_NAME[@]}"; do
-        if [[ "${OLLAMA_LIB_TOOLS_NAME[$i]}" == "$tool_name" ]]; then
-            tool_index=$i
-            break
-        fi
-    done
-
-    if [[ $tool_index -eq -1 ]]; then
-        _error "ollama_tools_run: Tool '$tool_name' not found"
-        return 1
-    fi
-
-    local command
-    command="${OLLAMA_LIB_TOOLS_COMMAND[$tool_index]}"
-
-    if [[ -z "$tool_args_str" ]] || [[ "$tool_args_str" == 'null' ]]; then
-        tool_args_str="{}"
-    fi
-
-    if ! _is_valid_json "$tool_args_str"; then
-        _error "ollama_tools_run: Arguments are not valid JSON"
-        return 1
-    fi
-
-    _debug "ollama_tools_run: Running command: $command '$tool_args_str'"
-    "$command" "$tool_args_str"
-
+    OBL_STREAM=0
     return 0
 }
 
@@ -1823,7 +1450,7 @@ List all available models in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama list' command-line tool to display a formatted table of all locally available models.
+This function uses 'ollama list' to display a formatted table of all locally available models.
 It is a convenient way to quickly see the models you have installed.
 EOF
 )
@@ -1832,7 +1459,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_list version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_list version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -1878,7 +1505,7 @@ List all available models in JSON format.
   -v          Show version information and exit.
 
 This function queries the Ollama API for the list of available models and returns the raw JSON response.
-This is useful for programmatic access to model information, allowing for easy parsing and manipulation with tools like 'jq'.
+This is useful for programmatic access to model information, allowing for easy parsing and manipulation with 'jq'.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -1886,7 +1513,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_list_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_list_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -1933,7 +1560,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_list_array version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_list_array version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2012,7 +1639,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_model_random version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_model_random version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2037,8 +1664,7 @@ EOF
         printf '%s\n' "$models" | shuf -n1
     else # If shuf is unavailable, fall back to awk's srand().
         # awk's built‑in random generator (more portable, but less uniform)
-        #printf '%s\n' "$models" | awk 'BEGIN{srand()} {a[NR]=$0} END{if(NR) print a[int(rand()*NR)+1]}'
-        printf '%s\n' "$models" | awk 'NR>0 {a[NR]=$0} END{if(NR) print a[int(1+rand()*NR)]}'
+        printf '%s\n' "$models" | awk 'BEGIN{srand()} {a[NR]=$0} END{if(NR>0) print a[int(rand()*NR)+1]}'
     fi
 }
 
@@ -2069,7 +1695,7 @@ EOF
         case $opt in
             m) model=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_model_unload version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_model_unload version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -2123,7 +1749,7 @@ List running model processes in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama ps' command-line tool to display a table of all models currently running in memory.
+This function uses 'ollama ps' to display a table of all models currently running in memory.
 It is a quick way to check which models are active and consuming resources.
 EOF
 )
@@ -2132,7 +1758,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_ps version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_ps version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2176,7 +1802,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_ps_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_ps_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2214,7 +1840,7 @@ Show detailed information about a model in a human-readable format.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'ollama show' command-line tool to display details about a specified model, including its parameters, template, and more.
+This function uses 'ollama show' to display details about a specified model, including its parameters, template, and more.
 It is useful for inspecting the configuration of a model.
 EOF
 )
@@ -2224,7 +1850,7 @@ EOF
         case $opt in
             m) model=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_show version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_show version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -2275,7 +1901,7 @@ EOF
         case $opt in
             m) model=$OPTARG ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_show_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_show_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -2338,7 +1964,7 @@ Check if the Ollama application is installed on the local system.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function uses the 'command -v' utility to determine if the 'ollama' executable is in the system's PATH.
+This function uses the \'command -v\' utility to determine if the \'ollama\' executable is in the system\'s PATH.
 It is useful for pre-flight checks in scripts to ensure that required dependencies are available.
 EOF
 )
@@ -2347,7 +1973,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_app_installed version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_app_installed version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2368,7 +1994,7 @@ EOF
 #
 # Usage: ollama_app_turbo -m <mode> [-e]
 # Input: 1 - The mode: empty, "on" or "off", default to "on"
-# Output: if OLLAMA_LIB_TURBO_KEY is not set, then prompts user to enter key
+# Output: if OBL_TURBO_KEY is not set, then prompts user to enter key
 # Requires: a valid API key from ollama.com
 # Returns: 0 on success, 1 on error
 ollama_app_turbo() {
@@ -2395,7 +2021,7 @@ EOF
             m) mode=$OPTARG ;;
             e) export_key=true ;;
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_app_turbo version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_app_turbo version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
             :)  printf 'Error: -%s requires an argument\n\n' "$OPTARG" >&2
@@ -2412,7 +2038,7 @@ EOF
     case "$mode" in
         on)
             _debug 'ollama_app_turbo: Turning Turbo Mode ON'
-            local api_key="$OLLAMA_LIB_TURBO_KEY"
+            local api_key="$OBL_TURBO_KEY"
             if [[ -z "$api_key" ]]; then
                 echo -n 'Enter Ollama API Key (input hidden): '
                 read -r -s api_key
@@ -2422,18 +2048,18 @@ EOF
                 _error 'ollama_app_turbo: Ollama API Key empty'
                 return 1
             fi
-            OLLAMA_LIB_TURBO_KEY="$api_key"
+            OBL_TURBO_KEY="$api_key"
             if $export_key; then
-                _debug 'ollama_app_turbo: export OLLAMA_LIB_TURBO_KEY'
-                export OLLAMA_LIB_TURBO_KEY="$OLLAMA_LIB_TURBO_KEY"
+                _debug 'ollama_app_turbo: export OBL_TURBO_KEY'
+                export OBL_TURBO_KEY="$OBL_TURBO_KEY"
             else
-                _debug 'ollama_app_turbo: NO EXPORT of OLLAMA_LIB_TURBO_KEY'
+                _debug 'ollama_app_turbo: NO EXPORT of OBL_TURBO_KEY'
             fi
             host_api='https://ollama.com'
             ;;
         off)
-            _debug 'ollama_app_turbo: unset OLLAMA_LIB_TURBO_KEY'
-            unset OLLAMA_LIB_TURBO_KEY
+            _debug 'ollama_app_turbo: unset OBL_TURBO_KEY'
+            unset OBL_TURBO_KEY
             host_api='http://localhost:11434'
             ;;
         *)
@@ -2443,7 +2069,7 @@ EOF
             ;;
     esac
 
-    _debug "ollama_app_turbo: OLLAMA_LIB_TURBO_KEY: $([[ -n ${OLLAMA_LIB_TURBO_KEY+x} && -n "$OLLAMA_LIB_TURBO_KEY" ]] && echo YES || echo NO)"
+    _debug "ollama_app_turbo: OBL_TURBO_KEY: $([[ -n ${OBL_TURBO_KEY+x} && -n "$OBL_TURBO_KEY" ]] && echo YES || echo NO)"
     host_api="${host_api%%/}"
     if ! _is_valid_url "$host_api"; then
         _error "ollama_app_turbo: Invalid host API URL: $host_api"
@@ -2451,8 +2077,8 @@ EOF
     fi
     _debug "ollama_app_turbo: export OLLAMA_HOST=$host_api"
     export OLLAMA_HOST="$host_api"
-    _debug "ollama_app_turbo: export OLLAMA_LIB_API=$host_api"
-    export OLLAMA_LIB_API="$host_api"
+    _debug "ollama_app_turbo: export OBL_API=$host_api"
+    export OBL_API="$host_api"
     return 0
 }
 
@@ -2481,7 +2107,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_app_vars version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_app_vars version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2558,7 +2184,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_app_version version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_app_version version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2604,7 +2230,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_app_version_json version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_app_version_json version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2636,13 +2262,13 @@ ollama_app_version_cli() {
     local usage='Usage: ollama_app_version_cli [-h] [-v]'
     local description
     description=$(cat <<'EOF'
-Get the version of the Ollama application using the command-line tool.
+Get the version of the installed Ollama application
 
   -h          Show this help and exit.
   -v          Show version information and exit.
 
 This function calls 'ollama --version' to get the version information directly from the command-line application.
-This can be useful for verifying the CLI tool is installed and working correctly.
+This can be useful for verifying the ollama core cli is installed and working correctly.
 EOF
 )
     OPTIND=1 # start parsing at $1 again
@@ -2650,7 +2276,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_app_version_cli version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_app_version_cli version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2691,7 +2317,7 @@ Configure the 'thinking' mode for model responses.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function sets the 'OLLAMA_LIB_THINKING' environment variable, which controls whether the model's 'thinking' process is displayed.
+This function sets the \'OBL_THINKING\' environment variable, which controls whether the model\'s \'thinking\' process is displayed.
 Modes:
 - on: Show thinking output.
 - off: Hide thinking output.
@@ -2703,7 +2329,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_thinking version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_thinking version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2714,16 +2340,16 @@ EOF
     _debug "ollama_thinking: [${mode}:0:42}]"
     case "$mode" in
         on|ON)
-            export OLLAMA_LIB_THINKING="on"
+            export OBL_THINKING="on"
             ;;
         off|OFF)
-            export OLLAMA_LIB_THINKING="off"
+            export OBL_THINKING="off"
             ;;
         hide|HIDE)
-            export OLLAMA_LIB_THINKING="hide"
+            export OBL_THINKING="hide"
             ;;
         '')
-            printf 'thinking is %s\n' "$OLLAMA_LIB_THINKING"
+            printf 'thinking is %s\n' "$OBL_THINKING"
             ;;
         *)
             _error 'ollama_thinking: Unknown mode.'
@@ -2759,7 +2385,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_lib_about version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_lib_about version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2774,22 +2400,22 @@ EOF
 
     printf 'A Bash Library to interact with Ollama\n\n'
     local turbo_key_status="NO"
-    if [[ -n "${OLLAMA_LIB_TURBO_KEY}" ]]; then
+    if [[ -n "${OBL_TURBO_KEY}" ]]; then
         turbo_key_status="YES [REDACTED]"
     fi
-    printf '%-20s : %s\n' "OLLAMA_LIB_NAME" "$OLLAMA_LIB_NAME"
-    printf '%-20s : %s\n' "OLLAMA_LIB_VERSION" "$OLLAMA_LIB_VERSION"
-    printf '%-20s : %s\n' "OLLAMA_LIB_URL" "$OLLAMA_LIB_URL"
-    printf '%-20s : %s\n' "OLLAMA_LIB_DISCORD" "$OLLAMA_LIB_DISCORD"
-    printf '%-20s : %s\n' "OLLAMA_LIB_LICENSE" "$OLLAMA_LIB_LICENSE"
-    printf '%-20s : %s\n' "OLLAMA_LIB_COPYRIGHT" "$OLLAMA_LIB_COPYRIGHT"
-    printf '%-20s : %s\n' "OLLAMA_LIB_API" "$OLLAMA_LIB_API"
-    printf '%-20s : %s\n' "OLLAMA_LIB_DEBUG" "$OLLAMA_LIB_DEBUG"
-    printf '%-20s : %s\n' "OLLAMA_LIB_STREAM" "$OLLAMA_LIB_STREAM"
-    printf '%-20s : %s\n' "OLLAMA_LIB_THINKING" "$OLLAMA_LIB_THINKING"
-    printf '%-20s : %s\n' "OLLAMA_LIB_MESSAGES" "${#OLLAMA_LIB_MESSAGES[@]} messages"
-    printf '%-20s : %s\n' "OLLAMA_LIB_TURBO_KEY" "$turbo_key_status"
-    printf '%-20s : %s\n' "OLLAMA_LIB_TIMEOUT" "$OLLAMA_LIB_TIMEOUT seconds"
+    printf '%-20s : %s\n' "OBL_NAME" "$OBL_NAME"
+    printf '%-20s : %s\n' "OBL_VERSION" "$OBL_VERSION"
+    printf '%-20s : %s\n' "OBL_URL" "$OBL_URL"
+    printf '%-20s : %s\n' "OBL_DISCORD" "$OBL_DISCORD"
+    printf '%-20s : %s\n' "OBL_LICENSE" "$OBL_LICENSE"
+    printf '%-20s : %s\n' "OBL_COPYRIGHT" "$OBL_COPYRIGHT"
+    printf '%-20s : %s\n' "OBL_API" "$OBL_API"
+    printf '%-20s : %s\n' "OBL_DEBUG" "$OBL_DEBUG"
+    printf '%-20s : %s\n' "OBL_STREAM" "$OBL_STREAM"
+    printf '%-20s : %s\n' "OBL_THINKING" "$OBL_THINKING"
+    printf '%-20s : %s\n' "OBL_MESSAGES" "${#OBL_MESSAGES[@]} messages"
+    printf '%-20s : %s\n' "OBL_TURBO_KEY" "$turbo_key_status"
+    printf '%-20s : %s\n' "OBL_TIMEOUT" "$OBL_TIMEOUT seconds"
     if ! _exists 'compgen'; then _debug 'ollama_lib_about: compgen Not Found'; return 0; fi
     printf '\nFunctions:\n\n'
     if ! _exists 'column'; then
@@ -2816,7 +2442,7 @@ Get the version of the Ollama Bash Lib.
   -h          Show this help and exit.
   -v          Show version information and exit.
 
-This function returns the current version number of the library as defined in the 'OLLAMA_LIB_VERSION' variable.
+This function returns the current version number of the library as defined in the 'OBL_VERSION' variable.
 It is useful for checking the library version for compatibility or debugging purposes.
 EOF
 )
@@ -2824,7 +2450,7 @@ EOF
     while getopts ":hv" opt; do
         case $opt in
             h) printf '%s\n\n%s\n' "$usage" "$description"; return 0 ;;
-            v) printf 'ollama_lib_version version %s\n' "$OLLAMA_LIB_VERSION"; return 0 ;;
+            v) printf 'ollama_lib_version version %s\n' "$OBL_VERSION"; return 0 ;;
             \?) printf 'Error: unknown option -%s\n\n' "$OPTARG" >&2
                 printf '%s\n' "$usage" >&2; return 2 ;;
         esac
@@ -2837,7 +2463,7 @@ EOF
         return 1
     fi
 
-    printf '%s\n' "$OLLAMA_LIB_VERSION"
+    printf '%s\n' "$OBL_VERSION"
 }
 
 # Aliases
@@ -2885,13 +2511,6 @@ os()   { ollama_show "$@"; }
 osj()  { ollama_show_json "$@"; }
 
 ot()   { ollama_thinking "$@"; }
-
-oto()  { ollama_tools "$@"; }
-ota()  { ollama_tools_add "$@"; }
-otco() { ollama_tools_count "$@"; }
-otc()  { ollama_tools_clear "$@"; }
-otic() { ollama_tools_is_call "$@"; }
-otr()  { ollama_tools_run "$@"; }
 
 #
 # Enjoying Ollama Bash Lib?

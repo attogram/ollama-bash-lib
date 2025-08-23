@@ -9,15 +9,15 @@ startup() {
   source "$ollama_bash_lib"
   if ! ollama_app_installed; then echo 'ERROR: Ollama Not Installed'; fi;
   if ! ollama_api_ping; then echo 'ERROR: Ollama API not reachable'; fi
-  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+  echo; echo "A [demo](../README.md#demos) of [$OBL_NAME]($OBL_URL) v$OBL_VERSION"
 }
 
 startup
 
-echo; echo '## Setup'; echo
-echo "OLLAMA_HOST: $OLLAMA_HOST"
-echo "OLLAMA_LIB_API: $OLLAMA_LIB_API"
-echo
+# echo; echo '## Setup'; echo
+# echo "OLLAMA_HOST: $OLLAMA_HOST"
+# echo "OBL_API: $OBL_API"
+# echo
 
 model="$(ollama_model_random)"
 prompt="Describe a rabbit in 3 words"
@@ -36,8 +36,8 @@ echo '```'
 echo; echo '## Demo Debug'; echo
 echo '
 ```
-OLLAMA_LIB_DEBUG=1 ollama_generate -m "$model" -p "$prompt"
+OBL_DEBUG=1 ollama_generate -m "$model" -p "$prompt"
 ```'
 echo '```'
-OLLAMA_LIB_DEBUG=1 ollama_generate -m "$model" -p "$prompt"
+OBL_DEBUG=1 ollama_generate -m "$model" -p "$prompt"
 echo '```'

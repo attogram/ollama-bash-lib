@@ -9,7 +9,7 @@ startup() {
   source "$ollama_bash_lib"
   if ! ollama_app_installed; then echo 'ERROR: Ollama Not Installed'; fi;
   if ! ollama_api_ping; then echo 'ERROR: Ollama API not reachable'; fi
-  echo; echo "A [demo](../README.md#demos) of [$OLLAMA_LIB_NAME]($OLLAMA_LIB_URL) v$OLLAMA_LIB_VERSION"
+  echo; echo "A [demo](../README.md#demos) of [$OBL_NAME]($OBL_URL) v$OBL_VERSION"
 }
 
 startup
@@ -17,16 +17,16 @@ startup
 model=$(ollama_model_random)
 
 echo
-echo "ollama_show \"$model\""
+echo "ollama_show -m \"$model\""
 echo
 echo '```'
-ollama_show "$model"
+ollama_show -m "$model"
 echo '```'
 echo
 
 echo
-echo "ollama_show_json \"$model\""
+echo "ollama_show_json -m \"$model\""
 echo
-echo '```'
-ollama_show_json "$model" | jq
+echo '```json'
+ollama_show_json -m "$model" | jq
 echo '```'

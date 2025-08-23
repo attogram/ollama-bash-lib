@@ -10,16 +10,16 @@ echo
 
 source ../ollama_bash_lib.sh
 
-if [[ -z "$OLLAMA_LIB_TURBO_KEY" ]]; then
+if [[ -z "$OBL_TURBO_KEY" ]]; then
   echo 'Enter API Key for Turbo Mode, or Press Enter for Local mode'
   echo
 fi
 
 ollama_app_turbo -m on # Turn off turbo, to run in local mode
 
-echo "OLLAMA_LIB_TURBO_KEY: (${#OLLAMA_LIB_TURBO_KEY} characters)"
+echo "OBL_TURBO_KEY: (${#OBL_TURBO_KEY} characters)"
 echo "OLLAMA_HOST: $OLLAMA_HOST"
-echo "OLLAMA_LIB_API: $OLLAMA_LIB_API"
+echo "OBL_API: $OBL_API"
 echo
 
 # All demos

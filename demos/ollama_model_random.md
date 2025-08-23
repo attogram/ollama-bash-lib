@@ -1,26 +1,22 @@
 # ollama_model_random
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.45.11
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.8
 
 ## Demo
 
 ```bash
 ollama_model_random
-model="$(ollama_model_random)"; echo "$model"
-```
-```
-gpt-oss:20b
-gpt-oss:120b
-```
-
-## Demo Debug
-
-```bash
-OLLAMA_LIB_DEBUG=1
+ollama_model_random
 ollama_model_random
 model="$(ollama_model_random)"; echo "$model"
+model="$(ollama_model_random)"; echo "$model"
+model="$(ollama_model_random)"; echo "$model"
 ```
 ```
-gpt-oss:120b
-gpt-oss:120b
+smollm2:1.7b
+qwen3:8b
+mistral:7b
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
+granite3.3:2b
+hf.co/bartowski/Ministral-8B-Instruct-2410-GGUF:IQ4_XS
 ```
