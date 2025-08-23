@@ -82,29 +82,28 @@ For detailed information on how to use Ollama Bash Lib, including how-to guides,
 
 Here are a few of the most popular demos:
 
-| Demo                                                                   | About                                                                                                                          |
-|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| [ollama_generate.md](demos/ollama_generate.md)                         | Generate completion with `ollama_generate`                                                              |
-| [ollama_generate_json.md](demos/ollama_generate_json.md)               | Generate completion, json output with `ollama_generate_json`                                            |
-| [ollama_generate_stream.md](demos/ollama_generate_stream.md)           | Generate completion, streaming with `ollama_generate_stream`                                            |
-| [ollama_chat.md](demos/ollama_chat.md)                                 | Chat completion with `ollama_messages_add` and `ollama_chat`                             |
-| [interactive.chat.sh](demos/interactive.chat.sh)                       | Interactive Chat completion (with message history)                                                                             |
-| [list.md](demos/list.md)                                               | Ollama model list with `ollama_list`, `ollama_list_array` and `ollama_list_json`                           |
-| [show.md](demos/show.md)                                               | Model info with `ollama_show` and `ollama_show_json`                                   |
-| [prompt.all.models.md](demos/prompt.all.models.md)                     | Send a prompt to all models                                                                                                    |
-| [prompts.model.md](demos/prompts.model.md)                             | Send many prompts to a model                                                                                                   |
-| [about.md](demos/about.md)                                             | Ollama Bash Lib info with `ollama_lib_about` and `ollama_lib_version`                      |
+| Demo                                                         | About                                                                            |
+|--------------------------------------------------------------|----------------------------------------------------------------------------------|
+| [ollama_generate.md](demos/ollama_generate.md)               | Generate completion with `ollama_generate`                                       |
+| [ollama_generate_json.md](demos/ollama_generate_json.md)     | Generate completion, json output with `ollama_generate_json`                     |
+| [ollama_generate_stream.md](demos/ollama_generate_stream.md) | Generate completion, streaming with `ollama_generate_stream`                     |
+| [ollama_chat.md](demos/ollama_chat.md)                       | Chat completion with `ollama_messages_add` and `ollama_chat`                     |
+| [list.md](demos/list.md)                                     | Ollama model list with `ollama_list`, `ollama_list_array` and `ollama_list_json` |
+| [show.md](demos/show.md)                                     | Model info with `ollama_show` and `ollama_show_json`                             |
+| [prompt.all.models.md](demos/prompt.all.models.md)           | Send a prompt to all models                                                      |
+| [prompts.model.md](demos/prompts.model.md)                   | Send many prompts to a model                                                     |
+| [about.md](demos/about.md)                                   | Ollama Bash Lib info with `ollama_lib_about` and `ollama_lib_version`            |
 
 See the **[full list of demos](demos/README.md)**.
 
 ### Review Demos
 
-| Demo                                                                   | About                                                                                                                          |
-|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| [review.lib.md](demos/review.lib.md)                                   | Code Review of `ollama_bash_lib.sh`                                                                      |
-| [review.lib-security.md](demos/review.lib-security.md)                 | Security Review of `ollama_bash_lib.sh`                                                                  |
-| [review.readme.md](demos/review.readme.md)                             | Marketing Review of `README.md`                                                                              |
-| [review.funny.md](demos/review.funny.md)                               | Humorous project descriptions based on `README.md`                                                                |
+| Demo                                                   | About                                              |
+|--------------------------------------------------------|----------------------------------------------------|
+| [review.lib.md](demos/review.lib.md)                   | Code Review of `ollama_bash_lib.sh`                |
+| [review.lib-security.md](demos/review.lib-security.md) | Security Review of `ollama_bash_lib.sh`            |
+| [review.readme.md](demos/review.readme.md)             | Marketing Review of `README.md`                    |
+| [review.funny.md](demos/review.funny.md)               | Humorous project descriptions based on `README.md` |
 
 ## Functions
 
