@@ -1,6 +1,6 @@
 # Taglines for Ollama Bash Lib
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.8
 
 
 ```bash
@@ -17,106 +17,48 @@ Output in Markdown format.
 "
 file="../README.md"
 ollama_thinking hide
-ollama_generate -m "gpt-oss:120b" -p "$task\n\n$(cat "$file")"
+ollama_generate -m "granite3.3:2b" -p "$task\n\n$(cat "$file")"
 ```
-## 🎯 Serious Descriptions (≤ 250 words each)
+# Ollama Bash Lib: A Fun and Useful Tool
 
-1. **Ollama Bash Lib – the lightweight bridge between your shell and Ollama’s LLM engine.**  
-   By sourcing a single script you gain a full‑featured API: generate completions, stream results, manage model lifecycle, and maintain conversation history—all with native Bash functions.  The library follows POSIX‑compatible practices, provides tab‑completion for every function, and includes thorough documentation and demos.  It is ideal for automation, CI pipelines, or any environment where a full‑blown Python client would be overkill.
+Ollama Bash Lib is a bash library designed to integrate seamlessly with the powerful Ollama platform, enabling you to run LLM prompts directly from your shell. With this tool, you can generate completions, engage in chat conversations, manage models, and much more – all within the comfort of your terminal.
 
-2. **A production‑ready Bash toolkit for interacting with Ollama.**  
-   The library abstracts HTTP calls, JSON handling, and error checking into concise functions such as `ollama_generate`, `ollama_chat`, and `ollama_list`.  It works on Bash 3.2+, requires only `curl` and `jq`, and is released under the MIT license.  With built‑in streaming support and model‑management helpers, developers can embed LLM capabilities directly into scripts, cron jobs, or container entrypoints without adding external dependencies.
+## Funny for Programmers
 
----
+"Ollama Bash Lib: Because 'cat' just wasn't enough!"
 
-## 🤣 Generally Funny Descriptions (≤ 250 words each)
+This library takes command-line interaction to a whole new level. Instead of just listing files or navigating directories, you can now send prompts to Ollama models and receive insightful responses – all from the power of your familiar bash shell. It's like having a powerful AI assistant right at your fingertips!
 
-1. **“Bash meets ChatGPT, and they both complain about being stuck in the terminal.”**  
-   Ollama Bash Lib lets you whisper sweet prompts to your local LLM while you sip coffee, because why should Python have all the fun?
+## Funny for Sysadmins
 
-2. **Your shell just got a brain.**  
-   It can now generate poetry, answer riddles, and still refuse to delete your `~/Downloads` folder.  Thanks, Ollama Bash Lib!
+"Ollama Bash Lib: Say goodbye to cluttered desktops!"
 
-3. **If Bash were a superhero, Ollama Bash Lib would be its sidekick that never sleeps.**  
-   It whispers AI secrets into your script, and the only cape it needs is a well‑placed `source` line.
+Tired of seeing multiple terminal windows open for different tools and applications? Ollama Bash Lib consolidates all those functionalities into a single, manageable bash script. You can now chat with your models, generate completions, and even check model statuses from one place – no more juggling multiple applications!
 
-4. **Ever wanted to have a conversation with a terminal?**  
-   Now you can—just don’t be surprised when it starts asking you about your feelings.  Ollama Bash Lib makes the terminal *talky*.
+## Funny for DevOps
 
-5. **Running LLMs from Bash is like putting a turbocharger on a vintage car.**  
-   It’s a little noisy, a lot of fun, and you’ll feel the power every time you type `ollama_generate`.
+"Ollama Bash Lib: DevOps, streamlined!"
 
----
+DevOps engineers know the importance of efficiency. Ollama Bash Lib empowers you to automate tasks and workflows without leaving your terminal. Now, you can seamlessly integrate Ollama models into your continuous integration/continuous deployment (CI/CD) pipelines or deploy automated tests directly from bash scripts. Say bye-bye to tedious manual processes!
 
-## 💻 Funny for Programmers (≤ 250 words each)
+## Just Crazy
 
-1. **“Git merge conflicts? Use Ollama Bash Lib to generate a peace treaty.”**  
-   The library can write commit messages, refactor code snippets, and even suggest variable names—no more “TODO: fix this”.
+"Ollama Bash Lib: Where terminal meets the future!"
 
-2. **When your IDE crashes, just `source ollama_bash_lib.sh` and let the LLM debug your stack trace.**  
-   It’s like a rubber‑duck, only louder and with a better sense of humor.
+Imagine if your shell could not only process commands but also engage in thoughtful conversations with AI models. Ollama Bash Lib takes that absurd notion and turns it into a reality! It's like having a digital brain buddy, ready to help you tackle any complexity or bizarre requests thrown its way – all wrapped up in the charm of your familiar bash environment.
 
-3. **`ollama_generate` – because sometimes you need AI to explain why `[[ -z $var ]]` is better than `[ -z "$var" ]`.**  
-   The library writes the docs you forgot to write.
+## Serious Descriptions
 
-4. **“I wrote a Bash function that calls Ollama to generate the function itself.”**  
-   It’s recursion, meta‑programming, and a mild existential crisis all in one.
+Ollama Bash Lib serves as an essential bridge between Ollama and the traditional command-line interface, offering a powerful set of functions for managing LLMs directly from your shell. This library allows users to:
 
-5. **If you think writing a Makefile is hard, try writing a Bash script that talks to an LLM.**  
-   Ollama Bash Lib makes it feel like you’ve hired a junior dev who never sleeps.
+1. **Run Prompt Generation**: Use `ollama_generate` or `ollama_generate_stream` to create interactive prompts with models, generating both text and JSON outputs as per requirements.
+   
+2. **Chat Management**: Leverage `ollama_chat`, `ollama_messages_add`, and other chat-related functions to engage in conversations with AI models. Send messages and receive responses seamlessly, enhancing collaboration and automation potential.
 
----
+3. **Model Administration**: Manage Ollama model listings, details, and status updates using `ollama_list`, `ollama_show`, `ollama_lib_about`, and `ollama_lib_version`. These functions offer a convenient way to keep track of your models' health and performance.
 
-## 🛠️ Funny for Sysadmins (≤ 250 words each)
+4. **Extensive Function Library**: Boasting an extensive range of functions, Ollama Bash Lib includes tools for prompt generation, chat functionalities, model management, information retrieval, and more – all designed for ease of use within the bash environment.
 
-1. **“Need to restart a service? Just ask the LLM to politely convince it to reboot itself.”**  
-   With Ollama Bash Lib you can generate polite prompts for stubborn daemons.
+For comprehensive guides on installation, usage, and detailed function references, refer to [Documentation](docs/README.md). Dive into demos like [interactive.chat.sh](demos/interactive.chat.sh) or [prompt.all.models.md](demos/prompt.all.models.md) to witness its capabilities first-hand.
 
-2. **When `systemctl` asks “Are you sure?”, answer with a nicely‑crafted LLM response.**  
-   `ollama_generate "Explain why rebooting now is a good idea"` – your servers will thank you.
-
-3. **Your crontab now has an AI‑powered assistant to remind you to rotate logs.**  
-   `ollama_chat` can send you witty reminders about disk usage before you run out of space.
-
-4. **“Why read syslog entries manually when you can ask an LLM to summarize the apocalypse?”**  
-   Ollama Bash Lib parses logs and gives you a TL;DR in plain English.
-
-5. **If you ever find yourself `ssh`‑ing into a box just to run `ollama_generate`, congratulations—you’ve officially become a “prompt‑engineer‑admin”.**
-
----
-
-## 🚀 Funny for DevOps (≤ 250 words each)
-
-1. **“Deploy pipelines that generate their own README files on the fly.”**  
-   Ollama Bash Lib lets your CI jobs ask LLMs for documentation—no more stale docs.
-
-2. **When your Helm chart is too complex, ask the LLM to rewrite it in plain English.**  
-   `ollama_generate "Simplify this Helm values file"` – sanity restored.
-
-3. **Your Terraform plan can now include a motivational quote for each resource.**  
-   Thanks to `ollama_generate`, every `aws_instance` gets a personal pep talk.
-
-4. **“Can we roll back? Ask the LLM.”**  
-   The library can generate rollback scripts based on your current state—just don’t blame it if it rolls you back to 1999.
-
-5. **If GitOps feels too static, make it dynamic: have the LLM generate new manifests during the push.**  
-   Ollama Bash Lib turns your repo into a living, breathing AI‑powered organism.
-
----
-
-## 🤪 Crazy Descriptions (≤ 250 words each)
-
-1. **Ollama Bash Lib – the only library that can convince your toaster to start a neural network.**  
-   Just source it, whisper “bake”, and watch the breadcrumbs turn into embeddings.
-
-2. **This script is powered by the collective dreams of all discontinued programming languages.**  
-   When you `ollama_generate`, you’re basically channeling the spirit of COBOL and FORTRAN at the same time.
-
-3. **If you stare at the terminal long enough, the LLM will start answering in riddles that only squirrels understand.**  
-   Ollama Bash Lib – because normal prompts are too mainstream.
-
-4. **Run `ollama_generate` at midnight and your computer will start composing symphonies for your houseplants.**  
-   Bonus: plants grow 37% faster (unverified).
-
-5. **The library is secretly a portal to a parallel universe where Bash scripts write themselves and then go on vacation.**  
-   When you `source` it, you’re just borrowing a piece of that reality—no warranty offered.
+Ollama Bash Lib, with its blend of functionality and ease-of-use, is an invaluable asset for developers, system administrators, DevOps professionals, and anyone looking to leverage the power of Ollama within their terminal environment.

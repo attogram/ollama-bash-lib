@@ -1,6 +1,6 @@
 # ollama_thinking, ollama_generate_stream
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.7
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.8
 
 ```
 ollama_thinking on
@@ -10,15 +10,16 @@ ollama_generate_stream -m "$(ollama_model_random)" -p "list 10 things about bash
 
 thinking is on
 
-#### The user asks: \"list 10 things about bash, 1 per line\". That's a straightforward request. We can produce a list of ten items related to Bash, each on its own line. No policy violation. Provide answer.
 
-1. Bash is the Bourne‑Again SHell, the default command‑line interpreter on most Linux distributions.  
-2. It supports both interactive use and scripting, allowing automation of tasks.  
-3. Bash includes powerful built‑in commands like `cd`, `echo`, `export`, and `read`.  
-4. It provides advanced globbing and pattern matching for filename expansion.  
-5. Bash has control structures (if, for, while, case) for flow‑control in scripts.  
-6. It supports command substitution using backticks \(``\) or `$(...)`.  
-7. Bash can handle arrays and associative arrays for complex data storage.  
-8. It offers command history and line editing via Readline (arrow keys, Ctrl‑R, etc.).  
-9. Bash includes job control, enabling background processes and foreground/ background toggling with `&`, `fg`, and `bg`.  
-10. It supports programmable completion, allowing custom tab‑completion scripts for commands.
+Here are 10 things about Bash, one per line:
+
+Bash is a command-line interpreter for Unix-like operating systems.
+It's a very versatile shell, used for scripting and interactive command execution.
+Bash supports a wide range of commands and utilities.
+It's highly customizable, allowing users to modify its behavior with aliases and functions.
+Bash has powerful scripting capabilities, enabling automation of tasks.
+It handles process substitution, allowing you to use the output of one command as input to another.
+Bash supports regular expressions for pattern matching and text manipulation.
+It has excellent built-in support for environment variables.
+Bash is commonly used for system administration tasks like user management and log analysis.
+It's a popular choice for developing shell scripts and automating workflows.
