@@ -40,7 +40,16 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PREVIOUS_TAG: ${{ env.previous_tag }}
         run: |
-          RELEASE_BODY="**Ollama Bash Lib $CURRENT_TAG**\n\nA Bash Library for Ollama\n\nRun LLM prompts straight from your shell, and more\n\nRepo: https://github.com/${{ github.repository }}\n\n"
+          RELEASE_BODY=$(cat <<EOF
+**Ollama Bash Lib $CURRENT_TAG**
+
+A Bash Library for Ollama
+
+Run LLM prompts straight from your shell, and more
+
+Repo: https://github.com/${{ github.repository }}
+EOF
+          )
 
           # Generate changelog
           CHANGELOG=$(git log --pretty=format:"* %s (%h)" $PREVIOUS_TAG..$CURRENT_TAG)
