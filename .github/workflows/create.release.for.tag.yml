@@ -39,6 +39,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PREVIOUS_TAG: ${{ env.previous_tag }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           RELEASE_BODY=$(cat <<EOF
 **Ollama Bash Lib $CURRENT_TAG**
@@ -47,7 +48,7 @@ A Bash Library for Ollama
 
 Run LLM prompts straight from your shell, and more
 
-Repo: https://github.com/${{ github.repository }}
+Repo: https://github.com/$GITHUB_REPOSITORY
 EOF
           )
 
@@ -59,7 +60,7 @@ EOF
           fi
 
           # Add link to compare with previous version
-          RELEASE_BODY="${RELEASE_BODY}See all commits since last release: https://github.com/${{ github.repository }}/compare/${PREVIOUS_TAG}...${CURRENT_TAG}"
+          RELEASE_BODY="${RELEASE_BODY}See all commits since last release: https://github.com/$GITHUB_REPOSITORY/compare/${PREVIOUS_TAG}...${CURRENT_TAG}"
 
           echo "RELEASENOTES<<EOF" >> $GITHUB_ENV
           echo -e "$RELEASE_BODY" >> $GITHUB_ENV
