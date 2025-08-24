@@ -12,6 +12,38 @@ This file is for me, Jules, to keep notes on how to work with this repository.
 * New shell scripts must be made executable with `chmod +x` before they can be run by other scripts.
 * The `demos/run.demos.sh` script is the standard way to generate the markdown documentation for the demos.
 
+## Testing
+
+### Setting up Bats
+
+I have set up the Bats testing framework for this project. Here are the steps I took:
+
+1.  **Checked for Bats:** I first checked if Bats was installed by running `bats --version`. The command failed, indicating that Bats was not installed.
+2.  **Installed Bats:** I installed Bats using the command `sudo apt-get update && sudo apt-get install -y bats`.
+3.  **Verified Installation:** After the installation, I ran `bats --version` again and confirmed that it was installed correctly.
+4.  **Created a Test File:** I created a simple test file at `tests/basic.bats` to ensure that the testing framework was working.
+5.  **Ran the Test:** I ran the test using the command `bats tests/basic.bats` and it passed.
+
+This process confirms that the testing environment is now set up and ready for use.
+
+### Comprehensive Test Suite
+
+I have created a comprehensive test suite for the library, covering all public and internal functions. The process involved:
+
+1.  **Identifying all functions:** I listed all functions from `ollama_bash_lib.sh` to ensure complete coverage.
+2.  **Creating individual test files:** I created separate `.bats` files for each function or group of related functions in the `tests/` directory.
+3.  **Writing test cases:** I wrote multiple test cases for each function, covering:
+    *   Positive scenarios (correct usage and expected output).
+    *   Negative scenarios (error handling, invalid input).
+    *   Edge cases.
+4.  **Debugging and Fixing:** I encountered and fixed several issues during the testing process, including:
+    *   Incorrect assumptions about function behavior (e.g., `_is_valid_json`).
+    *   Bugs in the library code (e.g., `ollama_model_unload`).
+    *   Subshell issues in Bats tests that prevented state changes from being persisted.
+5.  **Ensuring all tests pass:** I ran the entire test suite and ensured that all 53 tests passed successfully.
+
+This comprehensive test suite will help to ensure the quality and stability of the library going forward.
+
 ## Documentation and Demo Structure
 
 I have created a new documentation and demo structure. Here is how to keep it up-to-date:

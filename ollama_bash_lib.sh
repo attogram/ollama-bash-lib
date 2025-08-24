@@ -1715,8 +1715,9 @@ EOF
     local json_payload
     json_payload="$(jq -c -n \
         --arg model "$model" \
-        --arg keep_alive '0' \
-        '{model: $model, keep_alive: $keep_alive}')"
+        --arg prompt "" \
+        --arg keep_alive "0" \
+        '{model: $model, prompt: $prompt, keep_alive: $keep_alive}')"
     local result
     if ! result="$(ollama_api_post -P '/api/generate' -d "$json_payload")"; then
         _error "ollama_model_unload: ollama_api_post failed [$result]"
@@ -1724,7 +1725,7 @@ EOF
     fi
     local is_error
     is_error="$(printf '%s' "$result" | jq -r .error)"
-    if [[ -n "$is_error" ]]; then
+    if [[ -n "$is_error" && "$is_error" != "null" ]]; then
         _error "ollama_model_unload: $is_error"
         return 1
     fi
