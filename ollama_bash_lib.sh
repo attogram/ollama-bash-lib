@@ -773,24 +773,17 @@ ollama_generate_stream() {
                 # first thinking input received
                 is_thinking=true
                 printf '\n#### %b' "$thinking"
-            else 
+            else
                 # subsequent thinking input received
                 printf '%b' "$thinking"
             fi
         fi
-        
+
         response="$(jq '.response // empty' <<<"$line")"
         response=${response#\"} # strip first "
         response=${response%\"} # strip last "
         if [[ -n "$response" ]]; then
-            if [[ "$is_responding" == 'false' ]]; then
-                # first response input received
-                is_responding=true
-                printf '\n\n%b' "$response"
-            else 
-                # subsequent response input received
-                printf '%b' "$response"
-            fi
+            printf '%b' "$response"
         fi
     done
     rc=$?    # exit status of the whole pipeline
@@ -1361,8 +1354,12 @@ EOF
             if [[ "$OBL_THINKING" == 'on' ]]; then
                 printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
             fi
-            read -r -d '' content < <(jq -r '.message.content // empty' <<<"$line")
-            printf '%s' "$content"
+            content="$(jq '.message.content // empty' <<<"$line")"
+            content=${content#\"} # strip first "
+            content=${content%\"} # strip last "
+            if [[ -n "$content" && "$content" != "null" ]]; then
+                printf '%b' "$content"
+            fi
         done
         exit "${PIPESTATUS[0]}"
     ) 2> >( _ollama_thinking_stream )
