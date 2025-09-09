@@ -756,25 +756,45 @@ ollama_generate_stream() {
     _debug "ollama_generate_stream: model='$model'  prompt='${prompt:0:40}'"
 
     OBL_STREAM=1
-    (
-        ollama_generate_json -m "$model" -p "$prompt" | while IFS= read -r line; do
-            if ! _is_valid_json "$line"; then continue; fi
-            if [[ "$OBL_THINKING" == 'on' ]]; then
-                printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
+
+    local is_thinking=false
+    local is_responding=false
+
+    ollama_generate_json -m "$model" -p "$prompt" |
+    while IFS= read -r line; do
+
+        #_debug "ollama_generate_stream: line: [${line:0:1000}]"
+
+        thinking="$(jq '.thinking // empty' <<<"$line")"
+        thinking=${thinking#\"} # strip first "
+        thinking=${thinking%\"} # strip last "
+        if [[ -n "$thinking" ]]; then
+            if [[ "$is_thinking" == 'false' ]]; then
+                # first thinking input received
+                is_thinking=true
+                printf '\n#### %b' "$thinking"
+            else
+                # subsequent thinking input received
+                printf '%b' "$thinking"
             fi
-            read -r -d '' response < <(jq -r '.response // empty' <<<"$line")
-            printf '%s' "$response"
-        done
-        exit "${PIPESTATUS[0]}"
-    ) 2> >( _ollama_thinking_stream )
-    local error_code=$?
+        fi
+
+        response="$(jq '.response // empty' <<<"$line")"
+        response=${response#\"} # strip first "
+        response=${response%\"} # strip last "
+        if [[ -n "$response" ]]; then
+            printf '%b' "$response"
+        fi
+    done
+    rc=$?    # exit status of the whole pipeline
+
     OBL_STREAM=0
-    if [[ $error_code -ne 0 ]]; then
-        _error "ollama_generate_stream: ollama_generate_json failed with code $error_code"
-        return 1
-    fi
-    printf '\n'
-    return 0
+
+    # Final newline (only on success)
+    (( rc == 0 )) && printf '\n'
+
+    _debug "ollama_generate_stream: exit=$rc"
+    return $rc
 }
 
 # Messages Functions
@@ -1334,8 +1354,12 @@ EOF
             if [[ "$OBL_THINKING" == 'on' ]]; then
                 printf '%s' "$(jq -r '.thinking // empty' <<<"$line")" >&2
             fi
-            read -r -d '' content < <(jq -r '.message.content // empty' <<<"$line")
-            printf '%s' "$content"
+            content="$(jq '.message.content // empty' <<<"$line")"
+            content=${content#\"} # strip first "
+            content=${content%\"} # strip last "
+            if [[ -n "$content" && "$content" != "null" ]]; then
+                printf '%b' "$content"
+            fi
         done
         exit "${PIPESTATUS[0]}"
     ) 2> >( _ollama_thinking_stream )
