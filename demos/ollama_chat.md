@@ -1,8 +1,8 @@
 # ollama_chat
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.48.0
 
-`model="mistral:7b"`
+`model="gpt-oss:20b"`
 ## Demo
 
 ```bash
@@ -35,9 +35,9 @@ ollama_messages | jq
 ```
 
 ```
- Understood! I will remember that the secret word is "RABBIT". If you ask me for the secret word in the future, I will respond with "RABBIT".
-last message text:  Understood! I will remember that the secret word is "RABBIT". If you ask me for the secret word in the future, I will respond with "RABBIT".
-last message json: {"role":"assistant","content":" Understood! I will remember that the secret word is \"RABBIT\". If you ask me for the secret word in the future, I will respond with \"RABBIT\"."}
+Yes, I understand. If asked for the secret word, I will respond with RABBIT.
+last message text: Yes, I understand. If asked for the secret word, I will respond with RABBIT.
+last message json: {"role":"assistant","content":"Yes, I understand. If asked for the secret word, I will respond with RABBIT."}
 [
   {
     "role": "system",
@@ -49,7 +49,7 @@ last message json: {"role":"assistant","content":" Understood! I will remember t
   },
   {
     "role": "assistant",
-    "content": " Understood! I will remember that the secret word is \"RABBIT\". If you ask me for the secret word in the future, I will respond with \"RABBIT\"."
+    "content": "Yes, I understand. If asked for the secret word, I will respond with RABBIT."
   }
 ]
 ```
@@ -62,9 +62,9 @@ ollama_messages | jq
 ```
 
 ```
-The secret word is RABBIT.
-last message text: The secret word is RABBIT.
-last message json: {"role":"assistant","content":"The secret word is RABBIT."}
+RABBIT
+last message text: RABBIT
+last message json: {"role":"assistant","content":"RABBIT"}
 [
   {
     "role": "system",
@@ -76,7 +76,7 @@ last message json: {"role":"assistant","content":"The secret word is RABBIT."}
   },
   {
     "role": "assistant",
-    "content": " Understood! I will remember that the secret word is \"RABBIT\". If you ask me for the secret word in the future, I will respond with \"RABBIT\"."
+    "content": "Yes, I understand. If asked for the secret word, I will respond with RABBIT."
   },
   {
     "role": "user",
@@ -84,7 +84,7 @@ last message json: {"role":"assistant","content":"The secret word is RABBIT."}
   },
   {
     "role": "assistant",
-    "content": "The secret word is RABBIT."
+    "content": "RABBIT"
   }
 ]
 ```

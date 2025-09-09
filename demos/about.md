@@ -1,13 +1,13 @@
 # ollama_lib_about, ollama_lib_version
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.48.0
 
 ## Demo
 
 ```bash
 ollama_lib_version
 ```
-0.46.8
+0.48.0
 
 ```bash
 ollama_lib_about
@@ -16,17 +16,17 @@ ollama_lib_about
 A Bash Library to interact with Ollama
 
 OBL_NAME             : Ollama Bash Lib
-OBL_VERSION          : 0.46.8
+OBL_VERSION          : 0.48.0
 OBL_URL              : https://github.com/attogram/ollama-bash-lib
 OBL_DISCORD          : https://discord.gg/BGQJCbYVBa
 OBL_LICENSE          : MIT
 OBL_COPYRIGHT        : Copyright (c) 2025 Attogram Project <https://github.com/attogram>
-OBL_API              : http://localhost:11434
+OBL_API              : https://ollama.com
 OBL_DEBUG            : 0
 OBL_STREAM           : 0
 OBL_THINKING         : off
 OBL_MESSAGES         : 0 messages
-OBL_TURBO_KEY        : NO
+OBL_TURBO_KEY        : YES [REDACTED]
 OBL_TIMEOUT          : 300 seconds
 
 Functions:

@@ -1,6 +1,6 @@
 # ollama_thinking, ollama_generate_stream
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.48.0
 
 ```
 ollama_thinking on
@@ -10,14 +10,13 @@ ollama_generate_stream -m "$(ollama_model_random)" -p "list 10 things about bash
 
 thinking is on
 
-
-1. Bash (Bourne Again SHell) is a Unix shell and command language.
-2. It is the default shell for most Linux distributions.
-3. Bash is an interpreter, not a compiler.
-4. It reads commands from the terminal or a file and executes them.
-5. Bash supports both command-line and scripted interactions.
-6. It provides a powerful command-line editing feature called \"readline\".
-7. Bash allows complex command piping and redirection.
-8. It supports various programming constructs like loops, conditional statements, and functions.
-9. Bash is highly extensible through the use of shell scripts and external commands.
-10. It is an interpreted language, so the source code is readable as plain text.
+#### The user asks: \"list 10 things about bash, 1 per line\". Straightforward: provide 10 bullet points or lines, each a thing about bash. No disallowed content. Provide simple answer.1. Bash stands for “Bourne Again SHell,” a successor to the original Bourne shell (sh).  
+2. It is the default command‑line interpreter on most Linux distributions and macOS.  
+3. Bash supports both interactive use and scripting, allowing users to automate tasks.  
+4. It includes features like command history, tab completion, and programmable completion.  
+5. Bash provides powerful control structures (if, for, while, case) for writing complex scripts.  
+6. It supports variable expansion, command substitution, and arithmetic evaluation.  
+7. Bash can execute pipelines and redirections, connecting multiple commands together.  
+8. It includes built‑in commands (e.g., `cd`, `echo`, `read`, `printf`) that run without spawning external processes.  
+9. Bash scripts can define functions, enabling code reuse and modularity.  
+10. The shell’s configuration files (`~/.bashrc`, `~/.bash_profile`, `/etc/bash.bashrc`) customize the environment and behavior.

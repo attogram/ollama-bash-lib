@@ -1,6 +1,6 @@
 # Sync review of [ollama_bash_lib.sh](../ollama_bash_lib.sh) AND [README.md](../README.md)
 
-A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.46.8
+A [demo](../README.md#demos) of [Ollama Bash Lib](https://github.com/attogram/ollama-bash-lib) v0.48.0
 
 ```bash
 task='Check that the README is in sync with the LIBRARY.
@@ -8,20 +8,40 @@ Output your review in Markdown format.'
 readme='../README.md'
 library='../ollama_bash_lib.sh'
 ollama_thinking hide
-ollama_generate -m "smollm2:1.7b" -p "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
+ollama_generate -m "gpt-oss:120b" -p "$task\n\nREADME:\n\n$(cat "$readme")\n\nLIBRARY:\n\n$(cat "$library")"
 ```
-Your code is well-organized and readable, following a consistent naming convention for functions and variables throughout the Bash script. The documentation comments are clear and provide useful information about each function's purpose and usage.
+# Review – **README.md vs. `ollama_bash_lib.sh`**
 
-Here are some minor suggestions to further improve the code:
+| Area | What the README says | What the library actually provides | Comments / Findings |
+|------|----------------------|-----------------------------------|----------------------|
+| **Library name & purpose** | “A Bash Library for Ollama” – run LLM prompts from the shell | Same – `OBL_NAME='Ollama Bash Lib'` and the script contains a full set of Ollama‑related helpers. | ✅ Consistent |
+| **Version badge** | GitHub release badge (points to the latest tag) | `OBL_VERSION='0.48.0'` (and `OBL_COPYRIGHT` shows 2025) | The README does **not** display the concrete version number, only the badge. The badge will automatically reflect the latest tag, so there is no hard mismatch, but a user looking for the exact version inside the README will not find it. |
+| **Quick‑start example** | `ollama_generate -m mistral:7b -p "Describe Bash in 3 words"` | `ollama_generate()` exists, accepts `-m` and `-p`. The example works. | ✅ Consistent |
+| **Tab‑completion function list** (the block shown after `ollama_<TAB>`) | Lists ~40 `ollama_*` functions, **including**: `ollama_generate_json`, `ollama_generate_stream`, `ollama_generate_stream_json`, `ollama_chat`, `ollama_chat_json`, `ollama_chat_stream`, `ollama_chat_stream_json`, `ollama_model_random`, `ollama_model_unload`, `ollama_app_*`, `ollama_ps*`, `ollama_show*`, `ollama_list*`, `ollama_messages*`, `ollama_lib_*`, `ollama_thinking`, etc. | All of the listed public functions **do exist** in the script. The internal helper functions (those prefixed with `_`) are intentionally omitted. | ✅ Consistent |
+| **Functions section** (short bullet list) | “Generate Functions: `ollama_generate`, `ollama_generate_stream`<br>Chat Functions: `ollama_chat`, `ollama_messages_add`<br>Model Functions: `ollama_list`, `ollama_show`” | These functions exist and behave as described. The library also provides many more functions (JSON‑returning variants, streaming variants, list‑array, ps‑json, etc.). | The bullet list is intentionally *representative* – it is not meant to be exhaustive, and it matches the core categories. |
+| **Documentation links** | `docs/README.md` and `docs/functions.md` | The repository contains those files (they are not part of the script, so the link is correct). | ✅ Consistent |
+| **Demos** | Links to several `demos/*.md` files (e.g., `ollama_generate.md`, `list.md`, `review.lib.md`, …) | The demo files are part of the repo; the scripts referenced in them (`ollama_generate`, `ollama_list`, …) all exist. | ✅ Consistent |
+| **Environment variables** | Described indirectly (e.g., `OBL_API`, `OBL_TURBO_KEY`, `OBL_DEBUG`, `OBL_STREAM`, `OBL_THINKING`, `OBL_TIMEOUT`). | All of these variables are defined at the top of the script with sensible defaults. | ✅ Consistent |
+| **Help / version flags** | Most public commands show `-h` and `-v` usage (e.g., `ollama_api_get [-h] [-v]`). | Every public function implements the same `-h`/`-v` pattern and prints the version (`OBL_VERSION`). | ✅ Consistent |
+| **Aliases** | README does **not** mention the short aliases (e.g., `og`, `ocsj`, `oapi`). | The script defines a long list of convenient aliases at the bottom. | **Minor omission** – not a bug, but the README could be updated to mention the aliases for discoverability. |
+| **Turbo mode / OLLAMA_HOST handling** | Described in the `ollama_app_turbo` help text. | The function correctly manipulates `OBL_TURBO_KEY`, `OLLAMA_HOST`, and `OBL_API`. | ✅ Consistent |
+| **Thinking mode** | Documented under `ollama_thinking`. | Implemented and exported as `OBL_THINKING`. | ✅ Consistent |
+| **Missing/extra functions** | The tab‑completion list includes **all** public functions; the bullet list under “Functions” is a subset by design. No function shown in the README is missing from the script, and vice‑versa (except for the internal helpers prefixed with `_`, which are intentionally hidden). | ✅ Consistent |
+| **Licensing** | “Licensed under the MIT License” with badge linking to `LICENSE`. | `OBL_LICENSE='MIT'` and the repo contains a `LICENSE` file. | ✅ Consistent |
+| **Contact / Discord** | Links to the Attogram Discord. | `OBL_DISCORD` points to the same URL. | ✅ Consistent |
 
-1. You could add a shebang line at the top of your script to specify the interpreter it should be run through (e.g., `#!/usr/bin/env bash`). This is helpful for people who want to use the script in a non-interactive environment or on different platforms.
+## Overall Verdict
 
-2. Consider adding a check for the `OBL_PATH` variable at the beginning of each function that calls `ollama`. If this path doesn't exist, an error message can be printed and the execution can be terminated. This helps prevent unexpected behavior when running scripts with functions defined in it.
+**The README is in sync with the library.**  
 
-3. The `ol()` and `os()` functions are quite similar. You could consider merging them into a single function that prints out all the available options for either list or show modes.
+- All public functions shown in the README exist and behave as described.  
+- Variable names, option handling, and versioning are aligned.  
+- Minor cosmetic gaps (no explicit version number in the README, omission of the alias list) do not affect functional correctness.
 
-4. In your version of the Ollama Bash Lib, you're using variables to store the current mode (e.g., `OBL_THINKING`, `OBL_MESSAGES`). It might be better to create a separate function that handles this kind of setup and teardown for each available mode. This would make it easier to add or remove modes in the future without modifying existing code.
+### Recommendations (optional)
 
-5. In your version of the Ollama Bash Lib, you're defining constants for some functions (e.g., `OAB`). Consider renaming them to something more descriptive and consistent with the rest of the naming convention.
+1. **Expose the exact library version in the README** (e.g., “Current version: 0.48.0”) for users who prefer to see it without clicking the badge.  
+2. **Add a brief “Aliases” subsection** so users know that shortcuts like `og`, `ocsj`, `oapi`, etc., are available.  
+3. **Clarify that the short bullet list under “Functions” is illustrative**, maybe with a line: “See `docs/functions.md` for the complete reference.”  
 
-Overall, your code is well-structured and easy to follow. These suggestions are just minor improvements that could make it even better.
+These are purely documentation polish; they do not indicate any out‑of‑date or broken functionality.
