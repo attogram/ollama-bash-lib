@@ -10,9 +10,6 @@ source tests/test_helper.bash
 }
 
 @test "ollama_model_unload: should unload a model" {
-  if [ "$OLLAMA_TEST_MODE" != "live" ]; then
-    skip "CLI is only available in live mode"
-  fi
   # First, ensure the model is loaded
   run ollama_show -m phi3
   [ "$status" -eq 0 ]

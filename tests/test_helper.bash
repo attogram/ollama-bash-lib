@@ -5,6 +5,43 @@ if [ "$OLLAMA_TEST_MODE" != "live" ]; then
     return 0
   }
 
+  ollama() {
+    case "$1" in
+      list)
+        printf "NAME\tID\tSIZE\tMODIFIED\n"
+        printf "mock-model:latest\tabcdef123\t1.2GB\t1 week ago\n"
+        ;;
+      ps)
+        # to test unload, ps needs to show a model is loaded first
+        if [[ -f "/tmp/ollama_mock_model_loaded" ]]; then
+            printf "NAME\tID\tSIZE\tVRAM\tEXPIRES\n"
+            printf "phi3\tphi3id\t1.2GB\t1.2GB\t5 minutes\n"
+        else
+            printf "NAME\tID\tSIZE\tVRAM\tEXPIRES\n"
+        fi
+        ;;
+      show)
+        if [[ "$2" == "-m" && "$3" == "phi3" ]]; then
+           touch /tmp/ollama_mock_model_loaded
+           printf "FROM %s\n" "$3"
+           printf "parameters ...\n"
+        else
+           echo "Error: flag --model is required" >&2
+           return 1
+        fi
+        ;;
+      --version)
+        printf "ollama version is 0.1.42\n"
+        ;;
+      *)
+        # Fallback for other commands if needed
+        return 1
+        ;;
+    esac
+    return 0
+  }
+  export -f ollama
+
   _call_curl() {
     local method="$1"
     local endpoint="$2"
@@ -41,7 +78,13 @@ if [ "$OLLAMA_TEST_MODE" != "live" ]; then
             _mock_ollama_generate_stream
           fi
         else
-          printf '%s' '{"model":"mock-model:latest","created_at":"2023-11-20T15:07:52.871123-08:00","response":"This is a mock response.","done":true}'
+          # Special case for unload model
+          if [[ $(echo "$json_body" | jq -r '.keep_alive') == "0" ]]; then
+              rm -f /tmp/ollama_mock_model_loaded
+              printf '%s' '{"status":"success"}'
+          else
+              printf '%s' '{"model":"mock-model:latest","created_at":"2023-11-20T15:07:52.871123-08:00","response":"This is a mock response.","done":true}'
+          fi
         fi
         ;;
       "/api/chat")

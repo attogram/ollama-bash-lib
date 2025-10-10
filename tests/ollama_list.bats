@@ -4,9 +4,6 @@ source ./ollama_bash_lib.sh
 source tests/test_helper.bash
 
 @test "ollama_list: should return a list of models" {
-  if [ "$OLLAMA_TEST_MODE" != "live" ]; then
-    skip "CLI is only available in live mode"
-  fi
   run ollama_list
   [ "$status" -eq 0 ]
 }
@@ -19,9 +16,6 @@ source tests/test_helper.bash
 }
 
 @test "ollama_list_array: should return a space-separated list of models" {
-  if [ "$OLLAMA_TEST_MODE" != "live" ]; then
-    skip "CLI is only available in live mode"
-  fi
   run ollama_list_array
   [ "$status" -eq 0 ]
   # The output should not contain newlines, and should not be empty

@@ -19,9 +19,6 @@ source tests/test_helper.bash
 }
 
 @test "ollama_app_version_cli: should return the version from the CLI" {
-  if [ "$OLLAMA_TEST_MODE" != "live" ]; then
-    skip "CLI is only available in live mode"
-  fi
   run ollama_app_version_cli
   [ "$status" -eq 0 ]
   [[ "$output" =~ "ollama version is" ]]

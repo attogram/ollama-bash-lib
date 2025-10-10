@@ -1649,19 +1649,14 @@ EOF
         return 1
     fi
 
-    local models_json
-    if ! models_json="$(ollama_list_json)"; then
-        _error 'ollama_model_random: ollama_list_json failed'
-        return 1
-    fi
-
+    if ! ollama_app_installed; then _error 'ollama_model_random: ollama is not installed'; return 1; fi
     local models
-    models=$(printf '%s' "$models_json" | jq -r '.models[].name')
+    # TODO - get list via api, not cli
+    models=$(ollama list | awk 'NR>1 {print $1}' | grep -v '^$') # Grab the raw list, skip header, keep the first column.
     if [[ -z "$models" ]]; then
-        _error 'ollama_model_random: no models found from ollama_list_json'
+        _error 'ollama_model_random: get ollama list failed'
         return 1
     fi
-
     if _exists 'shuf'; then # `shuf -n1` prints a random line.
         printf '%s\n' "$models" | shuf -n1
     else # If shuf is unavailable, fall back to awk's srand().
