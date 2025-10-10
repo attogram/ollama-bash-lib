@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 source ./ollama_bash_lib.sh
+source tests/test_helper.bash
 
 @test "ollama_model_random: should return a random model" {
   run ollama_model_random
@@ -9,6 +10,9 @@ source ./ollama_bash_lib.sh
 }
 
 @test "ollama_model_unload: should unload a model" {
+  if [ "$OLLAMA_TEST_MODE" != "live" ]; then
+    skip "CLI is only available in live mode"
+  fi
   # First, ensure the model is loaded
   run ollama_show -m phi3
   [ "$status" -eq 0 ]

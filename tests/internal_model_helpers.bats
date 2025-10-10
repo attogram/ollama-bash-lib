@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 source ./ollama_bash_lib.sh
+source tests/test_helper.bash
 
 @test "_ollama_generate_json_payload: should create a valid JSON payload" {
   run _ollama_generate_json_payload "phi3" "test prompt"

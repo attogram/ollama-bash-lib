@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 source ./ollama_bash_lib.sh
+source tests/test_helper.bash
 
 @test "ollama_app_installed: should return 0" {
   run ollama_app_installed

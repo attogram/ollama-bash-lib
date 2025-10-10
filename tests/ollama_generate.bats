@@ -1,12 +1,12 @@
 #!/usr/bin/env bats
 
 source ./ollama_bash_lib.sh
-if [ -n "$OLLAMA_TEST_MODE" ]; then
+if [ "$OLLAMA_TEST_MODE" != "live" ]; then
   source ./tests/test_helper.bash
 fi
 
 setup() {
-  if [[ "$OLLAMA_TEST_MODE" != "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" == "live" ]]; then
     if ! ollama_app_installed; then
       skip "Ollama is not installed"
     fi
@@ -19,7 +19,7 @@ setup() {
 @test "ollama_generate: should generate a response" {
   run ollama_generate -m "mock-model:latest" -p "why is the sky blue?"
   [ "$status" -eq 0 ]
-  if [[ "$OLLAMA_TEST_MODE" == "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" != "live" ]]; then
     [[ "$output" == "This is a mock response." ]]
   else
     [ -n "$output" ]
@@ -38,7 +38,7 @@ setup() {
 @test "ollama_generate_stream: should handle newlines correctly" {
   run ollama_generate_stream -m "mock-model:latest" -p "generate a list of three fruits, each on a new line."
   [ "$status" -eq 0 ]
-  if [[ "$OLLAMA_TEST_MODE" == "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" != "live" ]]; then
     expected_output=$'Apple\nBanana\nCherry'
     echo "---Actual Output for test 3---"
     echo "$output" | cat -A
@@ -54,7 +54,7 @@ setup() {
 @test "ollama_generate_stream: should generate a streaming response" {
   run ollama_generate_stream -m "mock-model:latest" -p "why is the sky blue?"
   [ "$status" -eq 0 ]
-  if [[ "$OLLAMA_TEST_MODE" == "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" != "live" ]]; then
     echo "---Actual Output for test 4---"
     echo "$output" | cat -A
     echo "--------------------------------"

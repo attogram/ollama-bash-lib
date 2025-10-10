@@ -30,17 +30,39 @@ bats --version
 
 ## Running Tests
 
-To run the entire test suite, navigate to the root of the repository and run:
+There are two primary modes for running the tests: **LOCAL (mock)** and **LIVE**.
+
+### LOCAL (Mock) Mode (Default)
+
+This mode uses mock data and does not require a running Ollama application. It is ideal for unit testing the library's core logic without external dependencies.
+
+To run the entire test suite in LOCAL mode, navigate to the root of the repository and run:
 ```bash
 bats tests/
 ```
 
-This will execute all the `.bats` files in the `tests` directory.
+### LIVE Mode
 
-To run a specific test file, you can pass the path to the file as an argument:
+This mode runs tests against a live Ollama application. It is useful for integration testing and ensuring that the library interacts correctly with a real Ollama instance.
+
+To run the entire test suite in LIVE mode, set the `OLLAMA_TEST_MODE` environment variable to `live`:
 ```bash
-bats tests/some_test_file.bats
+OLLAMA_TEST_MODE=live bats tests/
 ```
+
+### Running a Specific Test File
+
+You can also run a specific test file in either mode:
+
+-   **LOCAL (mock) mode:**
+    ```bash
+    bats tests/some_test_file.bats
+    ```
+
+-   **LIVE mode:**
+    ```bash
+    OLLAMA_TEST_MODE=live bats tests/some_test_file.bats
+    ```
 
 ## Creating New Tests
 

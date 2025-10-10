@@ -1,8 +1,12 @@
 #!/usr/bin/env bats
 
 source ./ollama_bash_lib.sh
+source tests/test_helper.bash
 
 @test "ollama_ps: should list running models" {
+  if [ "$OLLAMA_TEST_MODE" != "live" ]; then
+    skip "CLI is only available in live mode"
+  fi
   run ollama_ps
   [ "$status" -eq 0 ]
 }
@@ -16,6 +20,9 @@ source ./ollama_bash_lib.sh
 }
 
 @test "ollama_ps: should show a loaded model" {
+  if [ "$OLLAMA_TEST_MODE" != "live" ]; then
+    skip "CLI is only available in live mode"
+  fi
   # Ensure a model is loaded by running a short generation
   run ollama_generate -m phi3 -p "hello"
   [ "$status" -eq 0 ]

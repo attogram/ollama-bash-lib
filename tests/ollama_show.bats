@@ -1,8 +1,12 @@
 #!/usr/bin/env bats
 
 source ./ollama_bash_lib.sh
+source tests/test_helper.bash
 
 @test "ollama_show: should show model information" {
+  if [ "$OLLAMA_TEST_MODE" != "live" ]; then
+    skip "CLI is only available in live mode"
+  fi
   run ollama_show -m phi3
   [ "$status" -eq 0 ]
   [[ "$output" =~ "parameters" ]]

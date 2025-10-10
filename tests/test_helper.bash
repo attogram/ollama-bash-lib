@@ -1,24 +1,35 @@
 #!/usr/bin/env bash
 
-if [ "$OLLAMA_TEST_MODE" == "mock" ]; then
+if [ "$OLLAMA_TEST_MODE" != "live" ]; then
+  ollama_app_installed() {
+    return 0
+  }
+
   _call_curl() {
     local method="$1"
     local endpoint="$2"
     local json_body="$3"
 
     if [[ "$method" != "GET" && "$method" != "POST" ]]; then
-      echo "{\"error\":\"mock error: invalid method: $method\"}"
+      printf '%s' "{\"error\":\"mock error: invalid method: $method\"}"
       return 1
     fi
 
     if [[ "$method" == "POST" && -z "$json_body" ]]; then
-      echo "{\"error\":\"mock error: missing json body for post request\"}"
+      printf '%s' "{\"error\":\"mock error: missing json body for post request\"}"
       return 1
+    fi
+
+    if [[ "$method" == "POST" && -n "$json_body" ]]; then
+      if ! echo "$json_body" | jq -e . >/dev/null 2>&1; then
+        printf '%s' "{\"error\":\"mock error: invalid json body\"}"
+        return 1
+      fi
     fi
 
     case "$endpoint" in
       "/api/tags")
-        echo '{"models":[{"name":"mock-model:latest","modified_at":"2023-11-20T15:07:52.871123-08:00","size":123456789,"digest":"abcdef1234567890"}]}'
+        printf '%s' '{"models":[{"name":"mock-model:latest","modified_at":"2023-11-20T15:07:52.871123-08:00","size":123456789,"digest":"abcdef1234567890"}]}'
         ;;
       "/api/generate")
         if [[ $(echo "$json_body" | jq -r '.stream') == "true" ]]; then
@@ -30,7 +41,7 @@ if [ "$OLLAMA_TEST_MODE" == "mock" ]; then
             _mock_ollama_generate_stream
           fi
         else
-          echo '{"model":"mock-model:latest","created_at":"2023-11-20T15:07:52.871123-08:00","response":"This is a mock response.","done":true}'
+          printf '%s' '{"model":"mock-model:latest","created_at":"2023-11-20T15:07:52.871123-08:00","response":"This is a mock response.","done":true}'
         fi
         ;;
       "/api/chat")
@@ -44,20 +55,23 @@ if [ "$OLLAMA_TEST_MODE" == "mock" ]; then
             _mock_ollama_chat_stream
           fi
         else
-          echo '{"model":"mock-model:latest","created_at":"2023-11-20T15:07:52.871123-08:00","message":{"role":"assistant","content":"This is a mock chat response."},"done":true}'
+          printf '%s' '{"model":"mock-model:latest","created_at":"2023-11-20T15:07:52.871123-08:00","message":{"role":"assistant","content":"This is a mock chat response."},"done":true}'
         fi
         ;;
       "/api/show")
-        echo '{"modelfile":"FROM mock-model:latest\n","parameters":"stop [INST]\nstop [/INST]\nstop <<SYS>>\nstop <</SYS>>\n","template":"[INST] {{ .Prompt }} [/INST] "}'
+        printf '%s' '{"modelfile":"FROM mock-model:latest\n","parameters":"stop [INST]\nstop [/INST]\nstop <<SYS>>\nstop <</SYS>>\n","template":"[INST] {{ .Prompt }} [/INST] "}'
         ;;
       "/api/ps")
-        echo '{"models":[{"name":"mock-model:latest","size":123456789,"size_vram":123456789,"expires_at":"2023-11-20T18:07:52.871123-08:00"}]}'
+        printf '%s' '{"models":[{"name":"mock-model:latest","size":123456789,"size_vram":123456789,"expires_at":"2023-11-20T18:07:52.871123-08:00"}]}'
+        ;;
+      "/api/version")
+        printf '%s' '{"version":"0.1.42"}'
         ;;
       "")
-        echo "Ollama is running"
+        printf '%s' "Ollama is running"
         ;;
       *)
-        echo "{\"error\":\"mock error: endpoint not found: $endpoint\"}"
+        printf '%s' "{\"error\":\"mock error: endpoint not found: $endpoint\"}"
         return 1
         ;;
     esac

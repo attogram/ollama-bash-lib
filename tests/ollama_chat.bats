@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source ./ollama_bash_lib.sh
-if [ -n "$OLLAMA_TEST_MODE" ]; then
+if [ "$OLLAMA_TEST_MODE" != "live" ]; then
   source ./tests/test_helper.bash
 fi
 
@@ -30,7 +30,7 @@ setup() {
 @test "ollama_chat: should have a conversation" {
   ollama_messages_add -r "user" -c "what is 1+1?"
 
-  if [[ "$OLLAMA_TEST_MODE" == "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" != "live" ]]; then
     run ollama_chat -m "mock-model:latest"
     [ "$status" -eq 0 ]
     [[ "$output" == "This is a mock chat response." ]]
@@ -53,7 +53,7 @@ setup() {
   ollama_messages_add -r "user" -c "what is 1+1?"
   OBL_STREAM=0 # ensure we get a single json response back
 
-  if [[ "$OLLAMA_TEST_MODE" == "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" != "live" ]]; then
     # This function modifies history but doesn't print to stdout
     ollama_chat_json -m "mock-model:latest"
     local status=$?
@@ -78,7 +78,7 @@ setup() {
 
 @test "ollama_chat_stream: should have a streaming conversation" {
   ollama_messages_add -r "user" -c "what is 1+1?"
-  if [[ "$OLLAMA_TEST_MODE" == "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" != "live" ]]; then
     run ollama_chat_stream -m "mock-model:latest"
     [ "$status" -eq 0 ]
     [[ "$output" == "This is a mock streaming chat response." ]]
@@ -92,7 +92,7 @@ setup() {
 
 @test "ollama_chat_stream_json: should have a streaming conversation and return json" {
   ollama_messages_add -r "user" -c "what is 1+1?"
-  if [[ "$OLLAMA_TEST_MODE" == "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" != "live" ]]; then
     run ollama_chat_stream_json -m "mock-model:latest"
     [ "$status" -eq 0 ]
     [ -n "$output" ]
@@ -114,7 +114,7 @@ setup() {
 
 @test "ollama_chat_stream: should handle newlines correctly" {
   ollama_messages_add -r "user" -c "generate a list of three fruits, each on a new line."
-  if [[ "$OLLAMA_TEST_MODE" == "mock" ]]; then
+  if [[ "$OLLAMA_TEST_MODE" != "live" ]]; then
     run ollama_chat_stream -m "mock-model:latest"
     [ "$status" -eq 0 ]
     expected_output=$'Apple\nBanana\nCherry'

@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 source ./ollama_bash_lib.sh
+source tests/test_helper.bash
 
 @test "ollama_api_ping: should succeed when the API is running" {
   run ollama_api_ping
